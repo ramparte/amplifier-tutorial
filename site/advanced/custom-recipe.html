@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Custom Recipes - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Custom Recipes";
+        var mkdocs_page_input_path = "advanced/custom-recipe.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Custom Recipes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipe-structure">Recipe Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basic-recipe">Basic Recipe</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#simple-two-step-recipe">Simple Two-Step Recipe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-it">Run It</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-agents">Using Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#specify-agent-for-step">Specify Agent for Step</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#context-variables">Context Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#input-variables">Input Variables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#access-variables">Access Variables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-results">Step Results</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#approval-gates">Approval Gates</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#require-human-approval">Require Human Approval</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#approval-commands">Approval Commands</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#loops-foreach">Loops (foreach)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parallel-execution">Parallel Execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conditional-steps">Conditional Steps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#complete-examples">Complete Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#code-review-recipe">Code Review Recipe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#deployment-recipe-with-approval">Deployment Recipe with Approval</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipe-validation">Recipe Validation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipe-author-agent">Recipe Author Agent</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-simple-recipe">Exercise 1: Simple Recipe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-multi-step-recipe">Exercise 2: Multi-Step Recipe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-add-approval-gate">Exercise 3: Add Approval Gate</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Advanced</li>
+      <li class="breadcrumb-item active">Custom Recipes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="creating-custom-recipes">Creating Custom Recipes<a class="headerlink" href="#creating-custom-recipes" title="Permanent link">&para;</a></h1>
+<p>Build multi-step workflows that orchestrate agents.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Recipes let you:</p>
+<ul>
+<li><strong>Orchestrate agents</strong> - Chain specialists together</li>
+<li><strong>Create repeatable workflows</strong> - Run the same process consistently</li>
+<li><strong>Add approval gates</strong> - Human-in-the-loop checkpoints</li>
+<li><strong>Handle complex flows</strong> - Loops, conditions, parallel execution</li>
+</ul>
+<h2 id="recipe-structure">Recipe Structure<a class="headerlink" href="#recipe-structure" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># my-recipe.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-workflow</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">What this recipe does</span>
+
+<span class="c1"># Input variables</span>
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">input_var</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">       </span><span class="c1"># Required (no default)</span>
+<span class="w">  </span><span class="nt">optional_var</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;default&quot;</span><span class="w">  </span><span class="c1"># Optional (has default)</span>
+
+<span class="c1"># Workflow steps</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step-one</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Do</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">thing</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">{{input_var}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step-two</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Based on: {{step-one.result}}</span>
+<span class="w">      </span><span class="no">Do the second thing.</span>
+</code></pre></div>
+
+<h2 id="basic-recipe">Basic Recipe<a class="headerlink" href="#basic-recipe" title="Permanent link">&para;</a></h2>
+<h3 id="simple-two-step-recipe">Simple Two-Step Recipe<a class="headerlink" href="#simple-two-step-recipe" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explain-and-improve</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain code then suggest improvements</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explain</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Explain</span><span class="nv"> </span><span class="s">what</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">does</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">language&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">improve</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Based on this understanding:</span>
+<span class="w">      </span><span class="no">{{explain.result}}</span>
+
+<span class="w">      </span><span class="no">Suggest 3 improvements for {{file}}</span>
+</code></pre></div>
+
+<h3 id="run-it">Run It<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>explain-and-improve.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file&quot;: &quot;src/auth.py&quot;}&#39;</span>
+</code></pre></div>
+
+<h2 id="using-agents">Using Agents<a class="headerlink" href="#using-agents" title="Permanent link">&para;</a></h2>
+<h3 id="specify-agent-for-step">Specify Agent for Step<a class="headerlink" href="#specify-agent-for-step" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Design</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">solution</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">{{problem}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">implement</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Implement the design:</span>
+<span class="w">      </span><span class="no">{{design.result}}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">implementation</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">security</span><span class="nv"> </span><span class="s">issues&quot;</span>
+</code></pre></div>
+
+<h2 id="context-variables">Context Variables<a class="headerlink" href="#context-variables" title="Permanent link">&para;</a></h2>
+<h3 id="input-variables">Input Variables<a class="headerlink" href="#input-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Required - must be provided</span>
+<span class="w">  </span><span class="nt">target_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="w">  </span><span class="c1"># Optional - has default value</span>
+<span class="w">  </span><span class="nt">depth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;standard&quot;</span>
+<span class="w">  </span><span class="nt">include_tests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<h3 id="access-variables">Access Variables<a class="headerlink" href="#access-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">Review {{target_file}} with {{depth}} depth.</span>
+<span class="w">  </span><span class="no">{{#if include_tests}}Include test analysis.{{/if}}</span>
+</code></pre></div>
+
+<h3 id="step-results">Step Results<a class="headerlink" href="#step-results" title="Permanent link">&para;</a></h3>
+<p>Each step's output is available to later steps:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">code&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">report</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Previous analysis: {{analyze.result}}</span>
+<span class="w">      </span><span class="no">Create a summary report.</span>
+</code></pre></div>
+
+<h2 id="approval-gates">Approval Gates<a class="headerlink" href="#approval-gates" title="Permanent link">&para;</a></h2>
+<h3 id="require-human-approval">Require Human Approval<a class="headerlink" href="#require-human-approval" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plan</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">migration</span><span class="nv"> </span><span class="s">plan&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">confirm</span>
+<span class="w">    </span><span class="nt">requires_approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">plan</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">proceeding&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">execute</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Execute</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">migration:</span><span class="nv"> </span><span class="s">{{plan.result}}&quot;</span>
+</code></pre></div>
+
+<h3 id="approval-commands">Approval Commands<a class="headerlink" href="#approval-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Check pending approvals</span>
+amp<span class="w"> </span>recipes<span class="w"> </span>approvals
+
+<span class="c1"># Approve</span>
+amp<span class="w"> </span>recipes<span class="w"> </span>approve<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span><span class="w"> </span><span class="o">[</span>step-id<span class="o">]</span>
+
+<span class="c1"># Deny</span>
+amp<span class="w"> </span>recipes<span class="w"> </span>deny<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span><span class="w"> </span><span class="o">[</span>step-id<span class="o">]</span><span class="w"> </span>--reason<span class="w"> </span><span class="s2">&quot;Need changes&quot;</span>
+</code></pre></div>
+
+<h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
+<h3 id="loops-foreach">Loops (foreach)<a class="headerlink" href="#loops-foreach" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get-files</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;List</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">src/&quot;</span>
+<span class="w">    </span><span class="nt">parse_json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review-each</span>
+<span class="w">    </span><span class="nt">foreach</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{get-files.result.files}}&quot;</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">{{item}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">issues&quot;</span>
+</code></pre></div>
+
+<h3 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel-reviews</span>
+<span class="w">    </span><span class="nt">foreach</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{files}}&quot;</span>
+<span class="w">    </span><span class="nt">parallel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># Run 3 at a time</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">{{item}}&quot;</span>
+</code></pre></div>
+
+<h3 id="conditional-steps">Conditional Steps<a class="headerlink" href="#conditional-steps" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Does</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">have</span><span class="nv"> </span><span class="s">tests?&quot;</span>
+<span class="w">    </span><span class="nt">parse_json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write-tests</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{check.result.has_tests}}</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">false&quot;</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Write</span><span class="nv"> </span><span class="s">tests</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">{{file}}&quot;</span>
+</code></pre></div>
+
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">risky-step</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Try</span><span class="nv"> </span><span class="s">something</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">might</span><span class="nv"> </span><span class="s">fail&quot;</span>
+<span class="w">    </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span><span class="w">  </span><span class="c1"># Don&#39;t stop on failure</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">handle-error</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{risky-step.status}}</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;error&#39;&quot;</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Handle</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">error:</span><span class="nv"> </span><span class="s">{{risky-step.error}}&quot;</span>
+</code></pre></div>
+
+<h2 id="complete-examples">Complete Examples<a class="headerlink" href="#complete-examples" title="Permanent link">&para;</a></h2>
+<h3 id="code-review-recipe">Code Review Recipe<a class="headerlink" href="#code-review-recipe" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Comprehensive code review with multiple specialists</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">review_depth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;standard&quot;</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-review</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Review {{file_path}} for design issues:</span>
+<span class="w">      </span><span class="no">- Architecture patterns</span>
+<span class="w">      </span><span class="no">- Code organization</span>
+<span class="w">      </span><span class="no">- Complexity</span>
+
+<span class="w">      </span><span class="no">Depth: {{review_depth}}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-review</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Review {{file_path}} for security issues:</span>
+<span class="w">      </span><span class="no">- Input validation</span>
+<span class="w">      </span><span class="no">- Authentication/authorization</span>
+<span class="w">      </span><span class="no">- Data handling</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-review</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:test-coverage</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Analyze test coverage for {{file_path}}:</span>
+<span class="w">      </span><span class="no">- Existing tests</span>
+<span class="w">      </span><span class="no">- Missing coverage</span>
+<span class="w">      </span><span class="no">- Test quality</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">final-report</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Create a code review report combining:</span>
+
+<span class="w">      </span><span class="no">## Design Review</span>
+<span class="w">      </span><span class="no">{{design-review.result}}</span>
+
+<span class="w">      </span><span class="no">## Security Review</span>
+<span class="w">      </span><span class="no">{{security-review.result}}</span>
+
+<span class="w">      </span><span class="no">## Test Coverage</span>
+<span class="w">      </span><span class="no">{{test-review.result}}</span>
+
+<span class="w">      </span><span class="no">Include:</span>
+<span class="w">      </span><span class="no">- Summary of findings</span>
+<span class="w">      </span><span class="no">- Priority-ordered action items</span>
+<span class="w">      </span><span class="no">- Overall assessment</span>
+</code></pre></div>
+
+<h3 id="deployment-recipe-with-approval">Deployment Recipe with Approval<a class="headerlink" href="#deployment-recipe-with-approval" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to staging with approval gate</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;staging&quot;</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Build</span><span class="nv"> </span><span class="s">version</span><span class="nv"> </span><span class="s">{{version}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">full</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">suite&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pre-deploy-check</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Verify deployment readiness:</span>
+<span class="w">      </span><span class="no">- Build: {{build.result}}</span>
+<span class="w">      </span><span class="no">- Tests: {{test.result}}</span>
+
+<span class="w">      </span><span class="no">List any blockers.</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">approve-deploy</span>
+<span class="w">    </span><span class="nt">requires_approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Ready to deploy {{version}} to {{environment}}.</span>
+
+<span class="w">      </span><span class="no">Pre-check results:</span>
+<span class="w">      </span><span class="no">{{pre-deploy-check.result}}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">{{version}}</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">{{environment}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Verify</span><span class="nv"> </span><span class="s">deployment</span><span class="nv"> </span><span class="s">health&quot;</span>
+</code></pre></div>
+
+<h2 id="recipe-validation">Recipe Validation<a class="headerlink" href="#recipe-validation" title="Permanent link">&para;</a></h2>
+<p>Check your recipe before running:</p>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>my-recipe.yaml
+</code></pre></div>
+
+<p>Common validation errors:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invalid YAML syntax</td>
+<td>Check indentation, quotes</td>
+</tr>
+<tr>
+<td>Unknown agent</td>
+<td>Verify agent name</td>
+</tr>
+<tr>
+<td>Missing context var</td>
+<td>Add to context section</td>
+</tr>
+<tr>
+<td>Circular reference</td>
+<td>Check step dependencies</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recipe-author-agent">Recipe Author Agent<a class="headerlink" href="#recipe-author-agent" title="Permanent link">&para;</a></h2>
+<p>Get help creating recipes:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Help me create a recipe for database migration
+</code></pre></div>
+
+<p>The <code>recipe-author</code> agent will:
+- Ask clarifying questions
+- Suggest best structure
+- Generate valid YAML
+- Add error handling</p>
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-simple-recipe">Exercise 1: Simple Recipe<a class="headerlink" href="#exercise-1-simple-recipe" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># hello-recipe.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Simple greeting recipe</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">greet</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Say</span><span class="nv"> </span><span class="s">hello</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">{{name}}&quot;</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>hello-recipe.yaml<span class="w"> </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;name&quot;: &quot;World&quot;}&#39;</span>
+</code></pre></div>
+
+<h3 id="exercise-2-multi-step-recipe">Exercise 2: Multi-Step Recipe<a class="headerlink" href="#exercise-2-multi-step-recipe" title="Permanent link">&para;</a></h3>
+<p>Create a recipe that:
+1. Reads a file
+2. Explains it
+3. Suggests improvements</p>
+<h3 id="exercise-3-add-approval-gate">Exercise 3: Add Approval Gate<a class="headerlink" href="#exercise-3-add-approval-gate" title="Permanent link">&para;</a></h3>
+<p>Add an approval step before making changes.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Clear step IDs</strong> - Use descriptive names like <code>analyze-deps</code> not <code>step1</code></li>
+<li><strong>One responsibility per step</strong> - Keep steps focused</li>
+<li><strong>Use appropriate agents</strong> - Match agent specialty to task</li>
+<li><strong>Add approval gates</strong> - For destructive or important operations</li>
+<li><strong>Handle errors</strong> - Use <code>on_error</code> for steps that might fail</li>
+<li><strong>Document context</strong> - Make required inputs clear</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="custom-tool.html" class="btn btn-neutral float-left" title="Custom Tools"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="mcp-integration.html" class="btn btn-neutral float-right" title="MCP Integration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="custom-tool.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="mcp-integration.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

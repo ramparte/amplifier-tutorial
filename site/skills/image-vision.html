@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Image Vision - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Image Vision";
+        var mkdocs_page_input_path = "skills/image-vision.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Image Vision</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loading-the-skill">Loading the Skill</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-to-use">When to Use</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#supported-providers">Supported Providers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-patterns">Core Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#describe-image">Describe Image</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extract-text-ocr">Extract Text (OCR)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#answer-questions">Answer Questions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compare-images">Compare Images</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#image-sources">Image Sources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#local-files">Local Files</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#urls">URLs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#base64">Base64</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#be-specific">Be Specific</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#provide-context">Provide Context</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ask-focused-questions">Ask Focused Questions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-tasks">Common Tasks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ui-validation">UI Validation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#content-understanding">Content Understanding</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-extraction">Data Extraction</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#comparison">Comparison</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cannot-do">Cannot Do</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#image-size">Image Size</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#complex-documents">Complex Documents</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-describe-image">Exercise 1: Describe Image</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-extract-text">Exercise 2: Extract Text</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-compare">Exercise 3: Compare</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#provider-configuration">Provider Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#vision-not-supported">"Vision not supported"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#image-too-large">"Image too large"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cannot-read-text">"Cannot read text"</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#source">Source</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Skills Reference</li>
+      <li class="breadcrumb-item active">Image Vision</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="image-vision-skill">Image Vision Skill<a class="headerlink" href="#image-vision-skill" title="Permanent link">&para;</a></h1>
+<p>Analyze images using LLM vision APIs.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Image Vision skill teaches Amplifier how to:</p>
+<ul>
+<li>Understand image content</li>
+<li>Describe visual elements</li>
+<li>Answer questions about images</li>
+<li>Compare multiple images</li>
+<li>Extract text (OCR)</li>
+</ul>
+<h2 id="loading-the-skill">Loading the Skill<a class="headerlink" href="#loading-the-skill" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>&gt; Load the image-vision skill
+</code></pre></div>
+
+<p>Once loaded, Amplifier knows how to work with images.</p>
+<h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Use Image Vision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Describe what's in an image</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Extract text from screenshot</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Compare two images</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Answer questions about image</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Edit or modify images</td>
+<td>❌ Different tools</td>
+</tr>
+<tr>
+<td>Generate images</td>
+<td>❌ Different tools</td>
+</tr>
+</tbody>
+</table>
+<h2 id="supported-providers">Supported Providers<a class="headerlink" href="#supported-providers" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Model</th>
+<th>Vision Capable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anthropic</td>
+<td>Claude 3+</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td>GPT-4V, GPT-4o</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>Gemini Pro Vision</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Azure OpenAI</td>
+<td>GPT-4V</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h2 id="core-patterns">Core Patterns<a class="headerlink" href="#core-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="describe-image">Describe Image<a class="headerlink" href="#describe-image" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What&#39;s in this image?
+[attach: screenshot.png]
+</code></pre></div>
+
+<h3 id="extract-text-ocr">Extract Text (OCR)<a class="headerlink" href="#extract-text-ocr" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Extract all text from this image
+[attach: document-scan.png]
+</code></pre></div>
+
+<h3 id="answer-questions">Answer Questions<a class="headerlink" href="#answer-questions" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; How many people are in this photo?
+[attach: group-photo.jpg]
+</code></pre></div>
+
+<h3 id="compare-images">Compare Images<a class="headerlink" href="#compare-images" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What&#39;s different between these two screenshots?
+[attach: before.png]
+[attach: after.png]
+</code></pre></div>
+
+<h2 id="image-sources">Image Sources<a class="headerlink" href="#image-sources" title="Permanent link">&para;</a></h2>
+<h3 id="local-files">Local Files<a class="headerlink" href="#local-files" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Analyze the image at ./screenshots/error.png
+</code></pre></div>
+
+<h3 id="urls">URLs<a class="headerlink" href="#urls" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Describe the image at https://example.com/photo.jpg
+</code></pre></div>
+
+<h3 id="base64">Base64<a class="headerlink" href="#base64" title="Permanent link">&para;</a></h3>
+<p>For programmatic use:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">image_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+<span class="c1"># Include in prompt with data URI</span>
+</code></pre></div>
+
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="be-specific">Be Specific<a class="headerlink" href="#be-specific" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Vague
+&gt; What&#39;s this?
+
+# Specific
+&gt; What error message is shown in this screenshot?
+</code></pre></div>
+
+<h3 id="provide-context">Provide Context<a class="headerlink" href="#provide-context" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; This is a screenshot of our checkout page.
+&gt; Is the &quot;Complete Purchase&quot; button visible?
+</code></pre></div>
+
+<h3 id="ask-focused-questions">Ask Focused Questions<a class="headerlink" href="#ask-focused-questions" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Too broad
+&gt; Tell me everything about this image
+
+# Focused
+&gt; What color is the submit button in this form?
+</code></pre></div>
+
+<h2 id="common-tasks">Common Tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="ui-validation">UI Validation<a class="headerlink" href="#ui-validation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Does this screenshot show a successful login?
+&gt; Is the error message displayed in red?
+&gt; Are all form fields filled in?
+</code></pre></div>
+
+<h3 id="content-understanding">Content Understanding<a class="headerlink" href="#content-understanding" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What products are shown in this catalog image?
+&gt; Summarize the key points from this infographic
+&gt; What&#39;s the main headline on this webpage?
+</code></pre></div>
+
+<h3 id="data-extraction">Data Extraction<a class="headerlink" href="#data-extraction" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Extract the table data from this spreadsheet screenshot
+&gt; What are the values in the pie chart?
+&gt; Read the receipt amounts from this photo
+</code></pre></div>
+
+<h3 id="comparison">Comparison<a class="headerlink" href="#comparison" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Has the layout changed between these two versions?
+&gt; What elements are missing in the second screenshot?
+&gt; Which design looks more professional?
+</code></pre></div>
+
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h3 id="cannot-do">Cannot Do<a class="headerlink" href="#cannot-do" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Edit or modify images</li>
+<li>Generate new images</li>
+<li>Process video (frame by frame only)</li>
+<li>Guarantee 100% accurate OCR</li>
+</ul>
+<h3 id="image-size">Image Size<a class="headerlink" href="#image-size" title="Permanent link">&para;</a></h3>
+<p>Large images may be resized. For text extraction:
+- Use highest resolution available
+- Ensure text is readable at smaller sizes</p>
+<h3 id="complex-documents">Complex Documents<a class="headerlink" href="#complex-documents" title="Permanent link">&para;</a></h3>
+<p>For complex documents with many elements:
+- Ask about specific sections
+- Break into multiple queries</p>
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-describe-image">Exercise 1: Describe Image<a class="headerlink" href="#exercise-1-describe-image" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Load image-vision skill
+&gt; Describe what you see at https://picsum.photos/800/600
+</code></pre></div>
+
+<h3 id="exercise-2-extract-text">Exercise 2: Extract Text<a class="headerlink" href="#exercise-2-extract-text" title="Permanent link">&para;</a></h3>
+<p>Take a screenshot of any webpage and ask:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Extract the main heading from this screenshot
+</code></pre></div>
+
+<h3 id="exercise-3-compare">Exercise 3: Compare<a class="headerlink" href="#exercise-3-compare" title="Permanent link">&para;</a></h3>
+<p>Take two screenshots and ask:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What changed between these two screenshots?
+</code></pre></div>
+
+<h2 id="provider-configuration">Provider Configuration<a class="headerlink" href="#provider-configuration" title="Permanent link">&para;</a></h2>
+<p>Ensure your provider supports vision:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider-anthropic</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span><span class="w">  </span><span class="c1"># Supports vision</span>
+</code></pre></div>
+
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="vision-not-supported">"Vision not supported"<a class="headerlink" href="#vision-not-supported" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check model supports vision</li>
+<li>Update to vision-capable model</li>
+</ul>
+<h3 id="image-too-large">"Image too large"<a class="headerlink" href="#image-too-large" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reduce image resolution</li>
+<li>Crop to relevant area</li>
+</ul>
+<h3 id="cannot-read-text">"Cannot read text"<a class="headerlink" href="#cannot-read-text" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Improve image quality</li>
+<li>Increase contrast</li>
+<li>Try different angle/lighting</li>
+</ul>
+<h2 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>robotdad/skills/image-vision/
+├── SKILL.md     # Core workflow
+├── patterns.md  # Advanced patterns
+└── setup.md     # Provider setup
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="curl.html" class="btn btn-neutral float-left" title="Curl"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dev-setup/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="curl.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dev-setup/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

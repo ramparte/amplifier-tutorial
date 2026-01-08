@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>LSP (Code Intelligence) - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "LSP (Code Intelligence)";
+        var mkdocs_page_input_path = "tools/lsp.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">LSP (Code Intelligence)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lsp-vs-grep">LSP vs Grep</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gotodefinition">goToDefinition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#findreferences">findReferences</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hover">hover</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#incomingcalls">incomingCalls</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#outgoingcalls">outgoingCalls</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workspacesymbol">workspaceSymbol</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#documentsymbol">documentSymbol</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-workflows">Common Workflows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#understand-a-function">Understand a Function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#refactoring">Refactoring</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#trace-a-bug">Trace a Bug</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#linecharacter-numbers">Line/Character Numbers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-find-definition">Exercise 1: Find Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-find-usages">Exercise 2: Find Usages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-trace-calls">Exercise 3: Trace Calls</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#no-results">"No results"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#server-not-started">"Server not started"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#slow-first-query">Slow First Query</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#python-specific">Python-Specific</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">LSP (Code Intelligence)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="lsp-tool">LSP Tool<a class="headerlink" href="#lsp-tool" title="Permanent link">&para;</a></h1>
+<p>Navigate code semantically with Language Server Protocol.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The LSP tool provides IDE-like code intelligence:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>goToDefinition</code></td>
+<td>Find where symbol is defined</td>
+</tr>
+<tr>
+<td><code>findReferences</code></td>
+<td>Find all usages of symbol</td>
+</tr>
+<tr>
+<td><code>hover</code></td>
+<td>Get type info and docs</td>
+</tr>
+<tr>
+<td><code>incomingCalls</code></td>
+<td>What calls this function?</td>
+</tr>
+<tr>
+<td><code>outgoingCalls</code></td>
+<td>What does this function call?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lsp-vs-grep">LSP vs Grep<a class="headerlink" href="#lsp-vs-grep" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>LSP</th>
+<th>Grep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Find function definition</td>
+<td>Exact location</td>
+<td>May find multiple</td>
+</tr>
+<tr>
+<td>Find all callers</td>
+<td>Semantic references</td>
+<td>May include strings/comments</td>
+</tr>
+<tr>
+<td>Get type signature</td>
+<td>Full type info</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td>Understand inheritance</td>
+<td>Traces hierarchy</td>
+<td>Text matches only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule</strong>: Use LSP for code understanding, grep for text search.</p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>LSP requires language-specific bundles:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python (Pyright)</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-lsp-python@main
+
+<span class="c1"># TypeScript (coming)</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/robotdad/amplifier-bundle-lsp-typescript@main
+</code></pre></div>
+
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
+<h3 id="gotodefinition">goToDefinition<a class="headerlink" href="#gotodefinition" title="Permanent link">&para;</a></h3>
+<p>Find where a symbol is defined:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Where is the User class defined?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: goToDefinition
+file_path: src/api/users.py
+line: 15
+character: 20
+</code></pre></div>
+
+<p>Returns: <code>src/models/user.py:10</code> - exact location</p>
+<h3 id="findreferences">findReferences<a class="headerlink" href="#findreferences" title="Permanent link">&para;</a></h3>
+<p>Find all usages of a symbol:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Find all usages of the authenticate function
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: findReferences
+file_path: src/auth.py
+line: 25
+character: 8
+</code></pre></div>
+
+<p>Returns: List of all files and locations using that symbol.</p>
+<h3 id="hover">hover<a class="headerlink" href="#hover" title="Permanent link">&para;</a></h3>
+<p>Get type information and documentation:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What type does get_user() return?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: hover
+file_path: src/api/users.py
+line: 30
+character: 15
+</code></pre></div>
+
+<p>Returns:</p>
+<div class="codehilite"><pre><span></span><code>def get_user(id: int) -&gt; Optional[User]
+
+Get a user by ID.
+
+Returns:
+    User object if found, None otherwise.
+</code></pre></div>
+
+<h3 id="incomingcalls">incomingCalls<a class="headerlink" href="#incomingcalls" title="Permanent link">&para;</a></h3>
+<p>Find what calls a function:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What calls the validate_token function?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: incomingCalls
+file_path: src/auth.py
+line: 50
+character: 5
+</code></pre></div>
+
+<p>Returns: Call hierarchy showing all callers.</p>
+<h3 id="outgoingcalls">outgoingCalls<a class="headerlink" href="#outgoingcalls" title="Permanent link">&para;</a></h3>
+<p>Find what a function calls:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What does process_request call internally?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: outgoingCalls
+file_path: src/api/handler.py
+line: 100
+character: 5
+</code></pre></div>
+
+<p>Returns: All functions called by <code>process_request</code>.</p>
+<h3 id="workspacesymbol">workspaceSymbol<a class="headerlink" href="#workspacesymbol" title="Permanent link">&para;</a></h3>
+<p>Search for symbols across the project:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: workspaceSymbol
+query: &quot;User&quot;
+</code></pre></div>
+
+<p>Returns: All symbols matching "User" (classes, functions, variables).</p>
+<h3 id="documentsymbol">documentSymbol<a class="headerlink" href="#documentsymbol" title="Permanent link">&para;</a></h3>
+<p>Get all symbols in a file:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: LSP]
+operation: documentSymbol
+file_path: src/models/user.py
+</code></pre></div>
+
+<p>Returns: Classes, methods, functions in that file.</p>
+<h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="understand-a-function">Understand a Function<a class="headerlink" href="#understand-a-function" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; I need to understand how authenticate() works
+</code></pre></div>
+
+<ol>
+<li><code>hover</code> - Get signature and docs</li>
+<li><code>outgoingCalls</code> - See what it calls</li>
+<li><code>incomingCalls</code> - See what calls it</li>
+</ol>
+<h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; I want to rename the process_data function
+</code></pre></div>
+
+<ol>
+<li><code>findReferences</code> - Find all usages</li>
+<li>Know exactly what needs to change</li>
+</ol>
+<h3 id="trace-a-bug">Trace a Bug<a class="headerlink" href="#trace-a-bug" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; The error originates from validate_input
+</code></pre></div>
+
+<ol>
+<li><code>goToDefinition</code> - Find the function</li>
+<li><code>incomingCalls</code> - See the call chain</li>
+<li><code>hover</code> - Check types at each step</li>
+</ol>
+<h2 id="linecharacter-numbers">Line/Character Numbers<a class="headerlink" href="#linecharacter-numbers" title="Permanent link">&para;</a></h2>
+<p>LSP uses 1-based line and character numbers:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Line 1</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">():</span>     <span class="c1"># &#39;hello&#39; starts at character 5</span>
+    <span class="k">return</span> <span class="s2">&quot;hi&quot;</span>  <span class="c1"># Line 3</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-find-definition">Exercise 1: Find Definition<a class="headerlink" href="#exercise-1-find-definition" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Where is [some class in your project] defined?
+</code></pre></div>
+
+<h3 id="exercise-2-find-usages">Exercise 2: Find Usages<a class="headerlink" href="#exercise-2-find-usages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all usages of [some function] in this project
+</code></pre></div>
+
+<h3 id="exercise-3-trace-calls">Exercise 3: Trace Calls<a class="headerlink" href="#exercise-3-trace-calls" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What functions call [main function]?
+&gt; What does [main function] call?
+</code></pre></div>
+
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="no-results">"No results"<a class="headerlink" href="#no-results" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ensure LSP bundle is installed</li>
+<li>Check cursor is on the symbol name</li>
+<li>Language server may need time to index</li>
+</ul>
+<h3 id="server-not-started">"Server not started"<a class="headerlink" href="#server-not-started" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Check language server is installed</span>
+pyright<span class="w"> </span>--version<span class="w">  </span><span class="c1"># For Python</span>
+</code></pre></div>
+
+<h3 id="slow-first-query">Slow First Query<a class="headerlink" href="#slow-first-query" title="Permanent link">&para;</a></h3>
+<p>The language server indexes on first use. Subsequent queries are faster.</p>
+<h2 id="python-specific">Python-Specific<a class="headerlink" href="#python-specific" title="Permanent link">&para;</a></h2>
+<p>With <code>lsp-python</code> bundle:</p>
+<ul>
+<li>Full Pyright type inference</li>
+<li>Works even without type annotations</li>
+<li>Understands virtual environments</li>
+<li>Respects <code>pyproject.toml</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><code>&gt; What type is this variable?
+</code></pre></div>
+
+<p>Even if not annotated, Pyright can often infer:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>  <span class="c1"># No annotation</span>
+<span class="c1"># [hover] → x: ConfigDict (inferred)</span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="task.html" class="btn btn-neutral float-left" title="Task (Sub-Agents)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="recipes-tool.html" class="btn btn-neutral float-right" title="Recipes Tool">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="task.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="recipes-tool.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

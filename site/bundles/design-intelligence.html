@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Design Intelligence - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Design Intelligence";
+        var mkdocs_page_input_path = "bundles/design-intelligence.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Design Intelligence</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agents">Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#art-director">art-director</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#component-designer">component-designer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#design-system-architect">design-system-architect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#layout-architect">layout-architect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#animation-choreographer">animation-choreographer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#responsive-strategist">responsive-strategist</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#voice-strategist">voice-strategist</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#design-framework">Design Framework</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#nine-dimensions">Nine Dimensions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#five-pillars">Five Pillars</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#workflow-example">Workflow Example</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#design-a-new-feature">Design a New Feature</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#design-system-setup">Design System Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-collaboration">Agent Collaboration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-component-design">Exercise 1: Component Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-layout-design">Exercise 2: Layout Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-multi-agent-flow">Exercise 3: Multi-Agent Flow</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#output-formats">Output Formats</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#source">Source</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Bundles Reference</li>
+      <li class="breadcrumb-item active">Design Intelligence</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="design-intelligence-bundle">Design Intelligence Bundle<a class="headerlink" href="#design-intelligence-bundle" title="Permanent link">&para;</a></h1>
+<p>Seven specialized agents for UI/UX design work.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Design Intelligence provides domain experts for:</p>
+<ul>
+<li>Visual strategy and aesthetics</li>
+<li>Component design</li>
+<li>Layout and information architecture</li>
+<li>Motion and animation</li>
+<li>Responsive design</li>
+<li>Voice and tone</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Add the bundle</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-design-intelligence@main
+
+<span class="c1"># Use it</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>design-intelligence
+</code></pre></div>
+
+<h2 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h2>
+<h3 id="art-director">art-director<a class="headerlink" href="#art-director" title="Permanent link">&para;</a></h3>
+<p>Visual strategy and aesthetic direction:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Define the visual direction for our admin dashboard
+</code></pre></div>
+
+<ul>
+<li>Defines aesthetic principles</li>
+<li>Ensures visual coherence</li>
+<li>Translates "vibes" to design</li>
+<li>Owns style dimension</li>
+</ul>
+<h3 id="component-designer">component-designer<a class="headerlink" href="#component-designer" title="Permanent link">&para;</a></h3>
+<p>Individual UI component design:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Design a data table component with sorting and filtering
+</code></pre></div>
+
+<ul>
+<li>Component specifications</li>
+<li>Variant design</li>
+<li>Props API</li>
+<li>Accessibility</li>
+</ul>
+<h3 id="design-system-architect">design-system-architect<a class="headerlink" href="#design-system-architect" title="Permanent link">&para;</a></h3>
+<p>Design system infrastructure:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Set up our design token system
+</code></pre></div>
+
+<ul>
+<li>Token architecture</li>
+<li>Color systems</li>
+<li>Typography scales</li>
+<li>Spacing systems</li>
+</ul>
+<h3 id="layout-architect">layout-architect<a class="headerlink" href="#layout-architect" title="Permanent link">&para;</a></h3>
+<p>Page structure and composition:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Design the layout for our settings page
+</code></pre></div>
+
+<ul>
+<li>Page structure</li>
+<li>Information hierarchy</li>
+<li>Grid systems</li>
+<li>Content flow</li>
+</ul>
+<h3 id="animation-choreographer">animation-choreographer<a class="headerlink" href="#animation-choreographer" title="Permanent link">&para;</a></h3>
+<p>Motion and transitions:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Design the page transition animations
+</code></pre></div>
+
+<ul>
+<li>Micro-interactions</li>
+<li>Page transitions</li>
+<li>Loading states</li>
+<li>Motion timing</li>
+</ul>
+<h3 id="responsive-strategist">responsive-strategist<a class="headerlink" href="#responsive-strategist" title="Permanent link">&para;</a></h3>
+<p>Multi-device adaptation:</p>
+<div class="codehilite"><pre><span></span><code>&gt; How should the dashboard adapt from desktop to mobile?
+</code></pre></div>
+
+<ul>
+<li>Breakpoint strategy</li>
+<li>Touch vs mouse</li>
+<li>Device-specific patterns</li>
+<li>Fluid typography</li>
+</ul>
+<h3 id="voice-strategist">voice-strategist<a class="headerlink" href="#voice-strategist" title="Permanent link">&para;</a></h3>
+<p>Tone and UX writing:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Write the error messages for our form validation
+</code></pre></div>
+
+<ul>
+<li>Voice and tone</li>
+<li>Microcopy</li>
+<li>Error messages</li>
+<li>Empty states</li>
+</ul>
+<h2 id="design-framework">Design Framework<a class="headerlink" href="#design-framework" title="Permanent link">&para;</a></h2>
+<h3 id="nine-dimensions">Nine Dimensions<a class="headerlink" href="#nine-dimensions" title="Permanent link">&para;</a></h3>
+<p>The agents follow a 9-dimension design evaluation:</p>
+<ol>
+<li><strong>Style</strong> - Visual aesthetic</li>
+<li><strong>Layout</strong> - Spatial composition</li>
+<li><strong>Voice</strong> - Language and tone</li>
+<li><strong>Space</strong> - Whitespace and density</li>
+<li><strong>Motion</strong> - Animation and transitions</li>
+<li><strong>Color</strong> - Palette and usage</li>
+<li><strong>Typography</strong> - Font choices and hierarchy</li>
+<li><strong>Components</strong> - UI building blocks</li>
+<li><strong>Interaction</strong> - User input patterns</li>
+</ol>
+<h3 id="five-pillars">Five Pillars<a class="headerlink" href="#five-pillars" title="Permanent link">&para;</a></h3>
+<p>Quality baseline principles:</p>
+<ol>
+<li><strong>Clarity</strong> - Instantly understandable</li>
+<li><strong>Efficiency</strong> - Minimal friction</li>
+<li><strong>Consistency</strong> - Predictable patterns</li>
+<li><strong>Delight</strong> - Thoughtful details</li>
+<li><strong>Accessibility</strong> - Universal usability</li>
+</ol>
+<h2 id="workflow-example">Workflow Example<a class="headerlink" href="#workflow-example" title="Permanent link">&para;</a></h2>
+<h3 id="design-a-new-feature">Design a New Feature<a class="headerlink" href="#design-a-new-feature" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># 1. Art direction
+&gt; Use art-director to define the visual approach for notifications
+
+# 2. Layout
+&gt; Use layout-architect to structure the notification panel
+
+# 3. Components
+&gt; Use component-designer to design the notification card
+
+# 4. Motion
+&gt; Use animation-choreographer to design entry/exit animations
+
+# 5. Copy
+&gt; Use voice-strategist to write notification messages
+</code></pre></div>
+
+<h3 id="design-system-setup">Design System Setup<a class="headerlink" href="#design-system-setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># 1. Architecture
+&gt; Use design-system-architect to create our token structure
+
+# 2. Components
+&gt; Use component-designer to design core components
+
+# 3. Responsive
+&gt; Use responsive-strategist to define breakpoints
+</code></pre></div>
+
+<h2 id="agent-collaboration">Agent Collaboration<a class="headerlink" href="#agent-collaboration" title="Permanent link">&para;</a></h2>
+<p>Agents reference each other's work:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Recipe for comprehensive design</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-feature</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">direction</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-intelligence:art-director</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Define</span><span class="nv"> </span><span class="s">visual</span><span class="nv"> </span><span class="s">direction</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">{{feature}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">layout</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-intelligence:layout-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Design layout for {{feature}}</span>
+<span class="w">      </span><span class="no">Following direction: {{direction.result}}</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">components</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-intelligence:component-designer</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Design components for {{feature}}</span>
+<span class="w">      </span><span class="no">Layout: {{layout.result}}</span>
+<span class="w">      </span><span class="no">Direction: {{direction.result}}</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-component-design">Exercise 1: Component Design<a class="headerlink" href="#exercise-1-component-design" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Use component-designer to design a user profile card
+</code></pre></div>
+
+<h3 id="exercise-2-layout-design">Exercise 2: Layout Design<a class="headerlink" href="#exercise-2-layout-design" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Use layout-architect to design a dashboard home page
+</code></pre></div>
+
+<h3 id="exercise-3-multi-agent-flow">Exercise 3: Multi-Agent Flow<a class="headerlink" href="#exercise-3-multi-agent-flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; First use art-director to define the style for a settings page,
+&gt; then use layout-architect to structure it
+</code></pre></div>
+
+<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
+<p>Agents produce:</p>
+<ul>
+<li><strong>Specifications</strong> - Detailed design docs</li>
+<li><strong>Token definitions</strong> - Design system values</li>
+<li><strong>Component APIs</strong> - Props and variants</li>
+<li><strong>Guidelines</strong> - Usage documentation</li>
+</ul>
+<h2 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>github.com/microsoft/amplifier-bundle-design-intelligence
+├── bundle.yaml
+├── agents/
+│   ├── art-director.yaml
+│   ├── component-designer.yaml
+│   ├── design-system-architect.yaml
+│   ├── layout-architect.yaml
+│   ├── animation-choreographer.yaml
+│   ├── responsive-strategist.yaml
+│   └── voice-strategist.yaml
+└── context/
+    ├── nine-dimensions.md
+    └── five-pillars.md
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="lsp-python.html" class="btn btn-neutral float-left" title="LSP Python"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../skills/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="lsp-python.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../skills/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

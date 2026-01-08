@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>MCP Integration - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MCP Integration";
+        var mkdocs_page_input_path = "advanced/mcp-integration.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">MCP Integration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-mcp">What is MCP?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-mcp-servers">Configuring MCP Servers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#in-settings">In Settings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#in-bundle">In Bundle</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#available-mcp-servers">Available MCP Servers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#official-servers">Official Servers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-servers">Installing Servers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-filesystem-server">Example: Filesystem Server</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure">Configure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use">Use</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-database-server">Example: Database Server</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure_1">Configure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use_1">Use</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-github-server">Example: GitHub Server</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure_2">Configure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use_2">Use</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-mcp-servers">Creating MCP Servers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#python-server">Python Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#register">Register</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mcp-resources">MCP Resources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#debugging-mcp">Debugging MCP</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#test-server-directly">Test Server Directly</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-logs">Check Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security-considerations">Security Considerations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#principle-of-least-privilege">Principle of Least Privilege</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#credential-management">Credential Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#audit-mcp-actions">Audit MCP Actions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-filesystem-server">Exercise 1: Filesystem Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-sqlite-server">Exercise 2: SQLite Server</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Advanced</li>
+      <li class="breadcrumb-item active">MCP Integration</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mcp-integration">MCP Integration<a class="headerlink" href="#mcp-integration" title="Permanent link">&para;</a></h1>
+<p>Connect Amplifier to Model Context Protocol servers.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data sources. Amplifier supports MCP servers, letting you:</p>
+<ul>
+<li><strong>Connect to databases</strong> - Query and modify data</li>
+<li><strong>Access APIs</strong> - Any service with MCP support</li>
+<li><strong>Use external tools</strong> - Capabilities from MCP ecosystem</li>
+<li><strong>Share tools</strong> - Same server works with multiple clients</li>
+</ul>
+<h2 id="what-is-mcp">What is MCP?<a class="headerlink" href="#what-is-mcp" title="Permanent link">&para;</a></h2>
+<p>MCP separates:
+- <strong>Client</strong> - The AI assistant (Amplifier)
+- <strong>Server</strong> - Provider of tools/resources</p>
+<div class="codehilite"><pre><span></span><code>Amplifier (Client) ←→ MCP Server ←→ External System
+</code></pre></div>
+
+<p>Benefits:
+- Standard protocol
+- Reusable servers
+- Ecosystem of tools
+- Works with multiple AI clients</p>
+<h2 id="configuring-mcp-servers">Configuring MCP Servers<a class="headerlink" href="#configuring-mcp-servers" title="Permanent link">&para;</a></h2>
+<h3 id="in-settings">In Settings<a class="headerlink" href="#in-settings" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ~/.amplifier/settings.yaml</span>
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-filesystem</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/allowed/path&quot;</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-postgres</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://user:pass@localhost/db&quot;</span>
+</code></pre></div>
+
+<h3 id="in-bundle">In Bundle<a class="headerlink" href="#in-bundle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># bundle.yaml</span>
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-server</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python my_server.py</span>
+</code></pre></div>
+
+<h2 id="available-mcp-servers">Available MCP Servers<a class="headerlink" href="#available-mcp-servers" title="Permanent link">&para;</a></h2>
+<h3 id="official-servers">Official Servers<a class="headerlink" href="#official-servers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Server</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@modelcontextprotocol/server-filesystem</code></td>
+<td>File operations</td>
+</tr>
+<tr>
+<td><code>@modelcontextprotocol/server-postgres</code></td>
+<td>PostgreSQL queries</td>
+</tr>
+<tr>
+<td><code>@modelcontextprotocol/server-sqlite</code></td>
+<td>SQLite databases</td>
+</tr>
+<tr>
+<td><code>@modelcontextprotocol/server-github</code></td>
+<td>GitHub API</td>
+</tr>
+</tbody>
+</table>
+<h3 id="installing-servers">Installing Servers<a class="headerlink" href="#installing-servers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Via npm</span>
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@modelcontextprotocol/server-filesystem
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@modelcontextprotocol/server-postgres
+
+<span class="c1"># Via pip</span>
+pip<span class="w"> </span>install<span class="w"> </span>mcp-server-fetch
+</code></pre></div>
+
+<h2 id="example-filesystem-server">Example: Filesystem Server<a class="headerlink" href="#example-filesystem-server" title="Permanent link">&para;</a></h2>
+<h3 id="configure">Configure<a class="headerlink" href="#configure" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">files</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-filesystem</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/home/user/projects&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<h3 id="use">Use<a class="headerlink" href="#use" title="Permanent link">&para;</a></h3>
+<p>The server adds tools that Amplifier can use:</p>
+<div class="codehilite"><pre><span></span><code>&gt; List files in /home/user/projects
+&gt; Read the contents of package.json
+</code></pre></div>
+
+<h2 id="example-database-server">Example: Database Server<a class="headerlink" href="#example-database-server" title="Permanent link">&para;</a></h2>
+<h3 id="configure_1">Configure<a class="headerlink" href="#configure_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-postgres</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://localhost/mydb&quot;</span>
+</code></pre></div>
+
+<h3 id="use_1">Use<a class="headerlink" href="#use_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Show all tables in the database
+&gt; Query the users table for active users
+&gt; Count orders from last week
+</code></pre></div>
+
+<h2 id="example-github-server">Example: GitHub Server<a class="headerlink" href="#example-github-server" title="Permanent link">&para;</a></h2>
+<h3 id="configure_2">Configure<a class="headerlink" href="#configure_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-github</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${GITHUB_TOKEN}</span>
+</code></pre></div>
+
+<h3 id="use_2">Use<a class="headerlink" href="#use_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; List open PRs in microsoft/amplifier
+&gt; Get details of issue #123
+&gt; Show my recent commits
+</code></pre></div>
+
+<h2 id="creating-mcp-servers">Creating MCP Servers<a class="headerlink" href="#creating-mcp-servers" title="Permanent link">&para;</a></h2>
+<h3 id="python-server">Python Server<a class="headerlink" href="#python-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># my_server.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Server</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tool</span><span class="p">,</span> <span class="n">TextContent</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="s2">&quot;my-server&quot;</span><span class="p">)</span>
+
+<span class="nd">@server</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_weather</span><span class="p">(</span><span class="n">city</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get weather for a city&quot;&quot;&quot;</span>
+    <span class="c1"># Implementation</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Weather in </span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">: Sunny, 72°F&quot;</span>
+
+<span class="nd">@server</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search_docs</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search internal documentation&quot;&quot;&quot;</span>
+    <span class="c1"># Implementation</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Found 5 results for: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="register">Register<a class="headerlink" href="#register" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tools</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python my_server.py</span>
+</code></pre></div>
+
+<h2 id="mcp-resources">MCP Resources<a class="headerlink" href="#mcp-resources" title="Permanent link">&para;</a></h2>
+<p>MCP servers can also provide resources (data):</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@server</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;docs://</span><span class="si">{path}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_doc</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get documentation by path&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/docs/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Access in Amplifier:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Get the resource docs://api/auth.md
+</code></pre></div>
+
+<h2 id="debugging-mcp">Debugging MCP<a class="headerlink" href="#debugging-mcp" title="Permanent link">&para;</a></h2>
+<h3 id="test-server-directly">Test Server Directly<a class="headerlink" href="#test-server-directly" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run server</span>
+npx<span class="w"> </span>@modelcontextprotocol/server-filesystem<span class="w"> </span>/tmp
+
+<span class="c1"># In another terminal, test with mcp CLI</span>
+mcp<span class="w"> </span>test-server<span class="w"> </span>filesystem
+</code></pre></div>
+
+<h3 id="check-logs">Check Logs<a class="headerlink" href="#check-logs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Amplifier logs MCP communication</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AMPLIFIER_LOG_LEVEL</span><span class="o">=</span>debug
+amp
+</code></pre></div>
+
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Server not starting:</strong>
+- Check command path
+- Verify dependencies installed
+- Check environment variables</p>
+<p><strong>Tools not appearing:</strong>
+- Restart Amplifier
+- Verify server is running
+- Check server logs</p>
+<p><strong>Permission errors:</strong>
+- Check allowed paths
+- Verify credentials
+- Check environment setup</p>
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="principle-of-least-privilege">Principle of Least Privilege<a class="headerlink" href="#principle-of-least-privilege" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Good - limited scope</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project-files</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-filesystem</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/home/user/current-project&quot;</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="c1"># Avoid - too broad</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all-files</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-filesystem</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Don&#39;t do this!</span>
+</code></pre></div>
+
+<h3 id="credential-management">Credential Management<a class="headerlink" href="#credential-management" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-postgres</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># Use environment variable, not hardcoded</span>
+<span class="w">        </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DATABASE_URL}</span>
+</code></pre></div>
+
+<h3 id="audit-mcp-actions">Audit MCP Actions<a class="headerlink" href="#audit-mcp-actions" title="Permanent link">&para;</a></h3>
+<p>MCP tool calls appear in session logs:</p>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.tool_name | startswith(&quot;mcp:&quot;))&#39;</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-filesystem-server">Exercise 1: Filesystem Server<a class="headerlink" href="#exercise-1-filesystem-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Add to ~/.amplifier/settings.yaml</span>
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">files</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-filesystem</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@modelcontextprotocol/server-filesystem
+amp
+
+&gt;<span class="w"> </span>What<span class="w"> </span>files<span class="w"> </span>are<span class="w"> </span><span class="k">in</span><span class="w"> </span>this<span class="w"> </span>directory?
+</code></pre></div>
+
+<h3 id="exercise-2-sqlite-server">Exercise 2: SQLite Server<a class="headerlink" href="#exercise-2-sqlite-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-sqlite</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./test.db&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&gt; Create a users table
+&gt; Insert some test data
+&gt; Query all users
+</code></pre></div>
+
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://modelcontextprotocol.io">MCP Specification</a></li>
+<li><a href="https://github.com/modelcontextprotocol/servers">Official Servers</a></li>
+<li><a href="https://github.com/modelcontextprotocol/python-sdk">Python SDK</a></li>
+<li><a href="https://github.com/modelcontextprotocol/typescript-sdk">TypeScript SDK</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="custom-recipe.html" class="btn btn-neutral float-left" title="Custom Recipes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="custom-recipe.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

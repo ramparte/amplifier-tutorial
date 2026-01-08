@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Web Tools - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Web Tools";
+        var mkdocs_page_input_path = "tools/web.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Web Tools</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#web_search">web_search</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-search">Basic Search</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#targeted-searches">Targeted Searches</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search-tips">Search Tips</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#web_fetch">web_fetch</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-fetch">Basic Fetch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fetching-documentation">Fetching Documentation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#large-pages">Large Pages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pagination">Pagination</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-workflows">Common Workflows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#research-implement">Research → Implement</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debug-search-fix">Debug → Search → Fix</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-latest">Check Latest</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-gets-returned">What Gets Returned</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#search-results">Search Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fetched-content">Fetched Content</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rate-limits-and-caching">Rate Limits and Caching</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-research-a-topic">Exercise 1: Research a Topic</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-fetch-documentation">Exercise 2: Fetch Documentation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-debug-an-error">Exercise 3: Debug an Error</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-not-to-use-web-tools">When NOT to Use Web Tools</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#use-grep-instead">Use grep Instead</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-read_file-instead">Use read_file Instead</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-skills-instead">Use Skills Instead</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#errors-and-troubleshooting">Errors and Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#url-not-accessible">"URL not accessible"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#content-truncated">"Content truncated"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#no-results-found">"No results found"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#redirects">Redirects</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Web Tools</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="web-tools">Web Tools<a class="headerlink" href="#web-tools" title="Permanent link">&para;</a></h1>
+<p>Search the internet and fetch content from URLs.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>web_search</code></td>
+<td>Search the internet</td>
+<td>Find docs, examples, news</td>
+</tr>
+<tr>
+<td><code>web_fetch</code></td>
+<td>Get URL content</td>
+<td>Read specific pages</td>
+</tr>
+</tbody>
+</table>
+<h2 id="web_search">web_search<a class="headerlink" href="#web_search" title="Permanent link">&para;</a></h2>
+<p>Search the internet for information.</p>
+<h3 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What&#39;s new in Python 3.12?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: web_search]
+query: &quot;Python 3.12 new features&quot;
+</code></pre></div>
+
+<h3 id="targeted-searches">Targeted Searches<a class="headerlink" href="#targeted-searches" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Documentation
+&gt; Find the FastAPI documentation for dependencies
+[web_search] query: &quot;FastAPI dependency injection documentation&quot;
+
+# Error solutions
+&gt; How to fix &quot;ModuleNotFoundError: No module named &#39;xyz&#39;&quot;
+[web_search] query: &quot;Python ModuleNotFoundError xyz solution&quot;
+
+# Latest versions
+&gt; What&#39;s the latest version of React?
+[web_search] query: &quot;React latest version 2026&quot;
+</code></pre></div>
+
+<h3 id="search-tips">Search Tips<a class="headerlink" href="#search-tips" title="Permanent link">&para;</a></h3>
+<p><strong>Be specific:</strong></p>
+<div class="codehilite"><pre><span></span><code># Vague
+query: &quot;python error&quot;
+
+# Specific
+query: &quot;Python TypeError: &#39;NoneType&#39; object is not subscriptable fix&quot;
+</code></pre></div>
+
+<p><strong>Include context:</strong></p>
+<div class="codehilite"><pre><span></span><code>query: &quot;FastAPI SQLAlchemy async session best practices&quot;
+</code></pre></div>
+
+<p><strong>Add year for current info:</strong></p>
+<div class="codehilite"><pre><span></span><code>query: &quot;best Python web framework 2026&quot;
+</code></pre></div>
+
+<h2 id="web_fetch">web_fetch<a class="headerlink" href="#web_fetch" title="Permanent link">&para;</a></h2>
+<p>Fetch content from a specific URL.</p>
+<h3 id="basic-fetch">Basic Fetch<a class="headerlink" href="#basic-fetch" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Get the README from that GitHub repo
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch]
+url: &quot;https://github.com/microsoft/amplifier/blob/main/README.md&quot;
+</code></pre></div>
+
+<h3 id="fetching-documentation">Fetching Documentation<a class="headerlink" href="#fetching-documentation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Read the FastAPI quickstart guide
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch]
+url: &quot;https://fastapi.tiangolo.com/tutorial/&quot;
+</code></pre></div>
+
+<h3 id="large-pages">Large Pages<a class="headerlink" href="#large-pages" title="Permanent link">&para;</a></h3>
+<p>For large content, save to file:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch]
+url: &quot;https://example.com/large-doc&quot;
+save_to_file: &quot;/tmp/doc.html&quot;
+</code></pre></div>
+
+<h3 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h3>
+<p>For very large pages, paginate:</p>
+<div class="codehilite"><pre><span></span><code># First 100KB
+[web_fetch] url: &quot;...&quot; limit: 102400
+
+# Next 100KB
+[web_fetch] url: &quot;...&quot; offset: 102400 limit: 102400
+</code></pre></div>
+
+<h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="research-implement">Research → Implement<a class="headerlink" href="#research-implement" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You: How do I implement OAuth2 in FastAPI?
+
+Amplifier:
+1. [web_search] &quot;FastAPI OAuth2 implementation guide&quot;
+2. [web_fetch] (relevant documentation URL)
+3. Here&#39;s how to implement it: [explanation with code]
+</code></pre></div>
+
+<h3 id="debug-search-fix">Debug → Search → Fix<a class="headerlink" href="#debug-search-fix" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You: I&#39;m getting this error: [paste error]
+
+Amplifier:
+1. [web_search] &quot;error message solution&quot;
+2. Based on what I found, here&#39;s the fix...
+</code></pre></div>
+
+<h3 id="check-latest">Check Latest<a class="headerlink" href="#check-latest" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You: Is there a newer version of pandas?
+
+Amplifier:
+1. [web_search] &quot;pandas latest version pypi&quot;
+2. [web_fetch] PyPI page
+3. The latest version is X.Y.Z
+</code></pre></div>
+
+<h2 id="what-gets-returned">What Gets Returned<a class="headerlink" href="#what-gets-returned" title="Permanent link">&para;</a></h2>
+<h3 id="search-results">Search Results<a class="headerlink" href="#search-results" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Title and URL of matching pages</li>
+<li>Brief snippets</li>
+<li>Typically 5-10 results</li>
+</ul>
+<h3 id="fetched-content">Fetched Content<a class="headerlink" href="#fetched-content" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cleaned text content (HTML stripped)</li>
+<li>Limited to ~200KB by default</li>
+<li>Metadata (truncated flag, total bytes)</li>
+</ul>
+<h2 id="rate-limits-and-caching">Rate Limits and Caching<a class="headerlink" href="#rate-limits-and-caching" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Searches and fetches may be rate-limited</li>
+<li>Results may be cached briefly</li>
+<li>Very large pages may be truncated</li>
+</ul>
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-research-a-topic">Exercise 1: Research a Topic<a class="headerlink" href="#exercise-1-research-a-topic" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What are the best practices for Python type hints in 2026?
+</code></pre></div>
+
+<h3 id="exercise-2-fetch-documentation">Exercise 2: Fetch Documentation<a class="headerlink" href="#exercise-2-fetch-documentation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Get the README from https://github.com/python/cpython
+</code></pre></div>
+
+<h3 id="exercise-3-debug-an-error">Exercise 3: Debug an Error<a class="headerlink" href="#exercise-3-debug-an-error" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Search for how to fix &quot;CORS error in fetch request&quot;
+</code></pre></div>
+
+<h2 id="when-not-to-use-web-tools">When NOT to Use Web Tools<a class="headerlink" href="#when-not-to-use-web-tools" title="Permanent link">&para;</a></h2>
+<h3 id="use-grep-instead">Use grep Instead<a class="headerlink" href="#use-grep-instead" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Looking for code in YOUR project
+# Don&#39;t search the web - search locally
+[grep] pattern: &quot;authenticate&quot;
+</code></pre></div>
+
+<h3 id="use-read_file-instead">Use read_file Instead<a class="headerlink" href="#use-read_file-instead" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Reading YOUR files
+# Don&#39;t fetch - read directly
+[read_file] file_path: README.md
+</code></pre></div>
+
+<h3 id="use-skills-instead">Use Skills Instead<a class="headerlink" href="#use-skills-instead" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># For domain expertise (playwright, curl, etc.)
+# Don&#39;t search - load the skill
+&gt; Load the playwright skill
+</code></pre></div>
+
+<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="url-not-accessible">"URL not accessible"<a class="headerlink" href="#url-not-accessible" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check URL is valid</li>
+<li>Site may be blocking automated access</li>
+<li>Try a different URL</li>
+</ul>
+<h3 id="content-truncated">"Content truncated"<a class="headerlink" href="#content-truncated" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Large page - use <code>save_to_file</code></li>
+<li>Or use <code>offset</code>/<code>limit</code> to paginate</li>
+</ul>
+<h3 id="no-results-found">"No results found"<a class="headerlink" href="#no-results-found" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Try different search terms</li>
+<li>Be more specific or more general</li>
+<li>Check spelling</li>
+</ul>
+<h3 id="redirects">Redirects<a class="headerlink" href="#redirects" title="Permanent link">&para;</a></h3>
+<p>If fetch returns a redirect message:</p>
+<div class="codehilite"><pre><span></span><code>[web_fetch] url: &quot;redirect-target-url&quot;
+</code></pre></div>
+
+<p>Follow the redirect URL provided.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="search.html" class="btn btn-neutral float-left" title="Search (grep & glob)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="task.html" class="btn btn-neutral float-right" title="Task (Sub-Agents)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="search.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="task.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

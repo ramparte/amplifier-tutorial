@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Overview - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "tools/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-are-tools">What Are Tools?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-tools">Core Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-provided-tools">Bundle-Provided Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-reference">Quick Reference</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#file-operations">File Operations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#shell-commands">Shell Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search">Search</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#web">Web</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#agents">Agents</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#code-intelligence-requires-bundle">Code Intelligence (requires bundle)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workflows-requires-bundle">Workflows (requires bundle)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#viewing-available-tools">Viewing Available Tools</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-selection-philosophy">Tool Selection Philosophy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adding-custom-tools">Adding Custom Tools</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tools-reference">Tools Reference<a class="headerlink" href="#tools-reference" title="Permanent link">&para;</a></h1>
+<p>Tools are capabilities that Amplifier can use to accomplish tasks.</p>
+<h2 id="what-are-tools">What Are Tools?<a class="headerlink" href="#what-are-tools" title="Permanent link">&para;</a></h2>
+<p>Tools let the AI interact with the world:</p>
+<ul>
+<li><strong>Read and write files</strong></li>
+<li><strong>Run shell commands</strong></li>
+<li><strong>Search the web</strong></li>
+<li><strong>Navigate code semantically</strong></li>
+<li><strong>Spawn sub-agents</strong></li>
+</ul>
+<p>When you ask Amplifier to "create a file" or "search for X", it uses tools to do the actual work.</p>
+<h2 id="core-tools">Core Tools<a class="headerlink" href="#core-tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="filesystem.html">Filesystem</a></td>
+<td>Read, write, edit files</td>
+<td><code>read_file</code>, <code>write_file</code>, <code>edit_file</code></td>
+</tr>
+<tr>
+<td><a href="bash.html">Bash</a></td>
+<td>Run shell commands</td>
+<td>Build, test, git, packages</td>
+</tr>
+<tr>
+<td><a href="search.html">Search</a></td>
+<td>Find files and content</td>
+<td><code>grep</code>, <code>glob</code></td>
+</tr>
+<tr>
+<td><a href="web.html">Web</a></td>
+<td>Internet search and fetch</td>
+<td><code>web_search</code>, <code>web_fetch</code></td>
+</tr>
+<tr>
+<td><a href="task.html">Task</a></td>
+<td>Spawn sub-agents</td>
+<td>Delegate to specialists</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bundle-provided-tools">Bundle-Provided Tools<a class="headerlink" href="#bundle-provided-tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Bundle Required</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="lsp.html">LSP</a></td>
+<td><code>lsp-python</code> or similar</td>
+<td>Code intelligence</td>
+</tr>
+<tr>
+<td><a href="recipes-tool.html">Recipes</a></td>
+<td><code>recipes</code></td>
+<td>Multi-step workflows</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="file-operations">File Operations<a class="headerlink" href="#file-operations" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>read_file     Read file or list directory
+write_file    Create or overwrite file
+edit_file     Make targeted string replacements
+</code></pre></div>
+
+<h3 id="shell-commands">Shell Commands<a class="headerlink" href="#shell-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>bash          Run any shell command
+</code></pre></div>
+
+<h3 id="search">Search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>grep          Search file contents (regex)
+glob          Find files by pattern
+</code></pre></div>
+
+<h3 id="web">Web<a class="headerlink" href="#web" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>web_search    Search the internet
+web_fetch     Fetch URL content
+</code></pre></div>
+
+<h3 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>task          Spawn specialized sub-agents
+todo          Manage task lists (internal)
+</code></pre></div>
+
+<h3 id="code-intelligence-requires-bundle">Code Intelligence (requires bundle)<a class="headerlink" href="#code-intelligence-requires-bundle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>LSP           Go to definition, find references, hover
+</code></pre></div>
+
+<h3 id="workflows-requires-bundle">Workflows (requires bundle)<a class="headerlink" href="#workflows-requires-bundle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>recipes       Execute multi-step YAML workflows
+</code></pre></div>
+
+<h2 id="viewing-available-tools">Viewing Available Tools<a class="headerlink" href="#viewing-available-tools" title="Permanent link">&para;</a></h2>
+<p>In any session:</p>
+<div class="codehilite"><pre><span></span><code>amplifier
+
+&gt;<span class="w"> </span>/tools
+</code></pre></div>
+
+<p>Or ask directly:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What tools do you have available?
+</code></pre></div>
+
+<h2 id="tool-selection-philosophy">Tool Selection Philosophy<a class="headerlink" href="#tool-selection-philosophy" title="Permanent link">&para;</a></h2>
+<p>Amplifier prefers specialized tools over primitives:</p>
+<ol>
+<li><strong>Specialized tools first</strong> - LSP over grep for code navigation</li>
+<li><strong>Purpose-built tools second</strong> - <code>read_file</code> over <code>bash cat</code></li>
+<li><strong>Primitives as fallback</strong> - <code>bash</code> when nothing else fits</li>
+</ol>
+<h2 id="adding-custom-tools">Adding Custom Tools<a class="headerlink" href="#adding-custom-tools" title="Permanent link">&para;</a></h2>
+<p>See <a href="../advanced/custom-tool.html">Advanced: Custom Tools</a> for creating your own tools.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../concepts/hooks.html" class="btn btn-neutral float-left" title="Hooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="filesystem.html" class="btn btn-neutral float-right" title="Filesystem">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../concepts/hooks.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="filesystem.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

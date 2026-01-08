@@ -1,5 +1,5 @@
-# Built site (regenerated from content/)
-site/
+# Note: site/ is intentionally checked in for easy distribution
+# Regenerate with: mkdocs build --clean
 
 # Python virtual environment
 .venv/

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Architecture Deep Dive - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Architecture Deep Dive";
+        var mkdocs_page_input_path = "concepts/architecture.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Architecture Deep Dive</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-big-picture">The Big Picture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agents-amplifier-driving-amplifier">Agents: Amplifier Driving Amplifier</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tools-llm-driven-capabilities">Tools: LLM-Driven Capabilities</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hooks-code-first-control">Hooks: Code-First Control</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#orchestrators-the-engine">Orchestrators: The Engine</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#context-modules-memory-management">Context Modules: Memory Management</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#providers-llm-backends">Providers: LLM Backends</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bundles-the-packaging">Bundles: The Packaging</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#skills-bundles-all-the-way-down">Skills: Bundles All the Way Down</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#control-spectrum">Control Spectrum</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Architecture Deep Dive</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="architecture-deep-dive">Architecture Deep Dive<a class="headerlink" href="#architecture-deep-dive" title="Permanent link">&para;</a></h1>
+<p>How Amplifier's pieces fit together - from the lead developer's perspective.</p>
+<h2 id="the-big-picture">The Big Picture<a class="headerlink" href="#the-big-picture" title="Permanent link">&para;</a></h2>
+<p>Amplifier has multiple ways to infuse capabilities into the system. Each serves a different purpose and offers different levels of control.</p>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
+│                     Your Session                         │
+│  ┌──────────────────────────────────────────────────┐   │
+│  │              Orchestrator (the engine)            │   │
+│  │  ┌─────────┐  ┌─────────┐  ┌─────────┐          │   │
+│  │  │ Provider│  │ Context │  │  Hooks  │          │   │
+│  │  │  (LLM)  │  │ (memory)│  │ (events)│          │   │
+│  │  └─────────┘  └─────────┘  └─────────┘          │   │
+│  │                    │                              │   │
+│  │              ┌─────┴─────┐                       │   │
+│  │              │   Tools   │                       │   │
+│  │              │(LLM calls)│                       │   │
+│  │              └─────┬─────┘                       │   │
+│  │                    │                              │   │
+│  │              ┌─────┴─────┐                       │   │
+│  │              │  Agents   │                       │   │
+│  │              │(sub-sess) │                       │   │
+│  │              └───────────┘                       │   │
+│  └──────────────────────────────────────────────────┘   │
+│                                                          │
+│  All packaged in: BUNDLES                               │
+└─────────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<h2 id="agents-amplifier-driving-amplifier">Agents: Amplifier Driving Amplifier<a class="headerlink" href="#agents-amplifier-driving-amplifier" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Agents are 'just' bundles that we spawn a sub-session and the main session drives as the 'user' instead of us."</p>
+</blockquote>
+<p><strong>Key insight:</strong> Agents aren't a special concept - they're bundles that Amplifier talks to <em>as if it were the user</em>.</p>
+<div class="codehilite"><pre><span></span><code>Main Session (you&#39;re the user)
+    │
+    ├── Spawns sub-session with &quot;zen-architect&quot; bundle
+    │   └── Main session sends prompts as &quot;user&quot;
+    │   └── Agent responds, main session continues
+    │
+    └── You see the combined result
+</code></pre></div>
+
+<p>This is why we use the <strong>task tool</strong> to spawn agents - you're giving Amplifier a "task" to delegate to a specialized instance of itself.</p>
+<p>Each agent bundle is focused on specific tasks:
+- <code>zen-architect</code> - Design and code review
+- <code>bug-hunter</code> - Debugging
+- <code>explorer</code> - Codebase reconnaissance</p>
+<h2 id="tools-llm-driven-capabilities">Tools: LLM-Driven Capabilities<a class="headerlink" href="#tools-llm-driven-capabilities" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Tools are code that can be called by the LLMs... the LLM decides to call a tool instead of generating a response."</p>
+</blockquote>
+<p><strong>Key insight:</strong> The LLM chooses when to use tools. You don't call them - the model does.</p>
+<p>The flow:
+1. You send a message
+2. LLM decides: "I need to read a file"
+3. LLM returns a tool call request (not a response)
+4. Tool executes (no models involved)
+5. Result goes back to LLM
+6. LLM decides what to do next
+7. Repeat until LLM generates a final response</p>
+<div class="codehilite"><pre><span></span><code>You: &quot;What&#39;s in config.yaml?&quot;
+         │
+         ▼
+LLM: &quot;I should read that file&quot;
+         │
+         ▼
+Tool Call: read_file(&quot;config.yaml&quot;)
+         │
+         ▼
+Tool Result: &quot;port: 8080\nhost: localhost&quot;
+         │
+         ▼
+LLM: &quot;The config has port 8080 and host localhost&quot;
+         │
+         ▼
+You see the response
+</code></pre></div>
+
+<h2 id="hooks-code-first-control">Hooks: Code-First Control<a class="headerlink" href="#hooks-code-first-control" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Hooks are code that listens to lifecycle events... NO LLM making decisions IF they should be called."</p>
+</blockquote>
+<p><strong>Key insight:</strong> Hooks always run on their events. Full programmatic control.</p>
+<p>Unlike tools (LLM decides), hooks fire automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Hook Fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session starts</td>
+<td><code>session:start</code> hooks run</td>
+</tr>
+<tr>
+<td>Tool called</td>
+<td><code>tool:call</code> hooks run</td>
+</tr>
+<tr>
+<td>Response generated</td>
+<td><code>turn:end</code> hooks run</td>
+</tr>
+</tbody>
+</table>
+<p>Use hooks for:
+- Logging everything (observability)
+- Injecting context (status, time, reminders)
+- Approval gates (pause before dangerous actions)
+- Redaction (remove sensitive data)</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A hook runs on events, not LLM decisions</span>
+<span class="nd">@hook</span><span class="p">(</span><span class="s2">&quot;tool:call&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">log_tool_usage</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool used: </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># This ALWAYS runs when a tool is called</span>
+</code></pre></div>
+
+<h2 id="orchestrators-the-engine">Orchestrators: The Engine<a class="headerlink" href="#orchestrators-the-engine" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Orchestrators are the main engine that drives your 'Amplifier Session' and can make the experience radically different."</p>
+</blockquote>
+<p><strong>Key insight:</strong> The orchestrator is code-first. It decides how everything connects.</p>
+<p>Our main orchestrators are agentic loops, but possibilities include:
+- <strong>Recipe runner</strong> - Execute YAML workflows
+- <strong>Observer pattern</strong> - Other instances "observe" a limited main session and push context in
+- <strong>Custom flows</strong> - Any pattern you can code</p>
+<p>The orchestrator:
+1. Receives your input
+2. Calls the provider (LLM)
+3. Handles tool calls
+4. Fires hook events
+5. Manages the conversation loop
+6. Returns the response</p>
+<p>Different orchestrators = radically different behaviors.</p>
+<h2 id="context-modules-memory-management">Context Modules: Memory Management<a class="headerlink" href="#context-modules-memory-management" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Context modules are the managers of your context, storing/loading/'compacting' your history."</p>
+</blockquote>
+<p>Context modules handle:
+- <strong>Storage</strong> - Where conversation history lives
+- <strong>Loading</strong> - Retrieving past context
+- <strong>Compacting</strong> - Summarizing long histories
+- <strong>Memory systems</strong> - Persistent knowledge</p>
+<p>This is where "memory" implementations plug in.</p>
+<h2 id="providers-llm-backends">Providers: LLM Backends<a class="headerlink" href="#providers-llm-backends" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Providers are generally vendor level and support many/all of their models."</p>
+</blockquote>
+<p>Provider patterns:
+- <strong>Vendor provider</strong> - One provider for all Anthropic models
+- <strong>Model-specific</strong> - One provider per model
+- <strong>Aggregator</strong> - One provider routing to many backends</p>
+<p>Providers handle the actual LLM API calls.</p>
+<h2 id="bundles-the-packaging">Bundles: The Packaging<a class="headerlink" href="#bundles-the-packaging" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Bundles let us group together the various parts. It could be as lightweight as a bundle around a tool module or as fully featured as the foundation bundle."</p>
+</blockquote>
+<p>Bundles are <strong>composition</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A minimal bundle</span>
+<span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tool</span>
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tool</span>
+
+<span class="c1"># A full-featured bundle</span>
+<span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">behavior-git-ops</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">behavior-security</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">behavior-testing</span>
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-filesystem</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
+<span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/zen-architect.yaml</span>
+</code></pre></div>
+
+<p><strong>Behavior bundles</strong> are a convention (not code):
+- Smaller, focused bundles
+- Compose into larger bundles
+- Foundation bundle includes many behavior bundles</p>
+<h2 id="skills-bundles-all-the-way-down">Skills: Bundles All the Way Down<a class="headerlink" href="#skills-bundles-all-the-way-down" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>"Skills is 'just' a bundle. It has tools, context files, agent(s), etc."</p>
+</blockquote>
+<p><strong>Key insight:</strong> Skills aren't a core Amplifier concept. They're a <em>pattern</em> we use.</p>
+<p>The skills bundle:
+- Provides a <code>load_skill</code> tool
+- Loads knowledge packages on demand
+- Each skill = structured context + patterns</p>
+<p>This pattern extends Amplifier for:
+- MCP integration
+- Anthropic plugins
+- Domain knowledge packages</p>
+<p>We'll likely move agents to follow this same pattern - agents aren't "core" either, they're built on top through foundation.</p>
+<h2 id="control-spectrum">Control Spectrum<a class="headerlink" href="#control-spectrum" title="Permanent link">&para;</a></h2>
+<p>From most LLM-driven to most code-driven:</p>
+<div class="codehilite"><pre><span></span><code>More LLM Control                              More Code Control
+      │                                              │
+      ▼                                              ▼
+   Tools ──────── Agents ──────── Hooks ──────── Orchestrators
+      │              │              │                │
+   LLM decides   LLM drives     Events fire      Code drives
+   when to call  sub-sessions   automatically    everything
+</code></pre></div>
+
+<p>Choose based on your needs:
+- <strong>Need flexibility?</strong> → Tools, Agents
+- <strong>Need reliability?</strong> → Hooks, Orchestrators
+- <strong>Need both?</strong> → Combine them</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Who Decides</th>
+<th>Runs When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tools</strong></td>
+<td>LLM</td>
+<td>LLM requests it</td>
+</tr>
+<tr>
+<td><strong>Agents</strong></td>
+<td>LLM (via task)</td>
+<td>LLM spawns sub-session</td>
+</tr>
+<tr>
+<td><strong>Hooks</strong></td>
+<td>Code</td>
+<td>Events fire</td>
+</tr>
+<tr>
+<td><strong>Orchestrators</strong></td>
+<td>Code</td>
+<td>Always (it's the engine)</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Code</td>
+<td>Load/save operations</td>
+</tr>
+<tr>
+<td><strong>Providers</strong></td>
+<td>Code</td>
+<td>LLM API calls</td>
+</tr>
+<tr>
+<td><strong>Bundles</strong></td>
+<td>You</td>
+<td>Configuration time</td>
+</tr>
+</tbody>
+</table>
+<p>Everything composes through bundles. Start simple, add capabilities as needed.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="modules.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

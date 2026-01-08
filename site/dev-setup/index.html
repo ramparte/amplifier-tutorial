@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Overview - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "dev-setup/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-setup-checklist">Quick Setup Checklist</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-essential-tools">1. Essential Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-provider-configuration">2. Provider Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-shell-aliases">3. Shell Aliases</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-verify-setup">4. Verify Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#development-patterns">Development Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-1-shadow-workspace">Pattern 1: Shadow Workspace</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-2-git-worktree">Pattern 2: Git Worktree</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-3-container-isolation">Pattern 3: Container Isolation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#productivity-tips">Productivity Tips</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-use-session-history">1. Use Session History</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-leverage-specialists">2. Leverage Specialists</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-save-common-prompts">3. Save Common Prompts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-use-recipes-for-repeatable-tasks">4. Use Recipes for Repeatable Tasks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting-quick-reference">Troubleshooting Quick Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recommended-reading-order">Recommended Reading Order</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Setup</li>
+      <li class="breadcrumb-item active">Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="developer-setup">Developer Setup<a class="headerlink" href="#developer-setup" title="Permanent link">&para;</a></h1>
+<p>Tools and techniques for productive Amplifier development.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This section covers:</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>What You'll Learn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="cli-tools.html">CLI Tools</a></td>
+<td>Essential command-line utilities</td>
+</tr>
+<tr>
+<td><a href="shadow-workspace.html">Shadow Workspace</a></td>
+<td>Safe AI-assisted editing</td>
+</tr>
+<tr>
+<td><a href="remote-dev.html">Remote Development</a></td>
+<td>Docker, SSH, Codespaces</td>
+</tr>
+<tr>
+<td><a href="debugging.html">Debugging</a></td>
+<td>Troubleshooting techniques</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-setup-checklist">Quick Setup Checklist<a class="headerlink" href="#quick-setup-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="1-essential-tools">1. Essential Tools<a class="headerlink" href="#1-essential-tools" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python package manager</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+
+<span class="c1"># Amplifier</span>
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
+
+<span class="c1"># Helpful utilities</span>
+brew<span class="w"> </span>install<span class="w"> </span>jq<span class="w"> </span>fzf<span class="w"> </span>bat<span class="w"> </span>ripgrep<span class="w">  </span><span class="c1"># macOS</span>
+<span class="c1"># or apt install equivalent</span>
+</code></pre></div>
+
+<h3 id="2-provider-configuration">2. Provider Configuration<a class="headerlink" href="#2-provider-configuration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Pick your provider</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+<span class="c1"># or</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
+
+<span class="c1"># Make permanent</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export ANTHROPIC_API_KEY=&quot;your-key&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</code></pre></div>
+
+<h3 id="3-shell-aliases">3. Shell Aliases<a class="headerlink" href="#3-shell-aliases" title="Permanent link">&para;</a></h3>
+<p>Add to <code>~/.bashrc</code> or <code>~/.zshrc</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;amp&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ar</span><span class="o">=</span><span class="s1">&#39;amp run&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">as</span><span class="o">=</span><span class="s1">&#39;amp session&#39;</span>
+</code></pre></div>
+
+<h3 id="4-verify-setup">4. Verify Setup<a class="headerlink" href="#4-verify-setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Hello! What model are you?&quot;</span>
+</code></pre></div>
+
+<h2 id="development-patterns">Development Patterns<a class="headerlink" href="#development-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="pattern-1-shadow-workspace">Pattern 1: Shadow Workspace<a class="headerlink" href="#pattern-1-shadow-workspace" title="Permanent link">&para;</a></h3>
+<p>For safe AI-assisted editing:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Create shadow copy</span>
+cp<span class="w"> </span>-r<span class="w"> </span>my-project<span class="w"> </span>my-project-shadow
+<span class="nb">cd</span><span class="w"> </span>my-project-shadow
+
+<span class="c1"># Work with AI</span>
+amp
+
+<span class="c1"># Review changes</span>
+diff<span class="w"> </span>-r<span class="w"> </span>../my-project<span class="w"> </span>.
+
+<span class="c1"># Accept or discard</span>
+</code></pre></div>
+
+<h3 id="pattern-2-git-worktree">Pattern 2: Git Worktree<a class="headerlink" href="#pattern-2-git-worktree" title="Permanent link">&para;</a></h3>
+<p>For version-controlled changes:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-project
+git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../ai-changes<span class="w"> </span>-b<span class="w"> </span>feature/ai-assist
+
+<span class="nb">cd</span><span class="w"> </span>../ai-changes
+amp
+
+<span class="c1"># Create PR when done</span>
+gh<span class="w"> </span>pr<span class="w"> </span>create
+</code></pre></div>
+
+<h3 id="pattern-3-container-isolation">Pattern 3: Container Isolation<a class="headerlink" href="#pattern-3-container-isolation" title="Permanent link">&para;</a></h3>
+<p>For complete isolation:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>ANTHROPIC_API_KEY<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>amplifier-dev
+</code></pre></div>
+
+<h2 id="productivity-tips">Productivity Tips<a class="headerlink" href="#productivity-tips" title="Permanent link">&para;</a></h2>
+<h3 id="1-use-session-history">1. Use Session History<a class="headerlink" href="#1-use-session-history" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Resume last session</span>
+amp<span class="w"> </span>session<span class="w"> </span>list
+amp<span class="w"> </span>session<span class="w"> </span>resume<span class="w"> </span><span class="o">[</span>id<span class="o">]</span>
+</code></pre></div>
+
+<h3 id="2-leverage-specialists">2. Leverage Specialists<a class="headerlink" href="#2-leverage-specialists" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Use bug-hunter to debug this
+&gt; Use zen-architect to design this
+&gt; Use explorer to understand this codebase
+</code></pre></div>
+
+<h3 id="3-save-common-prompts">3. Save Common Prompts<a class="headerlink" href="#3-save-common-prompts" title="Permanent link">&para;</a></h3>
+<p>Create a <code>prompts/</code> directory:</p>
+<div class="codehilite"><pre><span></span><code>prompts/
+├── code-review.md
+├── refactor.md
+└── test-coverage.md
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>prompts/code-review.md<span class="k">)</span><span class="s2"> - review src/auth.py&quot;</span>
+</code></pre></div>
+
+<h3 id="4-use-recipes-for-repeatable-tasks">4. Use Recipes for Repeatable Tasks<a class="headerlink" href="#4-use-recipes-for-repeatable-tasks" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/recipes/review.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">issues&quot;</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>.amplifier/recipes/review.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file&quot;: &quot;src/main.py&quot;}&#39;</span>
+</code></pre></div>
+
+<h2 id="troubleshooting-quick-reference">Troubleshooting Quick Reference<a class="headerlink" href="#troubleshooting-quick-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Command not found"</td>
+<td>Check PATH, reinstall</td>
+</tr>
+<tr>
+<td>"API key invalid"</td>
+<td>Verify environment variable</td>
+</tr>
+<tr>
+<td>"Context too long"</td>
+<td>Start new session</td>
+</tr>
+<tr>
+<td>"Tool failed"</td>
+<td>Check permissions, paths</td>
+</tr>
+<tr>
+<td>"Session won't resume"</td>
+<td>Use session-analyst</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recommended-reading-order">Recommended Reading Order<a class="headerlink" href="#recommended-reading-order" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong><a href="cli-tools.html">CLI Tools</a></strong> - Set up your environment</li>
+<li><strong><a href="shadow-workspace.html">Shadow Workspace</a></strong> - Work safely</li>
+<li><strong><a href="remote-dev.html">Remote Development</a></strong> - Scale up</li>
+<li><strong><a href="debugging.html">Debugging</a></strong> - Fix issues</li>
+</ol>
+<p>Each guide includes exercises to practice the concepts.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../skills/image-vision.html" class="btn btn-neutral float-left" title="Image Vision"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="cli-tools.html" class="btn btn-neutral float-right" title="CLI Tools">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../skills/image-vision.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="cli-tools.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
