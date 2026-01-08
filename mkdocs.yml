@@ -1,0 +1,85 @@
+# Amplifier Tutorial
+# Simple config using built-in theme (no extra packages needed)
+
+site_name: Amplifier Tutorial
+site_description: Learn Amplifier - The Modular AI Agent Framework
+
+# Point to our content directory
+docs_dir: content
+
+# Use direct file links (concepts/index.html instead of concepts/)
+# This allows browsing locally via file:// protocol
+use_directory_urls: false
+
+# Use built-in readthedocs theme (works out of box)
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - bash
+
+# Built-in plugins only
+plugins:
+  - search
+
+# Standard markdown extensions (no extra packages)
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - codehilite:
+      guess_lang: false
+
+# Navigation structure
+nav:
+  - Home: index.md
+  - Getting Started:
+    - What is Amplifier?: quickstart/what-is-amplifier.md
+    - How It's Different: quickstart/how-its-different.md
+    - Installation: quickstart/installation.md
+    - Your First Conversation: quickstart/first-conversation.md
+    - Key Commands: quickstart/key-commands.md
+    - Your First Bundle: quickstart/first-bundle.md
+  - Core Concepts:
+    - Overview: concepts/index.md
+    - Architecture Deep Dive: concepts/architecture.md
+    - Modules: concepts/modules.md
+    - Bundles: concepts/bundles.md
+    - Agents: concepts/agents.md
+    - Recipes: concepts/recipes.md
+    - Skills: concepts/skills.md
+    - Hooks: concepts/hooks.md
+  - Tools Reference:
+    - Overview: tools/index.md
+    - Filesystem: tools/filesystem.md
+    - Bash: tools/bash.md
+    - Search (grep & glob): tools/search.md
+    - Web Tools: tools/web.md
+    - Task (Sub-Agents): tools/task.md
+    - LSP (Code Intelligence): tools/lsp.md
+    - Recipes Tool: tools/recipes-tool.md
+  - Bundles Reference:
+    - Overview: bundles/index.md
+    - Foundation: bundles/foundation.md
+    - Recipes: bundles/recipes.md
+    - LSP Python: bundles/lsp-python.md
+    - Design Intelligence: bundles/design-intelligence.md
+  - Skills Reference:
+    - Overview: skills/index.md
+    - Playwright: skills/playwright.md
+    - Curl: skills/curl.md
+    - Image Vision: skills/image-vision.md
+  - Developer Setup:
+    - Overview: dev-setup/index.md
+    - CLI Tools: dev-setup/cli-tools.md
+    - Shadow Workspace: dev-setup/shadow-workspace.md
+    - Remote Development: dev-setup/remote-dev.md
+    - Debugging: dev-setup/debugging.md
+  - Advanced:
+    - Overview: advanced/index.md
+    - Custom Bundles: advanced/custom-bundle.md
+    - Custom Tools: advanced/custom-tool.md
+    - Custom Recipes: advanced/custom-recipe.md
+    - MCP Integration: advanced/mcp-integration.md

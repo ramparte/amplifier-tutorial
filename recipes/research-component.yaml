@@ -1,0 +1,259 @@
+# Research Component Recipe
+# Generates tutorial content for a single component using writer/reviewer pattern
+#
+# Usage:
+#   amplifier recipes execute recipes/research-component.yaml \
+#     --context '{"component_id": "tool-filesystem", "component_type": "tools"}'
+#
+# The writer creates content from source, the reviewer validates accuracy
+
+name: research-component
+description: Research a component and generate validated tutorial content
+
+context:
+  component_id: ""           # e.g., "tool-filesystem"
+  component_type: ""         # e.g., "tools", "bundles", "skills"
+  manifest_path: ".planning/ecosystem-manifest.yaml"
+  content_base: "content"
+
+steps:
+  # Step 1: Load component metadata from manifest
+  - id: load-metadata
+    agent: foundation:file-ops
+    instruction: |
+      Read the ecosystem manifest at {{manifest_path}}.
+      
+      Find the component with id "{{component_id}}" in the {{component_type}} section.
+      
+      Extract and return:
+      - name
+      - repo
+      - description
+      - Any additional fields (owner, install command, etc.)
+      
+      If not found, return an error message.
+
+  # Step 2: Fetch source documentation
+  - id: fetch-source-docs
+    agent: foundation:web-research
+    instruction: |
+      Fetch the documentation for this component:
+      
+      Component: {{component_id}}
+      Repository: {{load-metadata.result}}
+      
+      Fetch these files (if they exist):
+      - README.md
+      - docs/README.md
+      - Any relevant documentation files
+      
+      Also check for:
+      - Installation instructions
+      - API documentation
+      - Usage examples
+      - Configuration options
+      
+      Return the full content of all documentation found.
+      Note which files were found and which were missing.
+
+  # Step 3: Writer agent creates tutorial content
+  - id: write-content
+    agent: foundation:modular-builder
+    instruction: |
+      You are the WRITER. Create tutorial content for "{{component_id}}".
+      
+      Source documentation:
+      {{fetch-source-docs.result}}
+      
+      Component metadata:
+      {{load-metadata.result}}
+      
+      Create a markdown file following this structure:
+      
+      ```markdown
+      ---
+      id: {{component_id}}
+      type: {{component_type}}
+      title: "[Display Name]"
+      source_repo: "[repo from metadata]"
+      last_synced: "[today's date ISO format]"
+      ---
+      
+      # [Display Name]
+      
+      [One-paragraph description of what this component does and when to use it]
+      
+      ## Quick Start
+      
+      [Minimal example to get started - copy-pasteable code]
+      
+      ## What It Does
+      
+      [Detailed explanation of capabilities]
+      
+      ## Usage Examples
+      
+      [Multiple examples with explanations, each with copy-pasteable code]
+      
+      ### Example 1: [Name]
+      
+      ```bash
+      # Copy-paste this into Amplifier
+      [code]
+      ```
+      
+      [Explanation of what this does]
+      
+      ## Configuration
+      
+      [Any configuration options]
+      
+      ## Common Patterns
+      
+      [Best practices and patterns]
+      
+      ## Try It Yourself
+      
+      Here are some exercises to practice:
+      
+      1. **[Exercise name]**: [Brief description]
+         ```bash
+         # Try this:
+         [starter code or prompt]
+         ```
+      
+      ## Related
+      
+      - [Links to related components]
+      
+      ## Source
+      
+      - [GitHub repo link]
+      - [Any other official docs]
+      ```
+      
+      IMPORTANT:
+      - Write in your own words - DO NOT copy text verbatim from source
+      - Include copy-pasteable code for every example
+      - Make examples progressive (simple to complex)
+      - Focus on practical "how to use" over theory
+      - Include at least 2 exercises
+
+  # Step 4: Reviewer agent validates accuracy
+  - id: review-content
+    agent: foundation:zen-architect
+    instruction: |
+      You are the REVIEWER. Validate the tutorial content for accuracy.
+      
+      Tutorial content to review:
+      {{write-content.result}}
+      
+      Original source documentation:
+      {{fetch-source-docs.result}}
+      
+      Check for:
+      
+      1. **Factual Accuracy**
+         - Are all claims supported by the source docs?
+         - Are code examples correct and would they work?
+         - Are configuration options accurate?
+         - Are any features mentioned that don't exist?
+      
+      2. **Completeness**
+         - Are major features covered?
+         - Are there important use cases missing?
+         - Are the examples sufficient?
+      
+      3. **Hallucinations**
+         - Is anything stated that ISN'T in the source?
+         - Are there made-up features or options?
+         - Are there incorrect commands or syntax?
+      
+      Return a structured review:
+      
+      ```yaml
+      status: PASS | NEEDS_REVISION
+      
+      accuracy_issues:
+        - issue: "[description]"
+          location: "[where in the content]"
+          correction: "[what it should say]"
+      
+      completeness_issues:
+        - missing: "[what's missing]"
+          importance: high | medium | low
+      
+      hallucinations:
+        - claim: "[the problematic claim]"
+          evidence: "NOT_FOUND_IN_SOURCE"
+      
+      suggestions:
+        - "[improvement suggestion]"
+      ```
+      
+      If status is PASS, the content is ready.
+      If status is NEEDS_REVISION, list all issues that must be fixed.
+
+  # Step 5: Revise if needed (conditional)
+  - id: revise-content
+    agent: foundation:modular-builder
+    condition: "{{review-content.result.status}} == 'NEEDS_REVISION'"
+    instruction: |
+      Revise the tutorial content based on reviewer feedback.
+      
+      Original content:
+      {{write-content.result}}
+      
+      Review feedback:
+      {{review-content.result}}
+      
+      Source documentation (for reference):
+      {{fetch-source-docs.result}}
+      
+      Fix ALL issues identified:
+      - Correct any inaccuracies
+      - Remove any hallucinated content
+      - Add missing important features
+      - Improve based on suggestions
+      
+      Return the complete revised content.
+
+  # Step 6: Write final content to file
+  - id: save-content
+    agent: foundation:file-ops
+    instruction: |
+      Save the tutorial content to:
+      {{content_base}}/{{component_type}}/{{component_id}}.md
+      
+      Content to save:
+      {{revise-content.result | default: write-content.result}}
+      
+      Also update the index file at:
+      {{content_base}}/{{component_type}}/_index.yaml
+      
+      Add or update this component's entry:
+      ```yaml
+      - id: {{component_id}}
+        title: "[from content frontmatter]"
+        description: "[first paragraph summary]"
+        last_updated: "[today's date]"
+      ```
+
+  # Step 7: Report completion
+  - id: report
+    agent: foundation:zen-architect
+    instruction: |
+      Create a completion report for the content generation.
+      
+      Component: {{component_id}}
+      Type: {{component_type}}
+      
+      Review status: {{review-content.result.status}}
+      
+      Content saved to: {{content_base}}/{{component_type}}/{{component_id}}.md
+      
+      Summarize:
+      - What was generated
+      - Any issues found and fixed
+      - Quality assessment
+      - Recommendations for human review

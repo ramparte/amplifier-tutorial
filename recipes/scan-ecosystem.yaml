@@ -1,0 +1,153 @@
+# Scan Ecosystem Recipe
+# Discovers all Amplifier ecosystem components and updates the manifest
+#
+# Usage:
+#   amplifier recipes execute recipes/scan-ecosystem.yaml
+#
+# Output:
+#   Updates .planning/ecosystem-manifest.yaml with discovered components
+
+name: scan-ecosystem
+description: Discover all components across the Amplifier ecosystem
+
+context:
+  manifest_path: ".planning/ecosystem-manifest.yaml"
+  modules_url: "https://raw.githubusercontent.com/microsoft/amplifier/main/docs/MODULES.md"
+  community_users:
+    - robotdad
+    - bkrabach
+
+steps:
+  # Step 1: Fetch the official MODULES.md catalog
+  - id: fetch-modules-catalog
+    agent: foundation:web-research
+    instruction: |
+      Fetch the official Amplifier modules catalog from:
+      {{modules_url}}
+      
+      Extract ALL components mentioned, organized by type:
+      - Core repos (amplifier, amplifier-core, amplifier-foundation)
+      - Official bundles (amplifier-bundle-*)
+      - Provider modules (provider-*)
+      - Tool modules (tool-*)
+      - Orchestrator modules
+      - Context modules
+      - Hook modules
+      - Applications (amplifier-app-*)
+      
+      For each component, extract:
+      - Name
+      - Repository URL
+      - Brief description
+      - Type (bundle, provider, tool, hook, etc.)
+      
+      Return as structured YAML.
+
+  # Step 2: Scan community contributor repos
+  - id: scan-community-repos
+    agent: foundation:web-research
+    instruction: |
+      Scan GitHub for Amplifier-related repositories from community contributors.
+      
+      Users to scan: {{community_users}}
+      
+      For each user, find repositories that:
+      - Have "amplifier" in the name
+      - Are bundles, modules, collections, or skills
+      - Contain tools useful for Amplifier development
+      
+      For each discovered repo, extract:
+      - Name
+      - Repository URL  
+      - Owner
+      - Description
+      - Type (bundle, module, skill, dev-tool, collection)
+      - Install command (if available)
+      
+      Return as structured YAML.
+
+  # Step 3: Merge and deduplicate findings
+  - id: merge-findings
+    agent: foundation:zen-architect
+    instruction: |
+      Merge the official catalog and community findings into a single manifest.
+      
+      Official components:
+      {{fetch-modules-catalog.result}}
+      
+      Community components:
+      {{scan-community-repos.result}}
+      
+      Create a unified manifest with these sections:
+      - meta (version, last_scan timestamp, sources)
+      - core (entry-point, kernel, library)
+      - bundles (official and community)
+      - providers
+      - tools
+      - orchestrators
+      - context
+      - hooks
+      - skills
+      - collections
+      - dev_tools
+      - applications
+      
+      For each component include:
+      - id (kebab-case identifier)
+      - name (display name)
+      - repo (full GitHub URL or org/repo)
+      - type
+      - description
+      - owner (for community components)
+      - priority (1=core, 2=recommended, 3=optional)
+      
+      Output as valid YAML.
+
+  # Step 4: Compare with existing manifest
+  - id: compare-manifests
+    agent: foundation:file-ops
+    instruction: |
+      Read the existing manifest at {{manifest_path}} if it exists.
+      
+      Compare with the new manifest:
+      {{merge-findings.result}}
+      
+      Report:
+      - New components discovered
+      - Components that were removed
+      - Components with changed descriptions
+      
+      If no existing manifest, report "Initial scan - all components are new."
+
+  # Step 5: Write updated manifest
+  - id: write-manifest
+    agent: foundation:file-ops
+    instruction: |
+      Write the merged manifest to {{manifest_path}}.
+      
+      Content to write:
+      {{merge-findings.result}}
+      
+      Add a header comment with:
+      - Generation timestamp
+      - Source URLs scanned
+      - Summary of changes from previous scan
+      
+      Changes detected:
+      {{compare-manifests.result}}
+
+  # Step 6: Generate summary report
+  - id: summary
+    agent: foundation:zen-architect
+    instruction: |
+      Create a human-readable summary of the ecosystem scan.
+      
+      Include:
+      - Total components by type
+      - New discoveries (if any)
+      - Recommendations for tutorial coverage
+      
+      Changes from scan:
+      {{compare-manifests.result}}
+      
+      Format as markdown suitable for display.

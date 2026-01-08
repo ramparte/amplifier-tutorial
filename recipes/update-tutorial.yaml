@@ -1,0 +1,104 @@
+# Update Tutorial Recipe
+# Targeted update of specific sections based on latest Amplifier repos
+
+name: update-tutorial
+description: Update specific sections of the tutorial from source repos
+
+context:
+  focus: ""  # Which section to update: quickstart, concepts, tools, bundles, skills, dev-setup, advanced, all
+  include_notes: true  # Whether to incorporate pending editorial notes
+
+steps:
+  - id: validate-focus
+    instruction: |
+      Validate the focus parameter: {{focus}}
+      
+      Valid values: quickstart, concepts, tools, bundles, skills, dev-setup, advanced, all
+      
+      If invalid or empty, default to "all".
+      
+      Return JSON: {"focus": "<validated-focus>"}
+    parse_json: true
+
+  - id: check-notes
+    condition: "{{include_notes}} == true"
+    instruction: |
+      Read the .notes/ directory and find any files marked [PENDING].
+      
+      List them with a brief summary of what they contain.
+      
+      Return JSON: {"pending_notes": [{"file": "...", "summary": "..."}]}
+    parse_json: true
+
+  - id: scan-repos
+    agent: foundation:explorer
+    instruction: |
+      Scan the relevant Amplifier repositories for updates related to: {{validate-focus.result.focus}}
+      
+      Focus areas:
+      - quickstart: microsoft/amplifier USER_ONBOARDING.md, getting started docs
+      - concepts: amplifier-core philosophy, module contracts
+      - tools: amplifier-foundation tool modules, tool-* repos
+      - bundles: amplifier-foundation bundles, bundle-* repos
+      - skills: robotdad skills repos
+      - dev-setup: bkrabach setup-tools
+      - advanced: MCP integration, custom module docs
+      - all: Everything above
+      
+      Return a summary of what's new or changed.
+
+  - id: generate-updates
+    agent: foundation:modular-builder
+    instruction: |
+      Based on the scan results:
+      {{scan-repos.result}}
+      
+      And pending notes:
+      {{check-notes.result}}
+      
+      Generate updated markdown content for the {{validate-focus.result.focus}} section(s).
+      
+      Follow the existing content style in /mnt/c/ANext/tutorial/content/
+      
+      For each file to update, provide the complete new content.
+
+  - id: review-updates
+    agent: foundation:zen-architect
+    instruction: |
+      Review the generated updates for:
+      - Accuracy against source material
+      - Consistency with existing tutorial style
+      - No hallucinated information
+      
+      Updates to review:
+      {{generate-updates.result}}
+      
+      Approve or flag issues.
+
+  - id: apply-updates
+    requires_approval: true
+    instruction: |
+      Apply the reviewed updates to the tutorial content files.
+      
+      Updates approved:
+      {{review-updates.result}}
+      
+      Write the files to /mnt/c/ANext/tutorial/content/
+
+  - id: rebuild-site
+    instruction: |
+      Rebuild the tutorial site:
+      
+      ```bash
+      cd /mnt/c/ANext/tutorial
+      source .venv/bin/activate
+      mkdocs build --clean
+      ```
+      
+      Report success or any build errors.
+
+  - id: mark-notes-done
+    condition: "{{include_notes}} == true"
+    instruction: |
+      For any notes that were incorporated, update their status from [PENDING] to [INCORPORATED]
+      in the .notes/ files.

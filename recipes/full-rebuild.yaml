@@ -1,0 +1,209 @@
+# Full Tutorial Rebuild Recipe
+# Complete regeneration of all tutorial content from source
+
+name: full-rebuild
+description: Regenerate all tutorial content from Amplifier repositories
+
+context:
+  skip_sections: []  # Sections to skip (e.g., ["advanced"] to skip advanced)
+
+steps:
+  - id: scan-ecosystem
+    agent: foundation:explorer
+    instruction: |
+      Perform a comprehensive scan of the Amplifier ecosystem:
+      
+      1. microsoft/amplifier - Main repo, docs, USER_ONBOARDING.md
+      2. microsoft/amplifier-core - Kernel, philosophy, contracts
+      3. microsoft/amplifier-foundation - Bundles, examples, patterns
+      4. microsoft/amplifier-bundle-* - Official bundles
+      5. bkrabach repos - Setup tools, patterns, scripts
+      6. robotdad repos - Skills packages (playwright, curl, etc.)
+      
+      Create a comprehensive inventory of:
+      - Documentation files
+      - Module types and their contracts
+      - Available bundles and what they include
+      - Skills and their capabilities
+      - Tools and utilities
+      
+      Return structured findings.
+
+  - id: collect-notes
+    instruction: |
+      Read all files in /mnt/c/ANext/tutorial/.notes/
+      
+      Collect any [PENDING] items that should be incorporated.
+      
+      Return a list of editorial additions to include.
+
+  - id: generate-quickstart
+    agent: foundation:modular-builder
+    condition: "'quickstart' not in {{skip_sections}}"
+    instruction: |
+      Generate the Getting Started section (6 pages):
+      
+      Based on ecosystem scan:
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. what-is-amplifier.md - Overview and value proposition
+      2. how-its-different.md - Comparison to Claude Code, Copilot
+      3. installation.md - Setup instructions
+      4. first-conversation.md - Basic usage
+      5. key-commands.md - Essential commands
+      6. first-bundle.md - Bundle basics
+      
+      Use the style from existing content in /mnt/c/ANext/tutorial/content/quickstart/
+
+  - id: generate-concepts
+    agent: foundation:modular-builder
+    condition: "'concepts' not in {{skip_sections}}"
+    instruction: |
+      Generate the Core Concepts section (7 pages):
+      
+      Based on ecosystem scan:
+      {{scan-ecosystem.result}}
+      
+      And editorial notes:
+      {{collect-notes.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. modules.md - Module types (Provider, Tool, Hook, Orchestrator, Context)
+      3. bundles.md - Bundle composition
+      4. agents.md - Agent pattern
+      5. recipes.md - Workflow orchestration
+      6. skills.md - Knowledge packages
+      7. hooks.md - Lifecycle events
+
+  - id: generate-tools
+    agent: foundation:modular-builder
+    condition: "'tools' not in {{skip_sections}}"
+    instruction: |
+      Generate the Tools Reference section (8 pages):
+      
+      Based on ecosystem scan:
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. filesystem.md - read_file, write_file, edit_file
+      3. bash.md - Shell commands
+      4. search.md - grep, glob
+      5. web.md - web_search, web_fetch
+      6. task.md - Sub-agent spawning
+      7. lsp.md - Code intelligence
+      8. recipes-tool.md - Recipe execution
+
+  - id: generate-bundles
+    agent: foundation:modular-builder
+    condition: "'bundles' not in {{skip_sections}}"
+    instruction: |
+      Generate the Bundles Reference section (5 pages):
+      
+      Based on ecosystem scan:
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. foundation.md - Foundation bundle
+      3. recipes.md - Recipes bundle
+      4. lsp-python.md - Python LSP bundle
+      5. design-intelligence.md - Design agents bundle
+
+  - id: generate-skills
+    agent: foundation:modular-builder
+    condition: "'skills' not in {{skip_sections}}"
+    instruction: |
+      Generate the Skills Reference section (4 pages):
+      
+      Based on ecosystem scan (especially robotdad repos):
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. playwright.md - Browser automation
+      3. curl.md - HTTP client
+      4. image-vision.md - Image analysis
+
+  - id: generate-dev-setup
+    agent: foundation:modular-builder
+    condition: "'dev-setup' not in {{skip_sections}}"
+    instruction: |
+      Generate the Developer Setup section (5 pages):
+      
+      Based on ecosystem scan (especially bkrabach repos):
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. cli-tools.md - Essential CLI tools
+      3. shadow-workspace.md - Safe editing pattern
+      4. remote-dev.md - Docker, SSH, Codespaces
+      5. debugging.md - Troubleshooting
+
+  - id: generate-advanced
+    agent: foundation:modular-builder
+    condition: "'advanced' not in {{skip_sections}}"
+    instruction: |
+      Generate the Advanced section (5 pages):
+      
+      Based on ecosystem scan:
+      {{scan-ecosystem.result}}
+      
+      Create:
+      1. index.md - Overview
+      2. custom-bundle.md - Creating bundles
+      3. custom-tool.md - Creating tools
+      4. custom-recipe.md - Creating recipes
+      5. mcp-integration.md - MCP servers
+
+  - id: review-all
+    agent: foundation:zen-architect
+    instruction: |
+      Review ALL generated content for:
+      - Accuracy against source documentation
+      - Consistency across sections
+      - No hallucinated information
+      - Complete coverage of topics
+      
+      Flag any issues found.
+
+  - id: apply-content
+    requires_approval: true
+    instruction: |
+      Write all generated content to /mnt/c/ANext/tutorial/content/
+      
+      Preserve the directory structure:
+      - content/quickstart/
+      - content/concepts/
+      - content/tools/
+      - content/bundles/
+      - content/skills/
+      - content/dev-setup/
+      - content/advanced/
+
+  - id: update-navigation
+    instruction: |
+      Update mkdocs.yml with navigation for all generated pages.
+      
+      Ensure all new pages are included in the nav: section.
+
+  - id: build-site
+    instruction: |
+      Build the tutorial site:
+      
+      ```bash
+      cd /mnt/c/ANext/tutorial
+      source .venv/bin/activate
+      mkdocs build --clean
+      ```
+      
+      Report build status.
+
+  - id: mark-notes-incorporated
+    instruction: |
+      Update any [PENDING] notes in .notes/ to [INCORPORATED].
+      
+      Add date of incorporation.

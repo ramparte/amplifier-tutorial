@@ -1,0 +1,484 @@
+# Amplifier Ecosystem Manifest
+# Generated: 2026-01-07
+# Purpose: Structured inventory of all ecosystem components for tutorial generation
+
+meta:
+  version: "1.0.0"
+  last_scan: "2026-01-07T11:39:00Z"
+  sources:
+    - "https://github.com/microsoft/amplifier/docs/MODULES.md"
+    - "https://github.com/robotdad"
+    - "https://github.com/bkrabach"
+
+# Core Infrastructure
+core:
+  - id: amplifier
+    name: "Amplifier"
+    repo: "microsoft/amplifier"
+    type: entry-point
+    description: "Main entry point - user docs, installation, ecosystem overview"
+    docs_path: "docs/"
+    priority: 1
+
+  - id: amplifier-core
+    name: "Amplifier Core"
+    repo: "microsoft/amplifier-core"
+    type: kernel
+    description: "Ultra-thin kernel (~2,600 lines) - module loading, session lifecycle, events"
+    docs_path: "docs/"
+    priority: 1
+
+  - id: amplifier-foundation
+    name: "Amplifier Foundation"
+    repo: "microsoft/amplifier-foundation"
+    type: library
+    description: "Bundle composition library + reference bundles + 21 examples"
+    docs_path: "docs/"
+    examples_path: "examples/"
+    priority: 1
+
+# Official Bundles
+bundles:
+  - id: foundation
+    name: "Foundation Bundle"
+    repo: "microsoft/amplifier-foundation"
+    type: bundle
+    description: "Default bundle with core agents, tools, and behaviors"
+    docs_path: "docs/BUNDLE_GUIDE.md"
+    priority: 1
+
+  - id: recipes
+    name: "Recipes Bundle"
+    repo: "microsoft/amplifier-bundle-recipes"
+    type: bundle
+    description: "Multi-step workflow orchestration with state, approvals, resumption"
+    docs_path: "docs/RECIPE_SCHEMA.md"
+    examples_path: "examples/"
+    priority: 1
+
+  - id: design-intelligence
+    name: "Design Intelligence Bundle"
+    repo: "microsoft/amplifier-bundle-design-intelligence"
+    type: bundle
+    description: "7 specialized design agents (art director, component designer, etc.)"
+    priority: 2
+
+  - id: lsp
+    name: "LSP Bundle"
+    repo: "microsoft/amplifier-bundle-lsp"
+    type: bundle
+    description: "Language Server Protocol base - semantic code navigation"
+    priority: 2
+
+  - id: lsp-python
+    name: "LSP Python Bundle"
+    repo: "microsoft/amplifier-bundle-lsp-python"
+    type: bundle
+    description: "Python code intelligence via Pyright"
+    priority: 2
+
+  - id: lsp-typescript
+    name: "LSP TypeScript Bundle"
+    repo: "robotdad/amplifier-bundle-lsp-typescript"
+    type: bundle
+    description: "TypeScript/JS code intelligence"
+    owner: robotdad
+    priority: 2
+
+# Providers
+providers:
+  - id: provider-anthropic
+    name: "Anthropic Provider"
+    repo: "microsoft/amplifier-module-provider-anthropic"
+    type: provider
+    description: "Claude models (recommended, most tested)"
+    priority: 1
+
+  - id: provider-openai
+    name: "OpenAI Provider"
+    repo: "microsoft/amplifier-module-provider-openai"
+    type: provider
+    description: "GPT models"
+    priority: 1
+
+  - id: provider-azure-openai
+    name: "Azure OpenAI Provider"
+    repo: "microsoft/amplifier-module-provider-azure-openai"
+    type: provider
+    description: "Azure-hosted OpenAI with managed identity"
+    priority: 2
+
+  - id: provider-gemini
+    name: "Gemini Provider"
+    repo: "microsoft/amplifier-module-provider-gemini"
+    type: provider
+    description: "Google Gemini models"
+    priority: 2
+
+  - id: provider-ollama
+    name: "Ollama Provider"
+    repo: "microsoft/amplifier-module-provider-ollama"
+    type: provider
+    description: "Local models via Ollama"
+    priority: 2
+
+  - id: provider-vllm
+    name: "vLLM Provider"
+    repo: "microsoft/amplifier-module-provider-vllm"
+    type: provider
+    description: "Self-hosted vLLM inference"
+    priority: 3
+
+  - id: provider-mock
+    name: "Mock Provider"
+    repo: "microsoft/amplifier-module-provider-mock"
+    type: provider
+    description: "Testing mock provider"
+    priority: 3
+
+# Tools
+tools:
+  - id: tool-filesystem
+    name: "Filesystem Tool"
+    repo: "microsoft/amplifier-module-tool-filesystem"
+    type: tool
+    description: "Read, write, edit files and directories"
+    priority: 1
+
+  - id: tool-bash
+    name: "Bash Tool"
+    repo: "microsoft/amplifier-module-tool-bash"
+    type: tool
+    description: "Execute shell commands"
+    priority: 1
+
+  - id: tool-web
+    name: "Web Tool"
+    repo: "microsoft/amplifier-module-tool-web"
+    type: tool
+    description: "Web search and URL fetching"
+    priority: 1
+
+  - id: tool-search
+    name: "Search Tool"
+    repo: "microsoft/amplifier-module-tool-search"
+    type: tool
+    description: "Grep and glob for codebase search"
+    priority: 1
+
+  - id: tool-task
+    name: "Task Tool"
+    repo: "microsoft/amplifier-module-tool-task"
+    type: tool
+    description: "Spawn sub-agents for delegation"
+    priority: 1
+
+  - id: tool-todo
+    name: "Todo Tool"
+    repo: "microsoft/amplifier-module-tool-todo"
+    type: tool
+    description: "Task list management"
+    priority: 1
+
+  - id: tool-skills
+    name: "Skills Tool"
+    repo: "microsoft/amplifier-module-tool-skills"
+    type: tool
+    description: "Load and use skill packages"
+    priority: 1
+
+  - id: tool-mcp
+    name: "MCP Tool"
+    repo: "robotdad/amplifier-module-tool-mcp"
+    type: tool
+    description: "Model Context Protocol server integration"
+    owner: robotdad
+    priority: 2
+
+# Orchestrators
+orchestrators:
+  - id: loop-basic
+    name: "Basic Loop"
+    repo: "microsoft/amplifier-module-orchestrator-loop-basic"
+    type: orchestrator
+    description: "Simple turn-based orchestration"
+    priority: 2
+
+  - id: loop-streaming
+    name: "Streaming Loop"
+    repo: "microsoft/amplifier-module-orchestrator-loop-streaming"
+    type: orchestrator
+    description: "Streaming response orchestration"
+    priority: 1
+
+  - id: loop-events
+    name: "Events Loop"
+    repo: "microsoft/amplifier-module-orchestrator-loop-events"
+    type: orchestrator
+    description: "Event-driven orchestration"
+    priority: 2
+
+# Context Managers
+context:
+  - id: context-simple
+    name: "Simple Context"
+    repo: "microsoft/amplifier-module-context-simple"
+    type: context
+    description: "In-memory message context"
+    priority: 2
+
+  - id: context-persistent
+    name: "Persistent Context"
+    repo: "microsoft/amplifier-module-context-persistent"
+    type: context
+    description: "File-backed persistent context"
+    priority: 2
+
+# Hooks
+hooks:
+  - id: hooks-logging
+    name: "Logging Hook"
+    repo: "microsoft/amplifier-module-hooks-logging"
+    type: hook
+    description: "JSONL event logging"
+    priority: 2
+
+  - id: hooks-redaction
+    name: "Redaction Hook"
+    repo: "microsoft/amplifier-module-hooks-redaction"
+    type: hook
+    description: "Sensitive data redaction"
+    priority: 2
+
+  - id: hooks-approval
+    name: "Approval Hook"
+    repo: "microsoft/amplifier-module-hooks-approval"
+    type: hook
+    description: "Human-in-the-loop approval gates"
+    priority: 2
+
+  - id: hooks-streaming-ui
+    name: "Streaming UI Hook"
+    repo: "microsoft/amplifier-module-hooks-streaming-ui"
+    type: hook
+    description: "Real-time streaming display"
+    priority: 2
+
+  - id: hooks-status-context
+    name: "Status Context Hook"
+    repo: "microsoft/amplifier-module-hooks-status-context"
+    type: hook
+    description: "Inject environment status into context"
+    priority: 2
+
+  - id: hooks-todo-reminder
+    name: "Todo Reminder Hook"
+    repo: "microsoft/amplifier-module-hooks-todo-reminder"
+    type: hook
+    description: "Remind about todo list"
+    priority: 3
+
+# Skills (robotdad)
+skills:
+  - id: skill-playwright
+    name: "Playwright Skill"
+    repo: "robotdad/skills"
+    path: "playwright/"
+    type: skill
+    description: "Browser automation for validation, testing, scraping"
+    owner: robotdad
+    files:
+      - SKILL.md
+      - patterns.md
+      - setup.md
+      - troubleshooting.md
+    priority: 1
+
+  - id: skill-curl
+    name: "Curl Skill"
+    repo: "robotdad/skills"
+    path: "curl/"
+    type: skill
+    description: "HTTP client for API testing and debugging"
+    owner: robotdad
+    priority: 2
+
+  - id: skill-image-vision
+    name: "Image Vision Skill"
+    repo: "robotdad/skills"
+    path: "image-vision/"
+    type: skill
+    description: "LLM vision APIs for image analysis"
+    owner: robotdad
+    priority: 2
+
+# Collections (robotdad)
+collections:
+  - id: spec-kit
+    name: "Spec-Kit Collection"
+    repo: "robotdad/amplifier-collection-spec-kit"
+    type: collection
+    description: "Specification-Driven Development - 8 agents, 3 profiles"
+    owner: robotdad
+    priority: 2
+
+  - id: ddd
+    name: "DDD Collection"
+    repo: "robotdad/amplifier-collection-ddd"
+    type: collection
+    description: "Document-Driven Development - 5 agents, 2 profiles"
+    owner: robotdad
+    priority: 2
+
+# Developer Tools (bkrabach)
+dev_tools:
+  - id: cli-tools
+    name: "Amplifier CLI Tools"
+    repo: "bkrabach/amplifier-cli-tools"
+    type: dev-tool
+    description: "amplifier-dev setup, workspace management, remote dev guide"
+    owner: bkrabach
+    install: "uv tool install git+https://github.com/bkrabach/amplifier-cli-tools"
+    commands:
+      - "amplifier-dev setup"
+      - "amplifier-dev <workdir>"
+      - "amplifier-reset"
+    priority: 1
+
+  - id: shadow-workspace
+    name: "Shadow Workspace"
+    repo: "bkrabach/amplifier-shadow"
+    type: dev-tool
+    description: "Isolated Docker environments for safe AI experimentation"
+    owner: bkrabach
+    commands:
+      - "amplifier-shadow start"
+      - "amplifier-shadow shell"
+      - "amplifier-shadow diff"
+      - "amplifier-shadow promote"
+    priority: 2
+
+  - id: trace-viewer
+    name: "Claude Trace Viewer"
+    repo: "bkrabach/claude-trace-viewer"
+    type: dev-tool
+    description: "Web-based session debugging with timeline visualization"
+    owner: bkrabach
+    install: "uvx claude-trace-viewer"
+    priority: 2
+
+  - id: project-template
+    name: "AI Project Template"
+    repo: "bkrabach/ai-code-project-template"
+    type: dev-tool
+    description: "AI-first project structure with /prime and /ultrathink-task"
+    owner: bkrabach
+    priority: 2
+
+# Applications
+applications:
+  - id: app-cli
+    name: "CLI Application"
+    repo: "microsoft/amplifier-app-cli"
+    type: application
+    description: "Reference CLI application"
+    priority: 1
+
+  - id: app-log-viewer
+    name: "Log Viewer"
+    repo: "microsoft/amplifier-app-log-viewer"
+    type: application
+    description: "Web-based session debugging"
+    priority: 2
+
+  - id: app-voice
+    name: "Voice Assistant"
+    repo: "robotdad/amplifier-app-voice"
+    type: application
+    description: "Voice-first interface using OpenAI Realtime API"
+    owner: robotdad
+    priority: 3
+
+  - id: app-blog-creator
+    name: "Blog Creator"
+    repo: "robotdad/amplifier-bundle-blog-creator"
+    type: application
+    description: "Multi-agent blog creation with style-aware generation"
+    owner: robotdad
+    priority: 3
+
+# Example Recipes (from amplifier-bundle-recipes)
+example_recipes:
+  - id: code-review
+    name: "Code Review"
+    path: "examples/code-review.yaml"
+    description: "Automated code review workflow"
+
+  - id: dependency-upgrade
+    name: "Dependency Upgrade"
+    path: "examples/dependency-upgrade.yaml"
+    description: "Analyze and upgrade dependencies"
+
+  - id: test-generation
+    name: "Test Generation"
+    path: "examples/test-generation.yaml"
+    description: "Generate tests for existing code"
+
+  - id: security-audit
+    name: "Security Audit"
+    path: "examples/security-audit.yaml"
+    description: "Security vulnerability assessment"
+
+# Foundation Examples (21 total)
+foundation_examples:
+  tier1_basics:
+    - { num: "01", name: "hello_world", goal: "Minimal working example" }
+    - { num: "02", name: "custom_configuration", goal: "Configure providers and tools" }
+    - { num: "03", name: "custom_tool", goal: "Create a custom tool" }
+
+  tier2_internals:
+    - { num: "04", name: "load_and_inspect", goal: "Understand bundle loading" }
+    - { num: "05", name: "composition", goal: "Compose bundles" }
+    - { num: "06", name: "sources_and_registry", goal: "Bundle sources" }
+    - { num: "07", name: "full_workflow", goal: "Complete workflow" }
+
+  tier3_production:
+    - { num: "08", name: "cli_application", goal: "Build CLI app" }
+    - { num: "09", name: "multi_agent_system", goal: "Multi-agent patterns" }
+
+  tier4_applications:
+    - { num: "10", name: "meeting_notes", goal: "Real-world app" }
+    - { num: "11", name: "provider_comparison", goal: "Compare providers" }
+    # ... and more through 21
+
+# Tutorial Content Priorities
+content_priorities:
+  p1_core_path:
+    - "What is Amplifier?"
+    - "How it differs (Claude Code, Copilot)"
+    - "Install & Setup"
+    - "First Conversation"
+    - "Key Commands"
+    - "Install Your First Bundle"
+
+  p2_concepts:
+    - "Bundles"
+    - "Modules"
+    - "Agents"
+    - "Recipes"
+    - "Skills"
+    - "Hooks"
+
+  p3_deep_dives:
+    - "All Tools"
+    - "All Bundles"
+    - "All Providers"
+    - "All Skills"
+    - "Example Recipes"
+    - "Foundation Examples"
+
+  p4_dev_resources:
+    - "amplifier-dev CLI"
+    - "Shadow Workspaces"
+    - "Remote Dev Setup"
+    - "Trace Viewer"
