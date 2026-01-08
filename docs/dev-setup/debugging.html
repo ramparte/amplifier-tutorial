@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Debugging - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Debugging";
+        var mkdocs_page_input_path = "dev-setup/debugging.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="debugging.html">Debugging</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#session-analysis">Session Analysis</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#find-your-session">Find Your Session</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#read-session-events">Read Session Events</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-event-types">Common Event Types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-analyst-agent">Session Analyst Agent</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-debugging">Tool Debugging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#see-tool-calls">See Tool Calls</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-errors">Tool Errors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-tool-issues">Common Tool Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#provider-debugging">Provider Debugging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#api-errors">API Errors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-provider-issues">Common Provider Issues</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-provider-connection">Test Provider Connection</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipe-debugging">Recipe Debugging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#validate-recipe">Validate Recipe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-recipe-session">Check Recipe Session</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-results">Step Results</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-recipe-issues">Common Recipe Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-debugging">Bundle Debugging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#validate-bundle">Validate Bundle</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-whats-loaded">Check What's Loaded</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-load-errors">Bundle Load Errors</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verbose-mode">Verbose Mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#log-locations">Log Locations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#debugging-workflow">Debugging Workflow</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-reproduce">Step 1: Reproduce</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-find-events">Step 2: Find Events</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-locate-error">Step 3: Locate Error</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-understand-context">Step 4: Understand Context</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-5-fix-and-retry">Step 5: Fix and Retry</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-explore-session">Exercise 1: Explore Session</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-find-tool-calls">Exercise 2: Find Tool Calls</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-debug-an-error">Exercise 3: Debug an Error</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Setup</li>
+      <li class="breadcrumb-item active">Debugging</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h1>
+<p>Troubleshoot issues with Amplifier and your AI-assisted workflows.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Debugging approaches:</p>
+<table>
+<thead>
+<tr>
+<th>Issue Type</th>
+<th>Where to Look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session errors</td>
+<td><code>events.jsonl</code></td>
+</tr>
+<tr>
+<td>Tool failures</td>
+<td>Tool output, logs</td>
+</tr>
+<tr>
+<td>Provider issues</td>
+<td>API errors, model limits</td>
+</tr>
+<tr>
+<td>Recipe problems</td>
+<td>Step results, context</td>
+</tr>
+<tr>
+<td>Bundle issues</td>
+<td>Bundle validation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="session-analysis">Session Analysis<a class="headerlink" href="#session-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="find-your-session">Find Your Session<a class="headerlink" href="#find-your-session" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># List recent sessions</span>
+ls<span class="w"> </span>-lt<span class="w"> </span>~/.amplifier/sessions/<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+
+<span class="c1"># Or in Amplifier</span>
+amp<span class="w"> </span>session<span class="w"> </span>list
+</code></pre></div>
+
+<h3 id="read-session-events">Read Session Events<a class="headerlink" href="#read-session-events" title="Permanent link">&para;</a></h3>
+<p>Sessions are logged to <code>events.jsonl</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>session-id<span class="o">]</span>
+
+<span class="c1"># View all events</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+
+<span class="c1"># Filter by event type</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;tool:call&quot;)&#39;</span>
+
+<span class="c1"># See errors</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type | contains(&quot;error&quot;))&#39;</span>
+</code></pre></div>
+
+<h3 id="common-event-types">Common Event Types<a class="headerlink" href="#common-event-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session:start</code></td>
+<td>Session began</td>
+</tr>
+<tr>
+<td><code>turn:start</code></td>
+<td>User message received</td>
+</tr>
+<tr>
+<td><code>provider:request</code></td>
+<td>API call to LLM</td>
+</tr>
+<tr>
+<td><code>provider:response</code></td>
+<td>LLM response</td>
+</tr>
+<tr>
+<td><code>tool:call</code></td>
+<td>Tool invoked</td>
+</tr>
+<tr>
+<td><code>tool:result</code></td>
+<td>Tool returned</td>
+</tr>
+<tr>
+<td><code>turn:end</code></td>
+<td>Response complete</td>
+</tr>
+<tr>
+<td><code>session:end</code></td>
+<td>Session ended</td>
+</tr>
+</tbody>
+</table>
+<h3 id="session-analyst-agent">Session Analyst Agent<a class="headerlink" href="#session-analyst-agent" title="Permanent link">&para;</a></h3>
+<p>For complex issues, use the specialist:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Analyze why session [id] failed
+</code></pre></div>
+
+<p>The <code>session-analyst</code> agent safely handles large event logs.</p>
+<h2 id="tool-debugging">Tool Debugging<a class="headerlink" href="#tool-debugging" title="Permanent link">&para;</a></h2>
+<h3 id="see-tool-calls">See Tool Calls<a class="headerlink" href="#see-tool-calls" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># In session, see what tools were called</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;tool:call&quot;) | .tool_name&#39;</span>
+</code></pre></div>
+
+<h3 id="tool-errors">Tool Errors<a class="headerlink" href="#tool-errors" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find tool errors</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;tool:result&quot; and .error != null)&#39;</span>
+</code></pre></div>
+
+<h3 id="common-tool-issues">Common Tool Issues<a class="headerlink" href="#common-tool-issues" title="Permanent link">&para;</a></h3>
+<p><strong>bash timeout:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Command took too long</span>
+<span class="c1"># Solution: Use explicit timeout</span>
+timeout<span class="w"> </span><span class="m">120</span><span class="w"> </span>long_command
+</code></pre></div>
+
+<p><strong>File not found:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Check path</span>
+ls<span class="w"> </span>-la<span class="w"> </span><span class="o">[</span>path<span class="o">]</span>
+
+<span class="c1"># Check working directory</span>
+<span class="nb">pwd</span>
+</code></pre></div>
+
+<p><strong>Permission denied:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Check permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span><span class="o">[</span>file<span class="o">]</span>
+chmod<span class="w"> </span>+x<span class="w"> </span><span class="o">[</span>script<span class="o">]</span>
+</code></pre></div>
+
+<h2 id="provider-debugging">Provider Debugging<a class="headerlink" href="#provider-debugging" title="Permanent link">&para;</a></h2>
+<h3 id="api-errors">API Errors<a class="headerlink" href="#api-errors" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find provider errors</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;provider:response&quot; and .error != null)&#39;</span>
+</code></pre></div>
+
+<h3 id="common-provider-issues">Common Provider Issues<a class="headerlink" href="#common-provider-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Rate limiting:</strong></p>
+<div class="codehilite"><pre><span></span><code>Error: 429 Too Many Requests
+</code></pre></div>
+
+<ul>
+<li>Wait and retry</li>
+<li>Check your API plan limits</li>
+<li>Consider using a different model</li>
+</ul>
+<p><strong>Token limits:</strong></p>
+<div class="codehilite"><pre><span></span><code>Error: Context length exceeded
+</code></pre></div>
+
+<ul>
+<li>Conversation too long</li>
+<li>Start new session</li>
+<li>Use smaller context</li>
+</ul>
+<p><strong>Invalid API key:</strong></p>
+<div class="codehilite"><pre><span></span><code>Error: 401 Unauthorized
+</code></pre></div>
+
+<ul>
+<li>Check <code>ANTHROPIC_API_KEY</code> is set</li>
+<li>Verify key is valid</li>
+<li>Check for typos</li>
+</ul>
+<h3 id="test-provider-connection">Test Provider Connection<a class="headerlink" href="#test-provider-connection" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Anthropic</span>
+curl<span class="w"> </span>https://api.anthropic.com/v1/messages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;x-api-key: </span><span class="nv">$ANTHROPIC_API_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;content-type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;anthropic-version: 2023-06-01&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;model&quot;: &quot;claude-sonnet-4-20250514&quot;, &quot;max_tokens&quot;: 10, &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hi&quot;}]}&#39;</span>
+</code></pre></div>
+
+<h2 id="recipe-debugging">Recipe Debugging<a class="headerlink" href="#recipe-debugging" title="Permanent link">&para;</a></h2>
+<h3 id="validate-recipe">Validate Recipe<a class="headerlink" href="#validate-recipe" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>my-recipe.yaml
+</code></pre></div>
+
+<h3 id="check-recipe-session">Check Recipe Session<a class="headerlink" href="#check-recipe-session" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># List recipe sessions</span>
+amp<span class="w"> </span>recipes<span class="w"> </span>list
+
+<span class="c1"># View recipe session events</span>
+cat<span class="w"> </span>~/.amplifier/sessions/recipe_<span class="o">[</span>id<span class="o">]</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+
+<h3 id="step-results">Step Results<a class="headerlink" href="#step-results" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># See what each step returned</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;step:complete&quot;)&#39;</span>
+</code></pre></div>
+
+<h3 id="common-recipe-issues">Common Recipe Issues<a class="headerlink" href="#common-recipe-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Context variable missing:</strong></p>
+<div class="codehilite"><pre><span></span><code>Error: Required context variable &#39;file_path&#39; not provided
+</code></pre></div>
+
+<ul>
+<li>Add <code>--context '{"file_path": "..."}'</code></li>
+</ul>
+<p><strong>Step failed:</strong>
+- Check the step's agent
+- Review the instruction
+- Look at step result in events</p>
+<h2 id="bundle-debugging">Bundle Debugging<a class="headerlink" href="#bundle-debugging" title="Permanent link">&para;</a></h2>
+<h3 id="validate-bundle">Validate Bundle<a class="headerlink" href="#validate-bundle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>bundle<span class="w"> </span>validate<span class="w"> </span>./my-bundle
+</code></pre></div>
+
+<h3 id="check-whats-loaded">Check What's Loaded<a class="headerlink" href="#check-whats-loaded" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What bundle am I using?
+&gt; What tools do you have?
+&gt; What agents are available?
+</code></pre></div>
+
+<h3 id="bundle-load-errors">Bundle Load Errors<a class="headerlink" href="#bundle-load-errors" title="Permanent link">&para;</a></h3>
+<p>Check for:
+- Missing <code>bundle.yaml</code>
+- Invalid YAML syntax
+- Missing included bundles
+- Invalid module references</p>
+<h2 id="verbose-mode">Verbose Mode<a class="headerlink" href="#verbose-mode" title="Permanent link">&para;</a></h2>
+<p>Get more output:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set debug logging</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AMPLIFIER_LOG_LEVEL</span><span class="o">=</span>debug
+
+<span class="c1"># Run Amplifier</span>
+amp
+</code></pre></div>
+
+<h2 id="log-locations">Log Locations<a class="headerlink" href="#log-locations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Log</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session events</td>
+<td><code>~/.amplifier/sessions/[id]/events.jsonl</code></td>
+</tr>
+<tr>
+<td>Application logs</td>
+<td><code>~/.amplifier/logs/</code></td>
+</tr>
+<tr>
+<td>Recipe sessions</td>
+<td><code>~/.amplifier/sessions/recipe_[id]/</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="debugging-workflow">Debugging Workflow<a class="headerlink" href="#debugging-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-reproduce">Step 1: Reproduce<a class="headerlink" href="#step-1-reproduce" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Note the session ID</span>
+amp<span class="w"> </span>session<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+</code></pre></div>
+
+<h3 id="step-2-find-events">Step 2: Find Events<a class="headerlink" href="#step-2-find-events" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>id<span class="o">]</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.event_type&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</code></pre></div>
+
+<h3 id="step-3-locate-error">Step 3: Locate Error<a class="headerlink" href="#step-3-locate-error" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find errors</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.error != null)&#39;</span>
+
+<span class="c1"># Find last event before error</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-20<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+
+<h3 id="step-4-understand-context">Step 4: Understand Context<a class="headerlink" href="#step-4-understand-context" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># See what led to error</span>
+cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;turn:start&quot; or .event_type == &quot;tool:call&quot;)&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-10
+</code></pre></div>
+
+<h3 id="step-5-fix-and-retry">Step 5: Fix and Retry<a class="headerlink" href="#step-5-fix-and-retry" title="Permanent link">&para;</a></h3>
+<p>Based on findings:
+- Fix configuration
+- Adjust prompts
+- Retry operation</p>
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-explore-session">Exercise 1: Explore Session<a class="headerlink" href="#exercise-1-explore-session" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Find latest session</span>
+<span class="nv">SESSION</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>-t<span class="w"> </span>~/.amplifier/sessions/<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+
+<span class="c1"># Count event types</span>
+cat<span class="w"> </span>~/.amplifier/sessions/<span class="nv">$SESSION</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.event_type&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</code></pre></div>
+
+<h3 id="exercise-2-find-tool-calls">Exercise 2: Find Tool Calls<a class="headerlink" href="#exercise-2-find-tool-calls" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># What tools were used?</span>
+cat<span class="w"> </span>~/.amplifier/sessions/<span class="nv">$SESSION</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;select(.event_type == &quot;tool:call&quot;) | .tool_name&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+</code></pre></div>
+
+<h3 id="exercise-3-debug-an-error">Exercise 3: Debug an Error<a class="headerlink" href="#exercise-3-debug-an-error" title="Permanent link">&para;</a></h3>
+<p>Intentionally cause an error:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Read the file /nonexistent/path/file.txt
+</code></pre></div>
+
+<p>Then find it in logs:</p>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.error != null)&#39;</span>
+</code></pre></div>
+
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>If stuck:</p>
+<ol>
+<li><strong>Search the error</strong> - Often others have hit it</li>
+<li><strong>Check GitHub Issues</strong> - Known problems and solutions</li>
+<li><strong>Ask Amplifier</strong> - "Why did this fail?"</li>
+<li><strong>Session analyst</strong> - "Analyze session [id]"</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="remote-dev.html" class="btn btn-neutral float-left" title="Remote Development"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../advanced/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="remote-dev.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../advanced/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

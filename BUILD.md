@@ -10,7 +10,7 @@ source .venv/bin/activate  # Or create: python -m venv .venv && pip install mkdo
 mkdocs build --clean
 ```
 
-The site will be in `site/` - open `site/index.html` in a browser.
+The site will be in `docs/` - open `docs/index.html` in a browser.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ tutorial/
 ├── .planning/        # Planning docs (not in site)
 ├── recipes/          # Build/update recipes
 ├── mkdocs.yml        # Site configuration
-├── site/             # Built output (gitignored)
+├── docs/             # Built output (served by GitHub Pages)
 └── BUILD.md          # This file
 ```
 
@@ -100,13 +100,19 @@ The tutorial pulls from:
 
 ```bash
 # Simple Python server
-cd site
+cd docs
 python -m http.server 8000
 # Open http://localhost:8000
 
 # Or with mkdocs (hot reload)
 mkdocs serve
 ```
+
+## GitHub Pages
+
+The site is hosted at: https://ramparte.github.io/amplifier-tutorial/
+
+GitHub Pages serves from the `docs/` folder on the master branch.
 
 ## Distribution
 

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Search (grep & glob) - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Search (grep \u0026 glob)";
+        var mkdocs_page_input_path = "tools/search.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="search.html">Search (grep & glob)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#grep-search-contents">grep - Search Contents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-search">Basic Search</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search-specific-path">Search Specific Path</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#regex-patterns">Regex Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#file-type-filter">File Type Filter</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#case-insensitive">Case Insensitive</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-context">Show Context</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#count-matches">Count Matches</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#output-modes">Output Modes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#glob-find-files">glob - Find Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-patterns">Basic Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-syntax">Pattern Syntax</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exclude-patterns">Exclude Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filter-by-type">Filter by Type</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-workflows">Common Workflows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#find-and-read">Find and Read</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#find-and-edit">Find and Edit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#explore-structure">Explore Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#find-definition">Find Definition</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#excluded-directories">Excluded Directories</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-find-todos">Exercise 1: Find TODOs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-explore-structure">Exercise 2: Explore Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-find-usage">Exercise 3: Find Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-complex-pattern">Exercise 4: Complex Pattern</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#grep-vs-bash-grep">grep vs bash grep</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#errors-and-troubleshooting">Errors and Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#no-matches-found">"No matches found"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#too-many-results">"Too many results"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#regex-escape">Regex Escape</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Search (grep & glob)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="search-tools">Search Tools<a class="headerlink" href="#search-tools" title="Permanent link">&para;</a></h1>
+<p>Find files and search content with <code>grep</code> and <code>glob</code>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep</code></td>
+<td>Search file contents</td>
+<td>Find code patterns, text</td>
+</tr>
+<tr>
+<td><code>glob</code></td>
+<td>Find files by name</td>
+<td>Locate files, explore structure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grep-search-contents">grep - Search Contents<a class="headerlink" href="#grep-search-contents" title="Permanent link">&para;</a></h2>
+<p>Search for patterns inside files.</p>
+<h3 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all TODO comments
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;TODO&quot;
+</code></pre></div>
+
+<h3 id="search-specific-path">Search Specific Path<a class="headerlink" href="#search-specific-path" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all print statements in src/
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;print\\(&quot;
+path: src/
+</code></pre></div>
+
+<h3 id="regex-patterns">Regex Patterns<a class="headerlink" href="#regex-patterns" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Function definitions
+pattern: &quot;def \\w+\\(&quot;
+
+# Import statements
+pattern: &quot;^import|^from .* import&quot;
+
+# Email addresses
+pattern: &quot;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}&quot;
+</code></pre></div>
+
+<h3 id="file-type-filter">File Type Filter<a class="headerlink" href="#file-type-filter" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find &#39;config&#39; only in Python files
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;config&quot;
+type: py
+</code></pre></div>
+
+<p>Available types: <code>py</code>, <code>js</code>, <code>ts</code>, <code>rust</code>, <code>go</code>, <code>java</code>, <code>md</code>, etc.</p>
+<h3 id="case-insensitive">Case Insensitive<a class="headerlink" href="#case-insensitive" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;error&quot;
+-i: true
+</code></pre></div>
+
+<h3 id="show-context">Show Context<a class="headerlink" href="#show-context" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Show 2 lines before and after each match
+[Tool: grep]
+pattern: &quot;raise Exception&quot;
+-C: 2
+output_mode: content
+</code></pre></div>
+
+<h3 id="count-matches">Count Matches<a class="headerlink" href="#count-matches" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;import&quot;
+output_mode: count
+</code></pre></div>
+
+<h3 id="output-modes">Output Modes<a class="headerlink" href="#output-modes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>files_with_matches</code></td>
+<td>List of matching files (default)</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>Matching lines with context</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>Number of matches per file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="glob-find-files">glob - Find Files<a class="headerlink" href="#glob-find-files" title="Permanent link">&para;</a></h2>
+<p>Find files by name pattern.</p>
+<h3 id="basic-patterns">Basic Patterns<a class="headerlink" href="#basic-patterns" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># All Python files
+&gt; Find all Python files
+[Tool: glob]
+pattern: &quot;**/*.py&quot;
+
+# All test files
+&gt; Find test files
+[Tool: glob]
+pattern: &quot;**/test_*.py&quot;
+
+# Config files
+&gt; Find config files
+[Tool: glob]
+pattern: &quot;**/*.{json,yaml,yml}&quot;
+</code></pre></div>
+
+<h3 id="pattern-syntax">Pattern Syntax<a class="headerlink" href="#pattern-syntax" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>Any characters (not /)</td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>Any path (including /)</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Single character</td>
+</tr>
+<tr>
+<td><code>[abc]</code></td>
+<td>Character set</td>
+</tr>
+<tr>
+<td><code>{a,b}</code></td>
+<td>Alternatives</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># All markdown in docs/
+pattern: &quot;docs/**/*.md&quot;
+
+# All index files
+pattern: &quot;**/index.{js,ts}&quot;
+
+# Single character variant
+pattern: &quot;file?.txt&quot;  # file1.txt, fileA.txt
+
+# Character range
+pattern: &quot;log[0-9].txt&quot;  # log1.txt, log2.txt
+</code></pre></div>
+
+<h3 id="exclude-patterns">Exclude Patterns<a class="headerlink" href="#exclude-patterns" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Tool: glob]
+pattern: &quot;**/*.py&quot;
+exclude: [&quot;**/__pycache__/**&quot;, &quot;**/venv/**&quot;]
+</code></pre></div>
+
+<h3 id="filter-by-type">Filter by Type<a class="headerlink" href="#filter-by-type" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># Only directories
+[Tool: glob]
+pattern: &quot;src/*&quot;
+type: dir
+
+# Only files
+[Tool: glob]
+pattern: &quot;src/*&quot;
+type: file
+</code></pre></div>
+
+<h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="find-and-read">Find and Read<a class="headerlink" href="#find-and-read" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find the authentication module and show me its contents
+</code></pre></div>
+
+<ol>
+<li><code>[glob] pattern: "**/auth*.py"</code> → finds <code>src/auth.py</code></li>
+<li><code>[read_file] file_path: src/auth.py</code></li>
+</ol>
+<h3 id="find-and-edit">Find and Edit<a class="headerlink" href="#find-and-edit" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all files with deprecated API and update them
+</code></pre></div>
+
+<ol>
+<li><code>[grep] pattern: "deprecated_function"</code> → lists files</li>
+<li><code>[edit_file]</code> each file with replacement</li>
+</ol>
+<h3 id="explore-structure">Explore Structure<a class="headerlink" href="#explore-structure" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; What&#39;s the project structure?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[glob] pattern: &quot;**/*&quot; type: dir
+</code></pre></div>
+
+<h3 id="find-definition">Find Definition<a class="headerlink" href="#find-definition" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Where is the User class defined?
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[grep] pattern: &quot;class User&quot;
+</code></pre></div>
+
+<h2 id="excluded-directories">Excluded Directories<a class="headerlink" href="#excluded-directories" title="Permanent link">&para;</a></h2>
+<p>By default, these are excluded:
+- <code>node_modules/</code>
+- <code>.venv/</code>, <code>venv/</code>
+- <code>.git/</code>
+- <code>__pycache__/</code>
+- <code>build/</code>, <code>dist/</code></p>
+<p>To include them:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: grep]
+pattern: &quot;lodash&quot;
+include_ignored: true
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-find-todos">Exercise 1: Find TODOs<a class="headerlink" href="#exercise-1-find-todos" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all TODO and FIXME comments in the project
+</code></pre></div>
+
+<h3 id="exercise-2-explore-structure">Exercise 2: Explore Structure<a class="headerlink" href="#exercise-2-explore-structure" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; List all directories under src/
+</code></pre></div>
+
+<h3 id="exercise-3-find-usage">Exercise 3: Find Usage<a class="headerlink" href="#exercise-3-find-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all files that import the &#39;requests&#39; library
+</code></pre></div>
+
+<h3 id="exercise-4-complex-pattern">Exercise 4: Complex Pattern<a class="headerlink" href="#exercise-4-complex-pattern" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Find all functions that start with &#39;get_&#39; or &#39;fetch_&#39;
+</code></pre></div>
+
+<h2 id="grep-vs-bash-grep">grep vs bash grep<a class="headerlink" href="#grep-vs-bash-grep" title="Permanent link">&para;</a></h2>
+<p>Prefer Amplifier's grep tool over bash:</p>
+<table>
+<thead>
+<tr>
+<th>Amplifier grep</th>
+<th>bash grep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structured output</td>
+<td>Raw text</td>
+</tr>
+<tr>
+<td>Smart exclusions</td>
+<td>Manual excludes</td>
+</tr>
+<tr>
+<td>Output limits</td>
+<td>May overflow</td>
+</tr>
+<tr>
+<td>Integrated results</td>
+<td>Separate parsing</td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite"><pre><span></span><code># Prefer this:
+[Tool: grep] pattern: &quot;TODO&quot;
+
+# Over this:
+[bash] grep -r &quot;TODO&quot; .
+</code></pre></div>
+
+<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="no-matches-found">"No matches found"<a class="headerlink" href="#no-matches-found" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check pattern syntax (escape special chars)</li>
+<li>Check path is correct</li>
+<li>Try case-insensitive with <code>-i: true</code></li>
+</ul>
+<h3 id="too-many-results">"Too many results"<a class="headerlink" href="#too-many-results" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Add path filter</li>
+<li>Use file type filter</li>
+<li>Add more specific pattern</li>
+</ul>
+<h3 id="regex-escape">Regex Escape<a class="headerlink" href="#regex-escape" title="Permanent link">&para;</a></h3>
+<p>Special characters need escaping:</p>
+<div class="codehilite"><pre><span></span><code># Search for literal &quot;function()&quot;
+pattern: &quot;function\\(\\)&quot;
+
+# Search for file path
+pattern: &quot;src/utils\\.py&quot;
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="bash.html" class="btn btn-neutral float-left" title="Bash"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="web.html" class="btn btn-neutral float-right" title="Web Tools">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="bash.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="web.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

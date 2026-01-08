@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Agents - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Agents";
+        var mkdocs_page_input_path = "concepts/agents.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="agents.html">Agents</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-an-agent">What is an Agent?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-agents">Using Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#automatic-delegation">Automatic Delegation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#manual-delegation">Manual Delegation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#via-task-tool">Via Task Tool</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#built-in-agents">Built-in Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#foundation-agents">Foundation Agents</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#design-intelligence-agents">Design Intelligence Agents</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-definition">Agent Definition</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-vs-bundle">Agent vs Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-agents-work">How Agents Work</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-agents">Creating Custom Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-create-agent-file">Step 1: Create Agent File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-register-in-bundle">Step 2: Register in Bundle</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-use-it">Step 3: Use It</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-context">Agent Context</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-see-available-agents">Exercise 1: See Available Agents</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-explicitly-use-an-agent">Exercise 2: Explicitly Use an Agent</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-watch-delegation">Exercise 3: Watch Delegation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Agents</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h1>
+<p>Agents are specialized AI configurations designed for specific tasks. When you need debugging expertise, you spawn the bug-hunter. When you need architecture advice, you spawn the zen-architect.</p>
+<h2 id="what-is-an-agent">What is an Agent?<a class="headerlink" href="#what-is-an-agent" title="Permanent link">&para;</a></h2>
+<p>An agent is a <strong>sub-session</strong> with its own:</p>
+<ul>
+<li><strong>Instructions</strong> - Specialized system prompt</li>
+<li><strong>Tools</strong> - Subset of available tools</li>
+<li><strong>Context</strong> - Domain knowledge</li>
+<li><strong>Behavior</strong> - How it approaches problems</li>
+</ul>
+<p>Agents run as separate sessions, do their work, and report back.</p>
+<h2 id="using-agents">Using Agents<a class="headerlink" href="#using-agents" title="Permanent link">&para;</a></h2>
+<h3 id="automatic-delegation">Automatic Delegation<a class="headerlink" href="#automatic-delegation" title="Permanent link">&para;</a></h3>
+<p>Amplifier automatically delegates to specialists:</p>
+<div class="codehilite"><pre><span></span><code>You: Debug the authentication issue in src/auth.py
+
+Amplifier: I&#39;ll delegate this to the bug-hunter agent...
+
+[bug-hunter runs, investigates, reports back]
+
+Amplifier: The bug-hunter found the issue: [summary]
+</code></pre></div>
+
+<h3 id="manual-delegation">Manual Delegation<a class="headerlink" href="#manual-delegation" title="Permanent link">&para;</a></h3>
+<p>Request a specific agent:</p>
+<div class="codehilite"><pre><span></span><code>You: Use the zen-architect to review this module&#39;s design
+
+You: Ask the security-guardian to check src/api.py
+</code></pre></div>
+
+<h3 id="via-task-tool">Via Task Tool<a class="headerlink" href="#via-task-tool" title="Permanent link">&para;</a></h3>
+<p>The AI uses the <code>task</code> tool to spawn agents:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+agent: foundation:bug-hunter
+instruction: &quot;Debug the authentication failure in src/auth.py&quot;
+</code></pre></div>
+
+<h2 id="built-in-agents">Built-in Agents<a class="headerlink" href="#built-in-agents" title="Permanent link">&para;</a></h2>
+<h3 id="foundation-agents">Foundation Agents<a class="headerlink" href="#foundation-agents" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Specialty</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zen-architect</code></td>
+<td>Design &amp; architecture</td>
+<td>Planning, code review, refactoring</td>
+</tr>
+<tr>
+<td><code>bug-hunter</code></td>
+<td>Debugging</td>
+<td>Errors, test failures, unexpected behavior</td>
+</tr>
+<tr>
+<td><code>modular-builder</code></td>
+<td>Implementation</td>
+<td>Building from specifications</td>
+</tr>
+<tr>
+<td><code>explorer</code></td>
+<td>Reconnaissance</td>
+<td>Understanding codebases, mapping structure</td>
+</tr>
+<tr>
+<td><code>security-guardian</code></td>
+<td>Security review</td>
+<td>Vulnerability assessment, auth review</td>
+</tr>
+<tr>
+<td><code>test-coverage</code></td>
+<td>Testing strategy</td>
+<td>Identifying test gaps, writing tests</td>
+</tr>
+<tr>
+<td><code>git-ops</code></td>
+<td>Git operations</td>
+<td>Commits, PRs, branch management</td>
+</tr>
+<tr>
+<td><code>web-research</code></td>
+<td>Web research</td>
+<td>Finding docs, searching for solutions</td>
+</tr>
+<tr>
+<td><code>file-ops</code></td>
+<td>File operations</td>
+<td>Bulk file changes, search</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-intelligence-agents">Design Intelligence Agents<a class="headerlink" href="#design-intelligence-agents" title="Permanent link">&para;</a></h3>
+<p>From the <code>design-intelligence</code> bundle:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Specialty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>art-director</code></td>
+<td>Visual strategy, aesthetics</td>
+</tr>
+<tr>
+<td><code>component-designer</code></td>
+<td>UI component design</td>
+</tr>
+<tr>
+<td><code>layout-architect</code></td>
+<td>Page structure, information architecture</td>
+</tr>
+<tr>
+<td><code>animation-choreographer</code></td>
+<td>Motion and transitions</td>
+</tr>
+<tr>
+<td><code>responsive-strategist</code></td>
+<td>Multi-device design</td>
+</tr>
+<tr>
+<td><code>voice-strategist</code></td>
+<td>Tone, microcopy, UX writing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="agent-definition">Agent Definition<a class="headerlink" href="#agent-definition" title="Permanent link">&para;</a></h2>
+<p>Agents are defined in YAML:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># agents/my-specialist.yaml</span>
+<span class="nt">meta</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-specialist</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Expert</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">analyzing</span><span class="nv"> </span><span class="s">performance</span><span class="nv"> </span><span class="s">issues&quot;</span>
+
+<span class="c1"># What tools this agent can use</span>
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grep</span>
+
+<span class="c1"># Specialized instructions</span>
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">You are a performance analysis expert.</span>
+
+<span class="w">  </span><span class="no">When analyzing performance:</span>
+<span class="w">  </span><span class="no">1. First profile the code to identify hotspots</span>
+<span class="w">  </span><span class="no">2. Check for common issues (N+1 queries, missing indexes)</span>
+<span class="w">  </span><span class="no">3. Measure before and after any changes</span>
+<span class="w">  </span><span class="no">4. Provide specific, actionable recommendations</span>
+
+<span class="w">  </span><span class="no">Always include benchmarks with your findings.</span>
+
+<span class="c1"># Additional context to load</span>
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/performance-patterns.md</span>
+</code></pre></div>
+
+<h2 id="agent-vs-bundle">Agent vs Bundle<a class="headerlink" href="#agent-vs-bundle" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Agent</th>
+<th>Bundle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Single task</td>
+<td>Full session configuration</td>
+</tr>
+<tr>
+<td><strong>Lifetime</strong></td>
+<td>Spawned, runs, returns</td>
+<td>Active for entire session</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Specialist work</td>
+<td>Environment setup</td>
+</tr>
+<tr>
+<td><strong>Relationship</strong></td>
+<td>Agent runs within bundle</td>
+<td>Bundle defines available agents</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-agents-work">How Agents Work<a class="headerlink" href="#how-agents-work" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Main Session
+    │
+    ├── You: &quot;Debug this auth issue&quot;
+    │
+    ├── Main AI: &quot;I&#39;ll delegate to bug-hunter&quot;
+    │
+    ├── [Spawns sub-session]
+    │   │
+    │   └── bug-hunter agent
+    │       ├── Reads auth.py
+    │       ├── Runs tests
+    │       ├── Identifies bug
+    │       └── Returns findings
+    │
+    └── Main AI: &quot;The bug-hunter found...&quot;
+</code></pre></div>
+
+<p>Key points:
+- Sub-sessions are <strong>isolated</strong> - they don't see your full conversation
+- They receive <strong>focused instructions</strong> - just what they need
+- They <strong>report back</strong> - main session synthesizes results</p>
+<h2 id="creating-custom-agents">Creating Custom Agents<a class="headerlink" href="#creating-custom-agents" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-create-agent-file">Step 1: Create Agent File<a class="headerlink" href="#step-1-create-agent-file" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/agents/api-reviewer.yaml</span>
+<span class="nt">meta</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-reviewer</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Reviews</span><span class="nv"> </span><span class="s">REST</span><span class="nv"> </span><span class="s">API</span><span class="nv"> </span><span class="s">designs</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">best</span><span class="nv"> </span><span class="s">practices&quot;</span>
+
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grep</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">You are an API design expert specializing in REST.</span>
+
+<span class="w">  </span><span class="no">When reviewing APIs:</span>
+<span class="w">  </span><span class="no">- Check for RESTful resource naming</span>
+<span class="w">  </span><span class="no">- Verify proper HTTP method usage</span>
+<span class="w">  </span><span class="no">- Ensure consistent error responses</span>
+<span class="w">  </span><span class="no">- Look for versioning strategy</span>
+<span class="w">  </span><span class="no">- Check authentication patterns</span>
+
+<span class="w">  </span><span class="no">Reference industry standards (OpenAPI, JSON:API).</span>
+</code></pre></div>
+
+<h3 id="step-2-register-in-bundle">Step 2: Register in Bundle<a class="headerlink" href="#step-2-register-in-bundle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># bundle.yaml</span>
+<span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/api-reviewer.yaml</span>
+</code></pre></div>
+
+<h3 id="step-3-use-it">Step 3: Use It<a class="headerlink" href="#step-3-use-it" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You: Use api-reviewer to check our user endpoints in src/api/users.py
+</code></pre></div>
+
+<h2 id="agent-context">Agent Context<a class="headerlink" href="#agent-context" title="Permanent link">&para;</a></h2>
+<p>Agents can include additional context files:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># agents/database-expert.yaml</span>
+<span class="nt">meta</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database-expert</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;PostgreSQL</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">optimization</span><span class="nv"> </span><span class="s">expert&quot;</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/postgres-patterns.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/indexing-guide.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/query-optimization.md</span>
+
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">You have access to PostgreSQL best practices.</span>
+<span class="w">  </span><span class="no">Always check for missing indexes and N+1 queries.</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-see-available-agents">Exercise 1: See Available Agents<a class="headerlink" href="#exercise-1-see-available-agents" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amplifier
+
+&gt;<span class="w"> </span>/agents
+</code></pre></div>
+
+<h3 id="exercise-2-explicitly-use-an-agent">Exercise 2: Explicitly Use an Agent<a class="headerlink" href="#exercise-2-explicitly-use-an-agent" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Use the explorer agent to map the structure of this project
+</code></pre></div>
+
+<h3 id="exercise-3-watch-delegation">Exercise 3: Watch Delegation<a class="headerlink" href="#exercise-3-watch-delegation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Debug why the tests are failing
+
+# Watch the output - you&#39;ll see it delegate to bug-hunter
+</code></pre></div>
+
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Agents are specialists</strong> - Each has deep expertise in one area</li>
+<li><strong>Delegation is automatic</strong> - Amplifier routes to the right agent</li>
+<li><strong>Agents are sub-sessions</strong> - They run, return results, and end</li>
+<li><strong>You can create your own</strong> - Define YAML files with instructions and context</li>
+</ol>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>Learn about multi-step workflows:</p>
+<p>→ <a href="recipes.html">Recipes</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="bundles.html" class="btn btn-neutral float-left" title="Bundles"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="recipes.html" class="btn btn-neutral float-right" title="Recipes">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="bundles.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="recipes.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

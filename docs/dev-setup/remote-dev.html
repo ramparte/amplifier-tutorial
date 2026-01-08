@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Remote Development - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Remote Development";
+        var mkdocs_page_input_path = "dev-setup/remote-dev.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="remote-dev.html">Remote Development</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#port-forwarding">Port Forwarding</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#persistent-sessions">Persistent Sessions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vs-code-remote">VS Code Remote</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#remote-ssh">Remote - SSH</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remote-containers">Remote - Containers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dockerfile">Dockerfile</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#docker-compose">Docker Compose</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#github-codespaces">GitHub Codespaces</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#setup_1">Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wsl-windows-subsystem-for-linux">WSL (Windows Subsystem for Linux)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#setup_2">Setup</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#access-windows-files">Access Windows Files</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vs-code-wsl">VS Code + WSL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#local-env-file">Local .env File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#direnv">direnv</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-docker">Exercise 1: Docker</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-tmux">Exercise 2: tmux</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Setup</li>
+      <li class="breadcrumb-item active">Remote Development</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="remote-development">Remote Development<a class="headerlink" href="#remote-development" title="Permanent link">&para;</a></h1>
+<p>Run Amplifier on remote machines, containers, and cloud environments.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Remote development options:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH</td>
+<td>Remote servers, VMs</td>
+</tr>
+<tr>
+<td>VS Code Remote</td>
+<td>Seamless IDE experience</td>
+</tr>
+<tr>
+<td>Docker</td>
+<td>Isolated environments</td>
+</tr>
+<tr>
+<td>GitHub Codespaces</td>
+<td>Cloud development</td>
+</tr>
+<tr>
+<td>WSL</td>
+<td>Windows + Linux</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ssh">SSH<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h2>
+<p>Run Amplifier on a remote server.</p>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># SSH to your server</span>
+ssh<span class="w"> </span>user@remote-server
+
+<span class="c1"># Install Amplifier</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
+
+<span class="c1"># Configure provider (on remote)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span>
+
+<span class="c1"># Run</span>
+amp
+</code></pre></div>
+
+<h3 id="port-forwarding">Port Forwarding<a class="headerlink" href="#port-forwarding" title="Permanent link">&para;</a></h3>
+<p>For web UIs or local services:</p>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>-L<span class="w"> </span><span class="m">8080</span>:localhost:8080<span class="w"> </span>user@remote-server
+</code></pre></div>
+
+<h3 id="persistent-sessions">Persistent Sessions<a class="headerlink" href="#persistent-sessions" title="Permanent link">&para;</a></h3>
+<p>Use tmux to keep sessions alive:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start tmux</span>
+ssh<span class="w"> </span>user@remote-server
+tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span>amplifier
+
+<span class="c1"># Run Amplifier</span>
+amp
+
+<span class="c1"># Detach: Ctrl+b, then d</span>
+<span class="c1"># Reconnect later</span>
+ssh<span class="w"> </span>user@remote-server
+tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>amplifier
+</code></pre></div>
+
+<h2 id="vs-code-remote">VS Code Remote<a class="headerlink" href="#vs-code-remote" title="Permanent link">&para;</a></h2>
+<p>Use VS Code's Remote extensions for seamless experience.</p>
+<h3 id="remote-ssh">Remote - SSH<a class="headerlink" href="#remote-ssh" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install extension</span>
+code<span class="w"> </span>--install-extension<span class="w"> </span>ms-vscode-remote.remote-ssh
+
+<span class="c1"># Connect</span>
+<span class="c1"># Ctrl+Shift+P → &quot;Remote-SSH: Connect to Host&quot;</span>
+
+<span class="c1"># Open terminal in VS Code</span>
+<span class="c1"># Run Amplifier normally</span>
+amp
+</code></pre></div>
+
+<h3 id="remote-containers">Remote - Containers<a class="headerlink" href="#remote-containers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install extension</span>
+code<span class="w"> </span>--install-extension<span class="w"> </span>ms-vscode-remote.remote-containers
+
+<span class="c1"># Create devcontainer config</span>
+mkdir<span class="w"> </span>.devcontainer
+</code></pre></div>
+
+<p><code>.devcontainer/devcontainer.json</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amplifier Dev&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python:3.12&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;curl -LsSf https://astral.sh/uv/install.sh | sh &amp;&amp; uv tool install amplifier&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;remoteEnv&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ANTHROPIC_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${localEnv:ANTHROPIC_API_KEY}&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<p>Run Amplifier in a container.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run interactive container</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span>/workspace<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ANTHROPIC_API_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python:3.12<span class="w"> </span>bash
+
+<span class="c1"># Inside container</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<span class="nb">source</span><span class="w"> </span>~/.cargo/env
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
+amp
+</code></pre></div>
+
+<h3 id="dockerfile">Dockerfile<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span>
+
+<span class="c"># Install uv</span>
+<span class="k">RUN</span><span class="w"> </span>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+
+<span class="c"># Add uv to PATH</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/root/.cargo/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+
+<span class="c"># Install Amplifier</span>
+<span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span>
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;amp&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Build and run:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>amplifier-dev<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>ANTHROPIC_API_KEY<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>amplifier-dev
+</code></pre></div>
+
+<h3 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">amplifier</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.:/workspace</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ANTHROPIC_API_KEY</span>
+<span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>amplifier
+</code></pre></div>
+
+<h2 id="github-codespaces">GitHub Codespaces<a class="headerlink" href="#github-codespaces" title="Permanent link">&para;</a></h2>
+<p>Cloud-hosted development environment.</p>
+<h3 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Create <code>.devcontainer/devcontainer.json</code> in your repo:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amplifier Workspace&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcr.microsoft.com/devcontainers/python:3.12&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;postCreateCommand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;curl -LsSf https://astral.sh/uv/install.sh | sh &amp;&amp; source ~/.cargo/env &amp;&amp; uv tool install amplifier&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;secrets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ANTHROPIC_API_KEY&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;API key for Anthropic Claude&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;customizations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;vscode&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;ms-python.python&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>Set secret in GitHub repo settings:</li>
+<li>Settings → Secrets → Codespaces</li>
+<li>
+<p>Add <code>ANTHROPIC_API_KEY</code></p>
+</li>
+<li>
+<p>Create Codespace:</p>
+</li>
+<li>
+<p>Code → Codespaces → Create on main</p>
+</li>
+<li>
+<p>In terminal:</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>amp
+</code></pre></div>
+
+<h2 id="wsl-windows-subsystem-for-linux">WSL (Windows Subsystem for Linux)<a class="headerlink" href="#wsl-windows-subsystem-for-linux" title="Permanent link">&para;</a></h2>
+<p>Run Amplifier in Linux on Windows.</p>
+<h3 id="setup_2">Setup<a class="headerlink" href="#setup_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c"># Install WSL (PowerShell Admin)</span>
+<span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span> <span class="n">-d</span> <span class="n">Ubuntu</span>
+
+<span class="c"># Start WSL</span>
+<span class="n">wsl</span>
+</code></pre></div>
+
+<p>In WSL:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install uv</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<span class="nb">source</span><span class="w"> </span>~/.cargo/env
+
+<span class="c1"># Install Amplifier</span>
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
+
+<span class="c1"># Configure</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export ANTHROPIC_API_KEY=&quot;your-key&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+
+<span class="c1"># Run</span>
+amp
+</code></pre></div>
+
+<h3 id="access-windows-files">Access Windows Files<a class="headerlink" href="#access-windows-files" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Windows drives are mounted at /mnt</span>
+<span class="nb">cd</span><span class="w"> </span>/mnt/c/Users/YourName/Projects
+
+<span class="c1"># Run Amplifier on Windows project</span>
+amp
+</code></pre></div>
+
+<h3 id="vs-code-wsl">VS Code + WSL<a class="headerlink" href="#vs-code-wsl" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># From WSL</span>
+<span class="nb">cd</span><span class="w"> </span>/mnt/c/YourProject
+code<span class="w"> </span>.<span class="w">  </span><span class="c1"># Opens VS Code connected to WSL</span>
+</code></pre></div>
+
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<p>Securely handle API keys:</p>
+<h3 id="local-env-file">Local .env File<a class="headerlink" href="#local-env-file" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .env (gitignored!)</span>
+<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Load before running</span>
+<span class="nb">source</span><span class="w"> </span>.env
+amp
+</code></pre></div>
+
+<h3 id="direnv">direnv<a class="headerlink" href="#direnv" title="Permanent link">&para;</a></h3>
+<p>Auto-load environment per directory:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install</span>
+brew<span class="w"> </span>install<span class="w"> </span>direnv
+
+<span class="c1"># Setup</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;eval &quot;$(direnv hook bash)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+
+<span class="c1"># Create .envrc</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export ANTHROPIC_API_KEY=&quot;sk-ant-...&quot;&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>.envrc
+direnv<span class="w"> </span>allow
+
+<span class="c1"># Now auto-loads when you cd into directory</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-docker">Exercise 1: Docker<a class="headerlink" href="#exercise-1-docker" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span>ANTHROPIC_API_KEY<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python:3.12<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">    curl -LsSf https://astral.sh/uv/install.sh | sh &amp;&amp;</span>
+<span class="s2">    source ~/.cargo/env &amp;&amp;</span>
+<span class="s2">    uv tool install amplifier &amp;&amp;</span>
+<span class="s2">    amp</span>
+<span class="s2">  &quot;</span>
+</code></pre></div>
+
+<h3 id="exercise-2-tmux">Exercise 2: tmux<a class="headerlink" href="#exercise-2-tmux" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start tmux</span>
+tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span>dev
+
+<span class="c1"># Run Amplifier</span>
+amp
+
+<span class="c1"># Detach: Ctrl+b, d</span>
+<span class="c1"># Reattach: tmux attach -t dev</span>
+</code></pre></div>
+
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>Learn debugging techniques:</p>
+<p>→ <a href="debugging.html">Debugging</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="shadow-workspace.html" class="btn btn-neutral float-left" title="Shadow Workspace"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="debugging.html" class="btn btn-neutral float-right" title="Debugging">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="shadow-workspace.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="debugging.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

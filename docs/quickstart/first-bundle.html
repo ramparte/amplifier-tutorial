@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Your First Bundle - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Your First Bundle";
+        var mkdocs_page_input_path = "quickstart/first-bundle.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="first-bundle.html">Your First Bundle</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-bundle">What is a Bundle?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installing-the-recipes-bundle">Installing the Recipes Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-recipes-can-do">What Recipes Can Do</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-your-first-recipe">Running Your First Recipe</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-a-simple-recipe">Creating a Simple Recipe</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipes-with-approval-gates">Recipes with Approval Gates</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#other-popular-bundles">Other Popular Bundles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-next">What's Next?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start-summary">Quick Start Summary</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">Your First Bundle</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="your-first-bundle">Your First Bundle<a class="headerlink" href="#your-first-bundle" title="Permanent link">&para;</a></h1>
+<p>Bundles extend Amplifier with new capabilities. Let's add the <strong>recipes</strong> bundle to unlock multi-step workflows.</p>
+<h2 id="what-is-a-bundle">What is a Bundle?<a class="headerlink" href="#what-is-a-bundle" title="Permanent link">&para;</a></h2>
+<p>A bundle is a package that configures Amplifier with:</p>
+<ul>
+<li><strong>Tools</strong> - New capabilities (e.g., LSP for code navigation)</li>
+<li><strong>Agents</strong> - Specialized AI configurations (e.g., security reviewer)</li>
+<li><strong>Behaviors</strong> - Reusable patterns and context</li>
+<li><strong>Instructions</strong> - System prompts that guide the AI</li>
+</ul>
+<p>Think of bundles like browser extensions - they add features without changing the core.</p>
+<h2 id="installing-the-recipes-bundle">Installing the Recipes Bundle<a class="headerlink" href="#installing-the-recipes-bundle" title="Permanent link">&para;</a></h2>
+<p>The recipes bundle adds the ability to run multi-step, declarative workflows.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Add the bundle</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
+
+<span class="c1"># Activate it</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
+
+<span class="c1"># Verify it&#39;s loaded</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;/tools&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>recipe
+</code></pre></div>
+
+<p>You should see the <code>recipes</code> tool is now available.</p>
+<h2 id="what-recipes-can-do">What Recipes Can Do<a class="headerlink" href="#what-recipes-can-do" title="Permanent link">&para;</a></h2>
+<p>Recipes are YAML files that define multi-step workflows:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># example-recipe.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review code for quality and security</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">design</span><span class="nv"> </span><span class="s">issues&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span><span class="w">  </span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">security</span><span class="nv"> </span><span class="s">vulnerabilities&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summarize</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Create a review summary from:</span>
+<span class="w">      </span><span class="no">- Design analysis: {{analyze.result}}</span>
+<span class="w">      </span><span class="no">- Security findings: {{security.result}}</span>
+</code></pre></div>
+
+<p>Key features:
+- <strong>Multiple agents</strong> - Each step can use a different specialist
+- <strong>Context flow</strong> - Results from earlier steps available to later ones
+- <strong>Variables</strong> - <code>{{file}}</code> is passed in when you run the recipe
+- <strong>Resumable</strong> - If interrupted, pick up where you left off</p>
+<h2 id="running-your-first-recipe">Running Your First Recipe<a class="headerlink" href="#running-your-first-recipe" title="Permanent link">&para;</a></h2>
+<p>The recipes bundle comes with example recipes. Let's run one:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># See available example recipes</span>
+ls<span class="w"> </span>~/.amplifier/bundles/recipes/examples/
+
+<span class="c1"># Run a code review recipe</span>
+amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipes/code-review.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file_path&quot;: &quot;src/main.py&quot;}&#39;</span>
+</code></pre></div>
+
+<p>Or explore recipes interactively:</p>
+<div class="codehilite"><pre><span></span><code>amplifier
+
+<span class="c1"># In the session:</span>
+amplifier&gt;<span class="w"> </span>What<span class="w"> </span>recipes<span class="w"> </span>are<span class="w"> </span>available?
+amplifier&gt;<span class="w"> </span>Run<span class="w"> </span>the<span class="w"> </span>code-review<span class="w"> </span>recipe<span class="w"> </span>on<span class="w"> </span>src/auth.py
+</code></pre></div>
+
+<h2 id="creating-a-simple-recipe">Creating a Simple Recipe<a class="headerlink" href="#creating-a-simple-recipe" title="Permanent link">&para;</a></h2>
+<p>Create your own recipe:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Create a recipes directory in your project</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>.amplifier/recipes
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/recipes/explain-and-test.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explain-and-test</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Explain code and generate tests</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Required: path to file</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explain</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Explain what {{file}} does in plain language.</span>
+<span class="w">      </span><span class="no">Focus on the main purpose and key functions.</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate-tests</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Based on this explanation:</span>
+<span class="w">      </span><span class="no">{{explain.result}}</span>
+
+<span class="w">      </span><span class="no">Generate comprehensive tests for {{file}}.</span>
+<span class="w">      </span><span class="no">Include edge cases and error conditions.</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">save-tests</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Save the tests to tests/test_{{file | basename}}.</span>
+
+<span class="w">      </span><span class="no">Tests to save:</span>
+<span class="w">      </span><span class="no">{{generate-tests.result}}</span>
+</code></pre></div>
+
+<p>Run it:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>.amplifier/recipes/explain-and-test.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file&quot;: &quot;src/utils.py&quot;}&#39;</span>
+</code></pre></div>
+
+<h2 id="recipes-with-approval-gates">Recipes with Approval Gates<a class="headerlink" href="#recipes-with-approval-gates" title="Permanent link">&para;</a></h2>
+<p>Add human checkpoints for critical operations:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># deploy-recipe.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">safe-deploy</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Build</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">project</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">tests&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Summarize</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">since</span><span class="nv"> </span><span class="s">last</span><span class="nv"> </span><span class="s">deploy&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">    </span><span class="nt">requires_approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Pauses here for human approval</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">production&quot;</span>
+</code></pre></div>
+
+<p>When you run this, it will pause at the deploy step:</p>
+<div class="codehilite"><pre><span></span><code>Step &#39;deploy&#39; requires approval.
+To approve: amplifier recipes approve [session-id] deploy
+To deny: amplifier recipes deny [session-id] deploy
+</code></pre></div>
+
+<h2 id="other-popular-bundles">Other Popular Bundles<a class="headerlink" href="#other-popular-bundles" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Bundle</th>
+<th>What it adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recipes</code></td>
+<td>Multi-step workflows</td>
+</tr>
+<tr>
+<td><code>lsp-python</code></td>
+<td>Python code intelligence (go-to-definition, find references)</td>
+</tr>
+<tr>
+<td><code>lsp-typescript</code></td>
+<td>TypeScript/JS code intelligence</td>
+</tr>
+<tr>
+<td><code>design-intelligence</code></td>
+<td>7 specialized design agents</td>
+</tr>
+</tbody>
+</table>
+<p>Install any bundle:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python code intelligence</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-lsp-python@main
+amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>lsp-python
+
+<span class="c1"># Now you have semantic code navigation</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Find all usages of the authenticate() function&quot;</span>
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Install recipes</strong>: Follow the steps above to add the recipes bundle</li>
+<li><strong>Run an example</strong>: Try the code-review recipe on one of your files</li>
+<li><strong>Create your own</strong>: Write a simple recipe for a task you do often</li>
+</ol>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<p>You've completed the Quick Start! You can now:</p>
+<ul>
+<li><strong><a href="../concepts/index.html">Core Concepts</a></strong> - Understand bundles, modules, and agents in depth</li>
+<li><strong><a href="../tools/index.html">Tools Reference</a></strong> - Explore all available tools</li>
+<li><strong><a href="../dev-setup/index.html">Developer Setup</a></strong> - Professional development workflows</li>
+</ul>
+<hr />
+<h2 id="quick-start-summary">Quick Start Summary<a class="headerlink" href="#quick-start-summary" title="Permanent link">&para;</a></h2>
+<p>You've learned:</p>
+<ol>
+<li><strong>What Amplifier is</strong> - A modular AI agent framework</li>
+<li><strong>How it's different</strong> - Multi-provider, extensible, transparent</li>
+<li><strong>How to install</strong> - UV + one command</li>
+<li><strong>Basic usage</strong> - Interactive and single-shot modes</li>
+<li><strong>Key commands</strong> - CLI and in-session commands</li>
+<li><strong>Bundles</strong> - Extending capabilities with recipes</li>
+</ol>
+<p>You're ready to explore deeper. Welcome to Amplifier!</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="key-commands.html" class="btn btn-neutral float-left" title="Key Commands"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../concepts/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="key-commands.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../concepts/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

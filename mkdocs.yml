@@ -11,6 +11,9 @@ docs_dir: content
 # This allows browsing locally via file:// protocol
 use_directory_urls: false
 
+# Output to docs/ for GitHub Pages compatibility
+site_dir: docs
+
 # Use built-in readthedocs theme (works out of box)
 theme:
   name: readthedocs

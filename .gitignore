@@ -1,4 +1,4 @@
-# Note: site/ is intentionally checked in for easy distribution
+# Note: docs/ is intentionally checked in for GitHub Pages
 # Regenerate with: mkdocs build --clean
 
 # Python virtual environment

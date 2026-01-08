@@ -2,9 +2,15 @@
 
 A narrative tutorial for learning [Amplifier](https://github.com/microsoft/amplifier), the modular AI agent framework.
 
-## View the Tutorial
+## 📖 [View the Tutorial](https://ramparte.github.io/amplifier-tutorial/)
 
-**The built tutorial is included in this repo** - no build step required!
+**Live site hosted on GitHub Pages** - just click and read!
+
+---
+
+## View Offline
+
+The built tutorial is also included in this repo:
 
 ### Option 1: Browse Locally
 ```bash
@@ -13,24 +19,24 @@ git clone https://github.com/ramparte/amplifier-tutorial.git
 cd amplifier-tutorial
 
 # Open in browser (Windows)
-explorer.exe site/index.html
+explorer.exe docs/index.html
 
 # Open in browser (Mac)
-open site/index.html
+open docs/index.html
 
 # Open in browser (Linux)
-xdg-open site/index.html
+xdg-open docs/index.html
 ```
 
 ### Option 2: Simple HTTP Server
 ```bash
-cd site
+cd docs
 python -m http.server 8000
 # Open http://localhost:8000
 ```
 
 ### Option 3: Download as ZIP
-Download the repo as a ZIP, extract, and open `site/index.html`.
+Download the repo as a ZIP, extract, and open `docs/index.html`.
 
 ---
 
@@ -70,7 +76,7 @@ amp recipes execute recipes/update-tutorial.yaml --context '{"focus": "tools"}'
 ### Manual Content Edits
 1. Edit markdown files in `content/`
 2. Run `mkdocs build --clean`
-3. Commit both `content/` and `site/` changes
+3. Commit both `content/` and `docs/` changes
 
 ---
 
@@ -78,7 +84,7 @@ amp recipes execute recipes/update-tutorial.yaml --context '{"focus": "tools"}'
 
 ```
 amplifier-tutorial/
-├── site/             # ✅ Built tutorial (ready to view!)
+├── docs/             # ✅ Built tutorial (GitHub Pages serves this)
 ├── content/          # Markdown source files
 ├── .notes/           # Editorial additions (not auto-generated)
 ├── .planning/        # Planning documents
