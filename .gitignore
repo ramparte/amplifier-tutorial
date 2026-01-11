@@ -20,3 +20,6 @@ Thumbs.db
 *.tmp
 *.bak
 site.zip
+
+# Content backups
+content-backup-*/
