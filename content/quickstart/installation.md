@@ -6,184 +6,396 @@ title: "Installation"
 
 # Installation
 
-Get Amplifier running in under 2 minutes.
+This guide walks you through installing Amplifier on your system. The process takes about 5 minutes and requires minimal setup.
 
 ## Prerequisites
 
-- **Python 3.11+** (3.12 recommended)
-- **macOS or Linux** (Windows users: use WSL2)
-- **API key** for at least one AI provider (Anthropic, OpenAI, or free local with Ollama)
+Before installing Amplifier, ensure your system meets these requirements:
+
+### Python Version
+
+Amplifier requires **Python 3.10 or higher**. Check your Python version:
+
+```bash
+python --version
+```
+
+If you need to install or upgrade Python:
+
+- **macOS**: `brew install python@3.12`
+- **Ubuntu/Debian**: `sudo apt install python3.12`
+- **Windows**: Download from [python.org](https://www.python.org/downloads/)
+
+### Operating System Support
+
+Amplifier runs on:
+
+- macOS 12 (Monterey) or later
+- Linux (Ubuntu 20.04+, Debian 11+, Fedora 36+)
+- Windows 10/11 with WSL2
+
+### Additional Requirements
+
+- Terminal access (bash, zsh, or PowerShell with WSL)
+- Internet connection for package downloads
+- At least 500MB of free disk space
+
+---
 
 ## Step 1: Install UV
 
-UV is a fast Python package manager. Amplifier uses it for installation.
+UV is the recommended package manager for Amplifier. It's fast, reliable, and handles dependencies automatically.
+
+### macOS and Linux
+
+Run the installation script:
 
 ```bash
-# macOS / Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-# Verify installation
+After installation, restart your terminal or run:
+
+```bash
+source ~/.bashrc  # or ~/.zshrc for zsh
+```
+
+### Windows (WSL)
+
+Open your WSL terminal and run:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### Alternative: Install via Homebrew
+
+If you prefer Homebrew on macOS:
+
+```bash
+brew install uv
+```
+
+### Verify UV Installation
+
+Confirm UV is installed correctly:
+
+```bash
 uv --version
 ```
 
-!!! tip "Why UV?"
-    UV is 10-100x faster than pip and handles virtual environments automatically. Amplifier uses it for both installation and dependency management.
+You should see output like:
+
+```
+uv 0.5.x
+```
+
+---
 
 ## Step 2: Install Amplifier
 
-```bash
-# Install from GitHub
-uv tool install git+https://github.com/microsoft/amplifier
+With UV installed, getting Amplifier is a single command:
 
-# Verify installation
-amplifier --version
+```bash
+uvx amplifier
 ```
 
-This installs the `amplifier` command globally.
+This command:
 
-## Step 3: Configure Your Provider
+1. Downloads the latest Amplifier release
+2. Creates an isolated environment
+3. Installs all dependencies
+4. Makes `amplifier` available globally
 
-Run the initialization wizard:
+### What Happens During Installation
+
+UV creates a tool environment at `~/.local/share/uv/tools/amplifier/` containing:
+
+- The Amplifier CLI application
+- All required Python packages
+- Configuration templates
+
+### Installation Location
+
+By default, the `amplifier` command is installed to:
+
+- **macOS/Linux**: `~/.local/bin/amplifier`
+- **Windows WSL**: `~/.local/bin/amplifier`
+
+Ensure this directory is in your PATH. UV typically handles this automatically.
+
+---
+
+## Step 3: Setup Wizard
+
+Run the interactive setup wizard to configure Amplifier:
 
 ```bash
 amplifier init
 ```
 
-You'll be prompted to choose a provider and enter your API key:
+The wizard guides you through:
+
+### Provider Configuration
+
+Select your AI provider(s):
 
 ```
-? Select AI provider:
-  > anthropic (Claude - recommended)
-    openai (GPT models)
-    azure-openai (Enterprise Azure)
-    ollama (Local models - free)
-    
+? Select AI providers to configure:
+  [x] Anthropic (Claude)
+  [ ] OpenAI (GPT-4)
+  [ ] Azure OpenAI
+  [ ] Google (Gemini)
+```
+
+### API Key Setup
+
+Enter your API key when prompted:
+
+```
 ? Enter your Anthropic API key: sk-ant-...
 ```
 
-### Provider Options
+Your keys are stored securely in `~/.amplifier/settings.yaml`.
 
-=== "Anthropic (Recommended)"
+### Default Model Selection
 
-    Best tested, most capable for coding tasks.
-    
-    ```bash
-    # Get API key from https://console.anthropic.com
-    amplifier provider add anthropic --api-key sk-ant-...
-    amplifier provider use anthropic
-    ```
+Choose your preferred model:
 
-=== "OpenAI"
+```
+? Select default model:
+  > claude-sonnet-4-20250514
+    claude-3-5-haiku-20241022
+    claude-3-opus-20240229
+```
 
-    GPT models including GPT-4.
-    
-    ```bash
-    # Get API key from https://platform.openai.com
-    amplifier provider add openai --api-key sk-...
-    amplifier provider use openai
-    ```
+### Configuration File
 
-=== "Ollama (Free, Local)"
+The wizard creates `~/.amplifier/settings.yaml`:
 
-    Run models locally - no API key needed.
-    
-    ```bash
-    # First, install Ollama: https://ollama.ai
-    ollama pull llama3.2
-    
-    # Then configure Amplifier
-    amplifier provider add ollama
-    amplifier provider use ollama
-    ```
+```yaml
+providers:
+  anthropic:
+    api_key: ${ANTHROPIC_API_KEY}
+    default_model: claude-sonnet-4-20250514
 
-=== "Azure OpenAI"
+defaults:
+  provider: anthropic
+  temperature: 0.7
+```
 
-    Enterprise deployment with managed identity.
-    
-    ```bash
-    amplifier provider add azure-openai \
-      --endpoint https://your-resource.openai.azure.com \
-      --deployment your-deployment-name
-    ```
+### Skip Interactive Mode
+
+For automated setups, use environment variables:
+
+```bash
+export ANTHROPIC_API_KEY="your-key-here"
+amplifier init --non-interactive
+```
+
+---
 
 ## Step 4: Verify Installation
 
+Confirm everything is working:
+
 ```bash
-# Start an interactive session
+amplifier version
+```
+
+Expected output:
+
+```
+Amplifier v0.x.x
+Python: 3.12.x
+UV: 0.5.x
+Config: ~/.amplifier/settings.yaml
+```
+
+### Quick Test
+
+Start an interactive session:
+
+```bash
 amplifier
-
-# Or run a single command
-amplifier run "Hello! What tools do you have?"
 ```
 
-You should see Amplifier respond with a list of available tools.
-
-## Configuration Files
-
-Amplifier stores configuration at `~/.amplifier/`:
+You should see the Amplifier prompt:
 
 ```
-~/.amplifier/
-├── settings.yaml     # Provider config, preferences
-├── sessions/         # Session logs and history
-└── bundles/          # Downloaded bundles
+Amplifier v0.x.x | claude-sonnet-4-20250514
+Type /help for commands, /quit to exit
+
+>
 ```
 
-### View Your Configuration
+Type a simple query to confirm everything works:
+
+```
+> Hello, can you hear me?
+```
+
+Press `/quit` to exit.
+
+---
+
+## Common Issues
+
+### UV Not Found
+
+**Symptom**: `command not found: uv`
+
+**Solution**: Add UV to your PATH:
 
 ```bash
-# See current settings
-amplifier config show
-
-# See available providers
-amplifier provider list
-```
-
-## Troubleshooting
-
-### "Command not found: amplifier"
-
-UV installs tools to `~/.local/bin`. Add it to your PATH:
-
-```bash
-# Add to your shell config (.bashrc, .zshrc, etc.)
 export PATH="$HOME/.local/bin:$PATH"
-
-# Reload your shell
-source ~/.bashrc  # or ~/.zshrc
 ```
 
-### "API key invalid"
+Add this line to your `~/.bashrc` or `~/.zshrc` for persistence.
 
-Double-check your key has no extra whitespace:
+### Python Version Too Old
+
+**Symptom**: `Python 3.10+ required, found 3.8.x`
+
+**Solution**: Install a newer Python version or use pyenv:
 
 ```bash
-# Re-add the provider with the correct key
-amplifier provider add anthropic --api-key "sk-ant-your-key-here"
+# Install pyenv
+curl https://pyenv.run | bash
+
+# Install Python 3.12
+pyenv install 3.12
+pyenv global 3.12
 ```
 
-### Windows Issues
+### API Key Invalid
 
-Amplifier has limited Windows support. Use WSL2:
+**Symptom**: `Authentication failed: Invalid API key`
+
+**Solution**: Verify your API key is correct:
 
 ```bash
-# In PowerShell (as admin)
-wsl --install
+# Check the stored key
+cat ~/.amplifier/settings.yaml | grep api_key
 
-# Then follow Linux instructions inside WSL
+# Re-run setup
+amplifier init
 ```
 
-### Network/Proxy Issues
+### Permission Denied
 
-Set environment variables for proxy:
+**Symptom**: `Permission denied: ~/.local/bin/amplifier`
+
+**Solution**: Fix permissions:
 
 ```bash
-export HTTP_PROXY=http://proxy.example.com:8080
-export HTTPS_PROXY=http://proxy.example.com:8080
+chmod +x ~/.local/bin/amplifier
 ```
 
-## Next
+### SSL Certificate Errors
 
-Installation complete! Let's have your first conversation.
+**Symptom**: `SSL: CERTIFICATE_VERIFY_FAILED`
 
-→ [Your First Conversation](first-conversation.md)
+**Solution**: Update certificates:
+
+```bash
+# macOS
+/Applications/Python\ 3.12/Install\ Certificates.command
+
+# Linux
+sudo apt install ca-certificates
+sudo update-ca-certificates
+```
+
+### Proxy Configuration
+
+If you're behind a corporate proxy:
+
+```bash
+export HTTP_PROXY="http://proxy.company.com:8080"
+export HTTPS_PROXY="http://proxy.company.com:8080"
+uvx amplifier
+```
+
+### WSL-Specific Issues
+
+**Symptom**: Slow performance or networking issues in WSL
+
+**Solution**: Ensure WSL2 is being used:
+
+```powershell
+# In PowerShell
+wsl --set-default-version 2
+```
+
+---
+
+## Updating Amplifier
+
+Keep Amplifier current with:
+
+```bash
+uvx amplifier@latest
+```
+
+Or specify a version:
+
+```bash
+uvx amplifier@0.5.0
+```
+
+### Check for Updates
+
+See if a newer version is available:
+
+```bash
+amplifier version --check-updates
+```
+
+---
+
+## Uninstalling
+
+To remove Amplifier:
+
+```bash
+uv tool uninstall amplifier
+```
+
+To also remove configuration:
+
+```bash
+rm -rf ~/.amplifier
+```
+
+---
+
+## Next Steps
+
+Now that Amplifier is installed, continue with:
+
+- **[First Session](first-session.md)** - Start your first AI-assisted coding session
+- **[Configuration Guide](configuration.md)** - Customize Amplifier settings
+- **[Provider Setup](providers.md)** - Configure additional AI providers
+- **[Bundles Overview](bundles.md)** - Extend functionality with bundles
+
+### Quick Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `amplifier` | Start interactive session |
+| `amplifier init` | Run setup wizard |
+| `amplifier version` | Show version info |
+| `amplifier --help` | Show all commands |
+
+---
+
+## Getting Help
+
+If you encounter issues not covered here:
+
+- Check the [FAQ](../reference/faq.md)
+- Search [GitHub Issues](https://github.com/microsoft/amplifier/issues)
+- Join the community discussions
+
+Welcome to Amplifier!

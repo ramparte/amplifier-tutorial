@@ -1,206 +1,91 @@
 ---
-id: advanced-overview
-type: advanced
-title: "Advanced Topics"
+id: advanced-index
+type: section-index
+title: Advanced Topics
 ---
 
 # Advanced Topics
 
-Extend and customize Amplifier for your specific needs.
+This section covers advanced Amplifier concepts for users who want to go deeper. Topics here assume familiarity with core concepts, bundles, and basic agent development.
 
-## Overview
+These guides help you build sophisticated AI applications, customize the kernel, and optimize performance.
 
-| Topic | What You'll Learn |
-|-------|-------------------|
-| [Custom Bundles](custom-bundle.md) | Create your own configuration packages |
-| [Custom Tools](custom-tool.md) | Build new capabilities |
-| [Custom Recipes](custom-recipe.md) | Design multi-step workflows |
-| [MCP Integration](mcp-integration.md) | Connect to MCP servers |
+## Section Contents
 
-## Customization Levels
+| Page | Description |
+|------|-------------|
+| [Kernel Internals](./kernel-internals.md) | How the Amplifier kernel works |
+| [Custom Tools](./custom-tools.md) | Building your own tool modules |
+| [Hook Development](./hook-development.md) | Creating custom hooks |
+| [Provider Integration](./provider-integration.md) | Adding new LLM providers |
+| [Multi-Agent Systems](./multi-agent-systems.md) | Complex agent orchestration |
+| [Recipes](./recipes.md) | Declarative multi-step workflows |
+| [Performance](./performance.md) | Optimization and scaling |
+| [Security](./security.md) | Security model and best practices |
 
-From simple to complex:
+## Quick Tips
 
-```
-1. Instructions only    → Add instructions to existing bundle
-2. Custom bundle        → Combine bundles, add agents/context
-3. Custom tools         → New capabilities via Python
-4. Custom recipes       → Multi-step workflow orchestration
-5. MCP integration      → Connect to external systems
-```
+- **Understand modules first** — All advanced features build on the module system
+- **Read the source** — Amplifier is open; the code is the best documentation
+- **Test in isolation** — Advanced features can have subtle interactions
+- **Use typed interfaces** — TypedDict and Protocol classes catch errors early
+- **Profile before optimizing** — Measure actual bottlenecks, don't guess
 
-## Quick Decision Guide
-
-| I Want To... | Use |
-|--------------|-----|
-| Change AI behavior | [Custom Bundle](custom-bundle.md) → instructions |
-| Add project knowledge | [Custom Bundle](custom-bundle.md) → context |
-| Create specialists | [Custom Bundle](custom-bundle.md) → agents |
-| Add new capabilities | [Custom Tool](custom-tool.md) |
-| Automate multi-step work | [Custom Recipe](custom-recipe.md) |
-| Connect to databases/APIs | [MCP Integration](mcp-integration.md) |
-
-## Common Patterns
-
-### Pattern 1: Team Configuration
-
-Create a bundle for your team:
-
-```yaml
-# team-bundle/bundle.yaml
-bundle:
-  name: acme-team
-  
-includes:
-  - bundle: foundation
-  - bundle: recipes
-  
-agents:
-  - path: ./agents/code-reviewer.yaml
-  
-context:
-  include:
-    - ./context/coding-standards.md
-    - ./context/architecture.md
-```
-
-### Pattern 2: Project Workflows
-
-Create recipes for project processes:
-
-```yaml
-# recipes/deploy.yaml
-name: deploy
-steps:
-  - id: test
-    instruction: "Run tests"
-  - id: approve
-    requires_approval: true
-  - id: deploy
-    instruction: "Deploy to staging"
-```
-
-### Pattern 3: Integration Extension
-
-Add tools for your systems:
-
-```python
-# modules/jira_tool/tool.py
-class JiraTool(Tool):
-    name = "jira"
-    description = "Manage Jira tickets"
-    
-    async def execute(self, input):
-        # Your Jira integration
-        pass
-```
-
-### Pattern 4: External Data
-
-Connect via MCP:
-
-```yaml
-mcp:
-  servers:
-    - name: internal-api
-      command: python internal_api_server.py
-```
-
-## Starting Points
-
-### Minimal Custom Bundle
-
-```bash
-mkdir my-bundle
-cat > my-bundle/bundle.yaml << 'EOF'
-bundle:
-  name: my-config
-  version: 1.0.0
-includes:
-  - bundle: foundation
-instructions: |
-  My custom instructions here.
-EOF
-
-amp --bundle ./my-bundle
-```
-
-### Minimal Custom Tool
-
-```python
-# tool.py
-from amplifier_core import Tool
-
-class MyTool(Tool):
-    name = "my-tool"
-    description = "Does something useful"
-    input_schema = {"type": "object", "properties": {}}
-    
-    async def execute(self, input):
-        return "Result"
-```
-
-### Minimal Recipe
-
-```yaml
-name: my-recipe
-steps:
-  - id: step-one
-    instruction: "Do the thing"
-```
-
-## Best Practices
-
-### Start Simple
-
-1. First, try adjusting instructions
-2. Then, add context files
-3. Then, create agents
-4. Finally, build tools/recipes
-
-### Version Control
-
-```bash
-# Keep your customizations in git
-cd my-bundle
-git init
-git add .
-git commit -m "Initial bundle"
-```
-
-### Documentation
-
-Document your customizations:
+## Architecture Deep Dive
 
 ```
-my-bundle/
-├── bundle.yaml
-├── README.md          # What this bundle does
-├── agents/
-│   └── README.md      # What each agent does
-└── recipes/
-    └── README.md      # How to use recipes
+┌─────────────────────────────────────────────────────────┐
+│                    Application Layer                    │
+├─────────────────────────────────────────────────────────┤
+│  Recipes │ Multi-Agent │ Custom Behaviors               │
+├─────────────────────────────────────────────────────────┤
+│      Modules: Providers │ Tools │ Hooks │ Custom        │
+├─────────────────────────────────────────────────────────┤
+│                   Event System                          │
+├─────────────────────────────────────────────────────────┤
+│    Kernel: Session Manager │ Module Registry │ Router   │
+└─────────────────────────────────────────────────────────┘
 ```
 
-### Testing
+## Module Types
 
-Test changes incrementally:
+| Type | Purpose | Interface |
+|------|---------|-----------|
+| Provider | LLM backends | `ProviderProtocol` |
+| Tool | Agent capabilities | `ToolProtocol` |
+| Hook | Event interception | `HookProtocol` |
+| Context | Knowledge injection | `ContextProtocol` |
 
-```bash
-# Test bundle loads
-amp --bundle ./my-bundle
-> What tools do you have?
+## Where to Start
 
-# Test specific agent
-> Use [your-agent] to do [task]
+**Want to extend Amplifier?** Start with [Custom Tools](./custom-tools.md)—it's the most common extension point.
 
-# Test recipe
-amp recipes validate my-recipe.yaml
-amp recipes execute my-recipe.yaml --context '{}'
-```
+**Building complex workflows?** Read [Recipes](./recipes.md) for declarative multi-step orchestration.
 
-## Need Help?
+**Optimizing performance?** Check [Performance](./performance.md) for profiling and optimization strategies.
 
-- **Recipe creation** → Ask `recipe-author` agent
-- **Architecture questions** → Ask `zen-architect` agent
-- **Debug issues** → Check [Debugging guide](../dev-setup/debugging.md)
+**Security concerns?** Review [Security](./security.md) before deploying to production.
+
+## Advanced Patterns
+
+| Pattern | Use Case | Guide |
+|---------|----------|-------|
+| Tool composition | Combine tools for complex ops | Custom Tools |
+| Event sourcing | Audit and replay | Kernel Internals |
+| Agent delegation | Hierarchical task distribution | Multi-Agent Systems |
+| Staged execution | Human-in-loop workflows | Recipes |
+
+## Prerequisites
+
+Before diving into advanced topics, ensure you understand:
+
+- [ ] Core concepts (sessions, agents, modules)
+- [ ] Bundle composition and structure
+- [ ] Basic tool usage patterns
+- [ ] Hook event lifecycle
+
+## Related Sections
+
+- [Concepts: Core Architecture](../concepts/index.md)
+- [Dev Setup: Contributing](../dev-setup/contributing.md)
+- [Bundles: Creating Bundles](../bundles/creating.md)

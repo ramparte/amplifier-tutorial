@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
@@ -57,42 +59,62 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="first-conversation.html">Your First Conversation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#starting-a-session">Starting a Session</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#understanding-the-response">Understanding the Response</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-these-examples">Try These Examples</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example-1-explore-a-codebase">Example 1: Explore a Codebase</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-2-write-some-code">Example 2: Write Some Code</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-3-debug-something">Example 3: Debug Something</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-4-search-and-learn">Example 4: Search and Learn</a>
+    <li class="toctree-l3"><a class="reference internal" href="#starting-in-a-specific-directory">Starting in a Specific Directory</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#session-commands">Session Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#single-shot-mode">Single-Shot Mode</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#resuming-sessions">Resuming Sessions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-just-happened">What Just Happened?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tips-for-effective-use">Tips for Effective Use</a>
+    <li class="toctree-l2"><a class="reference internal" href="#your-first-prompt">Your First Prompt</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#be-specific">Be Specific</a>
+    <li class="toctree-l3"><a class="reference internal" href="#writing-effective-prompts">Writing Effective Prompts</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#provide-context">Provide Context</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-multi-turn-conversations">Use Multi-Turn Conversations</a>
+    <li class="toctree-l3"><a class="reference internal" href="#providing-context">Providing Context</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-responses">Understanding Responses</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#explanatory-text">Explanatory Text</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l3"><a class="reference internal" href="#code-blocks">Code Blocks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#file-references">File References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-usage">Tool Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#common-tools">Common Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#observing-tool-usage">Observing Tool Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-permissions">Tool Permissions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-turn-conversations">Multi-Turn Conversations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#referencing-previous-context">Referencing Previous Context</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handling-errors">Handling Errors</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#asking-for-clarification">Asking for Clarification</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ending-a-session">Ending a Session</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#session-persistence">Session Persistence</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tips-for-success">Tips for Success</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -214,156 +236,235 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="your-first-conversation">Your First Conversation<a class="headerlink" href="#your-first-conversation" title="Permanent link">&para;</a></h1>
-<p>Now that Amplifier is installed, let's explore what it can do.</p>
+<p>This guide walks you through your first interactive session with Amplifier. You'll learn
+how to start a conversation, write effective prompts, interpret responses, and understand
+how Amplifier uses tools to accomplish tasks.</p>
 <h2 id="starting-a-session">Starting a Session<a class="headerlink" href="#starting-a-session" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Start interactive mode</span>
-amplifier
+<p>Launch Amplifier from your terminal in any project directory:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run
 </code></pre></div>
 
-<p>You'll see a prompt where you can type messages:</p>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; _
+<p>You'll see a welcome message and a prompt indicator waiting for your input:</p>
+<div class="codehilite"><pre><span></span><code>Amplifier v1.0.0
+Session: abc123-def456
+
+&gt;
 </code></pre></div>
 
-<p>Type your first message:</p>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; Hello! What can you help me with?
+<p>The session ID helps you reference this conversation later if needed.</p>
+<h3 id="starting-in-a-specific-directory">Starting in a Specific Directory<a class="headerlink" href="#starting-in-a-specific-directory" title="Permanent link">&para;</a></h3>
+<p>To work on a particular project, navigate there first:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/projects/my-app
+amplifier<span class="w"> </span>run
 </code></pre></div>
 
-<h2 id="understanding-the-response">Understanding the Response<a class="headerlink" href="#understanding-the-response" title="Permanent link">&para;</a></h2>
-<p>Amplifier will respond and may use <strong>tools</strong> to help you. Watch for tool usage in the output:</p>
-<div class="codehilite"><pre><span></span><code>I can help you with software development tasks. I have access to several tools:
-
-[Tool: read_file] Reading project structure...
-[Tool: bash] Running: ls -la
-
-Based on what I see, I can:
-- Read and write files
-- Run shell commands
-- Search the web
-- Navigate code with semantic understanding
-...
+<p>Amplifier automatically gains context about your project structure, making it more
+effective at helping with your specific codebase.</p>
+<h2 id="your-first-prompt">Your First Prompt<a class="headerlink" href="#your-first-prompt" title="Permanent link">&para;</a></h2>
+<p>Start with something simple. Try asking Amplifier to explore your project:</p>
+<div class="codehilite"><pre><span></span><code>&gt; What files are in this project?
 </code></pre></div>
 
-<h2 id="try-these-examples">Try These Examples<a class="headerlink" href="#try-these-examples" title="Permanent link">&para;</a></h2>
-<h3 id="example-1-explore-a-codebase">Example 1: Explore a Codebase<a class="headerlink" href="#example-1-explore-a-codebase" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; What&#39;s in the current directory? Give me a summary.
+<p>Or ask for help with a specific task:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Create a Python function that validates email addresses
 </code></pre></div>
 
-<p>Amplifier will:
-1. Use the <code>bash</code> tool to run <code>ls</code> or <code>tree</code>
-2. Read key files like <code>README.md</code> or <code>package.json</code>
-3. Summarize what it finds</p>
-<h3 id="example-2-write-some-code">Example 2: Write Some Code<a class="headerlink" href="#example-2-write-some-code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; Create a Python function that checks if a number is prime. Save it to prime.py
+<h3 id="writing-effective-prompts">Writing Effective Prompts<a class="headerlink" href="#writing-effective-prompts" title="Permanent link">&para;</a></h3>
+<p>Good prompts are clear and specific. Compare these examples:</p>
+<table>
+<thead>
+<tr>
+<th>Less Effective</th>
+<th>More Effective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fix the bug"</td>
+<td>"Fix the TypeError in auth.py line 42"</td>
+</tr>
+<tr>
+<td>"Make it faster"</td>
+<td>"Optimize the database query in get_users()"</td>
+</tr>
+<tr>
+<td>"Add tests"</td>
+<td>"Add unit tests for the UserService class"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="providing-context">Providing Context<a class="headerlink" href="#providing-context" title="Permanent link">&para;</a></h3>
+<p>You can reference files directly in your prompts:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Review the code in src/utils/helpers.py for potential improvements
 </code></pre></div>
 
-<p>Amplifier will:
-1. Write the code using the <code>write_file</code> tool
-2. Show you what it created
-3. You can verify: <code>cat prime.py</code></p>
-<h3 id="example-3-debug-something">Example 3: Debug Something<a class="headerlink" href="#example-3-debug-something" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; This Python code has a bug. Find and fix it:
-
-def factorial(n):
-    if n == 0:
-        return 0  # Bug here!
-    return n * factorial(n - 1)
+<p>Or provide inline context:</p>
+<div class="codehilite"><pre><span></span><code>&gt; I&#39;m getting this error when running tests:
+&gt; 
+&gt; AssertionError: expected 3 but got 5
+&gt; 
+&gt; The test is in tests/test_calculator.py
 </code></pre></div>
 
-<p>Amplifier will identify the bug (should return 1, not 0) and explain the fix.</p>
-<h3 id="example-4-search-and-learn">Example 4: Search and Learn<a class="headerlink" href="#example-4-search-and-learn" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; What&#39;s the latest version of React? Search the web.
+<h2 id="understanding-responses">Understanding Responses<a class="headerlink" href="#understanding-responses" title="Permanent link">&para;</a></h2>
+<p>Amplifier responds conversationally while working on your request. A typical response
+includes several elements:</p>
+<h3 id="explanatory-text">Explanatory Text<a class="headerlink" href="#explanatory-text" title="Permanent link">&para;</a></h3>
+<p>Amplifier explains what it's doing and why:</p>
+<div class="codehilite"><pre><span></span><code>I&#39;ll create an email validation function using regex. This will check for:
+- A valid local part (before the @)
+- A valid domain with at least one dot
+- No invalid characters
 </code></pre></div>
 
-<p>Amplifier uses the <code>web_search</code> tool to find current information.</p>
-<h2 id="session-commands">Session Commands<a class="headerlink" href="#session-commands" title="Permanent link">&para;</a></h2>
-<p>While in a session, you can use special commands starting with <code>/</code>:</p>
-<div class="codehilite"><pre><span></span><code>/help        - Show available commands
-/tools       - List available tools  
-/agents      - List available agents
-/clear       - Clear conversation history
-/exit        - End the session
+<h3 id="code-blocks">Code Blocks<a class="headerlink" href="#code-blocks" title="Permanent link">&para;</a></h3>
+<p>Code appears in formatted blocks with syntax highlighting:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">validate_email</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate an email address format.&quot;&quot;&quot;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$&#39;</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">email</span><span class="p">))</span>
 </code></pre></div>
 
-<p>Try it:</p>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; /tools
+<h3 id="file-references">File References<a class="headerlink" href="#file-references" title="Permanent link">&para;</a></h3>
+<p>When Amplifier references code locations, it uses the format <code>file_path:line_number</code>:</p>
+<div class="codehilite"><pre><span></span><code>The validation logic is in src/validators.py:23
 </code></pre></div>
 
-<p>You'll see all the tools currently loaded and what they do.</p>
-<h2 id="single-shot-mode">Single-Shot Mode<a class="headerlink" href="#single-shot-mode" title="Permanent link">&para;</a></h2>
-<p>Don't need a conversation? Run a single command:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Run one task and exit</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Count the lines in all Python files in this directory&quot;</span>
+<p>This makes it easy to navigate to the exact location in your editor.</p>
+<h2 id="tool-usage">Tool Usage<a class="headerlink" href="#tool-usage" title="Permanent link">&para;</a></h2>
+<p>Amplifier uses tools to interact with your system. You'll see tool activity as it works.</p>
+<h3 id="common-tools">Common Tools<a class="headerlink" href="#common-tools" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>read_file</code></td>
+<td>View file contents</td>
+</tr>
+<tr>
+<td><code>write_file</code></td>
+<td>Create new files</td>
+</tr>
+<tr>
+<td><code>edit_file</code></td>
+<td>Modify existing files</td>
+</tr>
+<tr>
+<td><code>bash</code></td>
+<td>Run shell commands</td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Search file contents</td>
+</tr>
+<tr>
+<td><code>glob</code></td>
+<td>Find files by pattern</td>
+</tr>
+</tbody>
+</table>
+<h3 id="observing-tool-usage">Observing Tool Usage<a class="headerlink" href="#observing-tool-usage" title="Permanent link">&para;</a></h3>
+<p>When Amplifier uses tools, you'll see indicators of what's happening:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Add a new endpoint to the API
 
-<span class="c1"># Pipe input</span>
-cat<span class="w"> </span>error.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;What&#39;s causing these errors?&quot;</span>
+Reading src/api/routes.py...
+Editing src/api/routes.py...
+Running tests to verify changes...
 
-<span class="c1"># Specify output format</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;List all TODO comments in src/&quot;</span><span class="w"> </span>--format<span class="w"> </span>json
+I&#39;ve added the new endpoint at /api/users/{id}/profile. The route is defined
+in src/api/routes.py:45. Tests pass successfully.
 </code></pre></div>
 
-<h2 id="resuming-sessions">Resuming Sessions<a class="headerlink" href="#resuming-sessions" title="Permanent link">&para;</a></h2>
-<p>Every session is saved. Come back to where you left off:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Resume most recent session</span>
-amplifier<span class="w"> </span><span class="k">continue</span>
+<h3 id="tool-permissions">Tool Permissions<a class="headerlink" href="#tool-permissions" title="Permanent link">&para;</a></h3>
+<p>Some operations may require confirmation. Amplifier respects your system and won't
+make destructive changes without appropriate safeguards.</p>
+<h2 id="multi-turn-conversations">Multi-Turn Conversations<a class="headerlink" href="#multi-turn-conversations" title="Permanent link">&para;</a></h2>
+<p>Sessions maintain context across multiple exchanges. You can build on previous work:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Create a User class with name and email fields
 
-<span class="c1"># List all sessions</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>list
+[Amplifier creates the class]
 
-<span class="c1"># Resume a specific session</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>resume<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span>
+&gt; Add a method to validate the email
+
+[Amplifier adds to the existing class]
+
+&gt; Now add unit tests for the validation
+
+[Amplifier creates tests referencing the class it built]
 </code></pre></div>
 
-<h2 id="what-just-happened">What Just Happened?<a class="headerlink" href="#what-just-happened" title="Permanent link">&para;</a></h2>
-<p>Behind the scenes, Amplifier:</p>
+<h3 id="referencing-previous-context">Referencing Previous Context<a class="headerlink" href="#referencing-previous-context" title="Permanent link">&para;</a></h3>
+<p>Use natural language to refer back:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Actually, make that method raise an exception instead of returning False
+</code></pre></div>
+
+<p>Amplifier understands "that method" refers to the validation method from the
+previous exchange.</p>
+<h2 id="handling-errors">Handling Errors<a class="headerlink" href="#handling-errors" title="Permanent link">&para;</a></h2>
+<p>If something goes wrong, Amplifier will explain and often suggest fixes:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Run the deployment script
+
+The deployment script failed with exit code 1:
+  Error: Missing environment variable DATABASE_URL
+
+To fix this, you can:
+1. Set the variable: export DATABASE_URL=&quot;your-connection-string&quot;
+2. Create a .env file with the variable
+3. Pass it inline: DATABASE_URL=&quot;...&quot; ./deploy.sh
+</code></pre></div>
+
+<h3 id="asking-for-clarification">Asking for Clarification<a class="headerlink" href="#asking-for-clarification" title="Permanent link">&para;</a></h3>
+<p>If your request is ambiguous, Amplifier asks for clarification rather than guessing:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Delete the old files
+
+I found several potential matches for &quot;old files&quot;:
+- backup/ directory (23 files, last modified 30 days ago)
+- *.bak files (5 files across the project)
+- deprecated/ folder (12 files)
+
+Which would you like me to delete?
+</code></pre></div>
+
+<h2 id="ending-a-session">Ending a Session<a class="headerlink" href="#ending-a-session" title="Permanent link">&para;</a></h2>
+<p>To end your conversation, simply type:</p>
+<div class="codehilite"><pre><span></span><code>&gt; exit
+</code></pre></div>
+
+<p>Or use the keyboard shortcut <code>Ctrl+C</code>.</p>
+<p>Your session is automatically saved. You can resume it later or start fresh.</p>
+<h3 id="session-persistence">Session Persistence<a class="headerlink" href="#session-persistence" title="Permanent link">&para;</a></h3>
+<p>Sessions are stored locally and can be referenced later. To see recent sessions:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>sessions<span class="w"> </span>list
+</code></pre></div>
+
+<p>To resume a specific session:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>resume<span class="w"> </span>&lt;session-id&gt;
+</code></pre></div>
+
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that you've had your first conversation, explore these topics:</p>
+<ul>
+<li><strong><a href="./working-with-files.md">Working with Files</a></strong> - Deep dive into file operations</li>
+<li><strong><a href="./running-commands.md">Running Commands</a></strong> - Execute shell commands effectively</li>
+<li><strong><a href="./project-context.md">Project Context</a></strong> - Help Amplifier understand your codebase</li>
+<li><strong><a href="../guides/advanced-prompting.md">Advanced Prompting</a></strong> - Write more effective prompts</li>
+</ul>
+<h3 id="tips-for-success">Tips for Success<a class="headerlink" href="#tips-for-success" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Started a session</strong> with your configured provider (e.g., Claude)</li>
-<li><strong>Loaded modules</strong> - tools, hooks, and other capabilities</li>
-<li><strong>Managed context</strong> - keeping track of the conversation</li>
-<li><strong>Logged events</strong> - every action recorded to <code>~/.amplifier/sessions/</code></li>
+<li><strong>Be specific</strong> - Clear requests get better results</li>
+<li><strong>Provide context</strong> - Share error messages, file paths, and background</li>
+<li><strong>Iterate</strong> - Build on responses in multi-turn conversations</li>
+<li><strong>Ask questions</strong> - Amplifier can explain code and concepts</li>
+<li><strong>Trust but verify</strong> - Review generated code before committing</li>
 </ol>
-<p>You can inspect any session:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find your session</span>
-ls<span class="w"> </span>~/.amplifier/sessions/
-
-<span class="c1"># See the transcript</span>
-cat<span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>id<span class="o">]</span>/transcript.md
-</code></pre></div>
-
-<h2 id="tips-for-effective-use">Tips for Effective Use<a class="headerlink" href="#tips-for-effective-use" title="Permanent link">&para;</a></h2>
-<h3 id="be-specific">Be Specific<a class="headerlink" href="#be-specific" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Vague
-amplifier&gt; Fix the bug
-
-# Specific  
-amplifier&gt; The login function in src/auth.py returns None when it should return a User object. Fix it.
-</code></pre></div>
-
-<h3 id="provide-context">Provide Context<a class="headerlink" href="#provide-context" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Give relevant files
-amplifier&gt; Here&#39;s my config file. Update it to use port 8080:
-$(cat config.yaml)
-</code></pre></div>
-
-<h3 id="use-multi-turn-conversations">Use Multi-Turn Conversations<a class="headerlink" href="#use-multi-turn-conversations" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; Create a REST API endpoint for user registration
-# ... Amplifier creates it ...
-
-amplifier&gt; Add input validation
-# ... Amplifier updates the code ...
-
-amplifier&gt; Now add tests for it
-# ... Amplifier creates tests ...
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Create something</strong>: Ask Amplifier to create a simple script in your language of choice</li>
-<li><strong>Explore</strong>: Point it at an existing project and ask for a summary</li>
-<li><strong>Debug</strong>: Give it some buggy code and ask for fixes</li>
-</ol>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Learn the key commands that make you productive.</p>
-<p>→ <a href="key-commands.html">Key Commands</a></p>
+<p>Welcome to Amplifier. Happy building.</p>
               
             </div>
           </div><footer>

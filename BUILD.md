@@ -54,10 +54,29 @@ tutorial/
 
 ### Using the Update Recipe
 
+Recipes are executed via `amplifier run` with natural language:
+
 ```bash
-amplifier recipes execute recipes/update-tutorial.yaml \
-  --context '{"focus": "tools"}'
+# Full tutorial regeneration (generates markdown + builds HTML)
+amplifier run "execute recipes/update-tutorial.yaml"
+
+# With context variables
+amplifier run "execute recipes/update-tutorial.yaml with force=true"
+
+# Generate specific content type only
+amplifier run "execute recipes/generate-tool.yaml with tool_id=tool-bash tool_name='Bash Tool'"
 ```
+
+**Available recipes:**
+
+| Recipe | Purpose |
+|--------|---------|
+| `update-tutorial.yaml` | Full regeneration + HTML build |
+| `generate-tool.yaml` | Single tool page |
+| `generate-concept.yaml` | Single concept page |
+| `generate-bundle.yaml` | Single bundle page |
+| `generate-quickstart.yaml` | Single quickstart page |
+| `generate-index.yaml` | Section index page |
 
 ## Editorial Notes
 
@@ -73,7 +92,7 @@ When rebuilding, check `.notes/` for pending items marked `[PENDING]`.
 To regenerate all content from the Amplifier repos:
 
 ```bash
-amplifier recipes execute recipes/full-rebuild.yaml
+amplifier run "execute recipes/update-tutorial.yaml"
 ```
 
 This will:

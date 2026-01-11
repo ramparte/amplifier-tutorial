@@ -6,243 +6,330 @@ title: "Recipes Tool"
 
 # Recipes Tool
 
-Execute multi-step workflows defined in YAML.
+The Recipes Tool enables declarative workflow automation through YAML specifications.
+Instead of manually orchestrating multi-step tasks, you define what needs to happen
+and let Amplifier handle the execution, checkpointing, and error recovery.
 
-## Overview
+## What are Recipes?
 
-The recipes tool runs declarative workflows:
+Recipes are declarative YAML workflows that define multi-step agent tasks. Think of
+them as executable specifications that describe:
 
-| Operation | Purpose |
-|-----------|---------|
-| `execute` | Run a recipe |
-| `resume` | Continue interrupted recipe |
-| `list` | Show active sessions |
-| `validate` | Check recipe syntax |
-| `approvals` | Show pending approvals |
-| `approve` / `deny` | Respond to approval gates |
+- **Steps**: Individual units of work performed by agents
+- **Context**: Data that flows between steps
+- **Dependencies**: How steps relate to each other
+- **Checkpoints**: Automatic save points for resumability
+- **Gates**: Human approval points for sensitive operations
 
-## Requirements
-
-```bash
-# Add the recipes bundle
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-recipes@main
-amplifier bundle use recipes
-```
-
-## Running Recipes
-
-### Basic Execution
-
-```
-> Run the code-review recipe on src/auth.py
-```
-
-Or via CLI:
-
-```bash
-amplifier recipes execute recipes/code-review.yaml \
-  --context '{"file_path": "src/auth.py"}'
-```
-
-### With Context Variables
-
-Recipes accept input variables:
+A simple recipe might look like this:
 
 ```yaml
-# recipe.yaml
-context:
-  file_path: ""   # Required
-  depth: "basic"  # Optional with default
+name: code-review
+description: Review code changes and suggest improvements
+
+steps:
+  - name: analyze
+    agent: foundation:zen-architect
+    instruction: |
+      Analyze the code in {{ file_path }} for:
+      - Code quality issues
+      - Potential bugs
+      - Performance concerns
+      
+  - name: suggest
+    agent: foundation:modular-builder
+    instruction: |
+      Based on the analysis, suggest specific improvements.
+      Previous analysis: {{ steps.analyze.result }}
 ```
+
+## Executing Recipes
+
+To run a recipe, use the `execute` operation with the path to your YAML file:
 
 ```bash
-amplifier recipes execute recipe.yaml \
-  --context '{"file_path": "src/auth.py", "depth": "detailed"}'
+amplifier run "execute recipe.yaml"
 ```
 
-## Managing Sessions
+Or through the recipes tool directly:
 
-### List Active Sessions
+```
+recipes(operation="execute", recipe_path="my-recipe.yaml")
+```
+
+During execution, Amplifier:
+
+1. Validates the recipe structure
+2. Creates a new session for tracking
+3. Executes steps sequentially
+4. Persists state after each step
+5. Returns the final result
+
+## Passing Context
+
+Recipes become powerful when you parameterize them with context variables.
+Pass context as key-value pairs:
 
 ```bash
-amplifier recipes list
+amplifier run "execute code-review.yaml with file_path=src/auth.py"
 ```
 
-```
-Active Recipe Sessions:
-  ID                              Recipe          Status
-  recipe_20260107_140000_abc123   code-review     running
-  recipe_20260107_130000_def456   security-audit  awaiting_approval
-```
-
-### Resume Interrupted Session
-
-```bash
-amplifier recipes resume recipe_20260107_140000_abc123
-```
-
-Or in a session:
+Or programmatically:
 
 ```
-> Resume the code-review recipe
+recipes(
+  operation="execute",
+  recipe_path="code-review.yaml",
+  context={"file_path": "src/auth.py", "strict_mode": true}
+)
+```
+
+Context variables are available in step instructions using Jinja2 templating:
+
+```yaml
+steps:
+  - name: review
+    instruction: |
+      Review {{ file_path }} with strict_mode={{ strict_mode }}
+```
+
+### Context Accumulation
+
+Each step's result is automatically added to context for subsequent steps:
+
+```yaml
+steps:
+  - name: step_one
+    instruction: "Generate a summary"
+    # Result stored in steps.step_one.result
+    
+  - name: step_two
+    instruction: |
+      Expand on this summary: {{ steps.step_one.result }}
+```
+
+## Operations
+
+The Recipes Tool supports several operations for managing workflow execution:
+
+| Operation   | Purpose                                    | Required Parameters          |
+|-------------|--------------------------------------------|------------------------------|
+| `execute`   | Run a recipe from YAML file                | `recipe_path`                |
+| `resume`    | Continue an interrupted session            | `session_id`                 |
+| `list`      | List all active recipe sessions            | None                         |
+| `validate`  | Check recipe YAML structure                | `recipe_path`                |
+| `approvals` | List pending approvals across sessions     | None                         |
+| `approve`   | Approve a stage to continue execution      | `session_id`, `stage_name`   |
+| `deny`      | Deny a stage and stop execution            | `session_id`, `stage_name`   |
+
+### Operation Examples
+
+**Validate before running:**
+```
+recipes(operation="validate", recipe_path="deployment.yaml")
+```
+
+**Resume an interrupted session:**
+```
+recipes(operation="resume", session_id="recipe_20260110_143022_a3f2")
+```
+
+**Check pending approvals:**
+```
+recipes(operation="approvals")
 ```
 
 ## Approval Gates
 
-Some recipes pause for human approval:
+For sensitive operations, recipes support staged execution with human approval gates.
+This creates a human-in-the-loop workflow where execution pauses until approved.
+
+### Defining Staged Recipes
+
+```yaml
+name: production-deploy
+description: Deploy to production with approval gates
+
+stages:
+  - name: planning
+    steps:
+      - name: plan
+        agent: foundation:zen-architect
+        instruction: Create deployment plan for {{ service }}
+    requires_approval: true
+    
+  - name: execution
+    steps:
+      - name: deploy
+        agent: foundation:modular-builder
+        instruction: |
+          Execute deployment plan: {{ stages.planning.steps.plan.result }}
+```
+
+### Approval Workflow
+
+1. Recipe executes until it hits an approval gate
+2. Execution pauses and awaits human review
+3. Human reviews the stage output
+4. Human approves or denies:
+
+```
+# Approve to continue
+recipes(operation="approve", session_id="...", stage_name="planning")
+
+# Deny to stop execution
+recipes(operation="deny", session_id="...", stage_name="planning", reason="Needs revision")
+```
+
+5. If approved, execution continues to the next stage
+
+## Error Handling
+
+Recipes include built-in error handling and retry logic:
 
 ```yaml
 steps:
-  - id: deploy
-    requires_approval: true
-    instruction: "Deploy to production"
+  - name: api_call
+    agent: foundation:integration-specialist
+    instruction: Call external API
+    retry:
+      max_attempts: 3
+      delay_seconds: 5
+    on_error: continue  # or 'fail' to stop execution
 ```
 
-### Check Pending Approvals
+### Error Strategies
 
-```bash
-amplifier recipes approvals
+| Strategy   | Behavior                                      |
+|------------|-----------------------------------------------|
+| `fail`     | Stop execution immediately (default)          |
+| `continue` | Log error and proceed to next step            |
+| `retry`    | Attempt step again with configured backoff    |
+
+## Best Practices
+
+### 1. Keep Steps Focused
+
+Each step should do one thing well:
+
+```yaml
+# Good: Single responsibility
+steps:
+  - name: analyze
+    instruction: Analyze code structure
+  - name: review
+    instruction: Review for issues
+  - name: suggest
+    instruction: Suggest improvements
+
+# Avoid: Monolithic steps
+steps:
+  - name: do_everything
+    instruction: Analyze, review, and suggest all at once
 ```
 
-```
-Pending Approvals:
-  Session: recipe_20260107_130000_def456
-  Recipe: deploy-workflow
-  Stage: deploy
-  Waiting since: 10 minutes ago
-```
+### 2. Use Descriptive Names
 
-### Approve a Stage
+Step and stage names become part of the context path:
 
-```bash
-amplifier recipes approve recipe_20260107_130000_def456 deploy
-```
+```yaml
+# Good: Clear, descriptive
+steps:
+  - name: security_audit
+  - name: performance_review
 
-### Deny a Stage
-
-```bash
-amplifier recipes deny recipe_20260107_130000_def456 deploy \
-  --reason "Need more testing first"
+# Avoid: Generic names
+steps:
+  - name: step1
+  - name: step2
 ```
 
-## Validating Recipes
+### 3. Validate Before Execution
 
-Check syntax before running:
-
-```bash
-amplifier recipes validate my-recipe.yaml
-```
+Always validate recipes before running in production:
 
 ```
-Recipe 'my-recipe' is valid.
-
-Steps: 4
-Agents used: zen-architect, modular-builder
-Context variables: file_path (required), depth (optional)
+recipes(operation="validate", recipe_path="critical-workflow.yaml")
 ```
 
-## Example Session
+### 4. Design for Resumability
 
-```bash
-# Start a recipe
-$ amplifier recipes execute recipes/upgrade-deps.yaml \
-    --context '{"project": "."}'
+Structure recipes so they can resume gracefully:
 
-Starting recipe: upgrade-deps
-Session ID: recipe_20260107_150000_xyz789
+- Make steps idempotent where possible
+- Use clear checkpoints between major operations
+- Store intermediate results in context
 
-Step 1/4: analyze-deps
-  [explorer] Analyzing dependencies...
-  ✓ Found 15 outdated packages
+### 5. Use Approval Gates for Sensitive Operations
 
-Step 2/4: create-plan
-  [zen-architect] Creating upgrade plan...
-  ✓ Plan created
+Add human checkpoints for:
 
-Step 3/4: approve-plan [REQUIRES APPROVAL]
-  Review the upgrade plan before proceeding.
+- Production deployments
+- Data migrations
+- External API calls with side effects
+- Operations that cannot be easily reversed
+
+### 6. Document Your Recipes
+
+Include clear descriptions:
+
+```yaml
+name: data-migration
+description: |
+  Migrates user data from legacy system to new schema.
   
-  To approve: amplifier recipes approve recipe_20260107_150000_xyz789 approve-plan
-  To deny: amplifier recipes deny recipe_20260107_150000_xyz789 approve-plan
-
-# In another terminal, approve it
-$ amplifier recipes approve recipe_20260107_150000_xyz789 approve-plan
-
-# Recipe continues...
-Step 4/4: execute-upgrades
-  [modular-builder] Executing upgrades...
-  ✓ Dependencies upgraded
-
-Recipe completed successfully!
+  Prerequisites:
+  - Backup completed
+  - Maintenance window scheduled
+  
+  Context required:
+  - source_db: Legacy database connection
+  - target_db: New database connection
 ```
 
 ## Try It Yourself
 
-### Exercise 1: Run an Example
+Create a simple recipe to experience the workflow:
 
-```bash
-# See available example recipes
-ls ~/.amplifier/bundles/recipes/examples/
-
-# Run one
-amplifier recipes execute examples/code-review.yaml \
-  --context '{"file_path": "any-file.py"}'
-```
-
-### Exercise 2: Check Status
-
-```bash
-# List sessions
-amplifier recipes list
-
-# Check for pending approvals
-amplifier recipes approvals
-```
-
-### Exercise 3: Validate Your Recipe
-
-Create a simple recipe and validate it:
+**1. Create `hello-recipe.yaml`:**
 
 ```yaml
-# test-recipe.yaml
-name: test
+name: hello-world
+description: A simple introduction to recipes
+
 steps:
-  - id: hello
-    instruction: "Say hello"
+  - name: greet
+    agent: foundation:file-ops
+    instruction: |
+      Create a file called hello.txt with the message:
+      "Hello from Amplifier Recipes!"
+      
+  - name: verify
+    agent: foundation:file-ops
+    instruction: |
+      Read hello.txt and confirm it contains the greeting.
+      Report the contents.
 ```
+
+**2. Validate the recipe:**
 
 ```bash
-amplifier recipes validate test-recipe.yaml
+amplifier run "validate hello-recipe.yaml"
 ```
 
-## Common Errors
+**3. Execute it:**
 
-### "Recipe not found"
-
-Check the path:
 ```bash
-ls recipes/  # Verify file exists
-amplifier recipes execute ./recipes/my-recipe.yaml  # Use relative path
+amplifier run "execute hello-recipe.yaml"
 ```
 
-### "Context variable required"
+**4. Check the results:**
 
-Provide required context:
-```bash
-amplifier recipes execute recipe.yaml \
-  --context '{"required_var": "value"}'
-```
+The recipe will create `hello.txt` and verify its contents, demonstrating
+the multi-step workflow with context passing between agents.
 
-### "Invalid YAML"
+## Next Steps
 
-Validate first:
-```bash
-amplifier recipes validate recipe.yaml
-```
-
-### "Session not found"
-
-List available sessions:
-```bash
-amplifier recipes list
-```
+- Learn about [Recipe Schema](/reference/recipe-schema) for advanced options
+- Explore [Staged Recipes](/guides/staged-recipes) for complex workflows
+- See [Recipe Examples](/examples/recipes) for real-world patterns

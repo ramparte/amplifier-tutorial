@@ -1,232 +1,386 @@
 ---
 id: bundles
 type: concepts
-title: "Bundles"
+title: "Understanding Bundles"
+description: "Learn how bundles package agent capabilities into composable, reusable configurations"
+prerequisites:
+  - concepts/agents
+  - concepts/tools
+related:
+  - concepts/behaviors
+  - concepts/collections
+  - guides/creating-bundles
 ---
 
-# Bundles
+# Understanding Bundles
 
-Bundles are the primary way to configure and extend Amplifier. They package tools, agents, behaviors, and instructions into composable units.
+Bundles are the primary unit of composition in Amplifier. They package together everything an agent needs—instructions, tools, behaviors, and context—into a single, reusable configuration that can be shared, combined, and customized.
 
 ## What is a Bundle?
 
-A bundle is a YAML configuration that tells Amplifier:
+A bundle is a composable configuration package that defines an agent's capabilities. Think of it like a recipe: it specifies the ingredients (tools, context files), the instructions (system prompts, behaviors), and how they combine to create a specific agent personality and capability set.
 
-- Which **modules** to load (tools, providers, hooks)
-- Which **agents** are available
-- What **instructions** guide the AI's behavior
-- What **behaviors** add specialized capabilities
+### The Core Idea
 
-Think of bundles like Docker Compose files - they define a complete environment from reusable pieces.
+Traditional AI agent configuration often involves:
+- Scattered configuration files
+- Duplicated prompts across projects
+- Manual tool registration
+- Inconsistent setups between environments
+
+Bundles solve this by providing a **single source of truth** for an agent's configuration that can be:
+
+- **Versioned** alongside your code
+- **Shared** across teams and projects
+- **Composed** to build complex agents from simple parts
+- **Overridden** for environment-specific customization
+
+### Bundle vs Agent
+
+It's important to understand the distinction:
+
+| Aspect | Bundle | Agent |
+|--------|--------|-------|
+| Definition | Configuration package | Runtime instance |
+| Contains | Instructions, tools, behaviors | Active session state |
+| Lifetime | Persistent (file-based) | Ephemeral (session-based) |
+| Purpose | Define capabilities | Execute tasks |
+
+A bundle is the *blueprint*; an agent is the *running instance* created from that blueprint.
 
 ## Bundle Structure
 
-```yaml
-# bundle.yaml
-bundle:
-  name: my-bundle
-  version: 1.0.0
-  description: My custom Amplifier configuration
+Every bundle follows a standard structure using Markdown files with YAML frontmatter. This format is both human-readable and machine-parseable.
+
+### Basic Bundle Layout
+
+```
+my-bundle/
+├── bundle.md           # Main bundle definition
+├── context/            # Supporting context files
+│   ├── guidelines.md
+│   └── examples.md
+├── behaviors/          # Custom behaviors
+│   └── review-code.md
+└── tools/              # Custom tool definitions (optional)
+    └── lint.yaml
+```
+
+### The bundle.md File
+
+The `bundle.md` file is the entry point for every bundle. It contains:
+
+```markdown
+---
+name: code-reviewer
+description: "Expert code review agent"
+version: "1.0.0"
+
+# Tool configuration
+tools:
+  - read_file
+  - write_file
+  - grep
+  - glob
+  - bash
 
 # Include other bundles
 includes:
-  - bundle: foundation  # Base bundle with core tools
+  - foundation:core-tools
+  - my-org:coding-standards
 
-# Add tools
-tools:
-  - module: tool-filesystem
-  - module: tool-bash
-  - module: my-custom-tool
-    source: ./modules/my-tool
-
-# Add agents
-agents:
-  - path: ./agents/specialist.yaml
-
-# Add behaviors
+# Behaviors to activate
 behaviors:
-  - path: ./behaviors/code-review.yaml
+  - thorough-review
+  - security-focus
 
-# System instructions
-instructions: |
-  You are a helpful assistant specialized in Python development.
-  Always suggest type hints and write tests.
+# Context files to load
+context:
+  - context/guidelines.md
+  - context/examples.md
+---
+
+# Code Reviewer
+
+You are an expert code reviewer focused on quality, security, and maintainability.
+
+## Your Approach
+
+1. Read the code thoroughly before commenting
+2. Focus on substantive issues, not style nitpicks
+3. Provide actionable suggestions with examples
+4. Acknowledge good patterns when you see them
+
+## Review Checklist
+
+- [ ] Logic correctness
+- [ ] Error handling
+- [ ] Security considerations
+- [ ] Performance implications
+- [ ] Test coverage
 ```
 
-## The Foundation Bundle
+### Frontmatter Fields
 
-Most bundles start by including `foundation`:
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Unique identifier for the bundle |
+| `description` | No | Human-readable description |
+| `version` | No | Semantic version string |
+| `tools` | No | List of tools to enable |
+| `includes` | No | Other bundles to compose |
+| `behaviors` | No | Behaviors to activate |
+| `context` | No | Additional context files to load |
+
+### Body Content
+
+The markdown body after the frontmatter becomes the agent's system prompt. This is where you define:
+
+- The agent's role and personality
+- Specific instructions and guidelines
+- Domain knowledge
+- Response formats
+
+## Composition
+
+One of the most powerful features of bundles is composition. You can build complex agents by combining simpler bundles.
+
+### The includes Field
+
+Use `includes` to inherit from other bundles:
 
 ```yaml
 includes:
-  - bundle: foundation
+  - foundation:core-tools      # From foundation collection
+  - my-org:coding-standards    # From your organization
+  - ./local-overrides          # From relative path
 ```
 
-Foundation provides:
+When bundles are composed:
+1. Tools are **merged** (union of all tools)
+2. Context is **accumulated** (all context files load)
+3. Behaviors are **combined** (all behaviors activate)
+4. Instructions are **layered** (child overrides parent)
 
-| Component | What You Get |
-|-----------|--------------|
-| **Core Tools** | filesystem, bash, web, search, task, todo |
-| **Agents** | zen-architect, bug-hunter, modular-builder, explorer, etc. |
-| **Behaviors** | Git operations, security review, test coverage |
-| **Philosophy** | Implementation and modular design principles |
+### Composition Order Matters
 
-## Using Bundles
-
-### Install a Bundle
-
-```bash
-# Add a bundle from GitHub
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-recipes@main
-
-# List installed bundles
-amplifier bundle list
-```
-
-### Activate a Bundle
-
-```bash
-# Use a specific bundle for this session
-amplifier bundle use recipes
-
-# Or specify inline
-amplifier --bundle recipes
-```
-
-### View Bundle Contents
-
-```bash
-# See what a bundle provides
-amplifier bundle show recipes
-```
-
-## Bundle Composition
-
-Bundles can include other bundles, creating a composition hierarchy:
-
-```
-your-bundle
-├── includes: recipes
-│   └── includes: foundation
-│       └── (core tools, agents, behaviors)
-├── your tools
-├── your agents
-└── your instructions
-```
-
-### Example: Team Bundle
+Bundles are processed in order, with later bundles taking precedence:
 
 ```yaml
-# team-bundle/bundle.yaml
-bundle:
-  name: acme-dev
-  version: 1.0.0
-
 includes:
-  - bundle: foundation
-  - bundle: recipes
-  - bundle: lsp-python
+  - base-agent           # Loaded first (lowest priority)
+  - security-focused     # Adds security behaviors
+  - my-customizations    # Loaded last (highest priority)
+```
 
-# Team-specific tools
+### Behaviors
+
+Behaviors are reusable instruction fragments that modify agent behavior. Unlike full bundles, behaviors are lightweight and focused on a single concern.
+
+```markdown
+---
+name: security-focus
+trigger: "when reviewing code"
+---
+
+## Security Review Requirements
+
+When reviewing code, always check for:
+- Input validation and sanitization
+- Authentication and authorization
+- Sensitive data exposure
+- SQL injection vulnerabilities
+- XSS attack vectors
+```
+
+Behaviors can be:
+- **Always active**: Load with every request
+- **Conditionally triggered**: Activate based on context
+- **User-invoked**: Activated by explicit command
+
+### Practical Composition Example
+
+Here's how you might compose a specialized agent:
+
+```yaml
+# devops-agent/bundle.md
+---
+name: devops-agent
+includes:
+  - foundation:core-tools
+  - foundation:git-ops
+  - cloud:aws-tools
+behaviors:
+  - infrastructure-as-code
+  - security-compliance
+  - cost-awareness
+---
+
+# DevOps Agent
+
+You specialize in infrastructure, deployment, and operational concerns.
+```
+
+This agent inherits:
+- File and shell tools from `core-tools`
+- Git capabilities from `git-ops`  
+- AWS-specific tools from `aws-tools`
+- Three domain-specific behaviors
+
+## Creating a Bundle
+
+Let's walk through creating a bundle from scratch.
+
+### Step 1: Define the Purpose
+
+Before writing any configuration, clearly define:
+- What problem does this agent solve?
+- What tools does it need?
+- What domain knowledge is required?
+- Who will use it?
+
+### Step 2: Create the Structure
+
+```bash
+mkdir -p my-agent/{context,behaviors}
+touch my-agent/bundle.md
+```
+
+### Step 3: Write the Bundle Definition
+
+```markdown
+---
+name: documentation-writer
+description: "Creates clear, comprehensive documentation"
+version: "1.0.0"
+
 tools:
-  - module: tool-jira
-    source: ./modules/jira-integration
+  - read_file
+  - write_file
+  - glob
+  - grep
 
-# Team-specific agents
-agents:
-  - path: ./agents/code-reviewer.yaml
-  - path: ./agents/deploy-manager.yaml
+includes:
+  - foundation:core-tools
 
-# Team coding standards
-instructions: |
-  Follow ACME coding standards:
-  - Use Google-style docstrings
-  - All functions must have type hints
-  - Tests required for new code
+context:
+  - context/style-guide.md
+---
+
+# Documentation Writer
+
+You are an expert technical writer who creates clear, 
+comprehensive documentation.
+
+## Writing Principles
+
+1. **Clarity first**: Use simple language
+2. **Structure matters**: Organize logically
+3. **Examples help**: Show, don't just tell
+4. **Audience awareness**: Know your reader
 ```
 
-## Bundle Sources
+### Step 4: Add Context Files
 
-Bundles can be loaded from multiple sources:
+Create supporting context that provides domain knowledge:
+
+```markdown
+<!-- context/style-guide.md -->
+# Documentation Style Guide
+
+## Voice and Tone
+- Use active voice
+- Be direct and concise
+- Avoid jargon unless necessary
+
+## Formatting
+- Use headers to organize content
+- Include code examples in fenced blocks
+- Add tables for comparative information
+```
+
+### Step 5: Test the Bundle
+
+Run your bundle and verify it works as expected:
+
+```bash
+amp --bundle ./my-agent
+```
+
+### Bundle Best Practices
+
+**DO:**
+- Keep bundles focused on a single domain
+- Use composition instead of duplication
+- Version your bundles alongside code
+- Document the bundle's purpose and usage
+
+**DON'T:**
+- Create monolithic bundles that do everything
+- Duplicate instructions across bundles
+- Hardcode environment-specific values
+- Include sensitive data in bundles
+
+## Advanced Topics
+
+### Environment-Specific Overrides
+
+Use includes with environment bundles:
 
 ```yaml
 includes:
-  # From the registry (if configured)
-  - bundle: foundation
-  
-  # From GitHub
-  - bundle: git+https://github.com/microsoft/amplifier-bundle-recipes@main
-  
-  # From local path
-  - bundle: ./my-local-bundle
-  
-  # From specific version/tag
-  - bundle: git+https://github.com/org/bundle@v1.2.0
+  - base-agent
+  - ${ENVIRONMENT:-development}  # Loads dev/staging/prod bundle
 ```
 
-## Bundle vs Module vs Behavior
+### Bundle Inheritance Patterns
 
-| Concept | Purpose | Scope |
-|---------|---------|-------|
-| **Module** | Single capability (tool, provider, hook) | One thing |
-| **Behavior** | Reusable agent + context combo | One workflow |
-| **Bundle** | Complete configuration package | Everything |
-
-A bundle can contain multiple behaviors, which reference multiple modules.
-
-## Try It Yourself
-
-### Exercise 1: Explore Your Current Bundle
-
-```bash
-# Start Amplifier and ask:
-amplifier
-
-> What bundle am I using? What tools and agents are available?
+**Specialization**: Start general, get specific
+```
+foundation:core → domain:backend → project:api-service
 ```
 
-### Exercise 2: Add the Recipes Bundle
-
-```bash
-# Add and use the recipes bundle
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-recipes@main
-amplifier bundle use recipes
-
-# Verify it's loaded
-amplifier run "/tools" | grep recipe
+**Layering**: Add capabilities incrementally
+```
+base + security + monitoring + custom
 ```
 
-### Exercise 3: Create a Minimal Bundle
+### Collection Organization
 
-Create a file `my-bundle/bundle.yaml`:
+Group related bundles into collections:
 
-```yaml
-bundle:
-  name: minimal
-  version: 1.0.0
-
-includes:
-  - bundle: foundation
-
-instructions: |
-  You are a concise assistant.
-  Always give brief answers unless asked for detail.
 ```
-
-Use it:
-```bash
-amplifier --bundle ./my-bundle
+my-collection/
+├── collection.yaml     # Collection metadata
+├── agents/
+│   ├── reviewer/
+│   └── writer/
+├── behaviors/
+│   └── shared/
+└── context/
+    └── common/
 ```
 
 ## Key Takeaways
 
-1. **Bundles are configuration** - They assemble modules, agents, and instructions
-2. **Composition is powerful** - Include other bundles to build on their capabilities
-3. **Foundation is your base** - Most bundles include it for core functionality
-4. **Bundles are portable** - Share via Git, zip, or any file transfer
+1. **Bundles are composable packages** that define everything an agent needs—tools, instructions, behaviors, and context.
 
-## Next
+2. **Markdown + YAML frontmatter** provides a human-readable, version-controllable format for agent configuration.
 
-Learn about the building blocks that bundles assemble:
+3. **Composition is powerful**: Use `includes` to build complex agents from simple, focused bundles. Tools merge, context accumulates, and instructions layer.
 
-→ [Modules](modules.md)
+4. **Behaviors add modularity**: Extract reusable instruction fragments into behaviors that can be mixed and matched.
+
+5. **Structure matters**: Follow the standard bundle layout for consistency and discoverability.
+
+6. **Keep bundles focused**: One bundle should solve one class of problems. Use composition to combine capabilities.
+
+7. **Test and iterate**: Bundles are code—version them, test them, and refine them based on real usage.
+
+---
+
+## Next Steps
+
+- [Creating Your First Bundle](../guides/creating-bundles.md) - Hands-on tutorial
+- [Behaviors Deep Dive](./behaviors.md) - Learn about behavior composition
+- [Collections](./collections.md) - Organizing bundles at scale

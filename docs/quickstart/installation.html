@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
@@ -55,38 +57,88 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="installation.html">Installation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#python-version">Python Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#operating-system-support">Operating System Support</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#additional-requirements">Additional Requirements</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-1-install-uv">Step 1: Install UV</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#macos-and-linux">macOS and Linux</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#windows-wsl">Windows (WSL)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#alternative-install-via-homebrew">Alternative: Install via Homebrew</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#verify-uv-installation">Verify UV Installation</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-2-install-amplifier">Step 2: Install Amplifier</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-3-configure-your-provider">Step 3: Configure Your Provider</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-options">Provider Options</a>
+    <li class="toctree-l3"><a class="reference internal" href="#what-happens-during-installation">What Happens During Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installation-location">Installation Location</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3-setup-wizard">Step 3: Setup Wizard</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#provider-configuration">Provider Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api-key-setup">API Key Setup</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#default-model-selection">Default Model Selection</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-file">Configuration File</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#skip-interactive-mode">Skip Interactive Mode</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-4-verify-installation">Step 4: Verify Installation</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#view-your-configuration">View Your Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#quick-test">Quick Test</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    <li class="toctree-l2"><a class="reference internal" href="#common-issues">Common Issues</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#command-not-found-amplifier">"Command not found: amplifier"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#uv-not-found">UV Not Found</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#api-key-invalid">"API key invalid"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#python-version-too-old">Python Version Too Old</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#windows-issues">Windows Issues</a>
+    <li class="toctree-l3"><a class="reference internal" href="#api-key-invalid">API Key Invalid</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#networkproxy-issues">Network/Proxy Issues</a>
+    <li class="toctree-l3"><a class="reference internal" href="#permission-denied">Permission Denied</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ssl-certificate-errors">SSL Certificate Errors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxy-configuration">Proxy Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wsl-specific-issues">WSL-Specific Issues</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l2"><a class="reference internal" href="#updating-amplifier">Updating Amplifier</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-for-updates">Check for Updates</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#uninstalling">Uninstalling</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#quick-commands-reference">Quick Commands Reference</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a>
     </li>
     </ul>
                   </li>
@@ -210,152 +262,300 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>Get Amplifier running in under 2 minutes.</p>
+<p>This guide walks you through installing Amplifier on your system. The process takes about 5 minutes and requires minimal setup.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before installing Amplifier, ensure your system meets these requirements:</p>
+<h3 id="python-version">Python Version<a class="headerlink" href="#python-version" title="Permanent link">&para;</a></h3>
+<p>Amplifier requires <strong>Python 3.10 or higher</strong>. Check your Python version:</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>--version
+</code></pre></div>
+
+<p>If you need to install or upgrade Python:</p>
 <ul>
-<li><strong>Python 3.11+</strong> (3.12 recommended)</li>
-<li><strong>macOS or Linux</strong> (Windows users: use WSL2)</li>
-<li><strong>API key</strong> for at least one AI provider (Anthropic, OpenAI, or free local with Ollama)</li>
+<li><strong>macOS</strong>: <code>brew install python@3.12</code></li>
+<li><strong>Ubuntu/Debian</strong>: <code>sudo apt install python3.12</code></li>
+<li><strong>Windows</strong>: Download from <a href="https://www.python.org/downloads/">python.org</a></li>
 </ul>
+<h3 id="operating-system-support">Operating System Support<a class="headerlink" href="#operating-system-support" title="Permanent link">&para;</a></h3>
+<p>Amplifier runs on:</p>
+<ul>
+<li>macOS 12 (Monterey) or later</li>
+<li>Linux (Ubuntu 20.04+, Debian 11+, Fedora 36+)</li>
+<li>Windows 10/11 with WSL2</li>
+</ul>
+<h3 id="additional-requirements">Additional Requirements<a class="headerlink" href="#additional-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Terminal access (bash, zsh, or PowerShell with WSL)</li>
+<li>Internet connection for package downloads</li>
+<li>At least 500MB of free disk space</li>
+</ul>
+<hr />
 <h2 id="step-1-install-uv">Step 1: Install UV<a class="headerlink" href="#step-1-install-uv" title="Permanent link">&para;</a></h2>
-<p>UV is a fast Python package manager. Amplifier uses it for installation.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># macOS / Linux</span>
-curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-
-<span class="c1"># Verify installation</span>
-uv<span class="w"> </span>--version
+<p>UV is the recommended package manager for Amplifier. It's fast, reliable, and handles dependencies automatically.</p>
+<h3 id="macos-and-linux">macOS and Linux<a class="headerlink" href="#macos-and-linux" title="Permanent link">&para;</a></h3>
+<p>Run the installation script:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 </code></pre></div>
 
-<div class="admonition tip">
-<p class="admonition-title">Why UV?</p>
-<p>UV is 10-100x faster than pip and handles virtual environments automatically. Amplifier uses it for both installation and dependency management.</p>
-</div>
+<p>After installation, restart your terminal or run:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w">  </span><span class="c1"># or ~/.zshrc for zsh</span>
+</code></pre></div>
+
+<h3 id="windows-wsl">Windows (WSL)<a class="headerlink" href="#windows-wsl" title="Permanent link">&para;</a></h3>
+<p>Open your WSL terminal and run:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</code></pre></div>
+
+<h3 id="alternative-install-via-homebrew">Alternative: Install via Homebrew<a class="headerlink" href="#alternative-install-via-homebrew" title="Permanent link">&para;</a></h3>
+<p>If you prefer Homebrew on macOS:</p>
+<div class="codehilite"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>uv
+</code></pre></div>
+
+<h3 id="verify-uv-installation">Verify UV Installation<a class="headerlink" href="#verify-uv-installation" title="Permanent link">&para;</a></h3>
+<p>Confirm UV is installed correctly:</p>
+<div class="codehilite"><pre><span></span><code>uv<span class="w"> </span>--version
+</code></pre></div>
+
+<p>You should see output like:</p>
+<div class="codehilite"><pre><span></span><code>uv 0.5.x
+</code></pre></div>
+
+<hr />
 <h2 id="step-2-install-amplifier">Step 2: Install Amplifier<a class="headerlink" href="#step-2-install-amplifier" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Install from GitHub</span>
-uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>git+https://github.com/microsoft/amplifier
-
-<span class="c1"># Verify installation</span>
-amplifier<span class="w"> </span>--version
+<p>With UV installed, getting Amplifier is a single command:</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>amplifier
 </code></pre></div>
 
-<p>This installs the <code>amplifier</code> command globally.</p>
-<h2 id="step-3-configure-your-provider">Step 3: Configure Your Provider<a class="headerlink" href="#step-3-configure-your-provider" title="Permanent link">&para;</a></h2>
-<p>Run the initialization wizard:</p>
+<p>This command:</p>
+<ol>
+<li>Downloads the latest Amplifier release</li>
+<li>Creates an isolated environment</li>
+<li>Installs all dependencies</li>
+<li>Makes <code>amplifier</code> available globally</li>
+</ol>
+<h3 id="what-happens-during-installation">What Happens During Installation<a class="headerlink" href="#what-happens-during-installation" title="Permanent link">&para;</a></h3>
+<p>UV creates a tool environment at <code>~/.local/share/uv/tools/amplifier/</code> containing:</p>
+<ul>
+<li>The Amplifier CLI application</li>
+<li>All required Python packages</li>
+<li>Configuration templates</li>
+</ul>
+<h3 id="installation-location">Installation Location<a class="headerlink" href="#installation-location" title="Permanent link">&para;</a></h3>
+<p>By default, the <code>amplifier</code> command is installed to:</p>
+<ul>
+<li><strong>macOS/Linux</strong>: <code>~/.local/bin/amplifier</code></li>
+<li><strong>Windows WSL</strong>: <code>~/.local/bin/amplifier</code></li>
+</ul>
+<p>Ensure this directory is in your PATH. UV typically handles this automatically.</p>
+<hr />
+<h2 id="step-3-setup-wizard">Step 3: Setup Wizard<a class="headerlink" href="#step-3-setup-wizard" title="Permanent link">&para;</a></h2>
+<p>Run the interactive setup wizard to configure Amplifier:</p>
 <div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>init
 </code></pre></div>
 
-<p>You'll be prompted to choose a provider and enter your API key:</p>
-<div class="codehilite"><pre><span></span><code>? Select AI provider:
-  &gt; anthropic (Claude - recommended)
-    openai (GPT models)
-    azure-openai (Enterprise Azure)
-    ollama (Local models - free)
-
-? Enter your Anthropic API key: sk-ant-...
+<p>The wizard guides you through:</p>
+<h3 id="provider-configuration">Provider Configuration<a class="headerlink" href="#provider-configuration" title="Permanent link">&para;</a></h3>
+<p>Select your AI provider(s):</p>
+<div class="codehilite"><pre><span></span><code>? Select AI providers to configure:
+  [x] Anthropic (Claude)
+  [ ] OpenAI (GPT-4)
+  [ ] Azure OpenAI
+  [ ] Google (Gemini)
 </code></pre></div>
 
-<h3 id="provider-options">Provider Options<a class="headerlink" href="#provider-options" title="Permanent link">&para;</a></h3>
-<p>=== "Anthropic (Recommended)"</p>
-<div class="codehilite"><pre><span></span><code>Best tested, most capable for coding tasks.
-
-```bash
-# Get API key from https://console.anthropic.com
-amplifier provider add anthropic --api-key sk-ant-...
-amplifier provider use anthropic
-```
+<h3 id="api-key-setup">API Key Setup<a class="headerlink" href="#api-key-setup" title="Permanent link">&para;</a></h3>
+<p>Enter your API key when prompted:</p>
+<div class="codehilite"><pre><span></span><code>? Enter your Anthropic API key: sk-ant-...
 </code></pre></div>
 
-<p>=== "OpenAI"</p>
-<div class="codehilite"><pre><span></span><code>GPT models including GPT-4.
-
-```bash
-# Get API key from https://platform.openai.com
-amplifier provider add openai --api-key sk-...
-amplifier provider use openai
-```
+<p>Your keys are stored securely in <code>~/.amplifier/settings.yaml</code>.</p>
+<h3 id="default-model-selection">Default Model Selection<a class="headerlink" href="#default-model-selection" title="Permanent link">&para;</a></h3>
+<p>Choose your preferred model:</p>
+<div class="codehilite"><pre><span></span><code>? Select default model:
+  &gt; claude-sonnet-4-20250514
+    claude-3-5-haiku-20241022
+    claude-3-opus-20240229
 </code></pre></div>
 
-<p>=== "Ollama (Free, Local)"</p>
-<div class="codehilite"><pre><span></span><code>Run models locally - no API key needed.
+<h3 id="configuration-file">Configuration File<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
+<p>The wizard creates <code>~/.amplifier/settings.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">    </span><span class="nt">default_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
 
-```bash
-# First, install Ollama: https://ollama.ai
-ollama pull llama3.2
-
-# Then configure Amplifier
-amplifier provider add ollama
-amplifier provider use ollama
-```
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 </code></pre></div>
 
-<p>=== "Azure OpenAI"</p>
-<div class="codehilite"><pre><span></span><code>Enterprise deployment with managed identity.
-
-```bash
-amplifier provider add azure-openai \
-  --endpoint https://your-resource.openai.azure.com \
-  --deployment your-deployment-name
-```
+<h3 id="skip-interactive-mode">Skip Interactive Mode<a class="headerlink" href="#skip-interactive-mode" title="Permanent link">&para;</a></h3>
+<p>For automated setups, use environment variables:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key-here&quot;</span>
+amplifier<span class="w"> </span>init<span class="w"> </span>--non-interactive
 </code></pre></div>
 
+<hr />
 <h2 id="step-4-verify-installation">Step 4: Verify Installation<a class="headerlink" href="#step-4-verify-installation" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Start an interactive session</span>
-amplifier
-
-<span class="c1"># Or run a single command</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Hello! What tools do you have?&quot;</span>
+<p>Confirm everything is working:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>version
 </code></pre></div>
 
-<p>You should see Amplifier respond with a list of available tools.</p>
-<h2 id="configuration-files">Configuration Files<a class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h2>
-<p>Amplifier stores configuration at <code>~/.amplifier/</code>:</p>
-<div class="codehilite"><pre><span></span><code>~/.amplifier/
-├── settings.yaml     # Provider config, preferences
-├── sessions/         # Session logs and history
-└── bundles/          # Downloaded bundles
+<p>Expected output:</p>
+<div class="codehilite"><pre><span></span><code>Amplifier v0.x.x
+Python: 3.12.x
+UV: 0.5.x
+Config: ~/.amplifier/settings.yaml
 </code></pre></div>
 
-<h3 id="view-your-configuration">View Your Configuration<a class="headerlink" href="#view-your-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See current settings</span>
-amplifier<span class="w"> </span>config<span class="w"> </span>show
-
-<span class="c1"># See available providers</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>list
+<h3 id="quick-test">Quick Test<a class="headerlink" href="#quick-test" title="Permanent link">&para;</a></h3>
+<p>Start an interactive session:</p>
+<div class="codehilite"><pre><span></span><code>amplifier
 </code></pre></div>
 
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="command-not-found-amplifier">"Command not found: amplifier"<a class="headerlink" href="#command-not-found-amplifier" title="Permanent link">&para;</a></h3>
-<p>UV installs tools to <code>~/.local/bin</code>. Add it to your PATH:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Add to your shell config (.bashrc, .zshrc, etc.)</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<p>You should see the Amplifier prompt:</p>
+<div class="codehilite"><pre><span></span><code>Amplifier v0.x.x | claude-sonnet-4-20250514
+Type /help for commands, /quit to exit
 
-<span class="c1"># Reload your shell</span>
-<span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w">  </span><span class="c1"># or ~/.zshrc</span>
+&gt;
 </code></pre></div>
 
-<h3 id="api-key-invalid">"API key invalid"<a class="headerlink" href="#api-key-invalid" title="Permanent link">&para;</a></h3>
-<p>Double-check your key has no extra whitespace:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Re-add the provider with the correct key</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>add<span class="w"> </span>anthropic<span class="w"> </span>--api-key<span class="w"> </span><span class="s2">&quot;sk-ant-your-key-here&quot;</span>
+<p>Type a simple query to confirm everything works:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Hello, can you hear me?
 </code></pre></div>
 
-<h3 id="windows-issues">Windows Issues<a class="headerlink" href="#windows-issues" title="Permanent link">&para;</a></h3>
-<p>Amplifier has limited Windows support. Use WSL2:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In PowerShell (as admin)</span>
-wsl<span class="w"> </span>--install
-
-<span class="c1"># Then follow Linux instructions inside WSL</span>
+<p>Press <code>/quit</code> to exit.</p>
+<hr />
+<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
+<h3 id="uv-not-found">UV Not Found<a class="headerlink" href="#uv-not-found" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: <code>command not found: uv</code></p>
+<p><strong>Solution</strong>: Add UV to your PATH:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 </code></pre></div>
 
-<h3 id="networkproxy-issues">Network/Proxy Issues<a class="headerlink" href="#networkproxy-issues" title="Permanent link">&para;</a></h3>
-<p>Set environment variables for proxy:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span>http://proxy.example.com:8080
-<span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span>http://proxy.example.com:8080
+<p>Add this line to your <code>~/.bashrc</code> or <code>~/.zshrc</code> for persistence.</p>
+<h3 id="python-version-too-old">Python Version Too Old<a class="headerlink" href="#python-version-too-old" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: <code>Python 3.10+ required, found 3.8.x</code></p>
+<p><strong>Solution</strong>: Install a newer Python version or use pyenv:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install pyenv</span>
+curl<span class="w"> </span>https://pyenv.run<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+
+<span class="c1"># Install Python 3.12</span>
+pyenv<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.12
+pyenv<span class="w"> </span>global<span class="w"> </span><span class="m">3</span>.12
 </code></pre></div>
 
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Installation complete! Let's have your first conversation.</p>
-<p>→ <a href="first-conversation.html">Your First Conversation</a></p>
+<h3 id="api-key-invalid">API Key Invalid<a class="headerlink" href="#api-key-invalid" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: <code>Authentication failed: Invalid API key</code></p>
+<p><strong>Solution</strong>: Verify your API key is correct:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Check the stored key</span>
+cat<span class="w"> </span>~/.amplifier/settings.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>api_key
+
+<span class="c1"># Re-run setup</span>
+amplifier<span class="w"> </span>init
+</code></pre></div>
+
+<h3 id="permission-denied">Permission Denied<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: <code>Permission denied: ~/.local/bin/amplifier</code></p>
+<p><strong>Solution</strong>: Fix permissions:</p>
+<div class="codehilite"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>~/.local/bin/amplifier
+</code></pre></div>
+
+<h3 id="ssl-certificate-errors">SSL Certificate Errors<a class="headerlink" href="#ssl-certificate-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: <code>SSL: CERTIFICATE_VERIFY_FAILED</code></p>
+<p><strong>Solution</strong>: Update certificates:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># macOS</span>
+/Applications/Python<span class="se">\ </span><span class="m">3</span>.12/Install<span class="se">\ </span>Certificates.command
+
+<span class="c1"># Linux</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ca-certificates
+sudo<span class="w"> </span>update-ca-certificates
+</code></pre></div>
+
+<h3 id="proxy-configuration">Proxy Configuration<a class="headerlink" href="#proxy-configuration" title="Permanent link">&para;</a></h3>
+<p>If you're behind a corporate proxy:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&quot;http://proxy.company.com:8080&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="s2">&quot;http://proxy.company.com:8080&quot;</span>
+uvx<span class="w"> </span>amplifier
+</code></pre></div>
+
+<h3 id="wsl-specific-issues">WSL-Specific Issues<a class="headerlink" href="#wsl-specific-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: Slow performance or networking issues in WSL</p>
+<p><strong>Solution</strong>: Ensure WSL2 is being used:</p>
+<div class="codehilite"><pre><span></span><code><span class="c"># In PowerShell</span>
+<span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
+</code></pre></div>
+
+<hr />
+<h2 id="updating-amplifier">Updating Amplifier<a class="headerlink" href="#updating-amplifier" title="Permanent link">&para;</a></h2>
+<p>Keep Amplifier current with:</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>amplifier@latest
+</code></pre></div>
+
+<p>Or specify a version:</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>amplifier@0.5.0
+</code></pre></div>
+
+<h3 id="check-for-updates">Check for Updates<a class="headerlink" href="#check-for-updates" title="Permanent link">&para;</a></h3>
+<p>See if a newer version is available:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>version<span class="w"> </span>--check-updates
+</code></pre></div>
+
+<hr />
+<h2 id="uninstalling">Uninstalling<a class="headerlink" href="#uninstalling" title="Permanent link">&para;</a></h2>
+<p>To remove Amplifier:</p>
+<div class="codehilite"><pre><span></span><code>uv<span class="w"> </span>tool<span class="w"> </span>uninstall<span class="w"> </span>amplifier
+</code></pre></div>
+
+<p>To also remove configuration:</p>
+<div class="codehilite"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>~/.amplifier
+</code></pre></div>
+
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that Amplifier is installed, continue with:</p>
+<ul>
+<li><strong><a href="first-session.md">First Session</a></strong> - Start your first AI-assisted coding session</li>
+<li><strong><a href="configuration.md">Configuration Guide</a></strong> - Customize Amplifier settings</li>
+<li><strong><a href="providers.md">Provider Setup</a></strong> - Configure additional AI providers</li>
+<li><strong><a href="bundles.md">Bundles Overview</a></strong> - Extend functionality with bundles</li>
+</ul>
+<h3 id="quick-commands-reference">Quick Commands Reference<a class="headerlink" href="#quick-commands-reference" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>amplifier</code></td>
+<td>Start interactive session</td>
+</tr>
+<tr>
+<td><code>amplifier init</code></td>
+<td>Run setup wizard</td>
+</tr>
+<tr>
+<td><code>amplifier version</code></td>
+<td>Show version info</td>
+</tr>
+<tr>
+<td><code>amplifier --help</code></td>
+<td>Show all commands</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>If you encounter issues not covered here:</p>
+<ul>
+<li>Check the <a href="../reference/faq.md">FAQ</a></li>
+<li>Search <a href="https://github.com/microsoft/amplifier/issues">GitHub Issues</a></li>
+<li>Join the community discussions</li>
+</ul>
+<p>Welcome to Amplifier!</p>
               
             </div>
           </div><footer>

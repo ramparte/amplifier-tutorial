@@ -9,78 +9,160 @@
 
 name: scan-ecosystem
 description: Discover all components across the Amplifier ecosystem
+version: "1.0.0"
+author: "Tutorial Team"
+tags: ["scanning", "ecosystem", "discovery"]
 
 context:
   manifest_path: ".planning/ecosystem-manifest.yaml"
   modules_url: "https://raw.githubusercontent.com/microsoft/amplifier/main/docs/MODULES.md"
+  core_repos:
+    - "microsoft/amplifier"
+    - "microsoft/amplifier-core"
+    - "microsoft/amplifier-foundation"
   community_users:
-    - robotdad
-    - bkrabach
+    - "robotdad"
+    - "bkrabach"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 30
 
 steps:
   # Step 1: Fetch the official MODULES.md catalog
   - id: fetch-modules-catalog
     agent: foundation:web-research
-    instruction: |
+    prompt: |
       Fetch the official Amplifier modules catalog from:
       {{modules_url}}
       
-      Extract ALL components mentioned, organized by type:
-      - Core repos (amplifier, amplifier-core, amplifier-foundation)
-      - Official bundles (amplifier-bundle-*)
-      - Provider modules (provider-*)
-      - Tool modules (tool-*)
-      - Orchestrator modules
-      - Context modules
-      - Hook modules
-      - Applications (amplifier-app-*)
+      Extract ALL components mentioned, organized by type.
       
-      For each component, extract:
-      - Name
-      - Repository URL
-      - Brief description
-      - Type (bundle, provider, tool, hook, etc.)
+      Return this JSON structure:
+      {
+        "fetched": true,
+        "source": "{{modules_url}}",
+        "core": [{"id": "...", "name": "...", "repo": "...", "type": "...", "description": "..."}],
+        "bundles": [...],
+        "providers": [...],
+        "tools": [...],
+        "orchestrators": [...],
+        "context": [...],
+        "hooks": [...],
+        "applications": [...]
+      }
       
-      Return as structured YAML.
+      For each component include:
+      - id: kebab-case identifier
+      - name: display name
+      - repo: org/repo-name
+      - type: bundle, provider, tool, etc.
+      - description: brief description
+      
+      Return ONLY the JSON.
+    output: "official_catalog"
+    parse_json: true
+    timeout: 300
+    retry:
+      max_attempts: 3
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
 
-  # Step 2: Scan community contributor repos
+  # Step 2: Scan core repos for detailed info
+  - id: scan-core-repos
+    foreach: "{{core_repos}}"
+    as: "repo"
+    parallel: true
+    agent: foundation:explorer
+    prompt: |
+      Scan GitHub repository: {{repo}}
+      
+      Extract:
+      1. All markdown documentation files (paths)
+      2. Module definitions (from bundle.md, behavior files, etc.)
+      3. Version information (from pyproject.toml or package.json)
+      4. Key capabilities and features
+      
+      Return JSON:
+      {
+        "repo": "{{repo}}",
+        "docs": ["path/to/doc.md", ...],
+        "modules": [{"name": "...", "type": "...", "path": "..."}],
+        "version": "x.y.z or unknown",
+        "description": "repo description"
+      }
+      
+      Return ONLY the JSON.
+    output: "repo_result"
+    collect: "core_repo_scans"
+    parse_json: true
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
+
+  # Step 3: Scan community contributor repos
   - id: scan-community-repos
+    foreach: "{{community_users}}"
+    as: "user"
+    parallel: true
     agent: foundation:web-research
-    instruction: |
-      Scan GitHub for Amplifier-related repositories from community contributors.
+    prompt: |
+      Search GitHub user "{{user}}" for Amplifier-related repositories.
       
-      Users to scan: {{community_users}}
-      
-      For each user, find repositories that:
+      Look for repos that:
       - Have "amplifier" in the name
       - Are bundles, modules, collections, or skills
       - Contain tools useful for Amplifier development
       
-      For each discovered repo, extract:
-      - Name
-      - Repository URL  
-      - Owner
-      - Description
-      - Type (bundle, module, skill, dev-tool, collection)
-      - Install command (if available)
+      Return JSON:
+      {
+        "user": "{{user}}",
+        "repos": [
+          {
+            "id": "kebab-case-id",
+            "name": "Display Name",
+            "repo": "{{user}}/repo-name",
+            "type": "bundle/skill/dev-tool/collection",
+            "description": "brief description",
+            "install_command": "install cmd if known"
+          }
+        ]
+      }
       
-      Return as structured YAML.
+      Return ONLY the JSON.
+    output: "user_result"
+    collect: "community_scans"
+    parse_json: true
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
 
-  # Step 3: Merge and deduplicate findings
+  # Step 4: Merge into unified manifest
   - id: merge-findings
     agent: foundation:zen-architect
-    instruction: |
-      Merge the official catalog and community findings into a single manifest.
+    mode: "ARCHITECT"
+    prompt: |
+      Merge all scan results into a unified ecosystem manifest.
       
-      Official components:
-      {{fetch-modules-catalog.result}}
+      Official catalog:
+      {{official_catalog}}
       
-      Community components:
-      {{scan-community-repos.result}}
+      Core repo scans:
+      {{core_repo_scans}}
       
-      Create a unified manifest with these sections:
-      - meta (version, last_scan timestamp, sources)
-      - core (entry-point, kernel, library)
+      Community contributions:
+      {{community_scans}}
+      
+      Create a YAML manifest with these sections:
+      - meta (version: "1.0.0", last_scan: ISO timestamp, sources: list of URLs)
+      - core (amplifier, amplifier-core, amplifier-foundation)
       - bundles (official and community)
       - providers
       - tools
@@ -91,63 +173,118 @@ steps:
       - collections
       - dev_tools
       - applications
+      - example_recipes (from recipes bundle)
+      - foundation_examples (from foundation)
       
       For each component include:
-      - id (kebab-case identifier)
-      - name (display name)
-      - repo (full GitHub URL or org/repo)
-      - type
-      - description
-      - owner (for community components)
-      - priority (1=core, 2=recommended, 3=optional)
+      - id: kebab-case identifier
+      - name: display name
+      - repo: org/repo-name (full path)
+      - type: component type
+      - description: brief description
+      - owner: username (for community components)
+      - priority: 1=core, 2=recommended, 3=optional
       
-      Output as valid YAML.
+      Return valid YAML (not JSON) that can be written directly to file.
+    output: "merged_manifest"
+    timeout: 600
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
 
-  # Step 4: Compare with existing manifest
-  - id: compare-manifests
+  # Step 5: Read existing manifest for comparison
+  - id: read-existing-manifest
     agent: foundation:file-ops
-    instruction: |
-      Read the existing manifest at {{manifest_path}} if it exists.
+    prompt: |
+      Read the file at {{manifest_path}} if it exists.
       
-      Compare with the new manifest:
-      {{merge-findings.result}}
+      Return the full contents of the file.
       
-      Report:
-      - New components discovered
-      - Components that were removed
-      - Components with changed descriptions
-      
-      If no existing manifest, report "Initial scan - all components are new."
+      If file doesn't exist, return: "FILE_NOT_FOUND"
+    output: "existing_manifest"
+    timeout: 60
+    on_error: "continue"
 
-  # Step 5: Write updated manifest
+  # Step 6: Compare manifests and report changes
+  - id: compare-manifests
+    agent: foundation:zen-architect
+    mode: "ANALYZE"
+    prompt: |
+      Compare the existing manifest with the new one.
+      
+      Existing manifest:
+      {{existing_manifest}}
+      
+      New manifest:
+      {{merged_manifest}}
+      
+      Analyze and return JSON:
+      {
+        "is_initial_scan": true/false,
+        "new_components": [{"id": "...", "type": "...", "name": "..."}],
+        "removed_components": [{"id": "...", "type": "...", "name": "..."}],
+        "updated_components": [{"id": "...", "changes": "..."}],
+        "summary": "Human-readable summary of changes"
+      }
+      
+      If existing manifest was "FILE_NOT_FOUND", set is_initial_scan to true.
+      Return ONLY the JSON.
+    output: "change_report"
+    parse_json: true
+    timeout: 300
+    on_error: "continue"
+
+  # Step 7: Write updated manifest
   - id: write-manifest
     agent: foundation:file-ops
-    instruction: |
+    prompt: |
       Write the merged manifest to {{manifest_path}}.
       
-      Content to write:
-      {{merge-findings.result}}
+      First, add a header comment at the top:
+      ```
+      # Amplifier Ecosystem Manifest
+      # Generated: [current ISO timestamp]
+      # Purpose: Structured inventory of all ecosystem components for tutorial generation
+      #
+      # Changes from previous scan:
+      # {{change_report.summary}}
+      ```
       
-      Add a header comment with:
-      - Generation timestamp
-      - Source URLs scanned
-      - Summary of changes from previous scan
+      Then write the manifest content:
+      {{merged_manifest}}
       
-      Changes detected:
-      {{compare-manifests.result}}
+      Ensure the directory exists and write the file.
+      Return confirmation of what was written.
+    output: "write_result"
+    timeout: 60
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "fail"
 
-  # Step 6: Generate summary report
+  # Step 8: Generate summary report
   - id: summary
     agent: foundation:zen-architect
-    instruction: |
+    mode: "ANALYZE"
+    prompt: |
       Create a human-readable summary of the ecosystem scan.
       
+      Change report:
+      {{change_report}}
+      
+      Write result:
+      {{write_result}}
+      
       Include:
-      - Total components by type
-      - New discoveries (if any)
-      - Recommendations for tutorial coverage
+      - Total components discovered by type
+      - New additions since last scan
+      - Any components removed
+      - Recommendations for tutorial content that needs updating
       
-      Changes from scan:
-      {{compare-manifests.result}}
-      
-      Format as markdown suitable for display.
+      Format as markdown suitable for display to the user.
+    output: "final_summary"
+    timeout: 120
+    on_error: "continue"

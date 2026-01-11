@@ -1,0 +1,207 @@
+# Generate Bundle Page Recipe
+# Generates tutorial pages for bundle documentation
+#
+# Usage:
+#   amplifier run "execute recipes/generate-bundle.yaml with bundle_id=foundation bundle_name='Foundation Bundle' repo=microsoft/amplifier-foundation"
+
+name: generate-bundle
+description: Generate a bundle tutorial page showing what's included and how to use it
+version: "1.0.0"
+author: "Tutorial CMS"
+tags: ["content-generation", "tutorial", "bundles"]
+
+context:
+  bundle_id: ""
+  bundle_name: ""
+  repo: ""
+  description: ""
+  output_dir: "content"
+  supplements_dir: ".planning/supplements/bundles"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 20
+
+steps:
+  # Step 1: Load supplements
+  - id: load-supplements
+    agent: foundation:file-ops
+    prompt: |
+      Check for supplementary content for bundle: {{bundle_id}}
+      Look in: {{supplements_dir}}/
+      
+      Return JSON:
+      {
+        "found": true/false,
+        "files": [],
+        "content": ""
+      }
+    output: "supplements"
+    parse_json: true
+    timeout: 60
+    on_error: "continue"
+
+  # Step 2: Research the bundle
+  - id: research-bundle
+    agent: foundation:foundation-expert
+    prompt: |
+      Research this Amplifier bundle for tutorial documentation:
+      
+      Bundle: {{bundle_name}}
+      Repository: {{repo}}
+      Description: {{description}}
+      
+      I need comprehensive information about:
+      1. What tools does this bundle include?
+      2. What agents does it provide?
+      3. What behaviors are composed?
+      4. How do you install/enable it?
+      5. What's the typical use case?
+      6. Any configuration options?
+      
+      Look at the bundle.md, docs, and any behavior files.
+      This will be used to write user-facing tutorial content.
+    output: "research"
+    timeout: 300
+    on_error: "continue"
+
+  # Step 3: Generate content
+  - id: generate-content
+    agent: foundation:modular-builder
+    prompt: |
+      Create a BUNDLE TUTORIAL page for: {{bundle_name}}
+      
+      Bundle info:
+      - ID: {{bundle_id}}
+      - Repo: {{repo}}
+      - Description: {{description}}
+      
+      Research:
+      {{research}}
+      
+      Supplementary content:
+      {{supplements.content}}
+      
+      ===========================================
+      BUNDLE PAGE STYLE REQUIREMENTS
+      ===========================================
+      
+      This explains what a bundle provides and how to use it.
+      
+      1. Show what's INCLUDED (tools, agents, behaviors)
+      
+      2. Show how to USE each capability:
+         ```
+         > Use the explorer agent to survey the codebase
+         ```
+      
+      3. REQUIRED SECTIONS for bundle pages:
+         - ## Overview (what this bundle is for)
+         - ## What's Included
+           - ### Tools (table)
+           - ### Agents (table with descriptions)
+           - ### Behaviors (if applicable)
+         - ## Getting Started (how to use)
+         - ## Key Agents (detailed usage for main agents)
+         - ## When to Use This Bundle
+         - ## Try It Yourself
+         - ## Related Bundles
+      
+      4. Include tables for tools and agents:
+         | Agent | Purpose |
+         |-------|---------|
+         | `explorer` | Codebase reconnaissance |
+      
+      5. Make it 200-350 lines
+      
+      ===========================================
+      TEMPLATE
+      ===========================================
+      
+      ---
+      id: {{bundle_id}}
+      type: bundles
+      title: "{{bundle_name}}"
+      ---
+      
+      # {{bundle_name}}
+      
+      {{description}}
+      
+      ## Overview
+      
+      [What this bundle provides and who it's for]
+      
+      ## What's Included
+      
+      ### Tools
+      
+      | Tool | Purpose |
+      |------|---------|
+      | ... | ... |
+      
+      ### Agents
+      
+      | Agent | Purpose |
+      |-------|---------|
+      | ... | ... |
+      
+      [Continue with all sections...]
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 300
+    on_error: "fail"
+
+  # Step 4: Validate
+  - id: validate
+    agent: foundation:zen-architect
+    mode: "REVIEW"
+    prompt: |
+      Validate this bundle tutorial.
+      
+      Content:
+      {{content}}
+      
+      CHECKLIST:
+      1. Has YAML frontmatter
+      2. Has Overview section
+      3. Has "What's Included" with Tools and Agents tables
+      4. Has practical usage examples
+      5. Has "Try It Yourself" exercises
+      6. Is 200-350 lines
+      7. No TOML configuration shown
+      
+      Fix any issues.
+      
+      Return JSON:
+      {
+        "valid": true,
+        "issues_fixed": [],
+        "warnings": [],
+        "content": "COMPLETE CORRECTED MARKDOWN"
+      }
+    output: "validated"
+    parse_json: true
+    timeout: 180
+    on_error: "continue"
+
+  # Step 5: Write file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write to: {{output_dir}}/bundles/{{bundle_id}}.md
+      
+      Content:
+      {{validated.content}}
+      
+      Return JSON:
+      {
+        "file_path": "path",
+        "bytes": count,
+        "warnings": {{validated.warnings}}
+      }
+    output: "result"
+    parse_json: true
+    timeout: 60
+    on_error: "fail"

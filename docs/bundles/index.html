@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -103,31 +105,21 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#what-are-bundles">What Are Bundles?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#official-bundles">Official Bundles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-comparison">Quick Comparison</a>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-architecture">Bundle Architecture</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#managing-bundles">Managing Bundles</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#install-a-bundle">Install a Bundle</a>
+    <li class="toctree-l2"><a class="reference internal" href="#built-in-bundles">Built-in Bundles</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#activate-a-bundle">Activate a Bundle</a>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-installed-bundles">List Installed Bundles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#remove-a-bundle">Remove a Bundle</a>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-selection-guide">Bundle Selection Guide</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-composition">Bundle Composition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-bundles">Creating Custom Bundles</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-sources">Bundle Sources</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#community-bundles">Community Bundles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
     </li>
     </ul>
                   </li>
@@ -201,165 +193,158 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="bundles-reference">Bundles Reference<a class="headerlink" href="#bundles-reference" title="Permanent link">&para;</a></h1>
-<p>Bundles are composable packages that configure Amplifier for specific use cases.</p>
-<h2 id="what-are-bundles">What Are Bundles?<a class="headerlink" href="#what-are-bundles" title="Permanent link">&para;</a></h2>
-<p>A bundle packages:</p>
-<ul>
-<li><strong>Modules</strong> - Tools, providers, hooks to load</li>
-<li><strong>Agents</strong> - Specialized AI configurations</li>
-<li><strong>Behaviors</strong> - Reusable capability add-ons</li>
-<li><strong>Instructions</strong> - System prompts and context</li>
-</ul>
-<h2 id="official-bundles">Official Bundles<a class="headerlink" href="#official-bundles" title="Permanent link">&para;</a></h2>
+                <h1 id="bundles-guide">Bundles Guide<a class="headerlink" href="#bundles-guide" title="Permanent link">&para;</a></h1>
+<p>Bundles are the primary way to configure and customize Amplifier. A bundle composes modules, tools, context, and settings into a coherent package that defines an agent's capabilities.</p>
+<p>This section covers bundle structure, composition patterns, and how to create your own bundles.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Bundle</th>
+<th>Page</th>
 <th>Description</th>
-<th>Guide</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="foundation.html">Foundation</a></td>
-<td>Core tools, agents, philosophy</td>
-<td>Base for all configs</td>
+<td><a href="./basics.md">Bundle Basics</a></td>
+<td>What bundles are and how they work</td>
 </tr>
 <tr>
-<td><a href="recipes.html">Recipes</a></td>
-<td>Multi-step workflow orchestration</td>
-<td>Repeatable workflows</td>
+<td><a href="./built-in.md">Built-in Bundles</a></td>
+<td>Foundation, dev, and other standard bundles</td>
 </tr>
 <tr>
-<td><a href="lsp-python.html">LSP Python</a></td>
-<td>Python code intelligence</td>
-<td>Semantic navigation</td>
+<td><a href="./structure.md">Bundle Structure</a></td>
+<td>Anatomy of a bundle directory</td>
 </tr>
 <tr>
-<td><a href="design-intelligence.html">Design Intelligence</a></td>
-<td>7 design specialist agents</td>
-<td>UI/UX design work</td>
+<td><a href="./composition.md">Composition</a></td>
+<td>Combining multiple bundles</td>
+</tr>
+<tr>
+<td><a href="./creating.md">Creating Bundles</a></td>
+<td>Build your own custom bundles</td>
+</tr>
+<tr>
+<td><a href="./context-files.md">Context Files</a></td>
+<td>Adding knowledge to bundles</td>
+</tr>
+<tr>
+<td><a href="./tool-bundles.md">Tool Bundles</a></td>
+<td>Bundles that provide tools</td>
+</tr>
+<tr>
+<td><a href="./publishing.md">Publishing</a></td>
+<td>Sharing bundles with others</td>
 </tr>
 </tbody>
 </table>
-<h2 id="quick-comparison">Quick Comparison<a class="headerlink" href="#quick-comparison" title="Permanent link">&para;</a></h2>
+<h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Thin bundles</strong> — Bundles should compose, not implement; keep logic in modules</li>
+<li><strong>Layered composition</strong> — Bundles can extend other bundles for customization</li>
+<li><strong>Context is cheap</strong> — Add relevant context files liberally; they help agents</li>
+<li><strong>One purpose</strong> — Each bundle should have a clear, focused purpose</li>
+<li><strong>Test composition</strong> — Verify bundles work together before deploying</li>
+</ul>
+<h2 id="bundle-architecture">Bundle Architecture<a class="headerlink" href="#bundle-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>bundle/
+├── bundle.yaml          # Bundle manifest
+├── context/             # Context files (.md)
+│   ├── instructions.md
+│   └── domain-knowledge.md
+├── skills/              # Packaged skills
+├── agents/              # Agent definitions
+└── tools/               # Custom tools (optional)
+</code></pre></div>
+
+<h2 id="built-in-bundles">Built-in Bundles<a class="headerlink" href="#built-in-bundles" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Bundle</th>
-<th>Tools Added</th>
-<th>Agents Added</th>
+<th>Purpose</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>foundation</code></td>
+<td>General development</td>
+<td>Full toolset, explorer, git-ops</td>
+</tr>
+<tr>
+<td><code>dev</code></td>
+<td>Lightweight coding</td>
+<td>Essential tools, minimal context</td>
+</tr>
+<tr>
+<td><code>core</code></td>
+<td>Minimal base</td>
+<td>Kernel only, for custom builds</td>
+</tr>
+<tr>
+<td><code>lsp-python</code></td>
+<td>Python intelligence</td>
+<td>LSP integration, Pyright</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>New to bundles?</strong> Begin with <a href="./basics.md">Bundle Basics</a> to understand what bundles are and why they matter.</p>
+<p><strong>Want to customize?</strong> Read <a href="./creating.md">Creating Bundles</a> for a step-by-step guide to building your own.</p>
+<p><strong>Using multiple bundles?</strong> Check <a href="./composition.md">Composition</a> to learn how bundles layer and interact.</p>
+<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Extend an existing bundle</span>
+<span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+
+<span class="c1"># Add custom context</span>
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/my-domain.md</span>
+
+<span class="c1"># Include specific modules</span>
+<span class="nt">modules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-web</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hook-memory</span>
+</code></pre></div>
+
+<h2 id="bundle-selection-guide">Bundle Selection Guide<a class="headerlink" href="#bundle-selection-guide" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
 <th>Use Case</th>
+<th>Recommended Bundle</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Foundation</td>
-<td>Core 10+</td>
-<td>12 specialists</td>
-<td>Everything</td>
+<td>General development</td>
+<td><code>foundation</code></td>
 </tr>
 <tr>
-<td>Recipes</td>
-<td>Recipe executor</td>
-<td>Recipe author</td>
-<td>Workflows</td>
+<td>Quick coding tasks</td>
+<td><code>dev</code></td>
 </tr>
 <tr>
-<td>LSP Python</td>
-<td>LSP operations</td>
-<td>Python code intel</td>
 <td>Python projects</td>
+<td><code>foundation</code> + <code>lsp-python</code></td>
 </tr>
 <tr>
-<td>Design Intelligence</td>
-<td>-</td>
-<td>7 design agents</td>
-<td>Design work</td>
+<td>Custom applications</td>
+<td>Create your own</td>
+</tr>
+<tr>
+<td>Minimal footprint</td>
+<td><code>core</code> + specific modules</td>
 </tr>
 </tbody>
 </table>
-<h2 id="managing-bundles">Managing Bundles<a class="headerlink" href="#managing-bundles" title="Permanent link">&para;</a></h2>
-<h3 id="install-a-bundle">Install a Bundle<a class="headerlink" href="#install-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
-</code></pre></div>
-
-<h3 id="activate-a-bundle">Activate a Bundle<a class="headerlink" href="#activate-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
-</code></pre></div>
-
-<h3 id="list-installed-bundles">List Installed Bundles<a class="headerlink" href="#list-installed-bundles" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>bundle<span class="w"> </span>list
-</code></pre></div>
-
-<h3 id="remove-a-bundle">Remove a Bundle<a class="headerlink" href="#remove-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>bundle<span class="w"> </span>remove<span class="w"> </span>recipes
-</code></pre></div>
-
-<h2 id="bundle-composition">Bundle Composition<a class="headerlink" href="#bundle-composition" title="Permanent link">&para;</a></h2>
-<p>Bundles can include other bundles:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># my-bundle/bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-custom</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recipes</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lsp-python</span>
-
-<span class="c1"># Add your own on top</span>
-<span class="nt">agents</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/my-agent.yaml</span>
-</code></pre></div>
-
-<h2 id="creating-custom-bundles">Creating Custom Bundles<a class="headerlink" href="#creating-custom-bundles" title="Permanent link">&para;</a></h2>
-<p>See <a href="../advanced/custom-bundle.html">Advanced: Custom Bundles</a> for:</p>
+<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Bundle structure</li>
-<li>Including other bundles</li>
-<li>Adding tools and agents</li>
-<li>Configuration options</li>
+<li><a href="../concepts/modules.html">Concepts: Modules</a></li>
+<li><a href="../skills/index.html">Skills: Using Skills</a></li>
+<li><a href="../advanced/bundle-internals.md">Advanced: Bundle Internals</a></li>
 </ul>
-<h2 id="bundle-sources">Bundle Sources<a class="headerlink" href="#bundle-sources" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Named bundle (from registry/installed)</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-
-<span class="w">  </span><span class="c1"># From GitHub</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/org/bundle@main</span>
-
-<span class="w">  </span><span class="c1"># From local path</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./my-local-bundle</span>
-</code></pre></div>
-
-<h2 id="community-bundles">Community Bundles<a class="headerlink" href="#community-bundles" title="Permanent link">&para;</a></h2>
-<p>Community-contributed bundles:</p>
-<table>
-<thead>
-<tr>
-<th>Bundle</th>
-<th>Author</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>lsp-typescript</code></td>
-<td>robotdad</td>
-<td>TypeScript code intelligence</td>
-</tr>
-<tr>
-<td><code>dev-memory</code></td>
-<td>community</td>
-<td>Persistent memory system</td>
-</tr>
-</tbody>
-</table>
-<p>To use community bundles:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/<span class="o">[</span>user<span class="o">]</span>/<span class="o">[</span>bundle<span class="o">]</span>@main
-</code></pre></div>
               
             </div>
           </div><footer>

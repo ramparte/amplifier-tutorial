@@ -1,327 +1,228 @@
 ---
 id: skills
 type: concepts
-title: "Skills"
+title: "Understanding Skills"
 ---
 
-# Skills
+# Understanding Skills
 
-Skills are reusable knowledge packages that give Amplifier domain expertise. They follow the Anthropic Skills format - structured markdown that teaches the AI how to approach specific domains.
+Skills are one of Amplifier's most powerful mechanisms for extending agent capabilities. They provide a way to package domain knowledge, best practices, and specialized workflows that agents can load on-demand.
 
 ## What is a Skill?
 
-A skill provides:
+A skill is **loadable domain knowledge** - a markdown file containing instructions, patterns, examples, and references that an agent can incorporate into its context when needed.
 
-- **Workflows** - Decision trees for complex tasks
-- **Patterns** - Best practices and examples
-- **Troubleshooting** - Common errors and solutions
-- **Setup guides** - Installation and configuration
+Think of skills as "expertise modules" that agents can consult:
 
-Unlike tools (which do things), skills teach the AI *how* to think about problems.
+- **Domain expertise**: Coding standards, architectural patterns, security guidelines
+- **Workflow guidance**: Step-by-step processes for complex tasks
+- **Reference material**: API documentation, configuration schemas, examples
+- **Best practices**: Industry standards, project conventions, quality guidelines
+
+Skills differ from static documentation in a key way: they're designed to be **actively loaded into agent context** when relevant, rather than passively referenced.
+
+### Skill vs. Context File
+
+While both contain information, they serve different purposes:
+
+| Aspect | Context Files | Skills |
+|--------|---------------|--------|
+| Loading | Always loaded at startup | Loaded on-demand |
+| Scope | Session-wide context | Task-specific knowledge |
+| Size | Should be concise | Can be comprehensive |
+| Purpose | Shape agent behavior | Provide domain expertise |
+
+## Discovering Skills
+
+Before loading a skill, you need to know what's available. Amplifier provides discovery mechanisms through the `load_skill` tool.
+
+### List All Available Skills
+
+```python
+load_skill(list=True)
+```
+
+This returns all skills discovered from configured directories, including:
+- **Workspace skills**: `.amplifier/skills/` in your project
+- **User skills**: `~/.amplifier/skills/` in your home directory
+- **Collection skills**: Skills bundled with Amplifier collections
+
+### Search for Skills
+
+When you know roughly what you need but not the exact skill name:
+
+```python
+load_skill(search="python")
+```
+
+This filters skills by name or description matching your search term.
+
+### Get Skill Metadata
+
+Before loading a full skill (which consumes context), you can inspect its metadata:
+
+```python
+load_skill(info="python-standards")
+```
+
+This returns the skill's name, description, version, and path without loading the full content.
 
 ## Loading Skills
 
-```bash
-# In an Amplifier session
-amplifier> Load the playwright skill
+Once you've identified a relevant skill, load it to bring its knowledge into context.
 
-# Or explicitly
-amplifier> /skill load playwright
+### Basic Loading
+
+```python
+load_skill(skill_name="design-patterns")
 ```
 
-Once loaded, the AI has domain expertise:
+This loads the complete skill content into the agent's context. The skill becomes part of the agent's working knowledge for the remainder of the task.
 
-```
-amplifier> I need to test that the login form works
+### What Happens When You Load a Skill
 
-# With playwright skill loaded, the AI knows:
-# - Use headless mode by default
-# - Prefer role-based selectors
-# - Handle auth state properly
-# - Capture diagnostics on failure
-```
+1. **Content injection**: The skill's markdown content is added to context
+2. **Directory reference**: You receive a `skill_directory` path for accessing companion files
+3. **Immediate availability**: The knowledge is immediately usable
 
-## Available Skills
+### Accessing Companion Files
 
-### Playwright (Browser Automation)
+Many skills include companion files - examples, templates, or reference implementations:
 
-```
-robotdad/skills/playwright/
-├── SKILL.md           # Core workflow and decision tree
-├── patterns.md        # Advanced patterns
-├── setup.md           # Installation
-└── troubleshooting.md # Common issues
+```python
+# Load the skill first
+result = load_skill(skill_name="api-testing")
+
+# Access companion files using the returned directory
+read_file(result.skill_directory + "/examples/basic-test.py")
 ```
 
-**What it teaches:**
-- Headless-first approach (never steal focus)
-- Role-based selector strategy
-- Explicit wait patterns
-- Diagnostic capture (screenshots, traces)
-- Authentication handling
-- Multi-page workflows
+## Creating Skills
 
-### Curl (HTTP Client)
+Skills are markdown files with a simple structure. Creating your own is straightforward.
 
-```
-robotdad/skills/curl/
-├── SKILL.md
-├── patterns.md
-└── troubleshooting.md
-```
-
-**What it teaches:**
-- REST API testing
-- GraphQL queries
-- Request/response validation
-- Authentication patterns
-- Error handling
-
-### Image Vision (Visual Analysis)
-
-```
-robotdad/skills/image-vision/
-├── SKILL.md
-├── patterns.md
-└── setup.md
-```
-
-**What it teaches:**
-- Image content understanding
-- OCR text extraction
-- Visual comparison
-- Multi-image analysis
-- Provider selection (Anthropic, OpenAI, etc.)
-
-## Skill Structure
-
-A skill is a directory with markdown files:
-
-```
-my-skill/
-├── SKILL.md           # Required: Main skill definition
-├── patterns.md        # Optional: Advanced patterns
-├── setup.md           # Optional: Setup instructions
-└── troubleshooting.md # Optional: Common issues
-```
-
-### SKILL.md Format
+### Skill File Structure
 
 ```markdown
-# Skill Name
+---
+name: my-custom-skill
+description: Brief description of what this skill provides
+version: 1.0.0
+---
 
-Brief description of what this skill enables.
+# Skill Title
 
-## When to Use
+## Overview
+What this skill covers and when to use it.
 
-- Scenario 1
-- Scenario 2
-- Scenario 3
+## Guidelines
+The actual domain knowledge, patterns, and practices.
 
-## Workflow
+## Examples
+Concrete examples demonstrating the concepts.
 
-```
-START
-├── Check prerequisites
-│   ├── Yes → Proceed to step 2
-│   └── No → Run setup
-├── Analyze the task
-│   ├── Type A → Use pattern A
-│   └── Type B → Use pattern B
-└── Execute
-    └── Capture results
+## References
+Links to additional resources or companion files.
 ```
 
-## Core Patterns
+### Where to Place Skills
 
-### Pattern 1: Basic Usage
+Skills are discovered from these locations (in priority order):
 
-[Example code and explanation]
+1. **Workspace**: `.amplifier/skills/your-skill.md` - Project-specific skills
+2. **User**: `~/.amplifier/skills/your-skill.md` - Personal skills across projects
+3. **Collections**: Skills bundled with installed collections
 
-### Pattern 2: Advanced Usage
+First-match-wins: workspace skills override user skills with the same name.
 
-[Example code and explanation]
+### Skill Authoring Best Practices
 
-## Anti-patterns
-
-Things to avoid:
-- Don't do X because Y
-- Never assume Z
-
-## Quick Reference
-
-| Command | Purpose |
-|---------|---------|
-| `cmd1`  | Does X  |
-| `cmd2`  | Does Y  |
-```
-
-## Progressive Disclosure
-
-Skills use a token-efficient pattern:
-
-| Level | Content | Token Cost |
-|-------|---------|------------|
-| **1** | Metadata (name, description) | ~100 tokens |
-| **2** | Full SKILL.md | ~1,000 tokens |
-| **3** | Reference files (patterns, setup) | Loaded on demand |
-
-The AI loads only what's needed:
-
-```
-# Simple task → Level 1-2 only
-"Take a screenshot of google.com"
-
-# Complex task → Level 1-3
-"Set up playwright with auth state and parallel browser contexts"
-```
-
-## Creating Custom Skills
-
-### Step 1: Create Skill Directory
-
-```bash
-mkdir -p my-skills/docker-expert
-```
-
-### Step 2: Write SKILL.md
-
+**Be specific and actionable**
 ```markdown
-# Docker Expert
+# Good: Actionable guidance
+When implementing retry logic:
+1. Use exponential backoff starting at 100ms
+2. Cap maximum retries at 5
+3. Add jitter to prevent thundering herd
 
-Expert knowledge for Docker containerization and orchestration.
-
-## When to Use
-
-- Building Dockerfiles
-- Debugging container issues
-- Optimizing image sizes
-- Docker Compose workflows
-
-## Workflow
-
-```
-START
-├── Is this a build issue?
-│   ├── Yes → Check Dockerfile patterns
-│   └── No → Continue
-├── Is this a runtime issue?
-│   ├── Yes → Check logs and networking
-│   └── No → Continue
-└── Is this a compose issue?
-    └── Check service dependencies
+# Avoid: Vague advice
+Retry logic should be implemented carefully.
 ```
 
-## Core Patterns
+**Include concrete examples**
+```markdown
+## Example: Rate Limiter Implementation
 
-### Multi-stage Builds
-
-Always use multi-stage builds to minimize image size:
-
-```dockerfile
-# Build stage
-FROM node:20 AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Production stage
-FROM node:20-slim
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-CMD ["node", "dist/index.js"]
+```python
+class RateLimiter:
+    def __init__(self, max_requests: int, window_seconds: int):
+        self.max_requests = max_requests
+        self.window = window_seconds
+        self.requests = []
+    
+    def allow(self) -> bool:
+        now = time.time()
+        self.requests = [t for t in self.requests if now - t < self.window]
+        if len(self.requests) < self.max_requests:
+            self.requests.append(now)
+            return True
+        return False
+```
 ```
 
-### Layer Caching
+**Reference companion files**
+```markdown
+## Templates
 
-Order commands from least to most frequently changing:
-
-```dockerfile
-# Least changing
-COPY package*.json ./
-RUN npm ci
-
-# Most changing
-COPY src/ ./src/
+See the companion files for ready-to-use templates:
+- `templates/api-client.py` - Base API client class
+- `templates/retry-decorator.py` - Retry decorator implementation
 ```
 
-## Anti-patterns
+### Skill Naming Conventions
 
-- Don't run as root in production
-- Don't use `latest` tag
-- Don't install dev dependencies in production image
-```
+- Use lowercase with hyphens: `python-standards`, `api-design`
+- Be descriptive but concise: `react-testing` not `rt`
+- Group related skills with prefixes: `aws-lambda`, `aws-s3`
 
-### Step 3: Register the Skill
+## When to Use Skills
 
-In your bundle:
+Skills shine in specific scenarios:
 
-```yaml
-skills:
-  - path: ./my-skills/docker-expert
-```
+**Use skills when:**
+- You need specialized domain knowledge for a task
+- The knowledge is too large for always-on context files
+- Multiple agents might need the same expertise
+- You want to standardize approaches across a team
 
-### Step 4: Use It
+**Don't use skills when:**
+- The information should always be available (use context files)
+- You need real-time information (use web search)
+- The task is simple and well-understood
 
-```bash
-amplifier> Load the docker-expert skill
-amplifier> Review this Dockerfile for best practices
-```
+## Skills vs. Other Knowledge Sources
 
-## Skills vs Context Files
-
-| Aspect | Skill | Context File |
-|--------|-------|--------------|
-| **Format** | Structured markdown | Free-form |
-| **Loading** | On-demand, progressive | All at once |
-| **Purpose** | Teach approach/workflow | Provide information |
-| **Scope** | Domain expertise | Specific facts |
-
-Use skills for *how to think*, context files for *what to know*.
-
-## Try It Yourself
-
-### Exercise 1: Load a Skill
-
-```bash
-amplifier
-
-> Load the playwright skill
-> Now help me write a test that logs into a website
-```
-
-### Exercise 2: Compare With/Without
-
-```bash
-# Without skill
-amplifier run "Write a playwright test for form validation"
-
-# With skill
-amplifier
-> Load the playwright skill
-> Write a playwright test for form validation
-```
-
-Notice the difference in approach and best practices.
-
-### Exercise 3: Explore Skill Contents
-
-```bash
-# The skill files are just markdown - you can read them
-cat ~/.amplifier/skills/playwright/SKILL.md
-```
+| Source | Best For | Limitations |
+|--------|----------|-------------|
+| **Skills** | Domain expertise, patterns | Static, must be loaded |
+| **Context files** | Always-needed guidance | Limited by context size |
+| **Web search** | Current information | Variable quality |
+| **Documentation** | Reference lookup | Not agent-optimized |
 
 ## Key Takeaways
 
-1. **Skills teach approach** - They're knowledge, not tools
-2. **Progressive loading** - Only what's needed is loaded
-3. **Structured format** - Workflows, patterns, troubleshooting
-4. **Reusable** - Share skills across projects and teams
+1. **Skills are loadable expertise** - Domain knowledge packaged for agent consumption
 
-## Next
+2. **Discover before loading** - Use `list`, `search`, and `info` to find the right skill without wasting context
 
-Learn about lifecycle observation:
+3. **Load on-demand** - Skills are task-specific; load them when needed, not preemptively
 
-→ [Hooks](hooks.md)
+4. **Create your own** - Project or personal skills are simple markdown files in known locations
+
+5. **Include companions** - Skills can reference example files, templates, and other resources
+
+6. **Priority matters** - Workspace skills override user skills; first match wins
+
+7. **Be specific** - Good skills provide actionable guidance and concrete examples, not vague advice
+
+Skills transform agents from general-purpose assistants into domain experts. By packaging knowledge effectively, you enable agents to tackle specialized tasks with the same expertise a human specialist would bring.

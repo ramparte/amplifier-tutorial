@@ -1,104 +1,1041 @@
-# Update Tutorial Recipe
-# Targeted update of specific sections based on latest Amplifier repos
+# Master Tutorial Update Recipe v3
+# Each step generates AND writes its own file (no batching)
+# This avoids: (1) batch write timeouts, (2) context accumulation issues
+#
+# Usage:
+#   amplifier run "execute recipes/update-tutorial.yaml"
 
 name: update-tutorial
-description: Update specific sections of the tutorial from source repos
+description: Generate tutorial content - each step self-contained
+version: "3.0.0"
+author: "Tutorial CMS"
+tags: ["orchestration", "tutorial", "cms"]
 
 context:
-  focus: ""  # Which section to update: quickstart, concepts, tools, bundles, skills, dev-setup, advanced, all
-  include_notes: true  # Whether to incorporate pending editorial notes
+  output_dir: "/mnt/c/ANext/tutorial/content"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 50
 
 steps:
-  - id: validate-focus
-    instruction: |
-      Validate the focus parameter: {{focus}}
+  # ============================================
+  # TOOLS - Each step generates AND writes
+  # ============================================
+  
+  - id: tool-bash
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/bash.md
       
-      Valid values: quickstart, concepts, tools, bundles, skills, dev-setup, advanced, all
+      Write a complete tutorial page about the Bash Tool (250-300 lines).
       
-      If invalid or empty, default to "all".
+      STRUCTURE:
+      ---
+      id: tool-bash
+      type: tools
+      title: "Bash Tool"
+      ---
       
-      Return JSON: {"focus": "<validated-focus>"}
-    parse_json: true
+      # Bash Tool
+      
+      [Overview paragraph]
+      
+      ## Operations
+      
+      | Operation | Purpose | Example |
+      |-----------|---------|---------|
+      | Run command | Execute shell command | pytest |
+      | Background | Long-running process | npm run dev |
+      
+      ## Basic Usage
+      
+      [Show > prompt format and [Tool: bash] format]
+      
+      ## Common Commands
+      
+      [Build, test, git, packages]
+      
+      ## Background Processes
+      
+      [run_in_background parameter]
+      
+      ## Safety Features
+      
+      [Blocked commands, timeouts]
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      ## Errors and Troubleshooting
+      
+      WRITE THE COMPLETE FILE NOW. Return confirmation with line count.
+    output: "tool_bash_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: check-notes
-    condition: "{{include_notes}} == true"
-    instruction: |
-      Read the .notes/ directory and find any files marked [PENDING].
+  - id: tool-filesystem
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/filesystem.md
       
-      List them with a brief summary of what they contain.
+      Write a complete tutorial page about the Filesystem Tool (250-300 lines).
       
-      Return JSON: {"pending_notes": [{"file": "...", "summary": "..."}]}
-    parse_json: true
+      STRUCTURE:
+      ---
+      id: tool-filesystem
+      type: tools
+      title: "Filesystem Tool"
+      ---
+      
+      # Filesystem Tool
+      
+      ## Operations
+      | Operation | Tool | Purpose |
+      |-----------|------|---------|
+      | Read | read_file | Read file contents |
+      | Write | write_file | Create/overwrite file |
+      | Edit | edit_file | Surgical string replacement |
+      
+      ## Reading Files
+      [read_file with offset/limit for large files]
+      
+      ## Writing Files
+      [write_file, when to use]
+      
+      ## Editing Files
+      [edit_file with old_string/new_string, replace_all]
+      
+      ## Directory Listing
+      
+      ## Best Practices
+      - Read before editing
+      - Prefer edit over write
+      
+      ## Try It Yourself
+      
+      ## Errors and Troubleshooting
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_filesystem_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: scan-repos
-    agent: foundation:explorer
-    instruction: |
-      Scan the relevant Amplifier repositories for updates related to: {{validate-focus.result.focus}}
+  - id: tool-search
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/search.md
       
-      Focus areas:
-      - quickstart: microsoft/amplifier USER_ONBOARDING.md, getting started docs
-      - concepts: amplifier-core philosophy, module contracts
-      - tools: amplifier-foundation tool modules, tool-* repos
-      - bundles: amplifier-foundation bundles, bundle-* repos
-      - skills: robotdad skills repos
-      - dev-setup: bkrabach setup-tools
-      - advanced: MCP integration, custom module docs
-      - all: Everything above
+      Write a complete tutorial page about Search Tools - grep and glob (250-300 lines).
       
-      Return a summary of what's new or changed.
+      STRUCTURE:
+      ---
+      id: tool-search
+      type: tools
+      title: "Search Tools"
+      ---
+      
+      # Search Tools (grep & glob)
+      
+      ## When to Use Each
+      | Task | Tool | Why |
+      |------|------|-----|
+      | Find files by name | glob | Pattern matching on paths |
+      | Search file contents | grep | Regex on content |
+      
+      ## Glob Patterns
+      [*.py, **/*.md, etc]
+      
+      ## Grep Patterns
+      [Regex, output modes]
+      
+      ## Output Modes
+      [files_with_matches, content, count]
+      
+      ## Combining Tools
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      ## Errors
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_search_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: generate-updates
-    agent: foundation:modular-builder
-    instruction: |
-      Based on the scan results:
-      {{scan-repos.result}}
+  - id: tool-web
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/web.md
       
-      And pending notes:
-      {{check-notes.result}}
+      Write a complete tutorial page about Web Tools (200-250 lines).
       
-      Generate updated markdown content for the {{validate-focus.result.focus}} section(s).
+      STRUCTURE:
+      ---
+      id: tool-web
+      type: tools
+      title: "Web Tools"
+      ---
       
-      Follow the existing content style in /mnt/c/ANext/tutorial/content/
+      # Web Tools
       
-      For each file to update, provide the complete new content.
+      ## Operations
+      | Tool | Purpose |
+      |------|---------|
+      | web_search | Search the internet |
+      | web_fetch | Fetch URL content |
+      
+      ## Web Search
+      
+      ## Fetching URLs
+      [Size limits, save_to_file]
+      
+      ## Handling Large Pages
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      ## Errors
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_web_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: review-updates
-    agent: foundation:zen-architect
-    instruction: |
-      Review the generated updates for:
-      - Accuracy against source material
-      - Consistency with existing tutorial style
-      - No hallucinated information
+  - id: tool-task
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/task.md
       
-      Updates to review:
-      {{generate-updates.result}}
+      Write a complete tutorial page about the Task Tool for sub-agents (250-300 lines).
       
-      Approve or flag issues.
+      STRUCTURE:
+      ---
+      id: tool-task
+      type: tools
+      title: "Task Tool"
+      ---
+      
+      # Task Tool (Sub-Agents)
+      
+      ## What is Delegation?
+      
+      ## When to Delegate
+      - Exploration tasks
+      - Git operations (ALWAYS use git-ops)
+      - Debugging (use bug-hunter)
+      - Large context tasks
+      
+      ## Available Agents
+      | Agent | Purpose |
+      |-------|---------|
+      | foundation:explorer | Codebase reconnaissance |
+      | foundation:git-ops | Git operations |
+      | foundation:bug-hunter | Debugging |
+      | foundation:zen-architect | Design/review |
+      | foundation:modular-builder | Implementation |
+      
+      ## Parallel Execution
+      
+      ## Session Resumption
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      ## Errors
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_task_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: apply-updates
-    requires_approval: true
-    instruction: |
-      Apply the reviewed updates to the tutorial content files.
+  - id: tool-lsp
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/lsp.md
       
-      Updates approved:
-      {{review-updates.result}}
+      Write a complete tutorial page about the LSP Tool (250-300 lines).
       
-      Write the files to /mnt/c/ANext/tutorial/content/
+      STRUCTURE:
+      ---
+      id: tool-lsp
+      type: tools
+      title: "LSP Tool"
+      ---
+      
+      # LSP Tool (Code Intelligence)
+      
+      ## What is LSP?
+      Language Server Protocol for semantic code understanding.
+      
+      ## LSP vs Grep
+      | Task | Use LSP | Use Grep |
+      |------|---------|----------|
+      | Find callers | incomingCalls | Matches strings too |
+      | Find definition | goToDefinition | Multiple matches |
+      | Get type info | hover | Not possible |
+      
+      ## Operations
+      - goToDefinition
+      - findReferences
+      - hover
+      - incomingCalls
+      - outgoingCalls
+      
+      ## Python-Specific
+      [Pyright integration]
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      ## Errors
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_lsp_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: rebuild-site
-    instruction: |
-      Rebuild the tutorial site:
+  - id: tool-recipes
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/tools/recipes-tool.md
       
-      ```bash
-      cd /mnt/c/ANext/tutorial
-      source .venv/bin/activate
-      mkdocs build --clean
+      Write a complete tutorial page about the Recipes Tool (200-250 lines).
+      
+      STRUCTURE:
+      ---
+      id: tool-recipes
+      type: tools
+      title: "Recipes Tool"
+      ---
+      
+      # Recipes Tool
+      
+      ## What are Recipes?
+      Declarative YAML workflows for multi-step tasks.
+      
+      ## Executing Recipes
+      amplifier run "execute recipe.yaml"
+      
+      ## Passing Context
+      amplifier run "execute recipe.yaml with key=value"
+      
+      ## Operations
+      | Operation | Purpose |
+      |-----------|---------|
+      | execute | Run a recipe |
+      | resume | Continue interrupted |
+      | validate | Check YAML |
+      | approvals | List pending |
+      
+      ## Approval Gates
+      
+      ## Best Practices
+      
+      ## Try It Yourself
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "tool_recipes_result"
+    timeout: 180
+    on_error: "continue"
+
+  # ============================================
+  # CONCEPTS - Each step generates AND writes
+  # ============================================
+
+  - id: concept-agents
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/agents.md
+      
+      Write a complete concept page about Agents (200-280 lines).
+      
+      STRUCTURE:
+      ---
+      id: agents
+      type: concepts
+      title: "Understanding Agents"
+      ---
+      
+      # Understanding Agents
+      
+      ## What is an Agent?
+      KEY INSIGHT: Agents ARE bundles. Same file format.
+      
+      ## How Agents Work
+      ```
+      ┌─────────────┐     ┌─────────────┐
+      │ Main Session│ ──▶ │ Sub-Session │
+      │   (you)     │     │  (agent)    │
+      └─────────────┘     └─────────────┘
       ```
       
-      Report success or any build errors.
+      ## Using Agents
+      [task tool delegation]
+      
+      ## Built-in Agents
+      | Agent | Purpose |
+      
+      ## Creating Your Own
+      
+      ## Agents vs Bundles
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_agents_result"
+    timeout: 180
+    on_error: "continue"
 
-  - id: mark-notes-done
-    condition: "{{include_notes}} == true"
-    instruction: |
-      For any notes that were incorporated, update their status from [PENDING] to [INCORPORATED]
-      in the .notes/ files.
+  - id: concept-bundles
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/bundles.md
+      
+      Write a complete concept page about Bundles (200-280 lines).
+      
+      STRUCTURE:
+      ---
+      id: bundles
+      type: concepts
+      title: "Understanding Bundles"
+      ---
+      
+      # Understanding Bundles
+      
+      ## What is a Bundle?
+      Composable configuration packages.
+      
+      ## Bundle Structure
+      [Markdown + YAML frontmatter]
+      
+      ## Composition
+      [includes, behaviors]
+      
+      ## Creating a Bundle
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_bundles_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: concept-modules
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/modules.md
+      
+      Write a complete concept page about Modules (200-280 lines).
+      
+      STRUCTURE:
+      ---
+      id: modules
+      type: concepts
+      title: "Understanding Modules"
+      ---
+      
+      # Understanding Modules
+      
+      ## What is a Module?
+      
+      ## The 5 Module Types
+      | Type | Purpose | Contract |
+      |------|---------|----------|
+      | Provider | LLM backends | complete() |
+      | Tool | Agent capabilities | execute() |
+      | Orchestrator | Main engine | The loop |
+      | Context | Memory | messages |
+      | Hook | Observers | events |
+      
+      ## Tool vs Hook
+      | | Tool | Hook |
+      |--|------|------|
+      | Triggered by | LLM decides | Code events |
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_modules_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: concept-recipes
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/recipes.md
+      
+      Write a complete concept page about Recipes (200-280 lines).
+      
+      ---
+      id: recipes
+      type: concepts
+      title: "Understanding Recipes"
+      ---
+      
+      # Understanding Recipes
+      
+      ## What is a Recipe?
+      
+      ## When to Use Recipes
+      
+      ## Recipe Structure
+      
+      ## Steps and Context
+      
+      ## Approval Gates
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_recipes_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: concept-skills
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/skills.md
+      
+      Write a complete concept page about Skills (150-200 lines).
+      
+      ---
+      id: skills
+      type: concepts
+      title: "Understanding Skills"
+      ---
+      
+      # Understanding Skills
+      
+      ## What is a Skill?
+      Loadable domain knowledge.
+      
+      ## Discovering Skills
+      
+      ## Loading Skills
+      
+      ## Creating Skills
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_skills_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: concept-hooks
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/hooks.md
+      
+      Write a complete concept page about Hooks (150-200 lines).
+      
+      ---
+      id: hooks
+      type: concepts
+      title: "Understanding Hooks"
+      ---
+      
+      # Understanding Hooks
+      
+      ## What is a Hook?
+      Lifecycle observers.
+      
+      ## Hook vs Tool
+      
+      ## Event Types
+      
+      ## Built-in Hooks
+      
+      ## Creating Hooks
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_hooks_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: concept-architecture
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/concepts/architecture.md
+      
+      Write a complete architecture overview (200-280 lines).
+      
+      ---
+      id: architecture
+      type: concepts
+      title: "Architecture Overview"
+      ---
+      
+      # Architecture Overview
+      
+      ## The Kernel Philosophy
+      Mechanism, not policy.
+      
+      ## Session Lifecycle
+      ```
+      User Input
+          ↓
+      ┌─────────┐
+      │ Session │
+      └────┬────┘
+           ↓
+      ┌─────────────┐
+      │ Coordinator │
+      └──────┬──────┘
+             ↓
+      ┌─────────────┐
+      │ Orchestrator│ ←→ Provider
+      └──────┬──────┘
+             ↓
+         Tools/Hooks
+      ```
+      
+      ## Event Flow
+      
+      ## Module Mounting
+      
+      ## Key Takeaways
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "concept_architecture_result"
+    timeout: 180
+    on_error: "continue"
+
+  # ============================================
+  # QUICKSTART - Each step generates AND writes
+  # ============================================
+
+  - id: qs-what-is
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/what-is-amplifier.md
+      
+      Write an introduction page (150-200 lines).
+      
+      ---
+      id: what-is-amplifier
+      type: quickstart
+      title: "What is Amplifier?"
+      ---
+      
+      # What is Amplifier?
+      
+      ## Overview
+      Modular AI agent framework.
+      
+      ## Key Features
+      
+      ## Philosophy
+      
+      ## Who It's For
+      
+      ## Next Steps
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_what_is_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: qs-different
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/how-its-different.md
+      
+      Write a comparison page (150-200 lines).
+      
+      ---
+      id: how-its-different
+      type: quickstart
+      title: "How It's Different"
+      ---
+      
+      # How Amplifier is Different
+      
+      ## Comparison Overview
+      
+      ## Modular Architecture
+      
+      ## Extensibility
+      
+      ## Multi-Agent
+      
+      ## Open Source
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_different_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: qs-installation
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/installation.md
+      
+      Write installation guide (200-250 lines).
+      
+      ---
+      id: installation
+      type: quickstart
+      title: "Installation"
+      ---
+      
+      # Installation
+      
+      ## Prerequisites
+      Python 3.10+
+      
+      ## Step 1: Install UV
+      ```bash
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+      ```
+      
+      ## Step 2: Install Amplifier
+      ```bash
+      uvx amplifier
+      ```
+      
+      ## Step 3: Setup Wizard
+      ```bash
+      amplifier init
+      ```
+      
+      ## Step 4: Verify
+      ```bash
+      amplifier version
+      ```
+      
+      ## Common Issues
+      
+      ## Next Steps
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_installation_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: qs-first-convo
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/first-conversation.md
+      
+      Write first conversation guide (150-200 lines).
+      
+      ---
+      id: first-conversation
+      type: quickstart
+      title: "Your First Conversation"
+      ---
+      
+      # Your First Conversation
+      
+      ## Starting a Session
+      ```bash
+      amplifier run
+      ```
+      
+      ## Your First Prompt
+      
+      ## Understanding Responses
+      
+      ## Tool Usage
+      
+      ## Ending a Session
+      
+      ## Next Steps
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_first_convo_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: qs-commands
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/key-commands.md
+      
+      Write key commands reference (200-250 lines).
+      
+      ---
+      id: key-commands
+      type: quickstart
+      title: "Key Commands"
+      ---
+      
+      # Key Commands
+      
+      ## Command Overview
+      | Command | Purpose |
+      |---------|---------|
+      | amplifier run | Start session |
+      | amplifier continue | Resume last |
+      | amplifier resume | Pick session |
+      
+      ## amplifier run
+      
+      ## amplifier continue
+      
+      ## amplifier resume
+      
+      ## Slash Commands
+      /help, /compact, /tools
+      
+      ## Next Steps
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_commands_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: qs-first-bundle
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/quickstart/first-bundle.md
+      
+      Write first bundle tutorial (200-250 lines).
+      
+      ---
+      id: first-bundle
+      type: quickstart
+      title: "Your First Bundle"
+      ---
+      
+      # Your First Bundle
+      
+      ## What You'll Build
+      
+      ## Step 1: Create File
+      
+      ## Step 2: Add Instructions
+      
+      ## Step 3: Configure Tools
+      
+      ## Step 4: Test It
+      
+      ## Next Steps
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "qs_first_bundle_result"
+    timeout: 180
+    on_error: "continue"
+
+  # ============================================
+  # BUNDLES - Each step generates AND writes
+  # ============================================
+
+  - id: bundle-foundation
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/bundles/foundation.md
+      
+      Write Foundation Bundle reference (250-320 lines).
+      
+      ---
+      id: foundation
+      type: bundles
+      title: "Foundation Bundle"
+      ---
+      
+      # Foundation Bundle
+      
+      ## Overview
+      The default bundle.
+      
+      ## Tools Included
+      | Tool | Purpose |
+      |------|---------|
+      | bash | Shell commands |
+      | filesystem | File operations |
+      | search | grep/glob |
+      | web | Internet access |
+      | task | Sub-agents |
+      
+      ## Agents Included
+      | Agent | Purpose |
+      |-------|---------|
+      | explorer | Codebase recon |
+      | zen-architect | Design |
+      | modular-builder | Implementation |
+      | bug-hunter | Debugging |
+      | git-ops | Git operations |
+      
+      ## Getting Started
+      
+      ## When to Use
+      
+      ## Try It Yourself
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "bundle_foundation_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: bundle-recipes
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/bundles/recipes.md
+      
+      Write Recipes Bundle reference (200-280 lines).
+      
+      ---
+      id: recipes-bundle
+      type: bundles
+      title: "Recipes Bundle"
+      ---
+      
+      # Recipes Bundle
+      
+      ## Overview
+      
+      ## What's Included
+      - recipes tool
+      - recipe-author agent
+      
+      ## When to Use
+      
+      ## Try It Yourself
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "bundle_recipes_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: bundle-lsp
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/bundles/lsp-python.md
+      
+      Write LSP Python Bundle reference (200-280 lines).
+      
+      ---
+      id: lsp-python
+      type: bundles
+      title: "LSP Python Bundle"
+      ---
+      
+      # LSP Python Bundle
+      
+      ## Overview
+      Python code intelligence.
+      
+      ## What's Included
+      - LSP tool (Pyright)
+      - python-code-intel agent
+      
+      ## When to Use
+      
+      ## Try It Yourself
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "bundle_lsp_result"
+    timeout: 180
+    on_error: "continue"
+
+  - id: bundle-design
+    agent: foundation:file-ops
+    prompt: |
+      Create file: {{output_dir}}/bundles/design-intelligence.md
+      
+      Write Design Intelligence Bundle reference (200-280 lines).
+      
+      ---
+      id: design-intelligence
+      type: bundles
+      title: "Design Intelligence Bundle"
+      ---
+      
+      # Design Intelligence Bundle
+      
+      ## Overview
+      UI/UX design agents.
+      
+      ## Agents Included
+      | Agent | Purpose |
+      |-------|---------|
+      | art-director | Visual strategy |
+      | component-designer | UI components |
+      | animation-choreographer | Motion |
+      
+      ## The Nine Dimensions
+      
+      ## When to Use
+      
+      ## Try It Yourself
+      
+      WRITE THE COMPLETE FILE NOW.
+    output: "bundle_design_result"
+    timeout: 180
+    on_error: "continue"
+
+  # ============================================
+  # INDEXES - One batch (small files)
+  # ============================================
+
+  - id: generate-indexes
+    agent: foundation:file-ops
+    prompt: |
+      Create 7 index files (50-80 lines each):
+      
+      1. {{output_dir}}/tools/index.md
+      2. {{output_dir}}/concepts/index.md
+      3. {{output_dir}}/quickstart/index.md
+      4. {{output_dir}}/bundles/index.md
+      5. {{output_dir}}/skills/index.md
+      6. {{output_dir}}/advanced/index.md
+      7. {{output_dir}}/dev-setup/index.md
+      
+      Each index should have:
+      - YAML frontmatter (id, type, title)
+      - Brief intro (2-3 sentences)
+      - Table linking to section pages
+      - Quick tips
+      - Where to start recommendation
+      
+      WRITE ALL 7 FILES NOW.
+    output: "indexes_result"
+    timeout: 300
+    on_error: "continue"
+
+  # ============================================
+  # BUILD
+  # ============================================
+
+  - id: build-site
+    type: bash
+    command: "cd /mnt/c/ANext/tutorial && mkdocs build --clean 2>&1"
+    output: "build_result"
+    timeout: 120
+    on_error: "continue"
+
+  # ============================================
+  # REPORT
+  # ============================================
+
+  - id: count-files
+    type: bash
+    command: "find /mnt/c/ANext/tutorial/content -name '*.md' -type f | wc -l && find /mnt/c/ANext/tutorial/docs -name '*.html' -type f | wc -l"
+    output: "file_counts"
+    timeout: 30
+    on_error: "continue"
+
+  - id: final-report
+    type: bash
+    command: |
+      echo "=== Tutorial Build Complete ==="
+      echo ""
+      echo "Content files: $(find /mnt/c/ANext/tutorial/content -name '*.md' -type f | wc -l)"
+      echo "HTML files: $(find /mnt/c/ANext/tutorial/docs -name '*.html' -type f | wc -l)"
+      echo ""
+      echo "=== Recently modified ==="
+      find /mnt/c/ANext/tutorial/content -name '*.md' -mmin -5 -type f | head -20
+    output: "report"
+    timeout: 30
+    on_error: "continue"

@@ -1,241 +1,349 @@
 ---
 id: tool-task
 type: tools
-title: "Task Tool (Sub-Agents)"
+title: "Task Tool"
 ---
 
-# Task Tool
+# Task Tool (Sub-Agents)
 
-Spawn specialized sub-agents to handle complex tasks.
+The Task tool is Amplifier's delegation system. It launches specialized agents to handle
+complex tasks autonomously, allowing you to break down sophisticated workflows into
+manageable, parallelizable units of work.
 
-## Overview
+## What is Delegation?
 
-The task tool lets the main AI delegate work to specialist agents:
-
-```
-Main AI: "I'll delegate this debugging to bug-hunter"
-
-[Tool: task]
-agent: foundation:bug-hunter
-instruction: "Debug the authentication failure in src/auth.py"
-
-[Bug-hunter runs, investigates, returns findings]
-
-Main AI: "The bug-hunter found the issue..."
-```
-
-## When to Use
-
-The task tool is used automatically when:
-
-- **Complex debugging** → `bug-hunter` agent
-- **Architecture questions** → `zen-architect` agent
-- **Code implementation** → `modular-builder` agent
-- **Codebase exploration** → `explorer` agent
-- **Security review** → `security-guardian` agent
-- **File operations** → `file-ops` agent
-- **Git operations** → `git-ops` agent
-
-## How It Works
+Delegation means spawning a sub-agent with its own context, tools, and focus area.
+Think of it as hiring a specialist:
 
 ```
-┌─────────────────────────────────────┐
-│          Main Session               │
-│                                     │
-│  You: "Debug this auth issue"       │
-│                                     │
-│  Main AI: [spawns sub-agent]        │
-│      │                              │
-│      ▼                              │
-│  ┌─────────────────────────────┐    │
-│  │     bug-hunter agent        │    │
-│  │  - Specialized instructions │    │
-│  │  - Focused tool access      │    │
-│  │  - Domain context loaded    │    │
-│  │                             │    │
-│  │  [Investigates...]          │    │
-│  │  [Returns findings]         │    │
-│  └─────────────────────────────┘    │
-│      │                              │
-│      ▼                              │
-│  Main AI: "Found the issue..."      │
-└─────────────────────────────────────┘
+You (main agent) --> Task tool --> Sub-agent (specialist)
+                                   |
+                                   v
+                              Works autonomously
+                                   |
+                                   v
+                              Returns final report
 ```
 
-Key points:
-- Sub-agents are **isolated sessions**
-- They receive **focused instructions**
-- They have **specialized context**
-- They **return results** to the main session
+Key characteristics:
+
+- **Stateless invocations**: Each agent call starts fresh with no memory of previous calls
+- **Autonomous execution**: Sub-agents work independently until completion
+- **Single response**: You receive one final report, not a conversation
+- **Specialized tools**: Each agent type has access to different tool sets
+
+The main agent remains focused on orchestration while specialists handle domain-specific work.
+
+## When to Delegate
+
+Delegation is appropriate when a task requires:
+
+### Exploration Tasks
+
+When you need to understand a codebase, find patterns, or gather information:
+
+```
+Use foundation:explorer when:
+- Mapping module dependencies
+- Finding all usages of a pattern
+- Understanding system architecture
+- Gathering context across many files
+```
+
+### Git Operations (ALWAYS Delegate)
+
+**Critical rule**: Never use bash directly for git commands. Always delegate to git-ops:
+
+```
+Use foundation:git-ops for:
+- Creating commits (generates proper messages)
+- Branch operations
+- Creating/managing PRs
+- Conflict resolution
+- Multi-repo sync
+```
+
+The git-ops agent has safety protocols and follows commit message standards.
+
+### Debugging
+
+When encountering errors, test failures, or unexpected behavior:
+
+```
+Use foundation:bug-hunter when:
+- User reports an error
+- Tests are failing
+- Behavior doesn't match expectations
+- You need hypothesis-driven investigation
+```
+
+### Large Context Tasks
+
+When the work requires more context than fits in a single conversation:
+
+```
+Delegate when:
+- Refactoring spans many files
+- Analysis requires reading extensive code
+- The task has multiple independent phases
+```
+
+### When NOT to Delegate
+
+Avoid the task tool for:
+
+- Reading a specific file (use read_file directly)
+- Finding a class definition (use glob or grep)
+- Simple file edits (use edit_file directly)
+- Tasks requiring back-and-forth conversation
 
 ## Available Agents
 
-### Foundation Agents
+| Agent | Purpose | Key Capabilities |
+|-------|---------|------------------|
+| `foundation:explorer` | Codebase reconnaissance | Deep file analysis, pattern discovery |
+| `foundation:git-ops` | Git and GitHub operations | Commits, PRs, branches, safety checks |
+| `foundation:bug-hunter` | Systematic debugging | Hypothesis-driven investigation |
+| `foundation:zen-architect` | Design and review | Architecture, specifications, code review |
+| `foundation:modular-builder` | Implementation | Build from specifications |
+| `foundation:web-research` | External information | Web search, documentation lookup |
+| `foundation:test-coverage` | Test analysis | Coverage gaps, test suggestions |
+| `foundation:security-guardian` | Security review | Vulnerability assessment, audits |
+| `foundation:file-ops` | File operations | Read, write, edit, search files |
+| `foundation:session-analyst` | Session debugging | Analyze/repair Amplifier sessions |
 
-| Agent | Specialty | Triggers |
-|-------|-----------|----------|
-| `foundation:zen-architect` | Design, planning | "design", "architect", "review" |
-| `foundation:bug-hunter` | Debugging | "debug", "error", "fix bug" |
-| `foundation:modular-builder` | Implementation | "implement", "build", "create" |
-| `foundation:explorer` | Reconnaissance | "explore", "find", "understand" |
-| `foundation:security-guardian` | Security | "security", "vulnerability" |
-| `foundation:test-coverage` | Testing | "test", "coverage" |
-| `foundation:git-ops` | Git operations | "commit", "PR", "branch" |
-| `foundation:file-ops` | File operations | Bulk file changes |
-| `foundation:web-research` | Web research | "search", "find online" |
+### Specialized Domain Agents
 
-### Design Intelligence Agents
+| Agent | Purpose |
+|-------|---------|
+| `amplifier:amplifier-expert` | Amplifier ecosystem guidance |
+| `core:core-expert` | Kernel internals and protocols |
+| `foundation:foundation-expert` | Bundle composition patterns |
+| `lsp-python:python-code-intel` | Python semantic analysis |
 
-| Agent | Specialty |
-|-------|-----------|
-| `design-intelligence:art-director` | Visual strategy |
-| `design-intelligence:component-designer` | UI components |
-| `design-intelligence:layout-architect` | Page structure |
+## Parallel Execution
 
-## Explicit Delegation
-
-You can explicitly request an agent:
-
-```
-> Use the security-guardian to review src/auth.py
-```
-
-```
-> Ask zen-architect to design a caching layer
-```
-
-```
-> Have bug-hunter investigate why tests fail
-```
-
-## Task Tool Parameters
+One of the Task tool's most powerful features is parallel agent execution.
+Launch multiple independent agents simultaneously:
 
 ```yaml
-agent: foundation:bug-hunter      # Which agent
-instruction: "Debug auth.py"       # What to do
-session_id: "abc123"               # Optional: resume session
+# CORRECT: Multiple independent calls in one message block
+- task(agent="foundation:explorer", instruction="Map auth module")
+- task(agent="foundation:explorer", instruction="Map database layer")
+- task(agent="foundation:web-research", instruction="Find JWT best practices")
 ```
 
-### Resuming Sessions
+All three agents run concurrently, dramatically reducing total execution time.
 
-Sub-agent sessions can be resumed:
+### When to Parallelize
+
+Parallelize when tasks are **independent**:
 
 ```
-[Tool: task]
-agent: foundation:explorer
-session_id: "previous-session-id"
-instruction: "Continue exploring the database module"
+Good candidates for parallel execution:
+- Exploring different parts of a codebase
+- Running multiple analyses
+- Gathering information from different sources
+- Building independent modules
 ```
 
-## What Agents See
+### When NOT to Parallelize
 
-Sub-agents receive:
+Use sequential execution when tasks have **dependencies**:
 
-1. **Instruction** - The specific task
-2. **Context** - Relevant files, previous findings
-3. **Tools** - Subset appropriate to their specialty
-4. **Domain knowledge** - Specialized system prompt
+```
+Run sequentially when:
+- Task B needs output from Task A
+- You need to decide next steps based on results
+- Operations must happen in a specific order
+```
 
-They do NOT see:
-- Full conversation history
-- Unrelated context
-- All tools (just relevant ones)
+Example of dependent tasks (must be sequential):
+
+```
+1. zen-architect designs the module specification
+2. modular-builder implements from that specification
+3. test-coverage analyzes the implementation
+```
+
+## Session Resumption
+
+Each task invocation returns a `session_id`. You can resume interrupted sessions:
+
+```yaml
+# Initial call
+task:
+  agent: foundation:explorer
+  instruction: "Deep analysis of payment system"
+# Returns: session_id: "abc123..."
+
+# Resume if interrupted
+task:
+  session_id: "abc123..."
+  instruction: "Continue from where you left off"
+```
+
+### When to Use Session Resumption
+
+- Agent was interrupted mid-task
+- You need to provide additional context to the same agent
+- Long-running analysis needs continuation
+
+### Limitations
+
+- Sessions are stateless between invocations by default
+- Resumption requires the original session_id
+- Not all agents support meaningful resumption
 
 ## Best Practices
 
-### Be Specific in Instructions
+### 1. Write Detailed Instructions
 
-```
-# Vague
+Sub-agents have no context beyond what you provide. Be explicit:
+
+```yaml
+# BAD: Vague instruction
 instruction: "Fix the bug"
 
-# Specific
+# GOOD: Complete context
 instruction: |
-  Debug the authentication failure in src/auth.py.
-  Error: "Invalid token" when token is valid.
-  Check: Token generation, validation, expiry.
+  Investigate the KeyError in src/auth/login.py:45.
+  The error occurs when users log in with OAuth.
+  Check the token validation flow and session handling.
+  Return: root cause, affected code paths, and fix recommendation.
 ```
 
-### Provide Context
+### 2. Specify Expected Output
 
-```
+Tell agents exactly what you need back:
+
+```yaml
 instruction: |
-  Review this module for security issues:
+  Analyze the caching implementation.
   
-  File: src/api/users.py
-  Context: Handles user registration and login
-  Concern: SQL injection and auth bypass
+  Return in your final report:
+  1. List of all cache keys used
+  2. TTL settings for each cache type
+  3. Potential race conditions identified
+  4. Recommendations for improvement
 ```
 
-### Use the Right Agent
+### 3. Choose the Right Agent
 
-| Task | Best Agent |
-|------|------------|
-| "Why is this slow?" | `bug-hunter` |
-| "Design a solution" | `zen-architect` |
-| "Write the code" | `modular-builder` |
-| "What does this codebase do?" | `explorer` |
-| "Check for vulnerabilities" | `security-guardian` |
+Match the task to the specialist:
+
+| Task | Agent |
+|------|-------|
+| "What does this code do?" | `explorer` |
+| "Commit these changes" | `git-ops` |
+| "Why is this failing?" | `bug-hunter` |
+| "Design a new feature" | `zen-architect` |
+| "Implement this spec" | `modular-builder` |
+
+### 4. Trust Agent Results
+
+Agent outputs are generally reliable. Use their findings directly rather than
+re-verifying everything manually.
+
+### 5. Summarize for Users
+
+Agent results are not shown to users automatically. Always summarize:
+
+```
+# After receiving agent report
+"The explorer agent found that authentication spans 12 modules.
+The main entry point is src/auth/handler.py. Key finding: 
+the session manager has a potential race condition."
+```
 
 ## Try It Yourself
 
-### Exercise 1: Watch Delegation
+### Exercise 1: Parallel Exploration
+
+Ask Amplifier to explore two different areas of a codebase simultaneously:
 
 ```
-> Debug why this function returns None when it shouldn't:
-def get_user(id):
-    user = db.query(User).filter(id=id).first()
-    return user
+"Explore both the API layer and the database models in parallel.
+I need to understand how they connect."
 ```
 
-Watch the output - you'll see it delegate to `bug-hunter`.
+Watch as two explorer agents work concurrently.
 
-### Exercise 2: Explicit Delegation
+### Exercise 2: The Full Pipeline
 
-```
-> Use the explorer agent to map the structure of this project
-```
-
-### Exercise 3: Chain Agents
+Request a feature that uses multiple agents:
 
 ```
-> First use zen-architect to design a caching solution,
-> then use modular-builder to implement it
+"Design and implement a rate limiting feature for the API.
+Use zen-architect for design, then modular-builder for implementation."
 ```
 
-## Agent Reports
+Observe the handoff between agents.
 
-When an agent completes, it returns a structured report:
+### Exercise 3: Debugging Delegation
 
-```
-[bug-hunter] Investigation complete:
-
-Finding: The query filter syntax is incorrect.
-- `filter(id=id)` should be `filter(User.id == id)`
-
-Root cause: SQLAlchemy filter() expects comparison expressions.
-
-Fix:
-```python
-user = db.query(User).filter(User.id == id).first()
-```
-
-Confidence: High
-```
-
-## When NOT to Use Task
-
-For simple operations, the main AI handles directly:
+Report a bug and let bug-hunter investigate:
 
 ```
-# Simple file read - main AI does it
-> Show me config.yaml
-
-# Simple command - main AI does it  
-> Run pytest
-
-# Simple search - main AI does it
-> Find all TODO comments
+"The /api/users endpoint returns 500 errors intermittently.
+Use bug-hunter to find the root cause."
 ```
 
-Task delegation is for **complex, specialized work**.
+## Common Errors
+
+### "Session spawning not available"
+
+The app layer hasn't registered session spawning capability. This typically means:
+- You're in a restricted environment
+- The bundle configuration doesn't include task delegation
+- Check your bundle's capabilities
+
+### "Agent not found"
+
+The specified agent doesn't exist or isn't available:
+
+```
+# Check agent name format
+agent: "collection:agent-name"
+
+# Common mistakes:
+- "explorer" (missing collection prefix)
+- "foundation/explorer" (wrong separator)
+- "Foundation:explorer" (case sensitive)
+```
+
+### "Instruction required"
+
+Every task call needs an instruction:
+
+```yaml
+# This will fail
+task:
+  agent: foundation:explorer
+
+# This works
+task:
+  agent: foundation:explorer
+  instruction: "Analyze the src/ directory structure"
+```
+
+### Timeout Errors
+
+Complex tasks may timeout. Solutions:
+- Break into smaller sub-tasks
+- Provide more focused instructions
+- Use session resumption for long-running work
+
+---
+
+## Summary
+
+The Task tool enables powerful multi-agent workflows:
+
+- **Delegate** complex work to specialized agents
+- **Parallelize** independent tasks for efficiency
+- **Resume** interrupted sessions when needed
+- **Trust** agent results and summarize for users
+
+Master delegation to unlock Amplifier's full potential for sophisticated,
+multi-step software engineering tasks.

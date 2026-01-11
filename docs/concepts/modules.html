@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -69,65 +71,53 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="modules.html">Modules</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#module-types">Module Types</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#providers">Providers</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-module">What is a Module?</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#available-providers">Available Providers</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-configuration">Provider Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-module-philosophy">The Module Philosophy</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#the-5-module-types">The 5 Module Types</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#core-tools">Core Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#provider-modules">Provider Modules</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tool-contract">Tool Contract</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-modules">Tool Modules</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#adding-tools">Adding Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#orchestrator-modules">Orchestrator Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#context-modules">Context Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hook-modules">Hook Modules</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hooks">Hooks</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-vs-hook">Tool vs Hook</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-events">Hook Events</a>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-tools">When to Use Tools</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#available-hooks">Available Hooks</a>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-hooks">When to Use Hooks</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-actions">Hook Actions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-configuration">Hook Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-decision-tree">The Decision Tree</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#orchestrators">Orchestrators</a>
+    <li class="toctree-l2"><a class="reference internal" href="#module-composition">Module Composition</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#choosing-an-orchestrator">Choosing an Orchestrator</a>
+    <li class="toctree-l3"><a class="reference internal" href="#adding-new-capabilities">Adding New Capabilities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#swapping-implementations">Swapping Implementations</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#context-managers">Context Managers</a>
+    <li class="toctree-l2"><a class="reference internal" href="#module-contracts">Module Contracts</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#context-configuration">Context Configuration</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-resolution">Module Resolution</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-list-your-modules">Exercise 1: List Your Modules</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-use-different-providers">Exercise 2: Use Different Providers</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-explore-hooks">Exercise 3: Explore Hooks</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-contract-principle">The Contract Principle</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-next">What's Next?</a>
     </li>
     </ul>
                   </li>
@@ -235,347 +225,351 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h1>
-<p>Modules are the building blocks of Amplifier. Each module provides a specific capability that can be loaded, configured, and swapped.</p>
-<h2 id="module-types">Module Types<a class="headerlink" href="#module-types" title="Permanent link">&para;</a></h2>
-<p>Amplifier has five types of modules:</p>
+                <h1 id="understanding-modules">Understanding Modules<a class="headerlink" href="#understanding-modules" title="Permanent link">&para;</a></h1>
+<p>Modules are the fundamental building blocks of Amplifier. They represent the "bricks and studs" philosophy—self-contained units with standardized interfaces that snap together to create powerful AI applications. Understanding modules is essential to mastering Amplifier's architecture.</p>
+<h2 id="what-is-a-module">What is a Module?<a class="headerlink" href="#what-is-a-module" title="Permanent link">&para;</a></h2>
+<p>A module is a <strong>self-contained unit of functionality</strong> that:</p>
+<ul>
+<li>Has a <strong>single, well-defined purpose</strong></li>
+<li>Implements a <strong>specific contract</strong> (interface)</li>
+<li>Can be <strong>swapped, upgraded, or replaced</strong> without affecting others</li>
+<li>Operates <strong>independently</strong> while integrating seamlessly</li>
+</ul>
+<p>Think of modules like LEGO bricks. Each brick has a specific shape and purpose, but they all share the same connection system (studs and sockets). You can build anything by combining bricks, and you can always swap one brick for another of the same type.</p>
+<h3 id="the-module-philosophy">The Module Philosophy<a class="headerlink" href="#the-module-philosophy" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
+│                     YOUR APPLICATION                        │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
+│  │Provider │  │  Tool   │  │ Context │  │  Hook   │        │
+│  │ Module  │  │ Module  │  │ Module  │  │ Module  │        │
+│  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘        │
+│       │            │            │            │              │
+│       └────────────┴─────┬──────┴────────────┘              │
+│                          │                                  │
+│                   ┌──────┴──────┐                           │
+│                   │Orchestrator │                           │
+│                   │   Module    │                           │
+│                   └─────────────┘                           │
+└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<p>Modules communicate through <strong>contracts</strong>, not implementations. This means:</p>
+<ul>
+<li>A Claude provider and an OpenAI provider are interchangeable</li>
+<li>A filesystem tool and a database tool both implement the same tool contract</li>
+<li>You can add observability hooks without changing any other code</li>
+</ul>
+<h2 id="the-5-module-types">The 5 Module Types<a class="headerlink" href="#the-5-module-types" title="Permanent link">&para;</a></h2>
+<p>Amplifier defines exactly five module types. Each has a specific role and contract:</p>
 <table>
 <thead>
 <tr>
 <th>Type</th>
 <th>Purpose</th>
-<th>Example</th>
+<th>Contract</th>
+<th>When It Runs</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Provider</strong></td>
-<td>AI backend</td>
-<td>Anthropic Claude, OpenAI GPT, Ollama</td>
+<td>LLM backends</td>
+<td><code>complete()</code></td>
+<td>When AI response needed</td>
 </tr>
 <tr>
 <td><strong>Tool</strong></td>
-<td>Capability</td>
-<td>Read files, run bash, search web</td>
-</tr>
-<tr>
-<td><strong>Hook</strong></td>
-<td>Observer/modifier</td>
-<td>Logging, redaction, approval</td>
+<td>Agent capabilities</td>
+<td><code>execute()</code></td>
+<td>When LLM requests action</td>
 </tr>
 <tr>
 <td><strong>Orchestrator</strong></td>
-<td>Execution strategy</td>
-<td>Basic loop, streaming, events</td>
+<td>Main engine</td>
+<td>The agent loop</td>
+<td>Continuously during session</td>
 </tr>
 <tr>
 <td><strong>Context</strong></td>
-<td>Memory management</td>
-<td>Simple (in-memory), persistent</td>
+<td>Memory &amp; state</td>
+<td><code>messages</code></td>
+<td>Before each LLM call</td>
+</tr>
+<tr>
+<td><strong>Hook</strong></td>
+<td>Observers</td>
+<td><code>events</code></td>
+<td>On system events</td>
 </tr>
 </tbody>
 </table>
-<h2 id="providers">Providers<a class="headerlink" href="#providers" title="Permanent link">&para;</a></h2>
-<p>Providers connect Amplifier to AI models:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List available providers</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>list
-
-<span class="c1"># Switch providers</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>anthropic
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>openai
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>ollama
-</code></pre></div>
-
-<h3 id="available-providers">Available Providers<a class="headerlink" href="#available-providers" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Provider</th>
-<th>Models</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>anthropic</code></td>
-<td>Claude 3.5, Claude 3</td>
-<td>Best for coding (recommended)</td>
-</tr>
-<tr>
-<td><code>openai</code></td>
-<td>GPT-4, GPT-4o</td>
-<td>Alternative, good general use</td>
-</tr>
-<tr>
-<td><code>azure-openai</code></td>
-<td>Azure-hosted GPT</td>
-<td>Enterprise compliance</td>
-</tr>
-<tr>
-<td><code>ollama</code></td>
-<td>Llama, Mistral, etc.</td>
-<td>Local, private, free</td>
-</tr>
-<tr>
-<td><code>gemini</code></td>
-<td>Gemini Pro</td>
-<td>Google ecosystem</td>
-</tr>
-</tbody>
-</table>
-<h3 id="provider-configuration">Provider Configuration<a class="headerlink" href="#provider-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In settings.yaml or bundle</span>
-<span class="nt">providers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider-anthropic</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
-<span class="w">      </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8192</span>
-</code></pre></div>
-
-<h2 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h2>
-<p>Tools are capabilities the AI can invoke:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In a session, list tools</span>
-/tools
-</code></pre></div>
-
-<h3 id="core-tools">Core Tools<a class="headerlink" href="#core-tools" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Tool</th>
-<th>What It Does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>read_file</code></td>
-<td>Read file contents</td>
-</tr>
-<tr>
-<td><code>write_file</code></td>
-<td>Create or overwrite files</td>
-</tr>
-<tr>
-<td><code>edit_file</code></td>
-<td>Make targeted string replacements</td>
-</tr>
-<tr>
-<td><code>bash</code></td>
-<td>Execute shell commands</td>
-</tr>
-<tr>
-<td><code>grep</code></td>
-<td>Search file contents with regex</td>
-</tr>
-<tr>
-<td><code>glob</code></td>
-<td>Find files by pattern</td>
-</tr>
-<tr>
-<td><code>web_search</code></td>
-<td>Search the internet</td>
-</tr>
-<tr>
-<td><code>web_fetch</code></td>
-<td>Fetch content from URLs</td>
-</tr>
-<tr>
-<td><code>task</code></td>
-<td>Spawn sub-agents</td>
-</tr>
-<tr>
-<td><code>todo</code></td>
-<td>Manage task lists</td>
-</tr>
-</tbody>
-</table>
-<h3 id="tool-contract">Tool Contract<a class="headerlink" href="#tool-contract" title="Permanent link">&para;</a></h3>
-<p>Every tool implements this interface:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>                    <span class="c1"># Unique identifier</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>             <span class="c1"># What the tool does (shown to AI)</span>
-    <span class="n">input_schema</span><span class="p">:</span> <span class="nb">dict</span>          <span class="c1"># JSON Schema for parameters</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the tool and return result.&quot;&quot;&quot;</span>
+<h3 id="provider-modules">Provider Modules<a class="headerlink" href="#provider-modules" title="Permanent link">&para;</a></h3>
+<p>Providers connect Amplifier to language models. They abstract away the differences between OpenAI, Anthropic, Azure, local models, and others.</p>
+<p><strong>Contract:</strong> <code>complete(messages, tools, config) -&gt; response</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># All providers implement the same interface</span>
+<span class="k">class</span> <span class="nc">Provider</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">],</span>
+        <span class="n">tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tool</span><span class="p">],</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">CompletionConfig</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletionResponse</span><span class="p">:</span>
         <span class="o">...</span>
 </code></pre></div>
 
-<h3 id="adding-tools">Adding Tools<a class="headerlink" href="#adding-tools" title="Permanent link">&para;</a></h3>
-<p>In a bundle:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Official tool</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-filesystem</span>
+<p><strong>Key characteristics:</strong>
+- Handle authentication and API specifics internally
+- Normalize responses to a common format
+- Support streaming where available
+- Manage rate limiting and retries</p>
+<p><strong>Examples:</strong> <code>AnthropicProvider</code>, <code>OpenAIProvider</code>, <code>AzureProvider</code>, <code>OllamaProvider</code></p>
+<h3 id="tool-modules">Tool Modules<a class="headerlink" href="#tool-modules" title="Permanent link">&para;</a></h3>
+<p>Tools give agents the ability to act in the world. They represent capabilities the LLM can invoke to accomplish tasks.</p>
+<p><strong>Contract:</strong> <code>execute(arguments) -&gt; result</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">JSONSchema</span>
 
-<span class="w">  </span><span class="c1"># Custom tool from local path</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tool</span>
-<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./modules/my-tool</span>
-
-<span class="w">  </span><span class="c1"># Tool with configuration</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">allowed_commands</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;ls&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;cat&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;grep&quot;</span><span class="p p-Indicator">]</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ToolResult</span><span class="p">:</span>
+        <span class="o">...</span>
 </code></pre></div>
 
-<h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
-<p>Hooks observe and optionally modify the agent lifecycle:</p>
-<h3 id="hook-events">Hook Events<a class="headerlink" href="#hook-events" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>session:start → turn:start → provider:request → provider:response
-                          ↓
-                     tool:call → tool:result
-                          ↓
-              turn:end → session:end
+<p><strong>Key characteristics:</strong>
+- Self-describing (name, description, parameters)
+- Executed when the LLM decides to use them
+- Return structured results back to the conversation
+- Can be dynamically enabled/disabled</p>
+<p><strong>Examples:</strong> <code>read_file</code>, <code>write_file</code>, <code>bash</code>, <code>web_search</code>, <code>grep</code></p>
+<h3 id="orchestrator-modules">Orchestrator Modules<a class="headerlink" href="#orchestrator-modules" title="Permanent link">&para;</a></h3>
+<p>The orchestrator is the brain of the agent. It runs the main loop: getting context, calling the LLM, executing tools, and repeating.</p>
+<p><strong>Contract:</strong> The agent loop itself</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Orchestrator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+            <span class="c1"># 1. Gather context</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">get_messages</span><span class="p">()</span>
+
+            <span class="c1"># 2. Call LLM</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">provider</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
+
+            <span class="c1"># 3. Process response</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">has_tool_calls</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">execute_tools</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">)</span>
+
+            <span class="c1"># 4. Check completion</span>
+            <span class="n">done</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">is_final</span>
 </code></pre></div>
 
-<h3 id="available-hooks">Available Hooks<a class="headerlink" href="#available-hooks" title="Permanent link">&para;</a></h3>
+<p><strong>Key characteristics:</strong>
+- Controls the agent's decision-making flow
+- Manages turn-taking between user and agent
+- Coordinates all other module types
+- Handles completion conditions</p>
+<p><strong>Examples:</strong> <code>StandardOrchestrator</code>, <code>ReActOrchestrator</code>, <code>PlanningOrchestrator</code></p>
+<h3 id="context-modules">Context Modules<a class="headerlink" href="#context-modules" title="Permanent link">&para;</a></h3>
+<p>Context modules manage what the agent "knows" during a conversation. They build the message history and inject relevant information.</p>
+<p><strong>Contract:</strong> <code>messages</code> - provides the conversation context</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Context</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
+        <span class="o">...</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+</code></pre></div>
+
+<p><strong>Key characteristics:</strong>
+- Maintain conversation history
+- Inject system prompts and instructions
+- Can add retrieved documents (RAG)
+- Handle context window limits</p>
+<p><strong>Examples:</strong> <code>ConversationContext</code>, <code>SlidingWindowContext</code>, <code>RAGContext</code></p>
+<h3 id="hook-modules">Hook Modules<a class="headerlink" href="#hook-modules" title="Permanent link">&para;</a></h3>
+<p>Hooks observe and react to system events without modifying the core flow. They're perfect for logging, analytics, guardrails, and side effects.</p>
+<p><strong>Contract:</strong> <code>events</code> - receives notifications</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hook</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+</code></pre></div>
+
+<p><strong>Key characteristics:</strong>
+- Passive observers (don't change main flow)
+- Subscribe to specific event types
+- Run asynchronously when events occur
+- Can emit their own events</p>
+<p><strong>Examples:</strong> <code>LoggingHook</code>, <code>MetricsHook</code>, <code>GuardrailHook</code>, <code>AuditHook</code></p>
+<h2 id="tool-vs-hook">Tool vs Hook<a class="headerlink" href="#tool-vs-hook" title="Permanent link">&para;</a></h2>
+<p>This distinction confuses many newcomers. Here's the key difference:</p>
 <table>
 <thead>
 <tr>
+<th>Aspect</th>
+<th>Tool</th>
 <th>Hook</th>
-<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>hooks-logging</code></td>
-<td>Log events to JSONL file</td>
+<td><strong>Triggered by</strong></td>
+<td>LLM decides to use it</td>
+<td>Code events fire</td>
 </tr>
 <tr>
-<td><code>hooks-redaction</code></td>
-<td>Remove sensitive data from logs</td>
+<td><strong>Purpose</strong></td>
+<td>Give agent capabilities</td>
+<td>Observe/react to events</td>
 </tr>
 <tr>
-<td><code>hooks-approval</code></td>
-<td>Require human approval for actions</td>
+<td><strong>Control flow</strong></td>
+<td>Blocks until complete</td>
+<td>Runs asynchronously</td>
 </tr>
 <tr>
-<td><code>hooks-streaming-ui</code></td>
-<td>Stream responses to terminal</td>
+<td><strong>Visibility</strong></td>
+<td>LLM knows about it</td>
+<td>LLM doesn't know</td>
 </tr>
 <tr>
-<td><code>hooks-status-context</code></td>
-<td>Inject environment info</td>
-</tr>
-<tr>
-<td><code>hooks-todo-reminder</code></td>
-<td>Remind about task lists</td>
+<td><strong>Examples</strong></td>
+<td>Read file, search web</td>
+<td>Log events, track metrics</td>
 </tr>
 </tbody>
 </table>
-<h3 id="hook-actions">Hook Actions<a class="headerlink" href="#hook-actions" title="Permanent link">&para;</a></h3>
-<p>Hooks can:</p>
+<h3 id="when-to-use-tools">When to Use Tools<a class="headerlink" href="#when-to-use-tools" title="Permanent link">&para;</a></h3>
+<p>Use a tool when the <strong>LLM needs to decide</strong> whether to use the capability:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Tool: LLM chooses when to search</span>
+<span class="nd">@tool</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">web_search</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search the web for information.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="n">search_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The LLM sees this tool, understands its purpose, and invokes it when relevant.</p>
+<h3 id="when-to-use-hooks">When to Use Hooks<a class="headerlink" href="#when-to-use-hooks" title="Permanent link">&para;</a></h3>
+<p>Use a hook when you want to <strong>observe without the LLM knowing</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Hook: Automatically logs all tool calls</span>
+<span class="k">class</span> <span class="nc">ToolLoggingHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;tool_call&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool called: </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The LLM never knows this hook exists—it just observes silently.</p>
+<h3 id="the-decision-tree">The Decision Tree<a class="headerlink" href="#the-decision-tree" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Should the LLM decide when this runs?
+    │
+    ├── YES → Use a TOOL
+    │         (agent capability)
+    │
+    └── NO → Use a HOOK
+             (system observation)
+</code></pre></div>
+
+<h2 id="module-composition">Module Composition<a class="headerlink" href="#module-composition" title="Permanent link">&para;</a></h2>
+<p>The power of modules comes from composition. You combine simple modules to create sophisticated behavior:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A simple but powerful agent configuration</span>
+<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="nt">orchestrator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conversation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_prompt</span>
+
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metrics</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guardrails</span>
+</code></pre></div>
+
+<h3 id="adding-new-capabilities">Adding New Capabilities<a class="headerlink" href="#adding-new-capabilities" title="Permanent link">&para;</a></h3>
+<p>Want to add a new capability? Just add a module:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database_query</span><span class="w">  </span><span class="c1"># New capability!</span>
+</code></pre></div>
+
+<h3 id="swapping-implementations">Swapping Implementations<a class="headerlink" href="#swapping-implementations" title="Permanent link">&para;</a></h3>
+<p>Need to change providers? Just swap:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Before</span>
+<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+
+<span class="c1"># After</span>
+<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+</code></pre></div>
+
+<p>Everything else stays the same.</p>
+<h2 id="module-contracts">Module Contracts<a class="headerlink" href="#module-contracts" title="Permanent link">&para;</a></h2>
+<p>Every module type has a <strong>contract</strong>—a promise about how it behaves. Contracts enable:</p>
 <ol>
-<li><strong>Observe</strong> - Just watch what happens (logging)</li>
-<li><strong>Enrich</strong> - Add data to events (status context)</li>
-<li><strong>Modify</strong> - Change data (redaction)</li>
-<li><strong>Cancel</strong> - Block an action (approval)</li>
+<li><strong>Interchangeability</strong>: Any module implementing the contract works</li>
+<li><strong>Testing</strong>: Mock modules that follow the contract</li>
+<li><strong>Evolution</strong>: Improve internals without breaking interfaces</li>
 </ol>
-<h3 id="hook-configuration">Hook Configuration<a class="headerlink" href="#hook-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-logging</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./logs</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">require_approval_for</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
+<h3 id="the-contract-principle">The Contract Principle<a class="headerlink" href="#the-contract-principle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────┐         ┌─────────────┐
+│  Module A   │         │  Module B   │
+│             │         │             │
+│ (OpenAI)    │         │ (Anthropic) │
+└──────┬──────┘         └──────┬──────┘
+       │                       │
+       └───────────┬───────────┘
+                   │
+            ┌──────┴──────┐
+            │  Contract   │
+            │ complete()  │
+            └─────────────┘
+                   │
+            ┌──────┴──────┐
+            │   Kernel    │
+            └─────────────┘
 </code></pre></div>
 
-<h2 id="orchestrators">Orchestrators<a class="headerlink" href="#orchestrators" title="Permanent link">&para;</a></h2>
-<p>Orchestrators control how the AI executes:</p>
-<table>
-<thead>
-<tr>
-<th>Orchestrator</th>
-<th>Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>loop-basic</code></td>
-<td>Simple request/response loop</td>
-</tr>
-<tr>
-<td><code>loop-streaming</code></td>
-<td>Stream responses as they generate</td>
-</tr>
-<tr>
-<td><code>loop-events</code></td>
-<td>Event-driven with hooks</td>
-</tr>
-</tbody>
-</table>
-<h3 id="choosing-an-orchestrator">Choosing an Orchestrator<a class="headerlink" href="#choosing-an-orchestrator" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">orchestrator</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loop-streaming</span><span class="w">  </span><span class="c1"># For interactive use</span>
-<span class="w">  </span><span class="c1"># module: loop-basic    # For simple scripts</span>
-<span class="w">  </span><span class="c1"># module: loop-events   # For complex workflows</span>
-</code></pre></div>
-
-<h2 id="context-managers">Context Managers<a class="headerlink" href="#context-managers" title="Permanent link">&para;</a></h2>
-<p>Context managers handle conversation memory:</p>
-<table>
-<thead>
-<tr>
-<th>Context</th>
-<th>Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>context-simple</code></td>
-<td>In-memory only (lost on exit)</td>
-</tr>
-<tr>
-<td><code>context-persistent</code></td>
-<td>Saved to disk (resumable)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="context-configuration">Context Configuration<a class="headerlink" href="#context-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context-persistent</span>
-<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.amplifier/sessions</span>
-</code></pre></div>
-
-<h2 id="module-resolution">Module Resolution<a class="headerlink" href="#module-resolution" title="Permanent link">&para;</a></h2>
-<p>When Amplifier loads a module, it searches:</p>
-<ol>
-<li><strong>Bundle path</strong> - <code>./modules/</code> relative to bundle</li>
-<li><strong>Installed modules</strong> - From <code>amplifier module install</code></li>
-<li><strong>Registry</strong> - Official module registry</li>
-</ol>
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-list-your-modules">Exercise 1: List Your Modules<a class="headerlink" href="#exercise-1-list-your-modules" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See what&#39;s loaded</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;List all tools you have access to. Group by category.&quot;</span>
-</code></pre></div>
-
-<h3 id="exercise-2-use-different-providers">Exercise 2: Use Different Providers<a class="headerlink" href="#exercise-2-use-different-providers" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Compare responses</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Write a haiku about coding&quot;</span><span class="w"> </span>--provider<span class="w"> </span>anthropic
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Write a haiku about coding&quot;</span><span class="w"> </span>--provider<span class="w"> </span>openai
-</code></pre></div>
-
-<h3 id="exercise-3-explore-hooks">Exercise 3: Explore Hooks<a class="headerlink" href="#exercise-3-explore-hooks" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Check your session log</span>
-ls<span class="w"> </span>~/.amplifier/sessions/
-cat<span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>latest<span class="o">]</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
-</code></pre></div>
-
+<p>The kernel only knows about contracts, not implementations. This is what makes modules truly interchangeable.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Modules are swappable</strong> - Change providers without changing tools</li>
-<li><strong>Each type has a contract</strong> - Providers provide, tools execute, hooks observe</li>
-<li><strong>Configuration is separate</strong> - Same module, different config</li>
-<li><strong>Composition through bundles</strong> - Bundles select and configure modules</li>
+<li>
+<p><strong>Five module types</strong>: Provider, Tool, Orchestrator, Context, Hook—each with a specific purpose</p>
+</li>
+<li>
+<p><strong>Contracts over implementations</strong>: Modules are interchangeable because they implement standard contracts</p>
+</li>
+<li>
+<p><strong>Tools vs Hooks</strong>: Tools are LLM-invoked capabilities; hooks are silent observers</p>
+</li>
+<li>
+<p><strong>Composition is key</strong>: Combine simple modules to create powerful agents</p>
+</li>
+<li>
+<p><strong>Single responsibility</strong>: Each module does one thing well</p>
+</li>
+<li>
+<p><strong>The LEGO principle</strong>: Standard interfaces let you build anything from simple, swappable pieces</p>
+</li>
 </ol>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Learn about specialized AI configurations:</p>
-<p>→ <a href="agents.html">Agents</a></p>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<p>Now that you understand modules, explore each type in depth:</p>
+<ul>
+<li><a href="./providers.md">Providers: Connecting to LLMs</a></li>
+<li><a href="./tools.md">Tools: Agent Capabilities</a></li>
+<li><a href="./orchestrators.md">Orchestrators: The Agent Loop</a></li>
+<li><a href="./context.md">Context: Memory and State</a></li>
+<li><a href="hooks.html">Hooks: Observability</a></li>
+</ul>
+<p>Or see modules in action:</p>
+<ul>
+<li><a href="../guides/first-agent.md">Building Your First Agent</a></li>
+<li><a href="../guides/configuration.md">Module Configuration</a></li>
+</ul>
               
             </div>
           </div><footer>

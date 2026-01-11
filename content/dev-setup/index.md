@@ -1,177 +1,114 @@
 ---
-id: dev-setup-overview
-type: dev-setup
-title: "Developer Setup"
+id: dev-setup-index
+type: section-index
+title: Development Setup
 ---
 
-# Developer Setup
+# Development Setup
 
-Tools and techniques for productive Amplifier development.
+This section covers setting up a development environment for working on Amplifier itself or building applications that extend it. Follow these guides to configure a productive local setup.
 
-## Overview
+Whether you're contributing to the core project or building custom modules, proper setup ensures a smooth experience.
 
-This section covers:
+## Section Contents
 
-| Topic | What You'll Learn |
-|-------|-------------------|
-| [CLI Tools](cli-tools.md) | Essential command-line utilities |
-| [Shadow Workspace](shadow-workspace.md) | Safe AI-assisted editing |
-| [Remote Development](remote-dev.md) | Docker, SSH, Codespaces |
-| [Debugging](debugging.md) | Troubleshooting techniques |
+| Page | Description |
+|------|-------------|
+| [Environment Setup](./environment.md) | Python, dependencies, and tooling |
+| [IDE Configuration](./ide-config.md) | VS Code, PyCharm, and editor setup |
+| [Local Development](./local-dev.md) | Running Amplifier from source |
+| [Testing](./testing.md) | Running and writing tests |
+| [Debugging](./debugging.md) | Debug techniques and tools |
+| [Contributing](./contributing.md) | How to contribute to Amplifier |
+| [Code Style](./code-style.md) | Conventions and formatting |
+| [Release Process](./release.md) | Versioning and publishing |
 
-## Quick Setup Checklist
+## Quick Tips
 
-### 1. Essential Tools
+- **Use uv** — It's faster than pip and handles dependencies better
+- **Virtual environments** — Always isolate project dependencies
+- **Pre-commit hooks** — Enable them to catch issues before commits
+- **Type checking** — Run pyright/mypy regularly during development
+- **Test early** — Write tests as you develop, not after
 
-```bash
-# Python package manager
-curl -LsSf https://astral.sh/uv/install.sh | sh
+## System Requirements
 
-# Amplifier
-uv tool install amplifier
+| Requirement | Version | Notes |
+|-------------|---------|-------|
+| Python | 3.11+ | 3.12 recommended |
+| uv or pip | Latest | uv preferred |
+| Git | 2.30+ | For version control |
+| Node.js | 18+ | For some tooling (optional) |
 
-# Helpful utilities
-brew install jq fzf bat ripgrep  # macOS
-# or apt install equivalent
-```
-
-### 2. Provider Configuration
-
-```bash
-# Pick your provider
-export ANTHROPIC_API_KEY="sk-ant-..."
-# or
-export OPENAI_API_KEY="sk-..."
-
-# Make permanent
-echo 'export ANTHROPIC_API_KEY="your-key"' >> ~/.bashrc
-```
-
-### 3. Shell Aliases
-
-Add to `~/.bashrc` or `~/.zshrc`:
+## Quick Start
 
 ```bash
-alias a='amp'
-alias ar='amp run'
-alias as='amp session'
+# Clone the repository
+git clone https://github.com/microsoft/amplifier.git
+cd amplifier
+
+# Create virtual environment
+uv venv
+source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+
+# Install in development mode
+uv pip install -e ".[dev]"
+
+# Run tests to verify setup
+pytest
+
+# Start development session
+amp --dev
 ```
 
-### 4. Verify Setup
+## Where to Start
+
+**Setting up for the first time?** Follow [Environment Setup](./environment.md) for complete installation instructions.
+
+**Contributing to Amplifier?** Read [Contributing](./contributing.md) for workflow and guidelines.
+
+**Debugging issues?** Check [Debugging](./debugging.md) for techniques and common problems.
+
+## Development Workflow
+
+```
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│   Feature    │───►│    Tests     │───►│     PR       │
+│   Branch     │    │   Passing    │    │   Review     │
+└──────────────┘    └──────────────┘    └──────────────┘
+       │                   │                   │
+       ▼                   ▼                   ▼
+   Write Code        Run pytest          Address Feedback
+   Type Check        Check Coverage      Merge to Main
+```
+
+## Recommended Tools
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| uv | Package management | `pip install uv` |
+| ruff | Linting and formatting | `pip install ruff` |
+| pyright | Type checking | `pip install pyright` |
+| pytest | Testing | Included in dev deps |
+
+## Common Tasks
 
 ```bash
-amp run "Hello! What model are you?"
+# Format code
+ruff format .
+
+# Check types
+pyright
+
+# Run specific tests
+pytest tests/test_sessions.py -v
+
+# Run with coverage
+pytest --cov=amplifier
 ```
 
-## Development Patterns
+## Related Sections
 
-### Pattern 1: Shadow Workspace
-
-For safe AI-assisted editing:
-
-```bash
-# Create shadow copy
-cp -r my-project my-project-shadow
-cd my-project-shadow
-
-# Work with AI
-amp
-
-# Review changes
-diff -r ../my-project .
-
-# Accept or discard
-```
-
-### Pattern 2: Git Worktree
-
-For version-controlled changes:
-
-```bash
-cd my-project
-git worktree add ../ai-changes -b feature/ai-assist
-
-cd ../ai-changes
-amp
-
-# Create PR when done
-gh pr create
-```
-
-### Pattern 3: Container Isolation
-
-For complete isolation:
-
-```bash
-docker run -it --rm \
-  -v $(pwd):/workspace \
-  -e ANTHROPIC_API_KEY \
-  amplifier-dev
-```
-
-## Productivity Tips
-
-### 1. Use Session History
-
-```bash
-# Resume last session
-amp session list
-amp session resume [id]
-```
-
-### 2. Leverage Specialists
-
-```
-> Use bug-hunter to debug this
-> Use zen-architect to design this
-> Use explorer to understand this codebase
-```
-
-### 3. Save Common Prompts
-
-Create a `prompts/` directory:
-
-```
-prompts/
-├── code-review.md
-├── refactor.md
-└── test-coverage.md
-```
-
-```bash
-amp run "$(cat prompts/code-review.md) - review src/auth.py"
-```
-
-### 4. Use Recipes for Repeatable Tasks
-
-```yaml
-# .amplifier/recipes/review.yaml
-name: code-review
-steps:
-  - id: review
-    instruction: "Review {{file}} for issues"
-```
-
-```bash
-amp recipes execute .amplifier/recipes/review.yaml \
-  --context '{"file": "src/main.py"}'
-```
-
-## Troubleshooting Quick Reference
-
-| Problem | Solution |
-|---------|----------|
-| "Command not found" | Check PATH, reinstall |
-| "API key invalid" | Verify environment variable |
-| "Context too long" | Start new session |
-| "Tool failed" | Check permissions, paths |
-| "Session won't resume" | Use session-analyst |
-
-## Recommended Reading Order
-
-1. **[CLI Tools](cli-tools.md)** - Set up your environment
-2. **[Shadow Workspace](shadow-workspace.md)** - Work safely
-3. **[Remote Development](remote-dev.md)** - Scale up
-4. **[Debugging](debugging.md)** - Fix issues
-
-Each guide includes exercises to practice the concepts.
+- [Quickstart: Installation](../quickstart/installation.md)
+- [Advanced: Custom Tools](../advanced/custom-tools.md)
+- [Concepts: Module System](../concepts/modules.md)

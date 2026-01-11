@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -88,79 +90,105 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="bash.html">Bash</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#interactive-prompt-format">Interactive Prompt Format</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-call-format">Tool Call Format</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#background-process-format">Background Process Format</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-commands">Common Commands</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#project-management">Project Management</a>
+    <li class="toctree-l3"><a class="reference internal" href="#build-commands">Build Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-commands">Test Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#git-commands">Git Commands</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#package-management">Package Management</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#git-operations">Git Operations</a>
+    <li class="toctree-l3"><a class="reference internal" href="#container-operations">Container Operations</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#file-operations">File Operations</a>
+    <li class="toctree-l3"><a class="reference internal" href="#github-cli">GitHub CLI</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#background-processes">Background Processes</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#chaining-commands">Chaining Commands</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#sequential">Sequential (&amp;&amp;)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#development-servers">Development Servers</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#always-run">Always Run (;)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#file-watchers">File Watchers</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pipes">Pipes (|)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#what-happens-with-background-processes">What Happens with Background Processes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-background-mode">When to Use Background Mode</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#working-directory">Working Directory</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#safety-features">Safety Features</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#blocked-commands">Blocked Commands</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#timeout">Timeout</a>
+    <li class="toctree-l3"><a class="reference internal" href="#interactive-commands-not-supported">Interactive Commands Not Supported</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#interactive-commands">Interactive Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#output-truncation">Output Truncation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#timeouts">Timeouts</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#prefer-specific-tools">Prefer Specific Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-use-absolute-paths">1. Use Absolute Paths</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#quote-paths-with-spaces">Quote Paths with Spaces</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-quote-paths-with-spaces">2. Quote Paths with Spaces</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-absolute-paths">Use Absolute Paths</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-chain-dependent-commands">3. Chain Dependent Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-prefer-specialized-tools">4. Prefer Specialized Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-capture-important-output">5. Capture Important Output</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-check-exit-status">6. Check Exit Status</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-explore-your-system">Exercise 1: Explore Your System</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-basic-commands">Exercise 1: Basic Commands</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-project-commands">Exercise 2: Project Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-project-setup">Exercise 2: Project Setup</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-combine-commands">Exercise 3: Combine Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-background-server">Exercise 3: Background Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-build-and-test">Exercise 4: Build and Test</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#errors-and-troubleshooting">Errors and Troubleshooting</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#command-not-found">"Command not found"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#command-not-found">Command Not Found</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#permission-denied">"Permission denied"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#permission-denied">Permission Denied</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#timeout_1">"Timeout"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#no-such-file-or-directory">No Such File or Directory</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exit-codes">Exit Codes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#interactive-command-fails">Interactive Command Fails</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#output-too-large">Output Too Large</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#timeout-exceeded">Timeout Exceeded</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#blocked-command">Blocked Command</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
     </li>
     </ul>
                   </li>
@@ -250,260 +278,445 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="bash-tool">Bash Tool<a class="headerlink" href="#bash-tool" title="Permanent link">&para;</a></h1>
-<p>Execute shell commands to build, test, and manage your project.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The bash tool runs shell commands and returns their output. It's how Amplifier:</p>
-<ul>
-<li>Runs tests</li>
-<li>Builds projects</li>
-<li>Manages packages</li>
-<li>Interacts with git</li>
-<li>Runs any CLI tool</li>
-</ul>
+<p>The Bash tool provides direct shell command execution, giving you access to your system's full command-line capabilities. This is your gateway to build systems, package managers, version control, and any other terminal operation. While specialized tools exist for many tasks, bash serves as the universal fallback when you need raw shell power.</p>
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run command</td>
+<td>Execute shell command synchronously</td>
+<td><code>pytest tests/</code></td>
+</tr>
+<tr>
+<td>Background</td>
+<td>Start long-running process</td>
+<td><code>npm run dev</code></td>
+</tr>
+<tr>
+<td>Chain commands</td>
+<td>Run dependent operations</td>
+<td><code>mkdir build &amp;&amp; cd build &amp;&amp; cmake ..</code></td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>Process output through filters</td>
+<td><code>cat log.txt \| grep ERROR</code></td>
+</tr>
+<tr>
+<td>Redirect</td>
+<td>Save output to file</td>
+<td><code>npm test &gt; results.txt 2&gt;&amp;1</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>&gt; Run the tests
+<h3 id="interactive-prompt-format">Interactive Prompt Format<a class="headerlink" href="#interactive-prompt-format" title="Permanent link">&para;</a></h3>
+<p>Using the <code>&gt;</code> prompt in conversation:</p>
+<div class="codehilite"><pre><span></span><code>&gt; pytest tests/unit/
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&gt; npm install express
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>&gt; git status
+</code></pre></div>
+
+<h3 id="tool-call-format">Tool Call Format<a class="headerlink" href="#tool-call-format" title="Permanent link">&para;</a></h3>
+<p>How Amplifier executes bash internally:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: pytest tests/unit/
 </code></pre></div>
 
 <div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: pytest
+command: npm install express
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&gt; Install the requests package
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: pip install requests
-</code></pre></div>
-
-<h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
-<h3 id="project-management">Project Management<a class="headerlink" href="#project-management" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Build
-&gt; Build the project
-[bash] npm run build
-
-# Test
-&gt; Run tests with coverage
-[bash] pytest --cov=src
-
-# Lint
-&gt; Check for linting errors
-[bash] ruff check src/
-</code></pre></div>
-
-<h3 id="package-management">Package Management<a class="headerlink" href="#package-management" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Python
-&gt; Install dependencies
-[bash] pip install -r requirements.txt
-
-# Node.js
-&gt; Install packages
-[bash] npm install
-
-# Rust
-&gt; Build release
-[bash] cargo build --release
-</code></pre></div>
-
-<h3 id="git-operations">Git Operations<a class="headerlink" href="#git-operations" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Status
-&gt; Show git status
-[bash] git status
-
-# Diff
-&gt; Show what changed
-[bash] git diff
-
-# Log
-&gt; Show recent commits
-[bash] git log --oneline -10
-</code></pre></div>
-
-<h3 id="file-operations">File Operations<a class="headerlink" href="#file-operations" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Find files
-&gt; Find all Python files
-[bash] find . -name &quot;*.py&quot; -type f
-
-# Count lines
-&gt; How many lines of code?
-[bash] find . -name &quot;*.py&quot; | xargs wc -l
-
-# Disk usage
-&gt; Check disk space
-[bash] df -h
-</code></pre></div>
-
-<h2 id="background-processes">Background Processes<a class="headerlink" href="#background-processes" title="Permanent link">&para;</a></h2>
-<p>For long-running commands (dev servers, watchers):</p>
-<div class="codehilite"><pre><span></span><code>&gt; Start the dev server
-</code></pre></div>
-
+<h3 id="background-process-format">Background Process Format<a class="headerlink" href="#background-process-format" title="Permanent link">&para;</a></h3>
+<p>For long-running processes that shouldn't block:</p>
 <div class="codehilite"><pre><span></span><code>[Tool: bash]
 command: npm run dev
 run_in_background: true
 </code></pre></div>
 
-<p>Returns immediately with PID. The server runs in the background.</p>
-<h2 id="chaining-commands">Chaining Commands<a class="headerlink" href="#chaining-commands" title="Permanent link">&para;</a></h2>
-<h3 id="sequential">Sequential (&amp;&amp;)<a class="headerlink" href="#sequential" title="Permanent link">&para;</a></h3>
-<p>Run commands in sequence, stopping on failure:</p>
-<div class="codehilite"><pre><span></span><code>[bash] npm install &amp;&amp; npm run build &amp;&amp; npm test
+<h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
+<h3 id="build-commands">Build Commands<a class="headerlink" href="#build-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python</span>
+&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+&gt;<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>build
+&gt;<span class="w"> </span>poetry<span class="w"> </span>build
+
+<span class="c1"># Node.js</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span>install
+&gt;<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+&gt;<span class="w"> </span>yarn<span class="w"> </span>build
+
+<span class="c1"># Rust</span>
+&gt;<span class="w"> </span>cargo<span class="w"> </span>build
+&gt;<span class="w"> </span>cargo<span class="w"> </span>build<span class="w"> </span>--release
+
+<span class="c1"># Go</span>
+&gt;<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>./...
+&gt;<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>myapp<span class="w"> </span>main.go
+
+<span class="c1"># Make</span>
+&gt;<span class="w"> </span>make
+&gt;<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>all
 </code></pre></div>
 
-<h3 id="always-run">Always Run (;)<a class="headerlink" href="#always-run" title="Permanent link">&para;</a></h3>
-<p>Run all commands regardless of success:</p>
-<div class="codehilite"><pre><span></span><code>[bash] npm test; npm run lint; npm run typecheck
+<h3 id="test-commands">Test Commands<a class="headerlink" href="#test-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python</span>
+&gt;<span class="w"> </span>pytest
+&gt;<span class="w"> </span>pytest<span class="w"> </span>tests/unit/<span class="w"> </span>-v
+&gt;<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>src<span class="w"> </span>tests/
+&gt;<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover
+
+<span class="c1"># Node.js</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>test:unit
+&gt;<span class="w"> </span>jest<span class="w"> </span>--coverage
+
+<span class="c1"># Rust</span>
+&gt;<span class="w"> </span>cargo<span class="w"> </span><span class="nb">test</span>
+&gt;<span class="w"> </span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--<span class="w"> </span>--nocapture
+
+<span class="c1"># Go</span>
+&gt;<span class="w"> </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./...
+&gt;<span class="w"> </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-v<span class="w"> </span>-cover<span class="w"> </span>./...
 </code></pre></div>
 
-<h3 id="pipes">Pipes (|)<a class="headerlink" href="#pipes" title="Permanent link">&para;</a></h3>
-<p>Process output:</p>
-<div class="codehilite"><pre><span></span><code>[bash] cat access.log | grep ERROR | wc -l
+<h3 id="git-commands">Git Commands<a class="headerlink" href="#git-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Status and info</span>
+&gt;<span class="w"> </span>git<span class="w"> </span>status
+&gt;<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-10
+&gt;<span class="w"> </span>git<span class="w"> </span>diff
+&gt;<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-a
+
+<span class="c1"># Staging and commits</span>
+&gt;<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+&gt;<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fix authentication bug&quot;</span>
+&gt;<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># Branching</span>
+&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/new-login
+&gt;<span class="w"> </span>git<span class="w"> </span>merge<span class="w"> </span>develop
+&gt;<span class="w"> </span>git<span class="w"> </span>rebase<span class="w"> </span>main
 </code></pre></div>
 
-<h2 id="working-directory">Working Directory<a class="headerlink" href="#working-directory" title="Permanent link">&para;</a></h2>
-<p>Commands run in your current working directory:</p>
-<div class="codehilite"><pre><span></span><code>&gt; What directory am I in?
-[bash] pwd
+<h3 id="package-management">Package Management<a class="headerlink" href="#package-management" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Python (pip)</span>
+&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
+&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+&gt;<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+
+<span class="c1"># Python (poetry)</span>
+&gt;<span class="w"> </span>poetry<span class="w"> </span>add<span class="w"> </span>pandas
+&gt;<span class="w"> </span>poetry<span class="w"> </span>install
+&gt;<span class="w"> </span>poetry<span class="w"> </span>update
+
+<span class="c1"># Node.js (npm)</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>lodash
+&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>jest
+&gt;<span class="w"> </span>npm<span class="w"> </span>update
+
+<span class="c1"># Node.js (yarn)</span>
+&gt;<span class="w"> </span>yarn<span class="w"> </span>add<span class="w"> </span>axios
+&gt;<span class="w"> </span>yarn<span class="w"> </span>add<span class="w"> </span>-D<span class="w"> </span>typescript
+
+<span class="c1"># System (apt)</span>
+&gt;<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+&gt;<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>jq
 </code></pre></div>
 
-<p>To run in a specific directory:</p>
-<div class="codehilite"><pre><span></span><code>[bash] cd /path/to/project &amp;&amp; npm test
+<h3 id="container-operations">Container Operations<a class="headerlink" href="#container-operations" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Docker</span>
+&gt;<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp<span class="w"> </span>.
+&gt;<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>myapp
+&gt;<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+&gt;<span class="w"> </span>docker<span class="w"> </span>ps
+&gt;<span class="w"> </span>docker<span class="w"> </span>logs<span class="w"> </span>container_name
+
+<span class="c1"># Kubernetes</span>
+&gt;<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+&gt;<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deployment.yaml
+&gt;<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>pod-name
 </code></pre></div>
 
-<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code># Set inline
-[bash] DEBUG=true npm test
+<h3 id="github-cli">GitHub CLI<a class="headerlink" href="#github-cli" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Pull requests</span>
+&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Add feature&quot;</span><span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Description&quot;</span>
+&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>list
+&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span><span class="m">123</span>
+&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>merge<span class="w"> </span><span class="m">123</span>
 
-# Use existing
-[bash] echo $HOME
-
-# Export for subsequent commands
-[bash] export API_KEY=xxx &amp;&amp; node app.js
+<span class="c1"># Issues</span>
+&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>create<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Bug report&quot;</span>
+&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>list<span class="w"> </span>--state<span class="w"> </span>open
+&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>close<span class="w"> </span><span class="m">42</span>
 </code></pre></div>
 
-<h2 id="safety-features">Safety Features<a class="headerlink" href="#safety-features" title="Permanent link">&para;</a></h2>
-<p>The bash tool has built-in safety:</p>
-<h3 id="blocked-commands">Blocked Commands<a class="headerlink" href="#blocked-commands" title="Permanent link">&para;</a></h3>
-<p>These dangerous patterns are blocked:</p>
-<div class="codehilite"><pre><span></span><code>rm -rf /           # Root deletion
-sudo rm -rf        # Privileged deletion
-:(){ :|:&amp; };:     # Fork bomb
+<h2 id="background-processes">Background Processes<a class="headerlink" href="#background-processes" title="Permanent link">&para;</a></h2>
+<p>Use <code>run_in_background: true</code> for processes that run continuously:</p>
+<h3 id="development-servers">Development Servers<a class="headerlink" href="#development-servers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: npm run dev
+run_in_background: true
 </code></pre></div>
 
-<h3 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h3>
-<p>Commands timeout after 30 seconds by default. For long operations:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Build might take a while
-[bash] timeout 300 npm run build  # 5 minute timeout
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: python -m http.server 8000
+run_in_background: true
 </code></pre></div>
 
-<h3 id="interactive-commands">Interactive Commands<a class="headerlink" href="#interactive-commands" title="Permanent link">&para;</a></h3>
-<p>Interactive commands don't work:</p>
-<div class="codehilite"><pre><span></span><code># Won&#39;t work
-[bash] vim file.txt
-[bash] python  # interactive shell
-
-# Use non-interactive alternatives
-[bash] cat file.txt
-[bash] python -c &quot;print(&#39;hello&#39;)&quot;
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: cargo watch -x run
+run_in_background: true
 </code></pre></div>
 
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="prefer-specific-tools">Prefer Specific Tools<a class="headerlink" href="#prefer-specific-tools" title="Permanent link">&para;</a></h3>
-<p>Use Amplifier's specialized tools when available:</p>
-<div class="codehilite"><pre><span></span><code># Instead of:
-[bash] cat file.txt
-
-# Use:
-[read_file] file.txt
+<h3 id="file-watchers">File Watchers<a class="headerlink" href="#file-watchers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: npm run watch
+run_in_background: true
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code># Instead of:
-[bash] grep -r &quot;pattern&quot; .
-
-# Use:
-[grep] pattern: &quot;pattern&quot;
-</code></pre></div>
-
-<h3 id="quote-paths-with-spaces">Quote Paths with Spaces<a class="headerlink" href="#quote-paths-with-spaces" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[bash] cd &quot;/path/with spaces&quot; &amp;&amp; ls
-</code></pre></div>
-
-<h3 id="use-absolute-paths">Use Absolute Paths<a class="headerlink" href="#use-absolute-paths" title="Permanent link">&para;</a></h3>
-<p>When in doubt, use absolute paths:</p>
-<div class="codehilite"><pre><span></span><code>[bash] /usr/bin/python3 /full/path/to/script.py
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-explore-your-system">Exercise 1: Explore Your System<a class="headerlink" href="#exercise-1-explore-your-system" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; What version of Python is installed?
-&gt; What&#39;s my current directory?
-&gt; How much disk space is free?
-</code></pre></div>
-
-<h3 id="exercise-2-project-commands">Exercise 2: Project Commands<a class="headerlink" href="#exercise-2-project-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; List all package.json files in this directory tree
-&gt; Show the git log for the last 5 commits
-</code></pre></div>
-
-<h3 id="exercise-3-combine-commands">Exercise 3: Combine Commands<a class="headerlink" href="#exercise-3-combine-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Find all TODO comments in Python files and count them
-</code></pre></div>
-
-<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="command-not-found">"Command not found"<a class="headerlink" href="#command-not-found" title="Permanent link">&para;</a></h3>
-<p>The command isn't in PATH:</p>
-<div class="codehilite"><pre><span></span><code># Check if installed
-[bash] which python3
-
-# Use full path
-[bash] /usr/bin/python3 script.py
-</code></pre></div>
-
-<h3 id="permission-denied">"Permission denied"<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
-<p>Need execute permission:</p>
-<div class="codehilite"><pre><span></span><code>[bash] chmod +x script.sh &amp;&amp; ./script.sh
-</code></pre></div>
-
-<h3 id="timeout_1">"Timeout"<a class="headerlink" href="#timeout_1" title="Permanent link">&para;</a></h3>
-<p>Command took too long:</p>
-<div class="codehilite"><pre><span></span><code># Use explicit timeout
-[bash] timeout 120 long_running_command
-</code></pre></div>
-
-<h3 id="exit-codes">Exit Codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Check last exit code
-[bash] some_command; echo &quot;Exit code: $?&quot;
-</code></pre></div>
-
+<h3 id="what-happens-with-background-processes">What Happens with Background Processes<a class="headerlink" href="#what-happens-with-background-processes" title="Permanent link">&para;</a></h3>
+<ol>
+<li>The command starts in a separate process</li>
+<li>Amplifier returns immediately with the process ID (PID)</li>
+<li>The process continues running independently</li>
+<li>Output is not captured in the response</li>
+</ol>
+<h3 id="when-to-use-background-mode">When to Use Background Mode<a class="headerlink" href="#when-to-use-background-mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Code</th>
-<th>Meaning</th>
+<th>Scenario</th>
+<th>Use Background?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>Success</td>
+<td>Dev server (<code>npm run dev</code>)</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>1</td>
-<td>General error</td>
+<td>File watcher</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>126</td>
-<td>Permission denied</td>
+<td>Running tests</td>
+<td>No</td>
 </tr>
 <tr>
-<td>127</td>
-<td>Command not found</td>
+<td>Building project</td>
+<td>No</td>
 </tr>
 <tr>
-<td>128+N</td>
-<td>Killed by signal N</td>
+<td>Git operations</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Installing packages</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
+<h2 id="safety-features">Safety Features<a class="headerlink" href="#safety-features" title="Permanent link">&para;</a></h2>
+<h3 id="blocked-commands">Blocked Commands<a class="headerlink" href="#blocked-commands" title="Permanent link">&para;</a></h3>
+<p>Dangerous commands are automatically blocked to prevent accidents:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># These will be rejected:</span>
+&gt;<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/
+&gt;<span class="w"> </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/*
+&gt;<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sda
+&gt;<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/sda1
+</code></pre></div>
+
+<h3 id="interactive-commands-not-supported">Interactive Commands Not Supported<a class="headerlink" href="#interactive-commands-not-supported" title="Permanent link">&para;</a></h3>
+<p>Commands requiring user input will fail:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># These won&#39;t work:</span>
+&gt;<span class="w"> </span>vim<span class="w"> </span>file.txt<span class="w">          </span><span class="c1"># Requires interactive editor</span>
+&gt;<span class="w"> </span>ssh<span class="w"> </span>user@host<span class="w">         </span><span class="c1"># May require password input</span>
+&gt;<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w">      </span><span class="c1"># Prompts for password</span>
+&gt;<span class="w"> </span>python<span class="w">                </span><span class="c1"># Interactive REPL</span>
+</code></pre></div>
+
+<h3 id="output-truncation">Output Truncation<a class="headerlink" href="#output-truncation" title="Permanent link">&para;</a></h3>
+<p>Long outputs are automatically truncated to prevent context overflow:</p>
+<ul>
+<li>First portion of output is shown</li>
+<li><code>[...truncated...]</code> marker appears</li>
+<li>Final portion of output is shown</li>
+<li>Byte counts indicate total size</li>
+</ul>
+<p><strong>Warning:</strong> Truncation may break JSON, XML, or other structured output. For large structured data:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Redirect to file instead</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--json<span class="w"> </span>&gt;<span class="w"> </span>test-results.json
+
+<span class="c1"># Then read portions as needed using read_file</span>
+</code></pre></div>
+
+<h3 id="timeouts">Timeouts<a class="headerlink" href="#timeouts" title="Permanent link">&para;</a></h3>
+<p>Commands have execution time limits. Long-running commands should use background mode or be broken into smaller operations.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-use-absolute-paths">1. Use Absolute Paths<a class="headerlink" href="#1-use-absolute-paths" title="Permanent link">&para;</a></h3>
+<p>Maintain clear working directory context:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Preferred</span>
+&gt;<span class="w"> </span>pytest<span class="w"> </span>/home/user/project/tests/
+
+<span class="c1"># Instead of</span>
+&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/user/project<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pytest<span class="w"> </span>tests/
+</code></pre></div>
+
+<h3 id="2-quote-paths-with-spaces">2. Quote Paths with Spaces<a class="headerlink" href="#2-quote-paths-with-spaces" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Correct</span>
+&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;/path/with spaces/project&quot;</span>
+
+<span class="c1"># Will fail</span>
+&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/path/with<span class="w"> </span>spaces/project
+</code></pre></div>
+
+<h3 id="3-chain-dependent-commands">3. Chain Dependent Commands<a class="headerlink" href="#3-chain-dependent-commands" title="Permanent link">&para;</a></h3>
+<p>Use <code>&amp;&amp;</code> to run commands only if previous succeeds:</p>
+<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</code></pre></div>
+
+<h3 id="4-prefer-specialized-tools">4. Prefer Specialized Tools<a class="headerlink" href="#4-prefer-specialized-tools" title="Permanent link">&para;</a></h3>
+<p>Use bash as a fallback, not first choice:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Use Instead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read file</td>
+<td><code>read_file</code> tool</td>
+</tr>
+<tr>
+<td>Edit file</td>
+<td><code>edit_file</code> tool</td>
+</tr>
+<tr>
+<td>Find files</td>
+<td><code>glob</code> tool</td>
+</tr>
+<tr>
+<td>Search content</td>
+<td><code>grep</code> tool</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-capture-important-output">5. Capture Important Output<a class="headerlink" href="#5-capture-important-output" title="Permanent link">&para;</a></h3>
+<p>For output you need to process later:</p>
+<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span><span class="nb">command</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div>
+
+<h3 id="6-check-exit-status">6. Check Exit Status<a class="headerlink" href="#6-check-exit-status" title="Permanent link">&para;</a></h3>
+<p>Chain with <code>&amp;&amp;</code> to stop on failure:</p>
+<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div>
+
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-basic-commands">Exercise 1: Basic Commands<a class="headerlink" href="#exercise-1-basic-commands" title="Permanent link">&para;</a></h3>
+<p>Try running these commands:</p>
+<div class="codehilite"><pre><span></span><code>&gt; echo &quot;Hello from bash&quot;
+&gt; pwd
+&gt; ls -la
+&gt; date
+</code></pre></div>
+
+<h3 id="exercise-2-project-setup">Exercise 2: Project Setup<a class="headerlink" href="#exercise-2-project-setup" title="Permanent link">&para;</a></h3>
+<p>Initialize a new project:</p>
+<div class="codehilite"><pre><span></span><code>&gt; mkdir -p /tmp/demo-project
+&gt; cd /tmp/demo-project &amp;&amp; git init
+&gt; echo &quot;# Demo Project&quot; &gt; README.md
+&gt; git add . &amp;&amp; git commit -m &quot;Initial commit&quot;
+</code></pre></div>
+
+<h3 id="exercise-3-background-server">Exercise 3: Background Server<a class="headerlink" href="#exercise-3-background-server" title="Permanent link">&para;</a></h3>
+<p>Start a simple server in background:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash]
+command: cd /tmp/demo-project &amp;&amp; python -m http.server 8080
+run_in_background: true
+</code></pre></div>
+
+<p>Then verify it's running:</p>
+<div class="codehilite"><pre><span></span><code>&gt; curl http://localhost:8080
+</code></pre></div>
+
+<h3 id="exercise-4-build-and-test">Exercise 4: Build and Test<a class="headerlink" href="#exercise-4-build-and-test" title="Permanent link">&para;</a></h3>
+<p>Run a typical development workflow:</p>
+<div class="codehilite"><pre><span></span><code>&gt; pip install pytest
+&gt; pytest --version
+</code></pre></div>
+
+<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="command-not-found">Command Not Found<a class="headerlink" href="#command-not-found" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>bash: npm: command not found
+</code></pre></div>
+
+<p><strong>Solution:</strong> The command isn't in PATH. Install the required tool or use full path.</p>
+<h3 id="permission-denied">Permission Denied<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>bash: ./script.sh: Permission denied
+</code></pre></div>
+
+<p><strong>Solution:</strong> Make the script executable:</p>
+<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./script.sh
+</code></pre></div>
+
+<h3 id="no-such-file-or-directory">No Such File or Directory<a class="headerlink" href="#no-such-file-or-directory" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>bash: cd: /nonexistent/path: No such file or directory
+</code></pre></div>
+
+<p><strong>Solution:</strong> Verify the path exists. Use <code>ls</code> or <code>glob</code> to find correct path.</p>
+<h3 id="interactive-command-fails">Interactive Command Fails<a class="headerlink" href="#interactive-command-fails" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Command requires interactive input
+</code></pre></div>
+
+<p><strong>Solution:</strong> Use non-interactive flags:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Instead of: git commit</span>
+&gt;<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;message&quot;</span>
+
+<span class="c1"># Instead of: npm init</span>
+&gt;<span class="w"> </span>npm<span class="w"> </span>init<span class="w"> </span>-y
+</code></pre></div>
+
+<h3 id="output-too-large">Output Too Large<a class="headerlink" href="#output-too-large" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>[Output truncated - 1.2MB total]
+</code></pre></div>
+
+<p><strong>Solution:</strong> Redirect to file and read portions:</p>
+<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>long-command<span class="w"> </span>&gt;<span class="w"> </span>output.txt
+<span class="c1"># Then use read_file with offset/limit</span>
+</code></pre></div>
+
+<h3 id="timeout-exceeded">Timeout Exceeded<a class="headerlink" href="#timeout-exceeded" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Command timed out after 60 seconds
+</code></pre></div>
+
+<p><strong>Solution:</strong> Use background mode for long-running processes, or break into smaller operations.</p>
+<h3 id="blocked-command">Blocked Command<a class="headerlink" href="#blocked-command" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Command blocked for safety reasons
+</code></pre></div>
+
+<p><strong>Solution:</strong> This command is restricted. Find an alternative approach or use more targeted commands.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>The Bash tool provides:</p>
+<ul>
+<li>Direct shell command execution</li>
+<li>Background process support for servers and watchers</li>
+<li>Safety features to prevent dangerous operations</li>
+<li>Access to build tools, package managers, and system utilities</li>
+</ul>
+<p>Remember: prefer specialized tools when available, but bash is always there when you need raw command-line power.</p>
               
             </div>
           </div><footer>

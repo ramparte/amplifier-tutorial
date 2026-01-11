@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -88,61 +90,75 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#read_file">read_file</a>
+    <li class="toctree-l2"><a class="reference internal" href="#reading-files">Reading Files</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reading-specific-lines">Reading Specific Lines</a>
+    <li class="toctree-l3"><a class="reference internal" href="#reading-large-files">Reading Large Files</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#directory-listing">Directory Listing</a>
+    <li class="toctree-l3"><a class="reference internal" href="#line-length-truncation">Line Length Truncation</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#write_file">write_file</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#creating-files">Creating Files</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#overwriting-files">Overwriting Files</a>
+    <li class="toctree-l3"><a class="reference internal" href="#reading-directories">Reading Directories</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#edit_file">edit_file</a>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-files">Writing Files</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-edit">Basic Edit</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_1">Basic Usage</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#multi-line-edits">Multi-line Edits</a>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-write_file">When to Use write_file</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#replace-all-occurrences">Replace All Occurrences</a>
+    <li class="toctree-l3"><a class="reference internal" href="#safety-requirements">Safety Requirements</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#editing-files">Editing Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_2">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#handling-non-unique-strings">Handling Non-Unique Strings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preserving-indentation">Preserving Indentation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-line-edits">Multi-Line Edits</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#directory-listing">Directory Listing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-listing">Basic Listing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-output">Understanding Output</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#navigating-deep-structures">Navigating Deep Structures</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#read-before-edit">Read Before Edit</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-always-read-before-editing">1. Always Read Before Editing</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-edit_file-for-small-changes">Use edit_file for Small Changes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-prefer-edit_file-over-write_file">2. Prefer edit_file Over write_file</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#check-your-changes">Check Your Changes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-use-exact-matches">3. Use Exact Matches</a>
     </li>
-        </ul>
+    <li class="toctree-l3"><a class="reference internal" href="#4-handle-large-files-strategically">4. Handle Large Files Strategically</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#add-import">Add Import</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#add-function">Add Function</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#modify-configuration">Modify Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5-verify-after-writing">5. Verify After Writing</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-create-and-read">Exercise 1: Create and Read</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-read-and-explore">Exercise 1: Read and Explore</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-edit-in-place">Exercise 2: Edit in Place</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-create-a-new-file">Exercise 2: Create a New File</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-explore-a-directory">Exercise 3: Explore a Directory</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-make-surgical-edits">Exercise 3: Make Surgical Edits</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-multi-line-edit">Exercise 4: Multi-Line Edit</a>
     </li>
         </ul>
     </li>
@@ -150,11 +166,19 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#file-not-found">"File not found"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#edit-failed-old_string-not-found">"Edit failed: old_string not found"</a>
+    <li class="toctree-l3"><a class="reference internal" href="#old_string-not-found-in-file">"old_string not found in file"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#old_string-appears-multiple-times">"old_string appears multiple times"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#must-read-file-before-writing">"Must read file before writing"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#line-truncated-at-2000-characters">"Line truncated at 2000 characters"</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#permission-denied">"Permission denied"</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
     </li>
     </ul>
                   </li>
@@ -246,220 +270,387 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="filesystem-tool">Filesystem Tool<a class="headerlink" href="#filesystem-tool" title="Permanent link">&para;</a></h1>
-<p>Read, write, and edit files in your project.</p>
+<p>The Filesystem Tool provides direct access to read, write, and edit files on your local system. Unlike shell commands that require parsing text output, these tools offer structured, reliable file operations with built-in safety features.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The filesystem tool provides three operations:</p>
+<p>The filesystem capabilities are split across three specialized tools, each optimized for a specific operation type:</p>
 <table>
 <thead>
 <tr>
 <th>Operation</th>
+<th>Tool</th>
 <th>Purpose</th>
-<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read</td>
+<td><code>read_file</code></td>
+<td>Read file contents or list directories</td>
+</tr>
+<tr>
+<td>Write</td>
+<td><code>write_file</code></td>
+<td>Create new files or overwrite existing ones</td>
+</tr>
+<tr>
+<td>Edit</td>
+<td><code>edit_file</code></td>
+<td>Make surgical string replacements in existing files</td>
+</tr>
+</tbody>
+</table>
+<p>This separation ensures clarity of intent and enables appropriate safety checks for each operation type.</p>
+<hr />
+<h2 id="reading-files">Reading Files<a class="headerlink" href="#reading-files" title="Permanent link">&para;</a></h2>
+<p>The <code>read_file</code> tool retrieves file contents with line numbers, making it easy to reference specific locations in code.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>read_file(&quot;src/config.py&quot;)
+</code></pre></div>
+
+<p>Output format uses <code>cat -n</code> style with line numbers:</p>
+<div class="codehilite"><pre><span></span><code>     1  import os
+     2  from pathlib import Path
+     3  
+     4  CONFIG_DIR = Path(&quot;~/.config/myapp&quot;).expanduser()
+     5  DEBUG = os.getenv(&quot;DEBUG&quot;, &quot;false&quot;).lower() == &quot;true&quot;
+</code></pre></div>
+
+<h3 id="reading-large-files">Reading Large Files<a class="headerlink" href="#reading-large-files" title="Permanent link">&para;</a></h3>
+<p>For files too large to read at once, use <code>offset</code> and <code>limit</code> parameters:</p>
+<div class="codehilite"><pre><span></span><code># Read lines 100-200 of a large log file
+read_file(&quot;logs/application.log&quot;, offset=100, limit=100)
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file_path</code></td>
+<td>Path to the file (required)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>Starting line number (1-indexed)</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>Maximum lines to read</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="line-length-truncation">Line Length Truncation<a class="headerlink" href="#line-length-truncation" title="Permanent link">&para;</a></h3>
+<p>Lines longer than 2000 characters are automatically truncated to prevent context overflow. This is common with:</p>
+<ul>
+<li>Minified JavaScript/CSS files</li>
+<li>Generated code with long lines</li>
+<li>Log files with embedded JSON</li>
+</ul>
+<h3 id="reading-directories">Reading Directories<a class="headerlink" href="#reading-directories" title="Permanent link">&para;</a></h3>
+<p>When given a directory path, <code>read_file</code> returns a formatted listing:</p>
+<div class="codehilite"><pre><span></span><code>read_file(&quot;src/components&quot;)
+</code></pre></div>
+
+<p>Output:</p>
+<div class="codehilite"><pre><span></span><code>DIR  Button/
+DIR  Form/
+FILE index.ts
+FILE types.ts
+</code></pre></div>
+
+<hr />
+<h2 id="writing-files">Writing Files<a class="headerlink" href="#writing-files" title="Permanent link">&para;</a></h2>
+<p>The <code>write_file</code> tool creates new files or completely overwrites existing ones.</p>
+<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>write_file(&quot;src/utils/helpers.py&quot;, &quot;&quot;&quot;
+def format_date(dt):
+    return dt.strftime(&quot;%Y-%m-%d&quot;)
+
+def slugify(text):
+    return text.lower().replace(&quot; &quot;, &quot;-&quot;)
+&quot;&quot;&quot;)
+</code></pre></div>
+
+<h3 id="when-to-use-write_file">When to Use write_file<a class="headerlink" href="#when-to-use-write_file" title="Permanent link">&para;</a></h3>
+<p>Use <code>write_file</code> when:</p>
+<ul>
+<li>Creating a new file that doesn't exist</li>
+<li>Completely replacing a file's contents</li>
+<li>The file is small enough to rewrite entirely</li>
+<li>You've already read the file and need to restructure it significantly</li>
+</ul>
+<p>Avoid <code>write_file</code> when:</p>
+<ul>
+<li>Making small changes to existing files (use <code>edit_file</code> instead)</li>
+<li>You haven't read the current contents first</li>
+<li>The file is large and you only need to change a few lines</li>
+</ul>
+<h3 id="safety-requirements">Safety Requirements<a class="headerlink" href="#safety-requirements" title="Permanent link">&para;</a></h3>
+<p>The tool enforces a critical safety rule:</p>
+<blockquote>
+<p>You must read a file before you can write to it.</p>
+</blockquote>
+<p>This prevents accidental overwrites of files you haven't examined. The tool will fail if you attempt to write to an existing file without reading it first in the conversation.</p>
+<hr />
+<h2 id="editing-files">Editing Files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h2>
+<p>The <code>edit_file</code> tool performs precise string replacements, making it ideal for surgical changes to existing code.</p>
+<h3 id="basic-usage_2">Basic Usage<a class="headerlink" href="#basic-usage_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>edit_file(
+    file_path=&quot;src/config.py&quot;,
+    old_string=&quot;DEBUG = False&quot;,
+    new_string=&quot;DEBUG = True&quot;
+)
+</code></pre></div>
+
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li>The tool searches for <code>old_string</code> in the file</li>
+<li>If found exactly once, it replaces with <code>new_string</code></li>
+<li>If not found or found multiple times, the operation fails</li>
+</ol>
+<h3 id="handling-non-unique-strings">Handling Non-Unique Strings<a class="headerlink" href="#handling-non-unique-strings" title="Permanent link">&para;</a></h3>
+<p>If your <code>old_string</code> appears multiple times, you have two options:</p>
+<p><strong>Option 1: Add Context</strong></p>
+<p>Include surrounding lines to make the match unique:</p>
+<div class="codehilite"><pre><span></span><code>edit_file(
+    file_path=&quot;src/handlers.py&quot;,
+    old_string=&quot;&quot;&quot;def process_user(user):
+    return user.name&quot;&quot;&quot;,
+    new_string=&quot;&quot;&quot;def process_user(user):
+    return user.display_name&quot;&quot;&quot;
+)
+</code></pre></div>
+
+<p><strong>Option 2: Replace All Occurrences</strong></p>
+<p>Use <code>replace_all=True</code> to replace every instance:</p>
+<div class="codehilite"><pre><span></span><code>edit_file(
+    file_path=&quot;src/handlers.py&quot;,
+    old_string=&quot;user.name&quot;,
+    new_string=&quot;user.display_name&quot;,
+    replace_all=True
+)
+</code></pre></div>
+
+<h3 id="preserving-indentation">Preserving Indentation<a class="headerlink" href="#preserving-indentation" title="Permanent link">&para;</a></h3>
+<p>When copying text from <code>read_file</code> output, preserve the exact indentation. The line number prefix format is:</p>
+<div class="codehilite"><pre><span></span><code>     5      def method(self):
+</code></pre></div>
+
+<p>Everything after the tab following the line number is actual file content. Match this exactly in your <code>old_string</code>.</p>
+<h3 id="multi-line-edits">Multi-Line Edits<a class="headerlink" href="#multi-line-edits" title="Permanent link">&para;</a></h3>
+<p>For changes spanning multiple lines, include all relevant lines:</p>
+<div class="codehilite"><pre><span></span><code>edit_file(
+    file_path=&quot;src/api.py&quot;,
+    old_string=&quot;&quot;&quot;@app.route(&quot;/users&quot;)
+def get_users():
+    return jsonify(users)&quot;&quot;&quot;,
+    new_string=&quot;&quot;&quot;@app.route(&quot;/users&quot;)
+@require_auth
+def get_users():
+    return jsonify(users)&quot;&quot;&quot;
+)
+</code></pre></div>
+
+<hr />
+<h2 id="directory-listing">Directory Listing<a class="headerlink" href="#directory-listing" title="Permanent link">&para;</a></h2>
+<p>The <code>read_file</code> tool doubles as a directory lister when given a directory path.</p>
+<h3 id="basic-listing">Basic Listing<a class="headerlink" href="#basic-listing" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>read_file(&quot;src/&quot;)
+</code></pre></div>
+
+<h3 id="understanding-output">Understanding Output<a class="headerlink" href="#understanding-output" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>DIR  components/
+DIR  utils/
+FILE app.py
+FILE config.py
+FILE __init__.py
+</code></pre></div>
+
+<ul>
+<li><code>DIR</code> entries are subdirectories (shown with trailing <code>/</code>)</li>
+<li><code>FILE</code> entries are regular files</li>
+<li>Results are sorted with directories first</li>
+</ul>
+<h3 id="navigating-deep-structures">Navigating Deep Structures<a class="headerlink" href="#navigating-deep-structures" title="Permanent link">&para;</a></h3>
+<p>To explore nested directories, make multiple calls:</p>
+<div class="codehilite"><pre><span></span><code>read_file(&quot;src/&quot;)           # See top-level structure
+read_file(&quot;src/components&quot;) # Dive into components
+read_file(&quot;src/components/Button&quot;)  # Explore specific component
+</code></pre></div>
+
+<hr />
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-always-read-before-editing">1. Always Read Before Editing<a class="headerlink" href="#1-always-read-before-editing" title="Permanent link">&para;</a></h3>
+<p>Never attempt to edit a file you haven't read in the current conversation:</p>
+<div class="codehilite"><pre><span></span><code># Correct workflow
+read_file(&quot;config.yaml&quot;)    # First, understand current state
+edit_file(&quot;config.yaml&quot;, old_string=&quot;...&quot;, new_string=&quot;...&quot;)
+
+# Incorrect - will fail
+edit_file(&quot;config.yaml&quot;, old_string=&quot;...&quot;, new_string=&quot;...&quot;)  # Haven&#39;t read it!
+</code></pre></div>
+
+<h3 id="2-prefer-edit_file-over-write_file">2. Prefer edit_file Over write_file<a class="headerlink" href="#2-prefer-edit_file-over-write_file" title="Permanent link">&para;</a></h3>
+<p>For existing files, <code>edit_file</code> is safer and more precise:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Change one function</td>
+<td><code>edit_file</code></td>
+</tr>
+<tr>
+<td>Update a config value</td>
+<td><code>edit_file</code></td>
+</tr>
+<tr>
+<td>Rename a variable throughout</td>
+<td><code>edit_file</code> with <code>replace_all</code></td>
+</tr>
+<tr>
+<td>Create new file</td>
+<td><code>write_file</code></td>
+</tr>
+<tr>
+<td>Complete rewrite</td>
+<td><code>write_file</code> (after reading)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-use-exact-matches">3. Use Exact Matches<a class="headerlink" href="#3-use-exact-matches" title="Permanent link">&para;</a></h3>
+<p>The <code>old_string</code> must match exactly, including:</p>
+<ul>
+<li>Whitespace (spaces, tabs, newlines)</li>
+<li>Indentation</li>
+<li>Line endings</li>
+</ul>
+<h3 id="4-handle-large-files-strategically">4. Handle Large Files Strategically<a class="headerlink" href="#4-handle-large-files-strategically" title="Permanent link">&para;</a></h3>
+<p>For files exceeding 2000 lines:</p>
+<ol>
+<li>Use <code>offset</code> and <code>limit</code> to read in chunks</li>
+<li>Identify the specific section needing changes</li>
+<li>Use <code>edit_file</code> for targeted modifications</li>
+</ol>
+<h3 id="5-verify-after-writing">5. Verify After Writing<a class="headerlink" href="#5-verify-after-writing" title="Permanent link">&para;</a></h3>
+<p>After significant changes, read the file to confirm:</p>
+<div class="codehilite"><pre><span></span><code>write_file(&quot;new_module.py&quot;, content)
+read_file(&quot;new_module.py&quot;)  # Verify it looks correct
+</code></pre></div>
+
+<hr />
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="exercise-1-read-and-explore">Exercise 1: Read and Explore<a class="headerlink" href="#exercise-1-read-and-explore" title="Permanent link">&para;</a></h3>
+<p>Explore a project structure:</p>
+<ol>
+<li>"List the contents of the src directory"</li>
+<li>"Show me what's in src/utils"</li>
+<li>"Read the first 50 lines of src/main.py"</li>
+</ol>
+<h3 id="exercise-2-create-a-new-file">Exercise 2: Create a New File<a class="headerlink" href="#exercise-2-create-a-new-file" title="Permanent link">&para;</a></h3>
+<p>Create a configuration file:</p>
+<ol>
+<li>"Create a file called config.json with database settings"</li>
+<li>Verify: "Read config.json to confirm"</li>
+</ol>
+<h3 id="exercise-3-make-surgical-edits">Exercise 3: Make Surgical Edits<a class="headerlink" href="#exercise-3-make-surgical-edits" title="Permanent link">&para;</a></h3>
+<p>Practice precise editing:</p>
+<ol>
+<li>"Read src/constants.py"</li>
+<li>"Change MAX_RETRIES from 3 to 5"</li>
+<li>"Replace all occurrences of 'localhost' with '127.0.0.1'"</li>
+</ol>
+<h3 id="exercise-4-multi-line-edit">Exercise 4: Multi-Line Edit<a class="headerlink" href="#exercise-4-multi-line-edit" title="Permanent link">&para;</a></h3>
+<p>Try editing across lines:</p>
+<ol>
+<li>"Read the authenticate function in src/auth.py"</li>
+<li>"Add a logging statement at the start of the function"</li>
+</ol>
+<hr />
+<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="file-not-found">"File not found"<a class="headerlink" href="#file-not-found" title="Permanent link">&para;</a></h3>
+<p>The specified path doesn't exist. Check:</p>
+<ul>
+<li>Spelling and case sensitivity (Linux is case-sensitive)</li>
+<li>Relative vs absolute paths</li>
+<li>Whether you're in the expected working directory</li>
+</ul>
+<h3 id="old_string-not-found-in-file">"old_string not found in file"<a class="headerlink" href="#old_string-not-found-in-file" title="Permanent link">&para;</a></h3>
+<p>Your search string doesn't match the file contents exactly:</p>
+<ul>
+<li>Re-read the file to see current contents</li>
+<li>Check for whitespace differences</li>
+<li>Verify indentation matches exactly</li>
+<li>Look for invisible characters or different line endings</li>
+</ul>
+<h3 id="old_string-appears-multiple-times">"old_string appears multiple times"<a class="headerlink" href="#old_string-appears-multiple-times" title="Permanent link">&para;</a></h3>
+<p>The string isn't unique. Solutions:</p>
+<ul>
+<li>Add surrounding context to make it unique</li>
+<li>Use <code>replace_all=True</code> if you want to replace all occurrences</li>
+</ul>
+<h3 id="must-read-file-before-writing">"Must read file before writing"<a class="headerlink" href="#must-read-file-before-writing" title="Permanent link">&para;</a></h3>
+<p>You attempted to overwrite a file without reading it first:</p>
+<ul>
+<li>Read the file first: <code>read_file("path/to/file")</code></li>
+<li>Then proceed with your write or edit operation</li>
+</ul>
+<h3 id="line-truncated-at-2000-characters">"Line truncated at 2000 characters"<a class="headerlink" href="#line-truncated-at-2000-characters" title="Permanent link">&para;</a></h3>
+<p>The file contains very long lines:</p>
+<ul>
+<li>This is informational, not an error</li>
+<li>Consider if the file is minified or generated</li>
+<li>You can still edit the file, but may need to work with truncated content</li>
+</ul>
+<h3 id="permission-denied">"Permission denied"<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
+<p>The file or directory has restrictive permissions:</p>
+<ul>
+<li>Check file ownership and permissions</li>
+<li>Some system files require elevated privileges</li>
+<li>Consider whether you should be modifying this file</li>
+</ul>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use For</th>
+<th>Key Parameters</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>read_file</code></td>
-<td>Read file contents</td>
-<td>View code, configs, docs</td>
+<td>Reading contents, listing directories</td>
+<td><code>offset</code>, <code>limit</code></td>
 </tr>
 <tr>
 <td><code>write_file</code></td>
-<td>Create or overwrite</td>
-<td>New files, full rewrites</td>
+<td>Creating new files, complete rewrites</td>
+<td><code>content</code></td>
 </tr>
 <tr>
 <td><code>edit_file</code></td>
-<td>Targeted replacements</td>
-<td>Small changes, refactoring</td>
+<td>Precise string replacements</td>
+<td><code>old_string</code>, <code>new_string</code>, <code>replace_all</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="read_file">read_file<a class="headerlink" href="#read_file" title="Permanent link">&para;</a></h2>
-<p>Read the contents of a file.</p>
-<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Show me the contents of config.yaml
-</code></pre></div>
-
-<p>Behind the scenes:</p>
-<div class="codehilite"><pre><span></span><code>[Tool: read_file]
-file_path: config.yaml
-</code></pre></div>
-
-<h3 id="reading-specific-lines">Reading Specific Lines<a class="headerlink" href="#reading-specific-lines" title="Permanent link">&para;</a></h3>
-<p>For large files, specify offset and limit:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Show me lines 100-150 of app.py
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: read_file]
-file_path: app.py
-offset: 100
-limit: 50
-</code></pre></div>
-
-<h3 id="directory-listing">Directory Listing<a class="headerlink" href="#directory-listing" title="Permanent link">&para;</a></h3>
-<p>Point to a directory to see its contents:</p>
-<div class="codehilite"><pre><span></span><code>&gt; What files are in src/
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: read_file]
-file_path: src/
-</code></pre></div>
-
-<p>Returns:</p>
-<div class="codehilite"><pre><span></span><code>DIR  components/
-DIR  utils/
-FILE app.py
-FILE config.yaml
-</code></pre></div>
-
-<h2 id="write_file">write_file<a class="headerlink" href="#write_file" title="Permanent link">&para;</a></h2>
-<p>Create a new file or completely overwrite an existing one.</p>
-<h3 id="creating-files">Creating Files<a class="headerlink" href="#creating-files" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Create a Python script that calculates fibonacci numbers
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: write_file]
-file_path: fibonacci.py
-content: |
-  def fibonacci(n):
-      if n &lt;= 1:
-          return n
-      return fibonacci(n-1) + fibonacci(n-2)
-
-  if __name__ == &quot;__main__&quot;:
-      for i in range(10):
-          print(f&quot;fib({i}) = {fibonacci(i)}&quot;)
-</code></pre></div>
-
-<h3 id="overwriting-files">Overwriting Files<a class="headerlink" href="#overwriting-files" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Replace the entire config with a new version
-</code></pre></div>
-
-<p><strong>Warning</strong>: This overwrites the entire file. For small changes, use <code>edit_file</code>.</p>
-<h2 id="edit_file">edit_file<a class="headerlink" href="#edit_file" title="Permanent link">&para;</a></h2>
-<p>Make targeted string replacements without rewriting the whole file.</p>
-<h3 id="basic-edit">Basic Edit<a class="headerlink" href="#basic-edit" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Change the port from 3000 to 8080 in config.yaml
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: config.yaml
-old_string: &quot;port: 3000&quot;
-new_string: &quot;port: 8080&quot;
-</code></pre></div>
-
-<h3 id="multi-line-edits">Multi-line Edits<a class="headerlink" href="#multi-line-edits" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Add error handling to the fetch function
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: api.py
-old_string: |
-  def fetch_data(url):
-      response = requests.get(url)
-      return response.json()
-new_string: |
-  def fetch_data(url):
-      try:
-          response = requests.get(url)
-          response.raise_for_status()
-          return response.json()
-      except requests.RequestException as e:
-          logger.error(f&quot;Fetch failed: {e}&quot;)
-          raise
-</code></pre></div>
-
-<h3 id="replace-all-occurrences">Replace All Occurrences<a class="headerlink" href="#replace-all-occurrences" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Rename the function from &#39;getData&#39; to &#39;fetchData&#39; everywhere in this file
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: utils.js
-old_string: &quot;getData&quot;
-new_string: &quot;fetchData&quot;
-replace_all: true
-</code></pre></div>
-
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="read-before-edit">Read Before Edit<a class="headerlink" href="#read-before-edit" title="Permanent link">&para;</a></h3>
-<p>Always read a file before editing to understand context:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Read src/auth.py then fix the login function
-</code></pre></div>
-
-<p>The AI will:
-1. Read the file
-2. Understand the structure
-3. Make targeted edits</p>
-<h3 id="use-edit_file-for-small-changes">Use edit_file for Small Changes<a class="headerlink" href="#use-edit_file-for-small-changes" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code># Good - targeted edit
-[edit_file] old: &quot;timeout: 30&quot; new: &quot;timeout: 60&quot;
-
-# Avoid - rewriting entire file for one change
-[write_file] content: [entire file with one line changed]
-</code></pre></div>
-
-<h3 id="check-your-changes">Check Your Changes<a class="headerlink" href="#check-your-changes" title="Permanent link">&para;</a></h3>
-<p>After edits:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Show me the file again to verify the changes
-</code></pre></div>
-
-<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="add-import">Add Import<a class="headerlink" href="#add-import" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: app.py
-old_string: &quot;import os&quot;
-new_string: &quot;import os\nimport json&quot;
-</code></pre></div>
-
-<h3 id="add-function">Add Function<a class="headerlink" href="#add-function" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: utils.py
-old_string: &quot;# End of file&quot;
-new_string: |
-  def new_helper():
-      pass
-
-  # End of file
-</code></pre></div>
-
-<h3 id="modify-configuration">Modify Configuration<a class="headerlink" href="#modify-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Tool: edit_file]
-file_path: package.json
-old_string: &#39;&quot;version&quot;: &quot;1.0.0&quot;&#39;
-new_string: &#39;&quot;version&quot;: &quot;1.1.0&quot;&#39;
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-create-and-read">Exercise 1: Create and Read<a class="headerlink" href="#exercise-1-create-and-read" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Create a file called hello.py that prints &quot;Hello, World!&quot;
-&gt; Now show me what&#39;s in hello.py
-</code></pre></div>
-
-<h3 id="exercise-2-edit-in-place">Exercise 2: Edit in Place<a class="headerlink" href="#exercise-2-edit-in-place" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Change hello.py to print &quot;Hello, Amplifier!&quot; instead
-</code></pre></div>
-
-<h3 id="exercise-3-explore-a-directory">Exercise 3: Explore a Directory<a class="headerlink" href="#exercise-3-explore-a-directory" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; List all files in the current directory recursively
-</code></pre></div>
-
-<h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="file-not-found">"File not found"<a class="headerlink" href="#file-not-found" title="Permanent link">&para;</a></h3>
-<p>The file doesn't exist at that path. Check:
-- Spelling of filename
-- Working directory
-- Relative vs absolute path</p>
-<h3 id="edit-failed-old_string-not-found">"Edit failed: old_string not found"<a class="headerlink" href="#edit-failed-old_string-not-found" title="Permanent link">&para;</a></h3>
-<p>The exact string wasn't found. This can happen if:
-- Whitespace differs (spaces vs tabs)
-- Line endings differ
-- The file changed since you read it</p>
-<p><strong>Solution</strong>: Read the file again and use the exact string.</p>
-<h3 id="permission-denied">"Permission denied"<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
-<p>You don't have write access. Check file permissions:</p>
-<div class="codehilite"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span>filename
-</code></pre></div>
+<p>The filesystem tools provide a safe, structured approach to file operations. By separating read, write, and edit operations, each action has appropriate safeguards while remaining straightforward to use.</p>
+<p><strong>Next:</strong> <a href="search.html">Search Tool</a> - Finding files and content across your codebase</p>
               
             </div>
           </div><footer>

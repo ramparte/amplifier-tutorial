@@ -1,303 +1,491 @@
 ---
 id: tool-search
 type: tools
-title: "Search Tools (grep & glob)"
+title: "Search Tools"
 ---
 
-# Search Tools
+# Search Tools (grep & glob)
 
-Find files and search content with `grep` and `glob`.
+Finding files and searching their contents are fundamental operations in any codebase.
+Amplifier provides two complementary tools optimized for different search patterns:
+**glob** for finding files by name/path, and **grep** for searching file contents.
 
-## Overview
+Understanding when to use each tool will dramatically improve your efficiency.
 
-| Tool | Purpose | Use When |
-|------|---------|----------|
-| `grep` | Search file contents | Find code patterns, text |
-| `glob` | Find files by name | Locate files, explore structure |
+---
 
-## grep - Search Contents
+## When to Use Each
 
-Search for patterns inside files.
+| Task | Tool | Why |
+|------|------|-----|
+| Find files by name | glob | Pattern matching on file paths |
+| Search file contents | grep | Regex matching inside files |
+| Find all Python files | glob | `**/*.py` matches paths |
+| Find function definitions | grep | `def function_name` in content |
+| Locate config files | glob | `**/config.*` or `**/*.yaml` |
+| Find TODO comments | grep | `TODO\|FIXME` pattern |
+| List files in directory | glob | `src/**/*` with path filter |
+| Find imports of module | grep | `import module_name` |
+| Find test files | glob | `**/test_*.py` or `**/*_test.go` |
+| Find error messages | grep | Search for specific strings |
 
-### Basic Search
+**Rule of Thumb:**
+- Know the filename pattern? Use **glob**
+- Know what's inside the file? Use **grep**
+- Need both? Combine them (see below)
 
-```
-> Find all TODO comments
-```
+---
 
-```
-[Tool: grep]
-pattern: "TODO"
-```
+## Glob Patterns
 
-### Search Specific Path
-
-```
-> Find all print statements in src/
-```
-
-```
-[Tool: grep]
-pattern: "print\\("
-path: src/
-```
-
-### Regex Patterns
-
-```
-# Function definitions
-pattern: "def \\w+\\("
-
-# Import statements
-pattern: "^import|^from .* import"
-
-# Email addresses
-pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
-```
-
-### File Type Filter
-
-```
-> Find 'config' only in Python files
-```
-
-```
-[Tool: grep]
-pattern: "config"
-type: py
-```
-
-Available types: `py`, `js`, `ts`, `rust`, `go`, `java`, `md`, etc.
-
-### Case Insensitive
-
-```
-[Tool: grep]
-pattern: "error"
--i: true
-```
-
-### Show Context
-
-```
-# Show 2 lines before and after each match
-[Tool: grep]
-pattern: "raise Exception"
--C: 2
-output_mode: content
-```
-
-### Count Matches
-
-```
-[Tool: grep]
-pattern: "import"
-output_mode: count
-```
-
-### Output Modes
-
-| Mode | Returns |
-|------|---------|
-| `files_with_matches` | List of matching files (default) |
-| `content` | Matching lines with context |
-| `count` | Number of matches per file |
-
-## glob - Find Files
-
-Find files by name pattern.
+Glob uses shell-style pattern matching to find files by their paths.
 
 ### Basic Patterns
 
+| Pattern | Matches | Example |
+|---------|---------|---------|
+| `*` | Any characters in filename | `*.py` matches `main.py`, `test.py` |
+| `**` | Any directory depth | `**/*.md` matches `docs/api/ref.md` |
+| `?` | Single character | `file?.txt` matches `file1.txt` |
+| `[abc]` | Character set | `[Rr]eadme.md` matches both cases |
+| `[!abc]` | Negated set | `[!.]*.py` excludes dotfiles |
+
+### Common Use Cases
+
 ```
-# All Python files
-> Find all Python files
-[Tool: glob]
-pattern: "**/*.py"
+# All Python files in project
+**/*.py
 
-# All test files
-> Find test files
-[Tool: glob]
-pattern: "**/test_*.py"
+# All files in src directory (one level)
+src/*
 
-# Config files
-> Find config files
-[Tool: glob]
-pattern: "**/*.{json,yaml,yml}"
+# All files in src directory (recursive)
+src/**/*
+
+# Configuration files
+**/config.* 
+**/*.yaml
+**/*.json
+
+# Test files (Python convention)
+**/test_*.py
+**/*_test.py
+
+# TypeScript and JavaScript
+**/*.{ts,tsx,js,jsx}
+
+# Markdown documentation
+docs/**/*.md
+
+# Hidden files
+**/.*
+
+# Package manifests
+**/package.json
+**/pyproject.toml
+**/Cargo.toml
 ```
 
-### Pattern Syntax
+### Glob Parameters
 
-| Pattern | Matches |
-|---------|---------|
-| `*` | Any characters (not /) |
-| `**` | Any path (including /) |
-| `?` | Single character |
-| `[abc]` | Character set |
-| `{a,b}` | Alternatives |
+```python
+glob(
+    pattern="**/*.py",      # Required: the pattern to match
+    path="src",             # Base directory (default: current)
+    type="file",            # "file", "dir", or "any"
+    exclude=["test_*"],     # Patterns to exclude
+    include_ignored=False   # Search in .gitignore'd dirs
+)
+```
 
 ### Examples
 
-```
-# All markdown in docs/
-pattern: "docs/**/*.md"
+```python
+# Find all Python files
+glob(pattern="**/*.py")
 
-# All index files
-pattern: "**/index.{js,ts}"
+# Find directories named "tests"
+glob(pattern="**/tests", type="dir")
 
-# Single character variant
-pattern: "file?.txt"  # file1.txt, fileA.txt
+# Find configs, excluding node_modules
+glob(pattern="**/*.config.js", exclude=["node_modules/**"])
 
-# Character range
-pattern: "log[0-9].txt"  # log1.txt, log2.txt
-```
-
-### Exclude Patterns
-
-```
-[Tool: glob]
-pattern: "**/*.py"
-exclude: ["**/__pycache__/**", "**/venv/**"]
+# Search in normally-ignored directories
+glob(pattern="**/*.py", include_ignored=True)
 ```
 
-### Filter by Type
+---
 
+## Grep Patterns
+
+Grep searches file contents using regular expressions (regex).
+
+### Basic Regex
+
+| Pattern | Matches | Example |
+|---------|---------|---------|
+| `.` | Any single character | `a.c` matches `abc`, `a1c` |
+| `*` | Zero or more of previous | `ab*c` matches `ac`, `abc`, `abbc` |
+| `+` | One or more of previous | `ab+c` matches `abc`, `abbc` |
+| `?` | Zero or one of previous | `ab?c` matches `ac`, `abc` |
+| `^` | Start of line | `^import` matches at line start |
+| `$` | End of line | `\);$` matches line-ending `;` |
+| `\s` | Whitespace | `def\s+\w+` matches function defs |
+| `\w` | Word character | `\w+` matches identifiers |
+| `\b` | Word boundary | `\bclass\b` avoids `subclass` |
+
+### Common Search Patterns
+
+```regex
+# Function definitions (Python)
+def\s+\w+\s*\(
+
+# Class definitions (Python)
+class\s+\w+
+
+# Import statements
+^import\s+|^from\s+\w+\s+import
+
+# TODO/FIXME comments
+TODO|FIXME|XXX|HACK
+
+# Console/print statements
+console\.(log|error|warn)|print\(
+
+# Error handling
+except\s+\w+|catch\s*\(|\.catch\(
+
+# API endpoints
+@(app|router)\.(get|post|put|delete)
+
+# Environment variables
+os\.environ|process\.env
+
+# Hardcoded URLs
+https?://[^\s"']+
+
+# SQL-like patterns (potential injection)
+(SELECT|INSERT|UPDATE|DELETE)\s+
 ```
-# Only directories
-[Tool: glob]
-pattern: "src/*"
-type: dir
 
-# Only files
-[Tool: glob]
-pattern: "src/*"
-type: file
+### Grep Parameters
+
+```python
+grep(
+    pattern="def\\s+\\w+",   # Required: regex pattern
+    path="src",              # Directory to search
+    glob="*.py",             # Filter by filename pattern
+    type="py",               # Or use file type shorthand
+    output_mode="content",   # How to display results
+    head_limit=100,          # Limit results
+    "-i": True,              # Case insensitive
+    "-n": True,              # Show line numbers
+    "-A": 2,                 # Lines after match
+    "-B": 2,                 # Lines before match
+    "-C": 3,                 # Lines of context (before+after)
+    multiline=True,          # Match across lines
+    include_ignored=False    # Search ignored directories
+)
 ```
 
-## Common Workflows
+---
 
-### Find and Read
+## Output Modes
 
-```
-> Find the authentication module and show me its contents
-```
+Grep supports three output modes for different use cases:
 
-1. `[glob] pattern: "**/auth*.py"` → finds `src/auth.py`
-2. `[read_file] file_path: src/auth.py`
+### files_with_matches (default)
 
-### Find and Edit
+Returns only file paths that contain matches. Fast and concise.
 
-```
-> Find all files with deprecated API and update them
+```python
+grep(pattern="async def", output_mode="files_with_matches")
 ```
 
-1. `[grep] pattern: "deprecated_function"` → lists files
-2. `[edit_file]` each file with replacement
-
-### Explore Structure
-
+Output:
 ```
-> What's the project structure?
+src/api/handlers.py
+src/services/processor.py
+src/utils/async_helpers.py
 ```
 
-```
-[glob] pattern: "**/*" type: dir
+**Best for:** Quick discovery, finding which files to examine.
+
+### content
+
+Returns matching lines with context. Most detailed output.
+
+```python
+grep(pattern="class.*Error", output_mode="content", "-n": True, "-C": 2)
 ```
 
-### Find Definition
-
+Output:
 ```
-> Where is the User class defined?
+src/exceptions.py
+   12:
+   13: # Custom application errors
+   14: class ValidationError(Exception):
+   15:     """Raised when input validation fails."""
+   16:     pass
 ```
 
-```
-[grep] pattern: "class User"
+**Best for:** Understanding context, code review, detailed analysis.
+
+### count
+
+Returns match counts per file. Great for metrics.
+
+```python
+grep(pattern="TODO", output_mode="count")
 ```
 
-## Excluded Directories
-
-By default, these are excluded:
-- `node_modules/`
-- `.venv/`, `venv/`
-- `.git/`
-- `__pycache__/`
-- `build/`, `dist/`
-
-To include them:
-
+Output:
 ```
-[Tool: grep]
-pattern: "lodash"
-include_ignored: true
+src/api/routes.py: 3
+src/models/user.py: 1
+src/services/auth.py: 7
 ```
+
+**Best for:** Codebase metrics, prioritizing refactoring, finding hotspots.
+
+---
+
+## Combining Tools
+
+The most powerful searches combine glob and grep.
+
+### Pattern 1: Filter by File Type Then Search
+
+```python
+# Find all config files, then search for database settings
+files = glob(pattern="**/*.yaml")
+grep(pattern="database:", path=".", glob="*.yaml")
+```
+
+### Pattern 2: Use Grep's Built-in Filtering
+
+```python
+# Search only in Python files
+grep(pattern="import requests", type="py")
+
+# Search only in specific directory with glob filter
+grep(pattern="async def", path="src/api", glob="*.py")
+```
+
+### Pattern 3: Progressive Refinement
+
+```python
+# Step 1: Find all test files
+glob(pattern="**/test_*.py")
+
+# Step 2: Find tests that use mocking
+grep(pattern="@patch|Mock\(", glob="**/test_*.py")
+
+# Step 3: Find specific mock patterns with context
+grep(pattern="@patch.*database", glob="**/test_*.py", 
+     output_mode="content", "-C": 3)
+```
+
+### Pattern 4: Cross-Reference
+
+```python
+# Find where a class is defined
+grep(pattern="^class UserService", type="py")
+# Result: src/services/user.py
+
+# Find all usages of that class
+grep(pattern="UserService", type="py", output_mode="content")
+```
+
+---
+
+## Best Practices
+
+### 1. Start Broad, Then Narrow
+
+```python
+# Too specific - might miss variations
+grep(pattern="def getUserById")
+
+# Better - find all user-related functions
+grep(pattern="def.*[Uu]ser", type="py")
+```
+
+### 2. Use Type Filters for Speed
+
+```python
+# Slower - searches all files
+grep(pattern="import", path=".")
+
+# Faster - only Python files
+grep(pattern="import", type="py")
+```
+
+### 3. Limit Results to Avoid Overload
+
+```python
+# Could return thousands of matches
+grep(pattern="def ")
+
+# Better - limit and paginate
+grep(pattern="def ", head_limit=50, offset=0)
+```
+
+### 4. Use Word Boundaries for Precision
+
+```python
+# Matches "class", "subclass", "classification"
+grep(pattern="class")
+
+# Matches only "class" keyword
+grep(pattern="\\bclass\\b")
+```
+
+### 5. Escape Special Characters
+
+```python
+# Wrong - . matches any character
+grep(pattern="config.yaml")
+
+# Correct - \. matches literal dot
+grep(pattern="config\\.yaml")
+```
+
+### 6. Use Case Insensitivity When Appropriate
+
+```python
+# Find README regardless of case
+grep(pattern="readme", "-i": True)
+```
+
+---
 
 ## Try It Yourself
 
-### Exercise 1: Find TODOs
+### Exercise 1: Find All API Routes
 
-```
-> Find all TODO and FIXME comments in the project
-```
+Find files that define HTTP endpoints in a Python Flask/FastAPI project.
 
-### Exercise 2: Explore Structure
-
-```
-> List all directories under src/
+```python
+# Your solution:
+grep(pattern="@(app|router)\\.(get|post|put|delete|patch)", type="py")
 ```
 
-### Exercise 3: Find Usage
+### Exercise 2: Locate Configuration Files
 
-```
-> Find all files that import the 'requests' library
-```
+Find all YAML and JSON configuration files, excluding test fixtures.
 
-### Exercise 4: Complex Pattern
-
-```
-> Find all functions that start with 'get_' or 'fetch_'
+```python
+# Your solution:
+glob(pattern="**/*.{yaml,yml,json}", exclude=["**/fixtures/**", "**/test/**"])
 ```
 
-## grep vs bash grep
+### Exercise 3: Find Unused Imports
 
-Prefer Amplifier's grep tool over bash:
+Search for import statements that might be unused (import but no usage).
 
-| Amplifier grep | bash grep |
-|----------------|-----------|
-| Structured output | Raw text |
-| Smart exclusions | Manual excludes |
-| Output limits | May overflow |
-| Integrated results | Separate parsing |
+```python
+# Step 1: Find all imports
+grep(pattern="^from\\s+\\w+\\s+import\\s+(\\w+)", type="py", output_mode="content")
 
-```
-# Prefer this:
-[Tool: grep] pattern: "TODO"
-
-# Over this:
-[bash] grep -r "TODO" .
+# Step 2: For each import, search for usages (manual verification needed)
 ```
 
-## Errors and Troubleshooting
+### Exercise 4: Count TODOs by Directory
 
-### "No matches found"
+Get a count of TODO comments to prioritize cleanup.
 
-- Check pattern syntax (escape special chars)
-- Check path is correct
-- Try case-insensitive with `-i: true`
-
-### "Too many results"
-
-- Add path filter
-- Use file type filter
-- Add more specific pattern
-
-### Regex Escape
-
-Special characters need escaping:
-
+```python
+grep(pattern="TODO|FIXME", output_mode="count")
 ```
-# Search for literal "function()"
-pattern: "function\\(\\)"
 
-# Search for file path
-pattern: "src/utils\\.py"
+### Exercise 5: Find Large Functions
+
+Find function definitions and use context to assess complexity.
+
+```python
+grep(pattern="^\\s*def\\s+\\w+", type="py", output_mode="content", "-A": 30)
 ```
+
+---
+
+## Common Errors and Solutions
+
+### Error: "Pattern not found"
+
+**Cause:** Pattern doesn't match any content, or wrong file type filter.
+
+**Solution:**
+```python
+# Check if files exist first
+glob(pattern="**/*.py")
+
+# Try broader pattern
+grep(pattern="user", type="py")  # Instead of "UserService"
+```
+
+### Error: "Too many results"
+
+**Cause:** Pattern too broad, missing filters.
+
+**Solution:**
+```python
+# Add file type filter
+grep(pattern="import", type="py")
+
+# Limit results
+grep(pattern="import", head_limit=100)
+
+# Narrow the path
+grep(pattern="import", path="src/api")
+```
+
+### Error: "Regex syntax error"
+
+**Cause:** Unescaped special characters or invalid regex.
+
+**Solution:**
+```python
+# Escape special characters
+grep(pattern="\\[.*\\]")     # Match brackets
+grep(pattern="\\$\\w+")      # Match $variables
+grep(pattern="file\\.txt")   # Match literal dot
+```
+
+### Error: "Results include unwanted directories"
+
+**Cause:** Searching in node_modules, .venv, etc.
+
+**Solution:**
+```python
+# These are excluded by default, but if you used include_ignored:
+grep(pattern="import", include_ignored=False)  # Default behavior
+
+# Or use explicit exclusions in glob
+glob(pattern="**/*.py", exclude=["**/venv/**", "**/.venv/**"])
+```
+
+---
+
+## Quick Reference
+
+| Operation | Command |
+|-----------|---------|
+| Find Python files | `glob(pattern="**/*.py")` |
+| Find in directory | `glob(pattern="src/**/*")` |
+| Search content | `grep(pattern="def main")` |
+| Case insensitive | `grep(pattern="error", "-i": True)` |
+| With context | `grep(pattern="error", "-C": 3)` |
+| Count matches | `grep(pattern="TODO", output_mode="count")` |
+| Files only | `grep(pattern="class", output_mode="files_with_matches")` |
+| Filter by type | `grep(pattern="import", type="py")` |
+
+---
+
+## Summary
+
+- **glob**: Find files by path patterns (`**/*.py`, `src/**/*.ts`)
+- **grep**: Search file contents with regex (`def\s+\w+`, `TODO|FIXME`)
+- **Combine them**: Use glob to find files, grep to search contents
+- **Output modes**: files_with_matches (fast), content (detailed), count (metrics)
+- **Best practice**: Start broad, filter by type, limit results, use word boundaries

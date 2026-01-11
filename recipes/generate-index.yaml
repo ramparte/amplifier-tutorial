@@ -1,0 +1,121 @@
+# Generate Index Page Recipe
+# Generates navigation/overview index pages for each content section
+#
+# Usage:
+#   amplifier run "execute recipes/generate-index.yaml with section=tools section_title='Tools Reference'"
+
+name: generate-index
+description: Generate an index page that lists and links all content in a section
+version: "1.0.0"
+author: "Tutorial CMS"
+tags: ["content-generation", "tutorial", "index"]
+
+context:
+  section: ""
+  section_title: ""
+  description: ""
+  output_dir: "content"
+
+recursion:
+  max_depth: 2
+  max_total_steps: 10
+
+steps:
+  # Step 1: Scan existing content in the section
+  - id: scan-content
+    agent: foundation:file-ops
+    prompt: |
+      List all markdown files in: {{output_dir}}/{{section}}/
+      
+      For each file (except index.md), extract:
+      - filename
+      - title from YAML frontmatter
+      - first paragraph (description)
+      
+      Return JSON:
+      {
+        "files": [
+          {"id": "tool-bash", "title": "Bash Tool", "description": "Execute shell commands..."},
+          {"id": "tool-filesystem", "title": "Filesystem Tool", "description": "Read, write..."}
+        ]
+      }
+      
+      Sort alphabetically by title.
+    output: "content_list"
+    parse_json: true
+    timeout: 120
+    on_error: "fail"
+
+  # Step 2: Generate index page
+  - id: generate-index
+    agent: foundation:modular-builder
+    prompt: |
+      Create an INDEX PAGE for the {{section}} section.
+      
+      Section: {{section_title}}
+      Description: {{description}}
+      
+      Content in this section:
+      {{content_list}}
+      
+      ===========================================
+      INDEX PAGE STYLE
+      ===========================================
+      
+      1. Brief intro (2-3 sentences)
+      2. Table or card list of all items
+      3. Quick tips for using this section
+      
+      ===========================================
+      TEMPLATE
+      ===========================================
+      
+      ---
+      id: {{section}}-index
+      type: {{section}}
+      title: "{{section_title}}"
+      ---
+      
+      # {{section_title}}
+      
+      {{description}}
+      
+      ## Available [Items]
+      
+      | [Item] | Description |
+      |--------|-------------|
+      | [Link to item 1](./item1.md) | Brief description |
+      | [Link to item 2](./item2.md) | Brief description |
+      
+      ## Quick Tips
+      
+      - [Tip 1]
+      - [Tip 2]
+      
+      ## Where to Start
+      
+      [Recommendation for beginners]
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 180
+    on_error: "fail"
+
+  # Step 3: Write file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write to: {{output_dir}}/{{section}}/index.md
+      
+      Content:
+      {{content}}
+      
+      Return JSON:
+      {
+        "file_path": "path",
+        "bytes": count
+      }
+    output: "result"
+    parse_json: true
+    timeout: 60
+    on_error: "fail"

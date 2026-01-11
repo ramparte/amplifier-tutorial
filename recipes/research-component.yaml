@@ -4,11 +4,12 @@
 # Usage:
 #   amplifier recipes execute recipes/research-component.yaml \
 #     --context '{"component_id": "tool-filesystem", "component_type": "tools"}'
-#
-# The writer creates content from source, the reviewer validates accuracy
 
 name: research-component
 description: Research a component and generate validated tutorial content
+version: "1.0.0"
+author: "Tutorial Team"
+tags: ["content-generation", "tutorial", "single-component"]
 
 context:
   component_id: ""           # e.g., "tool-filesystem"
@@ -16,57 +17,95 @@ context:
   manifest_path: ".planning/ecosystem-manifest.yaml"
   content_base: "content"
 
+recursion:
+  max_depth: 2
+  max_total_steps: 20
+
 steps:
   # Step 1: Load component metadata from manifest
   - id: load-metadata
     agent: foundation:file-ops
-    instruction: |
-      Read the ecosystem manifest at {{manifest_path}}.
+    prompt: |
+      Read the file at {{manifest_path}} and extract ONE component.
       
-      Find the component with id "{{component_id}}" in the {{component_type}} section.
+      Look in the "{{component_type}}:" section for an entry with "id: {{component_id}}"
       
-      Extract and return:
-      - name
-      - repo
-      - description
-      - Any additional fields (owner, install command, etc.)
+      The YAML structure is:
+      ```yaml
+      {{component_type}}:
+        - id: {{component_id}}
+          name: "Display Name"
+          repo: "org/repo"
+          ...
+      ```
       
-      If not found, return an error message.
+      Return ONLY this JSON (no other text):
+      {
+        "found": true,
+        "id": "{{component_id}}",
+        "name": "the name field value",
+        "repo": "the repo field value",
+        "type": "{{component_type}}",
+        "description": "the description field value",
+        "priority": 1
+      }
+      
+      If the component is not found, return:
+      {"found": false, "error": "Component {{component_id}} not found in {{component_type}} section"}
+    output: "component_metadata"
+    parse_json: true
+    timeout: 60
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "fail"
 
-  # Step 2: Fetch source documentation
+  # Step 2: Fetch source documentation from repo
   - id: fetch-source-docs
     agent: foundation:web-research
-    instruction: |
-      Fetch the documentation for this component:
+    prompt: |
+      Fetch documentation for an Amplifier component.
       
-      Component: {{component_id}}
-      Repository: {{load-metadata.result}}
+      Component metadata:
+      {{component_metadata}}
       
-      Fetch these files (if they exist):
-      - README.md
-      - docs/README.md
-      - Any relevant documentation files
+      Tasks:
+      1. Fetch the README.md from the repository
+      2. If docs_path is specified, fetch key documentation files
+      3. Look for usage examples, API docs, or configuration info
       
-      Also check for:
-      - Installation instructions
-      - API documentation
-      - Usage examples
-      - Configuration options
+      Return this JSON structure:
+      {
+        "repo": "the repo URL",
+        "files_found": ["README.md", "docs/API.md", ...],
+        "readme_content": "full README content",
+        "docs_content": "concatenated docs if any",
+        "examples": ["any code examples found"],
+        "install_command": "install command if found"
+      }
       
-      Return the full content of all documentation found.
-      Note which files were found and which were missing.
+      If fetch fails, return what you could find with notes on what failed.
+    output: "source_docs"
+    parse_json: true
+    timeout: 300
+    retry:
+      max_attempts: 3
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
 
   # Step 3: Writer agent creates tutorial content
   - id: write-content
     agent: foundation:modular-builder
-    instruction: |
-      You are the WRITER. Create tutorial content for "{{component_id}}".
+    prompt: |
+      Create tutorial content for Amplifier component: {{component_id}}
       
-      Source documentation:
-      {{fetch-source-docs.result}}
-      
-      Component metadata:
-      {{load-metadata.result}}
+      Component info:
+      - Name: {{component_metadata.name}}
+      - Repo: {{component_metadata.repo}}
+      - Type: {{component_type}}
+      - Description: {{component_metadata.description}}
       
       Create a markdown file following this structure:
       
@@ -74,186 +113,285 @@ steps:
       ---
       id: {{component_id}}
       type: {{component_type}}
-      title: "[Display Name]"
+      title: "[Display Name from metadata]"
       source_repo: "[repo from metadata]"
-      last_synced: "[today's date ISO format]"
+      last_synced: "2026-01-09"
       ---
       
       # [Display Name]
       
-      [One-paragraph description of what this component does and when to use it]
+      [One paragraph: what it does and when to use it - write in YOUR words]
       
       ## Quick Start
       
-      [Minimal example to get started - copy-pasteable code]
+      [Minimal working example - must be copy-pasteable]
+      
+      ```bash
+      # Example command or code
+      ```
       
       ## What It Does
       
-      [Detailed explanation of capabilities]
+      [Detailed explanation of capabilities - 2-3 paragraphs]
       
       ## Usage Examples
       
-      [Multiple examples with explanations, each with copy-pasteable code]
-      
-      ### Example 1: [Name]
+      ### Example 1: [Basic Usage]
       
       ```bash
-      # Copy-paste this into Amplifier
       [code]
       ```
       
-      [Explanation of what this does]
+      [Brief explanation]
+      
+      ### Example 2: [Common Pattern]
+      
+      ```bash
+      [code]
+      ```
+      
+      [Brief explanation]
       
       ## Configuration
       
-      [Any configuration options]
+      [Configuration options if any, or "No special configuration required."]
       
       ## Common Patterns
       
-      [Best practices and patterns]
-      
-      ## Try It Yourself
-      
-      Here are some exercises to practice:
-      
-      1. **[Exercise name]**: [Brief description]
-         ```bash
-         # Try this:
-         [starter code or prompt]
-         ```
+      [Best practices - bullet points]
       
       ## Related
       
-      - [Links to related components]
+      - [Link to related component 1]
+      - [Link to related component 2]
       
       ## Source
       
       - [GitHub repo link]
-      - [Any other official docs]
       ```
       
-      IMPORTANT:
-      - Write in your own words - DO NOT copy text verbatim from source
-      - Include copy-pasteable code for every example
-      - Make examples progressive (simple to complex)
-      - Focus on practical "how to use" over theory
-      - Include at least 2 exercises
+      CRITICAL RULES:
+      - Write in YOUR OWN words - do NOT copy source verbatim
+      - Every code example must be complete and runnable
+      - Do NOT invent features that aren't in the source docs
+      - If source docs are sparse, note "Documentation limited" and stick to facts
+      
+      Return the complete markdown content.
+    output: "draft_content"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
 
-  # Step 4: Reviewer agent validates accuracy
+  # Step 4: Reviewer validates accuracy
   - id: review-content
     agent: foundation:zen-architect
-    instruction: |
-      You are the REVIEWER. Validate the tutorial content for accuracy.
+    mode: "REVIEW"
+    prompt: |
+      You are the REVIEWER. Validate this tutorial content for ACCURACY.
       
       Tutorial content to review:
-      {{write-content.result}}
+      {{draft_content}}
       
       Original source documentation:
-      {{fetch-source-docs.result}}
+      {{source_docs}}
       
-      Check for:
+      Component metadata:
+      {{component_metadata}}
+      
+      CHECK FOR:
       
       1. **Factual Accuracy**
          - Are all claims supported by the source docs?
-         - Are code examples correct and would they work?
+         - Are code examples correct syntax?
          - Are configuration options accurate?
-         - Are any features mentioned that don't exist?
       
-      2. **Completeness**
-         - Are major features covered?
-         - Are there important use cases missing?
-         - Are the examples sufficient?
-      
-      3. **Hallucinations**
-         - Is anything stated that ISN'T in the source?
+      2. **Hallucinations**
+         - Is ANYTHING stated that isn't in the source?
          - Are there made-up features or options?
-         - Are there incorrect commands or syntax?
+         - Are there invented commands?
       
-      Return a structured review:
+      3. **Completeness**
+         - Are major features from source covered?
+         - Are there important gaps?
       
-      ```yaml
-      status: PASS | NEEDS_REVISION
+      Return EXACTLY this JSON:
+      {
+        "status": "PASS" or "NEEDS_REVISION",
+        "accuracy_issues": [
+          {"issue": "description", "location": "section", "correction": "what it should say"}
+        ],
+        "hallucinations": [
+          {"claim": "the problematic claim", "evidence": "NOT_FOUND_IN_SOURCE"}
+        ],
+        "completeness_gaps": [
+          {"missing": "what's missing", "importance": "high/medium/low"}
+        ],
+        "suggestions": ["improvement suggestion"]
+      }
       
-      accuracy_issues:
-        - issue: "[description]"
-          location: "[where in the content]"
-          correction: "[what it should say]"
-      
-      completeness_issues:
-        - missing: "[what's missing]"
-          importance: high | medium | low
-      
-      hallucinations:
-        - claim: "[the problematic claim]"
-          evidence: "NOT_FOUND_IN_SOURCE"
-      
-      suggestions:
-        - "[improvement suggestion]"
-      ```
-      
-      If status is PASS, the content is ready.
-      If status is NEEDS_REVISION, list all issues that must be fixed.
+      Be STRICT. If you find ANY hallucination, status must be NEEDS_REVISION.
+      Return ONLY the JSON.
+    output: "review_result"
+    parse_json: true
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
 
   # Step 5: Revise if needed (conditional)
   - id: revise-content
     agent: foundation:modular-builder
-    condition: "{{review-content.result.status}} == 'NEEDS_REVISION'"
-    instruction: |
+    condition: "{{review_result.status}} == 'NEEDS_REVISION'"
+    prompt: |
       Revise the tutorial content based on reviewer feedback.
       
       Original content:
-      {{write-content.result}}
+      {{draft_content}}
       
       Review feedback:
-      {{review-content.result}}
+      {{review_result}}
       
       Source documentation (for reference):
-      {{fetch-source-docs.result}}
+      {{source_docs}}
       
       Fix ALL issues identified:
-      - Correct any inaccuracies
-      - Remove any hallucinated content
+      - Correct any inaccuracies listed
+      - REMOVE any hallucinated content
       - Add missing important features
-      - Improve based on suggestions
+      - Apply suggestions where appropriate
       
-      Return the complete revised content.
+      Return the COMPLETE revised markdown content.
+    output: "revised_content"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
 
-  # Step 6: Write final content to file
+  # Step 6a: Validate structure when review PASSED (use draft)
+  - id: validate-passed
+    agent: foundation:zen-architect
+    mode: "ANALYZE"
+    condition: "{{review_result.status}} == 'PASS'"
+    prompt: |
+      Validate and finalize the tutorial content that PASSED review.
+      
+      Content to validate (draft that passed review):
+      {{draft_content}}
+      
+      Validate:
+      1. Has valid YAML frontmatter (id, type, title, source_repo, last_synced)
+      2. Has all required sections (Quick Start, What It Does, Usage Examples, etc.)
+      3. No placeholder text like "TODO", "...", "[fill in]"
+      4. Code blocks have language specified
+      
+      Return this JSON:
+      {
+        "valid": true,
+        "issues": [],
+        "final_content": "THE COMPLETE FINAL MARKDOWN CONTENT"
+      }
+      
+      If there are minor fixable issues, fix them and include in final_content.
+      Return ONLY the JSON.
+    output: "validated_content"
+    parse_json: true
+    timeout: 120
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "fail"
+
+  # Step 6b: Validate structure when review NEEDED REVISION (use revised)
+  - id: validate-revised
+    agent: foundation:zen-architect
+    mode: "ANALYZE"
+    condition: "{{review_result.status}} == 'NEEDS_REVISION'"
+    prompt: |
+      Validate and finalize the REVISED tutorial content.
+      
+      Revised content to validate:
+      {{revised_content}}
+      
+      Validate:
+      1. Has valid YAML frontmatter (id, type, title, source_repo, last_synced)
+      2. Has all required sections (Quick Start, What It Does, Usage Examples, etc.)
+      3. No placeholder text like "TODO", "...", "[fill in]"
+      4. Code blocks have language specified
+      
+      Return this JSON:
+      {
+        "valid": true,
+        "issues": [],
+        "final_content": "THE COMPLETE FINAL MARKDOWN CONTENT"
+      }
+      
+      If there are minor fixable issues, fix them and include in final_content.
+      Return ONLY the JSON.
+    output: "validated_content"
+    parse_json: true
+    timeout: 120
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "fail"
+
+  # Step 7: Save content to file
   - id: save-content
     agent: foundation:file-ops
-    instruction: |
-      Save the tutorial content to:
-      {{content_base}}/{{component_type}}/{{component_id}}.md
+    condition: "{{validated_content.valid}} == 'true'"
+    prompt: |
+      Save the validated tutorial content to the file system.
       
-      Content to save:
-      {{revise-content.result | default: write-content.result}}
+      Target path: {{content_base}}/{{component_type}}/{{component_id}}.md
       
-      Also update the index file at:
-      {{content_base}}/{{component_type}}/_index.yaml
+      Content to write:
+      {{validated_content.final_content}}
       
-      Add or update this component's entry:
-      ```yaml
-      - id: {{component_id}}
-        title: "[from content frontmatter]"
-        description: "[first paragraph summary]"
-        last_updated: "[today's date]"
-      ```
+      Steps:
+      1. Ensure the directory exists: {{content_base}}/{{component_type}}/
+      2. Write the content to the file
+      3. Verify the file was written correctly
+      
+      Return confirmation of what was saved and the file path.
+    output: "save_result"
+    timeout: 60
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "fail"
 
-  # Step 7: Report completion
+  # Step 8: Generate completion report
   - id: report
     agent: foundation:zen-architect
-    instruction: |
+    mode: "ANALYZE"
+    prompt: |
       Create a completion report for the content generation.
       
       Component: {{component_id}}
       Type: {{component_type}}
       
-      Review status: {{review-content.result.status}}
+      Review status: {{review_result.status}}
+      Validation status: {{validated_content.valid}}
       
-      Content saved to: {{content_base}}/{{component_type}}/{{component_id}}.md
+      Save result: {{save_result}}
       
       Summarize:
       - What was generated
-      - Any issues found and fixed
-      - Quality assessment
-      - Recommendations for human review
+      - Whether revision was needed (and what was fixed)
+      - Final quality assessment
+      - File location
+      
+      Format as brief markdown suitable for display.
+    output: "final_report"
+    timeout: 60
+    on_error: "continue"

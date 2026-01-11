@@ -1,115 +1,70 @@
 ---
-id: tools-overview
-type: tools
-title: "Tools Reference"
+id: tools-index
+type: section-index
+title: Tools Reference
 ---
 
 # Tools Reference
 
-Tools are capabilities that Amplifier can use to accomplish tasks.
+Tools are the primary way Amplifier agents interact with the world. Each tool provides a specific capability—from reading files to executing commands to searching the web. Understanding tools is essential for building effective agents.
 
-## What Are Tools?
+This section covers all built-in tools, their parameters, and best practices for tool usage.
 
-Tools let the AI interact with the world:
+## Section Contents
 
-- **Read and write files**
-- **Run shell commands**
-- **Search the web**
-- **Navigate code semantically**
-- **Spawn sub-agents**
+| Page | Description |
+|------|-------------|
+| [File Operations](./file-operations.md) | Reading, writing, and editing files |
+| [Search Tools](./search-tools.md) | Grep, glob, and content discovery |
+| [Shell Execution](./shell-execution.md) | Running bash commands safely |
+| [Web Tools](./web-tools.md) | Fetching URLs and web search |
+| [LSP Integration](./lsp-integration.md) | Language Server Protocol for code intelligence |
+| [Task Delegation](./task-delegation.md) | Spawning sub-agents for complex work |
+| [Todo Management](./todo-management.md) | Tracking multi-step tasks |
+| [Custom Tools](./custom-tools.md) | Creating your own tools |
 
-When you ask Amplifier to "create a file" or "search for X", it uses tools to do the actual work.
+## Quick Tips
 
-## Core Tools
+- **Prefer specialized tools over bash** — Use `read_file` instead of `cat`, `edit_file` instead of `sed`
+- **Parallel calls** — Independent tool calls can be made simultaneously for efficiency
+- **Error handling** — Tools return structured errors; always check for failure conditions
+- **Context limits** — Large file reads are automatically truncated; use pagination for big files
+- **LSP vs grep** — Use LSP for semantic code understanding, grep for text pattern matching
 
-| Tool | Purpose | Guide |
-|------|---------|-------|
-| [Filesystem](filesystem.md) | Read, write, edit files | `read_file`, `write_file`, `edit_file` |
-| [Bash](bash.md) | Run shell commands | Build, test, git, packages |
-| [Search](search.md) | Find files and content | `grep`, `glob` |
-| [Web](web.md) | Internet search and fetch | `web_search`, `web_fetch` |
-| [Task](task.md) | Spawn sub-agents | Delegate to specialists |
+## Tool Categories
 
-## Bundle-Provided Tools
+| Category | Tools | Use Case |
+|----------|-------|----------|
+| File I/O | read_file, write_file, edit_file | Direct file manipulation |
+| Search | grep, glob | Finding files and content |
+| Execution | bash | System commands and scripts |
+| Web | web_fetch, web_search | External information |
+| Code Intel | LSP operations | Semantic code navigation |
+| Orchestration | task, todo | Multi-step coordination |
 
-| Tool | Bundle Required | Guide |
-|------|-----------------|-------|
-| [LSP](lsp.md) | `lsp-python` or similar | Code intelligence |
-| [Recipes](recipes-tool.md) | `recipes` | Multi-step workflows |
+## Where to Start
 
-## Quick Reference
+**New to Amplifier?** Begin with [File Operations](./file-operations.md) — it's the most commonly used tool and establishes patterns you'll use everywhere.
 
-### File Operations
+**Building agents?** Jump to [Task Delegation](./task-delegation.md) to understand how agents can spawn sub-agents for complex workflows.
 
-```
-read_file     Read file or list directory
-write_file    Create or overwrite file
-edit_file     Make targeted string replacements
-```
+**Coming from other AI tools?** Check [Shell Execution](./shell-execution.md) to understand Amplifier's safety guardrails and execution model.
 
-### Shell Commands
+## Common Patterns
 
-```
-bash          Run any shell command
-```
+```yaml
+# Reading before editing (required pattern)
+1. read_file → understand current content
+2. edit_file → make precise changes
 
-### Search
-
-```
-grep          Search file contents (regex)
-glob          Find files by pattern
-```
-
-### Web
-
-```
-web_search    Search the internet
-web_fetch     Fetch URL content
+# Search then navigate
+1. grep → find relevant files
+2. read_file → examine matches
+3. LSP → understand code structure
 ```
 
-### Agents
+## Related Sections
 
-```
-task          Spawn specialized sub-agents
-todo          Manage task lists (internal)
-```
-
-### Code Intelligence (requires bundle)
-
-```
-LSP           Go to definition, find references, hover
-```
-
-### Workflows (requires bundle)
-
-```
-recipes       Execute multi-step YAML workflows
-```
-
-## Viewing Available Tools
-
-In any session:
-
-```bash
-amplifier
-
-> /tools
-```
-
-Or ask directly:
-
-```
-> What tools do you have available?
-```
-
-## Tool Selection Philosophy
-
-Amplifier prefers specialized tools over primitives:
-
-1. **Specialized tools first** - LSP over grep for code navigation
-2. **Purpose-built tools second** - `read_file` over `bash cat`
-3. **Primitives as fallback** - `bash` when nothing else fits
-
-## Adding Custom Tools
-
-See [Advanced: Custom Tools](../advanced/custom-tool.md) for creating your own tools.
+- [Concepts: Tool Architecture](../concepts/tool-architecture.md)
+- [Advanced: Custom Tool Development](../advanced/custom-tools.md)
+- [Bundles: Tool Bundles](../bundles/tool-bundles.md)

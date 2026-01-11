@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -127,45 +129,23 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-setup-checklist">Quick Setup Checklist</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-essential-tools">1. Essential Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-provider-configuration">2. Provider Configuration</a>
+    <li class="toctree-l2"><a class="reference internal" href="#system-requirements">System Requirements</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-shell-aliases">3. Shell Aliases</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-verify-setup">4. Verify Setup</a>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#development-workflow">Development Workflow</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#development-patterns">Development Patterns</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-1-shadow-workspace">Pattern 1: Shadow Workspace</a>
+    <li class="toctree-l2"><a class="reference internal" href="#recommended-tools">Recommended Tools</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-2-git-worktree">Pattern 2: Git Worktree</a>
+    <li class="toctree-l2"><a class="reference internal" href="#common-tasks">Common Tasks</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-3-container-isolation">Pattern 3: Container Isolation</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#productivity-tips">Productivity Tips</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-use-session-history">1. Use Session History</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-leverage-specialists">2. Leverage Specialists</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-save-common-prompts">3. Save Common Prompts</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-use-recipes-for-repeatable-tasks">4. Use Recipes for Repeatable Tasks</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting-quick-reference">Troubleshooting Quick Reference</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#recommended-reading-order">Recommended Reading Order</a>
+    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
     </li>
     </ul>
                   </li>
@@ -215,181 +195,178 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="developer-setup">Developer Setup<a class="headerlink" href="#developer-setup" title="Permanent link">&para;</a></h1>
-<p>Tools and techniques for productive Amplifier development.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>This section covers:</p>
+                <h1 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h1>
+<p>This section covers setting up a development environment for working on Amplifier itself or building applications that extend it. Follow these guides to configure a productive local setup.</p>
+<p>Whether you're contributing to the core project or building custom modules, proper setup ensures a smooth experience.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Topic</th>
-<th>What You'll Learn</th>
+<th>Page</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="cli-tools.html">CLI Tools</a></td>
-<td>Essential command-line utilities</td>
+<td><a href="./environment.md">Environment Setup</a></td>
+<td>Python, dependencies, and tooling</td>
 </tr>
 <tr>
-<td><a href="shadow-workspace.html">Shadow Workspace</a></td>
-<td>Safe AI-assisted editing</td>
+<td><a href="./ide-config.md">IDE Configuration</a></td>
+<td>VS Code, PyCharm, and editor setup</td>
 </tr>
 <tr>
-<td><a href="remote-dev.html">Remote Development</a></td>
-<td>Docker, SSH, Codespaces</td>
+<td><a href="./local-dev.md">Local Development</a></td>
+<td>Running Amplifier from source</td>
+</tr>
+<tr>
+<td><a href="./testing.md">Testing</a></td>
+<td>Running and writing tests</td>
 </tr>
 <tr>
 <td><a href="debugging.html">Debugging</a></td>
-<td>Troubleshooting techniques</td>
+<td>Debug techniques and tools</td>
+</tr>
+<tr>
+<td><a href="./contributing.md">Contributing</a></td>
+<td>How to contribute to Amplifier</td>
+</tr>
+<tr>
+<td><a href="./code-style.md">Code Style</a></td>
+<td>Conventions and formatting</td>
+</tr>
+<tr>
+<td><a href="./release.md">Release Process</a></td>
+<td>Versioning and publishing</td>
 </tr>
 </tbody>
 </table>
-<h2 id="quick-setup-checklist">Quick Setup Checklist<a class="headerlink" href="#quick-setup-checklist" title="Permanent link">&para;</a></h2>
-<h3 id="1-essential-tools">1. Essential Tools<a class="headerlink" href="#1-essential-tools" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Python package manager</span>
-curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-
-<span class="c1"># Amplifier</span>
-uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>amplifier
-
-<span class="c1"># Helpful utilities</span>
-brew<span class="w"> </span>install<span class="w"> </span>jq<span class="w"> </span>fzf<span class="w"> </span>bat<span class="w"> </span>ripgrep<span class="w">  </span><span class="c1"># macOS</span>
-<span class="c1"># or apt install equivalent</span>
-</code></pre></div>
-
-<h3 id="2-provider-configuration">2. Provider Configuration<a class="headerlink" href="#2-provider-configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Pick your provider</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
-<span class="c1"># or</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-...&quot;</span>
-
-<span class="c1"># Make permanent</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export ANTHROPIC_API_KEY=&quot;your-key&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</code></pre></div>
-
-<h3 id="3-shell-aliases">3. Shell Aliases<a class="headerlink" href="#3-shell-aliases" title="Permanent link">&para;</a></h3>
-<p>Add to <code>~/.bashrc</code> or <code>~/.zshrc</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;amp&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">ar</span><span class="o">=</span><span class="s1">&#39;amp run&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">as</span><span class="o">=</span><span class="s1">&#39;amp session&#39;</span>
-</code></pre></div>
-
-<h3 id="4-verify-setup">4. Verify Setup<a class="headerlink" href="#4-verify-setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Hello! What model are you?&quot;</span>
-</code></pre></div>
-
-<h2 id="development-patterns">Development Patterns<a class="headerlink" href="#development-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="pattern-1-shadow-workspace">Pattern 1: Shadow Workspace<a class="headerlink" href="#pattern-1-shadow-workspace" title="Permanent link">&para;</a></h3>
-<p>For safe AI-assisted editing:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Create shadow copy</span>
-cp<span class="w"> </span>-r<span class="w"> </span>my-project<span class="w"> </span>my-project-shadow
-<span class="nb">cd</span><span class="w"> </span>my-project-shadow
-
-<span class="c1"># Work with AI</span>
-amp
-
-<span class="c1"># Review changes</span>
-diff<span class="w"> </span>-r<span class="w"> </span>../my-project<span class="w"> </span>.
-
-<span class="c1"># Accept or discard</span>
-</code></pre></div>
-
-<h3 id="pattern-2-git-worktree">Pattern 2: Git Worktree<a class="headerlink" href="#pattern-2-git-worktree" title="Permanent link">&para;</a></h3>
-<p>For version-controlled changes:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-project
-git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../ai-changes<span class="w"> </span>-b<span class="w"> </span>feature/ai-assist
-
-<span class="nb">cd</span><span class="w"> </span>../ai-changes
-amp
-
-<span class="c1"># Create PR when done</span>
-gh<span class="w"> </span>pr<span class="w"> </span>create
-</code></pre></div>
-
-<h3 id="pattern-3-container-isolation">Pattern 3: Container Isolation<a class="headerlink" href="#pattern-3-container-isolation" title="Permanent link">&para;</a></h3>
-<p>For complete isolation:</p>
-<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span>ANTHROPIC_API_KEY<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>amplifier-dev
-</code></pre></div>
-
-<h2 id="productivity-tips">Productivity Tips<a class="headerlink" href="#productivity-tips" title="Permanent link">&para;</a></h2>
-<h3 id="1-use-session-history">1. Use Session History<a class="headerlink" href="#1-use-session-history" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Resume last session</span>
-amp<span class="w"> </span>session<span class="w"> </span>list
-amp<span class="w"> </span>session<span class="w"> </span>resume<span class="w"> </span><span class="o">[</span>id<span class="o">]</span>
-</code></pre></div>
-
-<h3 id="2-leverage-specialists">2. Leverage Specialists<a class="headerlink" href="#2-leverage-specialists" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Use bug-hunter to debug this
-&gt; Use zen-architect to design this
-&gt; Use explorer to understand this codebase
-</code></pre></div>
-
-<h3 id="3-save-common-prompts">3. Save Common Prompts<a class="headerlink" href="#3-save-common-prompts" title="Permanent link">&para;</a></h3>
-<p>Create a <code>prompts/</code> directory:</p>
-<div class="codehilite"><pre><span></span><code>prompts/
-├── code-review.md
-├── refactor.md
-└── test-coverage.md
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>prompts/code-review.md<span class="k">)</span><span class="s2"> - review src/auth.py&quot;</span>
-</code></pre></div>
-
-<h3 id="4-use-recipes-for-repeatable-tasks">4. Use Recipes for Repeatable Tasks<a class="headerlink" href="#4-use-recipes-for-repeatable-tasks" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/recipes/review.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
-<span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">{{file}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">issues&quot;</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>.amplifier/recipes/review.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file&quot;: &quot;src/main.py&quot;}&#39;</span>
-</code></pre></div>
-
-<h2 id="troubleshooting-quick-reference">Troubleshooting Quick Reference<a class="headerlink" href="#troubleshooting-quick-reference" title="Permanent link">&para;</a></h2>
+<h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Use uv</strong> — It's faster than pip and handles dependencies better</li>
+<li><strong>Virtual environments</strong> — Always isolate project dependencies</li>
+<li><strong>Pre-commit hooks</strong> — Enable them to catch issues before commits</li>
+<li><strong>Type checking</strong> — Run pyright/mypy regularly during development</li>
+<li><strong>Test early</strong> — Write tests as you develop, not after</li>
+</ul>
+<h2 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Problem</th>
-<th>Solution</th>
+<th>Requirement</th>
+<th>Version</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>"Command not found"</td>
-<td>Check PATH, reinstall</td>
+<td>Python</td>
+<td>3.11+</td>
+<td>3.12 recommended</td>
 </tr>
 <tr>
-<td>"API key invalid"</td>
-<td>Verify environment variable</td>
+<td>uv or pip</td>
+<td>Latest</td>
+<td>uv preferred</td>
 </tr>
 <tr>
-<td>"Context too long"</td>
-<td>Start new session</td>
+<td>Git</td>
+<td>2.30+</td>
+<td>For version control</td>
 </tr>
 <tr>
-<td>"Tool failed"</td>
-<td>Check permissions, paths</td>
-</tr>
-<tr>
-<td>"Session won't resume"</td>
-<td>Use session-analyst</td>
+<td>Node.js</td>
+<td>18+</td>
+<td>For some tooling (optional)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="recommended-reading-order">Recommended Reading Order<a class="headerlink" href="#recommended-reading-order" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong><a href="cli-tools.html">CLI Tools</a></strong> - Set up your environment</li>
-<li><strong><a href="shadow-workspace.html">Shadow Workspace</a></strong> - Work safely</li>
-<li><strong><a href="remote-dev.html">Remote Development</a></strong> - Scale up</li>
-<li><strong><a href="debugging.html">Debugging</a></strong> - Fix issues</li>
-</ol>
-<p>Each guide includes exercises to practice the concepts.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/microsoft/amplifier.git
+<span class="nb">cd</span><span class="w"> </span>amplifier
+
+<span class="c1"># Create virtual environment</span>
+uv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># or .venv\Scripts\activate on Windows</span>
+
+<span class="c1"># Install in development mode</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+
+<span class="c1"># Run tests to verify setup</span>
+pytest
+
+<span class="c1"># Start development session</span>
+amp<span class="w"> </span>--dev
+</code></pre></div>
+
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Setting up for the first time?</strong> Follow <a href="./environment.md">Environment Setup</a> for complete installation instructions.</p>
+<p><strong>Contributing to Amplifier?</strong> Read <a href="./contributing.md">Contributing</a> for workflow and guidelines.</p>
+<p><strong>Debugging issues?</strong> Check <a href="debugging.html">Debugging</a> for techniques and common problems.</p>
+<h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│   Feature    │───►│    Tests     │───►│     PR       │
+│   Branch     │    │   Passing    │    │   Review     │
+└──────────────┘    └──────────────┘    └──────────────┘
+       │                   │                   │
+       ▼                   ▼                   ▼
+   Write Code        Run pytest          Address Feedback
+   Type Check        Check Coverage      Merge to Main
+</code></pre></div>
+
+<h2 id="recommended-tools">Recommended Tools<a class="headerlink" href="#recommended-tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uv</td>
+<td>Package management</td>
+<td><code>pip install uv</code></td>
+</tr>
+<tr>
+<td>ruff</td>
+<td>Linting and formatting</td>
+<td><code>pip install ruff</code></td>
+</tr>
+<tr>
+<td>pyright</td>
+<td>Type checking</td>
+<td><code>pip install pyright</code></td>
+</tr>
+<tr>
+<td>pytest</td>
+<td>Testing</td>
+<td>Included in dev deps</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-tasks">Common Tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Format code</span>
+ruff<span class="w"> </span>format<span class="w"> </span>.
+
+<span class="c1"># Check types</span>
+pyright
+
+<span class="c1"># Run specific tests</span>
+pytest<span class="w"> </span>tests/test_sessions.py<span class="w"> </span>-v
+
+<span class="c1"># Run with coverage</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>amplifier
+</code></pre></div>
+
+<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../quickstart/installation.html">Quickstart: Installation</a></li>
+<li><a href="../advanced/custom-tools.md">Advanced: Custom Tools</a></li>
+<li><a href="../concepts/modules.html">Concepts: Module System</a></li>
+</ul>
               
             </div>
           </div><footer>

@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -106,66 +108,104 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="foundation.html">Foundation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#tools">Tools</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#agents">Agents</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#philosophy-context">Philosophy Context</a>
+    <li class="toctree-l3"><a class="reference internal" href="#design-philosophy">Design Philosophy</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-foundation">Using Foundation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tools-included">Tools Included</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#as-your-bundle">As Your Bundle</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#including-in-custom-bundles">Including in Custom Bundles</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-usage-patterns">Tool Usage Patterns</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#agent-details">Agent Details</a>
+    <li class="toctree-l2"><a class="reference internal" href="#agents-included">Agents Included</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#zen-architect">zen-architect</a>
+    <li class="toctree-l3"><a class="reference internal" href="#agent-descriptions">Agent Descriptions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explorer">explorer</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bug-hunter">bug-hunter</a>
+    <li class="toctree-l4"><a class="reference internal" href="#zen-architect">zen-architect</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#modular-builder">modular-builder</a>
+    <li class="toctree-l4"><a class="reference internal" href="#modular-builder">modular-builder</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#explorer">explorer</a>
+    <li class="toctree-l4"><a class="reference internal" href="#bug-hunter">bug-hunter</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#security-guardian">security-guardian</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#git-ops">git-ops</a>
+    <li class="toctree-l4"><a class="reference internal" href="#git-ops">git-ops</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#philosophy-in-practice">Philosophy in Practice</a>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#ruthless-simplicity">Ruthless Simplicity</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bricks-and-studs">Bricks and Studs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#explicit-bundle-selection">Explicit Bundle Selection</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mechanism-not-policy">Mechanism Not Policy</a>
+    <li class="toctree-l3"><a class="reference internal" href="#first-steps">First Steps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example-session">Example Session</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-to-use">When to Use</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#foundation-is-ideal-for">Foundation is Ideal For</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consider-alternatives-when">Consider Alternatives When</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-composition">Bundle Composition</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-workflows">Agent Workflows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-architect-builder-pattern">The Architect-Builder Pattern</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-debug-workflow">The Debug Workflow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-cleanup-pattern">The Cleanup Pattern</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration Options</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#provider-settings">Provider Settings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-restrictions">Tool Restrictions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#agent-customization">Agent Customization</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-see-whats-available">Exercise 1: See What's Available</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-codebase-exploration">Exercise 1: Codebase Exploration</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-use-specialists">Exercise 2: Use Specialists</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-feature-implementation">Exercise 2: Feature Implementation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-check-philosophy">Exercise 3: Check Philosophy</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-bug-investigation">Exercise 3: Bug Investigation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-git-workflow">Exercise 4: Git Workflow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-5-security-review">Exercise 5: Security Review</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#source">Source</a>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#let-agents-specialize">Let Agents Specialize</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#trust-the-workflow">Trust the Workflow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-task-tracking">Use Task Tracking</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#embrace-simplicity">Embrace Simplicity</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
     </li>
     </ul>
                   </li>
@@ -238,307 +278,399 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="foundation-bundle">Foundation Bundle<a class="headerlink" href="#foundation-bundle" title="Permanent link">&para;</a></h1>
-<p>The base bundle that provides core capabilities for Amplifier.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Foundation is the recommended starting point for all Amplifier configurations. It provides:</p>
+<p>The Foundation bundle is the default, batteries-included bundle for Amplifier. It provides a comprehensive set of tools and specialized agents that cover the most common software development workflows. When you run Amplifier without specifying a bundle, you get Foundation.</p>
+<p>Foundation follows the "thin bundle" pattern—it composes behaviors from smaller, focused modules rather than implementing everything itself. This means you get a powerful, well-integrated experience out of the box while maintaining the flexibility to customize or extend as needed.</p>
+<h3 id="design-philosophy">Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permanent link">&para;</a></h3>
+<p>Foundation embodies several key principles:</p>
 <ul>
-<li><strong>Core tools</strong> - File operations, bash, search, web</li>
-<li><strong>Specialist agents</strong> - Debugger, architect, builder, explorer</li>
-<li><strong>Philosophy</strong> - Implementation and design principles</li>
-<li><strong>Behaviors</strong> - Git operations, security review, testing</li>
+<li><strong>Completeness without bloat</strong>: Everything you need for day-to-day development, nothing you don't</li>
+<li><strong>Specialized agents</strong>: Each agent does one thing exceptionally well</li>
+<li><strong>Composable workflows</strong>: Agents can delegate to each other for complex tasks</li>
+<li><strong>Sensible defaults</strong>: Works great out of the box, customizable when needed</li>
 </ul>
-<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
-<h3 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<h2 id="tools-included">Tools Included<a class="headerlink" href="#tools-included" title="Permanent link">&para;</a></h2>
+<p>Foundation provides access to core tools that enable file operations, search, shell access, and more.</p>
 <table>
 <thead>
 <tr>
 <th>Tool</th>
 <th>Purpose</th>
+<th>When to Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>bash</code></td>
+<td>Shell command execution</td>
+<td>Running builds, tests, git commands, system utilities</td>
+</tr>
+<tr>
 <td><code>read_file</code></td>
-<td>Read files and directories</td>
+<td>Read file contents</td>
+<td>Viewing source code, configs, documentation</td>
 </tr>
 <tr>
 <td><code>write_file</code></td>
 <td>Create or overwrite files</td>
+<td>Creating new files when necessary</td>
 </tr>
 <tr>
 <td><code>edit_file</code></td>
-<td>Make targeted edits</td>
-</tr>
-<tr>
-<td><code>bash</code></td>
-<td>Run shell commands</td>
-</tr>
-<tr>
-<td><code>grep</code></td>
-<td>Search file contents</td>
+<td>Surgical file edits</td>
+<td>Making precise changes to existing files</td>
 </tr>
 <tr>
 <td><code>glob</code></td>
 <td>Find files by pattern</td>
+<td>Locating files matching <code>**/*.py</code>, <code>src/**/*.ts</code></td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Search file contents</td>
+<td>Finding code patterns, function definitions</td>
 </tr>
 <tr>
 <td><code>web_search</code></td>
 <td>Search the internet</td>
+<td>Looking up documentation, APIs, solutions</td>
 </tr>
 <tr>
 <td><code>web_fetch</code></td>
 <td>Fetch URL content</td>
+<td>Reading documentation pages, API specs</td>
 </tr>
 <tr>
 <td><code>task</code></td>
-<td>Spawn sub-agents</td>
+<td>Launch sub-agents</td>
+<td>Delegating specialized work to expert agents</td>
+</tr>
+<tr>
+<td><code>LSP</code></td>
+<td>Language Server Protocol</td>
+<td>Code intelligence, go-to-definition, find references</td>
 </tr>
 <tr>
 <td><code>todo</code></td>
-<td>Track tasks</td>
+<td>Task tracking</td>
+<td>Managing multi-step workflows</td>
+</tr>
+<tr>
+<td><code>load_skill</code></td>
+<td>Load domain knowledge</td>
+<td>Accessing specialized skills and patterns</td>
 </tr>
 </tbody>
 </table>
-<h3 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h3>
+<h3 id="tool-usage-patterns">Tool Usage Patterns<a class="headerlink" href="#tool-usage-patterns" title="Permanent link">&para;</a></h3>
+<p><strong>File Operations</strong>: Always prefer <code>edit_file</code> over <code>write_file</code> for existing files. The edit tool makes surgical changes while preserving the rest of the file.</p>
+<div class="codehilite"><pre><span></span><code># Good: Precise edit
+edit_file(file_path=&quot;src/auth.py&quot;, old_string=&quot;timeout=30&quot;, new_string=&quot;timeout=60&quot;)
+
+# Avoid: Rewriting entire file for small changes
+write_file(file_path=&quot;src/auth.py&quot;, content=&quot;...&quot;)
+</code></pre></div>
+
+<p><strong>Search Operations</strong>: Use <code>grep</code> for content search, <code>glob</code> for file discovery.</p>
+<div class="codehilite"><pre><span></span><code># Find all Python files
+glob(pattern=&quot;**/*.py&quot;)
+
+# Find function definitions
+grep(pattern=&quot;def authenticate&quot;, type=&quot;py&quot;)
+</code></pre></div>
+
+<h2 id="agents-included">Agents Included<a class="headerlink" href="#agents-included" title="Permanent link">&para;</a></h2>
+<p>Foundation includes a roster of specialized agents, each designed for specific development tasks.</p>
 <table>
 <thead>
 <tr>
 <th>Agent</th>
-<th>Specialty</th>
+<th>Purpose</th>
+<th>Key Capabilities</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>zen-architect</code></td>
-<td>Design, architecture, code review</td>
+<td><code>explorer</code></td>
+<td>Codebase reconnaissance</td>
+<td>Deep code exploration, architecture mapping</td>
 </tr>
 <tr>
-<td><code>bug-hunter</code></td>
-<td>Debugging and troubleshooting</td>
+<td><code>zen-architect</code></td>
+<td>Design and planning</td>
+<td>Architecture decisions, module specifications</td>
 </tr>
 <tr>
 <td><code>modular-builder</code></td>
-<td>Implementation from specs</td>
+<td>Implementation</td>
+<td>Building code from specifications</td>
 </tr>
 <tr>
-<td><code>explorer</code></td>
-<td>Codebase reconnaissance</td>
+<td><code>bug-hunter</code></td>
+<td>Debugging</td>
+<td>Systematic bug investigation and fixes</td>
 </tr>
 <tr>
-<td><code>security-guardian</code></td>
-<td>Security review</td>
+<td><code>git-ops</code></td>
+<td>Git operations</td>
+<td>Commits, PRs, branch management</td>
 </tr>
 <tr>
 <td><code>test-coverage</code></td>
 <td>Testing strategy</td>
-</tr>
-<tr>
-<td><code>git-ops</code></td>
-<td>Git and GitHub operations</td>
-</tr>
-<tr>
-<td><code>file-ops</code></td>
-<td>Bulk file operations</td>
+<td>Coverage analysis, test case suggestions</td>
 </tr>
 <tr>
 <td><code>web-research</code></td>
 <td>Internet research</td>
+<td>Documentation lookup, API research</td>
+</tr>
+<tr>
+<td><code>security-guardian</code></td>
+<td>Security review</td>
+<td>Vulnerability assessment, security audits</td>
 </tr>
 <tr>
 <td><code>integration-specialist</code></td>
-<td>API and service integration</td>
+<td>External integrations</td>
+<td>APIs, MCP servers, dependencies</td>
 </tr>
 <tr>
 <td><code>post-task-cleanup</code></td>
-<td>Workspace hygiene</td>
+<td>Codebase hygiene</td>
+<td>Removing artifacts, ensuring simplicity</td>
 </tr>
 <tr>
 <td><code>session-analyst</code></td>
-<td>Debug Amplifier sessions</td>
+<td>Session debugging</td>
+<td>Analyzing and repairing Amplifier sessions</td>
 </tr>
 </tbody>
 </table>
-<h3 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>hooks-logging</code></td>
-<td>Event logging to JSONL</td>
-</tr>
-<tr>
-<td><code>hooks-streaming-ui</code></td>
-<td>Stream responses</td>
-</tr>
-<tr>
-<td><code>hooks-status-context</code></td>
-<td>Inject environment info</td>
-</tr>
-<tr>
-<td><code>hooks-todo-reminder</code></td>
-<td>Task list reminders</td>
-</tr>
-</tbody>
-</table>
-<h3 id="philosophy-context">Philosophy Context<a class="headerlink" href="#philosophy-context" title="Permanent link">&para;</a></h3>
-<p>Foundation loads these philosophy documents:</p>
+<h3 id="agent-descriptions">Agent Descriptions<a class="headerlink" href="#agent-descriptions" title="Permanent link">&para;</a></h3>
+<h4 id="explorer">explorer<a class="headerlink" href="#explorer" title="Permanent link">&para;</a></h4>
+<p>The explorer agent performs deep reconnaissance of codebases. Use it when you need a comprehensive survey of code structure, documentation, or configuration.</p>
+<p><strong>Best for:</strong>
+- Understanding unfamiliar codebases
+- Mapping module dependencies
+- Finding relevant files for a task</p>
+<p><strong>Example:</strong></p>
+<div class="codehilite"><pre><span></span><code>task(agent=&quot;foundation:explorer&quot;, 
+     instruction=&quot;Map the authentication flow in this codebase&quot;)
+</code></pre></div>
+
+<h4 id="zen-architect">zen-architect<a class="headerlink" href="#zen-architect" title="Permanent link">&para;</a></h4>
+<p>The zen-architect embodies ruthless simplicity. It designs solutions that are as simple as possible but no simpler.</p>
+<p><strong>Best for:</strong>
+- Planning new features
+- Designing system architecture
+- Reviewing code for unnecessary complexity</p>
+<p><strong>Modes:</strong>
+- ANALYZE: Break down problems, design solutions
+- ARCHITECT: System design, module specification
+- REVIEW: Code quality assessment</p>
+<h4 id="modular-builder">modular-builder<a class="headerlink" href="#modular-builder" title="Permanent link">&para;</a></h4>
+<p>The modular-builder implements code from specifications. It works hand-in-hand with zen-architect—architect designs, builder implements.</p>
+<p><strong>Best for:</strong>
+- Implementing new features
+- Building modules from specs
+- Creating self-contained components</p>
+<h4 id="bug-hunter">bug-hunter<a class="headerlink" href="#bug-hunter" title="Permanent link">&para;</a></h4>
+<p>Bug-hunter uses hypothesis-driven debugging to systematically track down issues.</p>
+<p><strong>Best for:</strong>
+- Investigating errors and exceptions
+- Debugging test failures
+- Tracing unexpected behavior</p>
+<p><strong>Example:</strong></p>
+<div class="codehilite"><pre><span></span><code>task(agent=&quot;foundation:bug-hunter&quot;,
+     instruction=&quot;The API returns 500 on /users endpoint. Find and fix the cause.&quot;)
+</code></pre></div>
+
+<h4 id="git-ops">git-ops<a class="headerlink" href="#git-ops" title="Permanent link">&para;</a></h4>
+<p>Git-ops handles all version control operations with safety protocols and proper formatting.</p>
+<p><strong>Best for:</strong>
+- Creating commits with proper messages
+- Managing branches
+- Creating and managing PRs
+- GitHub API operations</p>
+<p><strong>Important:</strong> Always delegate git operations to this agent rather than using bash directly.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<p>Foundation is the default bundle. Simply run Amplifier:</p>
+<div class="codehilite"><pre><span></span><code>amp
+</code></pre></div>
+
+<p>You're immediately working with Foundation's full toolkit.</p>
+<h3 id="explicit-bundle-selection">Explicit Bundle Selection<a class="headerlink" href="#explicit-bundle-selection" title="Permanent link">&para;</a></h3>
+<p>To explicitly use Foundation (useful in configurations):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+</code></pre></div>
+
+<h3 id="first-steps">First Steps<a class="headerlink" href="#first-steps" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Explore a codebase</strong>: Ask about the project structure</li>
+<li><strong>Make changes</strong>: Request file edits or new features</li>
+<li><strong>Run commands</strong>: Execute tests, builds, or other shell commands</li>
+<li><strong>Search</strong>: Find files or code patterns</li>
+</ol>
+<h3 id="example-session">Example Session<a class="headerlink" href="#example-session" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>User: What does this project do?
+
+[Amplifier explores the codebase using explorer agent]
+
+User: Add input validation to the login endpoint
+
+[Amplifier uses zen-architect to plan, then modular-builder to implement]
+
+User: Run the tests
+
+[Amplifier executes pytest via bash tool]
+
+User: Commit the changes
+
+[Amplifier delegates to git-ops for proper commit formatting]
+</code></pre></div>
+
+<h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
+<h3 id="foundation-is-ideal-for">Foundation is Ideal For<a class="headerlink" href="#foundation-is-ideal-for" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>IMPLEMENTATION_PHILOSOPHY.md</strong> - Ruthless simplicity</li>
-<li><strong>MODULAR_DESIGN_PHILOSOPHY.md</strong> - Bricks and studs</li>
-<li><strong>KERNEL_PHILOSOPHY.md</strong> - Mechanism not policy</li>
+<li><strong>General development work</strong>: Day-to-day coding, debugging, refactoring</li>
+<li><strong>Learning new codebases</strong>: Explorer agent excels at reconnaissance</li>
+<li><strong>Full-stack projects</strong>: Web, backend, CLI—Foundation handles it all</li>
+<li><strong>Projects without specialized needs</strong>: When you don't need domain-specific agents</li>
 </ul>
-<h2 id="using-foundation">Using Foundation<a class="headerlink" href="#using-foundation" title="Permanent link">&para;</a></h2>
-<h3 id="as-your-bundle">As Your Bundle<a class="headerlink" href="#as-your-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Foundation is often the default</span>
-amplifier
-</code></pre></div>
-
-<h3 id="including-in-custom-bundles">Including in Custom Bundles<a class="headerlink" href="#including-in-custom-bundles" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># my-bundle/bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-custom</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span><span class="w">  </span><span class="c1"># Gets all foundation capabilities</span>
-
-<span class="c1"># Add your customizations on top</span>
-</code></pre></div>
-
-<h2 id="agent-details">Agent Details<a class="headerlink" href="#agent-details" title="Permanent link">&para;</a></h2>
-<h3 id="zen-architect">zen-architect<a class="headerlink" href="#zen-architect" title="Permanent link">&para;</a></h3>
-<p>Design and architecture specialist:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Use zen-architect to review this module&#39;s design
-</code></pre></div>
-
+<h3 id="consider-alternatives-when">Consider Alternatives When<a class="headerlink" href="#consider-alternatives-when" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Analyzes code structure</li>
-<li>Identifies complexity issues</li>
-<li>Suggests refactoring</li>
-<li>Creates specifications</li>
+<li><strong>Design-heavy work</strong>: Add the <code>design-intelligence</code> bundle for UI/UX</li>
+<li><strong>Python-specific LSP needs</strong>: Add <code>lsp-python</code> for enhanced Python intelligence</li>
+<li><strong>Recipe-based workflows</strong>: Add <code>recipes</code> for multi-step automation</li>
+<li><strong>Memory persistence</strong>: Add <code>dev-memory</code> for cross-session recall</li>
 </ul>
-<h3 id="bug-hunter">bug-hunter<a class="headerlink" href="#bug-hunter" title="Permanent link">&para;</a></h3>
-<p>Debugging specialist:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Debug why authentication is failing
+<h3 id="bundle-composition">Bundle Composition<a class="headerlink" href="#bundle-composition" title="Permanent link">&para;</a></h3>
+<p>Foundation composes well with other bundles:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">bundles</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lsp-python</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-memory</span>
 </code></pre></div>
 
-<ul>
-<li>Hypothesis-driven debugging</li>
-<li>Traces call chains</li>
-<li>Identifies root causes</li>
-<li>Suggests fixes</li>
-</ul>
-<h3 id="modular-builder">modular-builder<a class="headerlink" href="#modular-builder" title="Permanent link">&para;</a></h3>
-<p>Implementation specialist:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Implement the caching layer from the spec
+<p>This gives you Foundation's core capabilities plus Python LSP and persistent memory.</p>
+<h2 id="agent-workflows">Agent Workflows<a class="headerlink" href="#agent-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="the-architect-builder-pattern">The Architect-Builder Pattern<a class="headerlink" href="#the-architect-builder-pattern" title="Permanent link">&para;</a></h3>
+<p>For significant features, Foundation encourages a two-phase approach:</p>
+<ol>
+<li><strong>Design Phase</strong>: zen-architect analyzes requirements and creates specifications</li>
+<li><strong>Build Phase</strong>: modular-builder implements from those specifications</li>
+</ol>
+<p>This separation ensures thoughtful design before implementation.</p>
+<h3 id="the-debug-workflow">The Debug Workflow<a class="headerlink" href="#the-debug-workflow" title="Permanent link">&para;</a></h3>
+<p>When encountering bugs:</p>
+<ol>
+<li><strong>bug-hunter</strong> investigates systematically</li>
+<li>Uses hypothesis-driven debugging</li>
+<li>Proposes and implements fixes</li>
+<li>Validates the fix works</li>
+</ol>
+<h3 id="the-cleanup-pattern">The Cleanup Pattern<a class="headerlink" href="#the-cleanup-pattern" title="Permanent link">&para;</a></h3>
+<p>After completing major work:</p>
+<ol>
+<li><strong>post-task-cleanup</strong> reviews changes</li>
+<li>Removes temporary artifacts</li>
+<li>Ensures adherence to simplicity principles</li>
+<li>Validates codebase hygiene</li>
+</ol>
+<h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h2>
+<h3 id="provider-settings">Provider Settings<a class="headerlink" href="#provider-settings" title="Permanent link">&para;</a></h3>
+<p>Foundation works with any configured LLM provider:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
 </code></pre></div>
 
-<ul>
-<li>Builds from specifications</li>
-<li>Follows modular design</li>
-<li>Creates regeneratable code</li>
-<li>Includes tests</li>
-</ul>
-<h3 id="explorer">explorer<a class="headerlink" href="#explorer" title="Permanent link">&para;</a></h3>
-<p>Codebase reconnaissance:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Map the structure of this project
+<h3 id="tool-restrictions">Tool Restrictions<a class="headerlink" href="#tool-restrictions" title="Permanent link">&para;</a></h3>
+<p>Disable specific tools if needed:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">disabled_tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_fetch</span>
 </code></pre></div>
 
-<ul>
-<li>Breadth-first exploration</li>
-<li>Summarizes architecture</li>
-<li>Identifies key components</li>
-<li>Creates mental maps</li>
-</ul>
-<h3 id="security-guardian">security-guardian<a class="headerlink" href="#security-guardian" title="Permanent link">&para;</a></h3>
-<p>Security review specialist:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Review src/auth.py for vulnerabilities
-</code></pre></div>
-
-<ul>
-<li>OWASP Top 10 checks</li>
-<li>Auth/authz review</li>
-<li>Input validation</li>
-<li>Secret detection</li>
-</ul>
-<h3 id="git-ops">git-ops<a class="headerlink" href="#git-ops" title="Permanent link">&para;</a></h3>
-<p>Git and GitHub operations:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Commit these changes with a good message
-</code></pre></div>
-
-<ul>
-<li>Quality commit messages</li>
-<li>PR creation</li>
-<li>Branch management</li>
-<li>Safety protocols</li>
-</ul>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>Foundation can be configured:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="c1"># Customize which agents are available</span>
-<span class="w">      </span><span class="nt">agents</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">exclude</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">session-analyst</span><span class="w">  </span><span class="c1"># If you don&#39;t need it</span>
-
-<span class="w">      </span><span class="c1"># Customize hooks</span>
-<span class="w">      </span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">approval</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">require_for</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
-</code></pre></div>
-
-<h2 id="philosophy-in-practice">Philosophy in Practice<a class="headerlink" href="#philosophy-in-practice" title="Permanent link">&para;</a></h2>
-<p>Foundation embeds these principles:</p>
-<h3 id="ruthless-simplicity">Ruthless Simplicity<a class="headerlink" href="#ruthless-simplicity" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&quot;As simple as possible, but no simpler&quot;
-&quot;Every abstraction must justify its existence&quot;
-</code></pre></div>
-
-<h3 id="bricks-and-studs">Bricks and Studs<a class="headerlink" href="#bricks-and-studs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&quot;Modules are self-contained bricks&quot;
-&quot;Interfaces are stable studs&quot;
-&quot;Regenerate any piece independently&quot;
-</code></pre></div>
-
-<h3 id="mechanism-not-policy">Mechanism Not Policy<a class="headerlink" href="#mechanism-not-policy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&quot;Kernel provides capabilities&quot;
-&quot;Modules make decisions&quot;
+<h3 id="agent-customization">Agent Customization<a class="headerlink" href="#agent-customization" title="Permanent link">&para;</a></h3>
+<p>Override agent behavior with custom instructions:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">agent_instructions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">zen-architect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Always</span><span class="nv"> </span><span class="s">prefer</span><span class="nv"> </span><span class="s">functional</span><span class="nv"> </span><span class="s">programming</span><span class="nv"> </span><span class="s">patterns&quot;</span>
 </code></pre></div>
 
 <h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-see-whats-available">Exercise 1: See What's Available<a class="headerlink" href="#exercise-1-see-whats-available" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier
-
-&gt;<span class="w"> </span>What<span class="w"> </span>agents<span class="w"> </span>and<span class="w"> </span>tools<span class="w"> </span><span class="k">do</span><span class="w"> </span>you<span class="w"> </span>have?
+<h3 id="exercise-1-codebase-exploration">Exercise 1: Codebase Exploration<a class="headerlink" href="#exercise-1-codebase-exploration" title="Permanent link">&para;</a></h3>
+<p>Open a project you're unfamiliar with and ask:</p>
+<div class="codehilite"><pre><span></span><code>Explore this codebase and explain its architecture.
+What are the main components and how do they interact?
 </code></pre></div>
 
-<h3 id="exercise-2-use-specialists">Exercise 2: Use Specialists<a class="headerlink" href="#exercise-2-use-specialists" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Use zen-architect to review src/main.py
-&gt; Use explorer to map the project structure
+<p>Watch how Foundation's explorer agent systematically maps the project.</p>
+<h3 id="exercise-2-feature-implementation">Exercise 2: Feature Implementation<a class="headerlink" href="#exercise-2-feature-implementation" title="Permanent link">&para;</a></h3>
+<p>In a project, request a new feature:</p>
+<div class="codehilite"><pre><span></span><code>Add a rate limiting middleware to the API.
+Limit requests to 100 per minute per IP.
 </code></pre></div>
 
-<h3 id="exercise-3-check-philosophy">Exercise 3: Check Philosophy<a class="headerlink" href="#exercise-3-check-philosophy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; What are the core implementation principles you follow?
+<p>Observe the architect-builder workflow in action.</p>
+<h3 id="exercise-3-bug-investigation">Exercise 3: Bug Investigation<a class="headerlink" href="#exercise-3-bug-investigation" title="Permanent link">&para;</a></h3>
+<p>If you have failing tests:</p>
+<div class="codehilite"><pre><span></span><code>The authentication tests are failing. Investigate and fix the issue.
 </code></pre></div>
 
-<h2 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h2>
-<p>Foundation bundle is part of <code>amplifier-foundation</code>:</p>
-<div class="codehilite"><pre><span></span><code>github.com/microsoft/amplifier-foundation
-├── bundles/
-│   └── foundation/
-│       ├── bundle.yaml
-│       ├── agents/
-│       ├── behaviors/
-│       └── context/
+<p>See bug-hunter's hypothesis-driven approach.</p>
+<h3 id="exercise-4-git-workflow">Exercise 4: Git Workflow<a class="headerlink" href="#exercise-4-git-workflow" title="Permanent link">&para;</a></h3>
+<p>After making changes:</p>
+<div class="codehilite"><pre><span></span><code>Create a commit for these changes with a proper message.
+Then create a PR with a description of what was changed.
 </code></pre></div>
+
+<p>Notice how git-ops handles formatting and safety.</p>
+<h3 id="exercise-5-security-review">Exercise 5: Security Review<a class="headerlink" href="#exercise-5-security-review" title="Permanent link">&para;</a></h3>
+<p>Before deploying:</p>
+<div class="codehilite"><pre><span></span><code>Review the authentication module for security vulnerabilities.
+Check for OWASP Top 10 issues.
+</code></pre></div>
+
+<p>Watch security-guardian perform a systematic audit.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="let-agents-specialize">Let Agents Specialize<a class="headerlink" href="#let-agents-specialize" title="Permanent link">&para;</a></h3>
+<p>Don't try to do everything in one prompt. Leverage specialized agents:</p>
+<ul>
+<li>Design questions → zen-architect</li>
+<li>Implementation → modular-builder</li>
+<li>Bugs → bug-hunter</li>
+<li>Git → git-ops</li>
+</ul>
+<h3 id="trust-the-workflow">Trust the Workflow<a class="headerlink" href="#trust-the-workflow" title="Permanent link">&para;</a></h3>
+<p>Foundation's agents coordinate effectively. Let zen-architect plan before modular-builder implements. This produces better results than rushing to code.</p>
+<h3 id="use-task-tracking">Use Task Tracking<a class="headerlink" href="#use-task-tracking" title="Permanent link">&para;</a></h3>
+<p>For complex work, the todo tool helps track progress:</p>
+<div class="codehilite"><pre><span></span><code>Create a todo list for implementing user authentication.
+</code></pre></div>
+
+<p>This keeps multi-step work organized and visible.</p>
+<h3 id="embrace-simplicity">Embrace Simplicity<a class="headerlink" href="#embrace-simplicity" title="Permanent link">&para;</a></h3>
+<p>Foundation's philosophy is ruthless simplicity. When solutions seem complex, ask:</p>
+<div class="codehilite"><pre><span></span><code>Is there a simpler way to achieve this?
+</code></pre></div>
+
+<p>The zen-architect excels at finding minimal solutions.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Foundation is your everyday development companion. It provides:</p>
+<ul>
+<li><strong>Complete tooling</strong>: File ops, search, shell, web, LSP</li>
+<li><strong>Expert agents</strong>: Specialized for design, implementation, debugging, and more</li>
+<li><strong>Sensible workflows</strong>: Architect-builder pattern, systematic debugging</li>
+<li><strong>Extensibility</strong>: Composes with other bundles for specialized needs</li>
+</ul>
+<p>Start with Foundation. Extend when you need more. That's the Amplifier way.</p>
               
             </div>
           </div><footer>

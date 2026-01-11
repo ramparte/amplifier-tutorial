@@ -1,257 +1,340 @@
 ---
-id: bundle-design-intelligence
+id: design-intelligence
 type: bundles
 title: "Design Intelligence Bundle"
 ---
 
 # Design Intelligence Bundle
 
-Seven specialized agents for UI/UX design work.
-
 ## Overview
 
-Design Intelligence provides domain experts for:
+The Design Intelligence bundle provides a suite of specialized AI agents for UI/UX design work. These agents embody the **Nine Dimensions** philosophy and **Five Pillars** framework, ensuring consistent, high-quality design decisions across your entire system.
 
-- Visual strategy and aesthetics
-- Component design
-- Layout and information architecture
-- Motion and animation
-- Responsive design
-- Voice and tone
+Each agent operates at a specific level of the design hierarchy—from strategic aesthetic direction down to individual component refinement—allowing you to engage the right expertise for each design challenge.
 
-## Installation
+## Agents Included
 
-```bash
-# Add the bundle
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-design-intelligence@main
+| Agent | Purpose | Scope |
+|-------|---------|-------|
+| `art-director` | Visual strategy and aesthetic direction | System-wide |
+| `design-system-architect` | Design tokens, foundations, architecture | System-wide |
+| `layout-architect` | Page structure and information architecture | Page/View level |
+| `component-designer` | Individual UI component design | Component level |
+| `animation-choreographer` | Motion, transitions, micro-interactions | Element level |
+| `responsive-strategist` | Multi-device adaptation and breakpoints | Cross-device |
+| `voice-strategist` | UX writing, tone, and microcopy | Content layer |
 
-# Use it
-amplifier bundle use design-intelligence
-```
-
-## Agents
+## Agent Deep Dive
 
 ### art-director
 
-Visual strategy and aesthetic direction:
+The strategic leader for visual expression. Transforms vague aesthetic visions ("make it feel premium", "we want a modern vibe") into systematic design principles.
 
-```
-> Define the visual direction for our admin dashboard
-```
+**Use for:**
+- Defining aesthetic direction and visual strategy
+- Creating and maintaining `.design/AESTHETIC-GUIDE.md`
+- Ensuring visual coherence across the system
+- Translating feelings and "vibes" into actionable design principles
+- Brand expression decisions
 
-- Defines aesthetic principles
-- Ensures visual coherence
-- Translates "vibes" to design
-- Owns style dimension
-
-### component-designer
-
-Individual UI component design:
-
-```
-> Design a data table component with sorting and filtering
-```
-
-- Component specifications
-- Variant design
-- Props API
-- Accessibility
+**Output artifacts:**
+- Aesthetic guidelines
+- Visual direction documents
+- Style dimension specifications
 
 ### design-system-architect
 
-Design system infrastructure:
+The foundation builder. Works at the system level to establish scalable design infrastructure that supports all other design work.
 
-```
-> Set up our design token system
-```
+**Use for:**
+- Design system architecture and token design
+- Establishing foundations (color, typography, spacing, motion)
+- Evaluating decisions against the Nine Dimensions
+- Validating Five Pillars alignment
+- Cross-cutting design concerns
 
-- Token architecture
-- Color systems
-- Typography scales
-- Spacing systems
+**Output artifacts:**
+- Design token specifications
+- Foundation documentation
+- System-level design decisions
 
 ### layout-architect
 
-Page structure and composition:
+The spatial organizer. Handles page-level structure and how information flows through your application.
 
-```
-> Design the layout for our settings page
-```
+**Use for:**
+- Page/view layout structure (header, sidebar, main, footer)
+- Information architecture and navigation hierarchy
+- Grid systems and spatial composition
+- Content flow and reading patterns
+- Screen-level structural decisions
 
-- Page structure
-- Information hierarchy
-- Grid systems
-- Content flow
+**Owns:** Space dimension (Nine Dimensions #4) at the page/view level
+
+### component-designer
+
+The craftsman. Focuses on individual UI elements, ensuring each component embodies the design system while maintaining the 9.5/10 quality baseline.
+
+**Use for:**
+- Designing new UI components
+- Refining existing components
+- Component-level design decisions
+- Component documentation and examples
+- Variant design and props API specification
+
+**Output artifacts:**
+- Component specifications
+- Variant matrices
+- Props API documentation
 
 ### animation-choreographer
 
-Motion and transitions:
+The motion director. Transforms movement from decoration into communication, using motion to convey system state and provide feedback.
 
-```
-> Design the page transition animations
-```
+**Use for:**
+- Icon animations and micro-interactions
+- Page transitions and choreography
+- Loading states and progress indicators
+- State change animations
+- Motion timing and easing decisions
+- Accessibility considerations for motion
 
-- Micro-interactions
-- Page transitions
-- Loading states
-- Motion timing
+**Principle:** Animation is communication, not decoration.
 
 ### responsive-strategist
 
-Multi-device adaptation:
+The multi-device expert. Ensures your design works across all viewport sizes and input methods.
 
-```
-> How should the dashboard adapt from desktop to mobile?
-```
+**Use for:**
+- Responsive design strategy and breakpoint definitions
+- Mobile-first vs desktop-first approach decisions
+- Touch vs mouse interaction patterns
+- Device-specific optimizations (phone, tablet, desktop)
+- Fluid typography and spacing systems
 
-- Breakpoint strategy
-- Touch vs mouse
-- Device-specific patterns
-- Fluid typography
+**Handles:** Web modalities across desktop, tablet, and mobile.
 
 ### voice-strategist
 
-Tone and UX writing:
+The content architect. Ensures language throughout your application is clear, helpful, and consistent with brand personality.
+
+**Use for:**
+- Voice & tone strategy and framework
+- UX writing and microcopy (buttons, labels, placeholders)
+- Error message patterns
+- Empty state messaging
+- Content guidelines for developers
+
+**Owns:** Voice dimension (Nine Dimensions #3)
+
+## The Nine Dimensions
+
+The Design Intelligence agents evaluate and create designs using the Nine Dimensions framework:
+
+| # | Dimension | Description | Primary Owner |
+|---|-----------|-------------|---------------|
+| 1 | **Style** | Visual aesthetic and brand expression | art-director |
+| 2 | **Color** | Palette, contrast, accessibility | design-system-architect |
+| 3 | **Voice** | Tone, language, personality | voice-strategist |
+| 4 | **Space** | Layout, hierarchy, breathing room | layout-architect |
+| 5 | **Motion** | Animation, transitions, feedback | animation-choreographer |
+| 6 | **Touch** | Interaction patterns, affordances | component-designer |
+| 7 | **Scale** | Responsive behavior, adaptation | responsive-strategist |
+| 8 | **State** | Loading, error, empty, success | component-designer |
+| 9 | **Flow** | User journeys, navigation | layout-architect |
+
+Each agent considers all dimensions but takes primary ownership of specific ones.
+
+## The Five Pillars
+
+All design decisions are validated against the Five Pillars:
+
+1. **Clarity** - Is the design immediately understandable?
+2. **Consistency** - Does it align with established patterns?
+3. **Efficiency** - Does it respect user time and attention?
+4. **Delight** - Does it create positive emotional response?
+5. **Accessibility** - Is it usable by everyone?
+
+## When to Use
+
+### Starting a New Project
 
 ```
-> Write the error messages for our form validation
+1. art-director        → Establish aesthetic direction
+2. design-system-architect → Define tokens and foundations
+3. layout-architect    → Create page structure patterns
+4. component-designer  → Design core UI components
+5. voice-strategist    → Define content guidelines
 ```
 
-- Voice and tone
-- Microcopy
-- Error messages
-- Empty states
-
-## Design Framework
-
-### Nine Dimensions
-
-The agents follow a 9-dimension design evaluation:
-
-1. **Style** - Visual aesthetic
-2. **Layout** - Spatial composition
-3. **Voice** - Language and tone
-4. **Space** - Whitespace and density
-5. **Motion** - Animation and transitions
-6. **Color** - Palette and usage
-7. **Typography** - Font choices and hierarchy
-8. **Components** - UI building blocks
-9. **Interaction** - User input patterns
-
-### Five Pillars
-
-Quality baseline principles:
-
-1. **Clarity** - Instantly understandable
-2. **Efficiency** - Minimal friction
-3. **Consistency** - Predictable patterns
-4. **Delight** - Thoughtful details
-5. **Accessibility** - Universal usability
-
-## Workflow Example
-
-### Design a New Feature
+### Adding a New Feature
 
 ```
-# 1. Art direction
-> Use art-director to define the visual approach for notifications
-
-# 2. Layout
-> Use layout-architect to structure the notification panel
-
-# 3. Components
-> Use component-designer to design the notification card
-
-# 4. Motion
-> Use animation-choreographer to design entry/exit animations
-
-# 5. Copy
-> Use voice-strategist to write notification messages
+1. layout-architect    → Determine where it fits
+2. component-designer  → Design the components
+3. animation-choreographer → Add appropriate motion
+4. responsive-strategist → Ensure multi-device support
 ```
 
-### Design System Setup
+### Refining Existing Design
 
 ```
-# 1. Architecture
-> Use design-system-architect to create our token structure
-
-# 2. Components
-> Use component-designer to design core components
-
-# 3. Responsive
-> Use responsive-strategist to define breakpoints
+1. art-director        → Validate aesthetic alignment
+2. component-designer  → Refine individual elements
+3. animation-choreographer → Polish interactions
 ```
 
-## Agent Collaboration
+### Design System Maintenance
 
-Agents reference each other's work:
+```
+1. design-system-architect → Token updates, pattern additions
+2. component-designer  → Component updates
+3. voice-strategist    → Content pattern updates
+```
 
-```yaml
-# Recipe for comprehensive design
-name: design-feature
-steps:
-  - id: direction
-    agent: design-intelligence:art-director
-    instruction: "Define visual direction for {{feature}}"
+## Agent Collaboration Patterns
 
-  - id: layout
-    agent: design-intelligence:layout-architect
-    instruction: |
-      Design layout for {{feature}}
-      Following direction: {{direction.result}}
+### Sequential Handoff
 
-  - id: components
-    agent: design-intelligence:component-designer
-    instruction: |
-      Design components for {{feature}}
-      Layout: {{layout.result}}
-      Direction: {{direction.result}}
+For comprehensive design work, agents hand off to each other:
+
+```
+art-director (strategy)
+    ↓
+design-system-architect (foundations)
+    ↓
+layout-architect (structure)
+    ↓
+component-designer (components)
+    ↓
+animation-choreographer (motion)
+```
+
+### Parallel Consultation
+
+For specific design questions, consult multiple agents simultaneously:
+
+```
+┌─────────────────────┐
+│   Design Question   │
+└─────────────────────┘
+         │
+    ┌────┼────┐
+    ↓    ↓    ↓
+  [A1] [A2] [A3]  (parallel consultation)
+    │    │    │
+    └────┼────┘
+         ↓
+┌─────────────────────┐
+│  Synthesized Answer │
+└─────────────────────┘
 ```
 
 ## Try It Yourself
 
-### Exercise 1: Component Design
+### Define an Aesthetic Direction
 
 ```
-> Use component-designer to design a user profile card
+Task: "We're building a developer tools platform. We want it to feel 
+professional but approachable, technical but not intimidating."
+
+Agent: art-director
+
+Expected output: Aesthetic guide with:
+- Core visual principles
+- Color direction
+- Typography recommendations
+- Imagery style
 ```
 
-### Exercise 2: Layout Design
+### Design a Component
 
 ```
-> Use layout-architect to design a dashboard home page
+Task: "Design a notification toast component with success, warning, 
+error, and info variants."
+
+Agent: component-designer
+
+Expected output:
+- Component specification
+- Variant matrix
+- Props API
+- Accessibility notes
+- Usage guidelines
 ```
 
-### Exercise 3: Multi-Agent Flow
+### Create Motion Guidelines
 
 ```
-> First use art-director to define the style for a settings page,
-> then use layout-architect to structure it
+Task: "Define animation standards for our application, including 
+page transitions and micro-interactions."
+
+Agent: animation-choreographer
+
+Expected output:
+- Motion timing protocol
+- Easing function recommendations
+- Transition patterns
+- Accessibility considerations (reduced motion)
 ```
 
-## Output Formats
-
-Agents produce:
-
-- **Specifications** - Detailed design docs
-- **Token definitions** - Design system values
-- **Component APIs** - Props and variants
-- **Guidelines** - Usage documentation
-
-## Source
+### Responsive Strategy
 
 ```
-github.com/microsoft/amplifier-bundle-design-intelligence
-├── bundle.yaml
-├── agents/
-│   ├── art-director.yaml
-│   ├── component-designer.yaml
-│   ├── design-system-architect.yaml
-│   ├── layout-architect.yaml
-│   ├── animation-choreographer.yaml
-│   ├── responsive-strategist.yaml
-│   └── voice-strategist.yaml
-└── context/
-    ├── nine-dimensions.md
-    └── five-pillars.md
+Task: "Our app needs to work on desktop, tablet, and mobile. 
+Define our responsive approach."
+
+Agent: responsive-strategist
+
+Expected output:
+- Breakpoint definitions
+- Mobile-first vs desktop-first recommendation
+- Touch target specifications
+- Fluid scaling approach
 ```
+
+## Integration with Development
+
+### Design-to-Code Workflow
+
+1. Design agents produce specifications
+2. Specifications feed into implementation agents
+3. Component specifications become React/Vue/etc. components
+4. Token specifications become CSS custom properties or theme files
+
+### Artifact Locations
+
+Design Intelligence agents create and maintain files in:
+
+```
+.design/
+├── AESTHETIC-GUIDE.md      # art-director
+├── tokens/
+│   ├── colors.json         # design-system-architect
+│   ├── typography.json     # design-system-architect
+│   └── spacing.json        # design-system-architect
+├── components/
+│   └── [component].md      # component-designer
+├── motion/
+│   └── guidelines.md       # animation-choreographer
+└── content/
+    └── voice-guide.md      # voice-strategist
+```
+
+## Best Practices
+
+1. **Start strategic, then tactical** - Begin with art-director for vision, then work down to components
+2. **Let agents own their dimensions** - Trust each agent's expertise in their domain
+3. **Cross-reference the Nine Dimensions** - Ensure all dimensions are addressed
+4. **Validate against Five Pillars** - Use pillars as a quality checklist
+5. **Iterate with specificity** - Give agents concrete context for better outputs
+
+## Quality Baseline
+
+All Design Intelligence agents maintain a **9.5/10 quality baseline**. This means:
+
+- No placeholder content or "lorem ipsum" in specifications
+- Accessibility is always considered
+- Edge cases are documented
+- Rationale is provided for design decisions
+- Specifications are implementation-ready

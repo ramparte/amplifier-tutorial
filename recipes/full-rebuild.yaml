@@ -1,209 +1,298 @@
 # Full Tutorial Rebuild Recipe
-# Complete regeneration of all tutorial content from source
+# Complete regeneration of tutorial content section by section
+#
+# Usage:
+#   amplifier recipes execute recipes/full-rebuild.yaml
+#
+#   # Skip specific sections
+#   amplifier recipes execute recipes/full-rebuild.yaml \
+#     --context '{"skip_sections": ["advanced", "dev-setup"]}'
 
 name: full-rebuild
 description: Regenerate all tutorial content from Amplifier repositories
+version: "1.0.0"
+author: "Tutorial Team"
+tags: ["rebuild", "tutorial", "full"]
 
 context:
-  skip_sections: []  # Sections to skip (e.g., ["advanced"] to skip advanced)
+  skip_sections: []  # Sections to skip: quickstart, concepts, tools, bundles, skills, dev-setup, advanced
+  manifest_path: ".planning/ecosystem-manifest.yaml"
+  content_base: "content"
+  output_dir: "content"  # Where to write (can be changed for testing)
 
-steps:
-  - id: scan-ecosystem
-    agent: foundation:explorer
-    instruction: |
-      Perform a comprehensive scan of the Amplifier ecosystem:
-      
-      1. microsoft/amplifier - Main repo, docs, USER_ONBOARDING.md
-      2. microsoft/amplifier-core - Kernel, philosophy, contracts
-      3. microsoft/amplifier-foundation - Bundles, examples, patterns
-      4. microsoft/amplifier-bundle-* - Official bundles
-      5. bkrabach repos - Setup tools, patterns, scripts
-      6. robotdad repos - Skills packages (playwright, curl, etc.)
-      
-      Create a comprehensive inventory of:
-      - Documentation files
-      - Module types and their contracts
-      - Available bundles and what they include
-      - Skills and their capabilities
-      - Tools and utilities
-      
-      Return structured findings.
+recursion:
+  max_depth: 10
+  max_total_steps: 200
 
-  - id: collect-notes
-    instruction: |
-      Read all files in /mnt/c/ANext/tutorial/.notes/
-      
-      Collect any [PENDING] items that should be incorporated.
-      
-      Return a list of editorial additions to include.
+# Staged approach for controlled rebuild
+stages:
+  # Stage 1: Scan ecosystem and plan
+  - name: "scan-and-plan"
+    steps:
+      # Step 1: Ensure manifest is current
+      - id: scan-ecosystem
+        type: "recipe"
+        recipe: "recipes/scan-ecosystem.yaml"
+        timeout: 900
 
-  - id: generate-quickstart
-    agent: foundation:modular-builder
-    condition: "'quickstart' not in {{skip_sections}}"
-    instruction: |
-      Generate the Getting Started section (6 pages):
-      
-      Based on ecosystem scan:
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. what-is-amplifier.md - Overview and value proposition
-      2. how-its-different.md - Comparison to Claude Code, Copilot
-      3. installation.md - Setup instructions
-      4. first-conversation.md - Basic usage
-      5. key-commands.md - Essential commands
-      6. first-bundle.md - Bundle basics
-      
-      Use the style from existing content in /mnt/c/ANext/tutorial/content/quickstart/
+      # Step 2: Load updated manifest
+      - id: load-manifest
+        agent: foundation:file-ops
+        prompt: |
+          Read the ecosystem manifest at {{manifest_path}}.
+          Return the full YAML content.
+        output: "manifest"
+        timeout: 60
 
-  - id: generate-concepts
-    agent: foundation:modular-builder
-    condition: "'concepts' not in {{skip_sections}}"
-    instruction: |
-      Generate the Core Concepts section (7 pages):
-      
-      Based on ecosystem scan:
-      {{scan-ecosystem.result}}
-      
-      And editorial notes:
-      {{collect-notes.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. modules.md - Module types (Provider, Tool, Hook, Orchestrator, Context)
-      3. bundles.md - Bundle composition
-      4. agents.md - Agent pattern
-      5. recipes.md - Workflow orchestration
-      6. skills.md - Knowledge packages
-      7. hooks.md - Lifecycle events
+      # Step 3: Plan sections to rebuild
+      - id: plan-sections
+        agent: foundation:zen-architect
+        mode: "ANALYZE"
+        prompt: |
+          Plan which sections to rebuild based on the manifest.
+          
+          Manifest:
+          {{manifest}}
+          
+          Sections to skip: {{skip_sections}}
+          
+          For each section NOT in skip list, identify:
+          - Section name
+          - Components to generate
+          - Expected output files
+          
+          Available sections and their manifest sources:
+          - quickstart: Manual content (6 pages, not from manifest)
+          - concepts: Manual content (7 pages, architecture docs)
+          - tools: From manifest "tools" section
+          - bundles: From manifest "bundles" section
+          - skills: From manifest "skills" section
+          - dev-setup: From manifest "dev_tools" section
+          - advanced: Manual content (5 pages, custom development)
+          
+          Return JSON:
+          {
+            "sections_to_build": [
+              {
+                "name": "tools",
+                "source": "manifest.tools",
+                "components": [{"id": "...", "name": "...", "repo": "..."}],
+                "page_count": N
+              }
+            ],
+            "sections_skipped": ["advanced"],
+            "total_pages": N,
+            "estimated_time_minutes": N
+          }
+        output: "build_plan"
+        parse_json: true
+        timeout: 300
 
-  - id: generate-tools
-    agent: foundation:modular-builder
-    condition: "'tools' not in {{skip_sections}}"
-    instruction: |
-      Generate the Tools Reference section (8 pages):
-      
-      Based on ecosystem scan:
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. filesystem.md - read_file, write_file, edit_file
-      3. bash.md - Shell commands
-      4. search.md - grep, glob
-      5. web.md - web_search, web_fetch
-      6. task.md - Sub-agent spawning
-      7. lsp.md - Code intelligence
-      8. recipes-tool.md - Recipe execution
+    approval:
+      required: true
+      prompt: |
+        Tutorial rebuild planned.
+        
+        Sections to build: {{build_plan.sections_to_build}}
+        Sections skipped: {{build_plan.sections_skipped}}
+        Total pages: {{build_plan.total_pages}}
+        Estimated time: {{build_plan.estimated_time_minutes}} minutes
+        
+        Approve to begin content generation?
+      timeout: 3600
+      default: "deny"
 
-  - id: generate-bundles
-    agent: foundation:modular-builder
-    condition: "'bundles' not in {{skip_sections}}"
-    instruction: |
-      Generate the Bundles Reference section (5 pages):
-      
-      Based on ecosystem scan:
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. foundation.md - Foundation bundle
-      3. recipes.md - Recipes bundle
-      4. lsp-python.md - Python LSP bundle
-      5. design-intelligence.md - Design agents bundle
+  # Stage 2: Generate content for manifest-based sections
+  - name: "generate-manifest-sections"
+    steps:
+      # Generate tools section
+      - id: generate-tools
+        foreach: "{{build_plan.sections_to_build}}"
+        as: "section"
+        condition: "{{section.source}} != 'manual'"
+        agent: foundation:modular-builder
+        prompt: |
+          Generate tutorial content for section: {{section.name}}
+          
+          Components to cover:
+          {{section.components}}
+          
+          For each component, create a page following this template:
+          
+          ```markdown
+          ---
+          id: [component-id]
+          type: {{section.name}}
+          title: "[Component Name]"
+          source_repo: "[repo]"
+          last_synced: "2026-01-09"
+          ---
+          
+          # [Component Name]
+          
+          [What it does - 1 paragraph]
+          
+          ## Quick Start
+          [Minimal example]
+          
+          ## What It Does
+          [Detailed capabilities]
+          
+          ## Usage Examples
+          [2-3 examples]
+          
+          ## Configuration
+          [Options]
+          
+          ## Related
+          [Links]
+          ```
+          
+          Return a JSON object with all generated content:
+          {
+            "section": "{{section.name}}",
+            "pages": [
+              {"id": "component-id", "filename": "component-id.md", "content": "full markdown"}
+            ]
+          }
+        output: "section_content"
+        collect: "manifest_sections"
+        parse_json: true
+        timeout: 600
+        retry:
+          max_attempts: 2
+          backoff: "exponential"
+          initial_delay: 15
+        on_error: "continue"
 
-  - id: generate-skills
-    agent: foundation:modular-builder
-    condition: "'skills' not in {{skip_sections}}"
-    instruction: |
-      Generate the Skills Reference section (4 pages):
-      
-      Based on ecosystem scan (especially robotdad repos):
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. playwright.md - Browser automation
-      3. curl.md - HTTP client
-      4. image-vision.md - Image analysis
+      # Generate index pages for each section
+      - id: generate-indexes
+        agent: foundation:modular-builder
+        prompt: |
+          Generate index pages for each section that was built.
+          
+          Sections built:
+          {{manifest_sections}}
+          
+          For each section, create an index.md that:
+          - Introduces the section
+          - Lists all pages with brief descriptions
+          - Links to each page
+          
+          Return JSON:
+          {
+            "indexes": [
+              {"section": "tools", "filename": "index.md", "content": "markdown"}
+            ]
+          }
+        output: "index_pages"
+        parse_json: true
+        timeout: 300
 
-  - id: generate-dev-setup
-    agent: foundation:modular-builder
-    condition: "'dev-setup' not in {{skip_sections}}"
-    instruction: |
-      Generate the Developer Setup section (5 pages):
-      
-      Based on ecosystem scan (especially bkrabach repos):
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. cli-tools.md - Essential CLI tools
-      3. shadow-workspace.md - Safe editing pattern
-      4. remote-dev.md - Docker, SSH, Codespaces
-      5. debugging.md - Troubleshooting
+    approval:
+      required: true
+      prompt: |
+        Manifest-based sections generated.
+        
+        Sections completed:
+        {{manifest_sections}}
+        
+        Index pages:
+        {{index_pages}}
+        
+        Approve to write files and build site?
+      timeout: 3600
+      default: "deny"
 
-  - id: generate-advanced
-    agent: foundation:modular-builder
-    condition: "'advanced' not in {{skip_sections}}"
-    instruction: |
-      Generate the Advanced section (5 pages):
-      
-      Based on ecosystem scan:
-      {{scan-ecosystem.result}}
-      
-      Create:
-      1. index.md - Overview
-      2. custom-bundle.md - Creating bundles
-      3. custom-tool.md - Creating tools
-      4. custom-recipe.md - Creating recipes
-      5. mcp-integration.md - MCP servers
+  # Stage 3: Write files and build
+  - name: "write-and-build"
+    steps:
+      # Write all content files
+      - id: write-content-files
+        agent: foundation:file-ops
+        prompt: |
+          Write all generated content to the filesystem.
+          
+          Output directory: {{output_dir}}
+          
+          Content to write:
+          {{manifest_sections}}
+          
+          Index pages:
+          {{index_pages}}
+          
+          For each page:
+          1. Ensure directory exists: {{output_dir}}/[section]/
+          2. Write file: {{output_dir}}/[section]/[filename]
+          
+          Return summary of files written.
+        output: "write_result"
+        timeout: 300
+        retry:
+          max_attempts: 2
+          backoff: "exponential"
+          initial_delay: 5
 
-  - id: review-all
-    agent: foundation:zen-architect
-    instruction: |
-      Review ALL generated content for:
-      - Accuracy against source documentation
-      - Consistency across sections
-      - No hallucinated information
-      - Complete coverage of topics
-      
-      Flag any issues found.
+      # Update mkdocs navigation
+      - id: update-navigation
+        agent: foundation:file-ops
+        prompt: |
+          Update mkdocs.yml to include all generated pages.
+          
+          Read the current mkdocs.yml at /mnt/c/ANext/tutorial/mkdocs.yml
+          
+          Ensure the nav: section includes all pages from:
+          {{manifest_sections}}
+          
+          Maintain the existing structure but add any missing pages.
+          
+          Write the updated mkdocs.yml.
+          Return what was changed.
+        output: "nav_update"
+        timeout: 120
 
-  - id: apply-content
-    requires_approval: true
-    instruction: |
-      Write all generated content to /mnt/c/ANext/tutorial/content/
-      
-      Preserve the directory structure:
-      - content/quickstart/
-      - content/concepts/
-      - content/tools/
-      - content/bundles/
-      - content/skills/
-      - content/dev-setup/
-      - content/advanced/
+      # Build the site
+      - id: build-site
+        agent: foundation:file-ops
+        prompt: |
+          Build the mkdocs site.
+          
+          Commands:
+          ```bash
+          cd /mnt/c/ANext/tutorial
+          source .venv/bin/activate 2>/dev/null || (python -m venv .venv && source .venv/bin/activate)
+          pip install mkdocs mkdocs-material --quiet
+          mkdocs build --clean
+          ```
+          
+          Return build status and any errors.
+        output: "build_result"
+        timeout: 300
 
-  - id: update-navigation
-    instruction: |
-      Update mkdocs.yml with navigation for all generated pages.
-      
-      Ensure all new pages are included in the nav: section.
-
-  - id: build-site
-    instruction: |
-      Build the tutorial site:
-      
-      ```bash
-      cd /mnt/c/ANext/tutorial
-      source .venv/bin/activate
-      mkdocs build --clean
-      ```
-      
-      Report build status.
-
-  - id: mark-notes-incorporated
-    instruction: |
-      Update any [PENDING] notes in .notes/ to [INCORPORATED].
-      
-      Add date of incorporation.
+      # Final report
+      - id: final-report
+        agent: foundation:zen-architect
+        mode: "ANALYZE"
+        prompt: |
+          Create a comprehensive rebuild report.
+          
+          Build plan:
+          {{build_plan}}
+          
+          Files written:
+          {{write_result}}
+          
+          Navigation update:
+          {{nav_update}}
+          
+          Build result:
+          {{build_result}}
+          
+          Create markdown report with:
+          - Summary of what was rebuilt
+          - Files created/updated
+          - Build status
+          - Any issues encountered
+          - Recommendations for manual review
+        output: "final_report"
+        timeout: 120

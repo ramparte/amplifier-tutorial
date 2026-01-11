@@ -1,0 +1,217 @@
+# Generate Concept Page Recipe
+# Generates tutorial pages for concept explanations
+#
+# Usage:
+#   amplifier run "execute recipes/generate-concept.yaml with concept_id=agents concept_name='Understanding Agents' repo=microsoft/amplifier-foundation"
+
+name: generate-concept
+description: Generate a concept tutorial page with explanations, diagrams, and examples
+version: "1.0.0"
+author: "Tutorial CMS"
+tags: ["content-generation", "tutorial", "concepts"]
+
+context:
+  concept_id: ""
+  concept_name: ""
+  repo: ""
+  description: ""
+  output_dir: "content"
+  supplements_dir: ".planning/supplements/concepts"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 20
+
+steps:
+  # Step 1: Load supplementary content
+  - id: load-supplements
+    agent: foundation:file-ops
+    prompt: |
+      Check if supplementary content exists for concept: {{concept_id}}
+      
+      Look in: {{supplements_dir}}/
+      
+      Files might be named like:
+      - {{concept_id}}-*.md
+      - agents-creation.md, architecture-internals.md, etc.
+      
+      Read and concatenate any matching files.
+      
+      Return JSON:
+      {
+        "found": true/false,
+        "files": ["file1.md"],
+        "content": "concatenated content"
+      }
+    output: "supplements"
+    parse_json: true
+    timeout: 60
+    on_error: "continue"
+
+  # Step 2: Research the concept
+  - id: research-concept
+    agent: amplifier:amplifier-expert
+    prompt: |
+      Research this Amplifier concept for tutorial documentation:
+      
+      Concept: {{concept_name}}
+      Related repo: {{repo}}
+      Description: {{description}}
+      
+      I need comprehensive information about:
+      1. What this concept IS and why it exists
+      2. How it relates to other Amplifier concepts
+      3. How users INTERACT with it (not just configure it)
+      4. Common patterns and best practices
+      5. How to CREATE/EXTEND it (if applicable)
+      6. Internal architecture (simplified for users)
+      
+      Focus on user-facing information, not deep internals.
+      This will be used to write tutorial content for new users.
+    output: "research"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
+
+  # Step 3: Generate content
+  - id: generate-content
+    agent: foundation:modular-builder
+    prompt: |
+      Create a CONCEPT TUTORIAL page for: {{concept_name}}
+      
+      Component info:
+      - ID: {{concept_id}}
+      - Description: {{description}}
+      
+      Research from expert:
+      {{research}}
+      
+      Supplementary content to INCLUDE:
+      {{supplements.content}}
+      
+      ===========================================
+      CONCEPT PAGE STYLE REQUIREMENTS
+      ===========================================
+      
+      This explains a concept to users learning Amplifier.
+      
+      1. Start with WHAT it is in plain language
+      
+      2. Show HOW users interact with it:
+         ```
+         > Use the explorer agent to find all Python files
+         ```
+      
+      3. Include ASCII DIAGRAMS for architecture/flow:
+         ```
+         ┌─────────┐     ┌─────────┐
+         │ Bundle  │ ──▶ │ Session │
+         └─────────┘     └─────────┘
+         ```
+      
+      4. REQUIRED SECTIONS for concept pages:
+         - ## What is [Concept]?
+         - ## How It Works (with diagram)
+         - ## Using [Concept] (practical examples)
+         - ## Creating Your Own (if applicable)
+         - ## [Concept] vs [Related Concept] (comparison table)
+         - ## Best Practices
+         - ## Try It Yourself
+         - ## Key Takeaways (bullet summary)
+      
+      5. Include ALL supplementary content in appropriate sections
+      
+      6. Make it 150-300 lines total
+      
+      ===========================================
+      TEMPLATE
+      ===========================================
+      
+      ---
+      id: {{concept_id}}
+      type: concepts
+      title: "{{concept_name}}"
+      ---
+      
+      # {{concept_name}}
+      
+      {{description}}
+      
+      ## What is [Concept]?
+      
+      [Plain language explanation...]
+      
+      ## How It Works
+      
+      ```
+      [ASCII diagram]
+      ```
+      
+      [Explanation...]
+      
+      [Continue with all required sections...]
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 300
+    on_error: "fail"
+
+  # Step 4: Validate
+  - id: validate
+    agent: foundation:zen-architect
+    mode: "REVIEW"
+    prompt: |
+      Validate this concept tutorial.
+      
+      Content:
+      {{content}}
+      
+      CHECKLIST:
+      1. Has YAML frontmatter with id, type, title
+      2. Has "What is" explanation section
+      3. Has "How It Works" with diagram
+      4. Has practical usage examples with > prompts
+      5. Has comparison table (vs related concept)
+      6. Has "Key Takeaways" summary
+      7. Does NOT contain TOML configuration
+      8. Is 150-300 lines
+      9. Supplements are incorporated
+      
+      Fix any issues found.
+      
+      Return JSON:
+      {
+        "valid": true,
+        "issues_fixed": [],
+        "warnings": [],
+        "content": "THE COMPLETE CORRECTED MARKDOWN"
+      }
+    output: "validated"
+    parse_json: true
+    timeout: 180
+    on_error: "continue"
+
+  # Step 5: Write file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write this tutorial content to: {{output_dir}}/concepts/{{concept_id}}.md
+      
+      Content:
+      {{validated.content}}
+      
+      Create directory if needed.
+      
+      Return JSON:
+      {
+        "file_path": "path written",
+        "bytes": byte_count,
+        "warnings": {{validated.warnings}}
+      }
+    output: "result"
+    parse_json: true
+    timeout: 60
+    on_error: "fail"

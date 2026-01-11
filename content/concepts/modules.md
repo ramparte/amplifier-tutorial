@@ -1,246 +1,346 @@
 ---
 id: modules
 type: concepts
-title: "Modules"
+title: "Understanding Modules"
 ---
 
-# Modules
+# Understanding Modules
 
-Modules are the building blocks of Amplifier. Each module provides a specific capability that can be loaded, configured, and swapped.
+Modules are the fundamental building blocks of Amplifier. They represent the "bricks and studs" philosophy—self-contained units with standardized interfaces that snap together to create powerful AI applications. Understanding modules is essential to mastering Amplifier's architecture.
 
-## Module Types
+## What is a Module?
 
-Amplifier has five types of modules:
+A module is a **self-contained unit of functionality** that:
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| **Provider** | AI backend | Anthropic Claude, OpenAI GPT, Ollama |
-| **Tool** | Capability | Read files, run bash, search web |
-| **Hook** | Observer/modifier | Logging, redaction, approval |
-| **Orchestrator** | Execution strategy | Basic loop, streaming, events |
-| **Context** | Memory management | Simple (in-memory), persistent |
+- Has a **single, well-defined purpose**
+- Implements a **specific contract** (interface)
+- Can be **swapped, upgraded, or replaced** without affecting others
+- Operates **independently** while integrating seamlessly
 
-## Providers
+Think of modules like LEGO bricks. Each brick has a specific shape and purpose, but they all share the same connection system (studs and sockets). You can build anything by combining bricks, and you can always swap one brick for another of the same type.
 
-Providers connect Amplifier to AI models:
+### The Module Philosophy
 
-```bash
-# List available providers
-amplifier provider list
-
-# Switch providers
-amplifier provider use anthropic
-amplifier provider use openai
-amplifier provider use ollama
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     YOUR APPLICATION                        │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
+│  │Provider │  │  Tool   │  │ Context │  │  Hook   │        │
+│  │ Module  │  │ Module  │  │ Module  │  │ Module  │        │
+│  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘        │
+│       │            │            │            │              │
+│       └────────────┴─────┬──────┴────────────┘              │
+│                          │                                  │
+│                   ┌──────┴──────┐                           │
+│                   │Orchestrator │                           │
+│                   │   Module    │                           │
+│                   └─────────────┘                           │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Available Providers
+Modules communicate through **contracts**, not implementations. This means:
 
-| Provider | Models | Use Case |
-|----------|--------|----------|
-| `anthropic` | Claude 3.5, Claude 3 | Best for coding (recommended) |
-| `openai` | GPT-4, GPT-4o | Alternative, good general use |
-| `azure-openai` | Azure-hosted GPT | Enterprise compliance |
-| `ollama` | Llama, Mistral, etc. | Local, private, free |
-| `gemini` | Gemini Pro | Google ecosystem |
+- A Claude provider and an OpenAI provider are interchangeable
+- A filesystem tool and a database tool both implement the same tool contract
+- You can add observability hooks without changing any other code
 
-### Provider Configuration
+## The 5 Module Types
 
-```yaml
-# In settings.yaml or bundle
-providers:
-  - module: provider-anthropic
-    config:
-      model: claude-sonnet-4-20250514
-      max_tokens: 8192
-```
+Amplifier defines exactly five module types. Each has a specific role and contract:
 
-## Tools
+| Type | Purpose | Contract | When It Runs |
+|------|---------|----------|--------------|
+| **Provider** | LLM backends | `complete()` | When AI response needed |
+| **Tool** | Agent capabilities | `execute()` | When LLM requests action |
+| **Orchestrator** | Main engine | The agent loop | Continuously during session |
+| **Context** | Memory & state | `messages` | Before each LLM call |
+| **Hook** | Observers | `events` | On system events |
 
-Tools are capabilities the AI can invoke:
+### Provider Modules
 
-```bash
-# In a session, list tools
-/tools
-```
+Providers connect Amplifier to language models. They abstract away the differences between OpenAI, Anthropic, Azure, local models, and others.
 
-### Core Tools
-
-| Tool | What It Does |
-|------|--------------|
-| `read_file` | Read file contents |
-| `write_file` | Create or overwrite files |
-| `edit_file` | Make targeted string replacements |
-| `bash` | Execute shell commands |
-| `grep` | Search file contents with regex |
-| `glob` | Find files by pattern |
-| `web_search` | Search the internet |
-| `web_fetch` | Fetch content from URLs |
-| `task` | Spawn sub-agents |
-| `todo` | Manage task lists |
-
-### Tool Contract
-
-Every tool implements this interface:
+**Contract:** `complete(messages, tools, config) -> response`
 
 ```python
-class Tool(Protocol):
-    name: str                    # Unique identifier
-    description: str             # What the tool does (shown to AI)
-    input_schema: dict          # JSON Schema for parameters
-    
-    async def execute(self, input: dict) -> str:
-        """Execute the tool and return result."""
+# All providers implement the same interface
+class Provider(Protocol):
+    async def complete(
+        self,
+        messages: list[Message],
+        tools: list[Tool],
+        config: CompletionConfig
+    ) -> CompletionResponse:
         ...
 ```
 
-### Adding Tools
+**Key characteristics:**
+- Handle authentication and API specifics internally
+- Normalize responses to a common format
+- Support streaming where available
+- Manage rate limiting and retries
 
-In a bundle:
+**Examples:** `AnthropicProvider`, `OpenAIProvider`, `AzureProvider`, `OllamaProvider`
+
+### Tool Modules
+
+Tools give agents the ability to act in the world. They represent capabilities the LLM can invoke to accomplish tasks.
+
+**Contract:** `execute(arguments) -> result`
+
+```python
+class Tool(Protocol):
+    name: str
+    description: str
+    parameters: JSONSchema
+    
+    async def execute(self, arguments: dict) -> ToolResult:
+        ...
+```
+
+**Key characteristics:**
+- Self-describing (name, description, parameters)
+- Executed when the LLM decides to use them
+- Return structured results back to the conversation
+- Can be dynamically enabled/disabled
+
+**Examples:** `read_file`, `write_file`, `bash`, `web_search`, `grep`
+
+### Orchestrator Modules
+
+The orchestrator is the brain of the agent. It runs the main loop: getting context, calling the LLM, executing tools, and repeating.
+
+**Contract:** The agent loop itself
+
+```python
+class Orchestrator(Protocol):
+    async def run(self, session: Session) -> None:
+        while not done:
+            # 1. Gather context
+            messages = await context.get_messages()
+            
+            # 2. Call LLM
+            response = await provider.complete(messages, tools)
+            
+            # 3. Process response
+            if response.has_tool_calls:
+                results = await execute_tools(response.tool_calls)
+            
+            # 4. Check completion
+            done = response.is_final
+```
+
+**Key characteristics:**
+- Controls the agent's decision-making flow
+- Manages turn-taking between user and agent
+- Coordinates all other module types
+- Handles completion conditions
+
+**Examples:** `StandardOrchestrator`, `ReActOrchestrator`, `PlanningOrchestrator`
+
+### Context Modules
+
+Context modules manage what the agent "knows" during a conversation. They build the message history and inject relevant information.
+
+**Contract:** `messages` - provides the conversation context
+
+```python
+class Context(Protocol):
+    async def get_messages(self, session: Session) -> list[Message]:
+        ...
+    
+    async def add_message(self, message: Message) -> None:
+        ...
+```
+
+**Key characteristics:**
+- Maintain conversation history
+- Inject system prompts and instructions
+- Can add retrieved documents (RAG)
+- Handle context window limits
+
+**Examples:** `ConversationContext`, `SlidingWindowContext`, `RAGContext`
+
+### Hook Modules
+
+Hooks observe and react to system events without modifying the core flow. They're perfect for logging, analytics, guardrails, and side effects.
+
+**Contract:** `events` - receives notifications
+
+```python
+class Hook(Protocol):
+    async def on_event(self, event: Event) -> None:
+        ...
+```
+
+**Key characteristics:**
+- Passive observers (don't change main flow)
+- Subscribe to specific event types
+- Run asynchronously when events occur
+- Can emit their own events
+
+**Examples:** `LoggingHook`, `MetricsHook`, `GuardrailHook`, `AuditHook`
+
+## Tool vs Hook
+
+This distinction confuses many newcomers. Here's the key difference:
+
+| Aspect | Tool | Hook |
+|--------|------|------|
+| **Triggered by** | LLM decides to use it | Code events fire |
+| **Purpose** | Give agent capabilities | Observe/react to events |
+| **Control flow** | Blocks until complete | Runs asynchronously |
+| **Visibility** | LLM knows about it | LLM doesn't know |
+| **Examples** | Read file, search web | Log events, track metrics |
+
+### When to Use Tools
+
+Use a tool when the **LLM needs to decide** whether to use the capability:
+
+```python
+# Tool: LLM chooses when to search
+@tool
+async def web_search(query: str) -> str:
+    """Search the web for information."""
+    return await search_engine.query(query)
+```
+
+The LLM sees this tool, understands its purpose, and invokes it when relevant.
+
+### When to Use Hooks
+
+Use a hook when you want to **observe without the LLM knowing**:
+
+```python
+# Hook: Automatically logs all tool calls
+class ToolLoggingHook(Hook):
+    async def on_event(self, event: Event):
+        if event.type == "tool_call":
+            logger.info(f"Tool called: {event.tool_name}")
+```
+
+The LLM never knows this hook exists—it just observes silently.
+
+### The Decision Tree
+
+```
+Should the LLM decide when this runs?
+    │
+    ├── YES → Use a TOOL
+    │         (agent capability)
+    │
+    └── NO → Use a HOOK
+             (system observation)
+```
+
+## Module Composition
+
+The power of modules comes from composition. You combine simple modules to create sophisticated behavior:
+
+```yaml
+# A simple but powerful agent configuration
+provider: anthropic
+orchestrator: standard
+
+tools:
+  - read_file
+  - write_file
+  - bash
+  - web_search
+
+context:
+  - conversation
+  - system_prompt
+
+hooks:
+  - logging
+  - metrics
+  - guardrails
+```
+
+### Adding New Capabilities
+
+Want to add a new capability? Just add a module:
 
 ```yaml
 tools:
-  # Official tool
-  - module: tool-filesystem
-  
-  # Custom tool from local path
-  - module: my-tool
-    source: ./modules/my-tool
-    
-  # Tool with configuration
-  - module: tool-bash
-    config:
-      allowed_commands: ["ls", "cat", "grep"]
+  - read_file
+  - write_file
+  - bash
+  - web_search
+  - database_query  # New capability!
 ```
 
-## Hooks
+### Swapping Implementations
 
-Hooks observe and optionally modify the agent lifecycle:
-
-### Hook Events
-
-```
-session:start → turn:start → provider:request → provider:response
-                          ↓
-                     tool:call → tool:result
-                          ↓
-              turn:end → session:end
-```
-
-### Available Hooks
-
-| Hook | Purpose |
-|------|---------|
-| `hooks-logging` | Log events to JSONL file |
-| `hooks-redaction` | Remove sensitive data from logs |
-| `hooks-approval` | Require human approval for actions |
-| `hooks-streaming-ui` | Stream responses to terminal |
-| `hooks-status-context` | Inject environment info |
-| `hooks-todo-reminder` | Remind about task lists |
-
-### Hook Actions
-
-Hooks can:
-
-1. **Observe** - Just watch what happens (logging)
-2. **Enrich** - Add data to events (status context)
-3. **Modify** - Change data (redaction)
-4. **Cancel** - Block an action (approval)
-
-### Hook Configuration
+Need to change providers? Just swap:
 
 ```yaml
-hooks:
-  - module: hooks-logging
-    config:
-      output_dir: ./logs
-      
-  - module: hooks-approval
-    config:
-      require_approval_for:
-        - bash
-        - write_file
+# Before
+provider: openai
+
+# After
+provider: anthropic
 ```
 
-## Orchestrators
+Everything else stays the same.
 
-Orchestrators control how the AI executes:
+## Module Contracts
 
-| Orchestrator | Behavior |
-|--------------|----------|
-| `loop-basic` | Simple request/response loop |
-| `loop-streaming` | Stream responses as they generate |
-| `loop-events` | Event-driven with hooks |
+Every module type has a **contract**—a promise about how it behaves. Contracts enable:
 
-### Choosing an Orchestrator
+1. **Interchangeability**: Any module implementing the contract works
+2. **Testing**: Mock modules that follow the contract
+3. **Evolution**: Improve internals without breaking interfaces
 
-```yaml
-orchestrator:
-  module: loop-streaming  # For interactive use
-  # module: loop-basic    # For simple scripts
-  # module: loop-events   # For complex workflows
+### The Contract Principle
+
+```
+┌─────────────┐         ┌─────────────┐
+│  Module A   │         │  Module B   │
+│             │         │             │
+│ (OpenAI)    │         │ (Anthropic) │
+└──────┬──────┘         └──────┬──────┘
+       │                       │
+       └───────────┬───────────┘
+                   │
+            ┌──────┴──────┐
+            │  Contract   │
+            │ complete()  │
+            └─────────────┘
+                   │
+            ┌──────┴──────┐
+            │   Kernel    │
+            └─────────────┘
 ```
 
-## Context Managers
-
-Context managers handle conversation memory:
-
-| Context | Behavior |
-|---------|----------|
-| `context-simple` | In-memory only (lost on exit) |
-| `context-persistent` | Saved to disk (resumable) |
-
-### Context Configuration
-
-```yaml
-context:
-  module: context-persistent
-  config:
-    storage_dir: ~/.amplifier/sessions
-```
-
-## Module Resolution
-
-When Amplifier loads a module, it searches:
-
-1. **Bundle path** - `./modules/` relative to bundle
-2. **Installed modules** - From `amplifier module install`
-3. **Registry** - Official module registry
-
-## Try It Yourself
-
-### Exercise 1: List Your Modules
-
-```bash
-# See what's loaded
-amplifier run "List all tools you have access to. Group by category."
-```
-
-### Exercise 2: Use Different Providers
-
-```bash
-# Compare responses
-amplifier run "Write a haiku about coding" --provider anthropic
-amplifier run "Write a haiku about coding" --provider openai
-```
-
-### Exercise 3: Explore Hooks
-
-```bash
-# Check your session log
-ls ~/.amplifier/sessions/
-cat ~/.amplifier/sessions/[latest]/events.jsonl | head -5
-```
+The kernel only knows about contracts, not implementations. This is what makes modules truly interchangeable.
 
 ## Key Takeaways
 
-1. **Modules are swappable** - Change providers without changing tools
-2. **Each type has a contract** - Providers provide, tools execute, hooks observe
-3. **Configuration is separate** - Same module, different config
-4. **Composition through bundles** - Bundles select and configure modules
+1. **Five module types**: Provider, Tool, Orchestrator, Context, Hook—each with a specific purpose
 
-## Next
+2. **Contracts over implementations**: Modules are interchangeable because they implement standard contracts
 
-Learn about specialized AI configurations:
+3. **Tools vs Hooks**: Tools are LLM-invoked capabilities; hooks are silent observers
 
-→ [Agents](agents.md)
+4. **Composition is key**: Combine simple modules to create powerful agents
+
+5. **Single responsibility**: Each module does one thing well
+
+6. **The LEGO principle**: Standard interfaces let you build anything from simple, swappable pieces
+
+## What's Next?
+
+Now that you understand modules, explore each type in depth:
+
+- [Providers: Connecting to LLMs](./providers.md)
+- [Tools: Agent Capabilities](./tools.md)
+- [Orchestrators: The Agent Loop](./orchestrators.md)
+- [Context: Memory and State](./context.md)
+- [Hooks: Observability](./hooks.md)
+
+Or see modules in action:
+
+- [Building Your First Agent](../guides/first-agent.md)
+- [Module Configuration](../guides/configuration.md)

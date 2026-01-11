@@ -39,6 +39,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started:
+    - Overview: quickstart/index.md
     - What is Amplifier?: quickstart/what-is-amplifier.md
     - How It's Different: quickstart/how-its-different.md
     - Installation: quickstart/installation.md

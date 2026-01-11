@@ -48,27 +48,67 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="how-its-different.html">How It's Different</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#the-core-difference">The Core Difference</a>
+    <li class="toctree-l2"><a class="reference internal" href="#comparison-overview">Comparison Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-were-not">What We're Not</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#provider-freedom">Provider Freedom</a>
+    <li class="toctree-l3"><a class="reference internal" href="#what-we-are">What We Are</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#real-extensibility">Real Extensibility</a>
+        </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#declarative-workflows-recipes">Declarative Workflows (Recipes)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#modular-architecture">Modular Architecture</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-kernel">The Kernel</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#transparency">Transparency</a>
+    <li class="toctree-l3"><a class="reference internal" href="#modules-over-plugins">Modules Over Plugins</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#multi-agent-by-design">Multi-Agent by Design</a>
+    <li class="toctree-l3"><a class="reference internal" href="#thin-bundles">Thin Bundles</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#when-to-use-what">When to Use What</a>
+        </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-trade-off">The Trade-off</a>
+    <li class="toctree-l2"><a class="reference internal" href="#extensibility">Extensibility</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#protocol-based-design">Protocol-Based Design</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l3"><a class="reference internal" href="#hooks-for-cross-cutting-concerns">Hooks for Cross-Cutting Concerns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#no-framework-lock-in">No Framework Lock-In</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-agent">Multi-Agent</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#agents-are-sessions">Agents Are Sessions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#simple-delegation">Simple Delegation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parallel-execution">Parallel Execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hierarchical-composition">Hierarchical Composition</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#open-source">Open Source</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#transparent-development">Transparent Development</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#community-driven-evolution">Community-Driven Evolution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#no-artificial-limitations">No Artificial Limitations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sustainable-ecosystem">Sustainable Ecosystem</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-amplifier-philosophy">The Amplifier Philosophy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -194,170 +234,242 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="how-amplifier-is-different">How Amplifier is Different<a class="headerlink" href="#how-amplifier-is-different" title="Permanent link">&para;</a></h1>
-<p>You might already use AI coding tools like Claude Code, GitHub Copilot, or Cursor. Here's why Amplifier exists and when you might prefer it.</p>
-<h2 id="the-core-difference">The Core Difference<a class="headerlink" href="#the-core-difference" title="Permanent link">&para;</a></h2>
-<p><strong>Most AI tools are products. Amplifier is a framework.</strong></p>
+<p>Amplifier represents a fundamentally different approach to building AI-powered applications.
+Rather than treating AI as a black box to be wrapped in layers of abstraction, Amplifier
+embraces simplicity, modularity, and developer control.</p>
+<h2 id="comparison-overview">Comparison Overview<a class="headerlink" href="#comparison-overview" title="Permanent link">&para;</a></h2>
+<p>Most AI frameworks fall into two categories: either they're too opinionated and lock you
+into specific patterns, or they're too low-level and require you to build everything from
+scratch. Amplifier charts a middle path.</p>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
-<th>Claude Code / Copilot</th>
+<th>Traditional Frameworks</th>
 <th>Amplifier</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>What it is</td>
-<td>A finished product</td>
-<td>A framework you assemble</td>
-</tr>
-<tr>
-<td>Provider</td>
-<td>Locked to one vendor</td>
-<td>Choose from 7+ providers</td>
+<td>Architecture</td>
+<td>Monolithic, tightly coupled</td>
+<td>Modular, composable</td>
 </tr>
 <tr>
 <td>Extensibility</td>
-<td>Plugins (limited)</td>
-<td>Full module system</td>
+<td>Plugin systems, inheritance</td>
+<td>First-class module contracts</td>
 </tr>
 <tr>
-<td>Workflows</td>
-<td>Chat-based</td>
-<td>Declarative recipes</td>
+<td>Multi-Agent</td>
+<td>Bolted on, complex</td>
+<td>Native, simple</td>
 </tr>
 <tr>
-<td>Transparency</td>
-<td>Black box</td>
-<td>Event-first observability</td>
+<td>Customization</td>
+<td>Configuration files</td>
+<td>Behavior composition</td>
 </tr>
 <tr>
-<td>Multi-agent</td>
-<td>Single agent</td>
-<td>Native sub-agent spawning</td>
+<td>Learning Curve</td>
+<td>Steep, framework-specific</td>
+<td>Gradual, principle-based</td>
 </tr>
 </tbody>
 </table>
-<h2 id="provider-freedom">Provider Freedom<a class="headerlink" href="#provider-freedom" title="Permanent link">&para;</a></h2>
-<p>With most tools, you're locked to one AI provider. With Amplifier:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Use Anthropic Claude (recommended)</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>anthropic
-
-<span class="c1"># Switch to OpenAI</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>openai
-
-<span class="c1"># Use local models with Ollama (free, private)</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>ollama
-
-<span class="c1"># Or Azure OpenAI for enterprise compliance</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>azure-openai
+<h3 id="what-were-not">What We're Not<a class="headerlink" href="#what-were-not" title="Permanent link">&para;</a></h3>
+<p>Amplifier is not:</p>
+<ul>
+<li>A wrapper around a single LLM provider</li>
+<li>An opinionated application framework</li>
+<li>A no-code/low-code platform</li>
+<li>A managed service with vendor lock-in</li>
+</ul>
+<h3 id="what-we-are">What We Are<a class="headerlink" href="#what-we-are" title="Permanent link">&para;</a></h3>
+<p>Amplifier is:</p>
+<ul>
+<li>A kernel for AI agent orchestration</li>
+<li>A collection of composable behaviors</li>
+<li>A philosophy of building with AI</li>
+<li>An open platform for innovation</li>
+</ul>
+<h2 id="modular-architecture">Modular Architecture<a class="headerlink" href="#modular-architecture" title="Permanent link">&para;</a></h2>
+<p>At the heart of Amplifier is the "bricks and studs" philosophy. Like interlocking building
+blocks, every component has well-defined connection points that allow them to snap together
+predictably.</p>
+<h3 id="the-kernel">The Kernel<a class="headerlink" href="#the-kernel" title="Permanent link">&para;</a></h3>
+<p>The Amplifier kernel is intentionally minimal. It provides:</p>
+<ul>
+<li><strong>Session lifecycle management</strong> - Creating, persisting, and resuming conversations</li>
+<li><strong>Module orchestration</strong> - Loading and coordinating modules at runtime</li>
+<li><strong>Event dispatch</strong> - A simple pub/sub system for cross-cutting concerns</li>
+<li><strong>Provider abstraction</strong> - A thin layer over LLM providers</li>
+</ul>
+<p>What it doesn't do is equally important. The kernel has no opinions about:</p>
+<ul>
+<li>How you structure your prompts</li>
+<li>What tools you expose to agents</li>
+<li>How agents communicate with each other</li>
+<li>Where you store your data</li>
+</ul>
+<h3 id="modules-over-plugins">Modules Over Plugins<a class="headerlink" href="#modules-over-plugins" title="Permanent link">&para;</a></h3>
+<p>Traditional plugin systems are often afterthoughts. They expose limited hooks and require
+you to work around the framework's assumptions. Amplifier modules are different.</p>
+<p>Every capability in Amplifier is a module:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-core/
+  modules/
+    providers/     # LLM provider implementations
+    tools/         # Tool definitions and handlers
+    hooks/         # Lifecycle event handlers
+    context/       # Context providers
 </code></pre></div>
 
-<p>Same tools, same workflows, different brain. You can even compare providers:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Explain this code&quot;</span><span class="w"> </span>--provider<span class="w"> </span>anthropic
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Explain this code&quot;</span><span class="w"> </span>--provider<span class="w"> </span>openai
+<p>Modules follow explicit contracts. A provider module must implement the Provider protocol.
+A tool module must implement the Tool protocol. There's no magic, no hidden behavior.</p>
+<h3 id="thin-bundles">Thin Bundles<a class="headerlink" href="#thin-bundles" title="Permanent link">&para;</a></h3>
+<p>Bundles are curated collections of modules composed for specific use cases. The key insight
+is that bundles should be thin - they compose behaviors rather than implementing them.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># A bundle is mostly composition</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-assistant</span>
+<span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="nt">modules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-file-ops</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-lsp</span>
+<span class="nt">behaviors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-runner</span>
 </code></pre></div>
 
-<h2 id="real-extensibility">Real Extensibility<a class="headerlink" href="#real-extensibility" title="Permanent link">&para;</a></h2>
-<p>Copilot has plugins. Amplifier has a <strong>module system</strong> inspired by Linux.</p>
-<p><strong>Tools</strong> - Capabilities the AI can use:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See loaded tools</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;/tools&quot;</span>
-
-<span class="c1"># Tools are modules - you can add, remove, or build your own</span>
+<p>This approach means you can understand exactly what a bundle does by reading its manifest.
+There's no hidden complexity buried in base classes or inherited configurations.</p>
+<h2 id="extensibility">Extensibility<a class="headerlink" href="#extensibility" title="Permanent link">&para;</a></h2>
+<p>Extensibility in Amplifier isn't a feature - it's the foundation.</p>
+<h3 id="protocol-based-design">Protocol-Based Design<a class="headerlink" href="#protocol-based-design" title="Permanent link">&para;</a></h3>
+<p>Every extension point is defined by a protocol (interface). Want to add a new LLM provider?
+Implement the Provider protocol:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Provider</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">Chunk</span><span class="p">]:</span> <span class="o">...</span>
 </code></pre></div>
 
-<p><strong>Hooks</strong> - Observe or modify behavior:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Add approval gates for dangerous commands</span>
-<span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">require_approval_for</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;bash&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;write_file&quot;</span><span class="p p-Indicator">]</span>
+<p>Want to add a new tool? Implement the Tool protocol:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">JsonSchema</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ToolResult</span><span class="p">:</span> <span class="o">...</span>
 </code></pre></div>
 
-<p><strong>Providers</strong> - Swap the AI backend without changing anything else</p>
-<p><strong>Orchestrators</strong> - Control how the AI executes (streaming, events, basic loop)</p>
-<h2 id="declarative-workflows-recipes">Declarative Workflows (Recipes)<a class="headerlink" href="#declarative-workflows-recipes" title="Permanent link">&para;</a></h2>
-<p>Most tools work through ad-hoc chat. Amplifier supports <strong>recipes</strong> - repeatable, multi-step workflows:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># recipes/code-review.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
-<span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">{{file_path}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">design</span><span class="nv"> </span><span class="s">issues&quot;</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">vulnerabilities</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">{{file_path}}&quot;</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">report</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">review</span><span class="nv"> </span><span class="s">report</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">{{analyze.result}}</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">{{security.result}}&quot;</span>
+<p>The protocols are minimal and stable. They define the contract, not the implementation.</p>
+<h3 id="hooks-for-cross-cutting-concerns">Hooks for Cross-Cutting Concerns<a class="headerlink" href="#hooks-for-cross-cutting-concerns" title="Permanent link">&para;</a></h3>
+<p>Need to log every tool call? Add a hook. Need to filter responses? Add a hook. Need to
+inject context? Add a hook.</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@hook</span><span class="p">(</span><span class="s2">&quot;tool.before_call&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">log_tool_calls</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">ToolCallEvent</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">tool_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">arguments</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Run it:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipes/code-review.yaml<span class="w"> </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file_path&quot;: &quot;src/auth.py&quot;}&#39;</span>
+<p>Hooks are non-invasive. They observe and optionally modify behavior without requiring
+changes to the core system.</p>
+<h3 id="no-framework-lock-in">No Framework Lock-In<a class="headerlink" href="#no-framework-lock-in" title="Permanent link">&para;</a></h3>
+<p>Amplifier doesn't require you to adopt it entirely. You can:</p>
+<ul>
+<li>Use just the kernel for agent orchestration</li>
+<li>Use individual modules in your existing application</li>
+<li>Gradually adopt more capabilities as needed</li>
+<li>Replace any component with your own implementation</li>
+</ul>
+<h2 id="multi-agent">Multi-Agent<a class="headerlink" href="#multi-agent" title="Permanent link">&para;</a></h2>
+<p>Multi-agent systems are notoriously complex. Amplifier makes them simple by design.</p>
+<h3 id="agents-are-sessions">Agents Are Sessions<a class="headerlink" href="#agents-are-sessions" title="Permanent link">&para;</a></h3>
+<p>In Amplifier, an agent is just a session with a specific configuration. There's no special
+"Agent" class or complex initialization:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Create an agent by creating a session with behaviors</span>
+<span class="n">research_agent</span> <span class="o">=</span> <span class="k">await</span> <span class="n">amplifier</span><span class="o">.</span><span class="n">session</span><span class="p">(</span>
+    <span class="n">behaviors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;web-research&quot;</span><span class="p">,</span> <span class="s2">&quot;summarization&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Create another agent with different capabilities</span>
+<span class="n">code_agent</span> <span class="o">=</span> <span class="k">await</span> <span class="n">amplifier</span><span class="o">.</span><span class="n">session</span><span class="p">(</span>
+    <span class="n">behaviors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;code-analysis&quot;</span><span class="p">,</span> <span class="s2">&quot;refactoring&quot;</span><span class="p">]</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<p>Recipes can:
-- Run multiple agents in sequence or parallel
-- Pause for human approval at critical points
-- Resume after interruption
-- Pass context between steps</p>
-<h2 id="transparency">Transparency<a class="headerlink" href="#transparency" title="Permanent link">&para;</a></h2>
-<p>Amplifier logs everything as structured events:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Every session creates an events.jsonl file</span>
-ls<span class="w"> </span>~/.amplifier/sessions/
-
-<span class="c1"># You can inspect exactly what happened</span>
-cat<span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>session-id<span class="o">]</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.event_type&#39;</span>
+<h3 id="simple-delegation">Simple Delegation<a class="headerlink" href="#simple-delegation" title="Permanent link">&para;</a></h3>
+<p>Agents delegate to other agents through the task tool. The pattern is straightforward:</p>
+<ol>
+<li>Parent agent decides to delegate</li>
+<li>Child agent receives instruction and context</li>
+<li>Child agent works independently</li>
+<li>Child agent returns a result</li>
+<li>Parent agent continues</li>
+</ol>
+<p>There's no complex message-passing infrastructure, no shared state to synchronize, no
+race conditions to handle. Each agent session is independent.</p>
+<h3 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h3>
+<p>Because agents are independent sessions, parallel execution is natural:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Launch multiple agents in parallel</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+    <span class="n">research_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;Find information about X&quot;</span><span class="p">),</span>
+    <span class="n">code_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;Analyze the authentication module&quot;</span><span class="p">),</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<p>Event types include <code>session:start</code>, <code>turn:start</code>, <code>tool:call</code>, <code>provider:request</code>, and more. Nothing is hidden.</p>
-<h2 id="multi-agent-by-design">Multi-Agent by Design<a class="headerlink" href="#multi-agent-by-design" title="Permanent link">&para;</a></h2>
-<p>Amplifier supports <strong>sub-agents</strong> natively. The main AI can spawn specialists:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Debug the authentication issue in src/auth.py&quot;</span>
+<h3 id="hierarchical-composition">Hierarchical Composition<a class="headerlink" href="#hierarchical-composition" title="Permanent link">&para;</a></h3>
+<p>Complex workflows emerge from simple compositions:</p>
+<div class="codehilite"><pre><span></span><code>main-agent
+├── planning-agent
+│   └── estimation-agent
+├── implementation-agent
+│   ├── frontend-agent
+│   └── backend-agent
+└── review-agent
 </code></pre></div>
 
-<p>Behind the scenes:
-1. Main agent recognizes this is a debugging task
-2. Spawns <code>foundation:bug-hunter</code> sub-agent with full context
-3. Bug-hunter investigates, reports back
-4. Main agent synthesizes and presents results</p>
-<p>You can define your own agents:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># agents/my-specialist.yaml</span>
-<span class="nt">meta</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-specialist</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Expert</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">my</span><span class="nv"> </span><span class="s">specific</span><span class="nv"> </span><span class="s">domain&quot;</span>
-
-<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">  </span><span class="no">You are an expert at [my domain].</span>
-<span class="w">  </span><span class="no">When asked about [topic], always [approach].</span>
-</code></pre></div>
-
-<h2 id="when-to-use-what">When to Use What<a class="headerlink" href="#when-to-use-what" title="Permanent link">&para;</a></h2>
-<p><strong>Use Claude Code / Copilot when:</strong>
-- You want something that "just works"
-- You don't need customization
-- You're okay with one provider
-- Simple chat-based interaction is enough</p>
-<p><strong>Use Amplifier when:</strong>
-- You want control over the AI provider
-- You need custom tools or workflows
-- You want transparent, observable operations
-- You're building something on top of AI
-- You need multi-agent orchestration
-- Enterprise requirements (Azure, compliance)</p>
-<h2 id="the-trade-off">The Trade-off<a class="headerlink" href="#the-trade-off" title="Permanent link">&para;</a></h2>
-<p>Amplifier requires more setup than "install extension and go." You're assembling a framework, not using a product.</p>
-<p>But that assembly gives you power:
-- Swap providers when pricing changes
-- Build workflows that match your process
-- Add tools your team needs
-- Observe and audit everything</p>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Ready to install? Let's get Amplifier running.</p>
-<p>→ <a href="installation.html">Installation</a></p>
+<p>Each level only knows about its immediate children. The planning agent doesn't know or
+care how the implementation agent structures its work internally.</p>
+<h2 id="open-source">Open Source<a class="headerlink" href="#open-source" title="Permanent link">&para;</a></h2>
+<p>Amplifier is fully open source under a permissive license. But open source means more
+than just "code is available."</p>
+<h3 id="transparent-development">Transparent Development<a class="headerlink" href="#transparent-development" title="Permanent link">&para;</a></h3>
+<p>All development happens in the open. Issues, discussions, and roadmap decisions are
+visible and participatory. There are no private feature branches or surprise releases.</p>
+<h3 id="community-driven-evolution">Community-Driven Evolution<a class="headerlink" href="#community-driven-evolution" title="Permanent link">&para;</a></h3>
+<p>The module system means the community can extend Amplifier without waiting for core
+changes. New providers, tools, and behaviors can be developed and shared independently.</p>
+<h3 id="no-artificial-limitations">No Artificial Limitations<a class="headerlink" href="#no-artificial-limitations" title="Permanent link">&para;</a></h3>
+<p>There are no "enterprise" features held back, no usage limits, no telemetry requirements.
+You get the complete system, and you can deploy it however you want.</p>
+<h3 id="sustainable-ecosystem">Sustainable Ecosystem<a class="headerlink" href="#sustainable-ecosystem" title="Permanent link">&para;</a></h3>
+<p>The modular architecture means:</p>
+<ul>
+<li>Core remains stable and maintained</li>
+<li>Community modules can evolve independently</li>
+<li>Breaking changes are isolated to specific modules</li>
+<li>You can lock versions of individual components</li>
+</ul>
+<h2 id="the-amplifier-philosophy">The Amplifier Philosophy<a class="headerlink" href="#the-amplifier-philosophy" title="Permanent link">&para;</a></h2>
+<p>Beyond technical differences, Amplifier embodies a philosophy:</p>
+<ol>
+<li><strong>Simplicity over features</strong> - We'd rather do fewer things well</li>
+<li><strong>Composition over inheritance</strong> - Build by combining, not extending</li>
+<li><strong>Explicit over implicit</strong> - No magic, no hidden behavior</li>
+<li><strong>Trust the developer</strong> - You know your domain better than we do</li>
+<li><strong>Embrace AI as a partner</strong> - AI builds the code, humans guide the vision</li>
+</ol>
+<p>This philosophy permeates every design decision. When evaluating new features, we ask:
+Does this make things simpler? Does it compose well? Is it explicit? Does it trust
+developers?</p>
+<p>If the answer is no, we find a different approach or don't add the feature at all.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Ready to experience the difference?</p>
+<ul>
+<li><a href="installation.html">Installation Guide</a> - Get Amplifier running in minutes</li>
+<li><a href="./first-agent.md">Your First Agent</a> - Build something real</li>
+<li><a href="../concepts/overview.md">Core Concepts</a> - Understand the foundations</li>
+<li><a href="../guides/creating-modules.md">Module Development</a> - Extend Amplifier yourself</li>
+</ul>
               
             </div>
           </div><footer>

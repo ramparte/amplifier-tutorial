@@ -1,0 +1,288 @@
+# Generate Page Recipe
+# Generates a single tutorial page from provided metadata (no manifest parsing)
+#
+# Usage:
+#   amplifier recipes execute recipes/generate-page.yaml \
+#     --context '{
+#       "component_id": "tool-filesystem",
+#       "component_name": "Filesystem Tool",
+#       "component_type": "tools",
+#       "repo": "microsoft/amplifier-module-tool-filesystem",
+#       "description": "Read, write, edit files and directories"
+#     }'
+
+name: generate-page
+description: Generate a single tutorial page from provided component metadata
+version: "2.0.0"
+author: "Tutorial Team"
+tags: ["content-generation", "tutorial", "single-page"]
+
+context:
+  component_id: ""
+  component_name: ""
+  component_type: ""
+  repo: ""
+  description: ""
+  output_dir: "test-output"
+
+recursion:
+  max_depth: 2
+  max_total_steps: 15
+
+steps:
+  # Step 1: Fetch source documentation
+  - id: fetch-docs
+    agent: foundation:web-research
+    prompt: |
+      Fetch documentation for: {{component_name}}
+      Repository: https://github.com/{{repo}}
+      
+      Get the README.md and extract:
+      1. What operations/commands does this tool provide?
+      2. What parameters does each operation accept?
+      3. Any usage examples showing the tool in action
+      
+      Return JSON:
+      {
+        "operations": [
+          {"name": "operation_name", "purpose": "what it does", "parameters": ["param1", "param2"]}
+        ],
+        "examples": ["example usage 1", "example usage 2"],
+        "key_features": ["feature1", "feature2"]
+      }
+    output: "docs"
+    parse_json: true
+    timeout: 180
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 5
+    on_error: "continue"
+
+  # Step 2: Generate tutorial content with proper style
+  - id: generate-content
+    agent: foundation:modular-builder
+    prompt: |
+      Create a USER-FACING TUTORIAL page for: {{component_name}}
+      
+      Component info:
+      - ID: {{component_id}}
+      - Type: {{component_type}}
+      - Description: {{description}}
+      
+      Documentation found:
+      {{docs}}
+      
+      ===========================================
+      CRITICAL STYLE REQUIREMENTS
+      ===========================================
+      
+      This is a NARRATIVE TUTORIAL, not developer documentation.
+      
+      1. Show CONVERSATIONAL EXAMPLES - what the user TYPES to Amplifier:
+         ```
+         > Show me the contents of config.yaml
+         ```
+         
+         Behind the scenes:
+         ```
+         [Tool: read_file]
+         file_path: config.yaml
+         ```
+      
+      2. DO NOT show configuration/installation (no TOML, no `uv add`):
+         WRONG: ```toml
+                [[tools]]
+                module = "tool-filesystem"
+                ```
+         
+         RIGHT: ```
+                > Create a Python script that prints hello world
+                ```
+      
+      3. Structure for TOOL pages:
+         - Overview table with Operation | Purpose | When to Use
+         - Each operation gets its own ## section
+         - Show Basic Usage, then variations
+         - Best Practices section
+         - Common Patterns section  
+         - Try It Yourself exercises
+         - Errors and Troubleshooting
+      
+      4. Every example must show:
+         - What the USER types (with > prefix)
+         - What tool is called (with [Tool: name] format)
+         - What parameters are passed
+      
+      ===========================================
+      TEMPLATE TO FOLLOW
+      ===========================================
+      
+      ---
+      id: {{component_id}}
+      type: {{component_type}}
+      title: "{{component_name}}"
+      ---
+      
+      # {{component_name}}
+      
+      {{description}}
+      
+      ## Overview
+      
+      The {{component_name | lower}} provides these operations:
+      
+      | Operation | Purpose | When to Use |
+      |-----------|---------|-------------|
+      | `operation1` | What it does | When to use it |
+      | `operation2` | What it does | When to use it |
+      
+      ## [Operation 1 Name]
+      
+      [Brief description]
+      
+      ### Basic Usage
+      
+      ```
+      > [Natural language the user would type]
+      ```
+      
+      Behind the scenes:
+      ```
+      [Tool: operation_name]
+      parameter: value
+      ```
+      
+      ### [Variation - More Complex Usage]
+      
+      [Description of when you'd use this variation]
+      
+      ```
+      > [User prompt for this variation]
+      ```
+      
+      ```
+      [Tool: operation_name]
+      parameter1: value1
+      parameter2: value2
+      ```
+      
+      ## [Operation 2 Name]
+      
+      [Same pattern...]
+      
+      ## Best Practices
+      
+      ### [Practice 1 Name]
+      
+      [Explanation with example]
+      
+      ```
+      # Good
+      [example]
+      
+      # Avoid
+      [counter-example]
+      ```
+      
+      ## Common Patterns
+      
+      ### [Pattern Name]
+      
+      ```
+      [Tool: operation]
+      [parameters]
+      ```
+      
+      ## Try It Yourself
+      
+      ### Exercise 1: [Name]
+      
+      ```
+      > [User prompt to try]
+      ```
+      
+      ### Exercise 2: [Name]
+      
+      ```
+      > [Another exercise]
+      ```
+      
+      ## Errors and Troubleshooting
+      
+      ### "[Error message users might see]"
+      
+      [Explanation of why this happens and how to fix it]
+      
+      ===========================================
+      RULES
+      ===========================================
+      
+      - Use information from {{docs}} for accurate operations/parameters
+      - Do NOT invent features not documented
+      - NEVER show TOML/YAML configuration
+      - NEVER show installation commands
+      - ALWAYS show user prompts with > prefix
+      - ALWAYS show [Tool: name] format for tool calls
+      - Make 150-300 lines total
+      - Include at least 2 exercises
+      - Include at least 2 troubleshooting items
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
+
+  # Step 3: Validate against style guide
+  - id: validate
+    agent: foundation:zen-architect
+    mode: "REVIEW"
+    prompt: |
+      Validate this tutorial content against style requirements.
+      
+      Content:
+      {{content}}
+      
+      STYLE CHECKLIST:
+      1. [ ] Has YAML frontmatter with id, type, title (NOT source_repo, etc.)
+      2. [ ] Shows user prompts with > prefix (e.g., `> Show me config.yaml`)
+      3. [ ] Shows tool calls with [Tool: name] format
+      4. [ ] Does NOT contain TOML configuration
+      5. [ ] Does NOT contain installation commands (uv add, pip install)
+      6. [ ] Has Overview table with Operation | Purpose | When to Use
+      7. [ ] Has "Try It Yourself" exercises section
+      8. [ ] Has "Errors and Troubleshooting" section
+      9. [ ] Is 150-300 lines
+      
+      If ANY of these fail, FIX the content before returning.
+      
+      Return JSON:
+      {
+        "valid": true,
+        "checklist_passed": ["item1", "item2"],
+        "checklist_fixed": ["item3 - was missing, added"],
+        "content": "THE COMPLETE CORRECTED MARKDOWN CONTENT"
+      }
+    output: "validated"
+    parse_json: true
+    timeout: 180
+    on_error: "continue"
+
+  # Step 4: Write the file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write this content to: {{output_dir}}/{{component_type}}/{{component_id}}.md
+      
+      Content:
+      {{validated.content}}
+      
+      Create the directory if needed.
+      Return the file path written.
+    output: "result"
+    timeout: 60
+    on_error: "fail"

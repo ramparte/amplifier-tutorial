@@ -6,240 +6,314 @@ title: "Web Tools"
 
 # Web Tools
 
-Search the internet and fetch content from URLs.
+Web tools extend your AI assistant's capabilities beyond local files and code,
+enabling real-time information retrieval from the internet. These tools are
+essential for research, documentation lookup, API exploration, and staying
+current with rapidly evolving technologies.
 
-## Overview
+## Operations
 
-| Tool | Purpose | Use When |
-|------|---------|----------|
-| `web_search` | Search the internet | Find docs, examples, news |
-| `web_fetch` | Get URL content | Read specific pages |
+| Tool | Purpose |
+|------|---------|
+| web_search | Search the internet for information |
+| web_fetch | Fetch and parse content from a URL |
 
-## web_search
+Both tools work together: use `web_search` to discover relevant URLs, then
+`web_fetch` to retrieve detailed content from specific pages.
 
-Search the internet for information.
+---
 
-### Basic Search
+## Web Search
 
-```
-> What's new in Python 3.12?
-```
+The `web_search` tool queries the internet and returns relevant results.
 
-```
-[Tool: web_search]
-query: "Python 3.12 new features"
-```
-
-### Targeted Searches
+### Basic Usage
 
 ```
-# Documentation
-> Find the FastAPI documentation for dependencies
-[web_search] query: "FastAPI dependency injection documentation"
-
-# Error solutions
-> How to fix "ModuleNotFoundError: No module named 'xyz'"
-[web_search] query: "Python ModuleNotFoundError xyz solution"
-
-# Latest versions
-> What's the latest version of React?
-[web_search] query: "React latest version 2026"
+User: Search for Python asyncio best practices
 ```
+
+The assistant will use `web_search` to find current articles, documentation,
+and discussions about the topic.
+
+### When to Use Web Search
+
+- **Documentation lookup**: Find official docs for libraries and frameworks
+- **Error resolution**: Search for error messages and solutions
+- **Best practices**: Discover current recommendations and patterns
+- **News and updates**: Get latest information about technologies
+- **Comparative research**: Find comparisons between tools or approaches
 
 ### Search Tips
 
-**Be specific:**
-```
-# Vague
-query: "python error"
+1. **Be specific**: "FastAPI dependency injection tutorial" beats "FastAPI help"
+2. **Include context**: Add version numbers or specific use cases
+3. **Use quotes**: For exact phrases or error messages
+4. **Combine terms**: "React hooks useState useEffect examples"
 
-# Specific
-query: "Python TypeError: 'NoneType' object is not subscriptable fix"
-```
+---
 
-**Include context:**
-```
-query: "FastAPI SQLAlchemy async session best practices"
-```
+## Fetching URLs
 
-**Add year for current info:**
-```
-query: "best Python web framework 2026"
-```
+The `web_fetch` tool retrieves content from a specific URL.
 
-## web_fetch
+### Parameters
 
-Fetch content from a specific URL.
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| url | string | required | The URL to fetch |
+| offset | integer | 0 | Start reading from byte N |
+| limit | integer | 204800 | Max bytes to return (200KB) |
+| save_to_file | string | null | Save full content to this path |
 
-### Basic Fetch
+### Size Limits
 
-```
-> Get the README from that GitHub repo
-```
+By default, `web_fetch` returns up to **200KB** of content. This prevents
+overwhelming responses and keeps context manageable.
 
-```
-[Tool: web_fetch]
-url: "https://github.com/microsoft/amplifier/blob/main/README.md"
-```
+The response includes metadata to help you understand what was retrieved:
 
-### Fetching Documentation
-
-```
-> Read the FastAPI quickstart guide
+```json
+{
+  "truncated": true,
+  "total_bytes": 450000,
+  "content": "..."
+}
 ```
 
-```
-[Tool: web_fetch]
-url: "https://fastapi.tiangolo.com/tutorial/"
-```
+### Using save_to_file
 
-### Large Pages
-
-For large content, save to file:
+For large pages, save the full content to a file instead of returning it:
 
 ```
-[Tool: web_fetch]
-url: "https://example.com/large-doc"
-save_to_file: "/tmp/doc.html"
+Fetch https://example.com/large-doc.html and save to ./docs/reference.html
 ```
 
-### Pagination
+This saves the complete content and returns only metadata plus a preview,
+keeping your context clean while preserving full access to the data.
 
-For very large pages, paginate:
+### Pagination with offset/limit
 
-```
-# First 100KB
-[web_fetch] url: "..." limit: 102400
-
-# Next 100KB
-[web_fetch] url: "..." offset: 102400 limit: 102400
-```
-
-## Common Workflows
-
-### Research → Implement
+For very large content, paginate through it:
 
 ```
-You: How do I implement OAuth2 in FastAPI?
+# First 200KB (default)
+web_fetch(url="https://example.com/huge-page")
 
-Amplifier:
-1. [web_search] "FastAPI OAuth2 implementation guide"
-2. [web_fetch] (relevant documentation URL)
-3. Here's how to implement it: [explanation with code]
+# Next 200KB
+web_fetch(url="https://example.com/huge-page", offset=204800)
+
+# Custom chunk size
+web_fetch(url="https://example.com/huge-page", offset=0, limit=50000)
 ```
 
-### Debug → Search → Fix
+---
+
+## Handling Large Pages
+
+Large web pages require special handling to avoid context overflow.
+
+### Strategy 1: Save and Read Selectively
 
 ```
-You: I'm getting this error: [paste error]
-
-Amplifier:
-1. [web_search] "error message solution"
-2. Based on what I found, here's the fix...
+1. Fetch URL with save_to_file parameter
+2. Read specific sections using read_file with offset/limit
+3. Search within saved file using grep
 ```
 
-### Check Latest
+This is ideal for documentation pages or API references where you only need
+specific sections.
+
+### Strategy 2: Paginate Through Content
 
 ```
-You: Is there a newer version of pandas?
-
-Amplifier:
-1. [web_search] "pandas latest version pypi"
-2. [web_fetch] PyPI page
-3. The latest version is X.Y.Z
+1. Fetch first chunk (default 200KB)
+2. Check if truncated is true
+3. Continue fetching with increasing offsets
+4. Stop when you find what you need
 ```
 
-## What Gets Returned
+Useful when searching for specific information in a large page.
 
-### Search Results
+### Strategy 3: Multiple Targeted Fetches
 
-- Title and URL of matching pages
-- Brief snippets
-- Typically 5-10 results
+If a page has anchor links or sections:
 
-### Fetched Content
+```
+Fetch https://docs.example.com/api#authentication
+Fetch https://docs.example.com/api#endpoints
+```
 
-- Cleaned text content (HTML stripped)
-- Limited to ~200KB by default
-- Metadata (truncated flag, total bytes)
+Many documentation sites support fragment navigation.
 
-## Rate Limits and Caching
+### Warning: Truncation Breaks Structured Data
 
-- Searches and fetches may be rate-limited
-- Results may be cached briefly
-- Very large pages may be truncated
+When content is truncated, JSON, XML, or other structured formats may break:
+
+```json
+{
+  "users": [
+    {"name": "Alice", "role": "admin"},
+    {"name": "Bob", "role": "user"},
+    {"name": "Charlie", "ro
+[...truncated...]
+```
+
+**Workaround**: Use `save_to_file` for any structured data you need to parse.
+
+---
+
+## Handling Redirects
+
+When `web_fetch` encounters a redirect to a different host, it returns a
+message indicating the redirect URL. The assistant should then make a new
+request with the provided redirect URL.
+
+```
+Original: https://short.link/abc123
+Redirect: https://actual-destination.com/full-path
+```
+
+The assistant handles this automatically in most cases.
+
+---
+
+## Best Practices
+
+### Combine Search and Fetch
+
+```
+1. Search: "Pydantic v2 migration guide"
+2. Review search results
+3. Fetch the most relevant URL for details
+```
+
+### Verify Information Currency
+
+Web search results include dates when available. For rapidly evolving
+technologies, prefer recent sources:
+
+```
+Search: "Python 3.12 new features 2024"
+```
+
+### Use Official Sources First
+
+When documentation exists, prefer official sources:
+
+```
+Good: Fetch from docs.python.org
+Less ideal: Fetch from random blog posts
+```
+
+### Cache Large Documentation Locally
+
+For repeated reference to large docs:
+
+```
+1. Fetch with save_to_file to ./docs/reference.md
+2. Read from local file for subsequent queries
+3. Refresh periodically as needed
+```
+
+### Respect Rate Limits
+
+Avoid rapid sequential fetches to the same domain. The assistant handles
+this automatically, but be aware that some sites may block aggressive access.
+
+---
 
 ## Try It Yourself
 
-### Exercise 1: Research a Topic
+### Exercise 1: Documentation Lookup
 
 ```
-> What are the best practices for Python type hints in 2026?
+Find the official documentation for Python's pathlib module
+and explain the difference between Path.resolve() and Path.absolute()
 ```
 
-### Exercise 2: Fetch Documentation
+### Exercise 2: Error Research
 
 ```
-> Get the README from https://github.com/python/cpython
+Search for: "TypeError: 'NoneType' object is not subscriptable"
+and summarize the common causes
 ```
 
-### Exercise 3: Debug an Error
+### Exercise 3: API Documentation
 
 ```
-> Search for how to fix "CORS error in fetch request"
+Fetch the GitHub REST API documentation for creating issues
+and show me the required parameters
 ```
 
-## When NOT to Use Web Tools
-
-### Use grep Instead
+### Exercise 4: Large Page Handling
 
 ```
-# Looking for code in YOUR project
-# Don't search the web - search locally
-[grep] pattern: "authenticate"
+Fetch a large documentation page and save it locally,
+then search for specific sections within the saved file
 ```
 
-### Use read_file Instead
+### Exercise 5: Comparative Research
 
 ```
-# Reading YOUR files
-# Don't fetch - read directly
-[read_file] file_path: README.md
+Search for comparisons between FastAPI and Flask,
+fetch two relevant articles, and summarize the key differences
 ```
 
-### Use Skills Instead
+---
 
-```
-# For domain expertise (playwright, curl, etc.)
-# Don't search - load the skill
-> Load the playwright skill
-```
+## Common Errors
 
-## Errors and Troubleshooting
+### Connection Errors
 
-### "URL not accessible"
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Connection timeout | Server slow or unreachable | Retry or try alternative URL |
+| Connection refused | Server not accepting connections | Check URL validity |
+| DNS resolution failed | Domain doesn't exist | Verify the domain name |
 
-- Check URL is valid
-- Site may be blocking automated access
-- Try a different URL
+### HTTP Errors
 
-### "Content truncated"
+| Status | Meaning | Action |
+|--------|---------|--------|
+| 403 Forbidden | Access denied | Site may block automated access |
+| 404 Not Found | Page doesn't exist | Verify URL or search for current location |
+| 429 Too Many Requests | Rate limited | Wait and retry later |
+| 500 Server Error | Server problem | Retry or find alternative source |
 
-- Large page - use `save_to_file`
-- Or use `offset`/`limit` to paginate
+### Content Issues
 
-### "No results found"
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Empty response | JavaScript-rendered content | Content may require browser rendering |
+| Garbled text | Encoding issues | Usually handled automatically |
+| Incomplete data | Truncation | Use save_to_file for full content |
 
-- Try different search terms
-- Be more specific or more general
-- Check spelling
+### Blocked Access
 
-### Redirects
+Some sites block automated fetching:
 
-If fetch returns a redirect message:
+- **Paywalled content**: Requires authentication
+- **Bot protection**: Sites using Cloudflare or similar
+- **Terms of service**: Some sites prohibit scraping
 
-```
-[web_fetch] url: "redirect-target-url"
-```
+In these cases, try alternative sources or inform the user that direct access
+is unavailable.
 
-Follow the redirect URL provided.
+---
+
+## Summary
+
+Web tools provide powerful internet access capabilities:
+
+- **web_search**: Discover information and find relevant URLs
+- **web_fetch**: Retrieve content with size management options
+
+Key techniques:
+- Use `save_to_file` for large pages
+- Paginate with `offset`/`limit` for huge content
+- Combine search and fetch for effective research
+- Prefer official documentation sources
+
+These tools transform your assistant into a research partner capable of
+finding, retrieving, and synthesizing information from across the web.

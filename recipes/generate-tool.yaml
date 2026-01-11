@@ -1,0 +1,233 @@
+# Generate Tool Page Recipe
+# Generates tutorial pages for tool components with proper style and supplements
+#
+# Usage:
+#   amplifier run "execute recipes/generate-tool.yaml with tool_id=tool-bash tool_name='Bash Tool' repo=microsoft/amplifier-module-tool-bash description='Execute shell commands safely'"
+
+name: generate-tool
+description: Generate a tool tutorial page with safety features, examples, and exercises
+version: "1.0.0"
+author: "Tutorial CMS"
+tags: ["content-generation", "tutorial", "tools"]
+
+context:
+  tool_id: ""
+  tool_name: ""
+  repo: ""
+  description: ""
+  output_dir: "content"
+  supplements_dir: ".planning/supplements/tools"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 20
+
+steps:
+  # Step 1: Load any supplementary content for this tool
+  - id: load-supplements
+    agent: foundation:file-ops
+    prompt: |
+      Check if supplementary content exists for tool: {{tool_id}}
+      
+      Look in: {{supplements_dir}}/
+      
+      Files might be named like:
+      - {{tool_id}}-safety.md
+      - {{tool_id}}-background.md
+      - {{tool_id}}-*.md
+      - Also check for bash-*.md, filesystem-*.md patterns
+      
+      Read and concatenate any matching files.
+      
+      Return JSON:
+      {
+        "found": true/false,
+        "files": ["file1.md", "file2.md"],
+        "content": "concatenated content from all files"
+      }
+      
+      If no supplements found, return:
+      {
+        "found": false,
+        "files": [],
+        "content": ""
+      }
+    output: "supplements"
+    parse_json: true
+    timeout: 60
+    on_error: "continue"
+
+  # Step 2: Research the tool from source
+  - id: research-tool
+    agent: foundation:foundation-expert
+    prompt: |
+      Research this Amplifier tool for tutorial documentation:
+      
+      Tool: {{tool_name}}
+      Repository: {{repo}}
+      Description: {{description}}
+      
+      I need you to examine:
+      1. The tool's README and documentation
+      2. The actual tool implementation code to find:
+         - All operations/commands it provides
+         - All parameters for each operation
+         - Safety features and blocked commands
+         - Default values and limits
+         - Error messages users might see
+      
+      Return a comprehensive summary with:
+      - List of operations with their parameters
+      - Safety features and limitations
+      - Common use cases
+      - Error scenarios
+      
+      Be thorough - this will be used to write user-facing tutorial content.
+    output: "research"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "continue"
+
+  # Step 3: Generate the tutorial content
+  - id: generate-content
+    agent: foundation:modular-builder
+    prompt: |
+      Create a USER-FACING TUTORIAL page for: {{tool_name}}
+      
+      Component info:
+      - ID: {{tool_id}}
+      - Description: {{description}}
+      
+      Research from expert:
+      {{research}}
+      
+      Supplementary content to INCLUDE:
+      {{supplements.content}}
+      
+      ===========================================
+      TUTORIAL STYLE REQUIREMENTS
+      ===========================================
+      
+      This is a NARRATIVE TUTORIAL for users, not developer documentation.
+      
+      1. Show CONVERSATIONAL EXAMPLES - what the user TYPES:
+         ```
+         > Run the tests
+         ```
+         
+         Behind the scenes:
+         ```
+         [Tool: bash]
+         command: pytest
+         ```
+      
+      2. DO NOT show configuration (no TOML, no `uv add`)
+      
+      3. REQUIRED SECTIONS for tool pages:
+         - ## Overview (table with Operation | Purpose | When to Use)
+         - ## [Operation Name] for each major operation
+           - ### Basic Usage
+           - ### [Variations]
+         - ## Safety Features (if applicable - blocked commands, limits)
+         - ## Background Processes (if applicable)
+         - ## Best Practices
+         - ## Common Patterns
+         - ## Try It Yourself (2-3 exercises)
+         - ## Errors and Troubleshooting
+      
+      4. Include ALL supplementary content provided above in appropriate sections
+      
+      5. Make it 200-350 lines total
+      
+      ===========================================
+      TEMPLATE
+      ===========================================
+      
+      ---
+      id: {{tool_id}}
+      type: tools
+      title: "{{tool_name}}"
+      ---
+      
+      # {{tool_name}}
+      
+      {{description}}
+      
+      ## Overview
+      
+      | Operation | Purpose | When to Use |
+      |-----------|---------|-------------|
+      | `op1` | ... | ... |
+      
+      [Continue with all required sections...]
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 300
+    retry:
+      max_attempts: 2
+      backoff: "exponential"
+      initial_delay: 10
+    on_error: "fail"
+
+  # Step 4: Validate content
+  - id: validate
+    agent: foundation:zen-architect
+    mode: "REVIEW"
+    prompt: |
+      Validate this tool tutorial against requirements.
+      
+      Content:
+      {{content}}
+      
+      CHECKLIST:
+      1. Has YAML frontmatter with id, type, title
+      2. Has Overview table with Operation | Purpose | When to Use
+      3. Shows user prompts with > prefix
+      4. Shows tool calls with [Tool: name] format
+      5. Does NOT contain TOML/YAML configuration
+      6. Does NOT contain installation commands
+      7. Has "Best Practices" section
+      8. Has "Try It Yourself" section with exercises
+      9. Has "Errors and Troubleshooting" section
+      10. Is 200-350 lines
+      11. If supplements were provided, they are incorporated
+      
+      Fix any issues found.
+      
+      Return JSON:
+      {
+        "valid": true,
+        "issues_fixed": ["list of issues you fixed"],
+        "warnings": ["non-critical issues to note"],
+        "content": "THE COMPLETE CORRECTED MARKDOWN"
+      }
+    output: "validated"
+    parse_json: true
+    timeout: 180
+    on_error: "continue"
+
+  # Step 5: Write the file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write this tutorial content to: {{output_dir}}/tools/{{tool_id}}.md
+      
+      Content to write:
+      {{validated.content}}
+      
+      Create the directory if needed.
+      
+      After writing, return JSON:
+      {
+        "file_path": "the path written",
+        "bytes": byte_count,
+        "warnings": {{validated.warnings}}
+      }
+    output: "result"
+    parse_json: true
+    timeout: 60
+    on_error: "fail"

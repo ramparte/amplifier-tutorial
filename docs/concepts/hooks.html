@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -81,51 +83,49 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-hook">What is a Hook?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#available-hooks">Available Hooks</a>
+    <li class="toctree-l2"><a class="reference internal" href="#hook-vs-tool">Hook vs Tool</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuring-hooks">Configuring Hooks</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-logging">Hook: Logging</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-approval-gates">Hook: Approval Gates</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#approval-patterns">Approval Patterns</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-redaction">Hook: Redaction</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-status-context">Hook: Status Context</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-events">Hook Events</a>
+    <li class="toctree-l2"><a class="reference internal" href="#event-types">Event Types</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#session-events">Session Events</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#turn-events">Turn Events</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-events">Provider Events</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#tool-events">Tool Events</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-events">Message Events</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#provider-events">Provider Events</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-hooks">Creating Custom Hooks</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-ordering">Hook Ordering</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+    <li class="toctree-l2"><a class="reference internal" href="#built-in-hooks">Built-in Hooks</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-view-your-logs">Exercise 1: View Your Logs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#metricshook">MetricsHook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-add-approval-gates">Exercise 2: Add Approval Gates</a>
+    <li class="toctree-l3"><a class="reference internal" href="#guardrailhook">GuardrailHook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-check-what-hooks-are-active">Exercise 3: Check What Hooks Are Active</a>
+    <li class="toctree-l3"><a class="reference internal" href="#audithook">AuditHook</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#contextinjectionhook">ContextInjectionHook</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-hooks">Creating Hooks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-hook-structure">Basic Hook Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hook-with-state">Hook with State</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#registering-hooks">Registering Hooks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hook-ordering">Hook Ordering</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#error-handling-in-hooks">Error Handling in Hooks</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
     </li>
     </ul>
                   </li>
@@ -223,395 +223,243 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h1>
-<p>Hooks observe and optionally modify the Amplifier lifecycle. They're how you add logging, require approvals, redact sensitive data, and more.</p>
+                <h1 id="understanding-hooks">Understanding Hooks<a class="headerlink" href="#understanding-hooks" title="Permanent link">&para;</a></h1>
+<p>Hooks are Amplifier's mechanism for observing and reacting to events in the agent lifecycle. They allow you to extend agent behavior without modifying core logic, enabling cross-cutting concerns like logging, metrics, guardrails, and custom integrations.</p>
 <h2 id="what-is-a-hook">What is a Hook?<a class="headerlink" href="#what-is-a-hook" title="Permanent link">&para;</a></h2>
-<p>A hook is code that runs at specific points in the agent lifecycle:</p>
-<div class="codehilite"><pre><span></span><code>Session Start
-    ↓
-Turn Start → Provider Request → Provider Response
-    ↓              ↓
-Tool Call → Tool Result
-    ↓
-Turn End
-    ↓
-Session End
+<p>A hook is a <strong>lifecycle observer</strong> that receives notifications when specific events occur during agent execution. Unlike tools that agents actively invoke, hooks passively listen and respond to the natural flow of agent activity.</p>
+<p>Think of hooks as event listeners attached to the agent runtime. When an agent starts a turn, calls a tool, receives a response, or completes its work, hooks are notified and can take action.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
+
+<span class="k">class</span> <span class="nc">LoggingHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple hook that logs agent activity.&quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn started: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">turn_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn completed in </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">duration_ms</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Hooks can:
-- <strong>Observe</strong> - Watch what happens (logging)
-- <strong>Enrich</strong> - Add data to events (inject status)
-- <strong>Modify</strong> - Change data (redaction)
-- <strong>Cancel</strong> - Block an action (approval required)</p>
-<h2 id="available-hooks">Available Hooks<a class="headerlink" href="#available-hooks" title="Permanent link">&para;</a></h2>
+<p>Hooks are registered with the agent runtime and automatically invoked at the appropriate lifecycle points. You don't call hooks directly—the system calls them for you.</p>
+<h2 id="hook-vs-tool">Hook vs Tool<a class="headerlink" href="#hook-vs-tool" title="Permanent link">&para;</a></h2>
+<p>Understanding the distinction between hooks and tools is fundamental to Amplifier's design:</p>
 <table>
 <thead>
 <tr>
+<th>Aspect</th>
+<th>Tool</th>
 <th>Hook</th>
-<th>Purpose</th>
-<th>Action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>hooks-logging</code></td>
-<td>Log events to JSONL</td>
-<td>Observe</td>
+<td><strong>Invocation</strong></td>
+<td>Agent explicitly calls</td>
+<td>System automatically triggers</td>
 </tr>
 <tr>
-<td><code>hooks-streaming-ui</code></td>
-<td>Stream to terminal</td>
-<td>Observe</td>
+<td><strong>Control</strong></td>
+<td>Agent decides when to use</td>
+<td>Fires on lifecycle events</td>
 </tr>
 <tr>
-<td><code>hooks-status-context</code></td>
-<td>Inject environment info</td>
-<td>Enrich</td>
+<td><strong>Visibility</strong></td>
+<td>Agent sees and chooses</td>
+<td>Transparent to agent</td>
 </tr>
 <tr>
-<td><code>hooks-todo-reminder</code></td>
-<td>Remind about tasks</td>
-<td>Enrich</td>
+<td><strong>Purpose</strong></td>
+<td>Provide capabilities</td>
+<td>Observe and react</td>
 </tr>
 <tr>
-<td><code>hooks-redaction</code></td>
-<td>Remove sensitive data</td>
-<td>Modify</td>
-</tr>
-<tr>
-<td><code>hooks-approval</code></td>
-<td>Require human approval</td>
-<td>Cancel</td>
+<td><strong>Return value</strong></td>
+<td>Returns data to agent</td>
+<td>No return to agent</td>
 </tr>
 </tbody>
 </table>
-<h2 id="configuring-hooks">Configuring Hooks<a class="headerlink" href="#configuring-hooks" title="Permanent link">&para;</a></h2>
-<p>In your bundle or settings:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Basic logging</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-logging</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.amplifier/logs</span>
-
-<span class="w">  </span><span class="c1"># Stream responses to terminal</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-streaming-ui</span>
-
-<span class="w">  </span><span class="c1"># Inject git status, date, etc.</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-status-context</span>
-
-<span class="w">  </span><span class="c1"># Redact API keys from logs</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-redaction</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">patterns</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sk-[a-zA-Z0-9]+&quot;</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;api_key=[^&amp;]+&quot;</span>
-</code></pre></div>
-
-<h2 id="hook-logging">Hook: Logging<a class="headerlink" href="#hook-logging" title="Permanent link">&para;</a></h2>
-<p>Records all events to a JSONL file:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-logging</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.amplifier/sessions</span>
-</code></pre></div>
-
-<p>Output:</p>
-<div class="codehilite"><pre><span></span><code>{&quot;event_type&quot;:&quot;session:start&quot;,&quot;timestamp&quot;:&quot;2026-01-07T10:00:00Z&quot;,...}
-{&quot;event_type&quot;:&quot;turn:start&quot;,&quot;timestamp&quot;:&quot;2026-01-07T10:00:01Z&quot;,...}
-{&quot;event_type&quot;:&quot;tool:call&quot;,&quot;tool&quot;:&quot;read_file&quot;,&quot;timestamp&quot;:&quot;...&quot;}
-</code></pre></div>
-
-<p>This is how Amplifier maintains transparency - everything is logged.</p>
-<h2 id="hook-approval-gates">Hook: Approval Gates<a class="headerlink" href="#hook-approval-gates" title="Permanent link">&para;</a></h2>
-<p>Require human approval for dangerous operations:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">require_approval_for</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span><span class="w">           </span><span class="c1"># Shell commands</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span><span class="w">     </span><span class="c1"># File creation</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit_file</span><span class="w">      </span><span class="c1"># File modification</span>
-</code></pre></div>
-
-<p>When triggered:</p>
-<div class="codehilite"><pre><span></span><code>[Tool: bash] Running: rm -rf temp/
-⚠️  This action requires approval.
-
-Approve? [y/n]: _
-</code></pre></div>
-
-<h3 id="approval-patterns">Approval Patterns<a class="headerlink" href="#approval-patterns" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Approve specific commands</span>
-<span class="nt">require_approval_for</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash:rm</span><span class="w">        </span><span class="c1"># Only rm commands</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash:sudo</span><span class="w">      </span><span class="c1"># Only sudo commands</span>
-
-<span class="c1"># Approve by path</span>
-<span class="nt">require_approval_for</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file:src/</span><span class="w">   </span><span class="c1"># Writing to src/</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit_file:*.py</span><span class="w">    </span><span class="c1"># Editing Python files</span>
-</code></pre></div>
-
-<h2 id="hook-redaction">Hook: Redaction<a class="headerlink" href="#hook-redaction" title="Permanent link">&para;</a></h2>
-<p>Remove sensitive data from logs:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-redaction</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">patterns</span><span class="p">:</span>
-<span class="w">        </span><span class="c1"># API keys</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sk-[a-zA-Z0-9]{20,}&quot;</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;api_key=[^&amp;\\s]+&quot;</span>
-
-<span class="w">        </span><span class="c1"># Passwords in URLs</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;://[^:]+:[^@]+@&quot;</span>
-
-<span class="w">        </span><span class="c1"># Custom secrets</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;SECRET_[A-Z_]+=[^\\s]+&quot;</span>
-</code></pre></div>
-
-<p>Before:</p>
-<div class="codehilite"><pre><span></span><code>Connecting to postgres://admin:secretpass@db.example.com
-</code></pre></div>
-
-<p>After (in logs):</p>
-<div class="codehilite"><pre><span></span><code>Connecting to postgres://[REDACTED]@db.example.com
-</code></pre></div>
-
-<h2 id="hook-status-context">Hook: Status Context<a class="headerlink" href="#hook-status-context" title="Permanent link">&para;</a></h2>
-<p>Inject environment information into the AI's context:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-status-context</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">include</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git_status</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">working_dir</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date_time</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform</span>
-</code></pre></div>
-
-<p>The AI then knows:
-- Current git branch and status
-- Working directory
-- Current date/time
-- Operating system</p>
-<h2 id="hook-events">Hook Events<a class="headerlink" href="#hook-events" title="Permanent link">&para;</a></h2>
+<p><strong>Tools are capabilities</strong>—they extend what an agent <em>can do</em>. A file-reading tool gives the agent the ability to read files. The agent decides when and how to use it.</p>
+<p><strong>Hooks are observers</strong>—they extend what <em>happens</em> during execution. A logging hook records every tool call, but the agent doesn't know or care that logging is happening.</p>
+<p>This separation keeps agent logic clean while allowing powerful cross-cutting functionality.</p>
+<h2 id="event-types">Event Types<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h2>
+<p>Hooks can subscribe to various lifecycle events. Here are the primary event categories:</p>
 <h3 id="session-events">Session Events<a class="headerlink" href="#session-events" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Event</th>
-<th>When</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>session:start</code></td>
-<td>Session begins</td>
-<td>Initialize state</td>
-</tr>
-<tr>
-<td><code>session:end</code></td>
-<td>Session ends</td>
-<td>Cleanup, summary</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li><code>on_session_start</code> — A new session begins</li>
+<li><code>on_session_end</code> — A session completes or terminates</li>
+<li><code>on_session_resume</code> — A persisted session resumes</li>
+</ul>
 <h3 id="turn-events">Turn Events<a class="headerlink" href="#turn-events" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Event</th>
-<th>When</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>turn:start</code></td>
-<td>User message received</td>
-<td>Log input</td>
-</tr>
-<tr>
-<td><code>turn:end</code></td>
-<td>Response complete</td>
-<td>Log output</td>
-</tr>
-</tbody>
-</table>
-<h3 id="provider-events">Provider Events<a class="headerlink" href="#provider-events" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Event</th>
-<th>When</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>provider:request</code></td>
-<td>Before API call</td>
-<td>Log/modify request</td>
-</tr>
-<tr>
-<td><code>provider:response</code></td>
-<td>After API response</td>
-<td>Log/modify response</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li><code>on_turn_start</code> — An agent turn begins (user message received)</li>
+<li><code>on_turn_end</code> — An agent turn completes (response generated)</li>
+<li><code>on_turn_error</code> — An error occurs during a turn</li>
+</ul>
 <h3 id="tool-events">Tool Events<a class="headerlink" href="#tool-events" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Event</th>
-<th>When</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>tool:call</code></td>
-<td>Tool invoked</td>
-<td>Approve, log</td>
-</tr>
-<tr>
-<td><code>tool:result</code></td>
-<td>Tool returns</td>
-<td>Log result</td>
-</tr>
-</tbody>
-</table>
-<h2 id="creating-custom-hooks">Creating Custom Hooks<a class="headerlink" href="#creating-custom-hooks" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># hooks/my_hook.py</span>
-<span class="kn">from</span> <span class="nn">amplifier_core</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookResult</span>
+<ul>
+<li><code>on_tool_call_start</code> — Agent initiates a tool call</li>
+<li><code>on_tool_call_end</code> — Tool execution completes</li>
+<li><code>on_tool_call_error</code> — Tool execution fails</li>
+</ul>
+<h3 id="message-events">Message Events<a class="headerlink" href="#message-events" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>on_user_message</code> — User submits a message</li>
+<li><code>on_assistant_message</code> — Agent generates a response</li>
+<li><code>on_system_message</code> — System injects context</li>
+</ul>
+<h3 id="provider-events">Provider Events<a class="headerlink" href="#provider-events" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>on_llm_request</code> — Request sent to LLM provider</li>
+<li><code>on_llm_response</code> — Response received from provider</li>
+<li><code>on_llm_stream_chunk</code> — Streaming chunk received</li>
+</ul>
+<p>Each event provides a <code>HookContext</code> with relevant data about the event, including timing, identifiers, and payload information.</p>
+<h2 id="built-in-hooks">Built-in Hooks<a class="headerlink" href="#built-in-hooks" title="Permanent link">&para;</a></h2>
+<p>Amplifier provides several hooks out of the box:</p>
+<h3 id="metricshook">MetricsHook<a class="headerlink" href="#metricshook" title="Permanent link">&para;</a></h3>
+<p>Collects timing and usage metrics for observability:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">MetricsHook</span>
 
-<span class="k">class</span> <span class="nc">MyHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my-custom-hook&quot;</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_tool_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called before each tool execution.&quot;&quot;&quot;</span>
-        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">tool_name</span>
-
-        <span class="c1"># Log it</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool called: </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Optionally block it</span>
-        <span class="k">if</span> <span class="n">tool_name</span> <span class="o">==</span> <span class="s2">&quot;dangerous_tool&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">HookResult</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="s2">&quot;This tool is disabled&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Allow it</span>
-        <span class="k">return</span> <span class="n">HookResult</span><span class="o">.</span><span class="n">continue_</span><span class="p">()</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called when session ends.&quot;&quot;&quot;</span>
-        <span class="c1"># Generate summary, cleanup, etc.</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Session ended: </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">session_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">metrics_hook</span> <span class="o">=</span> <span class="n">MetricsHook</span><span class="p">(</span>
+    <span class="n">emit_interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>  <span class="c1"># Emit aggregated metrics every 60 seconds</span>
+    <span class="n">include_tool_timing</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<p>Register in bundle:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-custom-hook</span>
-<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./hooks/my_hook.py</span>
+<h3 id="guardrailhook">GuardrailHook<a class="headerlink" href="#guardrailhook" title="Permanent link">&para;</a></h3>
+<p>Enforces safety constraints and policies:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">GuardrailHook</span>
+
+<span class="n">guardrail_hook</span> <span class="o">=</span> <span class="n">GuardrailHook</span><span class="p">(</span>
+    <span class="n">block_patterns</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;secret&quot;</span><span class="p">],</span>
+    <span class="n">max_tool_calls_per_turn</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h2 id="hook-ordering">Hook Ordering<a class="headerlink" href="#hook-ordering" title="Permanent link">&para;</a></h2>
-<p>Hooks run in order. Earlier hooks can affect later ones:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># 1. First, check approval</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
+<h3 id="audithook">AuditHook<a class="headerlink" href="#audithook" title="Permanent link">&para;</a></h3>
+<p>Records a complete audit trail of agent activity:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">AuditHook</span>
 
-<span class="w">  </span><span class="c1"># 2. Then log (only if approved)</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-logging</span>
-
-<span class="w">  </span><span class="c1"># 3. Then redact logged content</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-redaction</span>
+<span class="n">audit_hook</span> <span class="o">=</span> <span class="n">AuditHook</span><span class="p">(</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;./audit.jsonl&quot;</span><span class="p">,</span>
+    <span class="n">include_payloads</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-view-your-logs">Exercise 1: View Your Logs<a class="headerlink" href="#exercise-1-view-your-logs" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find recent session</span>
-ls<span class="w"> </span>-la<span class="w"> </span>~/.amplifier/sessions/
+<h3 id="contextinjectionhook">ContextInjectionHook<a class="headerlink" href="#contextinjectionhook" title="Permanent link">&para;</a></h3>
+<p>Injects dynamic context into agent prompts:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">ContextInjectionHook</span>
 
-<span class="c1"># View events</span>
-cat<span class="w"> </span>~/.amplifier/sessions/<span class="o">[</span>session-id<span class="o">]</span>/events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+<span class="n">context_hook</span> <span class="o">=</span> <span class="n">ContextInjectionHook</span><span class="p">(</span>
+    <span class="n">injectors</span><span class="o">=</span><span class="p">[</span>
+        <span class="k">lambda</span> <span class="n">ctx</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Current time: </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">ctx</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Session ID: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">session_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h3 id="exercise-2-add-approval-gates">Exercise 2: Add Approval Gates<a class="headerlink" href="#exercise-2-add-approval-gates" title="Permanent link">&para;</a></h3>
-<p>Create a bundle with approval:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># approval-bundle/bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">careful-mode</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<h2 id="creating-hooks">Creating Hooks<a class="headerlink" href="#creating-hooks" title="Permanent link">&para;</a></h2>
+<p>Creating custom hooks is straightforward. Implement the <code>Hook</code> base class and override the event methods you care about.</p>
+<h3 id="basic-hook-structure">Basic Hook Structure<a class="headerlink" href="#basic-hook-structure" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="k">class</span> <span class="nc">MyCustomHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom hook with selective event handling.&quot;&quot;&quot;</span>
 
-<span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
-<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">require_approval_for</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Called when a turn begins</span>
+        <span class="k">pass</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_tool_call_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Called after each tool completes</span>
+        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tool_name</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">duration_ms</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2"> completed in </span><span class="si">{</span><span class="n">duration</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Use it:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>--bundle<span class="w"> </span>./approval-bundle
-&gt;<span class="w"> </span>Create<span class="w"> </span>a<span class="w"> </span>file<span class="w"> </span>called<span class="w"> </span>test.txt
-<span class="c1"># You&#39;ll be prompted to approve</span>
+<h3 id="hook-with-state">Hook with State<a class="headerlink" href="#hook-with-state" title="Permanent link">&para;</a></h3>
+<p>Hooks can maintain state across events:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">TokenCounterHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tracks token usage across a session.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_llm_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">usage</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;usage&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span> <span class="o">+=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span> <span class="o">+=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Session totals: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span><span class="si">}</span><span class="s2"> in, &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span><span class="si">}</span><span class="s2"> out&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="exercise-3-check-what-hooks-are-active">Exercise 3: Check What Hooks Are Active<a class="headerlink" href="#exercise-3-check-what-hooks-are-active" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier
+<h3 id="registering-hooks">Registering Hooks<a class="headerlink" href="#registering-hooks" title="Permanent link">&para;</a></h3>
+<p>Register hooks when creating an agent or session:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core</span> <span class="kn">import</span> <span class="n">Agent</span>
 
-&gt;<span class="w"> </span>What<span class="w"> </span>hooks<span class="w"> </span>are<span class="w"> </span>currently<span class="w"> </span>active?<span class="w"> </span>What<span class="w"> </span><span class="k">do</span><span class="w"> </span>they<span class="w"> </span><span class="k">do</span>?
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span>
+    <span class="n">hooks</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">MetricsHook</span><span class="p">(),</span>
+        <span class="n">MyCustomHook</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
+        <span class="n">TokenCounterHook</span><span class="p">()</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="hook-ordering">Hook Ordering<a class="headerlink" href="#hook-ordering" title="Permanent link">&para;</a></h3>
+<p>Hooks execute in registration order. If order matters (e.g., a guardrail should run before logging), register them accordingly:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">hooks</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">GuardrailHook</span><span class="p">(),</span>   <span class="c1"># Check constraints first</span>
+    <span class="n">AuditHook</span><span class="p">(),</span>       <span class="c1"># Then record the activity</span>
+    <span class="n">MetricsHook</span><span class="p">()</span>      <span class="c1"># Finally collect metrics</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3 id="error-handling-in-hooks">Error Handling in Hooks<a class="headerlink" href="#error-handling-in-hooks" title="Permanent link">&para;</a></h3>
+<p>Hook errors are isolated—a failing hook won't crash the agent:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SafeHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something_risky</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># Log but don&#39;t propagate</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hook error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Hooks observe lifecycle</strong> - Every event can be watched</li>
-<li><strong>Four actions</strong> - Observe, enrich, modify, cancel</li>
-<li><strong>Configurable per-bundle</strong> - Different contexts, different hooks</li>
-<li><strong>Transparency</strong> - Logging hooks make everything visible</li>
+<li>
+<p><strong>Hooks are observers, not actors.</strong> They watch lifecycle events without interfering with agent logic. The agent doesn't know hooks exist.</p>
+</li>
+<li>
+<p><strong>Use hooks for cross-cutting concerns.</strong> Logging, metrics, auditing, guardrails, and context injection are perfect hook use cases.</p>
+</li>
+<li>
+<p><strong>Tools vs hooks is about control.</strong> Agents control tool usage; the system controls hook invocation. Choose based on who should decide when the functionality runs.</p>
+</li>
+<li>
+<p><strong>Hooks execute in order.</strong> Registration order determines execution order. Place guardrails before audit hooks if you want to audit blocked requests.</p>
+</li>
+<li>
+<p><strong>Keep hooks lightweight.</strong> Hooks run synchronously in the event flow. Heavy processing should be offloaded to background tasks.</p>
+</li>
+<li>
+<p><strong>Hooks are isolated.</strong> A failing hook won't crash your agent, but you should still handle errors gracefully.</p>
+</li>
+<li>
+<p><strong>State is per-instance.</strong> Each hook instance maintains its own state. Create new instances for independent tracking.</p>
+</li>
 </ol>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>You've now learned all the core concepts:</p>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Bundles</strong></td>
-<td>Package and configure everything</td>
-</tr>
-<tr>
-<td><strong>Modules</strong></td>
-<td>Building blocks (tools, providers)</td>
-</tr>
-<tr>
-<td><strong>Agents</strong></td>
-<td>Specialized AI configurations</td>
-</tr>
-<tr>
-<td><strong>Recipes</strong></td>
-<td>Multi-step workflows</td>
-</tr>
-<tr>
-<td><strong>Skills</strong></td>
-<td>Domain knowledge packages</td>
-</tr>
-<tr>
-<td><strong>Hooks</strong></td>
-<td>Lifecycle observation and control</td>
-</tr>
-</tbody>
-</table>
-<p>Ready to explore specific capabilities? Check the <a href="../tools/index.html">Tools Reference</a> or <a href="../dev-setup/index.html">Developer Setup</a>.</p>
+<p>Hooks embody Amplifier's philosophy of composable, non-intrusive extensibility. They let you add powerful functionality to any agent without touching its core implementation.</p>
               
             </div>
           </div><footer>

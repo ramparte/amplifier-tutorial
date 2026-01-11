@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -98,61 +100,55 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="recipes-tool.html">Recipes Tool</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-are-recipes">What are Recipes?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    <li class="toctree-l2"><a class="reference internal" href="#executing-recipes">Executing Recipes</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#running-recipes">Running Recipes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#passing-context">Passing Context</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-execution">Basic Execution</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#with-context-variables">With Context Variables</a>
+    <li class="toctree-l3"><a class="reference internal" href="#context-accumulation">Context Accumulation</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#managing-sessions">Managing Sessions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#list-active-sessions">List Active Sessions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#resume-interrupted-session">Resume Interrupted Session</a>
+    <li class="toctree-l3"><a class="reference internal" href="#operation-examples">Operation Examples</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#approval-gates">Approval Gates</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#check-pending-approvals">Check Pending Approvals</a>
+    <li class="toctree-l3"><a class="reference internal" href="#defining-staged-recipes">Defining Staged Recipes</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#approve-a-stage">Approve a Stage</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#deny-a-stage">Deny a Stage</a>
+    <li class="toctree-l3"><a class="reference internal" href="#approval-workflow">Approval Workflow</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#validating-recipes">Validating Recipes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#error-strategies">Error Strategies</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#example-session">Example Session</a>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-keep-steps-focused">1. Keep Steps Focused</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-use-descriptive-names">2. Use Descriptive Names</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-validate-before-execution">3. Validate Before Execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-design-for-resumability">4. Design for Resumability</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-use-approval-gates-for-sensitive-operations">5. Use Approval Gates for Sensitive Operations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-document-your-recipes">6. Document Your Recipes</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-run-an-example">Exercise 1: Run an Example</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-check-status">Exercise 2: Check Status</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-validate-your-recipe">Exercise 3: Validate Your Recipe</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#recipe-not-found">"Recipe not found"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#context-variable-required">"Context variable required"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#invalid-yaml">"Invalid YAML"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#session-not-found">"Session not found"</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -232,215 +228,328 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="recipes-tool">Recipes Tool<a class="headerlink" href="#recipes-tool" title="Permanent link">&para;</a></h1>
-<p>Execute multi-step workflows defined in YAML.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The recipes tool runs declarative workflows:</p>
+<p>The Recipes Tool enables declarative workflow automation through YAML specifications.
+Instead of manually orchestrating multi-step tasks, you define what needs to happen
+and let Amplifier handle the execution, checkpointing, and error recovery.</p>
+<h2 id="what-are-recipes">What are Recipes?<a class="headerlink" href="#what-are-recipes" title="Permanent link">&para;</a></h2>
+<p>Recipes are declarative YAML workflows that define multi-step agent tasks. Think of
+them as executable specifications that describe:</p>
+<ul>
+<li><strong>Steps</strong>: Individual units of work performed by agents</li>
+<li><strong>Context</strong>: Data that flows between steps</li>
+<li><strong>Dependencies</strong>: How steps relate to each other</li>
+<li><strong>Checkpoints</strong>: Automatic save points for resumability</li>
+<li><strong>Gates</strong>: Human approval points for sensitive operations</li>
+</ul>
+<p>A simple recipe might look like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review code changes and suggest improvements</span>
+
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Analyze the code in {{ file_path }} for:</span>
+<span class="w">      </span><span class="no">- Code quality issues</span>
+<span class="w">      </span><span class="no">- Potential bugs</span>
+<span class="w">      </span><span class="no">- Performance concerns</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">suggest</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Based on the analysis, suggest specific improvements.</span>
+<span class="w">      </span><span class="no">Previous analysis: {{ steps.analyze.result }}</span>
+</code></pre></div>
+
+<h2 id="executing-recipes">Executing Recipes<a class="headerlink" href="#executing-recipes" title="Permanent link">&para;</a></h2>
+<p>To run a recipe, use the <code>execute</code> operation with the path to your YAML file:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;execute recipe.yaml&quot;</span>
+</code></pre></div>
+
+<p>Or through the recipes tool directly:</p>
+<div class="codehilite"><pre><span></span><code>recipes(operation=&quot;execute&quot;, recipe_path=&quot;my-recipe.yaml&quot;)
+</code></pre></div>
+
+<p>During execution, Amplifier:</p>
+<ol>
+<li>Validates the recipe structure</li>
+<li>Creates a new session for tracking</li>
+<li>Executes steps sequentially</li>
+<li>Persists state after each step</li>
+<li>Returns the final result</li>
+</ol>
+<h2 id="passing-context">Passing Context<a class="headerlink" href="#passing-context" title="Permanent link">&para;</a></h2>
+<p>Recipes become powerful when you parameterize them with context variables.
+Pass context as key-value pairs:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;execute code-review.yaml with file_path=src/auth.py&quot;</span>
+</code></pre></div>
+
+<p>Or programmatically:</p>
+<div class="codehilite"><pre><span></span><code>recipes(
+  operation=&quot;execute&quot;,
+  recipe_path=&quot;code-review.yaml&quot;,
+  context={&quot;file_path&quot;: &quot;src/auth.py&quot;, &quot;strict_mode&quot;: true}
+)
+</code></pre></div>
+
+<p>Context variables are available in step instructions using Jinja2 templating:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Review {{ file_path }} with strict_mode={{ strict_mode }}</span>
+</code></pre></div>
+
+<h3 id="context-accumulation">Context Accumulation<a class="headerlink" href="#context-accumulation" title="Permanent link">&para;</a></h3>
+<p>Each step's result is automatically added to context for subsequent steps:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step_one</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Generate</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">summary&quot;</span>
+<span class="w">    </span><span class="c1"># Result stored in steps.step_one.result</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step_two</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Expand on this summary: {{ steps.step_one.result }}</span>
+</code></pre></div>
+
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
+<p>The Recipes Tool supports several operations for managing workflow execution:</p>
 <table>
 <thead>
 <tr>
 <th>Operation</th>
 <th>Purpose</th>
+<th>Required Parameters</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>execute</code></td>
-<td>Run a recipe</td>
+<td>Run a recipe from YAML file</td>
+<td><code>recipe_path</code></td>
 </tr>
 <tr>
 <td><code>resume</code></td>
-<td>Continue interrupted recipe</td>
+<td>Continue an interrupted session</td>
+<td><code>session_id</code></td>
 </tr>
 <tr>
 <td><code>list</code></td>
-<td>Show active sessions</td>
+<td>List all active recipe sessions</td>
+<td>None</td>
 </tr>
 <tr>
 <td><code>validate</code></td>
-<td>Check recipe syntax</td>
+<td>Check recipe YAML structure</td>
+<td><code>recipe_path</code></td>
 </tr>
 <tr>
 <td><code>approvals</code></td>
-<td>Show pending approvals</td>
+<td>List pending approvals across sessions</td>
+<td>None</td>
 </tr>
 <tr>
-<td><code>approve</code> / <code>deny</code></td>
-<td>Respond to approval gates</td>
+<td><code>approve</code></td>
+<td>Approve a stage to continue execution</td>
+<td><code>session_id</code>, <code>stage_name</code></td>
+</tr>
+<tr>
+<td><code>deny</code></td>
+<td>Deny a stage and stop execution</td>
+<td><code>session_id</code>, <code>stage_name</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Add the recipes bundle</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
-amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
+<h3 id="operation-examples">Operation Examples<a class="headerlink" href="#operation-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Validate before running:</strong></p>
+<div class="codehilite"><pre><span></span><code>recipes(operation=&quot;validate&quot;, recipe_path=&quot;deployment.yaml&quot;)
 </code></pre></div>
 
-<h2 id="running-recipes">Running Recipes<a class="headerlink" href="#running-recipes" title="Permanent link">&para;</a></h2>
-<h3 id="basic-execution">Basic Execution<a class="headerlink" href="#basic-execution" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Run the code-review recipe on src/auth.py
+<p><strong>Resume an interrupted session:</strong></p>
+<div class="codehilite"><pre><span></span><code>recipes(operation=&quot;resume&quot;, session_id=&quot;recipe_20260110_143022_a3f2&quot;)
 </code></pre></div>
 
-<p>Or via CLI:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipes/code-review.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file_path&quot;: &quot;src/auth.py&quot;}&#39;</span>
-</code></pre></div>
-
-<h3 id="with-context-variables">With Context Variables<a class="headerlink" href="#with-context-variables" title="Permanent link">&para;</a></h3>
-<p>Recipes accept input variables:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># recipe.yaml</span>
-<span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">   </span><span class="c1"># Required</span>
-<span class="w">  </span><span class="nt">depth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;basic&quot;</span><span class="w">  </span><span class="c1"># Optional with default</span>
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipe.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file_path&quot;: &quot;src/auth.py&quot;, &quot;depth&quot;: &quot;detailed&quot;}&#39;</span>
-</code></pre></div>
-
-<h2 id="managing-sessions">Managing Sessions<a class="headerlink" href="#managing-sessions" title="Permanent link">&para;</a></h2>
-<h3 id="list-active-sessions">List Active Sessions<a class="headerlink" href="#list-active-sessions" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>list
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>Active Recipe Sessions:
-  ID                              Recipe          Status
-  recipe_20260107_140000_abc123   code-review     running
-  recipe_20260107_130000_def456   security-audit  awaiting_approval
-</code></pre></div>
-
-<h3 id="resume-interrupted-session">Resume Interrupted Session<a class="headerlink" href="#resume-interrupted-session" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>resume<span class="w"> </span>recipe_20260107_140000_abc123
-</code></pre></div>
-
-<p>Or in a session:</p>
-<div class="codehilite"><pre><span></span><code>&gt; Resume the code-review recipe
+<p><strong>Check pending approvals:</strong></p>
+<div class="codehilite"><pre><span></span><code>recipes(operation=&quot;approvals&quot;)
 </code></pre></div>
 
 <h2 id="approval-gates">Approval Gates<a class="headerlink" href="#approval-gates" title="Permanent link">&para;</a></h2>
-<p>Some recipes pause for human approval:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<p>For sensitive operations, recipes support staged execution with human approval gates.
+This creates a human-in-the-loop workflow where execution pauses until approved.</p>
+<h3 id="defining-staged-recipes">Defining Staged Recipes<a class="headerlink" href="#defining-staged-recipes" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-deploy</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to production with approval gates</span>
+
+<span class="nt">stages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">planning</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plan</span>
+<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
+<span class="w">        </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create deployment plan for {{ service }}</span>
 <span class="w">    </span><span class="nt">requires_approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">production&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">execution</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
+<span class="w">        </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">Execute deployment plan: {{ stages.planning.steps.plan.result }}</span>
 </code></pre></div>
 
-<h3 id="check-pending-approvals">Check Pending Approvals<a class="headerlink" href="#check-pending-approvals" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>approvals
+<h3 id="approval-workflow">Approval Workflow<a class="headerlink" href="#approval-workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Recipe executes until it hits an approval gate</li>
+<li>Execution pauses and awaits human review</li>
+<li>Human reviews the stage output</li>
+<li>Human approves or denies:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code># Approve to continue
+recipes(operation=&quot;approve&quot;, session_id=&quot;...&quot;, stage_name=&quot;planning&quot;)
+
+# Deny to stop execution
+recipes(operation=&quot;deny&quot;, session_id=&quot;...&quot;, stage_name=&quot;planning&quot;, reason=&quot;Needs revision&quot;)
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Pending Approvals:
-  Session: recipe_20260107_130000_def456
-  Recipe: deploy-workflow
-  Stage: deploy
-  Waiting since: 10 minutes ago
+<ol>
+<li>If approved, execution continues to the next stage</li>
+</ol>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>Recipes include built-in error handling and retry logic:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_call</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:integration-specialist</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Call external API</span>
+<span class="w">    </span><span class="nt">retry</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">max_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">delay_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span><span class="w">  </span><span class="c1"># or &#39;fail&#39; to stop execution</span>
 </code></pre></div>
 
-<h3 id="approve-a-stage">Approve a Stage<a class="headerlink" href="#approve-a-stage" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>approve<span class="w"> </span>recipe_20260107_130000_def456<span class="w"> </span>deploy
+<h3 id="error-strategies">Error Strategies<a class="headerlink" href="#error-strategies" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fail</code></td>
+<td>Stop execution immediately (default)</td>
+</tr>
+<tr>
+<td><code>continue</code></td>
+<td>Log error and proceed to next step</td>
+</tr>
+<tr>
+<td><code>retry</code></td>
+<td>Attempt step again with configured backoff</td>
+</tr>
+</tbody>
+</table>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-keep-steps-focused">1. Keep Steps Focused<a class="headerlink" href="#1-keep-steps-focused" title="Permanent link">&para;</a></h3>
+<p>Each step should do one thing well:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Good: Single responsibility</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analyze code structure</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review for issues</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">suggest</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Suggest improvements</span>
+
+<span class="c1"># Avoid: Monolithic steps</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">do_everything</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Analyze, review, and suggest all at once</span>
 </code></pre></div>
 
-<h3 id="deny-a-stage">Deny a Stage<a class="headerlink" href="#deny-a-stage" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>deny<span class="w"> </span>recipe_20260107_130000_def456<span class="w"> </span>deploy<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Need more testing first&quot;</span>
+<h3 id="2-use-descriptive-names">2. Use Descriptive Names<a class="headerlink" href="#2-use-descriptive-names" title="Permanent link">&para;</a></h3>
+<p>Step and stage names become part of the context path:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Good: Clear, descriptive</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security_audit</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">performance_review</span>
+
+<span class="c1"># Avoid: Generic names</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step2</span>
 </code></pre></div>
 
-<h2 id="validating-recipes">Validating Recipes<a class="headerlink" href="#validating-recipes" title="Permanent link">&para;</a></h2>
-<p>Check syntax before running:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>my-recipe.yaml
+<h3 id="3-validate-before-execution">3. Validate Before Execution<a class="headerlink" href="#3-validate-before-execution" title="Permanent link">&para;</a></h3>
+<p>Always validate recipes before running in production:</p>
+<div class="codehilite"><pre><span></span><code>recipes(operation=&quot;validate&quot;, recipe_path=&quot;critical-workflow.yaml&quot;)
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>Recipe &#39;my-recipe&#39; is valid.
+<h3 id="4-design-for-resumability">4. Design for Resumability<a class="headerlink" href="#4-design-for-resumability" title="Permanent link">&para;</a></h3>
+<p>Structure recipes so they can resume gracefully:</p>
+<ul>
+<li>Make steps idempotent where possible</li>
+<li>Use clear checkpoints between major operations</li>
+<li>Store intermediate results in context</li>
+</ul>
+<h3 id="5-use-approval-gates-for-sensitive-operations">5. Use Approval Gates for Sensitive Operations<a class="headerlink" href="#5-use-approval-gates-for-sensitive-operations" title="Permanent link">&para;</a></h3>
+<p>Add human checkpoints for:</p>
+<ul>
+<li>Production deployments</li>
+<li>Data migrations</li>
+<li>External API calls with side effects</li>
+<li>Operations that cannot be easily reversed</li>
+</ul>
+<h3 id="6-document-your-recipes">6. Document Your Recipes<a class="headerlink" href="#6-document-your-recipes" title="Permanent link">&para;</a></h3>
+<p>Include clear descriptions:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-migration</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">Migrates user data from legacy system to new schema.</span>
 
-Steps: 4
-Agents used: zen-architect, modular-builder
-Context variables: file_path (required), depth (optional)
-</code></pre></div>
+<span class="w">  </span><span class="no">Prerequisites:</span>
+<span class="w">  </span><span class="no">- Backup completed</span>
+<span class="w">  </span><span class="no">- Maintenance window scheduled</span>
 
-<h2 id="example-session">Example Session<a class="headerlink" href="#example-session" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Start a recipe</span>
-$<span class="w"> </span>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipes/upgrade-deps.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;project&quot;: &quot;.&quot;}&#39;</span>
-
-Starting<span class="w"> </span>recipe:<span class="w"> </span>upgrade-deps
-Session<span class="w"> </span>ID:<span class="w"> </span>recipe_20260107_150000_xyz789
-
-Step<span class="w"> </span><span class="m">1</span>/4:<span class="w"> </span>analyze-deps
-<span class="w">  </span><span class="o">[</span>explorer<span class="o">]</span><span class="w"> </span>Analyzing<span class="w"> </span>dependencies...
-<span class="w">  </span>✓<span class="w"> </span>Found<span class="w"> </span><span class="m">15</span><span class="w"> </span>outdated<span class="w"> </span>packages
-
-Step<span class="w"> </span><span class="m">2</span>/4:<span class="w"> </span>create-plan
-<span class="w">  </span><span class="o">[</span>zen-architect<span class="o">]</span><span class="w"> </span>Creating<span class="w"> </span>upgrade<span class="w"> </span>plan...
-<span class="w">  </span>✓<span class="w"> </span>Plan<span class="w"> </span>created
-
-Step<span class="w"> </span><span class="m">3</span>/4:<span class="w"> </span>approve-plan<span class="w"> </span><span class="o">[</span>REQUIRES<span class="w"> </span>APPROVAL<span class="o">]</span>
-<span class="w">  </span>Review<span class="w"> </span>the<span class="w"> </span>upgrade<span class="w"> </span>plan<span class="w"> </span>before<span class="w"> </span>proceeding.
-
-<span class="w">  </span>To<span class="w"> </span>approve:<span class="w"> </span>amplifier<span class="w"> </span>recipes<span class="w"> </span>approve<span class="w"> </span>recipe_20260107_150000_xyz789<span class="w"> </span>approve-plan
-<span class="w">  </span>To<span class="w"> </span>deny:<span class="w"> </span>amplifier<span class="w"> </span>recipes<span class="w"> </span>deny<span class="w"> </span>recipe_20260107_150000_xyz789<span class="w"> </span>approve-plan
-
-<span class="c1"># In another terminal, approve it</span>
-$<span class="w"> </span>amplifier<span class="w"> </span>recipes<span class="w"> </span>approve<span class="w"> </span>recipe_20260107_150000_xyz789<span class="w"> </span>approve-plan
-
-<span class="c1"># Recipe continues...</span>
-Step<span class="w"> </span><span class="m">4</span>/4:<span class="w"> </span>execute-upgrades
-<span class="w">  </span><span class="o">[</span>modular-builder<span class="o">]</span><span class="w"> </span>Executing<span class="w"> </span>upgrades...
-<span class="w">  </span>✓<span class="w"> </span>Dependencies<span class="w"> </span>upgraded
-
-Recipe<span class="w"> </span>completed<span class="w"> </span>successfully!
+<span class="w">  </span><span class="no">Context required:</span>
+<span class="w">  </span><span class="no">- source_db: Legacy database connection</span>
+<span class="w">  </span><span class="no">- target_db: New database connection</span>
 </code></pre></div>
 
 <h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-run-an-example">Exercise 1: Run an Example<a class="headerlink" href="#exercise-1-run-an-example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See available example recipes</span>
-ls<span class="w"> </span>~/.amplifier/bundles/recipes/examples/
+<p>Create a simple recipe to experience the workflow:</p>
+<p><strong>1. Create <code>hello-recipe.yaml</code>:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello-world</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A simple introduction to recipes</span>
 
-<span class="c1"># Run one</span>
-amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>examples/code-review.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;file_path&quot;: &quot;any-file.py&quot;}&#39;</span>
-</code></pre></div>
-
-<h3 id="exercise-2-check-status">Exercise 2: Check Status<a class="headerlink" href="#exercise-2-check-status" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List sessions</span>
-amplifier<span class="w"> </span>recipes<span class="w"> </span>list
-
-<span class="c1"># Check for pending approvals</span>
-amplifier<span class="w"> </span>recipes<span class="w"> </span>approvals
-</code></pre></div>
-
-<h3 id="exercise-3-validate-your-recipe">Exercise 3: Validate Your Recipe<a class="headerlink" href="#exercise-3-validate-your-recipe" title="Permanent link">&para;</a></h3>
-<p>Create a simple recipe and validate it:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># test-recipe.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
 <span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Say</span><span class="nv"> </span><span class="s">hello&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">greet</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Create a file called hello.txt with the message:</span>
+<span class="w">      </span><span class="no">&quot;Hello from Amplifier Recipes!&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span>
+<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">Read hello.txt and confirm it contains the greeting.</span>
+<span class="w">      </span><span class="no">Report the contents.</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>test-recipe.yaml
+<p><strong>2. Validate the recipe:</strong></p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;validate hello-recipe.yaml&quot;</span>
 </code></pre></div>
 
-<h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<h3 id="recipe-not-found">"Recipe not found"<a class="headerlink" href="#recipe-not-found" title="Permanent link">&para;</a></h3>
-<p>Check the path:</p>
-<div class="codehilite"><pre><span></span><code>ls<span class="w"> </span>recipes/<span class="w">  </span><span class="c1"># Verify file exists</span>
-amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>./recipes/my-recipe.yaml<span class="w">  </span><span class="c1"># Use relative path</span>
+<p><strong>3. Execute it:</strong></p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;execute hello-recipe.yaml&quot;</span>
 </code></pre></div>
 
-<h3 id="context-variable-required">"Context variable required"<a class="headerlink" href="#context-variable-required" title="Permanent link">&para;</a></h3>
-<p>Provide required context:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>recipe.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--context<span class="w"> </span><span class="s1">&#39;{&quot;required_var&quot;: &quot;value&quot;}&#39;</span>
-</code></pre></div>
-
-<h3 id="invalid-yaml">"Invalid YAML"<a class="headerlink" href="#invalid-yaml" title="Permanent link">&para;</a></h3>
-<p>Validate first:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>recipe.yaml
-</code></pre></div>
-
-<h3 id="session-not-found">"Session not found"<a class="headerlink" href="#session-not-found" title="Permanent link">&para;</a></h3>
-<p>List available sessions:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>recipes<span class="w"> </span>list
-</code></pre></div>
+<p><strong>4. Check the results:</strong></p>
+<p>The recipe will create <code>hello.txt</code> and verify its contents, demonstrating
+the multi-step workflow with context passing between agents.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about <a href="/reference/recipe-schema">Recipe Schema</a> for advanced options</li>
+<li>Explore <a href="/guides/staged-recipes">Staged Recipes</a> for complex workflows</li>
+<li>See <a href="/examples/recipes">Recipe Examples</a> for real-world patterns</li>
+</ul>
               
             </div>
           </div><footer>

@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -116,33 +118,23 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#what-are-skills">What Are Skills?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#available-skills">Available Skills</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#loading-skills">Loading Skills</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-architecture">Skill Architecture</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#skills-vs-tools">Skills vs Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-operations">Skill Operations</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#progressive-loading">Progressive Loading</a>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#skill-structure">Skill Structure</a>
+    <li class="toctree-l2"><a class="reference internal" href="#built-in-skills-overview">Built-in Skills Overview</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-comparison">Quick Comparison</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-vs-context">Skill vs Context</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-skills-effectively">Using Skills Effectively</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#load-before-task">Load Before Task</a>
+    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#combine-skills">Combine Skills</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#check-whats-available">Check What's Available</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-skills">Creating Custom Skills</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#source">Source</a>
+    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
     </li>
     </ul>
                   </li>
@@ -204,194 +196,179 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="skills-reference">Skills Reference<a class="headerlink" href="#skills-reference" title="Permanent link">&para;</a></h1>
-<p>Skills are reusable knowledge packages that give Amplifier domain expertise.</p>
-<h2 id="what-are-skills">What Are Skills?<a class="headerlink" href="#what-are-skills" title="Permanent link">&para;</a></h2>
-<p>Skills follow the <a href="https://github.com/anthropics/skills">Anthropic Skills format</a> - structured knowledge that can be loaded on demand.</p>
-<p>A skill provides:
-- <strong>Workflows</strong> - Decision trees for complex tasks
-- <strong>Patterns</strong> - Best practices and examples
-- <strong>Troubleshooting</strong> - Common errors and solutions
-- <strong>Setup guides</strong> - Installation and configuration</p>
-<h2 id="available-skills">Available Skills<a class="headerlink" href="#available-skills" title="Permanent link">&para;</a></h2>
+<p>Skills are packages of domain knowledge that agents can load on demand. Unlike context files that are always present, skills provide specialized expertise that's loaded only when relevant.</p>
+<p>This section covers skill creation, discovery, and effective use patterns.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Skill</th>
-<th>Purpose</th>
-<th>Guide</th>
+<th>Page</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="playwright.html">Playwright</a></td>
-<td>Browser automation</td>
-<td>UI testing, scraping</td>
+<td><a href="./basics.md">Skill Basics</a></td>
+<td>What skills are and how they work</td>
 </tr>
 <tr>
-<td><a href="curl.html">Curl</a></td>
-<td>HTTP client</td>
-<td>API testing, debugging</td>
+<td><a href="./built-in.md">Built-in Skills</a></td>
+<td>Available skills in the foundation bundle</td>
 </tr>
 <tr>
-<td><a href="image-vision.html">Image Vision</a></td>
-<td>Image analysis</td>
-<td>OCR, visual understanding</td>
+<td><a href="./creating.md">Creating Skills</a></td>
+<td>Build your own domain-specific skills</td>
+</tr>
+<tr>
+<td><a href="./structure.md">Skill Structure</a></td>
+<td>Anatomy of a skill package</td>
+</tr>
+<tr>
+<td><a href="./discovery.md">Discovery</a></td>
+<td>How agents find and load skills</td>
+</tr>
+<tr>
+<td><a href="./companion-files.md">Companion Files</a></td>
+<td>Including examples and templates</td>
+</tr>
+<tr>
+<td><a href="./best-practices.md">Best Practices</a></td>
+<td>Patterns for effective skills</td>
+</tr>
+<tr>
+<td><a href="./publishing.md">Publishing</a></td>
+<td>Sharing skills with the community</td>
 </tr>
 </tbody>
 </table>
-<h2 id="loading-skills">Loading Skills<a class="headerlink" href="#loading-skills" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In a session</span>
-amplifier&gt;<span class="w"> </span>Load<span class="w"> </span>the<span class="w"> </span>playwright<span class="w"> </span>skill
-
-<span class="c1"># Or explicitly</span>
-amplifier&gt;<span class="w"> </span>/skill<span class="w"> </span>load<span class="w"> </span>playwright
+<h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Skills are lazy-loaded</strong> — They only consume context when actually needed</li>
+<li><strong>One domain per skill</strong> — Keep skills focused on a single area of expertise</li>
+<li><strong>Include examples</strong> — Companion files with working code help agents apply knowledge</li>
+<li><strong>Version carefully</strong> — Skills become dependencies; changes affect users</li>
+<li><strong>Search first</strong> — Use <code>load_skill(search="term")</code> to find relevant skills</li>
+</ul>
+<h2 id="skill-architecture">Skill Architecture<a class="headerlink" href="#skill-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>skills/
+└── my-skill/
+    ├── skill.yaml       # Skill manifest (name, description, version)
+    ├── skill.md         # Main knowledge content
+    └── examples/        # Companion files
+        ├── basic.py
+        └── advanced.py
 </code></pre></div>
 
-<h2 id="skills-vs-tools">Skills vs Tools<a class="headerlink" href="#skills-vs-tools" title="Permanent link">&para;</a></h2>
+<h2 id="skill-operations">Skill Operations<a class="headerlink" href="#skill-operations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Show available skills</td>
+<td><code>load_skill(list=True)</code></td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Find by name/description</td>
+<td><code>load_skill(search="python")</code></td>
+</tr>
+<tr>
+<td>Info</td>
+<td>Get metadata only</td>
+<td><code>load_skill(info="curl")</code></td>
+</tr>
+<tr>
+<td>Load</td>
+<td>Load full content</td>
+<td><code>load_skill(skill_name="curl")</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>New to skills?</strong> Begin with <a href="./basics.md">Skill Basics</a> to understand the skill system and when to use it.</p>
+<p><strong>Want to create skills?</strong> Follow <a href="./creating.md">Creating Skills</a> for a hands-on guide to building your first skill.</p>
+<p><strong>Looking for existing skills?</strong> Check <a href="./built-in.md">Built-in Skills</a> for what's already available.</p>
+<h2 id="built-in-skills-overview">Built-in Skills Overview<a class="headerlink" href="#built-in-skills-overview" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Domain</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curl</code></td>
+<td>HTTP/APIs</td>
+<td>Testing REST endpoints</td>
+</tr>
+<tr>
+<td><code>playwright</code></td>
+<td>Browser</td>
+<td>Web automation and scraping</td>
+</tr>
+<tr>
+<td><code>image-vision</code></td>
+<td>Vision</td>
+<td>Analyzing images with LLMs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="skill-vs-context">Skill vs Context<a class="headerlink" href="#skill-vs-context" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
-<th>Skill</th>
-<th>Tool</th>
+<th>Skills</th>
+<th>Context Files</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it is</strong></td>
-<td>Knowledge</td>
-<td>Capability</td>
+<td>Loading</td>
+<td>On-demand</td>
+<td>Always present</td>
 </tr>
 <tr>
-<td><strong>How it helps</strong></td>
-<td>Teaches approach</td>
-<td>Does work</td>
+<td>Scope</td>
+<td>Specialized domain</td>
+<td>General guidance</td>
 </tr>
 <tr>
-<td><strong>When loaded</strong></td>
-<td>On demand</td>
-<td>Always available</td>
+<td>Size</td>
+<td>Can be large</td>
+<td>Should be concise</td>
 </tr>
 <tr>
-<td><strong>Example</strong></td>
-<td>"How to use Playwright"</td>
-<td>"Run this bash command"</td>
+<td>Updates</td>
+<td>Versioned</td>
+<td>Part of bundle</td>
 </tr>
 </tbody>
 </table>
-<p>Skills teach <em>how to think</em>. Tools <em>do things</em>.</p>
-<h2 id="progressive-loading">Progressive Loading<a class="headerlink" href="#progressive-loading" title="Permanent link">&para;</a></h2>
-<p>Skills load efficiently:</p>
-<table>
-<thead>
-<tr>
-<th>Level</th>
-<th>Content</th>
-<th>Tokens</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Metadata</strong></td>
-<td>Name, description</td>
-<td>~100</td>
-</tr>
-<tr>
-<td><strong>Core</strong></td>
-<td>Main SKILL.md</td>
-<td>~1,000</td>
-</tr>
-<tr>
-<td><strong>Reference</strong></td>
-<td>Patterns, setup</td>
-<td>On demand</td>
-</tr>
-</tbody>
-</table>
-<p>Only what's needed is loaded.</p>
-<h2 id="skill-structure">Skill Structure<a class="headerlink" href="#skill-structure" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>my-skill/
-├── SKILL.md           # Required: Core workflow
-├── patterns.md        # Optional: Advanced patterns
-├── setup.md           # Optional: Installation
-└── troubleshooting.md # Optional: Common issues
+<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># In an agent&#39;s workflow:</span>
+<span class="l l-Scalar l-Scalar-Plain">1. Recognize domain-specific task</span>
+<span class="l l-Scalar l-Scalar-Plain">2. Search for relevant skill</span>
+<span class="l l-Scalar l-Scalar-Plain">3. Load skill into context</span>
+<span class="l l-Scalar l-Scalar-Plain">4. Apply skill knowledge</span>
+<span class="l l-Scalar l-Scalar-Plain">5. Reference companion files if needed</span>
 </code></pre></div>
 
-<h2 id="quick-comparison">Quick Comparison<a class="headerlink" href="#quick-comparison" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Task</th>
-<th>Skill to Load</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Browser automation</td>
-<td>Playwright</td>
-</tr>
-<tr>
-<td>API testing</td>
-<td>Curl</td>
-</tr>
-<tr>
-<td>Image analysis</td>
-<td>Image Vision</td>
-</tr>
-</tbody>
-</table>
-<h2 id="using-skills-effectively">Using Skills Effectively<a class="headerlink" href="#using-skills-effectively" title="Permanent link">&para;</a></h2>
-<h3 id="load-before-task">Load Before Task<a class="headerlink" href="#load-before-task" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Load the playwright skill
-&gt; Now test the login form
-</code></pre></div>
-
-<h3 id="combine-skills">Combine Skills<a class="headerlink" href="#combine-skills" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; Load curl and image-vision skills
-&gt; Test the API and verify the returned image
-</code></pre></div>
-
-<h3 id="check-whats-available">Check What's Available<a class="headerlink" href="#check-whats-available" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>&gt; What skills are available?
-&gt; /skills list
-</code></pre></div>
-
-<h2 id="creating-custom-skills">Creating Custom Skills<a class="headerlink" href="#creating-custom-skills" title="Permanent link">&para;</a></h2>
-<p>See <a href="https://github.com/anthropics/skills">Anthropic Skills format</a> for the specification.</p>
-<p>Basic structure:</p>
-<div class="codehilite"><pre><span></span><code><span class="gh"># Skill Name</span>
-
-Brief description.
-
-<span class="gu">## When to Use</span>
-
-<span class="k">-</span><span class="w"> </span>Scenario 1
-<span class="k">-</span><span class="w"> </span>Scenario 2
-
-<span class="gu">## Workflow</span>
-
-Decision tree...
-
-<span class="gu">## Core Patterns</span>
-
-<span class="gu">### Pattern 1</span>
-[Example]
-
-<span class="gu">### Pattern 2</span>
-[Example]
-
-<span class="gu">## Anti-patterns</span>
-
-What to avoid...
-</code></pre></div>
-
-<h2 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h2>
-<p>Skills are maintained at:</p>
-<div class="codehilite"><pre><span></span><code>github.com/robotdad/skills/
-├── playwright/
-├── curl/
-└── image-vision/
-</code></pre></div>
+<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../quickstart/creating-skills.md">Quickstart: Creating Skills</a></li>
+<li><a href="../bundles/context-files.md">Bundles: Context Files</a></li>
+<li><a href="../advanced/skill-development.md">Advanced: Skill Development</a></li>
+</ul>
               
             </div>
           </div><footer>

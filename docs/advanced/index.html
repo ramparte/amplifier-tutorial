@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -140,47 +142,21 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#customization-levels">Customization Levels</a>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-decision-guide">Quick Decision Guide</a>
+    <li class="toctree-l2"><a class="reference internal" href="#architecture-deep-dive">Architecture Deep Dive</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-1-team-configuration">Pattern 1: Team Configuration</a>
+    <li class="toctree-l2"><a class="reference internal" href="#module-types">Module Types</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-2-project-workflows">Pattern 2: Project Workflows</a>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-3-integration-extension">Pattern 3: Integration Extension</a>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-patterns">Advanced Patterns</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-4-external-data">Pattern 4: External Data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#starting-points">Starting Points</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#minimal-custom-bundle">Minimal Custom Bundle</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#minimal-custom-tool">Minimal Custom Tool</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#minimal-recipe">Minimal Recipe</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#start-simple">Start Simple</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#version-control">Version Control</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#need-help">Need Help?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
     </li>
     </ul>
                   </li>
@@ -218,213 +194,155 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h1>
-<p>Extend and customize Amplifier for your specific needs.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This section covers advanced Amplifier concepts for users who want to go deeper. Topics here assume familiarity with core concepts, bundles, and basic agent development.</p>
+<p>These guides help you build sophisticated AI applications, customize the kernel, and optimize performance.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Topic</th>
-<th>What You'll Learn</th>
+<th>Page</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="custom-bundle.html">Custom Bundles</a></td>
-<td>Create your own configuration packages</td>
+<td><a href="./kernel-internals.md">Kernel Internals</a></td>
+<td>How the Amplifier kernel works</td>
 </tr>
 <tr>
-<td><a href="custom-tool.html">Custom Tools</a></td>
-<td>Build new capabilities</td>
+<td><a href="./custom-tools.md">Custom Tools</a></td>
+<td>Building your own tool modules</td>
 </tr>
 <tr>
-<td><a href="custom-recipe.html">Custom Recipes</a></td>
-<td>Design multi-step workflows</td>
+<td><a href="./hook-development.md">Hook Development</a></td>
+<td>Creating custom hooks</td>
 </tr>
 <tr>
-<td><a href="mcp-integration.html">MCP Integration</a></td>
-<td>Connect to MCP servers</td>
+<td><a href="./provider-integration.md">Provider Integration</a></td>
+<td>Adding new LLM providers</td>
+</tr>
+<tr>
+<td><a href="./multi-agent-systems.md">Multi-Agent Systems</a></td>
+<td>Complex agent orchestration</td>
+</tr>
+<tr>
+<td><a href="./recipes.md">Recipes</a></td>
+<td>Declarative multi-step workflows</td>
+</tr>
+<tr>
+<td><a href="./performance.md">Performance</a></td>
+<td>Optimization and scaling</td>
+</tr>
+<tr>
+<td><a href="./security.md">Security</a></td>
+<td>Security model and best practices</td>
 </tr>
 </tbody>
 </table>
-<h2 id="customization-levels">Customization Levels<a class="headerlink" href="#customization-levels" title="Permanent link">&para;</a></h2>
-<p>From simple to complex:</p>
-<div class="codehilite"><pre><span></span><code>1. Instructions only    → Add instructions to existing bundle
-2. Custom bundle        → Combine bundles, add agents/context
-3. Custom tools         → New capabilities via Python
-4. Custom recipes       → Multi-step workflow orchestration
-5. MCP integration      → Connect to external systems
-</code></pre></div>
-
-<h2 id="quick-decision-guide">Quick Decision Guide<a class="headerlink" href="#quick-decision-guide" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>I Want To...</th>
-<th>Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Change AI behavior</td>
-<td><a href="custom-bundle.html">Custom Bundle</a> → instructions</td>
-</tr>
-<tr>
-<td>Add project knowledge</td>
-<td><a href="custom-bundle.html">Custom Bundle</a> → context</td>
-</tr>
-<tr>
-<td>Create specialists</td>
-<td><a href="custom-bundle.html">Custom Bundle</a> → agents</td>
-</tr>
-<tr>
-<td>Add new capabilities</td>
-<td><a href="custom-tool.html">Custom Tool</a></td>
-</tr>
-<tr>
-<td>Automate multi-step work</td>
-<td><a href="custom-recipe.html">Custom Recipe</a></td>
-</tr>
-<tr>
-<td>Connect to databases/APIs</td>
-<td><a href="mcp-integration.html">MCP Integration</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="pattern-1-team-configuration">Pattern 1: Team Configuration<a class="headerlink" href="#pattern-1-team-configuration" title="Permanent link">&para;</a></h3>
-<p>Create a bundle for your team:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># team-bundle/bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-team</span>
-
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recipes</span>
-
-<span class="nt">agents</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/code-reviewer.yaml</span>
-
-<span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/coding-standards.md</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/architecture.md</span>
-</code></pre></div>
-
-<h3 id="pattern-2-project-workflows">Pattern 2: Project Workflows<a class="headerlink" href="#pattern-2-project-workflows" title="Permanent link">&para;</a></h3>
-<p>Create recipes for project processes:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># recipes/deploy.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
-<span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">tests&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">approve</span>
-<span class="w">    </span><span class="nt">requires_approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">staging&quot;</span>
-</code></pre></div>
-
-<h3 id="pattern-3-integration-extension">Pattern 3: Integration Extension<a class="headerlink" href="#pattern-3-integration-extension" title="Permanent link">&para;</a></h3>
-<p>Add tools for your systems:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># modules/jira_tool/tool.py</span>
-<span class="k">class</span> <span class="nc">JiraTool</span><span class="p">(</span><span class="n">Tool</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;jira&quot;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Manage Jira tickets&quot;</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-        <span class="c1"># Your Jira integration</span>
-        <span class="k">pass</span>
-</code></pre></div>
-
-<h3 id="pattern-4-external-data">Pattern 4: External Data<a class="headerlink" href="#pattern-4-external-data" title="Permanent link">&para;</a></h3>
-<p>Connect via MCP:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal-api</span>
-<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python internal_api_server.py</span>
-</code></pre></div>
-
-<h2 id="starting-points">Starting Points<a class="headerlink" href="#starting-points" title="Permanent link">&para;</a></h2>
-<h3 id="minimal-custom-bundle">Minimal Custom Bundle<a class="headerlink" href="#minimal-custom-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>my-bundle
-cat<span class="w"> </span>&gt;<span class="w"> </span>my-bundle/bundle.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">bundle:</span>
-<span class="s">  name: my-config</span>
-<span class="s">  version: 1.0.0</span>
-<span class="s">includes:</span>
-<span class="s">  - bundle: foundation</span>
-<span class="s">instructions: |</span>
-<span class="s">  My custom instructions here.</span>
-<span class="s">EOF</span>
-
-amp<span class="w"> </span>--bundle<span class="w"> </span>./my-bundle
-</code></pre></div>
-
-<h3 id="minimal-custom-tool">Minimal Custom Tool<a class="headerlink" href="#minimal-custom-tool" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># tool.py</span>
-<span class="kn">from</span> <span class="nn">amplifier_core</span> <span class="kn">import</span> <span class="n">Tool</span>
-
-<span class="k">class</span> <span class="nc">MyTool</span><span class="p">(</span><span class="n">Tool</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my-tool&quot;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Does something useful&quot;</span>
-    <span class="n">input_schema</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{}}</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Result&quot;</span>
-</code></pre></div>
-
-<h3 id="minimal-recipe">Minimal Recipe<a class="headerlink" href="#minimal-recipe" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-recipe</span>
-<span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step-one</span>
-<span class="w">    </span><span class="nt">instruction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Do</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">thing&quot;</span>
-</code></pre></div>
-
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="start-simple">Start Simple<a class="headerlink" href="#start-simple" title="Permanent link">&para;</a></h3>
-<ol>
-<li>First, try adjusting instructions</li>
-<li>Then, add context files</li>
-<li>Then, create agents</li>
-<li>Finally, build tools/recipes</li>
-</ol>
-<h3 id="version-control">Version Control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Keep your customizations in git</span>
-<span class="nb">cd</span><span class="w"> </span>my-bundle
-git<span class="w"> </span>init
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial bundle&quot;</span>
-</code></pre></div>
-
-<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
-<p>Document your customizations:</p>
-<div class="codehilite"><pre><span></span><code>my-bundle/
-├── bundle.yaml
-├── README.md          # What this bundle does
-├── agents/
-│   └── README.md      # What each agent does
-└── recipes/
-    └── README.md      # How to use recipes
-</code></pre></div>
-
-<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
-<p>Test changes incrementally:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Test bundle loads</span>
-amp<span class="w"> </span>--bundle<span class="w"> </span>./my-bundle
-&gt;<span class="w"> </span>What<span class="w"> </span>tools<span class="w"> </span><span class="k">do</span><span class="w"> </span>you<span class="w"> </span>have?
-
-<span class="c1"># Test specific agent</span>
-&gt;<span class="w"> </span>Use<span class="w"> </span><span class="o">[</span>your-agent<span class="o">]</span><span class="w"> </span>to<span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">[</span>task<span class="o">]</span>
-
-<span class="c1"># Test recipe</span>
-amp<span class="w"> </span>recipes<span class="w"> </span>validate<span class="w"> </span>my-recipe.yaml
-amp<span class="w"> </span>recipes<span class="w"> </span>execute<span class="w"> </span>my-recipe.yaml<span class="w"> </span>--context<span class="w"> </span><span class="s1">&#39;{}&#39;</span>
-</code></pre></div>
-
-<h2 id="need-help">Need Help?<a class="headerlink" href="#need-help" title="Permanent link">&para;</a></h2>
+<h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Recipe creation</strong> → Ask <code>recipe-author</code> agent</li>
-<li><strong>Architecture questions</strong> → Ask <code>zen-architect</code> agent</li>
-<li><strong>Debug issues</strong> → Check <a href="../dev-setup/debugging.html">Debugging guide</a></li>
+<li><strong>Understand modules first</strong> — All advanced features build on the module system</li>
+<li><strong>Read the source</strong> — Amplifier is open; the code is the best documentation</li>
+<li><strong>Test in isolation</strong> — Advanced features can have subtle interactions</li>
+<li><strong>Use typed interfaces</strong> — TypedDict and Protocol classes catch errors early</li>
+<li><strong>Profile before optimizing</strong> — Measure actual bottlenecks, don't guess</li>
+</ul>
+<h2 id="architecture-deep-dive">Architecture Deep Dive<a class="headerlink" href="#architecture-deep-dive" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
+│                    Application Layer                    │
+├─────────────────────────────────────────────────────────┤
+│  Recipes │ Multi-Agent │ Custom Behaviors               │
+├─────────────────────────────────────────────────────────┤
+│      Modules: Providers │ Tools │ Hooks │ Custom        │
+├─────────────────────────────────────────────────────────┤
+│                   Event System                          │
+├─────────────────────────────────────────────────────────┤
+│    Kernel: Session Manager │ Module Registry │ Router   │
+└─────────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<h2 id="module-types">Module Types<a class="headerlink" href="#module-types" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+<th>Interface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td>LLM backends</td>
+<td><code>ProviderProtocol</code></td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>Agent capabilities</td>
+<td><code>ToolProtocol</code></td>
+</tr>
+<tr>
+<td>Hook</td>
+<td>Event interception</td>
+<td><code>HookProtocol</code></td>
+</tr>
+<tr>
+<td>Context</td>
+<td>Knowledge injection</td>
+<td><code>ContextProtocol</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Want to extend Amplifier?</strong> Start with <a href="./custom-tools.md">Custom Tools</a>—it's the most common extension point.</p>
+<p><strong>Building complex workflows?</strong> Read <a href="./recipes.md">Recipes</a> for declarative multi-step orchestration.</p>
+<p><strong>Optimizing performance?</strong> Check <a href="./performance.md">Performance</a> for profiling and optimization strategies.</p>
+<p><strong>Security concerns?</strong> Review <a href="./security.md">Security</a> before deploying to production.</p>
+<h2 id="advanced-patterns">Advanced Patterns<a class="headerlink" href="#advanced-patterns" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use Case</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool composition</td>
+<td>Combine tools for complex ops</td>
+<td>Custom Tools</td>
+</tr>
+<tr>
+<td>Event sourcing</td>
+<td>Audit and replay</td>
+<td>Kernel Internals</td>
+</tr>
+<tr>
+<td>Agent delegation</td>
+<td>Hierarchical task distribution</td>
+<td>Multi-Agent Systems</td>
+</tr>
+<tr>
+<td>Staged execution</td>
+<td>Human-in-loop workflows</td>
+<td>Recipes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before diving into advanced topics, ensure you understand:</p>
+<ul>
+<li>[ ] Core concepts (sessions, agents, modules)</li>
+<li>[ ] Bundle composition and structure</li>
+<li>[ ] Basic tool usage patterns</li>
+<li>[ ] Hook event lifecycle</li>
+</ul>
+<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../concepts/index.html">Concepts: Core Architecture</a></li>
+<li><a href="../dev-setup/contributing.md">Dev Setup: Contributing</a></li>
+<li><a href="../bundles/creating.md">Bundles: Creating Bundles</a></li>
 </ul>
               
             </div>

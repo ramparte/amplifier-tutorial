@@ -1,253 +1,351 @@
 ---
 id: agents
 type: concepts
-title: "Agents"
+title: "Understanding Agents"
 ---
 
-# Agents
+# Understanding Agents
 
-Agents are specialized AI configurations designed for specific tasks. When you need debugging expertise, you spawn the bug-hunter. When you need architecture advice, you spawn the zen-architect.
+Agents are specialized AI assistants that handle complex, multi-step tasks autonomously. They're one of Amplifier's most powerful features for managing sophisticated workflows without overwhelming your main conversation context.
 
 ## What is an Agent?
 
-An agent is a **sub-session** with its own:
+**Key Insight: Agents ARE bundles. Same file format, same structure.**
 
-- **Instructions** - Specialized system prompt
-- **Tools** - Subset of available tools
-- **Context** - Domain knowledge
-- **Behavior** - How it approaches problems
-
-Agents run as separate sessions, do their work, and report back.
-
-## Using Agents
-
-### Automatic Delegation
-
-Amplifier automatically delegates to specialists:
-
-```
-You: Debug the authentication issue in src/auth.py
-
-Amplifier: I'll delegate this to the bug-hunter agent...
-
-[bug-hunter runs, investigates, reports back]
-
-Amplifier: The bug-hunter found the issue: [summary]
-```
-
-### Manual Delegation
-
-Request a specific agent:
-
-```
-You: Use the zen-architect to review this module's design
-
-You: Ask the security-guardian to check src/api.py
-```
-
-### Via Task Tool
-
-The AI uses the `task` tool to spawn agents:
-
-```
-[Tool: task]
-agent: foundation:bug-hunter
-instruction: "Debug the authentication failure in src/auth.py"
-```
-
-## Built-in Agents
-
-### Foundation Agents
-
-| Agent | Specialty | When to Use |
-|-------|-----------|-------------|
-| `zen-architect` | Design & architecture | Planning, code review, refactoring |
-| `bug-hunter` | Debugging | Errors, test failures, unexpected behavior |
-| `modular-builder` | Implementation | Building from specifications |
-| `explorer` | Reconnaissance | Understanding codebases, mapping structure |
-| `security-guardian` | Security review | Vulnerability assessment, auth review |
-| `test-coverage` | Testing strategy | Identifying test gaps, writing tests |
-| `git-ops` | Git operations | Commits, PRs, branch management |
-| `web-research` | Web research | Finding docs, searching for solutions |
-| `file-ops` | File operations | Bulk file changes, search |
-
-### Design Intelligence Agents
-
-From the `design-intelligence` bundle:
-
-| Agent | Specialty |
-|-------|-----------|
-| `art-director` | Visual strategy, aesthetics |
-| `component-designer` | UI component design |
-| `layout-architect` | Page structure, information architecture |
-| `animation-choreographer` | Motion and transitions |
-| `responsive-strategist` | Multi-device design |
-| `voice-strategist` | Tone, microcopy, UX writing |
-
-## Agent Definition
-
-Agents are defined in YAML:
+An agent is simply a bundle that's designed to be launched as a sub-session via the `task` tool. There's no special "agent format" - any bundle can potentially act as an agent if it's configured for autonomous task execution.
 
 ```yaml
-# agents/my-specialist.yaml
-meta:
-  name: my-specialist
-  description: "Expert at analyzing performance issues"
+# This IS an agent - it's just a bundle!
+name: code-reviewer
+version: 1.0.0
+description: Reviews code for quality and best practices
 
-# What tools this agent can use
+instructions: |
+  You are a code review specialist. Analyze the provided code
+  for bugs, style issues, and improvement opportunities.
+  
+  Provide actionable feedback with specific line references.
+
 tools:
   - read_file
-  - bash
   - grep
-
-# Specialized instructions
-instructions: |
-  You are a performance analysis expert.
-  
-  When analyzing performance:
-  1. First profile the code to identify hotspots
-  2. Check for common issues (N+1 queries, missing indexes)
-  3. Measure before and after any changes
-  4. Provide specific, actionable recommendations
-  
-  Always include benchmarks with your findings.
-
-# Additional context to load
-context:
-  include:
-    - ./context/performance-patterns.md
+  - glob
 ```
 
-## Agent vs Bundle
+The magic isn't in the format - it's in how agents are invoked. When you call an agent via the `task` tool, Amplifier:
 
-| Aspect | Agent | Bundle |
-|--------|-------|--------|
-| **Scope** | Single task | Full session configuration |
-| **Lifetime** | Spawned, runs, returns | Active for entire session |
-| **Purpose** | Specialist work | Environment setup |
-| **Relationship** | Agent runs within bundle | Bundle defines available agents |
+1. Spawns a fresh sub-session
+2. Loads the agent's bundle configuration
+3. Executes the task autonomously
+4. Returns results to your main session
 
 ## How Agents Work
 
 ```
-Main Session
-    │
-    ├── You: "Debug this auth issue"
-    │
-    ├── Main AI: "I'll delegate to bug-hunter"
-    │
-    ├── [Spawns sub-session]
-    │   │
-    │   └── bug-hunter agent
-    │       ├── Reads auth.py
-    │       ├── Runs tests
-    │       ├── Identifies bug
-    │       └── Returns findings
-    │
-    └── Main AI: "The bug-hunter found..."
+┌─────────────────┐         ┌─────────────────┐
+│  Main Session   │  task   │   Sub-Session   │
+│     (you)       │ ──────▶ │    (agent)      │
+│                 │         │                 │
+│ - Your context  │         │ - Fresh context │
+│ - Your tools    │         │ - Agent tools   │
+│ - Conversation  │         │ - Single task   │
+└─────────────────┘         └─────────────────┘
+        │                           │
+        │         result            │
+        ◀───────────────────────────┘
 ```
 
-Key points:
-- Sub-sessions are **isolated** - they don't see your full conversation
-- They receive **focused instructions** - just what they need
-- They **report back** - main session synthesizes results
+### The Sub-Session Model
 
-## Creating Custom Agents
+Each agent runs in complete isolation:
 
-### Step 1: Create Agent File
+- **Fresh context**: Agents start with no memory of your conversation
+- **Scoped tools**: Only tools defined in the agent's bundle are available
+- **Single mission**: Agents focus on one specific task
+- **One response**: Agents return a single final result
+
+This isolation is intentional. It means:
+
+- Your main session stays uncluttered
+- Agents can focus deeply on their specialty
+- Complex tasks don't pollute your context window
+- Multiple agents can run in parallel
+
+### Information Flow
+
+```
+You: "Review the authentication module"
+        │
+        ▼
+┌───────────────────────────────────────┐
+│ task tool invocation                  │
+│                                       │
+│ agent: "foundation:code-reviewer"     │
+│ instruction: "Review src/auth/*.py    │
+│              for security issues"     │
+└───────────────────────────────────────┘
+        │
+        ▼
+┌───────────────────────────────────────┐
+│ Agent Sub-Session                     │
+│                                       │
+│ - Reads files                         │
+│ - Analyzes patterns                   │
+│ - Checks security practices           │
+│ - Generates detailed report           │
+└───────────────────────────────────────┘
+        │
+        ▼
+Final report returned to main session
+```
+
+## Using Agents
+
+Agents are invoked through the `task` tool. The key parameters are:
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `agent` | Yes | Agent identifier (e.g., `foundation:zen-architect`) |
+| `instruction` | Yes | Detailed task description |
+| `session_id` | No | Resume a previous agent session |
+
+### Writing Good Instructions
+
+Since agents start with zero context, your instructions must be comprehensive:
 
 ```yaml
-# .amplifier/agents/api-reviewer.yaml
-meta:
-  name: api-reviewer
-  description: "Reviews REST API designs for best practices"
+# Bad - too vague
+instruction: "Fix the bug"
+
+# Good - complete context
+instruction: |
+  Fix the KeyError in src/processor.py around line 45.
+  
+  Context:
+  - The error occurs when processing empty input arrays
+  - Expected behavior: return empty result, not crash
+  - Related files: src/processor.py, src/validator.py
+  
+  Return:
+  - What you changed and why
+  - How to verify the fix
+```
+
+### Parallel Agent Execution
+
+Launch multiple agents simultaneously for independent tasks:
+
+```
+┌─────────────┐
+│ Main Session│
+└──────┬──────┘
+       │
+       ├──────────▶ Agent A (code review)
+       │
+       ├──────────▶ Agent B (test coverage)
+       │
+       └──────────▶ Agent C (documentation)
+```
+
+All three run concurrently, returning results as they complete.
+
+## Built-in Agents
+
+Amplifier Foundation provides specialized agents for common workflows:
+
+| Agent | Purpose | When to Use |
+|-------|---------|-------------|
+| `foundation:zen-architect` | Architecture design & code planning | Starting new features, major refactors |
+| `foundation:modular-builder` | Implementation from specs | Building code after architecture phase |
+| `foundation:bug-hunter` | Systematic debugging | Tracking down errors and failures |
+| `foundation:explorer` | Deep codebase reconnaissance | Understanding unfamiliar code |
+| `foundation:git-ops` | Git and GitHub operations | Commits, PRs, branch management |
+| `foundation:test-coverage` | Test analysis & gap identification | Ensuring adequate test coverage |
+| `foundation:web-research` | Internet search & fetching | Finding external documentation |
+| `foundation:security-guardian` | Security review & auditing | Pre-deployment checks |
+| `foundation:integration-specialist` | External API & MCP integration | Connecting to services |
+| `foundation:post-task-cleanup` | Codebase hygiene | After completing major tasks |
+
+### Specialized Domain Agents
+
+| Agent | Purpose |
+|-------|---------|
+| `lsp:code-navigator` | Semantic code navigation via LSP |
+| `lsp-python:python-code-intel` | Python-specific code intelligence |
+| `recipes:recipe-author` | Creating and validating recipes |
+| `design-intelligence:*` | UI/UX design specialists |
+
+## Creating Your Own Agents
+
+Any bundle can become an agent. Here's the pattern:
+
+### 1. Define the Specialty
+
+```yaml
+# .amplifier/agents/pr-reviewer.yaml
+name: pr-reviewer
+version: 1.0.0
+description: Reviews pull requests for quality and completeness
+
+instructions: |
+  You are a PR review specialist. When given a PR or branch:
+  
+  1. Analyze the changes for:
+     - Code quality and style
+     - Test coverage
+     - Documentation updates
+     - Breaking changes
+  
+  2. Provide structured feedback:
+     - Summary of changes
+     - Issues found (critical/minor)
+     - Suggestions for improvement
+     - Approval recommendation
 
 tools:
   - read_file
   - grep
-  - web_search
-
-instructions: |
-  You are an API design expert specializing in REST.
-  
-  When reviewing APIs:
-  - Check for RESTful resource naming
-  - Verify proper HTTP method usage
-  - Ensure consistent error responses
-  - Look for versioning strategy
-  - Check authentication patterns
-  
-  Reference industry standards (OpenAPI, JSON:API).
+  - glob
+  - bash  # for git operations
 ```
 
-### Step 2: Register in Bundle
+### 2. Scope the Tools
+
+Only include tools the agent actually needs:
 
 ```yaml
-# bundle.yaml
-agents:
-  - path: ./agents/api-reviewer.yaml
+# Minimal toolset for a documentation agent
+tools:
+  - read_file
+  - write_file
+  - glob
+
+# Richer toolset for a debugging agent  
+tools:
+  - read_file
+  - grep
+  - glob
+  - bash
+  - LSP
 ```
 
-### Step 3: Use It
+### 3. Write Clear Instructions
+
+Agent instructions should specify:
+
+- **Role**: What the agent specializes in
+- **Process**: How to approach tasks
+- **Output format**: What to return
+- **Boundaries**: What NOT to do
+
+### 4. Register for Discovery
+
+Place agents where they can be found:
 
 ```
-You: Use api-reviewer to check our user endpoints in src/api/users.py
+.amplifier/
+  agents/
+    pr-reviewer.yaml     # Project-specific
+    
+~/.amplifier/
+  agents/
+    my-helper.yaml       # Personal agents
 ```
 
-## Agent Context
+## Agents vs Bundles
 
-Agents can include additional context files:
+The distinction is about **usage pattern**, not file format:
+
+| Aspect | Bundle (as context) | Bundle (as agent) |
+|--------|---------------------|-------------------|
+| Loading | Included in session | Spawns sub-session |
+| Context | Shared with main | Isolated |
+| Lifecycle | Persistent | Task-scoped |
+| Invocation | `@mention` or auto | `task` tool |
+| Response | Ongoing conversation | Single result |
+
+### When to Use Each
+
+**Use as Context (bundle):**
+- Configuration that applies to all work
+- Instructions that guide ongoing behavior
+- Tool definitions needed throughout session
+
+**Use as Agent (task):**
+- Discrete, completable tasks
+- Work requiring deep focus
+- Parallel execution opportunities
+- Tasks benefiting from isolation
+
+### The Spectrum
+
+```
+Pure Context ◀─────────────────────────▶ Pure Agent
+
+ AGENTS.md      Shared        Task-specific
+ Project        behaviors     specialists
+ config
+```
+
+Most bundles live somewhere in between, usable as either context or agents depending on the situation.
+
+## Agent Design Patterns
+
+### The Specialist Pattern
+
+Create agents for specific domains:
 
 ```yaml
-# agents/database-expert.yaml
-meta:
-  name: database-expert
-  description: "PostgreSQL and query optimization expert"
-
-context:
-  include:
-    - ./context/postgres-patterns.md
-    - ./context/indexing-guide.md
-    - ./context/query-optimization.md
-
-instructions: |
-  You have access to PostgreSQL best practices.
-  Always check for missing indexes and N+1 queries.
+# Each agent is an expert in one area
+security-reviewer    # Security-focused review
+performance-analyst  # Performance optimization
+api-designer        # API design review
 ```
 
-## Try It Yourself
+### The Pipeline Pattern
 
-### Exercise 1: See Available Agents
-
-```bash
-amplifier
-
-> /agents
-```
-
-### Exercise 2: Explicitly Use an Agent
+Chain agents for complex workflows:
 
 ```
-> Use the explorer agent to map the structure of this project
+analyze ──▶ design ──▶ implement ──▶ review
 ```
 
-### Exercise 3: Watch Delegation
+Each stage is a separate agent, passing context forward.
+
+### The Parallel Pattern
+
+Fan out independent work:
 
 ```
-> Debug why the tests are failing
-
-# Watch the output - you'll see it delegate to bug-hunter
+                    ┌──▶ lint
+                    │
+main task ──────────┼──▶ test
+                    │
+                    └──▶ docs
 ```
+
+Results merge back for final synthesis.
 
 ## Key Takeaways
 
-1. **Agents are specialists** - Each has deep expertise in one area
-2. **Delegation is automatic** - Amplifier routes to the right agent
-3. **Agents are sub-sessions** - They run, return results, and end
-4. **You can create your own** - Define YAML files with instructions and context
+1. **Agents ARE bundles** - Same YAML format, different invocation pattern
 
-## Next
+2. **Sub-sessions provide isolation** - Fresh context, focused execution
 
-Learn about multi-step workflows:
+3. **Instructions must be complete** - Agents have no memory of your conversation
 
-→ [Recipes](recipes.md)
+4. **Parallel execution is powerful** - Launch independent agents simultaneously
+
+5. **Tools are scoped** - Agents only access what their bundle defines
+
+6. **Create specialists** - Build agents for your specific workflows
+
+7. **Choose the right pattern** - Context for ongoing guidance, agents for discrete tasks
+
+---
+
+## Next Steps
+
+- [Using the Task Tool](../guides/task-tool.md) - Deep dive into agent invocation
+- [Creating Custom Agents](../guides/custom-agents.md) - Build your own specialists
+- [Recipe-Based Workflows](../guides/recipes.md) - Orchestrate multi-agent pipelines

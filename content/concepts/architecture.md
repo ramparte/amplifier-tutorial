@@ -1,250 +1,338 @@
 ---
-id: architecture-deep-dive
+id: architecture
 type: concepts
-title: "Architecture Deep Dive"
+title: "Architecture Overview"
 ---
 
-# Architecture Deep Dive
+# Architecture Overview
 
-How Amplifier's pieces fit together - from the lead developer's perspective.
+This document provides a comprehensive overview of the Amplifier kernel architecture,
+explaining the core design principles, component interactions, and data flow patterns
+that make the system work.
 
-## The Big Picture
+## The Kernel Philosophy
 
-Amplifier has multiple ways to infuse capabilities into the system. Each serves a different purpose and offers different levels of control.
+**Mechanism, not policy.**
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                     Your Session                         │
-│  ┌──────────────────────────────────────────────────┐   │
-│  │              Orchestrator (the engine)            │   │
-│  │  ┌─────────┐  ┌─────────┐  ┌─────────┐          │   │
-│  │  │ Provider│  │ Context │  │  Hooks  │          │   │
-│  │  │  (LLM)  │  │ (memory)│  │ (events)│          │   │
-│  │  └─────────┘  └─────────┘  └─────────┘          │   │
-│  │                    │                              │   │
-│  │              ┌─────┴─────┐                       │   │
-│  │              │   Tools   │                       │   │
-│  │              │(LLM calls)│                       │   │
-│  │              └─────┬─────┘                       │   │
-│  │                    │                              │   │
-│  │              ┌─────┴─────┐                       │   │
-│  │              │  Agents   │                       │   │
-│  │              │(sub-sess) │                       │   │
-│  │              └───────────┘                       │   │
-│  └──────────────────────────────────────────────────┘   │
-│                                                          │
-│  All packaged in: BUNDLES                               │
-└─────────────────────────────────────────────────────────┘
-```
+The Amplifier kernel follows a fundamental design principle borrowed from operating system
+design: provide mechanisms, not policies. This means the kernel supplies the building
+blocks and infrastructure for AI agent execution without dictating how those blocks
+must be used.
 
-## Agents: Amplifier Driving Amplifier
+### What This Means in Practice
 
-> "Agents are 'just' bundles that we spawn a sub-session and the main session drives as the 'user' instead of us."
+The kernel provides:
 
-**Key insight:** Agents aren't a special concept - they're bundles that Amplifier talks to *as if it were the user*.
+- **Session management** - The mechanism for tracking conversation state
+- **Provider abstraction** - The mechanism for communicating with LLMs
+- **Tool execution** - The mechanism for agents to take actions
+- **Event emission** - The mechanism for observability and extension
+- **Module mounting** - The mechanism for adding capabilities
 
-```
-Main Session (you're the user)
-    │
-    ├── Spawns sub-session with "zen-architect" bundle
-    │   └── Main session sends prompts as "user"
-    │   └── Agent responds, main session continues
-    │
-    └── You see the combined result
-```
+The kernel does NOT dictate:
 
-This is why we use the **task tool** to spawn agents - you're giving Amplifier a "task" to delegate to a specialized instance of itself.
+- Which LLM provider you must use
+- What tools are available to agents
+- How conversation history is formatted
+- What retry strategies to employ
+- How errors should be presented to users
 
-Each agent bundle is focused on specific tasks:
-- `zen-architect` - Design and code review
-- `bug-hunter` - Debugging
-- `explorer` - Codebase reconnaissance
+### The Litmus Test
 
-## Tools: LLM-Driven Capabilities
+When deciding whether something belongs in the kernel, ask:
 
-> "Tools are code that can be called by the LLMs... the LLM decides to call a tool instead of generating a response."
+1. **Is it a mechanism or a policy?** Mechanisms go in kernel; policies go in modules.
+2. **Would removing it break the agent loop?** If yes, it's kernel. If no, it's a module.
+3. **Does it need to work the same way everywhere?** Kernel components are universal.
 
-**Key insight:** The LLM chooses when to use tools. You don't call them - the model does.
+Examples:
+- Event emission → Kernel (mechanism for observability)
+- Retry logic → Module (policy decision)
+- Provider protocol → Kernel (mechanism for LLM communication)
+- Rate limiting → Module (policy for resource management)
 
-The flow:
-1. You send a message
-2. LLM decides: "I need to read a file"
-3. LLM returns a tool call request (not a response)
-4. Tool executes (no models involved)
-5. Result goes back to LLM
-6. LLM decides what to do next
-7. Repeat until LLM generates a final response
+## Session Lifecycle
+
+A session represents a complete conversation between a user and an AI agent. Understanding
+the session lifecycle is essential for building applications with Amplifier.
+
+### Component Flow
 
 ```
-You: "What's in config.yaml?"
-         │
-         ▼
-LLM: "I should read that file"
-         │
-         ▼
-Tool Call: read_file("config.yaml")
-         │
-         ▼
-Tool Result: "port: 8080\nhost: localhost"
-         │
-         ▼
-LLM: "The config has port 8080 and host localhost"
-         │
-         ▼
-You see the response
+User Input
+    ↓
+┌─────────┐
+│ Session │ ← Maintains state, history, configuration
+└────┬────┘
+     ↓
+┌─────────────┐
+│ Coordinator │ ← Manages session lifecycle, applies hooks
+└──────┬──────┘
+       ↓
+┌─────────────┐
+│ Orchestrator│ ←→ Provider (LLM API)
+└──────┬──────┘
+       ↓
+   Tools/Hooks ← External capabilities and integrations
 ```
 
-## Hooks: Code-First Control
+### Session States
 
-> "Hooks are code that listens to lifecycle events... NO LLM making decisions IF they should be called."
+A session progresses through distinct states:
 
-**Key insight:** Hooks always run on their events. Full programmatic control.
+| State | Description |
+|-------|-------------|
+| `created` | Session initialized but not yet started |
+| `running` | Actively processing user input or LLM response |
+| `idle` | Waiting for user input |
+| `suspended` | Paused, can be resumed later |
+| `completed` | Finished successfully |
+| `failed` | Terminated due to error |
 
-Unlike tools (LLM decides), hooks fire automatically:
+### The Coordinator
 
-| Event | Hook Fires |
-|-------|------------|
-| Session starts | `session:start` hooks run |
-| Tool called | `tool:call` hooks run |
-| Response generated | `turn:end` hooks run |
+The Coordinator is the session's traffic controller. It:
 
-Use hooks for:
-- Logging everything (observability)
-- Injecting context (status, time, reminders)
-- Approval gates (pause before dangerous actions)
-- Redaction (remove sensitive data)
+1. **Receives user messages** and adds them to session history
+2. **Invokes hooks** at appropriate lifecycle points
+3. **Delegates to the Orchestrator** for LLM interaction
+4. **Manages state transitions** between session states
+5. **Handles interrupts** and graceful shutdown
+
+### The Orchestrator
+
+The Orchestrator manages the agent loop - the core cycle of:
+
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│  ┌─────────┐    ┌────────┐    ┌─────┐  │
+│  │ Prepare │ → │ Invoke │ → │Parse│  │
+│  │ Request │    │Provider│    │Reply│  │
+│  └─────────┘    └────────┘    └──┬──┘  │
+│       ↑                          │      │
+│       │    ┌─────────────┐       │      │
+│       └────│Execute Tools│←──────┘      │
+│            └─────────────┘              │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+The loop continues until:
+- The LLM responds without requesting tool calls
+- A maximum iteration limit is reached
+- An error occurs or the session is interrupted
+
+### Session Configuration
+
+Sessions accept configuration that controls behavior:
 
 ```python
-# A hook runs on events, not LLM decisions
-@hook("tool:call")
-def log_tool_usage(event):
-    print(f"Tool used: {event.tool_name}")
-    # This ALWAYS runs when a tool is called
+session = Session(
+    provider=my_provider,           # Required: LLM provider
+    system_prompt="You are...",     # Optional: Agent instructions
+    tools=[tool1, tool2],           # Optional: Available tools
+    hooks=[hook1, hook2],           # Optional: Lifecycle hooks
+    max_iterations=50,              # Optional: Loop limit
+    metadata={"user_id": "123"}     # Optional: Custom metadata
+)
 ```
 
-## Orchestrators: The Engine
+## Event Flow
 
-> "Orchestrators are the main engine that drives your 'Amplifier Session' and can make the experience radically different."
+Events provide observability into everything happening within a session. They enable
+logging, debugging, metrics collection, and reactive integrations.
 
-**Key insight:** The orchestrator is code-first. It decides how everything connects.
-
-Our main orchestrators are agentic loops, but possibilities include:
-- **Recipe runner** - Execute YAML workflows
-- **Observer pattern** - Other instances "observe" a limited main session and push context in
-- **Custom flows** - Any pattern you can code
-
-The orchestrator:
-1. Receives your input
-2. Calls the provider (LLM)
-3. Handles tool calls
-4. Fires hook events
-5. Manages the conversation loop
-6. Returns the response
-
-Different orchestrators = radically different behaviors.
-
-## Context Modules: Memory Management
-
-> "Context modules are the managers of your context, storing/loading/'compacting' your history."
-
-Context modules handle:
-- **Storage** - Where conversation history lives
-- **Loading** - Retrieving past context
-- **Compacting** - Summarizing long histories
-- **Memory systems** - Persistent knowledge
-
-This is where "memory" implementations plug in.
-
-## Providers: LLM Backends
-
-> "Providers are generally vendor level and support many/all of their models."
-
-Provider patterns:
-- **Vendor provider** - One provider for all Anthropic models
-- **Model-specific** - One provider per model
-- **Aggregator** - One provider routing to many backends
-
-Providers handle the actual LLM API calls.
-
-## Bundles: The Packaging
-
-> "Bundles let us group together the various parts. It could be as lightweight as a bundle around a tool module or as fully featured as the foundation bundle."
-
-Bundles are **composition**:
-
-```yaml
-# A minimal bundle
-bundle:
-  name: my-tool
-tools:
-  - module: my-tool
-
-# A full-featured bundle
-bundle:
-  name: foundation
-includes:
-  - bundle: behavior-git-ops
-  - bundle: behavior-security
-  - bundle: behavior-testing
-tools:
-  - module: tool-filesystem
-  - module: tool-bash
-agents:
-  - path: ./agents/zen-architect.yaml
-```
-
-**Behavior bundles** are a convention (not code):
-- Smaller, focused bundles
-- Compose into larger bundles
-- Foundation bundle includes many behavior bundles
-
-## Skills: Bundles All the Way Down
-
-> "Skills is 'just' a bundle. It has tools, context files, agent(s), etc."
-
-**Key insight:** Skills aren't a core Amplifier concept. They're a *pattern* we use.
-
-The skills bundle:
-- Provides a `load_skill` tool
-- Loads knowledge packages on demand
-- Each skill = structured context + patterns
-
-This pattern extends Amplifier for:
-- MCP integration
-- Anthropic plugins
-- Domain knowledge packages
-
-We'll likely move agents to follow this same pattern - agents aren't "core" either, they're built on top through foundation.
-
-## Control Spectrum
-
-From most LLM-driven to most code-driven:
+### Event Architecture
 
 ```
-More LLM Control                              More Code Control
-      │                                              │
-      ▼                                              ▼
-   Tools ──────── Agents ──────── Hooks ──────── Orchestrators
-      │              │              │                │
-   LLM decides   LLM drives     Events fire      Code drives
-   when to call  sub-sessions   automatically    everything
+┌─────────────────────────────────────────────────┐
+│                  Session                         │
+│                                                  │
+│  Component A ──emit──→ ┌─────────────┐          │
+│                        │ Event Bus   │──→ Hook 1│
+│  Component B ──emit──→ │             │──→ Hook 2│
+│                        │ (in-process)│──→ Logger│
+│  Component C ──emit──→ └─────────────┘          │
+│                                                  │
+└─────────────────────────────────────────────────┘
 ```
 
-Choose based on your needs:
-- **Need flexibility?** → Tools, Agents
-- **Need reliability?** → Hooks, Orchestrators
-- **Need both?** → Combine them
+### Event Categories
 
-## Summary
+Events are organized into categories:
 
-| Component | Who Decides | Runs When |
-|-----------|-------------|-----------|
-| **Tools** | LLM | LLM requests it |
-| **Agents** | LLM (via task) | LLM spawns sub-session |
-| **Hooks** | Code | Events fire |
-| **Orchestrators** | Code | Always (it's the engine) |
-| **Context** | Code | Load/save operations |
-| **Providers** | Code | LLM API calls |
-| **Bundles** | You | Configuration time |
+| Category | Examples | Purpose |
+|----------|----------|---------|
+| `session` | `session.started`, `session.completed` | Lifecycle tracking |
+| `message` | `message.user`, `message.assistant` | Conversation flow |
+| `tool` | `tool.call.started`, `tool.call.completed` | Tool execution |
+| `provider` | `provider.request`, `provider.response` | LLM interaction |
+| `error` | `error.tool`, `error.provider` | Error tracking |
 
-Everything composes through bundles. Start simple, add capabilities as needed.
+### Event Structure
+
+Every event follows a consistent structure:
+
+```python
+{
+    "type": "tool.call.completed",      # Event type identifier
+    "session_id": "abc-123",            # Session context
+    "timestamp": "2024-01-15T10:30:00Z",# When it occurred
+    "data": {                           # Event-specific payload
+        "tool_name": "read_file",
+        "duration_ms": 45,
+        "result": "..."
+    }
+}
+```
+
+### Subscribing to Events
+
+Hooks can subscribe to specific event types:
+
+```python
+class MetricsHook(Hook):
+    def __init__(self):
+        self.subscriptions = [
+            "tool.call.completed",
+            "provider.response"
+        ]
+    
+    async def on_event(self, event: Event):
+        if event.type == "tool.call.completed":
+            self.record_tool_latency(event.data)
+```
+
+### Event Ordering Guarantees
+
+- Events are emitted synchronously during execution
+- Events within a session are ordered by emission time
+- No guarantees across sessions (they may run concurrently)
+
+## Module Mounting
+
+Modules extend the kernel's capabilities without modifying its core. The mounting
+system provides a clean separation between kernel mechanisms and application-specific
+functionality.
+
+### Module Types
+
+| Type | Purpose | Examples |
+|------|---------|----------|
+| **Provider** | LLM communication | Anthropic, OpenAI, Azure |
+| **Tool** | Agent capabilities | File operations, web search |
+| **Hook** | Lifecycle integration | Logging, metrics, guards |
+| **Storage** | Persistence | Session storage, memory |
+
+### The Mount Protocol
+
+Modules implement a standard protocol for lifecycle management:
+
+```python
+class Module(Protocol):
+    async def mount(self, context: MountContext) -> None:
+        """Called when module is attached to a session."""
+        pass
+    
+    async def unmount(self) -> None:
+        """Called when module is detached or session ends."""
+        pass
+```
+
+### Mount Context
+
+When mounting, modules receive context about their environment:
+
+```python
+@dataclass
+class MountContext:
+    session_id: str           # The session being mounted to
+    config: dict              # Module-specific configuration
+    event_bus: EventBus       # For emitting/subscribing to events
+    kernel_version: str       # For compatibility checks
+```
+
+### Module Dependencies
+
+Modules can declare dependencies on other modules:
+
+```python
+class DatabaseTool(Tool):
+    dependencies = ["connection-pool"]  # Requires connection pool module
+    
+    async def mount(self, context: MountContext):
+        # Connection pool is guaranteed to be mounted first
+        self.pool = context.get_module("connection-pool")
+```
+
+### Mount Order
+
+The kernel mounts modules in dependency order:
+
+1. Core kernel components initialize
+2. Providers mount (LLM connectivity)
+3. Storage modules mount (persistence ready)
+4. Tools mount (capabilities available)
+5. Hooks mount (observability active)
+
+### Hot Reloading
+
+Some module types support hot reloading during a session:
+
+```python
+# Add a tool mid-session
+await session.mount_tool(new_tool)
+
+# Remove a hook
+await session.unmount_hook(old_hook)
+```
+
+Note: Providers and storage typically cannot be hot-reloaded as they maintain
+critical state.
+
+## Key Takeaways
+
+### 1. Separation of Concerns
+
+The kernel provides mechanisms; modules implement policies. This separation enables:
+- Flexible application architecture
+- Easy testing through module substitution
+- Clear boundaries for debugging
+
+### 2. Event-Driven Observability
+
+Everything emits events. This means:
+- Full visibility into system behavior
+- Non-invasive monitoring and debugging
+- Reactive integrations without modifying core logic
+
+### 3. Composable by Design
+
+The module system enables composition:
+- Mix and match providers, tools, and hooks
+- Build application-specific bundles
+- Share and reuse modules across projects
+
+### 4. Session-Centric Model
+
+Sessions are the fundamental unit:
+- All state lives within a session
+- Sessions are independent and isolated
+- Sessions can be persisted, resumed, and analyzed
+
+### 5. Predictable Lifecycle
+
+Clear state machines govern behavior:
+- Session states are explicit and observable
+- Mount/unmount lifecycle is deterministic
+- The agent loop follows a consistent pattern
+
+## What's Next
+
+Now that you understand the architecture:
+
+- **[Sessions Deep Dive](./sessions.md)** - Detailed session management
+- **[Building Modules](../guides/building-modules.md)** - Create custom modules
+- **[Event Reference](../reference/events.md)** - Complete event catalog
+- **[Provider Protocol](../reference/provider-protocol.md)** - LLM integration details

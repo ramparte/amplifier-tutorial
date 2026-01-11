@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
@@ -58,45 +60,81 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="key-commands.html">Key Commands</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#cli-commands">CLI Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#command-overview">Command Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-reference">Quick Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-run">amplifier run</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#starting-sessions">Starting Sessions</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#managing-sessions">Managing Sessions</a>
+    <li class="toctree-l3"><a class="reference internal" href="#common-options">Common Options</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-management">Provider Management</a>
+    <li class="toctree-l3"><a class="reference internal" href="#with-initial-prompt">With Initial Prompt</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-management">Bundle Management</a>
+    <li class="toctree-l3"><a class="reference internal" href="#working-directory">Working Directory</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-selection">Bundle Selection</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#in-session-commands">In-Session Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-continue">amplifier continue</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_1">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#typical-workflow">Typical Workflow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-context">Session Context</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#with-additional-prompt">With Additional Prompt</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#directory-matters">Directory Matters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-resume">amplifier resume</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_2">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-list">Session List</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resume-by-id">Resume by ID</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filtering-sessions">Filtering Sessions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-resume-vs-continue">When to Use Resume vs Continue</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#slash-commands">Slash Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#help">/help</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compact">/compact</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tools">/tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-useful-commands">Other Useful Commands</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#keyboard-shortcuts">Keyboard Shortcuts</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#power-user-patterns">Power User Patterns</a>
+    <li class="toctree-l2"><a class="reference internal" href="#command-cheat-sheet">Command Cheat Sheet</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#piping-input">Piping Input</a>
+    <li class="toctree-l3"><a class="reference internal" href="#no-session-found-to-continue">"No session found to continue"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#chaining-commands">Chaining Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#session-wont-resume">Session won't resume</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-with-git">Using with Git</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#quick-lookups">Quick Lookups</a>
+    <li class="toctree-l3"><a class="reference internal" href="#context-getting-too-long">Context getting too long</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-reference-card">Quick Reference Card</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -216,141 +254,274 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="key-commands">Key Commands<a class="headerlink" href="#key-commands" title="Permanent link">&para;</a></h1>
-<p>Master these commands to work efficiently with Amplifier.</p>
-<h2 id="cli-commands">CLI Commands<a class="headerlink" href="#cli-commands" title="Permanent link">&para;</a></h2>
-<h3 id="starting-sessions">Starting Sessions<a class="headerlink" href="#starting-sessions" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Interactive chat mode</span>
-amplifier
-
-<span class="c1"># Single command (no session)</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;your prompt here&quot;</span>
-
-<span class="c1"># Resume last session</span>
-amplifier<span class="w"> </span><span class="k">continue</span>
-
-<span class="c1"># Resume specific session</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>resume<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span>
-</code></pre></div>
-
-<h3 id="managing-sessions">Managing Sessions<a class="headerlink" href="#managing-sessions" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List all sessions</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>list
-
-<span class="c1"># Show session details</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>show<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span>
-
-<span class="c1"># Delete a session</span>
-amplifier<span class="w"> </span>session<span class="w"> </span>delete<span class="w"> </span><span class="o">[</span>session-id<span class="o">]</span>
-</code></pre></div>
-
-<h3 id="provider-management">Provider Management<a class="headerlink" href="#provider-management" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List configured providers</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>list
-
-<span class="c1"># Switch active provider</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>use<span class="w"> </span>anthropic
-
-<span class="c1"># Add a new provider</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>add<span class="w"> </span>openai<span class="w"> </span>--api-key<span class="w"> </span>sk-...
-
-<span class="c1"># Remove a provider</span>
-amplifier<span class="w"> </span>provider<span class="w"> </span>remove<span class="w"> </span>openai
-</code></pre></div>
-
-<h3 id="bundle-management">Bundle Management<a class="headerlink" href="#bundle-management" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List installed bundles</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>list
-
-<span class="c1"># Add a bundle</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
-
-<span class="c1"># Use a specific bundle</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
-
-<span class="c1"># Remove a bundle</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>remove<span class="w"> </span>recipes
-</code></pre></div>
-
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Show current config</span>
-amplifier<span class="w"> </span>config<span class="w"> </span>show
-
-<span class="c1"># Edit config in $EDITOR</span>
-amplifier<span class="w"> </span>config<span class="w"> </span>edit
-
-<span class="c1"># Set a specific value</span>
-amplifier<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default_provider<span class="w"> </span>anthropic
-</code></pre></div>
-
-<h2 id="in-session-commands">In-Session Commands<a class="headerlink" href="#in-session-commands" title="Permanent link">&para;</a></h2>
-<p>These work while you're in an interactive session (after running <code>amplifier</code>):</p>
+<p>This reference covers the essential commands you'll use every day with Amplifier. Master these three commands and you'll have complete control over your sessions.</p>
+<h2 id="command-overview">Command Overview<a class="headerlink" href="#command-overview" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Command</th>
-<th>Description</th>
+<th>Purpose</th>
+<th>When to Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>/help</code></td>
-<td>Show all available commands</td>
+<td><code>amplifier run</code></td>
+<td>Start a new session</td>
+<td>Beginning fresh work</td>
 </tr>
 <tr>
-<td><code>/tools</code></td>
-<td>List loaded tools and descriptions</td>
+<td><code>amplifier continue</code></td>
+<td>Resume the last session</td>
+<td>Picking up where you left off</td>
 </tr>
 <tr>
-<td><code>/agents</code></td>
-<td>List available agents</td>
+<td><code>amplifier resume</code></td>
+<td>Choose from session history</td>
+<td>Returning to older work</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start fresh</span>
+amplifier<span class="w"> </span>run
+
+<span class="c1"># Continue last session</span>
+amplifier<span class="w"> </span><span class="k">continue</span>
+
+<span class="c1"># Pick a specific session</span>
+amplifier<span class="w"> </span>resume
+</code></pre></div>
+
+<hr />
+<h2 id="amplifier-run">amplifier run<a class="headerlink" href="#amplifier-run" title="Permanent link">&para;</a></h2>
+<p>The <code>run</code> command starts a new Amplifier session in your current directory.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run
+</code></pre></div>
+
+<p>This launches an interactive session where you can start working with the AI assistant immediately.</p>
+<h3 id="common-options">Common Options<a class="headerlink" href="#common-options" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start with a specific prompt</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Explain the architecture of this project&quot;</span>
+
+<span class="c1"># Use a specific bundle configuration</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--bundle<span class="w"> </span>my-bundle
+
+<span class="c1"># Start in a different directory</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--cwd<span class="w"> </span>/path/to/project
+
+<span class="c1"># Enable verbose output for debugging</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--verbose
+</code></pre></div>
+
+<h3 id="with-initial-prompt">With Initial Prompt<a class="headerlink" href="#with-initial-prompt" title="Permanent link">&para;</a></h3>
+<p>Pass your first message directly to skip the initial prompt:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Review the authentication module for security issues&quot;</span>
+</code></pre></div>
+
+<p>This immediately starts working on your request without waiting for input.</p>
+<h3 id="working-directory">Working Directory<a class="headerlink" href="#working-directory" title="Permanent link">&para;</a></h3>
+<p>Amplifier runs in your current directory by default. The working directory determines:</p>
+<ul>
+<li>Which <code>AGENTS.md</code> configuration files are loaded</li>
+<li>The scope of file operations</li>
+<li>Git repository context</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run in current directory</span>
+<span class="nb">cd</span><span class="w"> </span>my-project
+amplifier<span class="w"> </span>run
+
+<span class="c1"># Or specify explicitly</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--cwd<span class="w"> </span>~/projects/my-app
+</code></pre></div>
+
+<h3 id="bundle-selection">Bundle Selection<a class="headerlink" href="#bundle-selection" title="Permanent link">&para;</a></h3>
+<p>Bundles define what tools and agents are available:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use the default foundation bundle</span>
+amplifier<span class="w"> </span>run
+
+<span class="c1"># Use a specific bundle</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--bundle<span class="w"> </span>developer
+
+<span class="c1"># Use a custom bundle from your project</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--bundle<span class="w"> </span>.amplifier/bundles/custom.yaml
+</code></pre></div>
+
+<hr />
+<h2 id="amplifier-continue">amplifier continue<a class="headerlink" href="#amplifier-continue" title="Permanent link">&para;</a></h2>
+<p>The <code>continue</code> command resumes your most recent session. This is your go-to command when returning to work.</p>
+<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span><span class="k">continue</span>
+</code></pre></div>
+
+<p>This picks up exactly where you left off, with full conversation history intact.</p>
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Amplifier finds your most recent session in the current directory</li>
+<li>Loads the complete conversation history</li>
+<li>Restores the session state</li>
+<li>You can continue the conversation seamlessly</li>
+</ol>
+<h3 id="typical-workflow">Typical Workflow<a class="headerlink" href="#typical-workflow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Morning: Start working</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Let&#39;s build the user dashboard&quot;</span>
+
+<span class="c1"># ... work for a while, then close terminal ...</span>
+
+<span class="c1"># Afternoon: Pick up where you left off</span>
+amplifier<span class="w"> </span><span class="k">continue</span>
+</code></pre></div>
+
+<h3 id="session-context">Session Context<a class="headerlink" href="#session-context" title="Permanent link">&para;</a></h3>
+<p>When you continue a session:</p>
+<ul>
+<li>All previous messages are available</li>
+<li>File changes made during the session are remembered</li>
+<li>The AI retains context about what you were working on</li>
+<li>You can reference earlier parts of the conversation</li>
+</ul>
+<h3 id="with-additional-prompt">With Additional Prompt<a class="headerlink" href="#with-additional-prompt" title="Permanent link">&para;</a></h3>
+<p>Resume and immediately send a new message:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="s2">&quot;Now let&#39;s add the export feature we discussed&quot;</span>
+</code></pre></div>
+
+<h3 id="directory-matters">Directory Matters<a class="headerlink" href="#directory-matters" title="Permanent link">&para;</a></h3>
+<p><code>continue</code> looks for sessions started in your current directory:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-project
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w">  </span><span class="c1"># Continues last session in my-project</span>
+
+<span class="nb">cd</span><span class="w"> </span>other-project
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w">  </span><span class="c1"># Continues last session in other-project</span>
+</code></pre></div>
+
+<hr />
+<h2 id="amplifier-resume">amplifier resume<a class="headerlink" href="#amplifier-resume" title="Permanent link">&para;</a></h2>
+<p>The <code>resume</code> command lets you choose from your session history. Use this when you need to return to an older session or switch between projects.</p>
+<h3 id="basic-usage_2">Basic Usage<a class="headerlink" href="#basic-usage_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>resume
+</code></pre></div>
+
+<p>This displays an interactive session picker showing recent sessions.</p>
+<h3 id="session-list">Session List<a class="headerlink" href="#session-list" title="Permanent link">&para;</a></h3>
+<p>The picker shows:</p>
+<ul>
+<li>Session start time</li>
+<li>Working directory</li>
+<li>First message or topic</li>
+<li>Session duration</li>
+</ul>
+<p>Navigate with arrow keys and press Enter to select.</p>
+<h3 id="resume-by-id">Resume by ID<a class="headerlink" href="#resume-by-id" title="Permanent link">&para;</a></h3>
+<p>If you know the session ID, resume directly:</p>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>resume<span class="w"> </span>abc123
+</code></pre></div>
+
+<p>Session IDs are shown in the session picker and in session logs.</p>
+<h3 id="filtering-sessions">Filtering Sessions<a class="headerlink" href="#filtering-sessions" title="Permanent link">&para;</a></h3>
+<p>Find sessions more easily:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Show more sessions</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>--limit<span class="w"> </span><span class="m">20</span>
+
+<span class="c1"># Filter by directory</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>--cwd<span class="w"> </span>~/projects/api
+</code></pre></div>
+
+<h3 id="when-to-use-resume-vs-continue">When to Use Resume vs Continue<a class="headerlink" href="#when-to-use-resume-vs-continue" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Return to what you were just doing</td>
+<td><code>continue</code></td>
+</tr>
+<tr>
+<td>Switch to a different project's session</td>
+<td><code>resume</code></td>
+</tr>
+<tr>
+<td>Find a session from earlier today</td>
+<td><code>resume</code></td>
+</tr>
+<tr>
+<td>Access a session from a different directory</td>
+<td><code>resume</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="slash-commands">Slash Commands<a class="headerlink" href="#slash-commands" title="Permanent link">&para;</a></h2>
+<p>During an active session, use slash commands for quick actions.</p>
+<h3 id="help">/help<a class="headerlink" href="#help" title="Permanent link">&para;</a></h3>
+<p>Display available commands and usage information:</p>
+<div class="codehilite"><pre><span></span><code>/help
+</code></pre></div>
+
+<p>Shows:
+- All available slash commands
+- Brief description of each
+- Usage examples</p>
+<h3 id="compact">/compact<a class="headerlink" href="#compact" title="Permanent link">&para;</a></h3>
+<p>Compress the conversation to save context space:</p>
+<div class="codehilite"><pre><span></span><code>/compact
+</code></pre></div>
+
+<p>This summarizes earlier messages while preserving important context. Use when:</p>
+<ul>
+<li>The conversation is getting long</li>
+<li>You're hitting context limits</li>
+<li>You want to focus on recent work</li>
+</ul>
+<p>After compacting:
+- Key decisions and context are preserved
+- Detailed earlier messages are summarized
+- You have more room for new conversation</p>
+<h3 id="tools">/tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<p>List available tools in the current session:</p>
+<div class="codehilite"><pre><span></span><code>/tools
+</code></pre></div>
+
+<p>Shows all tools the AI can use, including:
+- File operations (read, write, edit)
+- Search tools (grep, glob)
+- Shell commands (bash)
+- Web tools (search, fetch)
+- Agent delegation (task)</p>
+<h3 id="other-useful-commands">Other Useful Commands<a class="headerlink" href="#other-useful-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/status</code></td>
+<td>Show session status</td>
 </tr>
 <tr>
 <td><code>/clear</code></td>
-<td>Clear conversation history</td>
+<td>Clear the screen</td>
 </tr>
 <tr>
 <td><code>/exit</code></td>
 <td>End the session</td>
 </tr>
 <tr>
-<td><code>/model</code></td>
-<td>Show/change the current model</td>
-</tr>
-<tr>
-<td><code>/compact</code></td>
-<td>Reduce context by summarizing</td>
+<td><code>/undo</code></td>
+<td>Undo last action</td>
 </tr>
 </tbody>
 </table>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>amplifier&gt; /tools
-
-Available Tools:
-  read_file     - Read file contents
-  write_file    - Write content to a file
-  edit_file     - Make targeted edits
-  bash          - Execute shell commands
-  grep          - Search file contents
-  glob          - Find files by pattern
-  web_search    - Search the web
-  web_fetch     - Fetch URL content
-  task          - Spawn sub-agents
-  todo          - Manage task lists
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>amplifier&gt; /agents
-
-Available Agents:
-  foundation:zen-architect     - Architecture and design
-  foundation:bug-hunter        - Debugging specialist
-  foundation:modular-builder   - Implementation
-  foundation:explorer          - Codebase reconnaissance
-  foundation:security-guardian - Security review
-  ...
-</code></pre></div>
-
+<hr />
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
-<p>While in interactive mode:</p>
+<p>While in a session, these shortcuts help navigation:</p>
 <table>
 <thead>
 <tr>
@@ -365,94 +536,68 @@ Available Agents:
 </tr>
 <tr>
 <td><code>Ctrl+D</code></td>
-<td>Exit session</td>
+<td>End session (EOF)</td>
 </tr>
 <tr>
-<td><code>↑</code> / <code>↓</code></td>
-<td>Navigate history</td>
+<td><code>Up/Down</code></td>
+<td>Navigate input history</td>
 </tr>
 <tr>
-<td><code>Ctrl+R</code></td>
-<td>Search history</td>
+<td><code>Tab</code></td>
+<td>Auto-complete file paths</td>
 </tr>
 </tbody>
 </table>
-<h2 id="power-user-patterns">Power User Patterns<a class="headerlink" href="#power-user-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="piping-input">Piping Input<a class="headerlink" href="#piping-input" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Analyze a file</span>
-cat<span class="w"> </span>complex_module.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Explain this code&quot;</span>
+<hr />
+<h2 id="command-cheat-sheet">Command Cheat Sheet<a class="headerlink" href="#command-cheat-sheet" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># === Starting Sessions ===</span>
+amplifier<span class="w"> </span>run<span class="w">                    </span><span class="c1"># New session</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;prompt&quot;</span><span class="w">           </span><span class="c1"># New session with initial prompt</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--bundle<span class="w"> </span>dev<span class="w">       </span><span class="c1"># New session with specific bundle</span>
 
-<span class="c1"># Process command output</span>
-git<span class="w"> </span>diff<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Summarize these changes for a commit message&quot;</span>
+<span class="c1"># === Resuming Sessions ===</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w">               </span><span class="c1"># Resume last session</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="s2">&quot;prompt&quot;</span><span class="w">      </span><span class="c1"># Resume with new message</span>
+amplifier<span class="w"> </span>resume<span class="w">                 </span><span class="c1"># Pick from history</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>&lt;id&gt;<span class="w">            </span><span class="c1"># Resume specific session</span>
 
-<span class="c1"># Analyze logs</span>
-tail<span class="w"> </span>-100<span class="w"> </span>error.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;What&#39;s causing these errors?&quot;</span>
+<span class="c1"># === In-Session Commands ===</span>
+/help<span class="w">                            </span><span class="c1"># Show help</span>
+/compact<span class="w">                         </span><span class="c1"># Compress context</span>
+/tools<span class="w">                           </span><span class="c1"># List available tools</span>
+/exit<span class="w">                            </span><span class="c1"># End session</span>
 </code></pre></div>
 
-<h3 id="chaining-commands">Chaining Commands<a class="headerlink" href="#chaining-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Run multiple related tasks</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Create tests for src/auth.py&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Run the tests and fix any failures&quot;</span>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="no-session-found-to-continue">"No session found to continue"<a class="headerlink" href="#no-session-found-to-continue" title="Permanent link">&para;</a></h3>
+<p>You haven't started a session in this directory yet:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start a new session instead</span>
+amplifier<span class="w"> </span>run
 </code></pre></div>
 
-<h3 id="using-with-git">Using with Git<a class="headerlink" href="#using-with-git" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Pre-commit review</span>
-git<span class="w"> </span>diff<span class="w"> </span>--staged<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Review these changes before commit&quot;</span>
+<h3 id="session-wont-resume">Session won't resume<a class="headerlink" href="#session-wont-resume" title="Permanent link">&para;</a></h3>
+<p>If a session is corrupted or won't load:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start fresh</span>
+amplifier<span class="w"> </span>run
 
-<span class="c1"># Generate commit message</span>
-git<span class="w"> </span>diff<span class="w"> </span>--staged<span class="w"> </span><span class="p">|</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Generate a commit message for these changes&quot;</span>
+<span class="c1"># Or try a different session</span>
+amplifier<span class="w"> </span>resume
 </code></pre></div>
 
-<h3 id="quick-lookups">Quick Lookups<a class="headerlink" href="#quick-lookups" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Documentation queries</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;How do I use async/await in Python?&quot;</span>
-
-<span class="c1"># Code generation</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Write a bash one-liner to find all files over 100MB&quot;</span>
-
-<span class="c1"># Explanation</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;What does this regex do: ^(?=.*[A-Z])(?=.*[0-9]).{8,}</span>$<span class="s2">&quot;</span>
+<h3 id="context-getting-too-long">Context getting too long<a class="headerlink" href="#context-getting-too-long" title="Permanent link">&para;</a></h3>
+<p>Use the compact command to summarize:</p>
+<div class="codehilite"><pre><span></span><code>/compact
 </code></pre></div>
 
-<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Override provider for one command</span>
-<span class="nv">AMPLIFIER_PROVIDER</span><span class="o">=</span>openai<span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Hello&quot;</span>
-
-<span class="c1"># Set log level</span>
-<span class="nv">AMPLIFIER_LOG_LEVEL</span><span class="o">=</span>debug<span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Debug this&quot;</span>
-
-<span class="c1"># Custom config location</span>
-<span class="nv">AMPLIFIER_CONFIG</span><span class="o">=</span>~/my-config.yaml<span class="w"> </span>amplifier
-</code></pre></div>
-
-<h2 id="quick-reference-card">Quick Reference Card<a class="headerlink" href="#quick-reference-card" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
-│                 AMPLIFIER QUICK REFERENCE               │
-├─────────────────────────────────────────────────────────┤
-│ START        amplifier              Interactive mode    │
-│              amplifier run &quot;...&quot;    Single command      │
-│              amplifier continue     Resume last         │
-├─────────────────────────────────────────────────────────┤
-│ SESSIONS     session list           Show all            │
-│              session resume [id]    Resume specific     │
-├─────────────────────────────────────────────────────────┤
-│ PROVIDERS    provider list          Show configured     │
-│              provider use [name]    Switch provider     │
-├─────────────────────────────────────────────────────────┤
-│ BUNDLES      bundle list            Show installed      │
-│              bundle add [url]       Install bundle      │
-│              bundle use [name]      Activate bundle     │
-├─────────────────────────────────────────────────────────┤
-│ IN-SESSION   /help                  Show commands       │
-│              /tools                 List tools          │
-│              /agents                List agents         │
-│              /exit                  End session         │
-└─────────────────────────────────────────────────────────┘
-</code></pre></div>
-
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Now let's add your first bundle to unlock new capabilities.</p>
-<p>→ <a href="first-bundle.html">Your First Bundle</a></p>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that you know the key commands:</p>
+<ul>
+<li><strong><a href="first-session.md">Your First Session</a></strong> - Put these commands into practice</li>
+<li><strong><a href="slash-commands.md">Slash Commands Deep Dive</a></strong> - Learn all in-session commands</li>
+<li><strong><a href="../guides/session-management.md">Session Management</a></strong> - Advanced session workflows</li>
+</ul>
               
             </div>
           </div><footer>

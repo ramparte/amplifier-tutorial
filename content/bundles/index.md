@@ -1,120 +1,94 @@
 ---
-id: bundles-overview
-type: bundles
-title: "Bundles Reference"
+id: bundles-index
+type: section-index
+title: Bundles Guide
 ---
 
-# Bundles Reference
+# Bundles Guide
 
-Bundles are composable packages that configure Amplifier for specific use cases.
+Bundles are the primary way to configure and customize Amplifier. A bundle composes modules, tools, context, and settings into a coherent package that defines an agent's capabilities.
 
-## What Are Bundles?
+This section covers bundle structure, composition patterns, and how to create your own bundles.
 
-A bundle packages:
+## Section Contents
 
-- **Modules** - Tools, providers, hooks to load
-- **Agents** - Specialized AI configurations
-- **Behaviors** - Reusable capability add-ons
-- **Instructions** - System prompts and context
+| Page | Description |
+|------|-------------|
+| [Bundle Basics](./basics.md) | What bundles are and how they work |
+| [Built-in Bundles](./built-in.md) | Foundation, dev, and other standard bundles |
+| [Bundle Structure](./structure.md) | Anatomy of a bundle directory |
+| [Composition](./composition.md) | Combining multiple bundles |
+| [Creating Bundles](./creating.md) | Build your own custom bundles |
+| [Context Files](./context-files.md) | Adding knowledge to bundles |
+| [Tool Bundles](./tool-bundles.md) | Bundles that provide tools |
+| [Publishing](./publishing.md) | Sharing bundles with others |
 
-## Official Bundles
+## Quick Tips
 
-| Bundle | Description | Guide |
-|--------|-------------|-------|
-| [Foundation](foundation.md) | Core tools, agents, philosophy | Base for all configs |
-| [Recipes](recipes.md) | Multi-step workflow orchestration | Repeatable workflows |
-| [LSP Python](lsp-python.md) | Python code intelligence | Semantic navigation |
-| [Design Intelligence](design-intelligence.md) | 7 design specialist agents | UI/UX design work |
+- **Thin bundles** — Bundles should compose, not implement; keep logic in modules
+- **Layered composition** — Bundles can extend other bundles for customization
+- **Context is cheap** — Add relevant context files liberally; they help agents
+- **One purpose** — Each bundle should have a clear, focused purpose
+- **Test composition** — Verify bundles work together before deploying
 
-## Quick Comparison
+## Bundle Architecture
 
-| Bundle | Tools Added | Agents Added | Use Case |
-|--------|-------------|--------------|----------|
-| Foundation | Core 10+ | 12 specialists | Everything |
-| Recipes | Recipe executor | Recipe author | Workflows |
-| LSP Python | LSP operations | Python code intel | Python projects |
-| Design Intelligence | - | 7 design agents | Design work |
-
-## Managing Bundles
-
-### Install a Bundle
-
-```bash
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-recipes@main
+```
+bundle/
+├── bundle.yaml          # Bundle manifest
+├── context/             # Context files (.md)
+│   ├── instructions.md
+│   └── domain-knowledge.md
+├── skills/              # Packaged skills
+├── agents/              # Agent definitions
+└── tools/               # Custom tools (optional)
 ```
 
-### Activate a Bundle
+## Built-in Bundles
 
-```bash
-amplifier bundle use recipes
-```
+| Bundle | Purpose | Key Features |
+|--------|---------|--------------|
+| `foundation` | General development | Full toolset, explorer, git-ops |
+| `dev` | Lightweight coding | Essential tools, minimal context |
+| `core` | Minimal base | Kernel only, for custom builds |
+| `lsp-python` | Python intelligence | LSP integration, Pyright |
 
-### List Installed Bundles
+## Where to Start
 
-```bash
-amplifier bundle list
-```
+**New to bundles?** Begin with [Bundle Basics](./basics.md) to understand what bundles are and why they matter.
 
-### Remove a Bundle
+**Want to customize?** Read [Creating Bundles](./creating.md) for a step-by-step guide to building your own.
 
-```bash
-amplifier bundle remove recipes
-```
+**Using multiple bundles?** Check [Composition](./composition.md) to learn how bundles layer and interact.
 
-## Bundle Composition
-
-Bundles can include other bundles:
+## Common Patterns
 
 ```yaml
-# my-bundle/bundle.yaml
-bundle:
-  name: my-custom
-  version: 1.0.0
+# Extend an existing bundle
+extends: foundation
 
-includes:
-  - bundle: foundation
-  - bundle: recipes
-  - bundle: lsp-python
-
-# Add your own on top
-agents:
-  - path: ./agents/my-agent.yaml
-```
-
-## Creating Custom Bundles
-
-See [Advanced: Custom Bundles](../advanced/custom-bundle.md) for:
-
-- Bundle structure
-- Including other bundles
-- Adding tools and agents
-- Configuration options
-
-## Bundle Sources
-
-```yaml
-includes:
-  # Named bundle (from registry/installed)
-  - bundle: foundation
+# Add custom context
+context:
+  - ./context/my-domain.md
   
-  # From GitHub
-  - bundle: git+https://github.com/org/bundle@main
-  
-  # From local path
-  - bundle: ./my-local-bundle
+# Include specific modules
+modules:
+  - tool-web
+  - hook-memory
 ```
 
-## Community Bundles
+## Bundle Selection Guide
 
-Community-contributed bundles:
+| Use Case | Recommended Bundle |
+|----------|-------------------|
+| General development | `foundation` |
+| Quick coding tasks | `dev` |
+| Python projects | `foundation` + `lsp-python` |
+| Custom applications | Create your own |
+| Minimal footprint | `core` + specific modules |
 
-| Bundle | Author | Description |
-|--------|--------|-------------|
-| `lsp-typescript` | robotdad | TypeScript code intelligence |
-| `dev-memory` | community | Persistent memory system |
+## Related Sections
 
-To use community bundles:
-
-```bash
-amplifier bundle add git+https://github.com/[user]/[bundle]@main
-```
+- [Concepts: Modules](../concepts/modules.md)
+- [Skills: Using Skills](../skills/index.md)
+- [Advanced: Bundle Internals](../advanced/bundle-internals.md)

@@ -48,6 +48,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
@@ -72,44 +74,66 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="bundles.html">Bundles</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-bundle">What is a Bundle?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-core-idea">The Core Idea</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-vs-agent">Bundle vs Agent</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#bundle-structure">Bundle Structure</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-foundation-bundle">The Foundation Bundle</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#using-bundles">Using Bundles</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#install-a-bundle">Install a Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-bundle-layout">Basic Bundle Layout</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#activate-a-bundle">Activate a Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-bundlemd-file">The bundle.md File</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#view-bundle-contents">View Bundle Contents</a>
+    <li class="toctree-l3"><a class="reference internal" href="#frontmatter-fields">Frontmatter Fields</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#body-content">Body Content</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-composition">Bundle Composition</a>
+    <li class="toctree-l2"><a class="reference internal" href="#composition">Composition</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example-team-bundle">Example: Team Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-includes-field">The includes Field</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#composition-order-matters">Composition Order Matters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#behaviors">Behaviors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practical-composition-example">Practical Composition Example</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-sources">Bundle Sources</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-vs-module-vs-behavior">Bundle vs Module vs Behavior</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-a-bundle">Creating a Bundle</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-explore-your-current-bundle">Exercise 1: Explore Your Current Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-define-the-purpose">Step 1: Define the Purpose</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-add-the-recipes-bundle">Exercise 2: Add the Recipes Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-create-the-structure">Step 2: Create the Structure</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-create-a-minimal-bundle">Exercise 3: Create a Minimal Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-write-the-bundle-definition">Step 3: Write the Bundle Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-add-context-files">Step 4: Add Context Files</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-5-test-the-bundle">Step 5: Test the Bundle</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-best-practices">Bundle Best Practices</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-topics">Advanced Topics</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#environment-specific-overrides">Environment-Specific Overrides</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bundle-inheritance-patterns">Bundle Inheritance Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#collection-organization">Collection Organization</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next">Next</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -215,233 +239,384 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="bundles">Bundles<a class="headerlink" href="#bundles" title="Permanent link">&para;</a></h1>
-<p>Bundles are the primary way to configure and extend Amplifier. They package tools, agents, behaviors, and instructions into composable units.</p>
+                <h1 id="understanding-bundles">Understanding Bundles<a class="headerlink" href="#understanding-bundles" title="Permanent link">&para;</a></h1>
+<p>Bundles are the primary unit of composition in Amplifier. They package together everything an agent needs—instructions, tools, behaviors, and context—into a single, reusable configuration that can be shared, combined, and customized.</p>
 <h2 id="what-is-a-bundle">What is a Bundle?<a class="headerlink" href="#what-is-a-bundle" title="Permanent link">&para;</a></h2>
-<p>A bundle is a YAML configuration that tells Amplifier:</p>
+<p>A bundle is a composable configuration package that defines an agent's capabilities. Think of it like a recipe: it specifies the ingredients (tools, context files), the instructions (system prompts, behaviors), and how they combine to create a specific agent personality and capability set.</p>
+<h3 id="the-core-idea">The Core Idea<a class="headerlink" href="#the-core-idea" title="Permanent link">&para;</a></h3>
+<p>Traditional AI agent configuration often involves:
+- Scattered configuration files
+- Duplicated prompts across projects
+- Manual tool registration
+- Inconsistent setups between environments</p>
+<p>Bundles solve this by providing a <strong>single source of truth</strong> for an agent's configuration that can be:</p>
 <ul>
-<li>Which <strong>modules</strong> to load (tools, providers, hooks)</li>
-<li>Which <strong>agents</strong> are available</li>
-<li>What <strong>instructions</strong> guide the AI's behavior</li>
-<li>What <strong>behaviors</strong> add specialized capabilities</li>
+<li><strong>Versioned</strong> alongside your code</li>
+<li><strong>Shared</strong> across teams and projects</li>
+<li><strong>Composed</strong> to build complex agents from simple parts</li>
+<li><strong>Overridden</strong> for environment-specific customization</li>
 </ul>
-<p>Think of bundles like Docker Compose files - they define a complete environment from reusable pieces.</p>
+<h3 id="bundle-vs-agent">Bundle vs Agent<a class="headerlink" href="#bundle-vs-agent" title="Permanent link">&para;</a></h3>
+<p>It's important to understand the distinction:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Bundle</th>
+<th>Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Configuration package</td>
+<td>Runtime instance</td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Instructions, tools, behaviors</td>
+<td>Active session state</td>
+</tr>
+<tr>
+<td>Lifetime</td>
+<td>Persistent (file-based)</td>
+<td>Ephemeral (session-based)</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>Define capabilities</td>
+<td>Execute tasks</td>
+</tr>
+</tbody>
+</table>
+<p>A bundle is the <em>blueprint</em>; an agent is the <em>running instance</em> created from that blueprint.</p>
 <h2 id="bundle-structure">Bundle Structure<a class="headerlink" href="#bundle-structure" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bundle</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My custom Amplifier configuration</span>
+<p>Every bundle follows a standard structure using Markdown files with YAML frontmatter. This format is both human-readable and machine-parseable.</p>
+<h3 id="basic-bundle-layout">Basic Bundle Layout<a class="headerlink" href="#basic-bundle-layout" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>my-bundle/
+├── bundle.md           # Main bundle definition
+├── context/            # Supporting context files
+│   ├── guidelines.md
+│   └── examples.md
+├── behaviors/          # Custom behaviors
+│   └── review-code.md
+└── tools/              # Custom tool definitions (optional)
+    └── lint.yaml
+</code></pre></div>
 
-<span class="c1"># Include other bundles</span>
+<h3 id="the-bundlemd-file">The bundle.md File<a class="headerlink" href="#the-bundlemd-file" title="Permanent link">&para;</a></h3>
+<p>The <code>bundle.md</code> file is the entry point for every bundle. It contains:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: code-reviewer
+description: &quot;Expert code review agent&quot;
+version: &quot;1.0.0&quot;
+
+<span class="gh"># Tool configuration</span>
+tools:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>read_file
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>write_file
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>grep
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>glob
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>bash
+
+<span class="gh"># Include other bundles</span>
+includes:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>foundation:core-tools
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>my-org:coding-standards
+
+<span class="gh"># Behaviors to activate</span>
+behaviors:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>thorough-review
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>security-focus
+
+<span class="gh"># Context files to load</span>
+context:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>context/guidelines.md
+<span class="gu">  - context/examples.md</span>
+<span class="gu">---</span>
+
+<span class="gh"># Code Reviewer</span>
+
+You are an expert code reviewer focused on quality, security, and maintainability.
+
+<span class="gu">## Your Approach</span>
+
+<span class="k">1.</span> Read the code thoroughly before commenting
+<span class="k">2.</span> Focus on substantive issues, not style nitpicks
+<span class="k">3.</span> Provide actionable suggestions with examples
+<span class="k">4.</span> Acknowledge good patterns when you see them
+
+<span class="gu">## Review Checklist</span>
+
+<span class="k">- [ ]</span> Logic correctness
+<span class="k">- [ ]</span> Error handling
+<span class="k">- [ ]</span> Security considerations
+<span class="k">- [ ]</span> Performance implications
+<span class="k">- [ ]</span> Test coverage
+</code></pre></div>
+
+<h3 id="frontmatter-fields">Frontmatter Fields<a class="headerlink" href="#frontmatter-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Unique identifier for the bundle</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>No</td>
+<td>Human-readable description</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>No</td>
+<td>Semantic version string</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>No</td>
+<td>List of tools to enable</td>
+</tr>
+<tr>
+<td><code>includes</code></td>
+<td>No</td>
+<td>Other bundles to compose</td>
+</tr>
+<tr>
+<td><code>behaviors</code></td>
+<td>No</td>
+<td>Behaviors to activate</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>No</td>
+<td>Additional context files to load</td>
+</tr>
+</tbody>
+</table>
+<h3 id="body-content">Body Content<a class="headerlink" href="#body-content" title="Permanent link">&para;</a></h3>
+<p>The markdown body after the frontmatter becomes the agent's system prompt. This is where you define:</p>
+<ul>
+<li>The agent's role and personality</li>
+<li>Specific instructions and guidelines</li>
+<li>Domain knowledge</li>
+<li>Response formats</li>
+</ul>
+<h2 id="composition">Composition<a class="headerlink" href="#composition" title="Permanent link">&para;</a></h2>
+<p>One of the most powerful features of bundles is composition. You can build complex agents by combining simpler bundles.</p>
+<h3 id="the-includes-field">The includes Field<a class="headerlink" href="#the-includes-field" title="Permanent link">&para;</a></h3>
+<p>Use <code>includes</code> to inherit from other bundles:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core-tools</span><span class="w">      </span><span class="c1"># From foundation collection</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org:coding-standards</span><span class="w">    </span><span class="c1"># From your organization</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./local-overrides</span><span class="w">          </span><span class="c1"># From relative path</span>
+</code></pre></div>
+
+<p>When bundles are composed:
+1. Tools are <strong>merged</strong> (union of all tools)
+2. Context is <strong>accumulated</strong> (all context files load)
+3. Behaviors are <strong>combined</strong> (all behaviors activate)
+4. Instructions are <strong>layered</strong> (child overrides parent)</p>
+<h3 id="composition-order-matters">Composition Order Matters<a class="headerlink" href="#composition-order-matters" title="Permanent link">&para;</a></h3>
+<p>Bundles are processed in order, with later bundles taking precedence:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base-agent</span><span class="w">           </span><span class="c1"># Loaded first (lowest priority)</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-focused</span><span class="w">     </span><span class="c1"># Adds security behaviors</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-customizations</span><span class="w">    </span><span class="c1"># Loaded last (highest priority)</span>
+</code></pre></div>
+
+<h3 id="behaviors">Behaviors<a class="headerlink" href="#behaviors" title="Permanent link">&para;</a></h3>
+<p>Behaviors are reusable instruction fragments that modify agent behavior. Unlike full bundles, behaviors are lightweight and focused on a single concern.</p>
+<div class="codehilite"><pre><span></span><code>---
+name: security-focus
+<span class="gu">trigger: &quot;when reviewing code&quot;</span>
+<span class="gu">---</span>
+
+<span class="gu">## Security Review Requirements</span>
+
+When reviewing code, always check for:
+<span class="k">-</span><span class="w"> </span>Input validation and sanitization
+<span class="k">-</span><span class="w"> </span>Authentication and authorization
+<span class="k">-</span><span class="w"> </span>Sensitive data exposure
+<span class="k">-</span><span class="w"> </span>SQL injection vulnerabilities
+<span class="k">-</span><span class="w"> </span>XSS attack vectors
+</code></pre></div>
+
+<p>Behaviors can be:
+- <strong>Always active</strong>: Load with every request
+- <strong>Conditionally triggered</strong>: Activate based on context
+- <strong>User-invoked</strong>: Activated by explicit command</p>
+<h3 id="practical-composition-example">Practical Composition Example<a class="headerlink" href="#practical-composition-example" title="Permanent link">&para;</a></h3>
+<p>Here's how you might compose a specialized agent:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># devops-agent/bundle.md</span>
+<span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devops-agent</span>
 <span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span><span class="w">  </span><span class="c1"># Base bundle with core tools</span>
-
-<span class="c1"># Add tools</span>
-<span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-filesystem</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-custom-tool</span>
-<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./modules/my-tool</span>
-
-<span class="c1"># Add agents</span>
-<span class="nt">agents</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/specialist.yaml</span>
-
-<span class="c1"># Add behaviors</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core-tools</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:git-ops</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud:aws-tools</span>
 <span class="nt">behaviors</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./behaviors/code-review.yaml</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure-as-code</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-compliance</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cost-awareness</span>
+<span class="nn">---</span>
 
-<span class="c1"># System instructions</span>
-<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">  </span><span class="no">You are a helpful assistant specialized in Python development.</span>
-<span class="w">  </span><span class="no">Always suggest type hints and write tests.</span>
+<span class="c1"># DevOps Agent</span>
+
+<span class="l l-Scalar l-Scalar-Plain">You specialize in infrastructure, deployment, and operational concerns.</span>
 </code></pre></div>
 
-<h2 id="the-foundation-bundle">The Foundation Bundle<a class="headerlink" href="#the-foundation-bundle" title="Permanent link">&para;</a></h2>
-<p>Most bundles start by including <code>foundation</code>:</p>
+<p>This agent inherits:
+- File and shell tools from <code>core-tools</code>
+- Git capabilities from <code>git-ops</code><br />
+- AWS-specific tools from <code>aws-tools</code>
+- Three domain-specific behaviors</p>
+<h2 id="creating-a-bundle">Creating a Bundle<a class="headerlink" href="#creating-a-bundle" title="Permanent link">&para;</a></h2>
+<p>Let's walk through creating a bundle from scratch.</p>
+<h3 id="step-1-define-the-purpose">Step 1: Define the Purpose<a class="headerlink" href="#step-1-define-the-purpose" title="Permanent link">&para;</a></h3>
+<p>Before writing any configuration, clearly define:
+- What problem does this agent solve?
+- What tools does it need?
+- What domain knowledge is required?
+- Who will use it?</p>
+<h3 id="step-2-create-the-structure">Step 2: Create the Structure<a class="headerlink" href="#step-2-create-the-structure" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>my-agent/<span class="o">{</span>context,behaviors<span class="o">}</span>
+touch<span class="w"> </span>my-agent/bundle.md
+</code></pre></div>
+
+<h3 id="step-3-write-the-bundle-definition">Step 3: Write the Bundle Definition<a class="headerlink" href="#step-3-write-the-bundle-definition" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>---
+name: documentation-writer
+description: &quot;Creates clear, comprehensive documentation&quot;
+version: &quot;1.0.0&quot;
+
+tools:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>read_file
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>write_file
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>glob
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>grep
+
+includes:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>foundation:core-tools
+
+context:
+<span class="gu">  - context/style-guide.md</span>
+<span class="gu">---</span>
+
+<span class="gh"># Documentation Writer</span>
+
+You are an expert technical writer who creates clear, 
+comprehensive documentation.
+
+<span class="gu">## Writing Principles</span>
+
+<span class="k">1.</span> <span class="gs">**Clarity first**</span>: Use simple language
+<span class="k">2.</span> <span class="gs">**Structure matters**</span>: Organize logically
+<span class="k">3.</span> <span class="gs">**Examples help**</span>: Show, don&#39;t just tell
+<span class="k">4.</span> <span class="gs">**Audience awareness**</span>: Know your reader
+</code></pre></div>
+
+<h3 id="step-4-add-context-files">Step 4: Add Context Files<a class="headerlink" href="#step-4-add-context-files" title="Permanent link">&para;</a></h3>
+<p>Create supporting context that provides domain knowledge:</p>
+<div class="codehilite"><pre><span></span><code>&lt;!-- context/style-guide.md --&gt;
+<span class="gh"># Documentation Style Guide</span>
+
+<span class="gu">## Voice and Tone</span>
+<span class="k">-</span><span class="w"> </span>Use active voice
+<span class="k">-</span><span class="w"> </span>Be direct and concise
+<span class="k">-</span><span class="w"> </span>Avoid jargon unless necessary
+
+<span class="gu">## Formatting</span>
+<span class="k">-</span><span class="w"> </span>Use headers to organize content
+<span class="k">-</span><span class="w"> </span>Include code examples in fenced blocks
+<span class="k">-</span><span class="w"> </span>Add tables for comparative information
+</code></pre></div>
+
+<h3 id="step-5-test-the-bundle">Step 5: Test the Bundle<a class="headerlink" href="#step-5-test-the-bundle" title="Permanent link">&para;</a></h3>
+<p>Run your bundle and verify it works as expected:</p>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>--bundle<span class="w"> </span>./my-agent
+</code></pre></div>
+
+<h3 id="bundle-best-practices">Bundle Best Practices<a class="headerlink" href="#bundle-best-practices" title="Permanent link">&para;</a></h3>
+<p><strong>DO:</strong>
+- Keep bundles focused on a single domain
+- Use composition instead of duplication
+- Version your bundles alongside code
+- Document the bundle's purpose and usage</p>
+<p><strong>DON'T:</strong>
+- Create monolithic bundles that do everything
+- Duplicate instructions across bundles
+- Hardcode environment-specific values
+- Include sensitive data in bundles</p>
+<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
+<h3 id="environment-specific-overrides">Environment-Specific Overrides<a class="headerlink" href="#environment-specific-overrides" title="Permanent link">&para;</a></h3>
+<p>Use includes with environment bundles:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base-agent</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENVIRONMENT:-development}</span><span class="w">  </span><span class="c1"># Loads dev/staging/prod bundle</span>
 </code></pre></div>
 
-<p>Foundation provides:</p>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>What You Get</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Core Tools</strong></td>
-<td>filesystem, bash, web, search, task, todo</td>
-</tr>
-<tr>
-<td><strong>Agents</strong></td>
-<td>zen-architect, bug-hunter, modular-builder, explorer, etc.</td>
-</tr>
-<tr>
-<td><strong>Behaviors</strong></td>
-<td>Git operations, security review, test coverage</td>
-</tr>
-<tr>
-<td><strong>Philosophy</strong></td>
-<td>Implementation and modular design principles</td>
-</tr>
-</tbody>
-</table>
-<h2 id="using-bundles">Using Bundles<a class="headerlink" href="#using-bundles" title="Permanent link">&para;</a></h2>
-<h3 id="install-a-bundle">Install a Bundle<a class="headerlink" href="#install-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Add a bundle from GitHub</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
-
-<span class="c1"># List installed bundles</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>list
+<h3 id="bundle-inheritance-patterns">Bundle Inheritance Patterns<a class="headerlink" href="#bundle-inheritance-patterns" title="Permanent link">&para;</a></h3>
+<p><strong>Specialization</strong>: Start general, get specific</p>
+<div class="codehilite"><pre><span></span><code>foundation:core → domain:backend → project:api-service
 </code></pre></div>
 
-<h3 id="activate-a-bundle">Activate a Bundle<a class="headerlink" href="#activate-a-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Use a specific bundle for this session</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
-
-<span class="c1"># Or specify inline</span>
-amplifier<span class="w"> </span>--bundle<span class="w"> </span>recipes
+<p><strong>Layering</strong>: Add capabilities incrementally</p>
+<div class="codehilite"><pre><span></span><code>base + security + monitoring + custom
 </code></pre></div>
 
-<h3 id="view-bundle-contents">View Bundle Contents<a class="headerlink" href="#view-bundle-contents" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See what a bundle provides</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>show<span class="w"> </span>recipes
-</code></pre></div>
-
-<h2 id="bundle-composition">Bundle Composition<a class="headerlink" href="#bundle-composition" title="Permanent link">&para;</a></h2>
-<p>Bundles can include other bundles, creating a composition hierarchy:</p>
-<div class="codehilite"><pre><span></span><code>your-bundle
-├── includes: recipes
-│   └── includes: foundation
-│       └── (core tools, agents, behaviors)
-├── your tools
-├── your agents
-└── your instructions
-</code></pre></div>
-
-<h3 id="example-team-bundle">Example: Team Bundle<a class="headerlink" href="#example-team-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># team-bundle/bundle.yaml</span>
-<span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-dev</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recipes</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lsp-python</span>
-
-<span class="c1"># Team-specific tools</span>
-<span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-jira</span>
-<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./modules/jira-integration</span>
-
-<span class="c1"># Team-specific agents</span>
-<span class="nt">agents</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/code-reviewer.yaml</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./agents/deploy-manager.yaml</span>
-
-<span class="c1"># Team coding standards</span>
-<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">  </span><span class="no">Follow ACME coding standards:</span>
-<span class="w">  </span><span class="no">- Use Google-style docstrings</span>
-<span class="w">  </span><span class="no">- All functions must have type hints</span>
-<span class="w">  </span><span class="no">- Tests required for new code</span>
-</code></pre></div>
-
-<h2 id="bundle-sources">Bundle Sources<a class="headerlink" href="#bundle-sources" title="Permanent link">&para;</a></h2>
-<p>Bundles can be loaded from multiple sources:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># From the registry (if configured)</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-
-<span class="w">  </span><span class="c1"># From GitHub</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/microsoft/amplifier-bundle-recipes@main</span>
-
-<span class="w">  </span><span class="c1"># From local path</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./my-local-bundle</span>
-
-<span class="w">  </span><span class="c1"># From specific version/tag</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/org/bundle@v1.2.0</span>
-</code></pre></div>
-
-<h2 id="bundle-vs-module-vs-behavior">Bundle vs Module vs Behavior<a class="headerlink" href="#bundle-vs-module-vs-behavior" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Concept</th>
-<th>Purpose</th>
-<th>Scope</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Module</strong></td>
-<td>Single capability (tool, provider, hook)</td>
-<td>One thing</td>
-</tr>
-<tr>
-<td><strong>Behavior</strong></td>
-<td>Reusable agent + context combo</td>
-<td>One workflow</td>
-</tr>
-<tr>
-<td><strong>Bundle</strong></td>
-<td>Complete configuration package</td>
-<td>Everything</td>
-</tr>
-</tbody>
-</table>
-<p>A bundle can contain multiple behaviors, which reference multiple modules.</p>
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-explore-your-current-bundle">Exercise 1: Explore Your Current Bundle<a class="headerlink" href="#exercise-1-explore-your-current-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Start Amplifier and ask:</span>
-amplifier
-
-&gt;<span class="w"> </span>What<span class="w"> </span>bundle<span class="w"> </span>am<span class="w"> </span>I<span class="w"> </span>using?<span class="w"> </span>What<span class="w"> </span>tools<span class="w"> </span>and<span class="w"> </span>agents<span class="w"> </span>are<span class="w"> </span>available?
-</code></pre></div>
-
-<h3 id="exercise-2-add-the-recipes-bundle">Exercise 2: Add the Recipes Bundle<a class="headerlink" href="#exercise-2-add-the-recipes-bundle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Add and use the recipes bundle</span>
-amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/microsoft/amplifier-bundle-recipes@main
-amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>recipes
-
-<span class="c1"># Verify it&#39;s loaded</span>
-amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;/tools&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>recipe
-</code></pre></div>
-
-<h3 id="exercise-3-create-a-minimal-bundle">Exercise 3: Create a Minimal Bundle<a class="headerlink" href="#exercise-3-create-a-minimal-bundle" title="Permanent link">&para;</a></h3>
-<p>Create a file <code>my-bundle/bundle.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimal</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-
-<span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
-
-<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">  </span><span class="no">You are a concise assistant.</span>
-<span class="w">  </span><span class="no">Always give brief answers unless asked for detail.</span>
-</code></pre></div>
-
-<p>Use it:</p>
-<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>--bundle<span class="w"> </span>./my-bundle
+<h3 id="collection-organization">Collection Organization<a class="headerlink" href="#collection-organization" title="Permanent link">&para;</a></h3>
+<p>Group related bundles into collections:</p>
+<div class="codehilite"><pre><span></span><code>my-collection/
+├── collection.yaml     # Collection metadata
+├── agents/
+│   ├── reviewer/
+│   └── writer/
+├── behaviors/
+│   └── shared/
+└── context/
+    └── common/
 </code></pre></div>
 
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Bundles are configuration</strong> - They assemble modules, agents, and instructions</li>
-<li><strong>Composition is powerful</strong> - Include other bundles to build on their capabilities</li>
-<li><strong>Foundation is your base</strong> - Most bundles include it for core functionality</li>
-<li><strong>Bundles are portable</strong> - Share via Git, zip, or any file transfer</li>
+<li>
+<p><strong>Bundles are composable packages</strong> that define everything an agent needs—tools, instructions, behaviors, and context.</p>
+</li>
+<li>
+<p><strong>Markdown + YAML frontmatter</strong> provides a human-readable, version-controllable format for agent configuration.</p>
+</li>
+<li>
+<p><strong>Composition is powerful</strong>: Use <code>includes</code> to build complex agents from simple, focused bundles. Tools merge, context accumulates, and instructions layer.</p>
+</li>
+<li>
+<p><strong>Behaviors add modularity</strong>: Extract reusable instruction fragments into behaviors that can be mixed and matched.</p>
+</li>
+<li>
+<p><strong>Structure matters</strong>: Follow the standard bundle layout for consistency and discoverability.</p>
+</li>
+<li>
+<p><strong>Keep bundles focused</strong>: One bundle should solve one class of problems. Use composition to combine capabilities.</p>
+</li>
+<li>
+<p><strong>Test and iterate</strong>: Bundles are code—version them, test them, and refine them based on real usage.</p>
+</li>
 </ol>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
-<p>Learn about the building blocks that bundles assemble:</p>
-<p>→ <a href="modules.html">Modules</a></p>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../guides/creating-bundles.md">Creating Your First Bundle</a> - Hands-on tutorial</li>
+<li><a href="./behaviors.md">Behaviors Deep Dive</a> - Learn about behavior composition</li>
+<li><a href="./collections.md">Collections</a> - Organizing bundles at scale</li>
+</ul>
               
             </div>
           </div><footer>

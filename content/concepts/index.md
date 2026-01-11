@@ -1,57 +1,81 @@
 ---
-id: concepts-overview
-type: concepts
-title: "Core Concepts"
+id: concepts-index
+type: section-index
+title: Core Concepts
 ---
 
 # Core Concepts
 
-Understanding these concepts will help you get the most out of Amplifier.
+Understanding Amplifier's architecture and design philosophy is key to building effective AI-powered applications. This section explains the foundational concepts that power the system.
 
-## The Big Picture
+These concepts build on each other—start with the basics and progress to more advanced architectural patterns.
 
-Amplifier follows the **Linux kernel philosophy**: a tiny, stable core with swappable modules at the edges.
+## Section Contents
+
+| Page | Description |
+|------|-------------|
+| [Sessions](./sessions.md) | Conversation state and lifecycle management |
+| [Agents](./agents.md) | Autonomous task executors with tools |
+| [Providers](./providers.md) | LLM backends (Anthropic, OpenAI, Azure) |
+| [Modules](./modules.md) | Extensibility through the module system |
+| [Hooks](./hooks.md) | Event interception and custom behaviors |
+| [Context](./context.md) | How agents receive and manage information |
+| [Tool Architecture](./tool-architecture.md) | How tools work under the hood |
+| [Multi-Agent Patterns](./multi-agent.md) | Coordination between multiple agents |
+
+## Quick Tips
+
+- **Sessions are stateful** — Each session maintains full conversation history
+- **Agents are stateless** — Agent definitions are templates; sessions hold state
+- **Modules are composable** — Mix and match capabilities without conflicts
+- **Hooks are powerful** — Intercept any event for custom behavior
+- **Context is king** — What the agent knows determines what it can do
+
+## Core Architecture
 
 ```
-┌────────────────────────────────────────────────────┐
-│                   Your Session                      │
-├────────────────────────────────────────────────────┤
-│  Bundles    │  What you've configured              │
-├─────────────┴──────────────────────────────────────┤
-│  Modules    │  Tools, Providers, Hooks, etc.       │
-├─────────────┴──────────────────────────────────────┤
-│  Kernel     │  Session lifecycle, events, loading  │
-└────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────┐
+│              Application                │
+├─────────────────────────────────────────┤
+│    Bundles (composed configurations)    │
+├─────────────────────────────────────────┤
+│  Modules: Providers | Tools | Hooks     │
+├─────────────────────────────────────────┤
+│           Amplifier Kernel              │
+└─────────────────────────────────────────┘
 ```
 
-## Concepts Covered
+## Key Principles
 
-| Concept | What It Is | Why It Matters |
-|---------|------------|----------------|
-| [Bundles](bundles.md) | Composable configuration packages | Mix and match capabilities |
-| [Modules](modules.md) | Building blocks (tools, providers, hooks) | Understand extensibility |
-| [Agents](agents.md) | Specialized AI configurations | Delegate to experts |
-| [Recipes](recipes.md) | Declarative multi-step workflows | Automate complex tasks |
-| [Skills](skills.md) | Reusable knowledge packages | Share expertise |
-| [Hooks](hooks.md) | Lifecycle observers | Control and observe |
+| Principle | Description |
+|-----------|-------------|
+| Thin Bundles | Bundles compose modules; they don't implement |
+| Module Contracts | Clear interfaces between components |
+| Event-Driven | Hooks respond to lifecycle events |
+| Minimal Core | Kernel is small; features live in modules |
 
-## How They Fit Together
+## Where to Start
 
-1. **You configure a Bundle** → Which loads Modules
-2. **Modules provide capabilities** → Tools, providers, hooks
-3. **Agents specialize** → Using specific tools and context
-4. **Recipes orchestrate** → Multiple agents across steps
-5. **Skills inform** → Agents with domain knowledge
-6. **Hooks observe** → Everything that happens
+**Just getting started?** Read [Sessions](./sessions.md) first — it's the foundation for everything else and explains how conversations work.
 
-## Recommended Reading Order
+**Want to customize behavior?** Jump to [Hooks](./hooks.md) to learn how to intercept and modify agent behavior.
 
-If you're new, read in this order:
+**Building multi-agent systems?** Start with [Agents](./agents.md) then proceed to [Multi-Agent Patterns](./multi-agent.md).
 
-1. **Bundles** - Start here to understand configuration
-2. **Modules** - Learn the building blocks
-3. **Agents** - Understand delegation
-4. **Recipes** - Master workflows
-5. **Skills** and **Hooks** - Advanced topics
+## Concept Dependencies
 
-Each page includes practical examples you can try immediately.
+```
+Sessions ─────┬──► Agents ──► Multi-Agent
+              │
+Providers ────┤
+              │
+Modules ──────┼──► Hooks
+              │
+Context ──────┴──► Tool Architecture
+```
+
+## Related Sections
+
+- [Quickstart: Your First Agent](../quickstart/first-agent.md)
+- [Advanced: Kernel Internals](../advanced/kernel-internals.md)
+- [Bundles: Bundle Composition](../bundles/composition.md)

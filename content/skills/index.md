@@ -1,145 +1,95 @@
 ---
-id: skills-overview
-type: skills
-title: "Skills Reference"
+id: skills-index
+type: section-index
+title: Skills Reference
 ---
 
 # Skills Reference
 
-Skills are reusable knowledge packages that give Amplifier domain expertise.
+Skills are packages of domain knowledge that agents can load on demand. Unlike context files that are always present, skills provide specialized expertise that's loaded only when relevant.
 
-## What Are Skills?
+This section covers skill creation, discovery, and effective use patterns.
 
-Skills follow the [Anthropic Skills format](https://github.com/anthropics/skills) - structured knowledge that can be loaded on demand.
+## Section Contents
 
-A skill provides:
-- **Workflows** - Decision trees for complex tasks
-- **Patterns** - Best practices and examples
-- **Troubleshooting** - Common errors and solutions
-- **Setup guides** - Installation and configuration
+| Page | Description |
+|------|-------------|
+| [Skill Basics](./basics.md) | What skills are and how they work |
+| [Built-in Skills](./built-in.md) | Available skills in the foundation bundle |
+| [Creating Skills](./creating.md) | Build your own domain-specific skills |
+| [Skill Structure](./structure.md) | Anatomy of a skill package |
+| [Discovery](./discovery.md) | How agents find and load skills |
+| [Companion Files](./companion-files.md) | Including examples and templates |
+| [Best Practices](./best-practices.md) | Patterns for effective skills |
+| [Publishing](./publishing.md) | Sharing skills with the community |
 
-## Available Skills
+## Quick Tips
 
-| Skill | Purpose | Guide |
-|-------|---------|-------|
-| [Playwright](playwright.md) | Browser automation | UI testing, scraping |
-| [Curl](curl.md) | HTTP client | API testing, debugging |
-| [Image Vision](image-vision.md) | Image analysis | OCR, visual understanding |
+- **Skills are lazy-loaded** — They only consume context when actually needed
+- **One domain per skill** — Keep skills focused on a single area of expertise
+- **Include examples** — Companion files with working code help agents apply knowledge
+- **Version carefully** — Skills become dependencies; changes affect users
+- **Search first** — Use `load_skill(search="term")` to find relevant skills
 
-## Loading Skills
-
-```bash
-# In a session
-amplifier> Load the playwright skill
-
-# Or explicitly
-amplifier> /skill load playwright
-```
-
-## Skills vs Tools
-
-| Aspect | Skill | Tool |
-|--------|-------|------|
-| **What it is** | Knowledge | Capability |
-| **How it helps** | Teaches approach | Does work |
-| **When loaded** | On demand | Always available |
-| **Example** | "How to use Playwright" | "Run this bash command" |
-
-Skills teach *how to think*. Tools *do things*.
-
-## Progressive Loading
-
-Skills load efficiently:
-
-| Level | Content | Tokens |
-|-------|---------|--------|
-| **Metadata** | Name, description | ~100 |
-| **Core** | Main SKILL.md | ~1,000 |
-| **Reference** | Patterns, setup | On demand |
-
-Only what's needed is loaded.
-
-## Skill Structure
+## Skill Architecture
 
 ```
-my-skill/
-├── SKILL.md           # Required: Core workflow
-├── patterns.md        # Optional: Advanced patterns
-├── setup.md           # Optional: Installation
-└── troubleshooting.md # Optional: Common issues
+skills/
+└── my-skill/
+    ├── skill.yaml       # Skill manifest (name, description, version)
+    ├── skill.md         # Main knowledge content
+    └── examples/        # Companion files
+        ├── basic.py
+        └── advanced.py
 ```
 
-## Quick Comparison
+## Skill Operations
 
-| Task | Skill to Load |
-|------|---------------|
-| Browser automation | Playwright |
-| API testing | Curl |
-| Image analysis | Image Vision |
+| Operation | Description | Example |
+|-----------|-------------|---------|
+| List | Show available skills | `load_skill(list=True)` |
+| Search | Find by name/description | `load_skill(search="python")` |
+| Info | Get metadata only | `load_skill(info="curl")` |
+| Load | Load full content | `load_skill(skill_name="curl")` |
 
-## Using Skills Effectively
+## Where to Start
 
-### Load Before Task
+**New to skills?** Begin with [Skill Basics](./basics.md) to understand the skill system and when to use it.
 
-```
-> Load the playwright skill
-> Now test the login form
-```
+**Want to create skills?** Follow [Creating Skills](./creating.md) for a hands-on guide to building your first skill.
 
-### Combine Skills
+**Looking for existing skills?** Check [Built-in Skills](./built-in.md) for what's already available.
 
-```
-> Load curl and image-vision skills
-> Test the API and verify the returned image
-```
+## Built-in Skills Overview
 
-### Check What's Available
+| Skill | Domain | Use Case |
+|-------|--------|----------|
+| `curl` | HTTP/APIs | Testing REST endpoints |
+| `playwright` | Browser | Web automation and scraping |
+| `image-vision` | Vision | Analyzing images with LLMs |
 
-```
-> What skills are available?
-> /skills list
-```
+## Skill vs Context
 
-## Creating Custom Skills
+| Aspect | Skills | Context Files |
+|--------|--------|---------------|
+| Loading | On-demand | Always present |
+| Scope | Specialized domain | General guidance |
+| Size | Can be large | Should be concise |
+| Updates | Versioned | Part of bundle |
 
-See [Anthropic Skills format](https://github.com/anthropics/skills) for the specification.
+## Common Patterns
 
-Basic structure:
-
-```markdown
-# Skill Name
-
-Brief description.
-
-## When to Use
-
-- Scenario 1
-- Scenario 2
-
-## Workflow
-
-Decision tree...
-
-## Core Patterns
-
-### Pattern 1
-[Example]
-
-### Pattern 2
-[Example]
-
-## Anti-patterns
-
-What to avoid...
+```yaml
+# In an agent's workflow:
+1. Recognize domain-specific task
+2. Search for relevant skill
+3. Load skill into context
+4. Apply skill knowledge
+5. Reference companion files if needed
 ```
 
-## Source
+## Related Sections
 
-Skills are maintained at:
-
-```
-github.com/robotdad/skills/
-├── playwright/
-├── curl/
-└── image-vision/
-```
+- [Quickstart: Creating Skills](../quickstart/creating-skills.md)
+- [Bundles: Context Files](../bundles/context-files.md)
+- [Advanced: Skill Development](../advanced/skill-development.md)

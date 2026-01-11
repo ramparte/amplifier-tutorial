@@ -6,210 +6,384 @@ title: "Your First Bundle"
 
 # Your First Bundle
 
-Bundles extend Amplifier with new capabilities. Let's add the **recipes** bundle to unlock multi-step workflows.
+A bundle is a portable package of AI capabilities that you can share, compose, and reuse.
+Think of it as a "plugin" that gives an AI assistant new skills, knowledge, and behaviors.
 
-## What is a Bundle?
+In this tutorial, you'll create a bundle that transforms any AI assistant into a
+specialized code review helper.
 
-A bundle is a package that configures Amplifier with:
+## What You'll Build
 
-- **Tools** - New capabilities (e.g., LSP for code navigation)
-- **Agents** - Specialized AI configurations (e.g., security reviewer)
-- **Behaviors** - Reusable patterns and context
-- **Instructions** - System prompts that guide the AI
+By the end of this tutorial, you'll have:
 
-Think of bundles like browser extensions - they add features without changing the core.
+- A complete bundle with custom instructions
+- Configured tools for file operations
+- Context files that guide behavior
+- A working code reviewer you can use immediately
 
-## Installing the Recipes Bundle
+**Time required:** 10-15 minutes
 
-The recipes bundle adds the ability to run multi-step, declarative workflows.
+**Prerequisites:**
+- Amplifier installed and working
+- Completed the "Hello World" quickstart
+- A text editor
+
+## Step 1: Create the Bundle Directory
+
+Every bundle lives in its own directory with a specific structure. Let's create one:
 
 ```bash
-# Add the bundle
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-recipes@main
+# Create the bundle directory
+mkdir -p ~/.amplifier/bundles/code-reviewer
 
-# Activate it
-amplifier bundle use recipes
-
-# Verify it's loaded
-amplifier run "/tools" | grep recipe
+# Navigate into it
+cd ~/.amplifier/bundles/code-reviewer
 ```
 
-You should see the `recipes` tool is now available.
+The bundle directory name (`code-reviewer`) becomes the bundle's identifier.
+You'll reference it as `code-reviewer` when composing with other bundles.
 
-## What Recipes Can Do
+### Bundle Directory Structure
 
-Recipes are YAML files that define multi-step workflows:
+Here's what we'll create:
+
+```
+code-reviewer/
+├── bundle.yaml          # Bundle manifest (required)
+├── context/             # Context files loaded into AI
+│   └── instructions.md  # Main behavior instructions
+└── tools/               # Tool configurations (optional)
+    └── tools.yaml       # Tool definitions
+```
+
+## Step 2: Create the Bundle Manifest
+
+The `bundle.yaml` file defines your bundle's metadata and composition:
+
+```bash
+touch bundle.yaml
+```
+
+Add this content to `bundle.yaml`:
 
 ```yaml
-# example-recipe.yaml
-name: code-review
-description: Review code for quality and security
+# Bundle manifest for code-reviewer
+name: code-reviewer
+version: 1.0.0
+description: "A focused code review assistant that provides actionable feedback"
 
-steps:
-  - id: analyze
-    agent: foundation:zen-architect
-    instruction: "Analyze {{file}} for design issues"
-    
-  - id: security
-    agent: foundation:security-guardian  
-    instruction: "Check {{file}} for security vulnerabilities"
-    
-  - id: summarize
-    instruction: |
-      Create a review summary from:
-      - Design analysis: {{analyze.result}}
-      - Security findings: {{security.result}}
-```
+# What this bundle provides
+provides:
+  - code-review
+  - best-practices
 
-Key features:
-- **Multiple agents** - Each step can use a different specialist
-- **Context flow** - Results from earlier steps available to later ones
-- **Variables** - `{{file}}` is passed in when you run the recipe
-- **Resumable** - If interrupted, pick up where you left off
-
-## Running Your First Recipe
-
-The recipes bundle comes with example recipes. Let's run one:
-
-```bash
-# See available example recipes
-ls ~/.amplifier/bundles/recipes/examples/
-
-# Run a code review recipe
-amplifier recipes execute recipes/code-review.yaml \
-  --context '{"file_path": "src/main.py"}'
-```
-
-Or explore recipes interactively:
-
-```bash
-amplifier
-
-# In the session:
-amplifier> What recipes are available?
-amplifier> Run the code-review recipe on src/auth.py
-```
-
-## Creating a Simple Recipe
-
-Create your own recipe:
-
-```bash
-# Create a recipes directory in your project
-mkdir -p .amplifier/recipes
-```
-
-```yaml
-# .amplifier/recipes/explain-and-test.yaml
-name: explain-and-test
-description: Explain code and generate tests
-
+# Context files to load (order matters)
 context:
-  file: ""  # Required: path to file
+  - context/instructions.md
 
-steps:
-  - id: explain
-    instruction: |
-      Explain what {{file}} does in plain language.
-      Focus on the main purpose and key functions.
+# Tools this bundle needs
+tools:
+  - read_file
+  - grep
+  - glob
 
-  - id: generate-tests
-    agent: foundation:modular-builder
-    instruction: |
-      Based on this explanation:
-      {{explain.result}}
-      
-      Generate comprehensive tests for {{file}}.
-      Include edge cases and error conditions.
-      
-  - id: save-tests
-    instruction: |
-      Save the tests to tests/test_{{file | basename}}.
-      
-      Tests to save:
-      {{generate-tests.result}}
+# Optional: bundles this one extends
+extends: []
 ```
 
-Run it:
+### Understanding the Manifest
+
+| Field | Purpose |
+|-------|---------|
+| `name` | Unique identifier for your bundle |
+| `version` | Semantic version for tracking changes |
+| `description` | Human-readable explanation |
+| `provides` | Capabilities this bundle offers |
+| `context` | Files loaded into the AI's context |
+| `tools` | Tools the AI can use |
+| `extends` | Other bundles to inherit from |
+
+## Step 3: Add Instructions
+
+The instructions file is where you define your bundle's personality and behavior.
+This is the most important file—it shapes how the AI acts.
+
+Create the context directory and instructions file:
 
 ```bash
-amplifier recipes execute .amplifier/recipes/explain-and-test.yaml \
-  --context '{"file": "src/utils.py"}'
+mkdir -p context
+touch context/instructions.md
 ```
 
-## Recipes with Approval Gates
+Add this content to `context/instructions.md`:
 
-Add human checkpoints for critical operations:
+```markdown
+# Code Review Assistant
+
+You are a focused code review assistant. Your job is to provide clear,
+actionable feedback that helps developers write better code.
+
+## Review Philosophy
+
+- **Be specific**: Point to exact lines and explain why something matters
+- **Be constructive**: Suggest improvements, don't just criticize
+- **Be prioritized**: Distinguish critical issues from nice-to-haves
+- **Be educational**: Explain the "why" behind recommendations
+
+## Review Process
+
+When asked to review code:
+
+1. **Understand context**: What does this code do? What problem does it solve?
+2. **Check correctness**: Does it work? Are there bugs or edge cases?
+3. **Evaluate clarity**: Is it readable? Would a new team member understand it?
+4. **Assess maintainability**: Is it easy to change? Are there hidden dependencies?
+5. **Consider performance**: Are there obvious inefficiencies?
+
+## Response Format
+
+Structure your reviews like this:
+
+### Summary
+One paragraph overview of the code and your overall assessment.
+
+### Critical Issues
+Problems that must be fixed (bugs, security issues, data loss risks).
+
+### Improvements
+Suggestions that would meaningfully improve the code.
+
+### Minor Notes
+Style suggestions, nitpicks, or optional enhancements.
+
+## What NOT to Do
+
+- Don't rewrite entire files unprompted
+- Don't focus on style over substance
+- Don't be vague ("this could be better")
+- Don't overwhelm with too many comments
+
+## Example Interaction
+
+User: "Review this function for me"
+
+Good response:
+- Start with what the function does
+- Identify the most important issue first
+- Provide a specific fix with explanation
+- Mention 1-2 secondary concerns
+- End with what's done well
+
+Bad response:
+- List 20 minor style issues
+- Rewrite the entire function
+- Give generic advice without specifics
+```
+
+## Step 4: Configure Tools
+
+Your bundle can specify which tools it needs. Create a tools configuration:
+
+```bash
+mkdir -p tools
+touch tools/tools.yaml
+```
+
+Add this content to `tools/tools.yaml`:
 
 ```yaml
-# deploy-recipe.yaml
-name: safe-deploy
+# Tools configuration for code-reviewer bundle
 
-steps:
-  - id: build
-    instruction: "Build the project and run tests"
-    
-  - id: review
-    instruction: "Summarize changes since last deploy"
-    
-  - id: deploy
-    requires_approval: true  # Pauses here for human approval
-    instruction: "Deploy to production"
+# File reading for examining code
+read_file:
+  enabled: true
+  description: "Read source files to review"
+
+# Pattern searching for finding issues
+grep:
+  enabled: true
+  description: "Search for patterns in code"
+
+# File discovery
+glob:
+  enabled: true
+  description: "Find files to review"
+
+# Tools we explicitly don't need
+write_file:
+  enabled: false
+  reason: "Review only - no modifications"
+
+bash:
+  enabled: false
+  reason: "Review only - no execution"
 ```
 
-When you run this, it will pause at the deploy step:
+### Why Limit Tools?
 
-```
-Step 'deploy' requires approval.
-To approve: amplifier recipes approve [session-id] deploy
-To deny: amplifier recipes deny [session-id] deploy
-```
+Restricting tools creates a safer, more focused assistant:
 
-## Other Popular Bundles
+- **Principle of least privilege**: Only enable what's needed
+- **Clear boundaries**: Users know what the assistant can/can't do
+- **Reduced risk**: No accidental file modifications or command execution
 
-| Bundle | What it adds |
-|--------|-------------|
-| `recipes` | Multi-step workflows |
-| `lsp-python` | Python code intelligence (go-to-definition, find references) |
-| `lsp-typescript` | TypeScript/JS code intelligence |
-| `design-intelligence` | 7 specialized design agents |
+## Step 5: Test Your Bundle
 
-Install any bundle:
+Now let's verify everything works. First, validate the bundle structure:
 
 ```bash
-# Python code intelligence
-amplifier bundle add git+https://github.com/microsoft/amplifier-bundle-lsp-python@main
-amplifier bundle use lsp-python
-
-# Now you have semantic code navigation
-amplifier run "Find all usages of the authenticate() function"
+# Check that all files exist
+ls -la ~/.amplifier/bundles/code-reviewer/
 ```
 
-## Try It Yourself
+You should see:
 
-1. **Install recipes**: Follow the steps above to add the recipes bundle
-2. **Run an example**: Try the code-review recipe on one of your files
-3. **Create your own**: Write a simple recipe for a task you do often
+```
+bundle.yaml
+context/
+  instructions.md
+tools/
+  tools.yaml
+```
 
-## What's Next?
+### Run with Your Bundle
 
-You've completed the Quick Start! You can now:
+Start Amplifier with your new bundle:
 
-- **[Core Concepts](../concepts/index.md)** - Understand bundles, modules, and agents in depth
-- **[Tools Reference](../tools/index.md)** - Explore all available tools
-- **[Developer Setup](../dev-setup/index.md)** - Professional development workflows
+```bash
+amp --bundle code-reviewer
+```
+
+Or add it to an existing configuration:
+
+```bash
+amp --bundle foundation --bundle code-reviewer
+```
+
+### Test the Behavior
+
+Try these prompts to verify it's working:
+
+```
+Review this Python function:
+
+def get_user(id):
+    users = load_all_users()
+    for u in users:
+        if u.id == id:
+            return u
+    return None
+```
+
+Your code reviewer should:
+1. Identify the inefficiency (loading all users)
+2. Suggest using a dictionary lookup or database query
+3. Note the missing error handling
+4. Format the response according to your instructions
+
+## Step 6: Iterate and Improve
+
+Your first bundle is working! Now refine it based on usage:
+
+### Add More Context
+
+Create additional context files for specific scenarios:
+
+```bash
+# Security-focused review guidelines
+touch context/security-review.md
+
+# Performance review checklist
+touch context/performance-review.md
+```
+
+Update `bundle.yaml` to include them:
+
+```yaml
+context:
+  - context/instructions.md
+  - context/security-review.md
+  - context/performance-review.md
+```
+
+### Create Specialized Variants
+
+Make language-specific versions:
+
+```bash
+mkdir -p ~/.amplifier/bundles/python-reviewer
+# Copy and customize for Python-specific guidance
+```
+
+### Compose with Other Bundles
+
+Extend existing bundles to add capabilities:
+
+```yaml
+# In a new bundle's bundle.yaml
+extends:
+  - code-reviewer
+  - python-standards
+```
+
+## Troubleshooting
+
+### Bundle Not Loading
+
+Check these common issues:
+
+1. **File location**: Bundle must be in `~/.amplifier/bundles/` or a configured path
+2. **YAML syntax**: Validate with `yamllint bundle.yaml`
+3. **File permissions**: Ensure files are readable
+
+### Instructions Not Taking Effect
+
+- Context files must be listed in `bundle.yaml`
+- Check file paths are relative to bundle root
+- Verify no syntax errors in markdown
+
+### Tools Not Available
+
+- Tools must be enabled in the base configuration
+- Bundle can only restrict, not add new tools
+- Check tool names match exactly
+
+## Next Steps
+
+You've created your first bundle. Here's where to go next:
+
+1. **[Bundle Composition](./bundle-composition.md)**: Learn to combine bundles effectively
+2. **[Advanced Context](./advanced-context.md)**: Dynamic context and conditional loading
+3. **[Publishing Bundles](./publishing-bundles.md)**: Share your bundles with others
+4. **[Bundle Patterns](../patterns/bundle-patterns.md)**: Common patterns and best practices
+
+## Quick Reference
+
+### Bundle Checklist
+
+- [ ] `bundle.yaml` with name, version, description
+- [ ] At least one context file with instructions
+- [ ] Tools configured appropriately
+- [ ] Tested with real prompts
+- [ ] Documentation for users
+
+### Key Commands
+
+```bash
+# List available bundles
+amp bundles list
+
+# Validate bundle structure
+amp bundles validate code-reviewer
+
+# Run with bundle
+amp --bundle code-reviewer
+
+# Combine bundles
+amp --bundle foundation --bundle code-reviewer
+```
 
 ---
 
-## Quick Start Summary
-
-You've learned:
-
-1. **What Amplifier is** - A modular AI agent framework
-2. **How it's different** - Multi-provider, extensible, transparent
-3. **How to install** - UV + one command
-4. **Basic usage** - Interactive and single-shot modes
-5. **Key commands** - CLI and in-session commands
-6. **Bundles** - Extending capabilities with recipes
-
-You're ready to explore deeper. Welcome to Amplifier!
+Congratulations! You've built a reusable, composable AI capability.
+The bundle pattern lets you capture expertise once and apply it everywhere.
