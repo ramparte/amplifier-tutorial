@@ -58,23 +58,27 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#modular-architecture">Modular Architecture</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-system">Bundle System</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#multi-agent-support">Multi-Agent Support</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rich-tool-ecosystem">Rich Tool Ecosystem</a>
+    <li class="toctree-l3"><a class="reference internal" href="#thin-bundles">Thin Bundles</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#session-management">Session Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-agent-patterns">Multi-Agent Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-ecosystem">Tool Ecosystem</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#recipes">Recipes</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#philosophy">Philosophy</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-ruthless-simplicity">1. Ruthless Simplicity</a>
+    <li class="toctree-l3"><a class="reference internal" href="#ruthless-simplicity">Ruthless Simplicity</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-composability-over-configuration">2. Composability Over Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-brick-philosophy">The Brick Philosophy</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-ai-native-development">3. AI-Native Development</a>
+    <li class="toctree-l3"><a class="reference internal" href="#humans-as-architects">Humans as Architects</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#present-moment-focus">Present-Moment Focus</a>
     </li>
         </ul>
     </li>
@@ -82,17 +86,23 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#ai-application-developers">AI Application Developers</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#teams-building-internal-tools">Teams Building Internal Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#framework-builders">Framework Builders</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#researchers-and-experimenters">Researchers and Experimenters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#power-users">Power Users</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#open-source-contributors">Open Source Contributors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#teams-exploring-ai">Teams Exploring AI</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#core-concepts">Core Concepts</a>
+    <li class="toctree-l2"><a class="reference internal" href="#core-concepts-at-a-glance">Core Concepts at a Glance</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-amplifier-is-not">What Amplifier is NOT</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#quick-links">Quick Links</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -220,159 +230,130 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="what-is-amplifier">What is Amplifier?<a class="headerlink" href="#what-is-amplifier" title="Permanent link">&para;</a></h1>
+<p>Amplifier is a modular AI agent framework designed to build powerful, composable AI-powered applications with ruthless simplicity. It provides the building blocks for creating sophisticated AI agents while maintaining clean architecture and developer ergonomics.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Amplifier is a modular AI agent framework designed to help developers build powerful,
-composable AI applications. Rather than providing a monolithic solution, Amplifier
-embraces a "bricks and studs" philosophy where self-contained modules snap together
-to create sophisticated agent systems.</p>
-<p>At its core, Amplifier provides:</p>
-<ul>
-<li><strong>A minimal kernel</strong> that handles the essential agent loop, session management, and
-  tool execution</li>
-<li><strong>A module system</strong> with well-defined contracts for extending functionality</li>
-<li><strong>A bundle architecture</strong> for packaging and sharing agent configurations</li>
-<li><strong>Built-in support</strong> for multiple LLM providers, tools, and agent patterns</li>
-</ul>
-<p>Amplifier is built for developers who want full control over their AI agents without
-drowning in boilerplate or fighting framework constraints.</p>
-<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
-<h3 id="modular-architecture">Modular Architecture<a class="headerlink" href="#modular-architecture" title="Permanent link">&para;</a></h3>
-<p>Every component in Amplifier is a self-contained module with clear boundaries:</p>
+<p>At its core, Amplifier is a <strong>kernel-based architecture</strong> that orchestrates AI agents through a minimal, well-defined set of contracts. Rather than providing a monolithic framework, Amplifier offers a thin kernel surrounded by composable modules that can be mixed and matched to create exactly the capabilities you need.</p>
+<p>Think of it like building with construction bricks: the kernel provides the studs and sockets (the connection points), while modules snap together to form complete applications. Each piece is self-contained, testable, and replaceable without affecting the rest of the system.</p>
 <div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────┐
-│                  Amplifier Kernel               │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │ Provider │  │  Tools   │  │  Hooks   │      │
-│  └──────────┘  └──────────┘  └──────────┘      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │ Context  │  │  Skills  │  │  Agents  │      │
-│  └──────────┘  └──────────┘  └──────────┘      │
+│                  Your Application               │
+├─────────────────────────────────────────────────┤
+│     Bundles (Pre-composed Module Sets)          │
+├─────────────────────────────────────────────────┤
+│  Providers  │  Tools  │  Hooks  │  Behaviors    │
+├─────────────────────────────────────────────────┤
+│              Amplifier Kernel                   │
 └─────────────────────────────────────────────────┘
 </code></pre></div>
 
-<p>Modules communicate through stable interfaces, allowing you to:</p>
+<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h3 id="modular-architecture">Modular Architecture<a class="headerlink" href="#modular-architecture" title="Permanent link">&para;</a></h3>
+<p>Amplifier's module system allows you to compose functionality from discrete, well-defined pieces:</p>
 <ul>
-<li>Swap providers (Anthropic, OpenAI, Azure, local models)</li>
-<li>Add or remove tools without touching other code</li>
-<li>Create custom hooks for observability and control</li>
-<li>Package everything into shareable bundles</li>
+<li><strong>Providers</strong>: Connect to AI models (Anthropic, OpenAI, Azure, local models)</li>
+<li><strong>Tools</strong>: Extend agent capabilities (file operations, web search, code execution)</li>
+<li><strong>Hooks</strong>: Intercept and modify agent behavior at key lifecycle points</li>
+<li><strong>Behaviors</strong>: Reusable patterns for common agent tasks</li>
 </ul>
-<h3 id="bundle-system">Bundle System<a class="headerlink" href="#bundle-system" title="Permanent link">&para;</a></h3>
-<p>Bundles are the primary unit of composition in Amplifier. A bundle packages:</p>
-<ul>
-<li>Agent definitions and configurations</li>
-<li>Tool collections for specific capabilities</li>
-<li>Context files and instructions</li>
-<li>Skills and domain knowledge</li>
-</ul>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Example bundle structure</span>
-<span class="l l-Scalar l-Scalar-Plain">my-bundle/</span>
-<span class="l l-Scalar l-Scalar-Plain">├── bundle.yaml</span><span class="w">        </span><span class="c1"># Bundle manifest</span>
-<span class="l l-Scalar l-Scalar-Plain">├── agents/</span><span class="w">            </span><span class="c1"># Agent definitions</span>
-<span class="l l-Scalar l-Scalar-Plain">├── tools/</span><span class="w">             </span><span class="c1"># Custom tools</span>
-<span class="l l-Scalar l-Scalar-Plain">├── context/</span><span class="w">           </span><span class="c1"># Instructions and context</span>
-<span class="l l-Scalar l-Scalar-Plain">└── skills/</span><span class="w">            </span><span class="c1"># Domain knowledge</span>
-</code></pre></div>
-
-<p>Bundles can compose other bundles, enabling a layered architecture where
-specialized capabilities build on foundational ones.</p>
-<h3 id="multi-agent-support">Multi-Agent Support<a class="headerlink" href="#multi-agent-support" title="Permanent link">&para;</a></h3>
-<p>Amplifier supports sophisticated multi-agent patterns:</p>
-<ul>
-<li><strong>Task delegation</strong>: Spawn specialized agents for focused work</li>
-<li><strong>Parallel execution</strong>: Run multiple agents concurrently</li>
-<li><strong>Agent hierarchies</strong>: Build orchestration patterns</li>
-<li><strong>Session continuity</strong>: Resume and branch conversations</li>
-</ul>
-<h3 id="rich-tool-ecosystem">Rich Tool Ecosystem<a class="headerlink" href="#rich-tool-ecosystem" title="Permanent link">&para;</a></h3>
-<p>Built-in tools cover common development needs:</p>
-<ul>
-<li>File operations (read, write, edit, search)</li>
-<li>Shell command execution</li>
-<li>Web search and content fetching</li>
-<li>Git and GitHub operations</li>
-<li>LSP integration for code intelligence</li>
-</ul>
-<p>Custom tools are straightforward to create and package.</p>
+<h3 id="thin-bundles">Thin Bundles<a class="headerlink" href="#thin-bundles" title="Permanent link">&para;</a></h3>
+<p>Bundles are pre-composed collections of modules that work well together. They follow the "thin bundle" pattern: minimal configuration that composes existing modules rather than implementing new functionality. This keeps complexity low while enabling powerful combinations.</p>
 <h3 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h3>
-<p>Amplifier provides robust session handling:</p>
+<p>Amplifier provides robust session handling for multi-turn conversations:</p>
 <ul>
+<li>Automatic context persistence</li>
+<li>Resumable sessions across restarts</li>
+<li>Event-based history with JSONL storage</li>
+<li>Sub-session support for agent delegation</li>
+</ul>
+<h3 id="multi-agent-patterns">Multi-Agent Patterns<a class="headerlink" href="#multi-agent-patterns" title="Permanent link">&para;</a></h3>
+<p>Build sophisticated multi-agent systems with built-in support for:</p>
+<ul>
+<li>Agent delegation (spawning sub-agents for specialized tasks)</li>
+<li>Parallel agent execution</li>
+<li>Hierarchical agent orchestration</li>
+<li>Shared context and memory</li>
+</ul>
+<h3 id="tool-ecosystem">Tool Ecosystem<a class="headerlink" href="#tool-ecosystem" title="Permanent link">&para;</a></h3>
+<p>A rich ecosystem of tools ready to use:</p>
+<ul>
+<li>File system operations (read, write, edit, search)</li>
+<li>Web capabilities (search, fetch, scrape)</li>
+<li>Code intelligence (LSP integration, semantic navigation)</li>
+<li>Git and GitHub operations</li>
+<li>Shell command execution with safety guardrails</li>
+</ul>
+<h3 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h3>
+<p>Declarative YAML workflows for multi-step agent tasks:</p>
+<ul>
+<li>Sequential execution with state persistence</li>
+<li>Approval gates for human-in-the-loop workflows</li>
 <li>Automatic checkpointing and resumability</li>
-<li>Event logging for debugging and analysis</li>
-<li>Context management across long conversations</li>
-<li>Sub-session spawning for agent delegation</li>
+<li>Error handling and retry logic</li>
 </ul>
 <h2 id="philosophy">Philosophy<a class="headerlink" href="#philosophy" title="Permanent link">&para;</a></h2>
-<p>Amplifier is built on three core principles:</p>
-<h3 id="1-ruthless-simplicity">1. Ruthless Simplicity<a class="headerlink" href="#1-ruthless-simplicity" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p>"The best code is often the simplest."</p>
-</blockquote>
-<p>Amplifier resists the urge to over-engineer. Every abstraction must justify its
-existence. The framework provides what's essential and stays out of your way
-for everything else.</p>
-<p>This means:</p>
+<p>Amplifier is built on a foundation of intentional simplicity and practical wisdom.</p>
+<h3 id="ruthless-simplicity">Ruthless Simplicity<a class="headerlink" href="#ruthless-simplicity" title="Permanent link">&para;</a></h3>
+<p>Every line of code must justify its existence. Amplifier rejects complexity for its own sake:</p>
 <ul>
-<li>Minimal magic and hidden behavior</li>
-<li>Clear, predictable execution paths</li>
-<li>Easy-to-understand source code</li>
-<li>Simple extension patterns</li>
+<li><strong>Start minimal</strong>: Begin with the simplest implementation that works</li>
+<li><strong>Grow as needed</strong>: Add complexity only when requirements demand it</li>
+<li><strong>Question everything</strong>: Regularly challenge assumptions and abstractions</li>
 </ul>
-<h3 id="2-composability-over-configuration">2. Composability Over Configuration<a class="headerlink" href="#2-composability-over-configuration" title="Permanent link">&para;</a></h3>
-<p>Rather than exposing hundreds of configuration options, Amplifier achieves
-flexibility through composition. Small, focused modules combine to create
-exactly the agent system you need.</p>
-<p>Think of it like building blocks:</p>
+<h3 id="the-brick-philosophy">The Brick Philosophy<a class="headerlink" href="#the-brick-philosophy" title="Permanent link">&para;</a></h3>
+<p>Software is built from small, clear modules like interlocking bricks:</p>
 <ul>
-<li>Each block does one thing well</li>
-<li>Blocks connect through standard interfaces</li>
-<li>Complex systems emerge from simple parts</li>
-<li>Any block can be replaced or regenerated</li>
+<li>Each module is <strong>self-contained</strong> with defined interfaces</li>
+<li>Modules can be <strong>regenerated independently</strong> without breaking the system</li>
+<li>External contracts (the "studs and sockets") remain <strong>stable</strong></li>
+<li>Internal implementations can evolve freely</li>
 </ul>
-<h3 id="3-ai-native-development">3. AI-Native Development<a class="headerlink" href="#3-ai-native-development" title="Permanent link">&para;</a></h3>
-<p>Amplifier embraces the reality that AI is changing how we build software.
-The framework is designed to work with AI assistants:</p>
+<h3 id="humans-as-architects">Humans as Architects<a class="headerlink" href="#humans-as-architects" title="Permanent link">&para;</a></h3>
+<p>Amplifier elevates human involvement to where it's most valuable:</p>
 <ul>
-<li>Modules are sized for AI comprehension</li>
-<li>Specifications drive implementation</li>
-<li>Regeneration is preferred over patching</li>
-<li>Clear contracts enable reliable generation</li>
+<li><strong>Humans define the vision</strong>: Specifications, requirements, intended behavior</li>
+<li><strong>AI handles construction</strong>: Code generation, implementation details</li>
+<li><strong>Humans validate results</strong>: Testing behavior, not reading every line of code</li>
+</ul>
+<h3 id="present-moment-focus">Present-Moment Focus<a class="headerlink" href="#present-moment-focus" title="Permanent link">&para;</a></h3>
+<p>Build for what's needed now, not hypothetical futures:</p>
+<ul>
+<li>Handle current requirements well</li>
+<li>Avoid premature optimization</li>
+<li>Trust that good architecture emerges from simplicity</li>
 </ul>
 <h2 id="who-its-for">Who It's For<a class="headerlink" href="#who-its-for" title="Permanent link">&para;</a></h2>
 <h3 id="ai-application-developers">AI Application Developers<a class="headerlink" href="#ai-application-developers" title="Permanent link">&para;</a></h3>
-<p>If you're building AI-powered applications and want:</p>
+<p>If you're building AI-powered applications, Amplifier provides:</p>
 <ul>
-<li>Full control over agent behavior</li>
-<li>Easy integration with multiple providers</li>
-<li>Extensible tool and capability systems</li>
-<li>Clean separation of concerns</li>
+<li>Clean abstractions for common patterns</li>
+<li>Provider-agnostic model integration</li>
+<li>Battle-tested tool implementations</li>
+<li>Extensible architecture for custom needs</li>
 </ul>
-<p>Amplifier provides the foundation without imposing unnecessary constraints.</p>
-<h3 id="teams-building-internal-tools">Teams Building Internal Tools<a class="headerlink" href="#teams-building-internal-tools" title="Permanent link">&para;</a></h3>
-<p>For organizations creating internal AI assistants:</p>
+<h3 id="framework-builders">Framework Builders<a class="headerlink" href="#framework-builders" title="Permanent link">&para;</a></h3>
+<p>If you're creating AI frameworks or platforms:</p>
 <ul>
-<li>Package domain knowledge into bundles</li>
-<li>Define organization-specific tools</li>
-<li>Control security and access patterns</li>
-<li>Share capabilities across teams</li>
+<li>Study Amplifier's kernel architecture</li>
+<li>Understand module contracts and composition</li>
+<li>Learn from the "thin bundle" pattern</li>
+<li>Build compatible modules and extensions</li>
 </ul>
-<h3 id="researchers-and-experimenters">Researchers and Experimenters<a class="headerlink" href="#researchers-and-experimenters" title="Permanent link">&para;</a></h3>
-<p>If you're exploring agent architectures:</p>
+<h3 id="power-users">Power Users<a class="headerlink" href="#power-users" title="Permanent link">&para;</a></h3>
+<p>If you're using AI assistants and want more control:</p>
 <ul>
-<li>Easily swap components to test hypotheses</li>
-<li>Clear extension points for custom behavior</li>
-<li>Observable execution for analysis</li>
-<li>Minimal overhead for rapid iteration</li>
+<li>Configure bundles to match your workflow</li>
+<li>Create custom tools and behaviors</li>
+<li>Build specialized agents for your domain</li>
+<li>Integrate with your existing systems</li>
 </ul>
-<h3 id="open-source-contributors">Open Source Contributors<a class="headerlink" href="#open-source-contributors" title="Permanent link">&para;</a></h3>
-<p>Amplifier's modular design makes contribution straightforward:</p>
+<h3 id="teams-exploring-ai">Teams Exploring AI<a class="headerlink" href="#teams-exploring-ai" title="Permanent link">&para;</a></h3>
+<p>If your team is evaluating AI development approaches:</p>
 <ul>
-<li>Work on isolated modules without deep framework knowledge</li>
-<li>Clear contracts define expected behavior</li>
-<li>Test modules independently</li>
-<li>Share bundles with the community</li>
+<li>Amplifier demonstrates sustainable AI development patterns</li>
+<li>The modular architecture prevents vendor lock-in</li>
+<li>Clear contracts make testing and validation straightforward</li>
+<li>Philosophy documentation guides decision-making</li>
 </ul>
-<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
-<p>Before diving deeper, familiarize yourself with these key terms:</p>
+<h2 id="core-concepts-at-a-glance">Core Concepts at a Glance<a class="headerlink" href="#core-concepts-at-a-glance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -383,64 +364,56 @@ The framework is designed to work with AI assistants:</p>
 <tbody>
 <tr>
 <td><strong>Kernel</strong></td>
-<td>The minimal core that runs the agent loop</td>
+<td>Minimal core that orchestrates modules and sessions</td>
 </tr>
 <tr>
 <td><strong>Module</strong></td>
-<td>A self-contained unit of functionality</td>
+<td>Self-contained unit of functionality (provider, tool, hook, behavior)</td>
 </tr>
 <tr>
 <td><strong>Bundle</strong></td>
-<td>A package of agents, tools, and configuration</td>
-</tr>
-<tr>
-<td><strong>Provider</strong></td>
-<td>An LLM backend (Anthropic, OpenAI, etc.)</td>
-</tr>
-<tr>
-<td><strong>Tool</strong></td>
-<td>A capability the agent can invoke</td>
-</tr>
-<tr>
-<td><strong>Hook</strong></td>
-<td>An extension point for observing or modifying behavior</td>
-</tr>
-<tr>
-<td><strong>Skill</strong></td>
-<td>Loadable domain knowledge and best practices</td>
+<td>Pre-composed collection of modules for specific use cases</td>
 </tr>
 <tr>
 <td><strong>Session</strong></td>
-<td>A conversation instance with state and history</td>
+<td>A conversation context with history and state</td>
 </tr>
 <tr>
 <td><strong>Agent</strong></td>
-<td>A configured AI assistant with specific capabilities</td>
+<td>An AI entity that can use tools and follow instructions</td>
+</tr>
+<tr>
+<td><strong>Recipe</strong></td>
+<td>Declarative workflow specification in YAML</td>
 </tr>
 </tbody>
 </table>
+<h2 id="what-amplifier-is-not">What Amplifier is NOT<a class="headerlink" href="#what-amplifier-is-not" title="Permanent link">&para;</a></h2>
+<p>Understanding what Amplifier isn't helps set proper expectations:</p>
+<ul>
+<li><strong>Not a chatbot UI</strong>: Amplifier is a framework, not an application</li>
+<li><strong>Not a model trainer</strong>: It orchestrates models, doesn't train them</li>
+<li><strong>Not opinionated about models</strong>: Works with any compatible provider</li>
+<li><strong>Not a low-code platform</strong>: Designed for developers who code</li>
+<li><strong>Not trying to solve everything</strong>: Focused on agent orchestration</li>
+</ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>Ready to get started? Here's your path forward:</p>
 <ol>
-<li>
-<p><strong><a href="installation.html">Installation</a></strong> - Set up Amplifier in your environment</p>
-</li>
-<li>
-<p><strong><a href="./first-agent.md">Your First Agent</a></strong> - Build and run a simple agent</p>
-</li>
-<li>
-<p><strong><a href="./bundles-intro.md">Understanding Bundles</a></strong> - Learn the composition model</p>
-</li>
-<li>
-<p><strong><a href="../concepts/overview.md">Core Concepts Deep Dive</a></strong> - Explore the architecture</p>
-</li>
-<li>
-<p><strong><a href="../guides/custom-tools.md">Building Tools</a></strong> - Extend agent capabilities</p>
-</li>
+<li><strong><a href="installation.html">Installation</a></strong>: Set up Amplifier in your environment</li>
+<li><strong><a href="./first-agent.md">Your First Agent</a></strong>: Build a simple agent in minutes</li>
+<li><strong><a href="../concepts/overview.md">Core Concepts</a></strong>: Deeper dive into architecture</li>
+<li><strong><a href="../tutorials/index.md">Tutorials</a></strong>: Step-by-step guides for common tasks</li>
 </ol>
+<h3 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/microsoft/amplifier">GitHub Repository</a> - Source code and issues</li>
+<li><a href="../reference/api.md">API Reference</a> - Complete API documentation</li>
+<li><a href="../examples/index.md">Examples</a> - Working code samples</li>
+<li><a href="../community/index.md">Community</a> - Get help and contribute</li>
+</ul>
 <hr />
-<p>Amplifier is open source and actively developed. Join the community to ask
-questions, share bundles, and contribute to the framework's evolution.</p>
+<p><strong>Welcome to Amplifier.</strong> Build powerful AI agents with clarity and confidence.</p>
               
             </div>
           </div><footer>

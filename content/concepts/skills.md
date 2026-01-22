@@ -6,50 +6,59 @@ title: "Understanding Skills"
 
 # Understanding Skills
 
-Skills are one of Amplifier's most powerful mechanisms for extending agent capabilities. They provide a way to package domain knowledge, best practices, and specialized workflows that agents can load on-demand.
+Skills are one of Amplifier's most powerful features for extending agent capabilities. They provide a way to inject domain-specific knowledge, best practices, and workflows into your agents without modifying core system code.
 
 ## What is a Skill?
 
-A skill is **loadable domain knowledge** - a markdown file containing instructions, patterns, examples, and references that an agent can incorporate into its context when needed.
+A skill is **loadable domain knowledge** packaged as markdown files that agents can access on demand. Think of skills as specialized instruction manuals that agents can consult when they need expertise in a particular area.
 
-Think of skills as "expertise modules" that agents can consult:
+### Key Characteristics
 
-- **Domain expertise**: Coding standards, architectural patterns, security guidelines
-- **Workflow guidance**: Step-by-step processes for complex tasks
-- **Reference material**: API documentation, configuration schemas, examples
-- **Best practices**: Industry standards, project conventions, quality guidelines
+- **On-demand loading**: Skills are loaded only when needed, keeping agent context lean
+- **Domain-specific**: Each skill focuses on a particular area of expertise
+- **Declarative**: Skills describe *what* to do, not *how* to implement it
+- **Composable**: Multiple skills can be loaded together for complex tasks
+- **Versionable**: Skills can be versioned and updated independently
 
-Skills differ from static documentation in a key way: they're designed to be **actively loaded into agent context** when relevant, rather than passively referenced.
+### Anatomy of a Skill
 
-### Skill vs. Context File
+A skill typically consists of:
 
-While both contain information, they serve different purposes:
+```
+my-skill/
+├── skill.md          # Main skill content (required)
+├── examples/         # Optional companion files
+│   ├── basic.py
+│   └── advanced.py
+└── templates/        # Optional templates
+    └── config.yaml
+```
 
-| Aspect | Context Files | Skills |
-|--------|---------------|--------|
-| Loading | Always loaded at startup | Loaded on-demand |
-| Scope | Session-wide context | Task-specific knowledge |
-| Size | Should be concise | Can be comprehensive |
-| Purpose | Shape agent behavior | Provide domain expertise |
+The `skill.md` file contains:
+
+1. **Frontmatter**: Metadata about the skill (name, version, description)
+2. **Context**: Background knowledge the agent needs
+3. **Guidelines**: Best practices and decision frameworks
+4. **Workflows**: Step-by-step procedures for common tasks
+5. **Examples**: Concrete illustrations of concepts
 
 ## Discovering Skills
 
-Before loading a skill, you need to know what's available. Amplifier provides discovery mechanisms through the `load_skill` tool.
+Before loading a skill, you need to know what's available. Amplifier provides several ways to discover skills.
 
-### List All Available Skills
+### Listing All Skills
+
+Use the `load_skill` tool with the `list` parameter:
 
 ```python
 load_skill(list=True)
 ```
 
-This returns all skills discovered from configured directories, including:
-- **Workspace skills**: `.amplifier/skills/` in your project
-- **User skills**: `~/.amplifier/skills/` in your home directory
-- **Collection skills**: Skills bundled with Amplifier collections
+This returns all available skills with their names and descriptions.
 
-### Search for Skills
+### Searching for Skills
 
-When you know roughly what you need but not the exact skill name:
+If you're looking for skills in a specific domain:
 
 ```python
 load_skill(search="python")
@@ -57,51 +66,78 @@ load_skill(search="python")
 
 This filters skills by name or description matching your search term.
 
-### Get Skill Metadata
+### Getting Skill Metadata
 
 Before loading a full skill (which consumes context), you can inspect its metadata:
 
 ```python
-load_skill(info="python-standards")
+load_skill(info="design-patterns")
 ```
 
 This returns the skill's name, description, version, and path without loading the full content.
 
+### Skill Discovery Locations
+
+Skills are discovered from multiple directories in priority order:
+
+1. **Workspace skills** (`.amplifier/skills/`) - Project-specific skills
+2. **User skills** (`~/.amplifier/skills/`) - Personal skills across projects
+3. **Collection skills** - Skills bundled with Amplifier collections
+
+First-match-wins: if the same skill exists in multiple locations, the first one found is used.
+
 ## Loading Skills
 
-Once you've identified a relevant skill, load it to bring its knowledge into context.
+When you need domain expertise, load the relevant skill into context.
 
 ### Basic Loading
 
 ```python
-load_skill(skill_name="design-patterns")
+load_skill(skill_name="python-standards")
 ```
 
-This loads the complete skill content into the agent's context. The skill becomes part of the agent's working knowledge for the remainder of the task.
-
-### What Happens When You Load a Skill
-
-1. **Content injection**: The skill's markdown content is added to context
-2. **Directory reference**: You receive a `skill_directory` path for accessing companion files
-3. **Immediate availability**: The knowledge is immediately usable
+This loads the full skill content and returns:
+- The skill content itself
+- The `skill_directory` path for accessing companion files
 
 ### Accessing Companion Files
 
-Many skills include companion files - examples, templates, or reference implementations:
+Many skills include additional resources like examples, templates, or reference files. Use the returned `skill_directory` to access them:
 
 ```python
-# Load the skill first
-result = load_skill(skill_name="api-testing")
+# Load the skill
+result = load_skill(skill_name="api-design")
+skill_dir = result["skill_directory"]
 
-# Access companion files using the returned directory
-read_file(result.skill_directory + "/examples/basic-test.py")
+# Read a companion file
+read_file(f"{skill_dir}/examples/rest-api.py")
 ```
+
+### When to Load Skills
+
+Load skills when you need:
+
+- **Domain expertise**: Working in an unfamiliar area
+- **Best practices**: Ensuring code follows established patterns
+- **Consistency**: Applying the same standards across a project
+- **Complex workflows**: Following multi-step procedures correctly
+
+### Context Management
+
+Skills consume context tokens when loaded. Best practices:
+
+- Load skills on-demand, not preemptively
+- Use `info` to check skill size before loading
+- Load only the skills you actually need
+- Consider skill size when working with limited context
 
 ## Creating Skills
 
-Skills are markdown files with a simple structure. Creating your own is straightforward.
+You can create custom skills for your projects or personal use.
 
-### Skill File Structure
+### Skill Structure
+
+Create a directory with at least a `skill.md` file:
 
 ```markdown
 ---
@@ -110,119 +146,125 @@ description: Brief description of what this skill provides
 version: 1.0.0
 ---
 
-# Skill Title
+# My Custom Skill
 
 ## Overview
-What this skill covers and when to use it.
+Explain the domain this skill covers.
 
 ## Guidelines
-The actual domain knowledge, patterns, and practices.
+List best practices and decision frameworks.
+
+## Workflows
+Document step-by-step procedures.
 
 ## Examples
-Concrete examples demonstrating the concepts.
-
-## References
-Links to additional resources or companion files.
+Provide concrete illustrations.
 ```
 
 ### Where to Place Skills
 
-Skills are discovered from these locations (in priority order):
+Choose based on scope:
 
-1. **Workspace**: `.amplifier/skills/your-skill.md` - Project-specific skills
-2. **User**: `~/.amplifier/skills/your-skill.md` - Personal skills across projects
-3. **Collections**: Skills bundled with installed collections
+| Location | Scope | Use Case |
+|----------|-------|----------|
+| `.amplifier/skills/` | Project | Team-specific patterns |
+| `~/.amplifier/skills/` | User | Personal workflows |
+| Collection | Distribution | Shared with community |
 
-First-match-wins: workspace skills override user skills with the same name.
+### Writing Effective Skills
 
-### Skill Authoring Best Practices
+**Be specific**: Focus on one domain or problem area.
 
-**Be specific and actionable**
 ```markdown
-# Good: Actionable guidance
-When implementing retry logic:
-1. Use exponential backoff starting at 100ms
-2. Cap maximum retries at 5
-3. Add jitter to prevent thundering herd
+# Good: Focused skill
+---
+name: react-testing
+description: Testing patterns for React components
+---
 
-# Avoid: Vague advice
-Retry logic should be implemented carefully.
+# Bad: Too broad
+---
+name: frontend
+description: Everything about frontend development
+---
 ```
 
-**Include concrete examples**
+**Be actionable**: Provide clear guidance, not just information.
+
 ```markdown
-## Example: Rate Limiter Implementation
+# Good: Actionable guideline
+When testing async components, always:
+1. Use `waitFor` for state changes
+2. Mock API calls at the network level
+3. Test loading and error states
 
-```python
-class RateLimiter:
-    def __init__(self, max_requests: int, window_seconds: int):
-        self.max_requests = max_requests
-        self.window = window_seconds
-        self.requests = []
-    
-    def allow(self) -> bool:
-        now = time.time()
-        self.requests = [t for t in self.requests if now - t < self.window]
-        if len(self.requests) < self.max_requests:
-            self.requests.append(now)
-            return True
-        return False
-```
+# Bad: Vague advice
+Make sure to test your components properly.
 ```
 
-**Reference companion files**
+**Include examples**: Show, don't just tell.
+
 ```markdown
-## Templates
+## Example: Testing a Form Component
 
-See the companion files for ready-to-use templates:
-- `templates/api-client.py` - Base API client class
-- `templates/retry-decorator.py` - Retry decorator implementation
+```tsx
+test('submits form data', async () => {
+  render(<ContactForm />);
+  
+  await userEvent.type(screen.getByLabelText('Email'), 'test@example.com');
+  await userEvent.click(screen.getByRole('button', { name: 'Submit' }));
+  
+  await waitFor(() => {
+    expect(mockSubmit).toHaveBeenCalledWith({ email: 'test@example.com' });
+  });
+});
+```
 ```
 
-### Skill Naming Conventions
+### Companion Files
 
-- Use lowercase with hyphens: `python-standards`, `api-design`
-- Be descriptive but concise: `react-testing` not `rt`
-- Group related skills with prefixes: `aws-lambda`, `aws-s3`
+For complex skills, include additional resources:
 
-## When to Use Skills
+```
+my-skill/
+├── skill.md
+├── examples/
+│   ├── basic-usage.py
+│   └── advanced-patterns.py
+├── templates/
+│   └── project-structure/
+└── reference/
+    └── cheatsheet.md
+```
 
-Skills shine in specific scenarios:
+Reference these in your skill content:
 
-**Use skills when:**
-- You need specialized domain knowledge for a task
-- The knowledge is too large for always-on context files
-- Multiple agents might need the same expertise
-- You want to standardize approaches across a team
+```markdown
+## Getting Started
 
-**Don't use skills when:**
-- The information should always be available (use context files)
-- You need real-time information (use web search)
-- The task is simple and well-understood
+See `examples/basic-usage.py` for a minimal working example.
 
-## Skills vs. Other Knowledge Sources
-
-| Source | Best For | Limitations |
-|--------|----------|-------------|
-| **Skills** | Domain expertise, patterns | Static, must be loaded |
-| **Context files** | Always-needed guidance | Limited by context size |
-| **Web search** | Current information | Variable quality |
-| **Documentation** | Reference lookup | Not agent-optimized |
+For production patterns, refer to `examples/advanced-patterns.py`.
+```
 
 ## Key Takeaways
 
-1. **Skills are loadable expertise** - Domain knowledge packaged for agent consumption
+1. **Skills are loadable expertise**: They inject domain knowledge into agents on demand, keeping base context lean while enabling deep specialization.
 
-2. **Discover before loading** - Use `list`, `search`, and `info` to find the right skill without wasting context
+2. **Discovery before loading**: Use `list`, `search`, and `info` operations to find the right skill without consuming context unnecessarily.
 
-3. **Load on-demand** - Skills are task-specific; load them when needed, not preemptively
+3. **Location determines scope**: Workspace skills override user skills, enabling project-specific customization while maintaining personal defaults.
 
-4. **Create your own** - Project or personal skills are simple markdown files in known locations
+4. **Focus on actionability**: The best skills provide clear guidelines, decision frameworks, and concrete examples—not just reference information.
 
-5. **Include companions** - Skills can reference example files, templates, and other resources
+5. **Companion files extend capabilities**: Skills can include examples, templates, and reference materials that agents access via the `skill_directory` path.
 
-6. **Priority matters** - Workspace skills override user skills; first match wins
+6. **Context is precious**: Load skills judiciously. Each loaded skill consumes tokens that could be used for other context.
 
-7. **Be specific** - Good skills provide actionable guidance and concrete examples, not vague advice
+---
 
-Skills transform agents from general-purpose assistants into domain experts. By packaging knowledge effectively, you enable agents to tackle specialized tasks with the same expertise a human specialist would bring.
+## Related Concepts
+
+- [Agents](./agents.md) - How agents use skills
+- [Bundles](./bundles.md) - Packaging skills with other components
+- [Context Management](./context.md) - Managing what agents know

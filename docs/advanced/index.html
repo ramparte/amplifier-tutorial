@@ -146,17 +146,19 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#architecture-deep-dive">Architecture Deep Dive</a>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-patterns">Advanced Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#recipe-driven-workflows">Recipe-Driven Workflows</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-types">Module Types</a>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-agent-collaboration">Multi-Agent Collaboration</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#advanced-patterns">Advanced Patterns</a>
+    <li class="toctree-l2"><a class="reference internal" href="#complexity-budget">Complexity Budget</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -194,8 +196,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h1>
-<p>This section covers advanced Amplifier concepts for users who want to go deeper. Topics here assume familiarity with core concepts, bundles, and basic agent development.</p>
-<p>These guides help you build sophisticated AI applications, customize the kernel, and optimize performance.</p>
+<p>Once you've mastered the fundamentals, these advanced topics unlock Amplifier's full power. From multi-agent orchestration to custom kernel modules, this section covers expert-level capabilities. Dive deep into sophisticated patterns for building production-grade AI applications.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -206,144 +207,113 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="./kernel-internals.md">Kernel Internals</a></td>
-<td>How the Amplifier kernel works</td>
-</tr>
-<tr>
-<td><a href="./custom-tools.md">Custom Tools</a></td>
-<td>Building your own tool modules</td>
-</tr>
-<tr>
-<td><a href="./hook-development.md">Hook Development</a></td>
-<td>Creating custom hooks</td>
-</tr>
-<tr>
-<td><a href="./provider-integration.md">Provider Integration</a></td>
-<td>Adding new LLM providers</td>
-</tr>
-<tr>
-<td><a href="./multi-agent-systems.md">Multi-Agent Systems</a></td>
-<td>Complex agent orchestration</td>
-</tr>
-<tr>
 <td><a href="./recipes.md">Recipes</a></td>
 <td>Declarative multi-step workflows</td>
 </tr>
 <tr>
-<td><a href="./performance.md">Performance</a></td>
-<td>Optimization and scaling</td>
+<td><a href="./multi-agent.md">Multi-Agent Patterns</a></td>
+<td>Orchestrating agent collaboration</td>
 </tr>
 <tr>
-<td><a href="./security.md">Security</a></td>
-<td>Security model and best practices</td>
+<td><a href="./custom-modules.md">Custom Modules</a></td>
+<td>Extending the kernel</td>
+</tr>
+<tr>
+<td><a href="./providers.md">Provider Configuration</a></td>
+<td>Advanced LLM setup and routing</td>
+</tr>
+<tr>
+<td><a href="./session-management.md">Session Management</a></td>
+<td>Persistence, resume, and repair</td>
+</tr>
+<tr>
+<td><a href="./performance.md">Performance Tuning</a></td>
+<td>Optimization strategies</td>
+</tr>
+<tr>
+<td><a href="./security.md">Security Hardening</a></td>
+<td>Production security practices</td>
+</tr>
+<tr>
+<td><a href="./debugging.md">Debugging Deep Dive</a></td>
+<td>Advanced troubleshooting</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Understand modules first</strong> — All advanced features build on the module system</li>
-<li><strong>Read the source</strong> — Amplifier is open; the code is the best documentation</li>
-<li><strong>Test in isolation</strong> — Advanced features can have subtle interactions</li>
-<li><strong>Use typed interfaces</strong> — TypedDict and Protocol classes catch errors early</li>
-<li><strong>Profile before optimizing</strong> — Measure actual bottlenecks, don't guess</li>
+<li><strong>Recipes for repeatability</strong> - Codify multi-step workflows as recipes</li>
+<li><strong>Agent specialization</strong> - Create focused agents rather than general-purpose</li>
+<li><strong>Module contracts</strong> - Follow kernel protocols for reliable extensions</li>
+<li><strong>Session hygiene</strong> - Clean up and repair sessions proactively</li>
+<li><strong>Monitor everything</strong> - Observability is essential at scale</li>
 </ul>
-<h2 id="architecture-deep-dive">Architecture Deep Dive<a class="headerlink" href="#architecture-deep-dive" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
-│                    Application Layer                    │
-├─────────────────────────────────────────────────────────┤
-│  Recipes │ Multi-Agent │ Custom Behaviors               │
-├─────────────────────────────────────────────────────────┤
-│      Modules: Providers │ Tools │ Hooks │ Custom        │
-├─────────────────────────────────────────────────────────┤
-│                   Event System                          │
-├─────────────────────────────────────────────────────────┤
-│    Kernel: Session Manager │ Module Registry │ Router   │
-└─────────────────────────────────────────────────────────┘
+<h2 id="advanced-patterns">Advanced Patterns<a class="headerlink" href="#advanced-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="recipe-driven-workflows">Recipe-Driven Workflows<a class="headerlink" href="#recipe-driven-workflows" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">steps</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zen-architect</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REVIEW</span>
+<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{file_path}}&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-guardian</span>
+<span class="w">    </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{previous_output}}&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">result-validator</span>
+<span class="w">    </span><span class="nt">criteria</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{acceptance_criteria}}&quot;</span>
 </code></pre></div>
 
-<h2 id="module-types">Module Types<a class="headerlink" href="#module-types" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Purpose</th>
-<th>Interface</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Provider</td>
-<td>LLM backends</td>
-<td><code>ProviderProtocol</code></td>
-</tr>
-<tr>
-<td>Tool</td>
-<td>Agent capabilities</td>
-<td><code>ToolProtocol</code></td>
-</tr>
-<tr>
-<td>Hook</td>
-<td>Event interception</td>
-<td><code>HookProtocol</code></td>
-</tr>
-<tr>
-<td>Context</td>
-<td>Knowledge injection</td>
-<td><code>ContextProtocol</code></td>
-</tr>
-</tbody>
-</table>
+<h3 id="multi-agent-collaboration">Multi-Agent Collaboration<a class="headerlink" href="#multi-agent-collaboration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────┐
+│ Orchestrator│
+└──────┬──────┘
+       │
+  ┌────┴────┐
+  │ Spawn   │
+  ▼         ▼
+┌───┐     ┌───┐
+│ A │     │ B │  Parallel execution
+└─┬─┘     └─┬─┘
+  │         │
+  └────┬────┘
+       │
+  ┌────▼────┐
+  │ Combine │
+  └─────────┘
+</code></pre></div>
+
 <h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>Want to extend Amplifier?</strong> Start with <a href="./custom-tools.md">Custom Tools</a>—it's the most common extension point.</p>
-<p><strong>Building complex workflows?</strong> Read <a href="./recipes.md">Recipes</a> for declarative multi-step orchestration.</p>
-<p><strong>Optimizing performance?</strong> Check <a href="./performance.md">Performance</a> for profiling and optimization strategies.</p>
-<p><strong>Security concerns?</strong> Review <a href="./security.md">Security</a> before deploying to production.</p>
-<h2 id="advanced-patterns">Advanced Patterns<a class="headerlink" href="#advanced-patterns" title="Permanent link">&para;</a></h2>
+<p><strong>Automating workflows?</strong> Begin with <a href="./recipes.md">Recipes</a> for declarative orchestration.</p>
+<p><strong>Building agent systems?</strong> See <a href="./multi-agent.md">Multi-Agent Patterns</a> for coordination strategies.</p>
+<p><strong>Extending Amplifier?</strong> Start with <a href="./custom-modules.md">Custom Modules</a> for kernel extension.</p>
+<h2 id="complexity-budget">Complexity Budget<a class="headerlink" href="#complexity-budget" title="Permanent link">&para;</a></h2>
+<p>Advanced features add power but also complexity. Apply judiciously:</p>
 <table>
 <thead>
 <tr>
-<th>Pattern</th>
-<th>Use Case</th>
-<th>Guide</th>
+<th>Feature</th>
+<th>Use When</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Tool composition</td>
-<td>Combine tools for complex ops</td>
-<td>Custom Tools</td>
-</tr>
-<tr>
-<td>Event sourcing</td>
-<td>Audit and replay</td>
-<td>Kernel Internals</td>
-</tr>
-<tr>
-<td>Agent delegation</td>
-<td>Hierarchical task distribution</td>
-<td>Multi-Agent Systems</td>
-</tr>
-<tr>
-<td>Staged execution</td>
-<td>Human-in-loop workflows</td>
 <td>Recipes</td>
+<td>Repeatable multi-step workflows</td>
+</tr>
+<tr>
+<td>Multi-agent</td>
+<td>Tasks benefit from specialization</td>
+</tr>
+<tr>
+<td>Custom modules</td>
+<td>Core behavior needs modification</td>
+</tr>
+<tr>
+<td>Session management</td>
+<td>Long-running or resumable work</td>
 </tr>
 </tbody>
 </table>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Before diving into advanced topics, ensure you understand:</p>
-<ul>
-<li>[ ] Core concepts (sessions, agents, modules)</li>
-<li>[ ] Bundle composition and structure</li>
-<li>[ ] Basic tool usage patterns</li>
-<li>[ ] Hook event lifecycle</li>
-</ul>
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../concepts/index.html">Concepts: Core Architecture</a></li>
-<li><a href="../dev-setup/contributing.md">Dev Setup: Contributing</a></li>
-<li><a href="../bundles/creating.md">Bundles: Creating Bundles</a></li>
-</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>For day-to-day development workflows, see <a href="../dev-setup/index.html">Dev Setup</a>. For foundational concepts, revisit <a href="../concepts/index.html">Concepts</a>.</p>
               
             </div>
           </div><footer>

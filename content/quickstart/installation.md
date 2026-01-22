@@ -6,396 +6,426 @@ title: "Installation"
 
 # Installation
 
-This guide walks you through installing Amplifier on your system. The process takes about 5 minutes and requires minimal setup.
+This guide walks you through installing Amplifier, a powerful AI development platform that extends Claude's capabilities with specialized tools, agents, and workflows.
 
 ## Prerequisites
 
 Before installing Amplifier, ensure your system meets these requirements:
 
-### Python Version
+### Required
 
-Amplifier requires **Python 3.10 or higher**. Check your Python version:
+- **Python 3.10 or higher** - Amplifier requires modern Python features
+  - Check your version: `python --version` or `python3 --version`
+  - Download from [python.org](https://www.python.org/downloads/) if needed
+
+### Recommended
+
+- **Git** - For version control and cloning repositories
+- **Terminal** - Command-line access (Terminal on macOS/Linux, PowerShell or WSL on Windows)
+- **Anthropic API Key** - Required for Claude access
+  - Get yours at [console.anthropic.com](https://console.anthropic.com/)
+
+## Quick Install
+
+For most users, the fastest way to get started:
 
 ```bash
-python --version
+# Install UV package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install Amplifier
+uvx amplifier
+
+# Run setup wizard
+amplifier init
+
+# Verify installation
+amplifier version
 ```
 
-If you need to install or upgrade Python:
+## Detailed Installation Steps
 
-- **macOS**: `brew install python@3.12`
-- **Ubuntu/Debian**: `sudo apt install python3.12`
-- **Windows**: Download from [python.org](https://www.python.org/downloads/)
+### Step 1: Install UV Package Manager
 
-### Operating System Support
+UV is a fast, reliable Python package installer and resolver. Amplifier uses UV for efficient dependency management.
 
-Amplifier runs on:
-
-- macOS 12 (Monterey) or later
-- Linux (Ubuntu 20.04+, Debian 11+, Fedora 36+)
-- Windows 10/11 with WSL2
-
-### Additional Requirements
-
-- Terminal access (bash, zsh, or PowerShell with WSL)
-- Internet connection for package downloads
-- At least 500MB of free disk space
-
----
-
-## Step 1: Install UV
-
-UV is the recommended package manager for Amplifier. It's fast, reliable, and handles dependencies automatically.
-
-### macOS and Linux
-
-Run the installation script:
+**On macOS and Linux:**
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-After installation, restart your terminal or run:
+**On Windows (PowerShell):**
 
-```bash
-source ~/.bashrc  # or ~/.zshrc for zsh
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-### Windows (WSL)
-
-Open your WSL terminal and run:
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### Alternative: Install via Homebrew
-
-If you prefer Homebrew on macOS:
-
-```bash
-brew install uv
-```
-
-### Verify UV Installation
-
-Confirm UV is installed correctly:
+**Verify UV installation:**
 
 ```bash
 uv --version
 ```
 
-You should see output like:
+You should see output like `uv 0.x.x`.
 
+**Alternative: Install UV with pip:**
+
+```bash
+pip install uv
 ```
-uv 0.5.x
-```
 
----
+### Step 2: Install Amplifier
 
-## Step 2: Install Amplifier
-
-With UV installed, getting Amplifier is a single command:
+Once UV is installed, you can install Amplifier using `uvx`, which runs packages in isolated environments:
 
 ```bash
 uvx amplifier
 ```
 
-This command:
+This command will:
+- Download the latest version of Amplifier
+- Install all required dependencies
+- Make the `amplifier` command available in your terminal
 
-1. Downloads the latest Amplifier release
-2. Creates an isolated environment
-3. Installs all dependencies
-4. Makes `amplifier` available globally
+**Alternative: Install globally with pip:**
 
-### What Happens During Installation
+```bash
+pip install amplifier
+```
 
-UV creates a tool environment at `~/.local/share/uv/tools/amplifier/` containing:
+**Alternative: Install from source:**
 
-- The Amplifier CLI application
-- All required Python packages
-- Configuration templates
+```bash
+git clone https://github.com/yourusername/amplifier.git
+cd amplifier
+pip install -e .
+```
 
-### Installation Location
+### Step 3: Run the Setup Wizard
 
-By default, the `amplifier` command is installed to:
-
-- **macOS/Linux**: `~/.local/bin/amplifier`
-- **Windows WSL**: `~/.local/bin/amplifier`
-
-Ensure this directory is in your PATH. UV typically handles this automatically.
-
----
-
-## Step 3: Setup Wizard
-
-Run the interactive setup wizard to configure Amplifier:
+The setup wizard helps you configure Amplifier for first use:
 
 ```bash
 amplifier init
 ```
 
-The wizard guides you through:
+The wizard will guide you through:
 
-### Provider Configuration
+1. **API Key Configuration** - Enter your Anthropic API key
+2. **Default Model Selection** - Choose your preferred Claude model
+3. **Workspace Setup** - Configure your default workspace directory
+4. **Bundle Installation** - Install recommended bundles (optional)
 
-Select your AI provider(s):
-
-```
-? Select AI providers to configure:
-  [x] Anthropic (Claude)
-  [ ] OpenAI (GPT-4)
-  [ ] Azure OpenAI
-  [ ] Google (Gemini)
-```
-
-### API Key Setup
-
-Enter your API key when prompted:
+**Example wizard session:**
 
 ```
-? Enter your Anthropic API key: sk-ant-...
-```
+Welcome to Amplifier Setup!
 
-Your keys are stored securely in `~/.amplifier/settings.yaml`.
+? Enter your Anthropic API key: sk-ant-***************
+✓ API key validated successfully
 
-### Default Model Selection
-
-Choose your preferred model:
-
-```
 ? Select default model:
-  > claude-sonnet-4-20250514
-    claude-3-5-haiku-20241022
+  > claude-3-5-sonnet-20241022 (recommended)
     claude-3-opus-20240229
+    claude-3-haiku-20240307
+
+? Workspace directory: ~/amplifier-workspace
+✓ Workspace created at /home/user/amplifier-workspace
+
+? Install recommended bundles? (Y/n): Y
+✓ Installing foundation bundle...
+✓ Installing python-dev bundle...
+✓ Installing recipes bundle...
+
+Setup complete! Run 'amplifier chat' to start.
 ```
 
-### Configuration File
+### Step 4: Verify Installation
 
-The wizard creates `~/.amplifier/settings.yaml`:
-
-```yaml
-providers:
-  anthropic:
-    api_key: ${ANTHROPIC_API_KEY}
-    default_model: claude-sonnet-4-20250514
-
-defaults:
-  provider: anthropic
-  temperature: 0.7
-```
-
-### Skip Interactive Mode
-
-For automated setups, use environment variables:
+Confirm everything is working correctly:
 
 ```bash
-export ANTHROPIC_API_KEY="your-key-here"
-amplifier init --non-interactive
-```
-
----
-
-## Step 4: Verify Installation
-
-Confirm everything is working:
-
-```bash
+# Check version
 amplifier version
+
+# View available commands
+amplifier --help
+
+# Test connection
+amplifier test-connection
+
+# List installed bundles
+amplifier bundle list
 ```
 
-Expected output:
+**Expected output for `amplifier version`:**
 
 ```
-Amplifier v0.x.x
-Python: 3.12.x
-UV: 0.5.x
-Config: ~/.amplifier/settings.yaml
+Amplifier v1.0.0
+Python 3.11.5
+UV 0.4.0
+Claude API: Connected
 ```
 
-### Quick Test
+## Platform-Specific Notes
 
-Start an interactive session:
+### macOS
+
+**Homebrew installation (coming soon):**
 
 ```bash
-amplifier
+brew install amplifier
 ```
 
-You should see the Amplifier prompt:
+**Shell configuration:**
 
-```
-Amplifier v0.x.x | claude-sonnet-4-20250514
-Type /help for commands, /quit to exit
-
->
-```
-
-Type a simple query to confirm everything works:
-
-```
-> Hello, can you hear me?
-```
-
-Press `/quit` to exit.
-
----
-
-## Common Issues
-
-### UV Not Found
-
-**Symptom**: `command not found: uv`
-
-**Solution**: Add UV to your PATH:
+Add to your `~/.zshrc` or `~/.bash_profile`:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Add this line to your `~/.bashrc` or `~/.zshrc` for persistence.
+### Linux
 
-### Python Version Too Old
+**System dependencies:**
 
-**Symptom**: `Python 3.10+ required, found 3.8.x`
-
-**Solution**: Install a newer Python version or use pyenv:
+On Debian/Ubuntu:
 
 ```bash
-# Install pyenv
-curl https://pyenv.run | bash
-
-# Install Python 3.12
-pyenv install 3.12
-pyenv global 3.12
+sudo apt update
+sudo apt install python3-pip git curl
 ```
 
-### API Key Invalid
-
-**Symptom**: `Authentication failed: Invalid API key`
-
-**Solution**: Verify your API key is correct:
+On Fedora/RHEL:
 
 ```bash
-# Check the stored key
-cat ~/.amplifier/settings.yaml | grep api_key
+sudo dnf install python3-pip git curl
+```
 
-# Re-run setup
+**Shell configuration:**
+
+Add to your `~/.bashrc`:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Windows
+
+**Recommended: Use WSL2 (Windows Subsystem for Linux)**
+
+1. Install WSL2: `wsl --install`
+2. Open Ubuntu terminal
+3. Follow Linux installation steps
+
+**Native Windows installation:**
+
+- Use PowerShell (not CMD)
+- Install Python from Microsoft Store or python.org
+- Ensure Python is in your PATH
+
+**Common Windows issue:**
+
+If you see "command not found" errors, add Python to PATH:
+
+```powershell
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;$env:LOCALAPPDATA\Programs\Python\Python311\Scripts", "User")
+```
+
+## Configuration
+
+### API Key Setup
+
+Amplifier needs your Anthropic API key to communicate with Claude. You can configure it in several ways:
+
+**Option 1: Setup wizard (recommended)**
+
+```bash
 amplifier init
 ```
 
-### Permission Denied
-
-**Symptom**: `Permission denied: ~/.local/bin/amplifier`
-
-**Solution**: Fix permissions:
+**Option 2: Environment variable**
 
 ```bash
-chmod +x ~/.local/bin/amplifier
+export ANTHROPIC_API_KEY="sk-ant-your-key-here"
 ```
 
-### SSL Certificate Errors
+Add to your `~/.bashrc` or `~/.zshrc` to persist.
 
-**Symptom**: `SSL: CERTIFICATE_VERIFY_FAILED`
+**Option 3: Configuration file**
 
-**Solution**: Update certificates:
+Create `~/.config/amplifier/config.yaml`:
+
+```yaml
+api_key: sk-ant-your-key-here
+default_model: claude-3-5-sonnet-20241022
+workspace: ~/amplifier-workspace
+```
+
+**Option 4: Command-line flag**
+
+```bash
+amplifier chat --api-key sk-ant-your-key-here
+```
+
+### Workspace Configuration
+
+Your workspace is where Amplifier stores projects, skills, and bundles:
+
+```bash
+# Set default workspace
+amplifier config set workspace ~/my-workspace
+
+# View current configuration
+amplifier config show
+```
+
+## Common Issues
+
+### Issue: "command not found: amplifier"
+
+**Solution:**
+
+Ensure the installation directory is in your PATH:
+
+```bash
+echo $PATH | grep -q "$HOME/.local/bin" || export PATH="$HOME/.local/bin:$PATH"
+```
+
+Make it permanent by adding to your shell config file.
+
+### Issue: "API key not configured"
+
+**Solution:**
+
+Run the setup wizard or set the environment variable:
+
+```bash
+amplifier init
+# or
+export ANTHROPIC_API_KEY="your-key-here"
+```
+
+### Issue: "Python version too old"
+
+**Solution:**
+
+Upgrade Python to 3.10 or higher:
+
+```bash
+# macOS with Homebrew
+brew install python@3.11
+
+# Ubuntu/Debian
+sudo apt install python3.11
+
+# Windows
+# Download from python.org
+```
+
+### Issue: "Permission denied" during installation
+
+**Solution:**
+
+Don't use `sudo` with pip. Install for your user:
+
+```bash
+pip install --user amplifier
+```
+
+### Issue: UV installation fails
+
+**Solution:**
+
+Install via pip instead:
+
+```bash
+pip install uv
+```
+
+Then retry Amplifier installation.
+
+### Issue: SSL certificate verification failed
+
+**Solution:**
+
+Update your system's CA certificates:
 
 ```bash
 # macOS
-/Applications/Python\ 3.12/Install\ Certificates.command
+brew install ca-certificates
 
-# Linux
+# Ubuntu/Debian
 sudo apt install ca-certificates
-sudo update-ca-certificates
 ```
 
-### Proxy Configuration
+## Verifying Your Installation
 
-If you're behind a corporate proxy:
+Run this comprehensive check:
 
 ```bash
-export HTTP_PROXY="http://proxy.company.com:8080"
-export HTTPS_PROXY="http://proxy.company.com:8080"
-uvx amplifier
+# Check all components
+amplifier doctor
+
+# Test API connection
+amplifier test-connection
+
+# List available tools
+amplifier tools list
+
+# View system info
+amplifier info
 ```
-
-### WSL-Specific Issues
-
-**Symptom**: Slow performance or networking issues in WSL
-
-**Solution**: Ensure WSL2 is being used:
-
-```powershell
-# In PowerShell
-wsl --set-default-version 2
-```
-
----
-
-## Updating Amplifier
-
-Keep Amplifier current with:
-
-```bash
-uvx amplifier@latest
-```
-
-Or specify a version:
-
-```bash
-uvx amplifier@0.5.0
-```
-
-### Check for Updates
-
-See if a newer version is available:
-
-```bash
-amplifier version --check-updates
-```
-
----
-
-## Uninstalling
-
-To remove Amplifier:
-
-```bash
-uv tool uninstall amplifier
-```
-
-To also remove configuration:
-
-```bash
-rm -rf ~/.amplifier
-```
-
----
 
 ## Next Steps
 
-Now that Amplifier is installed, continue with:
+Now that Amplifier is installed, you're ready to start building:
 
-- **[First Session](first-session.md)** - Start your first AI-assisted coding session
-- **[Configuration Guide](configuration.md)** - Customize Amplifier settings
-- **[Provider Setup](providers.md)** - Configure additional AI providers
-- **[Bundles Overview](bundles.md)** - Extend functionality with bundles
-
-### Quick Commands Reference
-
-| Command | Description |
-|---------|-------------|
-| `amplifier` | Start interactive session |
-| `amplifier init` | Run setup wizard |
-| `amplifier version` | Show version info |
-| `amplifier --help` | Show all commands |
-
----
+1. **[First Conversation](./first-conversation.md)** - Have your first chat with Amplifier
+2. **[Key Commands](./key-commands.md)** - Learn essential commands
+3. **[First Bundle](./first-bundle.md)** - Create your first custom bundle
+4. **[Core Concepts](../concepts/index.md)** - Understand Amplifier's architecture
 
 ## Getting Help
 
 If you encounter issues not covered here:
 
-- Check the [FAQ](../reference/faq.md)
-- Search [GitHub Issues](https://github.com/microsoft/amplifier/issues)
-- Join the community discussions
+- **Documentation**: [amplifier.dev/docs](https://amplifier.dev/docs)
+- **GitHub Issues**: [github.com/yourusername/amplifier/issues](https://github.com/yourusername/amplifier/issues)
+- **Community Discord**: [discord.gg/amplifier](https://discord.gg/amplifier)
+- **Email Support**: support@amplifier.dev
 
-Welcome to Amplifier!
+## Updating Amplifier
+
+To update to the latest version:
+
+```bash
+# With uvx
+uvx --refresh amplifier
+
+# With pip
+pip install --upgrade amplifier
+
+# View changelog
+amplifier changelog
+```
+
+## Uninstalling
+
+If you need to remove Amplifier:
+
+```bash
+# With pip
+pip uninstall amplifier
+
+# Remove configuration
+rm -rf ~/.config/amplifier
+
+# Remove workspace (optional)
+rm -rf ~/amplifier-workspace
+```
+
+---
+
+**Ready to start?** Run `amplifier chat` and say hello to your AI development assistant!

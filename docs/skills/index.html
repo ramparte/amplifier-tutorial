@@ -122,19 +122,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#skill-architecture">Skill Architecture</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#skill-operations">Skill Operations</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skills-vs-context">Skills vs Context</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#built-in-skills-overview">Built-in Skills Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-operations">Skill Operations</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#skill-vs-context">Skill vs Context</a>
+    <li class="toctree-l2"><a class="reference internal" href="#skill-discovery-paths">Skill Discovery Paths</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -195,9 +191,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="skills-reference">Skills Reference<a class="headerlink" href="#skills-reference" title="Permanent link">&para;</a></h1>
-<p>Skills are packages of domain knowledge that agents can load on demand. Unlike context files that are always present, skills provide specialized expertise that's loaded only when relevant.</p>
-<p>This section covers skill creation, discovery, and effective use patterns.</p>
+                <h1 id="skills-guide">Skills Guide<a class="headerlink" href="#skills-guide" title="Permanent link">&para;</a></h1>
+<p>Skills are loadable knowledge modules that provide domain expertise on demand. Unlike always-present context, skills are loaded when needed, keeping the base context lean. This section covers how to use existing skills, create custom ones, and integrate them into your workflows.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -208,127 +203,50 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="./basics.md">Skill Basics</a></td>
-<td>What skills are and how they work</td>
+<td><a href="./skills-overview.md">Skills Overview</a></td>
+<td>What skills are and when to use them</td>
 </tr>
 <tr>
-<td><a href="./built-in.md">Built-in Skills</a></td>
-<td>Available skills in the foundation bundle</td>
+<td><a href="./loading-skills.md">Loading Skills</a></td>
+<td>How to discover and load skills</td>
 </tr>
 <tr>
-<td><a href="./creating.md">Creating Skills</a></td>
-<td>Build your own domain-specific skills</td>
+<td><a href="./creating-skills.md">Creating Skills</a></td>
+<td>Author your own skill files</td>
 </tr>
 <tr>
-<td><a href="./structure.md">Skill Structure</a></td>
-<td>Anatomy of a skill package</td>
-</tr>
-<tr>
-<td><a href="./discovery.md">Discovery</a></td>
-<td>How agents find and load skills</td>
+<td><a href="./skill-structure.md">Skill Structure</a></td>
+<td>Anatomy of a well-designed skill</td>
 </tr>
 <tr>
 <td><a href="./companion-files.md">Companion Files</a></td>
-<td>Including examples and templates</td>
+<td>Supporting resources for skills</td>
 </tr>
 <tr>
-<td><a href="./best-practices.md">Best Practices</a></td>
+<td><a href="./skill-discovery.md">Skill Discovery</a></td>
+<td>How skills are found and prioritized</td>
+</tr>
+<tr>
+<td><a href="./skill-best-practices.md">Skill Best Practices</a></td>
 <td>Patterns for effective skills</td>
-</tr>
-<tr>
-<td><a href="./publishing.md">Publishing</a></td>
-<td>Sharing skills with the community</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Skills are lazy-loaded</strong> — They only consume context when actually needed</li>
-<li><strong>One domain per skill</strong> — Keep skills focused on a single area of expertise</li>
-<li><strong>Include examples</strong> — Companion files with working code help agents apply knowledge</li>
-<li><strong>Version carefully</strong> — Skills become dependencies; changes affect users</li>
-<li><strong>Search first</strong> — Use <code>load_skill(search="term")</code> to find relevant skills</li>
+<li><strong>Load on demand</strong> - Only load skills when the domain knowledge is needed</li>
+<li><strong>Check before loading</strong> - Use <code>info</code> operation to preview skill metadata</li>
+<li><strong>Skills complement docs</strong> - They provide workflows, not just reference</li>
+<li><strong>Workspace priority</strong> - Project skills override user skills</li>
+<li><strong>Companion files</strong> - Skills can reference additional resources</li>
 </ul>
-<h2 id="skill-architecture">Skill Architecture<a class="headerlink" href="#skill-architecture" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>skills/
-└── my-skill/
-    ├── skill.yaml       # Skill manifest (name, description, version)
-    ├── skill.md         # Main knowledge content
-    └── examples/        # Companion files
-        ├── basic.py
-        └── advanced.py
-</code></pre></div>
-
-<h2 id="skill-operations">Skill Operations<a class="headerlink" href="#skill-operations" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>List</td>
-<td>Show available skills</td>
-<td><code>load_skill(list=True)</code></td>
-</tr>
-<tr>
-<td>Search</td>
-<td>Find by name/description</td>
-<td><code>load_skill(search="python")</code></td>
-</tr>
-<tr>
-<td>Info</td>
-<td>Get metadata only</td>
-<td><code>load_skill(info="curl")</code></td>
-</tr>
-<tr>
-<td>Load</td>
-<td>Load full content</td>
-<td><code>load_skill(skill_name="curl")</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>New to skills?</strong> Begin with <a href="./basics.md">Skill Basics</a> to understand the skill system and when to use it.</p>
-<p><strong>Want to create skills?</strong> Follow <a href="./creating.md">Creating Skills</a> for a hands-on guide to building your first skill.</p>
-<p><strong>Looking for existing skills?</strong> Check <a href="./built-in.md">Built-in Skills</a> for what's already available.</p>
-<h2 id="built-in-skills-overview">Built-in Skills Overview<a class="headerlink" href="#built-in-skills-overview" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Skill</th>
-<th>Domain</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>curl</code></td>
-<td>HTTP/APIs</td>
-<td>Testing REST endpoints</td>
-</tr>
-<tr>
-<td><code>playwright</code></td>
-<td>Browser</td>
-<td>Web automation and scraping</td>
-</tr>
-<tr>
-<td><code>image-vision</code></td>
-<td>Vision</td>
-<td>Analyzing images with LLMs</td>
-</tr>
-</tbody>
-</table>
-<h2 id="skill-vs-context">Skill vs Context<a class="headerlink" href="#skill-vs-context" title="Permanent link">&para;</a></h2>
+<h2 id="skills-vs-context">Skills vs Context<a class="headerlink" href="#skills-vs-context" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
 <th>Skills</th>
-<th>Context Files</th>
+<th>Context</th>
 </tr>
 </thead>
 <tbody>
@@ -339,8 +257,8 @@
 </tr>
 <tr>
 <td>Scope</td>
-<td>Specialized domain</td>
-<td>General guidance</td>
+<td>Domain-specific</td>
+<td>General behavior</td>
 </tr>
 <tr>
 <td>Size</td>
@@ -348,27 +266,41 @@
 <td>Should be concise</td>
 </tr>
 <tr>
-<td>Updates</td>
-<td>Versioned</td>
-<td>Part of bundle</td>
+<td>Location</td>
+<td>Discoverable directories</td>
+<td>Bundle-defined</td>
 </tr>
 </tbody>
 </table>
-<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In an agent&#39;s workflow:</span>
-<span class="l l-Scalar l-Scalar-Plain">1. Recognize domain-specific task</span>
-<span class="l l-Scalar l-Scalar-Plain">2. Search for relevant skill</span>
-<span class="l l-Scalar l-Scalar-Plain">3. Load skill into context</span>
-<span class="l l-Scalar l-Scalar-Plain">4. Apply skill knowledge</span>
-<span class="l l-Scalar l-Scalar-Plain">5. Reference companion files if needed</span>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Want to use skills?</strong> Start with <a href="./loading-skills.md">Loading Skills</a> to learn discovery and loading.</p>
+<p><strong>Creating expertise?</strong> Jump to <a href="./creating-skills.md">Creating Skills</a> for authoring guidance.</p>
+<p><strong>Designing skill systems?</strong> See <a href="./skill-structure.md">Skill Structure</a> for architectural patterns.</p>
+<h2 id="skill-operations">Skill Operations<a class="headerlink" href="#skill-operations" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># List all available skills</span>
+<span class="n">load_skill</span><span class="p">(</span><span class="nb">list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Search for skills by topic</span>
+<span class="n">load_skill</span><span class="p">(</span><span class="n">search</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check skill metadata</span>
+<span class="n">load_skill</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;skill-name&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load full skill content</span>
+<span class="n">load_skill</span><span class="p">(</span><span class="n">skill_name</span><span class="o">=</span><span class="s2">&quot;skill-name&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../quickstart/creating-skills.md">Quickstart: Creating Skills</a></li>
-<li><a href="../bundles/context-files.md">Bundles: Context Files</a></li>
-<li><a href="../advanced/skill-development.md">Advanced: Skill Development</a></li>
-</ul>
+<h2 id="skill-discovery-paths">Skill Discovery Paths<a class="headerlink" href="#skill-discovery-paths" title="Permanent link">&para;</a></h2>
+<p>Skills are discovered from configured directories in priority order:</p>
+<ol>
+<li><strong>Workspace skills</strong> - <code>.amplifier/skills/</code> (project-specific)</li>
+<li><strong>User skills</strong> - <code>~/.amplifier/skills/</code> (personal)</li>
+<li><strong>Bundle skills</strong> - From active bundles</li>
+<li><strong>Collection skills</strong> - From installed collections</li>
+</ol>
+<p>First match wins—workspace skills override user skills.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After understanding skills, explore <a href="../advanced/index.html">Advanced</a> topics for complex patterns like recipes and multi-agent workflows.</p>
               
             </div>
           </div><footer>

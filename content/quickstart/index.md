@@ -6,87 +6,73 @@ title: Quickstart Guide
 
 # Quickstart Guide
 
-Get up and running with Amplifier in minutes. This section walks you through installation, configuration, and building your first agent—no prior AI development experience required.
-
-Follow these guides in order for the smoothest learning path, or jump to specific topics as needed.
+Get up and running with Amplifier in minutes. This section provides fast-track paths to productivity, whether you're exploring, building, or deploying. Follow these guides to go from zero to working application with minimal friction.
 
 ## Section Contents
 
-| Page | Description | Time |
-|------|-------------|------|
-| [Installation](./installation.md) | Install Amplifier and dependencies | 5 min |
-| [Configuration](./configuration.md) | Set up API keys and preferences | 5 min |
-| [First Agent](./first-agent.md) | Build and run your first agent | 10 min |
-| [Using Tools](./using-tools.md) | Learn tool basics with hands-on examples | 15 min |
-| [Adding Context](./adding-context.md) | Give agents knowledge with context files | 10 min |
-| [Creating Skills](./creating-skills.md) | Package reusable domain knowledge | 15 min |
-| [Next Steps](./next-steps.md) | Where to go from here | 5 min |
+| Page | Description |
+|------|-------------|
+| [Installation](./installation.md) | Install Amplifier and dependencies |
+| [First Session](./first-session.md) | Start your first conversation |
+| [Configuration](./configuration.md) | Set up providers and preferences |
+| [Your First Bundle](./first-bundle.md) | Create a custom behavior package |
+| [Using Agents](./using-agents.md) | Delegate tasks to specialist agents |
+| [Common Workflows](./common-workflows.md) | Patterns for everyday tasks |
+| [Troubleshooting](./troubleshooting.md) | Fix common issues quickly |
 
 ## Quick Tips
 
-- **API keys required** — You'll need at least one LLM provider key (Anthropic recommended)
-- **Python 3.11+** — Amplifier requires modern Python; check with `python --version`
-- **Start simple** — The first-agent guide uses minimal configuration intentionally
-- **Experiment freely** — Sessions are isolated; you can't break anything permanently
-- **Use the help** — Run `amp --help` for CLI options at any time
+- **Start simple** - Use the default bundle before customizing
+- **One provider first** - Configure one LLM provider, add more later
+- **Check the logs** - Most issues reveal themselves in session logs
+- **Use todo lists** - Track complex tasks to stay organized
+- **Ask for help** - The built-in agents can explain themselves
 
-## Prerequisites
+## Fast Track Paths
 
-| Requirement | Version | Check Command |
-|-------------|---------|---------------|
-| Python | 3.11+ | `python --version` |
-| pip or uv | Latest | `pip --version` or `uv --version` |
-| API Key | Any LLM | Set in environment or config |
+### Path 1: Explorer (10 minutes)
+1. [Installation](./installation.md) - Get Amplifier installed
+2. [First Session](./first-session.md) - Have your first conversation
+3. Done! Explore from there.
 
-## Recommended Path
+### Path 2: Builder (30 minutes)
+1. [Installation](./installation.md) - Get set up
+2. [Configuration](./configuration.md) - Configure your provider
+3. [Your First Bundle](./first-bundle.md) - Create custom behavior
+4. [Using Agents](./using-agents.md) - Learn delegation
 
-```
-Installation ──► Configuration ──► First Agent
-                                       │
-                     ┌─────────────────┼─────────────────┐
-                     ▼                 ▼                 ▼
-              Using Tools      Adding Context    Creating Skills
-                     │                 │                 │
-                     └─────────────────┴─────────────────┘
-                                       │
-                                       ▼
-                                  Next Steps
-```
+### Path 3: Power User (1 hour)
+1. Complete Path 2
+2. [Common Workflows](./common-workflows.md) - Master patterns
+3. Explore [Advanced](../advanced/index.md) topics
 
 ## Where to Start
 
-**Brand new to Amplifier?** Start with [Installation](./installation.md) and follow the guides in order. The whole quickstart takes about an hour.
+**Never used Amplifier?** Start with [Installation](./installation.md) and follow sequentially.
 
-**Already installed?** Jump to [First Agent](./first-agent.md) to build something immediately.
+**Already installed?** Jump to [First Session](./first-session.md) to start working.
 
-**Experienced with AI tools?** Skim [Configuration](./configuration.md) for Amplifier-specific settings, then explore [Creating Skills](./creating-skills.md).
+**Hit a problem?** Go directly to [Troubleshooting](./troubleshooting.md).
 
-## Quick Commands
+## Prerequisites Checklist
 
-```bash
-# Install Amplifier
-pip install amplifier-cli
+Before you begin, ensure you have:
 
-# Verify installation
-amp --version
+- [ ] Python 3.10 or higher
+- [ ] An API key for at least one LLM provider
+- [ ] A terminal/command line environment
+- [ ] Git (optional, but recommended)
 
-# Start interactive session
-amp
+## Time Estimates
 
-# Run with specific bundle
-amp --bundle foundation
-```
+| Guide | Time | Difficulty |
+|-------|------|------------|
+| Installation | 5 min | Easy |
+| First Session | 5 min | Easy |
+| Configuration | 10 min | Easy |
+| First Bundle | 15 min | Medium |
+| Using Agents | 10 min | Medium |
 
-## What You'll Build
+## Next Steps
 
-By the end of this quickstart, you'll have:
-- A working Amplifier installation
-- Your first custom agent
-- Understanding of tools, context, and skills
-- Foundation for building complex AI applications
-
-## Related Sections
-
-- [Concepts: Core Architecture](../concepts/index.md)
-- [Dev Setup: Development Environment](../dev-setup/index.md)
-- [Bundles: Using Bundles](../bundles/index.md)
+After completing the quickstart, dive into [Concepts](../concepts/index.md) for deeper understanding or [Bundles](../bundles/index.md) for more customization.

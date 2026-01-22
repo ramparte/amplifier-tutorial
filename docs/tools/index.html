@@ -91,12 +91,24 @@
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#tool-categories">Tool Categories</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#file-system">File System</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search-discovery">Search &amp; Discovery</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#external-resources">External Resources</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#code-intelligence">Code Intelligence</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#orchestration">Orchestration</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -190,8 +202,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="tools-reference">Tools Reference<a class="headerlink" href="#tools-reference" title="Permanent link">&para;</a></h1>
-<p>Tools are the primary way Amplifier agents interact with the world. Each tool provides a specific capability—from reading files to executing commands to searching the web. Understanding tools is essential for building effective agents.</p>
-<p>This section covers all built-in tools, their parameters, and best practices for tool usage.</p>
+<p>Tools are the fundamental building blocks that give Amplifier its capabilities. Each tool provides a specific function—from file operations to web searches—that agents can invoke to accomplish tasks. This section covers all available tools, their parameters, and best practices for effective use.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -203,19 +214,19 @@
 <tbody>
 <tr>
 <td><a href="./file-operations.md">File Operations</a></td>
-<td>Reading, writing, and editing files</td>
+<td>Read, write, and edit files with precision</td>
 </tr>
 <tr>
 <td><a href="./search-tools.md">Search Tools</a></td>
-<td>Grep, glob, and content discovery</td>
+<td>Grep and glob for finding content and files</td>
 </tr>
 <tr>
-<td><a href="./shell-execution.md">Shell Execution</a></td>
-<td>Running bash commands safely</td>
+<td><a href="./bash-execution.md">Bash Execution</a></td>
+<td>Run shell commands safely</td>
 </tr>
 <tr>
 <td><a href="./web-tools.md">Web Tools</a></td>
-<td>Fetching URLs and web search</td>
+<td>Search and fetch content from the web</td>
 </tr>
 <tr>
 <td><a href="./lsp-integration.md">LSP Integration</a></td>
@@ -223,89 +234,54 @@
 </tr>
 <tr>
 <td><a href="./task-delegation.md">Task Delegation</a></td>
-<td>Spawning sub-agents for complex work</td>
+<td>Spawn agents for complex operations</td>
 </tr>
 <tr>
 <td><a href="./todo-management.md">Todo Management</a></td>
-<td>Tracking multi-step tasks</td>
+<td>Track multi-step task progress</td>
 </tr>
 <tr>
-<td><a href="./custom-tools.md">Custom Tools</a></td>
-<td>Creating your own tools</td>
+<td><a href="./skills-loader.md">Skills Loader</a></td>
+<td>Load domain knowledge on demand</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Prefer specialized tools over bash</strong> — Use <code>read_file</code> instead of <code>cat</code>, <code>edit_file</code> instead of <code>sed</code></li>
-<li><strong>Parallel calls</strong> — Independent tool calls can be made simultaneously for efficiency</li>
-<li><strong>Error handling</strong> — Tools return structured errors; always check for failure conditions</li>
-<li><strong>Context limits</strong> — Large file reads are automatically truncated; use pagination for big files</li>
-<li><strong>LSP vs grep</strong> — Use LSP for semantic code understanding, grep for text pattern matching</li>
+<li><strong>Prefer specialized tools over bash</strong> - Use <code>read_file</code> instead of <code>cat</code>, <code>edit_file</code> instead of <code>sed</code></li>
+<li><strong>Parallel execution</strong> - Independent tool calls can run simultaneously for speed</li>
+<li><strong>Check before writing</strong> - Always read a file before editing to understand context</li>
+<li><strong>Use glob for discovery</strong> - Find files by pattern before targeted operations</li>
+<li><strong>Grep for content</strong> - Search inside files with regex patterns</li>
 </ul>
 <h2 id="tool-categories">Tool Categories<a class="headerlink" href="#tool-categories" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Category</th>
-<th>Tools</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>File I/O</td>
-<td>read_file, write_file, edit_file</td>
-<td>Direct file manipulation</td>
-</tr>
-<tr>
-<td>Search</td>
-<td>grep, glob</td>
-<td>Finding files and content</td>
-</tr>
-<tr>
-<td>Execution</td>
-<td>bash</td>
-<td>System commands and scripts</td>
-</tr>
-<tr>
-<td>Web</td>
-<td>web_fetch, web_search</td>
-<td>External information</td>
-</tr>
-<tr>
-<td>Code Intel</td>
-<td>LSP operations</td>
-<td>Semantic code navigation</td>
-</tr>
-<tr>
-<td>Orchestration</td>
-<td>task, todo</td>
-<td>Multi-step coordination</td>
-</tr>
-</tbody>
-</table>
+<h3 id="file-system">File System<a class="headerlink" href="#file-system" title="Permanent link">&para;</a></h3>
+<p>Core operations for interacting with the local filesystem. These are your most frequently used tools.</p>
+<h3 id="search-discovery">Search &amp; Discovery<a class="headerlink" href="#search-discovery" title="Permanent link">&para;</a></h3>
+<p>Find files and content across your codebase quickly and efficiently.</p>
+<h3 id="external-resources">External Resources<a class="headerlink" href="#external-resources" title="Permanent link">&para;</a></h3>
+<p>Connect to the web, APIs, and external services when local context isn't enough.</p>
+<h3 id="code-intelligence">Code Intelligence<a class="headerlink" href="#code-intelligence" title="Permanent link">&para;</a></h3>
+<p>Semantic understanding of code through LSP—definitions, references, and type information.</p>
+<h3 id="orchestration">Orchestration<a class="headerlink" href="#orchestration" title="Permanent link">&para;</a></h3>
+<p>Manage complex workflows with task delegation and progress tracking.</p>
 <h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>New to Amplifier?</strong> Begin with <a href="./file-operations.md">File Operations</a> — it's the most commonly used tool and establishes patterns you'll use everywhere.</p>
-<p><strong>Building agents?</strong> Jump to <a href="./task-delegation.md">Task Delegation</a> to understand how agents can spawn sub-agents for complex workflows.</p>
-<p><strong>Coming from other AI tools?</strong> Check <a href="./shell-execution.md">Shell Execution</a> to understand Amplifier's safety guardrails and execution model.</p>
+<p><strong>New to Amplifier?</strong> Begin with <a href="./file-operations.md">File Operations</a> to understand the most common tool patterns.</p>
+<p><strong>Building agents?</strong> Jump to <a href="./task-delegation.md">Task Delegation</a> to learn how agents spawn sub-agents.</p>
+<p><strong>Searching code?</strong> See <a href="./search-tools.md">Search Tools</a> for grep vs glob guidance.</p>
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Reading before editing (required pattern)</span>
-<span class="l l-Scalar l-Scalar-Plain">1. read_file → understand current content</span>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Read before edit</span>
+<span class="l l-Scalar l-Scalar-Plain">1. read_file → understand content</span>
 <span class="l l-Scalar l-Scalar-Plain">2. edit_file → make precise changes</span>
 
-<span class="l l-Scalar l-Scalar-Plain"># Search then navigate</span>
-<span class="l l-Scalar l-Scalar-Plain">1. grep → find relevant files</span>
-<span class="l l-Scalar l-Scalar-Plain">2. read_file → examine matches</span>
-<span class="l l-Scalar l-Scalar-Plain">3. LSP → understand code structure</span>
+<span class="l l-Scalar l-Scalar-Plain"># Find then act</span>
+<span class="l l-Scalar l-Scalar-Plain">1. glob → locate files</span>
+<span class="l l-Scalar l-Scalar-Plain">2. grep → find specific content</span>
+<span class="l l-Scalar l-Scalar-Plain">3. read_file → examine matches</span>
 </code></pre></div>
 
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../concepts/tool-architecture.md">Concepts: Tool Architecture</a></li>
-<li><a href="../advanced/custom-tools.md">Advanced: Custom Tool Development</a></li>
-<li><a href="../bundles/tool-bundles.md">Bundles: Tool Bundles</a></li>
-</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After mastering tools, explore <a href="../concepts/index.html">Concepts</a> to understand how tools fit into the larger architecture.</p>
               
             </div>
           </div><footer>

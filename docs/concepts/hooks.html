@@ -82,6 +82,10 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="hooks.html">Hooks</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-hook">What is a Hook?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-characteristics">Key Characteristics</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#hook-vs-tool">Hook vs Tool</a>
     </li>
@@ -89,25 +93,23 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#session-events">Session Events</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#turn-events">Turn Events</a>
+    <li class="toctree-l3"><a class="reference internal" href="#message-events">Message Events</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#tool-events">Tool Events</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#message-events">Message Events</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-events">Provider Events</a>
+    <li class="toctree-l3"><a class="reference internal" href="#llm-events">LLM Events</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#built-in-hooks">Built-in Hooks</a>
         <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#consolelogginghook">ConsoleLoggingHook</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#metricshook">MetricsHook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guardrailhook">GuardrailHook</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fileaudithook">FileAuditHook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#audithook">AuditHook</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#contextinjectionhook">ContextInjectionHook</a>
+    <li class="toctree-l3"><a class="reference internal" href="#webhooknotifierhook">WebhookNotifierHook</a>
     </li>
         </ul>
     </li>
@@ -115,13 +117,11 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#basic-hook-structure">Basic Hook Structure</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-with-state">Hook with State</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#registering-hooks">Registering Hooks</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-ordering">Hook Ordering</a>
+    <li class="toctree-l3"><a class="reference internal" href="#hook-context">Hook Context</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#error-handling-in-hooks">Error Handling in Hooks</a>
+    <li class="toctree-l3"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
         </ul>
     </li>
@@ -224,242 +224,247 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="understanding-hooks">Understanding Hooks<a class="headerlink" href="#understanding-hooks" title="Permanent link">&para;</a></h1>
-<p>Hooks are Amplifier's mechanism for observing and reacting to events in the agent lifecycle. They allow you to extend agent behavior without modifying core logic, enabling cross-cutting concerns like logging, metrics, guardrails, and custom integrations.</p>
+<p>Hooks are the observation layer of the Amplifier ecosystem. They allow you to monitor, react to, and extend agent behavior without modifying core logic. Think of hooks as event listeners that tap into the agent lifecycle at specific points.</p>
 <h2 id="what-is-a-hook">What is a Hook?<a class="headerlink" href="#what-is-a-hook" title="Permanent link">&para;</a></h2>
-<p>A hook is a <strong>lifecycle observer</strong> that receives notifications when specific events occur during agent execution. Unlike tools that agents actively invoke, hooks passively listen and respond to the natural flow of agent activity.</p>
-<p>Think of hooks as event listeners attached to the agent runtime. When an agent starts a turn, calls a tool, receives a response, or completes its work, hooks are notified and can take action.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
+<p>A hook is a lifecycle observer that receives notifications about events occurring during agent execution. Unlike tools that perform actions, hooks observe and react to what's already happening.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
 
 <span class="k">class</span> <span class="nc">LoggingHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A simple hook that logs agent activity.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple hook that logs all events.&quot;&quot;&quot;</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn started: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">turn_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Turn completed in </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">duration_ms</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Hooks are registered with the agent runtime and automatically invoked at the appropriate lifecycle points. You don't call hooks directly—the system calls them for you.</p>
+<p>Hooks are passive by design. They receive event data, can perform side effects (logging, metrics, notifications), but they don't modify the agent's execution flow. This separation keeps your agent logic clean while enabling rich observability.</p>
+<h3 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Non-blocking</strong>: Hooks should complete quickly to avoid slowing the agent</li>
+<li><strong>Read-only context</strong>: Hooks observe events but don't modify them</li>
+<li><strong>Fail-safe</strong>: Hook failures don't crash the agent</li>
+<li><strong>Ordered execution</strong>: Multiple hooks run in registration order</li>
+</ul>
 <h2 id="hook-vs-tool">Hook vs Tool<a class="headerlink" href="#hook-vs-tool" title="Permanent link">&para;</a></h2>
-<p>Understanding the distinction between hooks and tools is fundamental to Amplifier's design:</p>
+<p>Understanding the difference between hooks and tools is fundamental:</p>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
-<th>Tool</th>
 <th>Hook</th>
+<th>Tool</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Invocation</strong></td>
-<td>Agent explicitly calls</td>
-<td>System automatically triggers</td>
-</tr>
-<tr>
-<td><strong>Control</strong></td>
-<td>Agent decides when to use</td>
-<td>Fires on lifecycle events</td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td>Agent sees and chooses</td>
-<td>Transparent to agent</td>
-</tr>
-<tr>
 <td><strong>Purpose</strong></td>
-<td>Provide capabilities</td>
 <td>Observe and react</td>
+<td>Perform actions</td>
 </tr>
 <tr>
-<td><strong>Return value</strong></td>
-<td>Returns data to agent</td>
-<td>No return to agent</td>
+<td><strong>Invocation</strong></td>
+<td>Automatic on events</td>
+<td>Explicit by agent</td>
+</tr>
+<tr>
+<td><strong>Modifies state</strong></td>
+<td>No (observation only)</td>
+<td>Yes (side effects expected)</td>
+</tr>
+<tr>
+<td><strong>Blocking</strong></td>
+<td>Should be fast</td>
+<td>Can be long-running</td>
+</tr>
+<tr>
+<td><strong>Failure impact</strong></td>
+<td>Logged, continues</td>
+<td>Reported to agent</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Tools are capabilities</strong>—they extend what an agent <em>can do</em>. A file-reading tool gives the agent the ability to read files. The agent decides when and how to use it.</p>
-<p><strong>Hooks are observers</strong>—they extend what <em>happens</em> during execution. A logging hook records every tool call, but the agent doesn't know or care that logging is happening.</p>
-<p>This separation keeps agent logic clean while allowing powerful cross-cutting functionality.</p>
+<p><strong>Use a hook when you want to:</strong>
+- Log or audit agent activity
+- Collect metrics and telemetry
+- Send notifications on specific events
+- Validate or monitor behavior patterns</p>
+<p><strong>Use a tool when you need to:</strong>
+- Perform an action the agent requests
+- Return data the agent will use
+- Modify external state
+- Execute long-running operations</p>
 <h2 id="event-types">Event Types<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h2>
-<p>Hooks can subscribe to various lifecycle events. Here are the primary event categories:</p>
+<p>Hooks subscribe to specific event types that occur during the agent lifecycle:</p>
 <h3 id="session-events">Session Events<a class="headerlink" href="#session-events" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>on_session_start</code> — A new session begins</li>
-<li><code>on_session_end</code> — A session completes or terminates</li>
-<li><code>on_session_resume</code> — A persisted session resumes</li>
-</ul>
-<h3 id="turn-events">Turn Events<a class="headerlink" href="#turn-events" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>on_turn_start</code> — An agent turn begins (user message received)</li>
-<li><code>on_turn_end</code> — An agent turn completes (response generated)</li>
-<li><code>on_turn_error</code> — An error occurs during a turn</li>
-</ul>
-<h3 id="tool-events">Tool Events<a class="headerlink" href="#tool-events" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>on_tool_call_start</code> — Agent initiates a tool call</li>
-<li><code>on_tool_call_end</code> — Tool execution completes</li>
-<li><code>on_tool_call_error</code> — Tool execution fails</li>
-</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SessionEvents</span><span class="p">:</span>
+    <span class="n">SESSION_START</span> <span class="o">=</span> <span class="s2">&quot;session.start&quot;</span>      <span class="c1"># Agent session begins</span>
+    <span class="n">SESSION_END</span> <span class="o">=</span> <span class="s2">&quot;session.end&quot;</span>          <span class="c1"># Agent session completes</span>
+    <span class="n">SESSION_ERROR</span> <span class="o">=</span> <span class="s2">&quot;session.error&quot;</span>      <span class="c1"># Unhandled error in session</span>
+</code></pre></div>
+
 <h3 id="message-events">Message Events<a class="headerlink" href="#message-events" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>on_user_message</code> — User submits a message</li>
-<li><code>on_assistant_message</code> — Agent generates a response</li>
-<li><code>on_system_message</code> — System injects context</li>
-</ul>
-<h3 id="provider-events">Provider Events<a class="headerlink" href="#provider-events" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>on_llm_request</code> — Request sent to LLM provider</li>
-<li><code>on_llm_response</code> — Response received from provider</li>
-<li><code>on_llm_stream_chunk</code> — Streaming chunk received</li>
-</ul>
-<p>Each event provides a <code>HookContext</code> with relevant data about the event, including timing, identifiers, and payload information.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">MessageEvents</span><span class="p">:</span>
+    <span class="n">USER_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.user&quot;</span>        <span class="c1"># User sends a message</span>
+    <span class="n">ASSISTANT_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.assistant&quot;</span>  <span class="c1"># Agent responds</span>
+    <span class="n">SYSTEM_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.system&quot;</span>    <span class="c1"># System injects context</span>
+</code></pre></div>
+
+<h3 id="tool-events">Tool Events<a class="headerlink" href="#tool-events" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">ToolEvents</span><span class="p">:</span>
+    <span class="n">TOOL_CALL</span> <span class="o">=</span> <span class="s2">&quot;tool.call&quot;</span>              <span class="c1"># Agent invokes a tool</span>
+    <span class="n">TOOL_RESULT</span> <span class="o">=</span> <span class="s2">&quot;tool.result&quot;</span>          <span class="c1"># Tool returns a result</span>
+    <span class="n">TOOL_ERROR</span> <span class="o">=</span> <span class="s2">&quot;tool.error&quot;</span>            <span class="c1"># Tool execution fails</span>
+</code></pre></div>
+
+<h3 id="llm-events">LLM Events<a class="headerlink" href="#llm-events" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">LLMEvents</span><span class="p">:</span>
+    <span class="n">LLM_REQUEST</span> <span class="o">=</span> <span class="s2">&quot;llm.request&quot;</span>          <span class="c1"># Request sent to LLM</span>
+    <span class="n">LLM_RESPONSE</span> <span class="o">=</span> <span class="s2">&quot;llm.response&quot;</span>        <span class="c1"># Response received from LLM</span>
+    <span class="n">LLM_STREAM_CHUNK</span> <span class="o">=</span> <span class="s2">&quot;llm.stream&quot;</span>      <span class="c1"># Streaming chunk received</span>
+</code></pre></div>
+
 <h2 id="built-in-hooks">Built-in Hooks<a class="headerlink" href="#built-in-hooks" title="Permanent link">&para;</a></h2>
-<p>Amplifier provides several hooks out of the box:</p>
+<p>Amplifier provides several hooks out of the box for common observability needs:</p>
+<h3 id="consolelogginghook">ConsoleLoggingHook<a class="headerlink" href="#consolelogginghook" title="Permanent link">&para;</a></h3>
+<p>Logs all events to the console with configurable verbosity:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">ConsoleLoggingHook</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="n">ConsoleLoggingHook</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+    <span class="n">include_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tool.call&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.result&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+
 <h3 id="metricshook">MetricsHook<a class="headerlink" href="#metricshook" title="Permanent link">&para;</a></h3>
-<p>Collects timing and usage metrics for observability:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">MetricsHook</span>
+<p>Collects timing and count metrics for analysis:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">MetricsHook</span>
 
-<span class="n">metrics_hook</span> <span class="o">=</span> <span class="n">MetricsHook</span><span class="p">(</span>
-    <span class="n">emit_interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>  <span class="c1"># Emit aggregated metrics every 60 seconds</span>
-    <span class="n">include_tool_timing</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">hook</span> <span class="o">=</span> <span class="n">MetricsHook</span><span class="p">()</span>
+
+<span class="c1"># After session, access metrics</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">tool_call_count</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">avg_response_time</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="fileaudithook">FileAuditHook<a class="headerlink" href="#fileaudithook" title="Permanent link">&para;</a></h3>
+<p>Writes a complete audit trail to a file:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">FileAuditHook</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="n">FileAuditHook</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./logs/session-</span><span class="si">{session_id}</span><span class="s2">.jsonl&quot;</span><span class="p">,</span>
+    <span class="n">include_content</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Include full message content</span>
 <span class="p">)</span>
 </code></pre></div>
 
-<h3 id="guardrailhook">GuardrailHook<a class="headerlink" href="#guardrailhook" title="Permanent link">&para;</a></h3>
-<p>Enforces safety constraints and policies:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">GuardrailHook</span>
+<h3 id="webhooknotifierhook">WebhookNotifierHook<a class="headerlink" href="#webhooknotifierhook" title="Permanent link">&para;</a></h3>
+<p>Sends HTTP notifications on specific events:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">WebhookNotifierHook</span>
 
-<span class="n">guardrail_hook</span> <span class="o">=</span> <span class="n">GuardrailHook</span><span class="p">(</span>
-    <span class="n">block_patterns</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;secret&quot;</span><span class="p">],</span>
-    <span class="n">max_tool_calls_per_turn</span><span class="o">=</span><span class="mi">50</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<h3 id="audithook">AuditHook<a class="headerlink" href="#audithook" title="Permanent link">&para;</a></h3>
-<p>Records a complete audit trail of agent activity:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">AuditHook</span>
-
-<span class="n">audit_hook</span> <span class="o">=</span> <span class="n">AuditHook</span><span class="p">(</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;./audit.jsonl&quot;</span><span class="p">,</span>
-    <span class="n">include_payloads</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<h3 id="contextinjectionhook">ContextInjectionHook<a class="headerlink" href="#contextinjectionhook" title="Permanent link">&para;</a></h3>
-<p>Injects dynamic context into agent prompts:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">ContextInjectionHook</span>
-
-<span class="n">context_hook</span> <span class="o">=</span> <span class="n">ContextInjectionHook</span><span class="p">(</span>
-    <span class="n">injectors</span><span class="o">=</span><span class="p">[</span>
-        <span class="k">lambda</span> <span class="n">ctx</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Current time: </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">ctx</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Session ID: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">session_id</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="p">]</span>
+<span class="n">hook</span> <span class="o">=</span> <span class="n">WebhookNotifierHook</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.example.com/events&quot;</span><span class="p">,</span>
+    <span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session.end&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.error&quot;</span><span class="p">],</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer token&quot;</span><span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div>
 
 <h2 id="creating-hooks">Creating Hooks<a class="headerlink" href="#creating-hooks" title="Permanent link">&para;</a></h2>
-<p>Creating custom hooks is straightforward. Implement the <code>Hook</code> base class and override the event methods you care about.</p>
+<p>Building custom hooks is straightforward. Extend the base <code>Hook</code> class and implement the methods you need:</p>
 <h3 id="basic-hook-structure">Basic Hook Structure<a class="headerlink" href="#basic-hook-structure" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.hooks</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
 
 <span class="k">class</span> <span class="nc">MyCustomHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom hook with selective event handling.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom hook with selective event handling.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Called when a turn begins</span>
-        <span class="k">pass</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">subscribed_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Specify which events this hook receives.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;tool.call&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.result&quot;</span><span class="p">,</span> <span class="s2">&quot;session.end&quot;</span><span class="p">]</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_tool_call_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Called after each tool completes</span>
-        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tool_name</span>
-        <span class="n">duration</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">duration_ms</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2"> completed in </span><span class="si">{</span><span class="n">duration</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
-</code></pre></div>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle incoming events.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<h3 id="hook-with-state">Hook with State<a class="headerlink" href="#hook-with-state" title="Permanent link">&para;</a></h3>
-<p>Hooks can maintain state across events:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">TokenCounterHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tracks token usage across a session.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="s2">&quot;tool.call&quot;</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_tool_call</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="s2">&quot;session.end&quot;</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_session_end</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_handle_tool_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool called: </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_llm_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">usage</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;usage&quot;</span><span class="p">,</span> <span class="p">{})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span> <span class="o">+=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;input_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span> <span class="o">+=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Session totals: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_input_tokens</span><span class="si">}</span><span class="s2"> in, &quot;</span>
-              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">total_output_tokens</span><span class="si">}</span><span class="s2"> out&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_handle_session_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Session ended. Total events observed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">event_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="registering-hooks">Registering Hooks<a class="headerlink" href="#registering-hooks" title="Permanent link">&para;</a></h3>
-<p>Register hooks when creating an agent or session:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core</span> <span class="kn">import</span> <span class="n">Agent</span>
+<p>Register hooks when configuring your agent:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Agent</span>
 
 <span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-agent&quot;</span><span class="p">,</span>
     <span class="n">hooks</span><span class="o">=</span><span class="p">[</span>
-        <span class="n">MetricsHook</span><span class="p">(),</span>
-        <span class="n">MyCustomHook</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
-        <span class="n">TokenCounterHook</span><span class="p">()</span>
+        <span class="n">ConsoleLoggingHook</span><span class="p">(),</span>
+        <span class="n">MyCustomHook</span><span class="p">({</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
+        <span class="n">MetricsHook</span><span class="p">()</span>
     <span class="p">]</span>
 <span class="p">)</span>
 </code></pre></div>
 
-<h3 id="hook-ordering">Hook Ordering<a class="headerlink" href="#hook-ordering" title="Permanent link">&para;</a></h3>
-<p>Hooks execute in registration order. If order matters (e.g., a guardrail should run before logging), register them accordingly:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">hooks</span><span class="o">=</span><span class="p">[</span>
-    <span class="n">GuardrailHook</span><span class="p">(),</span>   <span class="c1"># Check constraints first</span>
-    <span class="n">AuditHook</span><span class="p">(),</span>       <span class="c1"># Then record the activity</span>
-    <span class="n">MetricsHook</span><span class="p">()</span>      <span class="c1"># Finally collect metrics</span>
-<span class="p">]</span>
+<h3 id="hook-context">Hook Context<a class="headerlink" href="#hook-context" title="Permanent link">&para;</a></h3>
+<p>The <code>HookContext</code> object provides rich information about each event:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HookContext</span><span class="p">:</span>
+    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># The event type (e.g., &quot;tool.call&quot;)</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span>      <span class="c1"># When the event occurred</span>
+    <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># Current session identifier</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span>               <span class="c1"># Event-specific payload</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span>           <span class="c1"># Additional context (user_id, etc.)</span>
 </code></pre></div>
 
-<h3 id="error-handling-in-hooks">Error Handling in Hooks<a class="headerlink" href="#error-handling-in-hooks" title="Permanent link">&para;</a></h3>
-<p>Hook errors are isolated—a failing hook won't crash the agent:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SafeHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_turn_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something_risky</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c1"># Log but don&#39;t propagate</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hook error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Keep hooks fast</strong>: Offload heavy work to background tasks</li>
+<li><strong>Handle errors gracefully</strong>: Don't let hook failures affect the agent</li>
+<li><strong>Be selective</strong>: Subscribe only to events you need</li>
+<li><strong>Use async patterns</strong>: Leverage async for I/O operations</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Quick validation</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_process</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Offload heavy work</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_async</span><span class="p">(</span><span class="n">ctx</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Log but don&#39;t raise</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hook error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Hooks are observers, not actors.</strong> They watch lifecycle events without interfering with agent logic. The agent doesn't know hooks exist.</p>
+<p><strong>Hooks are observers</strong>: They watch the agent lifecycle without modifying it. Use them for logging, metrics, notifications, and auditing.</p>
 </li>
 <li>
-<p><strong>Use hooks for cross-cutting concerns.</strong> Logging, metrics, auditing, guardrails, and context injection are perfect hook use cases.</p>
+<p><strong>Hooks complement tools</strong>: While tools perform actions for the agent, hooks monitor what's happening. Both are essential for production systems.</p>
 </li>
 <li>
-<p><strong>Tools vs hooks is about control.</strong> Agents control tool usage; the system controls hook invocation. Choose based on who should decide when the functionality runs.</p>
+<p><strong>Event types are granular</strong>: Subscribe to specific events like <code>tool.call</code> or <code>session.end</code> rather than receiving everything.</p>
 </li>
 <li>
-<p><strong>Hooks execute in order.</strong> Registration order determines execution order. Place guardrails before audit hooks if you want to audit blocked requests.</p>
+<p><strong>Built-in hooks cover common cases</strong>: Use <code>ConsoleLoggingHook</code>, <code>MetricsHook</code>, and <code>FileAuditHook</code> before building custom solutions.</p>
 </li>
 <li>
-<p><strong>Keep hooks lightweight.</strong> Hooks run synchronously in the event flow. Heavy processing should be offloaded to background tasks.</p>
+<p><strong>Custom hooks are simple</strong>: Extend <code>Hook</code>, specify <code>subscribed_events</code>, and implement <code>on_event</code>. Keep them fast and error-tolerant.</p>
 </li>
 <li>
-<p><strong>Hooks are isolated.</strong> A failing hook won't crash your agent, but you should still handle errors gracefully.</p>
-</li>
-<li>
-<p><strong>State is per-instance.</strong> Each hook instance maintains its own state. Create new instances for independent tracking.</p>
+<p><strong>Observability enables reliability</strong>: Hooks provide the visibility needed to debug, optimize, and trust your agent systems in production.</p>
 </li>
 </ol>
-<p>Hooks embody Amplifier's philosophy of composable, non-intrusive extensibility. They let you add powerful functionality to any agent without touching its core implementation.</p>
+<p>Hooks transform opaque agent execution into transparent, observable systems. Start with built-in hooks to understand behavior, then create custom hooks as your monitoring needs evolve.</p>
               
             </div>
           </div><footer>

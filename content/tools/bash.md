@@ -6,393 +6,363 @@ title: "Bash Tool"
 
 # Bash Tool
 
-The Bash tool provides direct shell command execution, giving you access to your system's full command-line capabilities. This is your gateway to build systems, package managers, version control, and any other terminal operation. While specialized tools exist for many tasks, bash serves as the universal fallback when you need raw shell power.
+The Bash Tool provides low-level shell command execution for build operations, testing, package management, version control, and system utilities. While specialized tools exist for many operations, bash serves as a powerful fallback for commands that don't have dedicated interfaces.
 
 ## Operations
 
 | Operation | Purpose | Example |
 |-----------|---------|---------|
 | Run command | Execute shell command synchronously | `pytest tests/` |
-| Background | Start long-running process | `npm run dev` |
-| Chain commands | Run dependent operations | `mkdir build && cd build && cmake ..` |
-| Pipeline | Process output through filters | `cat log.txt \| grep ERROR` |
-| Redirect | Save output to file | `npm test > results.txt 2>&1` |
+| Background | Long-running process (returns immediately) | `npm run dev` |
 
 ## Basic Usage
 
-### Interactive Prompt Format
+### Conversation Format
 
-Using the `>` prompt in conversation:
-
-```
-> pytest tests/unit/
-```
+When you ask Amplifier to run commands, it uses the bash tool behind the scenes:
 
 ```
-> npm install express
-```
+> Run pytest tests/test_auth.py
 
-```
-> git status
-```
-
-### Tool Call Format
-
-How Amplifier executes bash internally:
-
-```
 [Tool: bash]
-command: pytest tests/unit/
+Command: pytest tests/test_auth.py
+Output: ===== test session starts =====
+        test_auth.py::test_login PASSED
+        ===== 1 passed in 0.23s =====
 ```
 
-```
-[Tool: bash]
-command: npm install express
-```
+### Direct Syntax
 
-### Background Process Format
+The tool accepts these parameters:
 
-For long-running processes that shouldn't block:
-
-```
-[Tool: bash]
-command: npm run dev
-run_in_background: true
+```json
+{
+  "command": "pytest tests/",
+  "run_in_background": false
+}
 ```
 
 ## Common Commands
 
-### Build Commands
+### Build and Test
 
-```bash
-# Python
-> pip install -e .
-> python setup.py build
-> poetry build
+Execute test runners and build tools:
 
-# Node.js
-> npm install
-> npm run build
-> yarn build
-
-# Rust
-> cargo build
-> cargo build --release
-
-# Go
-> go build ./...
-> go build -o myapp main.go
-
-# Make
-> make
-> make clean && make all
 ```
+> Run the test suite
 
-### Test Commands
-
-```bash
-# Python
-> pytest
-> pytest tests/unit/ -v
-> pytest --cov=src tests/
-> python -m unittest discover
-
-# Node.js
-> npm test
-> npm run test:unit
-> jest --coverage
-
-# Rust
-> cargo test
-> cargo test -- --nocapture
-
-# Go
-> go test ./...
-> go test -v -cover ./...
-```
-
-### Git Commands
-
-```bash
-# Status and info
-> git status
-> git log --oneline -10
-> git diff
-> git branch -a
-
-# Staging and commits
-> git add .
-> git commit -m "Fix authentication bug"
-> git push origin main
-
-# Branching
-> git checkout -b feature/new-login
-> git merge develop
-> git rebase main
+pytest tests/ --verbose --cov
+cargo test --all
+npm test
+make test
+go test ./...
+mvn test
 ```
 
 ### Package Management
 
-```bash
-# Python (pip)
-> pip install requests
-> pip install -r requirements.txt
-> pip freeze > requirements.txt
+Install and manage dependencies:
 
-# Python (poetry)
-> poetry add pandas
-> poetry install
-> poetry update
+```
+> Install the requests package
 
-# Node.js (npm)
-> npm install lodash
-> npm install --save-dev jest
-> npm update
+pip install requests
+npm install lodash
+cargo add serde
+gem install rails
+brew install ripgrep
+apt-get install curl
+```
 
-# Node.js (yarn)
-> yarn add axios
-> yarn add -D typescript
+### Version Control
 
-# System (apt)
-> sudo apt update
-> sudo apt install jq
+Git operations for tracking changes:
+
+```
+> Show git status
+
+git status
+git diff src/main.py
+git log --oneline -10
+git branch -a
+git add .
+git commit -m "feat: add authentication"
+git push origin main
 ```
 
 ### Container Operations
 
-```bash
-# Docker
-> docker build -t myapp .
-> docker run -p 8080:8080 myapp
-> docker-compose up -d
-> docker ps
-> docker logs container_name
+Work with Docker and Kubernetes:
 
-# Kubernetes
-> kubectl get pods
-> kubectl apply -f deployment.yaml
-> kubectl logs pod-name
+```
+> Build the docker image
+
+docker build -t myapp:latest .
+docker ps
+docker logs container-name
+kubectl get pods
+kubectl logs pod-name
+podman run -d nginx
 ```
 
 ### GitHub CLI
 
-```bash
-# Pull requests
-> gh pr create --title "Add feature" --body "Description"
-> gh pr list
-> gh pr checkout 123
-> gh pr merge 123
+Interact with GitHub repositories:
 
-# Issues
-> gh issue create --title "Bug report"
-> gh issue list --state open
-> gh issue close 42
+```
+> Create a pull request
+
+gh pr create --title "Fix bug" --body "Details"
+gh issue list --label bug
+gh repo view
+gh workflow run tests.yml
+```
+
+### System Utilities
+
+File operations and system commands:
+
+```
+> Find all Python files
+
+find . -name "*.py"
+ls -la src/
+cat config.json
+wc -l src/*.py
+df -h
+ps aux | grep python
 ```
 
 ## Background Processes
 
-Use `run_in_background: true` for processes that run continuously:
-
-### Development Servers
+Use `run_in_background: true` for long-running processes that shouldn't block:
 
 ```
+> Start the development server
+
 [Tool: bash]
-command: npm run dev
-run_in_background: true
-```
+{
+  "command": "npm run dev",
+  "run_in_background": true
+}
 
+Returns immediately with PID: 12345
 ```
-[Tool: bash]
-command: python -m http.server 8000
-run_in_background: true
-```
-
-```
-[Tool: bash]
-command: cargo watch -x run
-run_in_background: true
-```
-
-### File Watchers
-
-```
-[Tool: bash]
-command: npm run watch
-run_in_background: true
-```
-
-### What Happens with Background Processes
-
-1. The command starts in a separate process
-2. Amplifier returns immediately with the process ID (PID)
-3. The process continues running independently
-4. Output is not captured in the response
 
 ### When to Use Background Mode
 
-| Scenario | Use Background? |
-|----------|-----------------|
-| Dev server (`npm run dev`) | Yes |
-| File watcher | Yes |
-| Running tests | No |
-| Building project | No |
-| Git operations | No |
-| Installing packages | No |
+**Use background mode for:**
+- Development servers (`npm run dev`, `python manage.py runserver`)
+- File watchers (`npm run watch`, `cargo watch`)
+- Database servers (`mongod`, `redis-server`)
+- Any process that runs continuously
+
+**Don't use background mode for:**
+- Quick commands that finish in seconds
+- Commands where you need to see the full output
+- Build or test commands that should block
+
+### Managing Background Processes
+
+Once started, background processes run independently:
+
+```
+> Start the dev server
+npm run dev  # Started in background as PID 12345
+
+> Kill the process later
+kill 12345
+# or
+pkill -f "npm run dev"
+```
 
 ## Safety Features
 
 ### Blocked Commands
 
-Dangerous commands are automatically blocked to prevent accidents:
+Amplifier blocks destructive operations to protect your system:
 
-```bash
-# These will be rejected:
-> rm -rf /
-> sudo rm -rf /*
-> dd if=/dev/zero of=/dev/sda
-> mkfs.ext4 /dev/sda1
+```
+❌ BLOCKED:
+rm -rf /
+sudo rm -rf /
+dd if=/dev/zero of=/dev/sda
+mkfs.ext4 /dev/sda1
+:(){ :|:& };:  # Fork bomb
 ```
 
 ### Interactive Commands Not Supported
 
 Commands requiring user input will fail:
 
-```bash
-# These won't work:
-> vim file.txt          # Requires interactive editor
-> ssh user@host         # May require password input
-> mysql -u root -p      # Prompts for password
-> python                # Interactive REPL
+```
+❌ NOT SUPPORTED:
+vim file.txt
+nano config.ini
+python  # Interactive REPL
+npm init  # Without -y flag
+sudo apt install package  # Without -y flag
+```
+
+**Workaround:** Use non-interactive flags:
+
+```
+✅ WORKS:
+npm init -y
+sudo apt install -y package
+python script.py  # Non-interactive script
 ```
 
 ### Output Truncation
 
 Long outputs are automatically truncated to prevent context overflow:
 
-- First portion of output is shown
-- `[...truncated...]` marker appears
-- Final portion of output is shown
-- Byte counts indicate total size
+```
+Command: find / -name "*.log"
+Output: /var/log/syslog
+        /var/log/auth.log
+        ... [truncated 1847 lines] ...
+        /home/user/app.log
+        
+[Truncated: 2000/5234 lines, 45KB shown, 180KB total]
+```
 
-**Warning:** Truncation may break JSON, XML, or other structured output. For large structured data:
+**Workaround for large outputs:**
 
 ```bash
 # Redirect to file instead
-> npm test --json > test-results.json
+find / -name "*.log" > results.txt
 
-# Then read portions as needed using read_file
+# Then read the file in chunks
+head -n 100 results.txt
+tail -n 100 results.txt
 ```
 
-### Timeouts
+### Structured Data Warning
 
-Commands have execution time limits. Long-running commands should use background mode or be broken into smaller operations.
+⚠️ **JSON/XML truncation breaks parsing:**
+
+```bash
+# ❌ Bad: Large JSON may get truncated mid-structure
+curl https://api.example.com/large-dataset
+
+# ✅ Good: Save to file first
+curl https://api.example.com/large-dataset > data.json
+# Then read specific parts
+```
 
 ## Best Practices
 
-### 1. Use Absolute Paths
+### Path Handling
 
-Maintain clear working directory context:
+Quote paths with spaces and prefer absolute paths:
 
 ```bash
-# Preferred
-> pytest /home/user/project/tests/
+# ✅ Good
+cd "/path/with spaces/project"
+pytest /home/user/project/tests/
 
-# Instead of
-> cd /home/user/project && pytest tests/
+# ❌ Problematic
+cd /path/with spaces/project  # Breaks on spaces
+pytest ../tests/  # Relative paths lose context
 ```
 
-### 2. Quote Paths with Spaces
+### Command Chaining
+
+Chain dependent commands with `&&` to stop on failure:
 
 ```bash
-# Correct
-> cd "/path/with spaces/project"
+# ✅ Stops if mkdir fails
+mkdir build && cd build && cmake ..
 
-# Will fail
-> cd /path/with spaces/project
+# ❌ Continues even if mkdir fails
+mkdir build; cd build; cmake ..
 ```
 
-### 3. Chain Dependent Commands
+### Error Handling
 
-Use `&&` to run commands only if previous succeeds:
+Check command exit codes for critical operations:
 
 ```bash
-> mkdir -p build && cd build && cmake .. && make
+# ✅ Explicit error handling
+npm test || echo "Tests failed with exit code $?"
+
+# ✅ Conditional execution
+if pytest tests/; then
+    echo "Tests passed, deploying..."
+    ./deploy.sh
+fi
 ```
 
-### 4. Prefer Specialized Tools
+### Working Directory Context
 
-Use bash as a fallback, not first choice:
+Remember that each bash invocation maintains context:
 
-| Task | Use Instead |
-|------|-------------|
-| Read file | `read_file` tool |
-| Edit file | `edit_file` tool |
-| Find files | `glob` tool |
-| Search content | `grep` tool |
+```
+> Create directory and enter it
+mkdir myproject && cd myproject
 
-### 5. Capture Important Output
-
-For output you need to process later:
-
-```bash
-> command > output.txt 2>&1
+> Next command runs in myproject/
+pwd  # Shows: /home/user/myproject
 ```
 
-### 6. Check Exit Status
+### Prefer Specialized Tools
 
-Chain with `&&` to stop on failure:
+Before using bash, check if a specialized tool exists:
 
-```bash
-> npm install && npm test && npm run build
+```
+# ❌ Avoid: Manual file operations
+bash: cat file.py
+
+# ✅ Better: Use read_file
+[Tool: read_file]
+
+# ❌ Avoid: Manual search
+bash: find . -name "*.py" | xargs grep "class User"
+
+# ✅ Better: Use grep tool
+[Tool: grep]
+pattern: "class User"
+type: "py"
 ```
 
 ## Try It Yourself
 
-### Exercise 1: Basic Commands
+Practice these common scenarios:
 
-Try running these commands:
-
+### 1. Run Tests
 ```
-> echo "Hello from bash"
-> pwd
-> ls -la
-> date
+> Run my Python tests with coverage
+
+Result: Executes pytest with coverage report
 ```
 
-### Exercise 2: Project Setup
-
-Initialize a new project:
-
+### 2. Check Git Status
 ```
-> mkdir -p /tmp/demo-project
-> cd /tmp/demo-project && git init
-> echo "# Demo Project" > README.md
-> git add . && git commit -m "Initial commit"
+> Show me what files have changed
+
+Result: Displays git status and diff
 ```
 
-### Exercise 3: Background Server
-
-Start a simple server in background:
-
+### 3. Install Dependencies
 ```
-[Tool: bash]
-command: cd /tmp/demo-project && python -m http.server 8080
-run_in_background: true
+> Install packages from requirements.txt
+
+Result: Runs pip install -r requirements.txt
 ```
 
-Then verify it's running:
-
+### 4. Start Development Server
 ```
-> curl http://localhost:8080
+> Start the Next.js dev server
+
+Result: Launches npm run dev in background
 ```
 
-### Exercise 4: Build and Test
-
-Run a typical development workflow:
-
+### 5. Build Project
 ```
-> pip install pytest
-> pytest --version
+> Build the Rust project in release mode
+
+Result: Runs cargo build --release
 ```
 
 ## Errors and Troubleshooting
@@ -400,80 +370,118 @@ Run a typical development workflow:
 ### Command Not Found
 
 ```
-bash: npm: command not found
-```
+Error: bash: pytest: command not found
 
-**Solution:** The command isn't in PATH. Install the required tool or use full path.
+Solution:
+1. Verify installation: which pytest
+2. Install if missing: pip install pytest
+3. Check PATH: echo $PATH
+4. Use full path: /usr/local/bin/pytest
+```
 
 ### Permission Denied
 
 ```
-bash: ./script.sh: Permission denied
+Error: Permission denied: ./script.sh
+
+Solution:
+1. Make executable: chmod +x script.sh
+2. Or run with interpreter: bash script.sh
 ```
 
-**Solution:** Make the script executable:
+### Timeout Issues
+
+```
+Error: Command timed out after 300s
+
+Solution:
+1. Use background mode for long processes
+2. Break into smaller commands
+3. Add progress indicators to scripts
+```
+
+### Truncated Output
+
+```
+Warning: Output truncated [showing 2000/8000 lines]
+
+Solution:
+1. Redirect to file: command > output.txt
+2. Filter output: command | grep "ERROR"
+3. Use specialized tools for structured data
+```
+
+### Working Directory Confusion
+
+```
+Error: tests/ directory not found
+
+Solution:
+1. Check current directory: pwd
+2. Use absolute paths: /home/user/project/tests/
+3. Chain cd command: cd project && pytest tests/
+```
+
+### Interactive Command Hangs
+
+```
+Error: Command appears to hang (waiting for input)
+
+Solution:
+1. Add non-interactive flags: npm init -y
+2. Use expect/heredoc for scripted input
+3. Pre-create config files before running
+```
+
+### Environment Variables
+
+```
+Error: Missing required environment variable
+
+Solution:
+1. Set inline: API_KEY=abc123 python script.py
+2. Export first: export API_KEY=abc123 && python script.py
+3. Use .env file: source .env && python script.py
+```
+
+## Advanced Patterns
+
+### Multi-line Commands
+
 ```bash
-> chmod +x ./script.sh
+# Use line continuation for readability
+docker run -d \
+  --name myapp \
+  -p 8080:80 \
+  -v $(pwd):/app \
+  myimage:latest
 ```
 
-### No Such File or Directory
+### Conditional Logic
 
-```
-bash: cd: /nonexistent/path: No such file or directory
-```
-
-**Solution:** Verify the path exists. Use `ls` or `glob` to find correct path.
-
-### Interactive Command Fails
-
-```
-Error: Command requires interactive input
-```
-
-**Solution:** Use non-interactive flags:
 ```bash
-# Instead of: git commit
-> git commit -m "message"
-
-# Instead of: npm init
-> npm init -y
+# Run tests, deploy only if successful
+pytest tests/ && npm run build && ./deploy.sh
 ```
 
-### Output Too Large
+### Output Processing
 
-```
-[Output truncated - 1.2MB total]
-```
-
-**Solution:** Redirect to file and read portions:
 ```bash
-> long-command > output.txt
-# Then use read_file with offset/limit
+# Filter and transform output
+git log --oneline | head -n 10 | cut -d' ' -f2-
 ```
 
-### Timeout Exceeded
+### Variable Substitution
 
-```
-Error: Command timed out after 60 seconds
-```
-
-**Solution:** Use background mode for long-running processes, or break into smaller operations.
-
-### Blocked Command
-
-```
-Error: Command blocked for safety reasons
+```bash
+# Use shell variables
+VERSION=$(cat VERSION)
+docker build -t myapp:$VERSION .
 ```
 
-**Solution:** This command is restricted. Find an alternative approach or use more targeted commands.
+---
 
-## Summary
-
-The Bash tool provides:
-
-- Direct shell command execution
-- Background process support for servers and watchers
-- Safety features to prevent dangerous operations
-- Access to build tools, package managers, and system utilities
-
-Remember: prefer specialized tools when available, but bash is always there when you need raw command-line power.
+**Next Steps:**
+- Learn about [Specialized Tools](/tools/specialized) for better alternatives
+- Explore [Git Operations](/tools/git) for version control
+- See [Python Check](/tools/python-check) for code quality

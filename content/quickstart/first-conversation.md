@@ -6,258 +6,311 @@ title: "Your First Conversation"
 
 # Your First Conversation
 
-This guide walks you through your first interactive session with Amplifier. You'll learn
-how to start a conversation, write effective prompts, interpret responses, and understand
-how Amplifier uses tools to accomplish tasks.
+This guide walks you through your first interaction with Amplifier, helping you understand how to communicate effectively with the AI assistant and what to expect.
 
 ## Starting a Session
 
-Launch Amplifier from your terminal in any project directory:
+Launch Amplifier from your terminal:
 
 ```bash
 amplifier run
 ```
 
-You'll see a welcome message and a prompt indicator waiting for your input:
+You'll see the Amplifier prompt appear:
 
 ```
-Amplifier v1.0.0
-Session: abc123-def456
-
->
+User:
 ```
 
-The session ID helps you reference this conversation later if needed.
-
-### Starting in a Specific Directory
-
-To work on a particular project, navigate there first:
-
-```bash
-cd ~/projects/my-app
-amplifier run
-```
-
-Amplifier automatically gains context about your project structure, making it more
-effective at helping with your specific codebase.
+This means Amplifier is ready to receive your instructions. You're now in an interactive session where you can have a natural conversation with the AI assistant.
 
 ## Your First Prompt
 
-Start with something simple. Try asking Amplifier to explore your project:
+Start with something simple to get a feel for how Amplifier works. Here are some great first prompts:
+
+### Example 1: Ask About Your Project
 
 ```
-> What files are in this project?
+What files are in the current directory?
 ```
 
-Or ask for help with a specific task:
+Amplifier will use the `glob` or `bash` tool to explore your workspace and provide a structured summary of what it finds.
+
+### Example 2: Request Code Analysis
 
 ```
-> Create a Python function that validates email addresses
+Read the main.py file and explain what it does
 ```
 
-### Writing Effective Prompts
+The assistant will use the `read_file` tool to access the file, then provide a detailed explanation of the code's functionality.
 
-Good prompts are clear and specific. Compare these examples:
-
-| Less Effective | More Effective |
-|----------------|----------------|
-| "Fix the bug" | "Fix the TypeError in auth.py line 42" |
-| "Make it faster" | "Optimize the database query in get_users()" |
-| "Add tests" | "Add unit tests for the UserService class" |
-
-### Providing Context
-
-You can reference files directly in your prompts:
+### Example 3: Simple Code Generation
 
 ```
-> Review the code in src/utils/helpers.py for potential improvements
+Create a Python function that calculates the factorial of a number
 ```
 
-Or provide inline context:
+Amplifier will write the code and can save it to a file if you specify a location.
+
+### Example 4: Multi-Step Task
 
 ```
-> I'm getting this error when running tests:
-> 
-> AssertionError: expected 3 but got 5
-> 
-> The test is in tests/test_calculator.py
+Find all TODO comments in my Python files and create a summary
 ```
+
+This demonstrates Amplifier's ability to chain multiple operations: searching files, reading content, and synthesizing information.
 
 ## Understanding Responses
 
-Amplifier responds conversationally while working on your request. A typical response
-includes several elements:
+Amplifier responses typically include several components:
 
-### Explanatory Text
+### 1. Thinking Process (Sometimes Visible)
 
-Amplifier explains what it's doing and why:
+The assistant may show its reasoning before taking action. This helps you understand its approach to solving your request.
 
-```
-I'll create an email validation function using regex. This will check for:
-- A valid local part (before the @)
-- A valid domain with at least one dot
-- No invalid characters
-```
+### 2. Tool Usage
 
-### Code Blocks
-
-Code appears in formatted blocks with syntax highlighting:
-
-```python
-import re
-
-def validate_email(email: str) -> bool:
-    """Validate an email address format."""
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return bool(re.match(pattern, email))
-```
-
-### File References
-
-When Amplifier references code locations, it uses the format `file_path:line_number`:
+You'll see when Amplifier uses tools to accomplish tasks:
 
 ```
-The validation logic is in src/validators.py:23
+[Using read_file: ./src/main.py]
+[Using bash: pytest tests/]
 ```
 
-This makes it easy to navigate to the exact location in your editor.
+These indicators show what actions are being taken on your behalf.
+
+### 3. Results and Explanations
+
+After using tools, Amplifier provides:
+- **Summaries**: Condensed information about what was found or done
+- **Analysis**: Interpretation of results
+- **Code blocks**: Formatted code with syntax highlighting
+- **Recommendations**: Suggestions for next steps
+
+### 4. Error Handling
+
+If something goes wrong, Amplifier will:
+- Explain what happened
+- Suggest fixes or alternatives
+- Often retry with a different approach automatically
 
 ## Tool Usage
 
-Amplifier uses tools to interact with your system. You'll see tool activity as it works.
+Amplifier has access to various tools that extend its capabilities. Understanding these helps you make better requests.
 
-### Common Tools
+### File Operations
 
-| Tool | Purpose |
-|------|---------|
-| `read_file` | View file contents |
-| `write_file` | Create new files |
-| `edit_file` | Modify existing files |
-| `bash` | Run shell commands |
-| `grep` | Search file contents |
-| `glob` | Find files by pattern |
-
-### Observing Tool Usage
-
-When Amplifier uses tools, you'll see indicators of what's happening:
-
+**Reading files:**
 ```
-> Add a new endpoint to the API
-
-Reading src/api/routes.py...
-Editing src/api/routes.py...
-Running tests to verify changes...
-
-I've added the new endpoint at /api/users/{id}/profile. The route is defined
-in src/api/routes.py:45. Tests pass successfully.
+Read the config.yaml file
 ```
 
-### Tool Permissions
-
-Some operations may require confirmation. Amplifier respects your system and won't
-make destructive changes without appropriate safeguards.
-
-## Multi-Turn Conversations
-
-Sessions maintain context across multiple exchanges. You can build on previous work:
-
+**Writing files:**
 ```
-> Create a User class with name and email fields
-
-[Amplifier creates the class]
-
-> Add a method to validate the email
-
-[Amplifier adds to the existing class]
-
-> Now add unit tests for the validation
-
-[Amplifier creates tests referencing the class it built]
+Create a new file called utils.py with a helper function
 ```
 
-### Referencing Previous Context
-
-Use natural language to refer back:
-
+**Editing files:**
 ```
-> Actually, make that method raise an exception instead of returning False
+Update the README.md to include installation instructions
 ```
 
-Amplifier understands "that method" refers to the validation method from the
-previous exchange.
+### Code Quality
 
-## Handling Errors
-
-If something goes wrong, Amplifier will explain and often suggest fixes:
-
+**Checking Python code:**
 ```
-> Run the deployment script
-
-The deployment script failed with exit code 1:
-  Error: Missing environment variable DATABASE_URL
-
-To fix this, you can:
-1. Set the variable: export DATABASE_URL="your-connection-string"
-2. Create a .env file with the variable
-3. Pass it inline: DATABASE_URL="..." ./deploy.sh
+Check this Python file for errors and style issues
 ```
 
-### Asking for Clarification
+Amplifier uses `ruff` for formatting/linting and `pyright` for type checking.
 
-If your request is ambiguous, Amplifier asks for clarification rather than guessing:
+### Search Operations
+
+**Finding files:**
+```
+Find all JavaScript files in the src directory
+```
+
+**Searching content:**
+```
+Search for all functions named "calculate" in Python files
+```
+
+### Command Execution
+
+**Running tests:**
+```
+Run the test suite
+```
+
+**Installing packages:**
+```
+Install the requests library
+```
+
+**Git operations:**
+```
+Show me the git status
+```
+
+### Complex Tasks with Sub-Agents
+
+For complex, multi-step tasks, Amplifier can delegate work to specialized agents:
 
 ```
-> Delete the old files
+Review the code I just wrote and suggest improvements
+```
 
-I found several potential matches for "old files":
-- backup/ directory (23 files, last modified 30 days ago)
-- *.bak files (5 files across the project)
-- deprecated/ folder (12 files)
+This might spawn a `code-reviewer` agent that works autonomously.
 
-Which would you like me to delete?
+## Best Practices for Prompts
+
+### Be Specific
+
+❌ **Vague**: "Fix the code"
+✅ **Specific**: "Fix the syntax error in main.py on line 42"
+
+### Provide Context
+
+❌ **Minimal**: "Add a test"
+✅ **Contextual**: "Add a unit test for the calculate_total function that checks edge cases like negative numbers and zero"
+
+### Break Down Complex Requests
+
+For very complex tasks, consider breaking them into steps:
+
+```
+1. First, analyze the current authentication system
+2. Then suggest improvements for security
+3. Finally, implement the changes
+```
+
+Or let Amplifier handle it all at once:
+
+```
+Analyze the auth system, suggest security improvements, and implement them
+```
+
+### Iterate and Refine
+
+Don't worry about getting it perfect the first time. You can refine:
+
+```
+Actually, make that function async instead
+```
+
+```
+Add error handling to the code you just wrote
+```
+
+## Common Workflows
+
+### Code Review Workflow
+
+```
+User: I just updated the payment processor. Can you review it?
+Assistant: [reads file, analyzes code, provides feedback]
+User: Make those changes
+Assistant: [edits file with improvements]
+User: Now add tests for the edge cases
+Assistant: [creates test file]
+```
+
+### Debugging Workflow
+
+```
+User: My tests are failing
+Assistant: [runs tests, analyzes output]
+User: What's causing the failure?
+Assistant: [explains issue with specific line numbers]
+User: How do I fix it?
+Assistant: [provides solution and can implement it]
+```
+
+### Learning Workflow
+
+```
+User: Explain how async/await works in Python
+Assistant: [provides explanation with examples]
+User: Show me a practical example
+Assistant: [creates working code example]
+User: What are common pitfalls?
+Assistant: [explains gotchas and best practices]
 ```
 
 ## Ending a Session
 
-To end your conversation, simply type:
-
-```
-> exit
-```
-
-Or use the keyboard shortcut `Ctrl+C`.
-
-Your session is automatically saved. You can resume it later or start fresh.
-
-### Session Persistence
-
-Sessions are stored locally and can be referenced later. To see recent sessions:
+To exit Amplifier, use:
 
 ```bash
-amplifier sessions list
+Ctrl+D (or type 'exit')
 ```
 
-To resume a specific session:
+Your conversation history is saved, and any changes made to files are preserved in your workspace.
 
-```bash
-amplifier resume <session-id>
+## Pro Tips
+
+### Parallel Operations
+
+Request multiple things at once:
 ```
+Read both config.py and utils.py, then tell me how they interact
+```
+
+### Asking for Alternatives
+
+```
+Show me three different ways to implement this feature
+```
+
+### Context Awareness
+
+Amplifier remembers your conversation history:
+```
+User: Create a User class
+Assistant: [creates User class]
+User: Now add a method to validate email addresses
+Assistant: [knows which class you mean]
+```
+
+### Skill Loading
+
+For specialized domains:
+```
+Load the REST API design skill and help me design an endpoint
+```
+
+## What Not to Expect
+
+- **No internet access by default**: Amplifier works with local files (unless web-research agent is used)
+- **No memory between sessions**: Each session starts fresh
+- **No real-time interactions**: Can't run interactive programs directly
+- **No destructive operations without review**: Safety guardrails prevent accidental damage
 
 ## Next Steps
 
-Now that you've had your first conversation, explore these topics:
+Now that you understand the basics, explore:
 
-- **[Working with Files](./working-with-files.md)** - Deep dive into file operations
-- **[Running Commands](./running-commands.md)** - Execute shell commands effectively
-- **[Project Context](./project-context.md)** - Help Amplifier understand your codebase
-- **[Advanced Prompting](../guides/advanced-prompting.md)** - Write more effective prompts
+1. **[Core Concepts](../concepts/overview.md)** - Deeper understanding of how Amplifier works
+2. **[Common Workflows](../workflows/code-review.md)** - Step-by-step guides for typical tasks
+3. **[Tool Reference](../reference/tools.md)** - Complete documentation of available tools
+4. **[Best Practices](../guides/best-practices.md)** - Tips for getting the most out of Amplifier
 
-### Tips for Success
+Try experimenting with different types of requests to discover what Amplifier can do for you!
 
-1. **Be specific** - Clear requests get better results
-2. **Provide context** - Share error messages, file paths, and background
-3. **Iterate** - Build on responses in multi-turn conversations
-4. **Ask questions** - Amplifier can explain code and concepts
-5. **Trust but verify** - Review generated code before committing
+## Quick Reference Card
 
-Welcome to Amplifier. Happy building.
+| Task | Example Prompt |
+|------|----------------|
+| Read a file | `Show me the contents of app.py` |
+| Edit code | `Add error handling to the save function` |
+| Run tests | `Run pytest and show me the results` |
+| Search code | `Find all TODO comments` |
+| Get help | `How do I use the grep tool?` |
+| Check code quality | `Check this Python file for issues` |
+| Create files | `Create a new module for database operations` |
+| Explain code | `Explain what the authenticate function does` |
+
+---
+
+**Ready to dive deeper?** Continue to [Understanding Tools](./understanding-tools.md) to learn about Amplifier's capabilities in detail.

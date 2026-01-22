@@ -6,89 +6,77 @@ title: Bundles Guide
 
 # Bundles Guide
 
-Bundles are the primary way to configure and customize Amplifier. A bundle composes modules, tools, context, and settings into a coherent package that defines an agent's capabilities.
-
-This section covers bundle structure, composition patterns, and how to create your own bundles.
+Bundles are the primary way to customize Amplifier's behavior. A bundle packages together tools, agents, context, and configuration into a cohesive, reusable unit. This section teaches you how to use existing bundles, create your own, and compose them for powerful applications.
 
 ## Section Contents
 
 | Page | Description |
 |------|-------------|
-| [Bundle Basics](./basics.md) | What bundles are and how they work |
-| [Built-in Bundles](./built-in.md) | Foundation, dev, and other standard bundles |
-| [Bundle Structure](./structure.md) | Anatomy of a bundle directory |
-| [Composition](./composition.md) | Combining multiple bundles |
-| [Creating Bundles](./creating.md) | Build your own custom bundles |
-| [Context Files](./context-files.md) | Adding knowledge to bundles |
-| [Tool Bundles](./tool-bundles.md) | Bundles that provide tools |
-| [Publishing](./publishing.md) | Sharing bundles with others |
+| [Bundle Basics](./bundle-basics.md) | What bundles are and how they work |
+| [Using Bundles](./using-bundles.md) | Activate and configure existing bundles |
+| [Creating Bundles](./creating-bundles.md) | Build your own custom bundles |
+| [Bundle Composition](./bundle-composition.md) | Combine bundles effectively |
+| [Context Files](./context-files.md) | Add knowledge and instructions |
+| [Agent Definitions](./agent-definitions.md) | Define specialist agents in bundles |
+| [Bundle Registry](./bundle-registry.md) | Discover and share bundles |
+| [Best Practices](./best-practices.md) | Patterns for maintainable bundles |
 
 ## Quick Tips
 
-- **Thin bundles** — Bundles should compose, not implement; keep logic in modules
-- **Layered composition** — Bundles can extend other bundles for customization
-- **Context is cheap** — Add relevant context files liberally; they help agents
-- **One purpose** — Each bundle should have a clear, focused purpose
-- **Test composition** — Verify bundles work together before deploying
+- **Thin bundles** - Keep bundles focused; compose for complexity
+- **Reuse context** - Reference shared context files instead of duplicating
+- **Version carefully** - Bundle changes affect all users
+- **Test in isolation** - Verify bundles work independently before composing
+- **Document behavior** - Clear descriptions help users and AI understand intent
 
-## Bundle Architecture
+## Bundle Anatomy
 
 ```
-bundle/
-├── bundle.yaml          # Bundle manifest
-├── context/             # Context files (.md)
-│   ├── instructions.md
-│   └── domain-knowledge.md
-├── skills/              # Packaged skills
-├── agents/              # Agent definitions
-└── tools/               # Custom tools (optional)
+my-bundle/
+├── bundle.yaml        # Bundle manifest
+├── context/           # Knowledge and instructions
+│   ├── README.md      # Primary context
+│   └── examples/      # Example files
+├── agents/            # Agent definitions
+│   └── specialist.yaml
+└── skills/            # Optional skills
+    └── domain-skill.md
 ```
 
-## Built-in Bundles
+## The Thin Bundle Philosophy
 
-| Bundle | Purpose | Key Features |
-|--------|---------|--------------|
-| `foundation` | General development | Full toolset, explorer, git-ops |
-| `dev` | Lightweight coding | Essential tools, minimal context |
-| `core` | Minimal base | Kernel only, for custom builds |
-| `lsp-python` | Python intelligence | LSP integration, Pyright |
+Bundles should be minimal compositions, not monolithic packages:
+
+| Do | Don't |
+|----|-------|
+| Reference shared context | Duplicate instructions |
+| Compose multiple thin bundles | Build one giant bundle |
+| Single responsibility | Kitchen sink approach |
+| Clear extension points | Tightly coupled internals |
 
 ## Where to Start
 
-**New to bundles?** Begin with [Bundle Basics](./basics.md) to understand what bundles are and why they matter.
+**New to bundles?** Begin with [Bundle Basics](./bundle-basics.md) for foundational understanding.
 
-**Want to customize?** Read [Creating Bundles](./creating.md) for a step-by-step guide to building your own.
+**Want to customize?** Jump to [Creating Bundles](./creating-bundles.md) for hands-on guidance.
 
-**Using multiple bundles?** Check [Composition](./composition.md) to learn how bundles layer and interact.
+**Combining capabilities?** See [Bundle Composition](./bundle-composition.md) for composition patterns.
 
-## Common Patterns
+## Example: Minimal Bundle
 
 ```yaml
-# Extend an existing bundle
-extends: foundation
+# bundle.yaml
+name: my-assistant
+description: Custom assistant behavior
+version: 1.0.0
 
-# Add custom context
 context:
-  - ./context/my-domain.md
-  
-# Include specific modules
-modules:
-  - tool-web
-  - hook-memory
+  - context/README.md
+
+extends:
+  - foundation  # Inherit base capabilities
 ```
 
-## Bundle Selection Guide
+## Next Steps
 
-| Use Case | Recommended Bundle |
-|----------|-------------------|
-| General development | `foundation` |
-| Quick coding tasks | `dev` |
-| Python projects | `foundation` + `lsp-python` |
-| Custom applications | Create your own |
-| Minimal footprint | `core` + specific modules |
-
-## Related Sections
-
-- [Concepts: Modules](../concepts/modules.md)
-- [Skills: Using Skills](../skills/index.md)
-- [Advanced: Bundle Internals](../advanced/bundle-internals.md)
+After mastering bundles, explore [Skills](../skills/index.md) for adding domain knowledge or [Advanced](../advanced/index.md) for complex patterns.

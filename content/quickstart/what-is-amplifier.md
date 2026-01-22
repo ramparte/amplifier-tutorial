@@ -6,219 +6,190 @@ title: "What is Amplifier?"
 
 # What is Amplifier?
 
+Amplifier is a modular AI agent framework designed to build powerful, composable AI-powered applications with ruthless simplicity. It provides the building blocks for creating sophisticated AI agents while maintaining clean architecture and developer ergonomics.
+
 ## Overview
 
-Amplifier is a modular AI agent framework designed to help developers build powerful,
-composable AI applications. Rather than providing a monolithic solution, Amplifier
-embraces a "bricks and studs" philosophy where self-contained modules snap together
-to create sophisticated agent systems.
+At its core, Amplifier is a **kernel-based architecture** that orchestrates AI agents through a minimal, well-defined set of contracts. Rather than providing a monolithic framework, Amplifier offers a thin kernel surrounded by composable modules that can be mixed and matched to create exactly the capabilities you need.
 
-At its core, Amplifier provides:
+Think of it like building with construction bricks: the kernel provides the studs and sockets (the connection points), while modules snap together to form complete applications. Each piece is self-contained, testable, and replaceable without affecting the rest of the system.
 
-- **A minimal kernel** that handles the essential agent loop, session management, and
-  tool execution
-- **A module system** with well-defined contracts for extending functionality
-- **A bundle architecture** for packaging and sharing agent configurations
-- **Built-in support** for multiple LLM providers, tools, and agent patterns
-
-Amplifier is built for developers who want full control over their AI agents without
-drowning in boilerplate or fighting framework constraints.
-
+```
+┌─────────────────────────────────────────────────┐
+│                  Your Application               │
+├─────────────────────────────────────────────────┤
+│     Bundles (Pre-composed Module Sets)          │
+├─────────────────────────────────────────────────┤
+│  Providers  │  Tools  │  Hooks  │  Behaviors    │
+├─────────────────────────────────────────────────┤
+│              Amplifier Kernel                   │
+└─────────────────────────────────────────────────┘
+```
 
 ## Key Features
 
 ### Modular Architecture
 
-Every component in Amplifier is a self-contained module with clear boundaries:
+Amplifier's module system allows you to compose functionality from discrete, well-defined pieces:
 
-```
-┌─────────────────────────────────────────────────┐
-│                  Amplifier Kernel               │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │ Provider │  │  Tools   │  │  Hooks   │      │
-│  └──────────┘  └──────────┘  └──────────┘      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │ Context  │  │  Skills  │  │  Agents  │      │
-│  └──────────┘  └──────────┘  └──────────┘      │
-└─────────────────────────────────────────────────┘
-```
+- **Providers**: Connect to AI models (Anthropic, OpenAI, Azure, local models)
+- **Tools**: Extend agent capabilities (file operations, web search, code execution)
+- **Hooks**: Intercept and modify agent behavior at key lifecycle points
+- **Behaviors**: Reusable patterns for common agent tasks
 
-Modules communicate through stable interfaces, allowing you to:
+### Thin Bundles
 
-- Swap providers (Anthropic, OpenAI, Azure, local models)
-- Add or remove tools without touching other code
-- Create custom hooks for observability and control
-- Package everything into shareable bundles
-
-### Bundle System
-
-Bundles are the primary unit of composition in Amplifier. A bundle packages:
-
-- Agent definitions and configurations
-- Tool collections for specific capabilities
-- Context files and instructions
-- Skills and domain knowledge
-
-```yaml
-# Example bundle structure
-my-bundle/
-├── bundle.yaml        # Bundle manifest
-├── agents/            # Agent definitions
-├── tools/             # Custom tools
-├── context/           # Instructions and context
-└── skills/            # Domain knowledge
-```
-
-Bundles can compose other bundles, enabling a layered architecture where
-specialized capabilities build on foundational ones.
-
-### Multi-Agent Support
-
-Amplifier supports sophisticated multi-agent patterns:
-
-- **Task delegation**: Spawn specialized agents for focused work
-- **Parallel execution**: Run multiple agents concurrently
-- **Agent hierarchies**: Build orchestration patterns
-- **Session continuity**: Resume and branch conversations
-
-### Rich Tool Ecosystem
-
-Built-in tools cover common development needs:
-
-- File operations (read, write, edit, search)
-- Shell command execution
-- Web search and content fetching
-- Git and GitHub operations
-- LSP integration for code intelligence
-
-Custom tools are straightforward to create and package.
+Bundles are pre-composed collections of modules that work well together. They follow the "thin bundle" pattern: minimal configuration that composes existing modules rather than implementing new functionality. This keeps complexity low while enabling powerful combinations.
 
 ### Session Management
 
-Amplifier provides robust session handling:
+Amplifier provides robust session handling for multi-turn conversations:
 
+- Automatic context persistence
+- Resumable sessions across restarts
+- Event-based history with JSONL storage
+- Sub-session support for agent delegation
+
+### Multi-Agent Patterns
+
+Build sophisticated multi-agent systems with built-in support for:
+
+- Agent delegation (spawning sub-agents for specialized tasks)
+- Parallel agent execution
+- Hierarchical agent orchestration
+- Shared context and memory
+
+### Tool Ecosystem
+
+A rich ecosystem of tools ready to use:
+
+- File system operations (read, write, edit, search)
+- Web capabilities (search, fetch, scrape)
+- Code intelligence (LSP integration, semantic navigation)
+- Git and GitHub operations
+- Shell command execution with safety guardrails
+
+### Recipes
+
+Declarative YAML workflows for multi-step agent tasks:
+
+- Sequential execution with state persistence
+- Approval gates for human-in-the-loop workflows
 - Automatic checkpointing and resumability
-- Event logging for debugging and analysis
-- Context management across long conversations
-- Sub-session spawning for agent delegation
-
+- Error handling and retry logic
 
 ## Philosophy
 
-Amplifier is built on three core principles:
+Amplifier is built on a foundation of intentional simplicity and practical wisdom.
 
-### 1. Ruthless Simplicity
+### Ruthless Simplicity
 
-> "The best code is often the simplest."
+Every line of code must justify its existence. Amplifier rejects complexity for its own sake:
 
-Amplifier resists the urge to over-engineer. Every abstraction must justify its
-existence. The framework provides what's essential and stays out of your way
-for everything else.
+- **Start minimal**: Begin with the simplest implementation that works
+- **Grow as needed**: Add complexity only when requirements demand it
+- **Question everything**: Regularly challenge assumptions and abstractions
 
-This means:
+### The Brick Philosophy
 
-- Minimal magic and hidden behavior
-- Clear, predictable execution paths
-- Easy-to-understand source code
-- Simple extension patterns
+Software is built from small, clear modules like interlocking bricks:
 
-### 2. Composability Over Configuration
+- Each module is **self-contained** with defined interfaces
+- Modules can be **regenerated independently** without breaking the system
+- External contracts (the "studs and sockets") remain **stable**
+- Internal implementations can evolve freely
 
-Rather than exposing hundreds of configuration options, Amplifier achieves
-flexibility through composition. Small, focused modules combine to create
-exactly the agent system you need.
+### Humans as Architects
 
-Think of it like building blocks:
+Amplifier elevates human involvement to where it's most valuable:
 
-- Each block does one thing well
-- Blocks connect through standard interfaces
-- Complex systems emerge from simple parts
-- Any block can be replaced or regenerated
+- **Humans define the vision**: Specifications, requirements, intended behavior
+- **AI handles construction**: Code generation, implementation details
+- **Humans validate results**: Testing behavior, not reading every line of code
 
-### 3. AI-Native Development
+### Present-Moment Focus
 
-Amplifier embraces the reality that AI is changing how we build software.
-The framework is designed to work with AI assistants:
+Build for what's needed now, not hypothetical futures:
 
-- Modules are sized for AI comprehension
-- Specifications drive implementation
-- Regeneration is preferred over patching
-- Clear contracts enable reliable generation
-
+- Handle current requirements well
+- Avoid premature optimization
+- Trust that good architecture emerges from simplicity
 
 ## Who It's For
 
 ### AI Application Developers
 
-If you're building AI-powered applications and want:
+If you're building AI-powered applications, Amplifier provides:
 
-- Full control over agent behavior
-- Easy integration with multiple providers
-- Extensible tool and capability systems
-- Clean separation of concerns
+- Clean abstractions for common patterns
+- Provider-agnostic model integration
+- Battle-tested tool implementations
+- Extensible architecture for custom needs
 
-Amplifier provides the foundation without imposing unnecessary constraints.
+### Framework Builders
 
-### Teams Building Internal Tools
+If you're creating AI frameworks or platforms:
 
-For organizations creating internal AI assistants:
+- Study Amplifier's kernel architecture
+- Understand module contracts and composition
+- Learn from the "thin bundle" pattern
+- Build compatible modules and extensions
 
-- Package domain knowledge into bundles
-- Define organization-specific tools
-- Control security and access patterns
-- Share capabilities across teams
+### Power Users
 
-### Researchers and Experimenters
+If you're using AI assistants and want more control:
 
-If you're exploring agent architectures:
+- Configure bundles to match your workflow
+- Create custom tools and behaviors
+- Build specialized agents for your domain
+- Integrate with your existing systems
 
-- Easily swap components to test hypotheses
-- Clear extension points for custom behavior
-- Observable execution for analysis
-- Minimal overhead for rapid iteration
+### Teams Exploring AI
 
-### Open Source Contributors
+If your team is evaluating AI development approaches:
 
-Amplifier's modular design makes contribution straightforward:
+- Amplifier demonstrates sustainable AI development patterns
+- The modular architecture prevents vendor lock-in
+- Clear contracts make testing and validation straightforward
+- Philosophy documentation guides decision-making
 
-- Work on isolated modules without deep framework knowledge
-- Clear contracts define expected behavior
-- Test modules independently
-- Share bundles with the community
-
-
-## Core Concepts
-
-Before diving deeper, familiarize yourself with these key terms:
+## Core Concepts at a Glance
 
 | Concept | Description |
 |---------|-------------|
-| **Kernel** | The minimal core that runs the agent loop |
-| **Module** | A self-contained unit of functionality |
-| **Bundle** | A package of agents, tools, and configuration |
-| **Provider** | An LLM backend (Anthropic, OpenAI, etc.) |
-| **Tool** | A capability the agent can invoke |
-| **Hook** | An extension point for observing or modifying behavior |
-| **Skill** | Loadable domain knowledge and best practices |
-| **Session** | A conversation instance with state and history |
-| **Agent** | A configured AI assistant with specific capabilities |
+| **Kernel** | Minimal core that orchestrates modules and sessions |
+| **Module** | Self-contained unit of functionality (provider, tool, hook, behavior) |
+| **Bundle** | Pre-composed collection of modules for specific use cases |
+| **Session** | A conversation context with history and state |
+| **Agent** | An AI entity that can use tools and follow instructions |
+| **Recipe** | Declarative workflow specification in YAML |
 
+## What Amplifier is NOT
+
+Understanding what Amplifier isn't helps set proper expectations:
+
+- **Not a chatbot UI**: Amplifier is a framework, not an application
+- **Not a model trainer**: It orchestrates models, doesn't train them
+- **Not opinionated about models**: Works with any compatible provider
+- **Not a low-code platform**: Designed for developers who code
+- **Not trying to solve everything**: Focused on agent orchestration
 
 ## Next Steps
 
 Ready to get started? Here's your path forward:
 
-1. **[Installation](./installation.md)** - Set up Amplifier in your environment
+1. **[Installation](./installation.md)**: Set up Amplifier in your environment
+2. **[Your First Agent](./first-agent.md)**: Build a simple agent in minutes
+3. **[Core Concepts](../concepts/overview.md)**: Deeper dive into architecture
+4. **[Tutorials](../tutorials/index.md)**: Step-by-step guides for common tasks
 
-2. **[Your First Agent](./first-agent.md)** - Build and run a simple agent
+### Quick Links
 
-3. **[Understanding Bundles](./bundles-intro.md)** - Learn the composition model
-
-4. **[Core Concepts Deep Dive](../concepts/overview.md)** - Explore the architecture
-
-5. **[Building Tools](../guides/custom-tools.md)** - Extend agent capabilities
+- [GitHub Repository](https://github.com/microsoft/amplifier) - Source code and issues
+- [API Reference](../reference/api.md) - Complete API documentation
+- [Examples](../examples/index.md) - Working code samples
+- [Community](../community/index.md) - Get help and contribute
 
 ---
 
-Amplifier is open source and actively developed. Join the community to ask
-questions, share bundles, and contribute to the framework's evolution.
+**Welcome to Amplifier.** Build powerful AI agents with clarity and confidence.

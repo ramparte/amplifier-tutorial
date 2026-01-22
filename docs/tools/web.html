@@ -98,77 +98,71 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#web-search">Web Search</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-search">Basic Search</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-web-search">When to Use Web Search</a>
+    <li class="toctree-l3"><a class="reference internal" href="#search-parameters">Search Parameters</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-tips">Search Tips</a>
+    <li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search-query-tips">Search Query Tips</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fetching-urls">Fetching URLs</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-fetch">Basic Fetch</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#size-limits">Size Limits</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#using-save_to_file">Using save_to_file</a>
+    <li class="toctree-l3"><a class="reference internal" href="#save-to-file">Save to File</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pagination-with-offsetlimit">Pagination with offset/limit</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fetching-different-content-types">Fetching Different Content Types</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#handling-large-pages">Handling Large Pages</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#strategy-1-save-and-read-selectively">Strategy 1: Save and Read Selectively</a>
+    <li class="toctree-l3"><a class="reference internal" href="#strategy-1-search-first-fetch-later">Strategy 1: Search First, Fetch Later</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#strategy-2-paginate-through-content">Strategy 2: Paginate Through Content</a>
+    <li class="toctree-l3"><a class="reference internal" href="#strategy-2-fetch-to-file">Strategy 2: Fetch to File</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#strategy-3-multiple-targeted-fetches">Strategy 3: Multiple Targeted Fetches</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#warning-truncation-breaks-structured-data">Warning: Truncation Breaks Structured Data</a>
-    </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#handling-redirects">Handling Redirects</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#combine-search-and-fetch">Combine Search and Fetch</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-search-before-fetching">1. Search Before Fetching</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#verify-information-currency">Verify Information Currency</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-use-appropriate-tools">2. Use Appropriate Tools</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-official-sources-first">Use Official Sources First</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-handle-failures-gracefully">3. Handle Failures Gracefully</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cache-large-documentation-locally">Cache Large Documentation Locally</a>
+    <li class="toctree-l3"><a class="reference internal" href="#4-be-respectful">4. Be Respectful</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#respect-rate-limits">Respect Rate Limits</a>
+    <li class="toctree-l3"><a class="reference internal" href="#5-verify-information">5. Verify Information</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-documentation-lookup">Exercise 1: Documentation Lookup</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-research-a-library">Exercise 1: Research a Library</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-error-research">Exercise 2: Error Research</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-api-investigation">Exercise 2: API Investigation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-api-documentation">Exercise 3: API Documentation</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-large-page-handling">Exercise 4: Large Page Handling</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-5-comparative-research">Exercise 5: Comparative Research</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-troubleshooting">Exercise 3: Troubleshooting</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connection-errors">Connection Errors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#failed-to-fetch-url">"Failed to fetch URL"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#http-errors">HTTP Errors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#content-truncated-due-to-size">"Content truncated due to size"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#content-issues">Content Issues</a>
+    <li class="toctree-l3"><a class="reference internal" href="#rate-limit-exceeded">"Rate limit exceeded"</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#blocked-access">Blocked Access</a>
+    <li class="toctree-l3"><a class="reference internal" href="#search-returned-no-results">"Search returned no results"</a>
     </li>
         </ul>
     </li>
@@ -258,10 +252,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="web-tools">Web Tools<a class="headerlink" href="#web-tools" title="Permanent link">&para;</a></h1>
-<p>Web tools extend your AI assistant's capabilities beyond local files and code,
-enabling real-time information retrieval from the internet. These tools are
-essential for research, documentation lookup, API exploration, and staying
-current with rapidly evolving technologies.</p>
+<p>Web tools enable agents to access and retrieve information from the internet. These tools are essential for gathering real-time data, documentation, and external resources that aren't available in the local context.</p>
 <h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -272,326 +263,279 @@ current with rapidly evolving technologies.</p>
 </thead>
 <tbody>
 <tr>
-<td>web_search</td>
-<td>Search the internet for information</td>
+<td><code>web_search</code></td>
+<td>Search the internet using a search engine</td>
 </tr>
 <tr>
-<td>web_fetch</td>
-<td>Fetch and parse content from a URL</td>
+<td><code>web_fetch</code></td>
+<td>Fetch and read content from a specific URL</td>
 </tr>
 </tbody>
 </table>
-<p>Both tools work together: use <code>web_search</code> to discover relevant URLs, then
-<code>web_fetch</code> to retrieve detailed content from specific pages.</p>
-<hr />
 <h2 id="web-search">Web Search<a class="headerlink" href="#web-search" title="Permanent link">&para;</a></h2>
-<p>The <code>web_search</code> tool queries the internet and returns relevant results.</p>
-<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>User: Search for Python asyncio best practices
+<p>The <code>web_search</code> tool allows agents to search the internet and retrieve relevant results based on a query.</p>
+<h3 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python asyncio tutorial&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>The assistant will use <code>web_search</code> to find current articles, documentation,
-and discussions about the topic.</p>
-<h3 id="when-to-use-web-search">When to Use Web Search<a class="headerlink" href="#when-to-use-web-search" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Documentation lookup</strong>: Find official docs for libraries and frameworks</li>
-<li><strong>Error resolution</strong>: Search for error messages and solutions</li>
-<li><strong>Best practices</strong>: Discover current recommendations and patterns</li>
-<li><strong>News and updates</strong>: Get latest information about technologies</li>
-<li><strong>Comparative research</strong>: Find comparisons between tools or approaches</li>
-</ul>
-<h3 id="search-tips">Search Tips<a class="headerlink" href="#search-tips" title="Permanent link">&para;</a></h3>
+<p>This returns:
+- <strong>Snippets</strong>: Text excerpts from matching pages
+- <strong>URLs</strong>: Direct links to the sources
+- <strong>Titles</strong>: Page titles for context
+- <strong>Metadata</strong>: Relevance scores and timestamps</p>
+<h3 id="search-parameters">Search Parameters<a class="headerlink" href="#search-parameters" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span>
+    <span class="n">query</span><span class="o">=</span><span class="s2">&quot;FastAPI best practices&quot;</span><span class="p">,</span>
+    <span class="n">max_results</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>          <span class="c1"># Limit number of results (default: 5)</span>
+    <span class="n">search_depth</span><span class="o">=</span><span class="s2">&quot;advanced&quot;</span>  <span class="c1"># Search depth: &quot;basic&quot; or &quot;advanced&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Search Depth Options:</strong>
+- <code>basic</code>: Quick search with top results (faster)
+- <code>advanced</code>: Deeper search with more comprehensive results (slower)</p>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<p><strong>Documentation Lookup:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Django 4.2 ORM query optimization&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>API Research:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;OpenAI API rate limits 2024&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Error Troubleshooting:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python ModuleNotFoundError importlib.metadata&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Version-Specific Information:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Node.js 20 breaking changes&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="search-query-tips">Search Query Tips<a class="headerlink" href="#search-query-tips" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Be specific</strong>: "FastAPI dependency injection tutorial" beats "FastAPI help"</li>
-<li><strong>Include context</strong>: Add version numbers or specific use cases</li>
-<li><strong>Use quotes</strong>: For exact phrases or error messages</li>
-<li><strong>Combine terms</strong>: "React hooks useState useEffect examples"</li>
+<li><strong>Be Specific</strong>: Include version numbers, library names, or exact error messages</li>
+<li><strong>Use Quotes</strong>: For exact phrase matching: <code>"cannot import name"</code></li>
+<li><strong>Include Year</strong>: For time-sensitive information: <code>"React hooks 2024"</code></li>
+<li><strong>Filter by Site</strong>: Use <code>site:</code> operator: <code>"site:stackoverflow.com python async"</code></li>
 </ol>
-<hr />
 <h2 id="fetching-urls">Fetching URLs<a class="headerlink" href="#fetching-urls" title="Permanent link">&para;</a></h2>
-<p>The <code>web_fetch</code> tool retrieves content from a specific URL.</p>
-<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>url</td>
-<td>string</td>
-<td>required</td>
-<td>The URL to fetch</td>
-</tr>
-<tr>
-<td>offset</td>
-<td>integer</td>
-<td>0</td>
-<td>Start reading from byte N</td>
-</tr>
-<tr>
-<td>limit</td>
-<td>integer</td>
-<td>204800</td>
-<td>Max bytes to return (200KB)</td>
-</tr>
-<tr>
-<td>save_to_file</td>
-<td>string</td>
-<td>null</td>
-<td>Save full content to this path</td>
-</tr>
-</tbody>
-</table>
+<p>The <code>web_fetch</code> tool retrieves the full content of a specific web page.</p>
+<h3 id="basic-fetch">Basic Fetch<a class="headerlink" href="#basic-fetch" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.python.org/3/library/asyncio.html&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Returns the page content in a readable text format, stripped of HTML tags and formatting.</p>
 <h3 id="size-limits">Size Limits<a class="headerlink" href="#size-limits" title="Permanent link">&para;</a></h3>
-<p>By default, <code>web_fetch</code> returns up to <strong>200KB</strong> of content. This prevents
-overwhelming responses and keeps context manageable.</p>
-<p>The response includes metadata to help you understand what was retrieved:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;truncated&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;total_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">450000</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
-<span class="p">}</span>
+<p>Web pages can be very large. The tool has built-in protections:</p>
+<ul>
+<li><strong>Default Limit</strong>: ~200KB of text content</li>
+<li><strong>Truncation</strong>: Large pages are automatically truncated</li>
+<li><strong>Warning</strong>: You'll be notified when content is truncated</li>
+</ul>
+<p><strong>Handling Truncated Content:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># For large pages, save to file instead</span>
+<span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/long-article&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/article.txt&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h3 id="using-save_to_file">Using save_to_file<a class="headerlink" href="#using-save_to_file" title="Permanent link">&para;</a></h3>
-<p>For large pages, save the full content to a file instead of returning it:</p>
-<div class="codehilite"><pre><span></span><code>Fetch https://example.com/large-doc.html and save to ./docs/reference.html
+<h3 id="save-to-file">Save to File<a class="headerlink" href="#save-to-file" title="Permanent link">&para;</a></h3>
+<p>For large documents, API responses, or content you need to process:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.github.com/repos/python/cpython&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/github_response.json&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<p>This saves the complete content and returns only metadata plus a preview,
-keeping your context clean while preserving full access to the data.</p>
-<h3 id="pagination-with-offsetlimit">Pagination with offset/limit<a class="headerlink" href="#pagination-with-offsetlimit" title="Permanent link">&para;</a></h3>
-<p>For very large content, paginate through it:</p>
-<div class="codehilite"><pre><span></span><code># First 200KB (default)
-web_fetch(url=&quot;https://example.com/huge-page&quot;)
-
-# Next 200KB
-web_fetch(url=&quot;https://example.com/huge-page&quot;, offset=204800)
-
-# Custom chunk size
-web_fetch(url=&quot;https://example.com/huge-page&quot;, offset=0, limit=50000)
+<p><strong>Benefits:</strong>
+- No content truncation
+- Can process file in chunks
+- Preserves exact formatting
+- Efficient memory usage</p>
+<h3 id="fetching-different-content-types">Fetching Different Content Types<a class="headerlink" href="#fetching-different-content-types" title="Permanent link">&para;</a></h3>
+<p><strong>HTML Pages:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript&quot;</span><span class="p">)</span>
+<span class="c1"># Returns cleaned text content</span>
 </code></pre></div>
 
-<hr />
+<p><strong>API Endpoints:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.example.com/data&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/api_response.json&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Raw Files:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://raw.githubusercontent.com/user/repo/main/README.md&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/readme.md&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Documentation:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://fastapi.tiangolo.com/tutorial/&quot;</span><span class="p">)</span>
+</code></pre></div>
+
 <h2 id="handling-large-pages">Handling Large Pages<a class="headerlink" href="#handling-large-pages" title="Permanent link">&para;</a></h2>
-<p>Large web pages require special handling to avoid context overflow.</p>
-<h3 id="strategy-1-save-and-read-selectively">Strategy 1: Save and Read Selectively<a class="headerlink" href="#strategy-1-save-and-read-selectively" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>1. Fetch URL with save_to_file parameter
-2. Read specific sections using read_file with offset/limit
-3. Search within saved file using grep
+<p>When dealing with large web pages, use a strategic approach:</p>
+<h3 id="strategy-1-search-first-fetch-later">Strategy 1: Search First, Fetch Later<a class="headerlink" href="#strategy-1-search-first-fetch-later" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the topic</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python decorator patterns&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Review snippets to find most relevant</span>
+<span class="c1"># 3. Fetch only the most promising URL</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/decorators.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Read specific sections of the saved file</span>
+<span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;/tmp/decorators.txt&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div>
 
-<p>This is ideal for documentation pages or API references where you only need
-specific sections.</p>
-<h3 id="strategy-2-paginate-through-content">Strategy 2: Paginate Through Content<a class="headerlink" href="#strategy-2-paginate-through-content" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>1. Fetch first chunk (default 200KB)
-2. Check if truncated is true
-3. Continue fetching with increasing offsets
-4. Stop when you find what you need
+<h3 id="strategy-2-fetch-to-file">Strategy 2: Fetch to File<a class="headerlink" href="#strategy-2-fetch-to-file" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Fetch large content to file</span>
+<span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.djangoproject.com/en/5.0/&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/django_docs.html&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Read relevant sections</span>
+<span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;/tmp/django_docs.html&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Useful when searching for specific information in a large page.</p>
 <h3 id="strategy-3-multiple-targeted-fetches">Strategy 3: Multiple Targeted Fetches<a class="headerlink" href="#strategy-3-multiple-targeted-fetches" title="Permanent link">&para;</a></h3>
-<p>If a page has anchor links or sections:</p>
-<div class="codehilite"><pre><span></span><code>Fetch https://docs.example.com/api#authentication
-Fetch https://docs.example.com/api#endpoints
+<p>Instead of fetching one large page:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Fetch specific sub-pages</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/intro&quot;</span><span class="p">)</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/api-reference&quot;</span><span class="p">)</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/examples&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Many documentation sites support fragment navigation.</p>
-<h3 id="warning-truncation-breaks-structured-data">Warning: Truncation Breaks Structured Data<a class="headerlink" href="#warning-truncation-breaks-structured-data" title="Permanent link">&para;</a></h3>
-<p>When content is truncated, JSON, XML, or other structured formats may break:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;users&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Charlie&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">&quot;ro</span>
-<span class="err">[...truncated...]</span>
-</code></pre></div>
-
-<p><strong>Workaround</strong>: Use <code>save_to_file</code> for any structured data you need to parse.</p>
-<hr />
-<h2 id="handling-redirects">Handling Redirects<a class="headerlink" href="#handling-redirects" title="Permanent link">&para;</a></h2>
-<p>When <code>web_fetch</code> encounters a redirect to a different host, it returns a
-message indicating the redirect URL. The assistant should then make a new
-request with the provided redirect URL.</p>
-<div class="codehilite"><pre><span></span><code>Original: https://short.link/abc123
-Redirect: https://actual-destination.com/full-path
-</code></pre></div>
-
-<p>The assistant handles this automatically in most cases.</p>
-<hr />
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="combine-search-and-fetch">Combine Search and Fetch<a class="headerlink" href="#combine-search-and-fetch" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>1. Search: &quot;Pydantic v2 migration guide&quot;
-2. Review search results
-3. Fetch the most relevant URL for details
+<h3 id="1-search-before-fetching">1. Search Before Fetching<a class="headerlink" href="#1-search-before-fetching" title="Permanent link">&para;</a></h3>
+<p>Don't fetch URLs blindly. Use search to find the right content first:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Good: Search first to find relevant content</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;FastAPI middleware authentication&quot;</span><span class="p">)</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">])</span>
+
+<span class="c1"># Avoid: Fetching without knowing if it&#39;s relevant</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/&quot;</span><span class="p">)</span>  <span class="c1"># Might be huge and irrelevant</span>
 </code></pre></div>
 
-<h3 id="verify-information-currency">Verify Information Currency<a class="headerlink" href="#verify-information-currency" title="Permanent link">&para;</a></h3>
-<p>Web search results include dates when available. For rapidly evolving
-technologies, prefer recent sources:</p>
-<div class="codehilite"><pre><span></span><code>Search: &quot;Python 3.12 new features 2024&quot;
+<h3 id="2-use-appropriate-tools">2. Use Appropriate Tools<a class="headerlink" href="#2-use-appropriate-tools" title="Permanent link">&para;</a></h3>
+<p><strong>Use <code>web_search</code> when:</strong>
+- You need to find information but don't have a URL
+- You want multiple perspectives or sources
+- You're researching current events or trends
+- You need to verify information across sources</p>
+<p><strong>Use <code>web_fetch</code> when:</strong>
+- You have a specific URL to retrieve
+- You need the complete content of a page
+- You're accessing API endpoints
+- You need to download files or raw content</p>
+<h3 id="3-handle-failures-gracefully">3. Handle Failures Gracefully<a class="headerlink" href="#3-handle-failures-gracefully" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Web operations can fail due to network issues, timeouts, etc.</span>
+<span class="c1"># Always have a fallback strategy</span>
+
+<span class="c1"># Try fetching documentation</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.example.com/api&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># Fall back to search if fetch fails</span>
+    <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;example.com API documentation&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="use-official-sources-first">Use Official Sources First<a class="headerlink" href="#use-official-sources-first" title="Permanent link">&para;</a></h3>
-<p>When documentation exists, prefer official sources:</p>
-<div class="codehilite"><pre><span></span><code>Good: Fetch from docs.python.org
-Less ideal: Fetch from random blog posts
-</code></pre></div>
-
-<h3 id="cache-large-documentation-locally">Cache Large Documentation Locally<a class="headerlink" href="#cache-large-documentation-locally" title="Permanent link">&para;</a></h3>
-<p>For repeated reference to large docs:</p>
-<div class="codehilite"><pre><span></span><code>1. Fetch with save_to_file to ./docs/reference.md
-2. Read from local file for subsequent queries
-3. Refresh periodically as needed
-</code></pre></div>
-
-<h3 id="respect-rate-limits">Respect Rate Limits<a class="headerlink" href="#respect-rate-limits" title="Permanent link">&para;</a></h3>
-<p>Avoid rapid sequential fetches to the same domain. The assistant handles
-this automatically, but be aware that some sites may block aggressive access.</p>
-<hr />
+<h3 id="4-be-respectful">4. Be Respectful<a class="headerlink" href="#4-be-respectful" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Don't fetch the same URL repeatedly in a short time</li>
+<li>Use search when possible to minimize direct fetches</li>
+<li>Save large content to files to avoid re-fetching</li>
+</ul>
+<h3 id="5-verify-information">5. Verify Information<a class="headerlink" href="#5-verify-information" title="Permanent link">&para;</a></h3>
+<p>Web content can be outdated or incorrect:
+- Check publication dates in search results
+- Cross-reference information from multiple sources
+- Prefer official documentation over third-party sources</p>
 <h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-documentation-lookup">Exercise 1: Documentation Lookup<a class="headerlink" href="#exercise-1-documentation-lookup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Find the official documentation for Python&#39;s pathlib module
-and explain the difference between Path.resolve() and Path.absolute()
+<h3 id="exercise-1-research-a-library">Exercise 1: Research a Library<a class="headerlink" href="#exercise-1-research-a-library" title="Permanent link">&para;</a></h3>
+<p>Search for information about a Python library and fetch its documentation:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the library</span>
+<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;httpx Python async client tutorial&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Fetch the official documentation</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://www.python-httpx.org/&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Search for specific examples</span>
+<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;httpx async examples GitHub&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="exercise-2-error-research">Exercise 2: Error Research<a class="headerlink" href="#exercise-2-error-research" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Search for: &quot;TypeError: &#39;NoneType&#39; object is not subscriptable&quot;
-and summarize the common causes
+<h3 id="exercise-2-api-investigation">Exercise 2: API Investigation<a class="headerlink" href="#exercise-2-api-investigation" title="Permanent link">&para;</a></h3>
+<p>Research an API and fetch example responses:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for API documentation</span>
+<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;GitHub REST API repositories endpoint&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Fetch the API documentation</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.github.com/en/rest/repos/repos&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Fetch example data and save it</span>
+<span class="n">web_fetch</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.github.com/repos/python/cpython&quot;</span><span class="p">,</span>
+    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/github_api_example.json&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<h3 id="exercise-3-api-documentation">Exercise 3: API Documentation<a class="headerlink" href="#exercise-3-api-documentation" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Fetch the GitHub REST API documentation for creating issues
-and show me the required parameters
+<h3 id="exercise-3-troubleshooting">Exercise 3: Troubleshooting<a class="headerlink" href="#exercise-3-troubleshooting" title="Permanent link">&para;</a></h3>
+<p>Find solutions to a specific error:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the error message</span>
+<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python &#39;RuntimeError: Event loop is closed&#39; asyncio&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Fetch the most relevant Stack Overflow answer</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;&lt;most_relevant_stackoverflow_url&gt;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Search for related issues</span>
+<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;asyncio event loop best practices&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="exercise-4-large-page-handling">Exercise 4: Large Page Handling<a class="headerlink" href="#exercise-4-large-page-handling" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Fetch a large documentation page and save it locally,
-then search for specific sections within the saved file
-</code></pre></div>
-
-<h3 id="exercise-5-comparative-research">Exercise 5: Comparative Research<a class="headerlink" href="#exercise-5-comparative-research" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Search for comparisons between FastAPI and Flask,
-fetch two relevant articles, and summarize the key differences
-</code></pre></div>
-
-<hr />
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<h3 id="connection-errors">Connection Errors<a class="headerlink" href="#connection-errors" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Error</th>
-<th>Cause</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Connection timeout</td>
-<td>Server slow or unreachable</td>
-<td>Retry or try alternative URL</td>
-</tr>
-<tr>
-<td>Connection refused</td>
-<td>Server not accepting connections</td>
-<td>Check URL validity</td>
-</tr>
-<tr>
-<td>DNS resolution failed</td>
-<td>Domain doesn't exist</td>
-<td>Verify the domain name</td>
-</tr>
-</tbody>
-</table>
-<h3 id="http-errors">HTTP Errors<a class="headerlink" href="#http-errors" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>403 Forbidden</td>
-<td>Access denied</td>
-<td>Site may block automated access</td>
-</tr>
-<tr>
-<td>404 Not Found</td>
-<td>Page doesn't exist</td>
-<td>Verify URL or search for current location</td>
-</tr>
-<tr>
-<td>429 Too Many Requests</td>
-<td>Rate limited</td>
-<td>Wait and retry later</td>
-</tr>
-<tr>
-<td>500 Server Error</td>
-<td>Server problem</td>
-<td>Retry or find alternative source</td>
-</tr>
-</tbody>
-</table>
-<h3 id="content-issues">Content Issues<a class="headerlink" href="#content-issues" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Cause</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Empty response</td>
-<td>JavaScript-rendered content</td>
-<td>Content may require browser rendering</td>
-</tr>
-<tr>
-<td>Garbled text</td>
-<td>Encoding issues</td>
-<td>Usually handled automatically</td>
-</tr>
-<tr>
-<td>Incomplete data</td>
-<td>Truncation</td>
-<td>Use save_to_file for full content</td>
-</tr>
-</tbody>
-</table>
-<h3 id="blocked-access">Blocked Access<a class="headerlink" href="#blocked-access" title="Permanent link">&para;</a></h3>
-<p>Some sites block automated fetching:</p>
-<ul>
-<li><strong>Paywalled content</strong>: Requires authentication</li>
-<li><strong>Bot protection</strong>: Sites using Cloudflare or similar</li>
-<li><strong>Terms of service</strong>: Some sites prohibit scraping</li>
-</ul>
-<p>In these cases, try alternative sources or inform the user that direct access
-is unavailable.</p>
-<hr />
+<h3 id="failed-to-fetch-url">"Failed to fetch URL"<a class="headerlink" href="#failed-to-fetch-url" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Network issues, invalid URL, or server unavailable</p>
+<p><strong>Solution</strong>:
+- Verify the URL is correct and accessible
+- Check if the website is online
+- Try searching for the content instead
+- Wait and retry if it's a temporary issue</p>
+<h3 id="content-truncated-due-to-size">"Content truncated due to size"<a class="headerlink" href="#content-truncated-due-to-size" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Web page exceeds size limits</p>
+<p><strong>Solution</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Save to file instead</span>
+<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;&lt;large_url&gt;&quot;</span><span class="p">,</span> <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/content.txt&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="rate-limit-exceeded">"Rate limit exceeded"<a class="headerlink" href="#rate-limit-exceeded" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Too many requests in a short time</p>
+<p><strong>Solution</strong>:
+- Space out your requests
+- Use search results without fetching every URL
+- Cache previously fetched content</p>
+<h3 id="search-returned-no-results">"Search returned no results"<a class="headerlink" href="#search-returned-no-results" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Query too specific or obscure topic</p>
+<p><strong>Solution</strong>:
+- Broaden your search terms
+- Remove version numbers or very specific details
+- Try alternative phrasings
+- Check spelling</p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>Web tools provide powerful internet access capabilities:</p>
-<ul>
-<li><strong>web_search</strong>: Discover information and find relevant URLs</li>
-<li><strong>web_fetch</strong>: Retrieve content with size management options</li>
-</ul>
-<p>Key techniques:
-- Use <code>save_to_file</code> for large pages
-- Paginate with <code>offset</code>/<code>limit</code> for huge content
-- Combine search and fetch for effective research
-- Prefer official documentation sources</p>
-<p>These tools transform your assistant into a research partner capable of
-finding, retrieving, and synthesizing information from across the web.</p>
+<p>Web tools are powerful for:
+- <strong>Research</strong>: Finding current information and best practices
+- <strong>Documentation</strong>: Accessing official docs and API references
+- <strong>Troubleshooting</strong>: Finding solutions to errors and issues
+- <strong>Data Collection</strong>: Retrieving content from web sources</p>
+<p><strong>Key Points:</strong>
+- Use <code>web_search</code> to find information, <code>web_fetch</code> to retrieve specific content
+- Save large content to files to avoid truncation
+- Search first, then fetch to be efficient
+- Handle failures gracefully and verify information
+- Be respectful with request frequency</p>
+<p>Web tools bridge the gap between local knowledge and the vast resources available online, enabling agents to access the most current and comprehensive information available.</p>
               
             </div>
           </div><footer>

@@ -6,65 +6,67 @@ title: Tools Reference
 
 # Tools Reference
 
-Tools are the primary way Amplifier agents interact with the world. Each tool provides a specific capability—from reading files to executing commands to searching the web. Understanding tools is essential for building effective agents.
-
-This section covers all built-in tools, their parameters, and best practices for tool usage.
+Tools are the fundamental building blocks that give Amplifier its capabilities. Each tool provides a specific function—from file operations to web searches—that agents can invoke to accomplish tasks. This section covers all available tools, their parameters, and best practices for effective use.
 
 ## Section Contents
 
 | Page | Description |
 |------|-------------|
-| [File Operations](./file-operations.md) | Reading, writing, and editing files |
-| [Search Tools](./search-tools.md) | Grep, glob, and content discovery |
-| [Shell Execution](./shell-execution.md) | Running bash commands safely |
-| [Web Tools](./web-tools.md) | Fetching URLs and web search |
+| [File Operations](./file-operations.md) | Read, write, and edit files with precision |
+| [Search Tools](./search-tools.md) | Grep and glob for finding content and files |
+| [Bash Execution](./bash-execution.md) | Run shell commands safely |
+| [Web Tools](./web-tools.md) | Search and fetch content from the web |
 | [LSP Integration](./lsp-integration.md) | Language Server Protocol for code intelligence |
-| [Task Delegation](./task-delegation.md) | Spawning sub-agents for complex work |
-| [Todo Management](./todo-management.md) | Tracking multi-step tasks |
-| [Custom Tools](./custom-tools.md) | Creating your own tools |
+| [Task Delegation](./task-delegation.md) | Spawn agents for complex operations |
+| [Todo Management](./todo-management.md) | Track multi-step task progress |
+| [Skills Loader](./skills-loader.md) | Load domain knowledge on demand |
 
 ## Quick Tips
 
-- **Prefer specialized tools over bash** — Use `read_file` instead of `cat`, `edit_file` instead of `sed`
-- **Parallel calls** — Independent tool calls can be made simultaneously for efficiency
-- **Error handling** — Tools return structured errors; always check for failure conditions
-- **Context limits** — Large file reads are automatically truncated; use pagination for big files
-- **LSP vs grep** — Use LSP for semantic code understanding, grep for text pattern matching
+- **Prefer specialized tools over bash** - Use `read_file` instead of `cat`, `edit_file` instead of `sed`
+- **Parallel execution** - Independent tool calls can run simultaneously for speed
+- **Check before writing** - Always read a file before editing to understand context
+- **Use glob for discovery** - Find files by pattern before targeted operations
+- **Grep for content** - Search inside files with regex patterns
 
 ## Tool Categories
 
-| Category | Tools | Use Case |
-|----------|-------|----------|
-| File I/O | read_file, write_file, edit_file | Direct file manipulation |
-| Search | grep, glob | Finding files and content |
-| Execution | bash | System commands and scripts |
-| Web | web_fetch, web_search | External information |
-| Code Intel | LSP operations | Semantic code navigation |
-| Orchestration | task, todo | Multi-step coordination |
+### File System
+Core operations for interacting with the local filesystem. These are your most frequently used tools.
+
+### Search & Discovery
+Find files and content across your codebase quickly and efficiently.
+
+### External Resources
+Connect to the web, APIs, and external services when local context isn't enough.
+
+### Code Intelligence
+Semantic understanding of code through LSP—definitions, references, and type information.
+
+### Orchestration
+Manage complex workflows with task delegation and progress tracking.
 
 ## Where to Start
 
-**New to Amplifier?** Begin with [File Operations](./file-operations.md) — it's the most commonly used tool and establishes patterns you'll use everywhere.
+**New to Amplifier?** Begin with [File Operations](./file-operations.md) to understand the most common tool patterns.
 
-**Building agents?** Jump to [Task Delegation](./task-delegation.md) to understand how agents can spawn sub-agents for complex workflows.
+**Building agents?** Jump to [Task Delegation](./task-delegation.md) to learn how agents spawn sub-agents.
 
-**Coming from other AI tools?** Check [Shell Execution](./shell-execution.md) to understand Amplifier's safety guardrails and execution model.
+**Searching code?** See [Search Tools](./search-tools.md) for grep vs glob guidance.
 
 ## Common Patterns
 
 ```yaml
-# Reading before editing (required pattern)
-1. read_file → understand current content
+# Read before edit
+1. read_file → understand content
 2. edit_file → make precise changes
 
-# Search then navigate
-1. grep → find relevant files
-2. read_file → examine matches
-3. LSP → understand code structure
+# Find then act
+1. glob → locate files
+2. grep → find specific content
+3. read_file → examine matches
 ```
 
-## Related Sections
+## Next Steps
 
-- [Concepts: Tool Architecture](../concepts/tool-architecture.md)
-- [Advanced: Custom Tool Development](../advanced/custom-tools.md)
-- [Bundles: Tool Bundles](../bundles/tool-bundles.md)
+After mastering tools, explore [Concepts](../concepts/index.md) to understand how tools fit into the larger architecture.

@@ -94,39 +94,33 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#interactive-prompt-format">Interactive Prompt Format</a>
+    <li class="toctree-l3"><a class="reference internal" href="#conversation-format">Conversation Format</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tool-call-format">Tool Call Format</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#background-process-format">Background Process Format</a>
+    <li class="toctree-l3"><a class="reference internal" href="#direct-syntax">Direct Syntax</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-commands">Common Commands</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#build-commands">Build Commands</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#test-commands">Test Commands</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#git-commands">Git Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#build-and-test">Build and Test</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#package-management">Package Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#version-control">Version Control</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#container-operations">Container Operations</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#github-cli">GitHub CLI</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#system-utilities">System Utilities</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#background-processes">Background Processes</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#development-servers">Development Servers</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#file-watchers">File Watchers</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#what-happens-with-background-processes">What Happens with Background Processes</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#when-to-use-background-mode">When to Use Background Mode</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#managing-background-processes">Managing Background Processes</a>
     </li>
         </ul>
     </li>
@@ -138,35 +132,35 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#output-truncation">Output Truncation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#timeouts">Timeouts</a>
+    <li class="toctree-l3"><a class="reference internal" href="#structured-data-warning">Structured Data Warning</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-use-absolute-paths">1. Use Absolute Paths</a>
+    <li class="toctree-l3"><a class="reference internal" href="#path-handling">Path Handling</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-quote-paths-with-spaces">2. Quote Paths with Spaces</a>
+    <li class="toctree-l3"><a class="reference internal" href="#command-chaining">Command Chaining</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-chain-dependent-commands">3. Chain Dependent Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-prefer-specialized-tools">4. Prefer Specialized Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#working-directory-context">Working Directory Context</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-capture-important-output">5. Capture Important Output</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#6-check-exit-status">6. Check Exit Status</a>
+    <li class="toctree-l3"><a class="reference internal" href="#prefer-specialized-tools">Prefer Specialized Tools</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-basic-commands">Exercise 1: Basic Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-run-tests">1. Run Tests</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-project-setup">Exercise 2: Project Setup</a>
+    <li class="toctree-l3"><a class="reference internal" href="#2-check-git-status">2. Check Git Status</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-background-server">Exercise 3: Background Server</a>
+    <li class="toctree-l3"><a class="reference internal" href="#3-install-dependencies">3. Install Dependencies</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-build-and-test">Exercise 4: Build and Test</a>
+    <li class="toctree-l3"><a class="reference internal" href="#4-start-development-server">4. Start Development Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-build-project">5. Build Project</a>
     </li>
         </ul>
     </li>
@@ -176,19 +170,29 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#permission-denied">Permission Denied</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#no-such-file-or-directory">No Such File or Directory</a>
+    <li class="toctree-l3"><a class="reference internal" href="#timeout-issues">Timeout Issues</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#interactive-command-fails">Interactive Command Fails</a>
+    <li class="toctree-l3"><a class="reference internal" href="#truncated-output">Truncated Output</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#output-too-large">Output Too Large</a>
+    <li class="toctree-l3"><a class="reference internal" href="#working-directory-confusion">Working Directory Confusion</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#timeout-exceeded">Timeout Exceeded</a>
+    <li class="toctree-l3"><a class="reference internal" href="#interactive-command-hangs">Interactive Command Hangs</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#blocked-command">Blocked Command</a>
+    <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-patterns">Advanced Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-line-commands">Multi-line Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conditional-logic">Conditional Logic</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#output-processing">Output Processing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#variable-substitution">Variable Substitution</a>
+    </li>
+        </ul>
     </li>
     </ul>
                   </li>
@@ -278,7 +282,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="bash-tool">Bash Tool<a class="headerlink" href="#bash-tool" title="Permanent link">&para;</a></h1>
-<p>The Bash tool provides direct shell command execution, giving you access to your system's full command-line capabilities. This is your gateway to build systems, package managers, version control, and any other terminal operation. While specialized tools exist for many tasks, bash serves as the universal fallback when you need raw shell power.</p>
+<p>The Bash Tool provides low-level shell command execution for build operations, testing, package management, version control, and system utilities. While specialized tools exist for many operations, bash serves as a powerful fallback for commands that don't have dedicated interfaces.</p>
 <h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -296,427 +300,381 @@
 </tr>
 <tr>
 <td>Background</td>
-<td>Start long-running process</td>
+<td>Long-running process (returns immediately)</td>
 <td><code>npm run dev</code></td>
-</tr>
-<tr>
-<td>Chain commands</td>
-<td>Run dependent operations</td>
-<td><code>mkdir build &amp;&amp; cd build &amp;&amp; cmake ..</code></td>
-</tr>
-<tr>
-<td>Pipeline</td>
-<td>Process output through filters</td>
-<td><code>cat log.txt \| grep ERROR</code></td>
-</tr>
-<tr>
-<td>Redirect</td>
-<td>Save output to file</td>
-<td><code>npm test &gt; results.txt 2&gt;&amp;1</code></td>
 </tr>
 </tbody>
 </table>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
-<h3 id="interactive-prompt-format">Interactive Prompt Format<a class="headerlink" href="#interactive-prompt-format" title="Permanent link">&para;</a></h3>
-<p>Using the <code>&gt;</code> prompt in conversation:</p>
-<div class="codehilite"><pre><span></span><code>&gt; pytest tests/unit/
+<h3 id="conversation-format">Conversation Format<a class="headerlink" href="#conversation-format" title="Permanent link">&para;</a></h3>
+<p>When you ask Amplifier to run commands, it uses the bash tool behind the scenes:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Run pytest tests/test_auth.py
+
+[Tool: bash]
+Command: pytest tests/test_auth.py
+Output: ===== test session starts =====
+        test_auth.py::test_login PASSED
+        ===== 1 passed in 0.23s =====
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>&gt; npm install express
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>&gt; git status
-</code></pre></div>
-
-<h3 id="tool-call-format">Tool Call Format<a class="headerlink" href="#tool-call-format" title="Permanent link">&para;</a></h3>
-<p>How Amplifier executes bash internally:</p>
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: pytest tests/unit/
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: npm install express
-</code></pre></div>
-
-<h3 id="background-process-format">Background Process Format<a class="headerlink" href="#background-process-format" title="Permanent link">&para;</a></h3>
-<p>For long-running processes that shouldn't block:</p>
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: npm run dev
-run_in_background: true
+<h3 id="direct-syntax">Direct Syntax<a class="headerlink" href="#direct-syntax" title="Permanent link">&para;</a></h3>
+<p>The tool accepts these parameters:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytest tests/&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;run_in_background&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
-<h3 id="build-commands">Build Commands<a class="headerlink" href="#build-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Python</span>
-&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-&gt;<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>build
-&gt;<span class="w"> </span>poetry<span class="w"> </span>build
+<h3 id="build-and-test">Build and Test<a class="headerlink" href="#build-and-test" title="Permanent link">&para;</a></h3>
+<p>Execute test runners and build tools:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Run the test suite
 
-<span class="c1"># Node.js</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span>install
-&gt;<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
-&gt;<span class="w"> </span>yarn<span class="w"> </span>build
-
-<span class="c1"># Rust</span>
-&gt;<span class="w"> </span>cargo<span class="w"> </span>build
-&gt;<span class="w"> </span>cargo<span class="w"> </span>build<span class="w"> </span>--release
-
-<span class="c1"># Go</span>
-&gt;<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>./...
-&gt;<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>myapp<span class="w"> </span>main.go
-
-<span class="c1"># Make</span>
-&gt;<span class="w"> </span>make
-&gt;<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>all
-</code></pre></div>
-
-<h3 id="test-commands">Test Commands<a class="headerlink" href="#test-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Python</span>
-&gt;<span class="w"> </span>pytest
-&gt;<span class="w"> </span>pytest<span class="w"> </span>tests/unit/<span class="w"> </span>-v
-&gt;<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>src<span class="w"> </span>tests/
-&gt;<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover
-
-<span class="c1"># Node.js</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>test:unit
-&gt;<span class="w"> </span>jest<span class="w"> </span>--coverage
-
-<span class="c1"># Rust</span>
-&gt;<span class="w"> </span>cargo<span class="w"> </span><span class="nb">test</span>
-&gt;<span class="w"> </span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--<span class="w"> </span>--nocapture
-
-<span class="c1"># Go</span>
-&gt;<span class="w"> </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./...
-&gt;<span class="w"> </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-v<span class="w"> </span>-cover<span class="w"> </span>./...
-</code></pre></div>
-
-<h3 id="git-commands">Git Commands<a class="headerlink" href="#git-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Status and info</span>
-&gt;<span class="w"> </span>git<span class="w"> </span>status
-&gt;<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-10
-&gt;<span class="w"> </span>git<span class="w"> </span>diff
-&gt;<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-a
-
-<span class="c1"># Staging and commits</span>
-&gt;<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
-&gt;<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fix authentication bug&quot;</span>
-&gt;<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-
-<span class="c1"># Branching</span>
-&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/new-login
-&gt;<span class="w"> </span>git<span class="w"> </span>merge<span class="w"> </span>develop
-&gt;<span class="w"> </span>git<span class="w"> </span>rebase<span class="w"> </span>main
+pytest tests/ --verbose --cov
+cargo test --all
+npm test
+make test
+go test ./...
+mvn test
 </code></pre></div>
 
 <h3 id="package-management">Package Management<a class="headerlink" href="#package-management" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Python (pip)</span>
-&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>requests
-&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-&gt;<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+<p>Install and manage dependencies:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Install the requests package
 
-<span class="c1"># Python (poetry)</span>
-&gt;<span class="w"> </span>poetry<span class="w"> </span>add<span class="w"> </span>pandas
-&gt;<span class="w"> </span>poetry<span class="w"> </span>install
-&gt;<span class="w"> </span>poetry<span class="w"> </span>update
+pip install requests
+npm install lodash
+cargo add serde
+gem install rails
+brew install ripgrep
+apt-get install curl
+</code></pre></div>
 
-<span class="c1"># Node.js (npm)</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>lodash
-&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>jest
-&gt;<span class="w"> </span>npm<span class="w"> </span>update
+<h3 id="version-control">Version Control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
+<p>Git operations for tracking changes:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Show git status
 
-<span class="c1"># Node.js (yarn)</span>
-&gt;<span class="w"> </span>yarn<span class="w"> </span>add<span class="w"> </span>axios
-&gt;<span class="w"> </span>yarn<span class="w"> </span>add<span class="w"> </span>-D<span class="w"> </span>typescript
-
-<span class="c1"># System (apt)</span>
-&gt;<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-&gt;<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>jq
+git status
+git diff src/main.py
+git log --oneline -10
+git branch -a
+git add .
+git commit -m &quot;feat: add authentication&quot;
+git push origin main
 </code></pre></div>
 
 <h3 id="container-operations">Container Operations<a class="headerlink" href="#container-operations" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Docker</span>
-&gt;<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp<span class="w"> </span>.
-&gt;<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>myapp
-&gt;<span class="w"> </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
-&gt;<span class="w"> </span>docker<span class="w"> </span>ps
-&gt;<span class="w"> </span>docker<span class="w"> </span>logs<span class="w"> </span>container_name
+<p>Work with Docker and Kubernetes:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Build the docker image
 
-<span class="c1"># Kubernetes</span>
-&gt;<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
-&gt;<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>deployment.yaml
-&gt;<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>pod-name
+docker build -t myapp:latest .
+docker ps
+docker logs container-name
+kubectl get pods
+kubectl logs pod-name
+podman run -d nginx
 </code></pre></div>
 
 <h3 id="github-cli">GitHub CLI<a class="headerlink" href="#github-cli" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Pull requests</span>
-&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Add feature&quot;</span><span class="w"> </span>--body<span class="w"> </span><span class="s2">&quot;Description&quot;</span>
-&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>list
-&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span><span class="m">123</span>
-&gt;<span class="w"> </span>gh<span class="w"> </span>pr<span class="w"> </span>merge<span class="w"> </span><span class="m">123</span>
+<p>Interact with GitHub repositories:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Create a pull request
 
-<span class="c1"># Issues</span>
-&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>create<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Bug report&quot;</span>
-&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>list<span class="w"> </span>--state<span class="w"> </span>open
-&gt;<span class="w"> </span>gh<span class="w"> </span>issue<span class="w"> </span>close<span class="w"> </span><span class="m">42</span>
+gh pr create --title &quot;Fix bug&quot; --body &quot;Details&quot;
+gh issue list --label bug
+gh repo view
+gh workflow run tests.yml
+</code></pre></div>
+
+<h3 id="system-utilities">System Utilities<a class="headerlink" href="#system-utilities" title="Permanent link">&para;</a></h3>
+<p>File operations and system commands:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Find all Python files
+
+find . -name &quot;*.py&quot;
+ls -la src/
+cat config.json
+wc -l src/*.py
+df -h
+ps aux | grep python
 </code></pre></div>
 
 <h2 id="background-processes">Background Processes<a class="headerlink" href="#background-processes" title="Permanent link">&para;</a></h2>
-<p>Use <code>run_in_background: true</code> for processes that run continuously:</p>
-<h3 id="development-servers">Development Servers<a class="headerlink" href="#development-servers" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: npm run dev
-run_in_background: true
+<p>Use <code>run_in_background: true</code> for long-running processes that shouldn't block:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Start the development server
+
+[Tool: bash]
+{
+  &quot;command&quot;: &quot;npm run dev&quot;,
+  &quot;run_in_background&quot;: true
+}
+
+Returns immediately with PID: 12345
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: python -m http.server 8000
-run_in_background: true
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: cargo watch -x run
-run_in_background: true
-</code></pre></div>
-
-<h3 id="file-watchers">File Watchers<a class="headerlink" href="#file-watchers" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: npm run watch
-run_in_background: true
-</code></pre></div>
-
-<h3 id="what-happens-with-background-processes">What Happens with Background Processes<a class="headerlink" href="#what-happens-with-background-processes" title="Permanent link">&para;</a></h3>
-<ol>
-<li>The command starts in a separate process</li>
-<li>Amplifier returns immediately with the process ID (PID)</li>
-<li>The process continues running independently</li>
-<li>Output is not captured in the response</li>
-</ol>
 <h3 id="when-to-use-background-mode">When to Use Background Mode<a class="headerlink" href="#when-to-use-background-mode" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Use Background?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Dev server (<code>npm run dev</code>)</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>File watcher</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Running tests</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Building project</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Git operations</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Installing packages</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Use background mode for:</strong>
+- Development servers (<code>npm run dev</code>, <code>python manage.py runserver</code>)
+- File watchers (<code>npm run watch</code>, <code>cargo watch</code>)
+- Database servers (<code>mongod</code>, <code>redis-server</code>)
+- Any process that runs continuously</p>
+<p><strong>Don't use background mode for:</strong>
+- Quick commands that finish in seconds
+- Commands where you need to see the full output
+- Build or test commands that should block</p>
+<h3 id="managing-background-processes">Managing Background Processes<a class="headerlink" href="#managing-background-processes" title="Permanent link">&para;</a></h3>
+<p>Once started, background processes run independently:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Start the dev server
+npm run dev  # Started in background as PID 12345
+
+&gt; Kill the process later
+kill 12345
+# or
+pkill -f &quot;npm run dev&quot;
+</code></pre></div>
+
 <h2 id="safety-features">Safety Features<a class="headerlink" href="#safety-features" title="Permanent link">&para;</a></h2>
 <h3 id="blocked-commands">Blocked Commands<a class="headerlink" href="#blocked-commands" title="Permanent link">&para;</a></h3>
-<p>Dangerous commands are automatically blocked to prevent accidents:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># These will be rejected:</span>
-&gt;<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/
-&gt;<span class="w"> </span>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/*
-&gt;<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sda
-&gt;<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/sda1
+<p>Amplifier blocks destructive operations to protect your system:</p>
+<div class="codehilite"><pre><span></span><code>❌ BLOCKED:
+rm -rf /
+sudo rm -rf /
+dd if=/dev/zero of=/dev/sda
+mkfs.ext4 /dev/sda1
+:(){ :|:&amp; };:  # Fork bomb
 </code></pre></div>
 
 <h3 id="interactive-commands-not-supported">Interactive Commands Not Supported<a class="headerlink" href="#interactive-commands-not-supported" title="Permanent link">&para;</a></h3>
 <p>Commands requiring user input will fail:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># These won&#39;t work:</span>
-&gt;<span class="w"> </span>vim<span class="w"> </span>file.txt<span class="w">          </span><span class="c1"># Requires interactive editor</span>
-&gt;<span class="w"> </span>ssh<span class="w"> </span>user@host<span class="w">         </span><span class="c1"># May require password input</span>
-&gt;<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w">      </span><span class="c1"># Prompts for password</span>
-&gt;<span class="w"> </span>python<span class="w">                </span><span class="c1"># Interactive REPL</span>
+<div class="codehilite"><pre><span></span><code>❌ NOT SUPPORTED:
+vim file.txt
+nano config.ini
+python  # Interactive REPL
+npm init  # Without -y flag
+sudo apt install package  # Without -y flag
+</code></pre></div>
+
+<p><strong>Workaround:</strong> Use non-interactive flags:</p>
+<div class="codehilite"><pre><span></span><code>✅ WORKS:
+npm init -y
+sudo apt install -y package
+python script.py  # Non-interactive script
 </code></pre></div>
 
 <h3 id="output-truncation">Output Truncation<a class="headerlink" href="#output-truncation" title="Permanent link">&para;</a></h3>
 <p>Long outputs are automatically truncated to prevent context overflow:</p>
-<ul>
-<li>First portion of output is shown</li>
-<li><code>[...truncated...]</code> marker appears</li>
-<li>Final portion of output is shown</li>
-<li>Byte counts indicate total size</li>
-</ul>
-<p><strong>Warning:</strong> Truncation may break JSON, XML, or other structured output. For large structured data:</p>
+<div class="codehilite"><pre><span></span><code>Command: find / -name &quot;*.log&quot;
+Output: /var/log/syslog
+        /var/log/auth.log
+        ... [truncated 1847 lines] ...
+        /home/user/app.log
+
+[Truncated: 2000/5234 lines, 45KB shown, 180KB total]
+</code></pre></div>
+
+<p><strong>Workaround for large outputs:</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># Redirect to file instead</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--json<span class="w"> </span>&gt;<span class="w"> </span>test-results.json
+find<span class="w"> </span>/<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.log&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>results.txt
 
-<span class="c1"># Then read portions as needed using read_file</span>
+<span class="c1"># Then read the file in chunks</span>
+head<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>results.txt
+tail<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>results.txt
 </code></pre></div>
 
-<h3 id="timeouts">Timeouts<a class="headerlink" href="#timeouts" title="Permanent link">&para;</a></h3>
-<p>Commands have execution time limits. Long-running commands should use background mode or be broken into smaller operations.</p>
+<h3 id="structured-data-warning">Structured Data Warning<a class="headerlink" href="#structured-data-warning" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>JSON/XML truncation breaks parsing:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ❌ Bad: Large JSON may get truncated mid-structure</span>
+curl<span class="w"> </span>https://api.example.com/large-dataset
+
+<span class="c1"># ✅ Good: Save to file first</span>
+curl<span class="w"> </span>https://api.example.com/large-dataset<span class="w"> </span>&gt;<span class="w"> </span>data.json
+<span class="c1"># Then read specific parts</span>
+</code></pre></div>
+
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="1-use-absolute-paths">1. Use Absolute Paths<a class="headerlink" href="#1-use-absolute-paths" title="Permanent link">&para;</a></h3>
-<p>Maintain clear working directory context:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Preferred</span>
-&gt;<span class="w"> </span>pytest<span class="w"> </span>/home/user/project/tests/
+<h3 id="path-handling">Path Handling<a class="headerlink" href="#path-handling" title="Permanent link">&para;</a></h3>
+<p>Quote paths with spaces and prefer absolute paths:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ✅ Good</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;/path/with spaces/project&quot;</span>
+pytest<span class="w"> </span>/home/user/project/tests/
 
-<span class="c1"># Instead of</span>
-&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/home/user/project<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pytest<span class="w"> </span>tests/
+<span class="c1"># ❌ Problematic</span>
+<span class="nb">cd</span><span class="w"> </span>/path/with<span class="w"> </span>spaces/project<span class="w">  </span><span class="c1"># Breaks on spaces</span>
+pytest<span class="w"> </span>../tests/<span class="w">  </span><span class="c1"># Relative paths lose context</span>
 </code></pre></div>
 
-<h3 id="2-quote-paths-with-spaces">2. Quote Paths with Spaces<a class="headerlink" href="#2-quote-paths-with-spaces" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Correct</span>
-&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;/path/with spaces/project&quot;</span>
+<h3 id="command-chaining">Command Chaining<a class="headerlink" href="#command-chaining" title="Permanent link">&para;</a></h3>
+<p>Chain dependent commands with <code>&amp;&amp;</code> to stop on failure:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ✅ Stops if mkdir fails</span>
+mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cmake<span class="w"> </span>..
 
-<span class="c1"># Will fail</span>
-&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/path/with<span class="w"> </span>spaces/project
+<span class="c1"># ❌ Continues even if mkdir fails</span>
+mkdir<span class="w"> </span>build<span class="p">;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="p">;</span><span class="w"> </span>cmake<span class="w"> </span>..
 </code></pre></div>
 
-<h3 id="3-chain-dependent-commands">3. Chain Dependent Commands<a class="headerlink" href="#3-chain-dependent-commands" title="Permanent link">&para;</a></h3>
-<p>Use <code>&amp;&amp;</code> to run commands only if previous succeeds:</p>
-<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<p>Check command exit codes for critical operations:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ✅ Explicit error handling</span>
+npm<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tests failed with exit code </span><span class="nv">$?</span><span class="s2">&quot;</span>
+
+<span class="c1"># ✅ Conditional execution</span>
+<span class="k">if</span><span class="w"> </span>pytest<span class="w"> </span>tests/<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tests passed, deploying...&quot;</span>
+<span class="w">    </span>./deploy.sh
+<span class="k">fi</span>
 </code></pre></div>
 
-<h3 id="4-prefer-specialized-tools">4. Prefer Specialized Tools<a class="headerlink" href="#4-prefer-specialized-tools" title="Permanent link">&para;</a></h3>
-<p>Use bash as a fallback, not first choice:</p>
-<table>
-<thead>
-<tr>
-<th>Task</th>
-<th>Use Instead</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Read file</td>
-<td><code>read_file</code> tool</td>
-</tr>
-<tr>
-<td>Edit file</td>
-<td><code>edit_file</code> tool</td>
-</tr>
-<tr>
-<td>Find files</td>
-<td><code>glob</code> tool</td>
-</tr>
-<tr>
-<td>Search content</td>
-<td><code>grep</code> tool</td>
-</tr>
-</tbody>
-</table>
-<h3 id="5-capture-important-output">5. Capture Important Output<a class="headerlink" href="#5-capture-important-output" title="Permanent link">&para;</a></h3>
-<p>For output you need to process later:</p>
-<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span><span class="nb">command</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<h3 id="working-directory-context">Working Directory Context<a class="headerlink" href="#working-directory-context" title="Permanent link">&para;</a></h3>
+<p>Remember that each bash invocation maintains context:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Create directory and enter it
+mkdir myproject &amp;&amp; cd myproject
+
+&gt; Next command runs in myproject/
+pwd  # Shows: /home/user/myproject
 </code></pre></div>
 
-<h3 id="6-check-exit-status">6. Check Exit Status<a class="headerlink" href="#6-check-exit-status" title="Permanent link">&para;</a></h3>
-<p>Chain with <code>&amp;&amp;</code> to stop on failure:</p>
-<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+<h3 id="prefer-specialized-tools">Prefer Specialized Tools<a class="headerlink" href="#prefer-specialized-tools" title="Permanent link">&para;</a></h3>
+<p>Before using bash, check if a specialized tool exists:</p>
+<div class="codehilite"><pre><span></span><code># ❌ Avoid: Manual file operations
+bash: cat file.py
+
+# ✅ Better: Use read_file
+[Tool: read_file]
+
+# ❌ Avoid: Manual search
+bash: find . -name &quot;*.py&quot; | xargs grep &quot;class User&quot;
+
+# ✅ Better: Use grep tool
+[Tool: grep]
+pattern: &quot;class User&quot;
+type: &quot;py&quot;
 </code></pre></div>
 
 <h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-basic-commands">Exercise 1: Basic Commands<a class="headerlink" href="#exercise-1-basic-commands" title="Permanent link">&para;</a></h3>
-<p>Try running these commands:</p>
-<div class="codehilite"><pre><span></span><code>&gt; echo &quot;Hello from bash&quot;
-&gt; pwd
-&gt; ls -la
-&gt; date
+<p>Practice these common scenarios:</p>
+<h3 id="1-run-tests">1. Run Tests<a class="headerlink" href="#1-run-tests" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Run my Python tests with coverage
+
+Result: Executes pytest with coverage report
 </code></pre></div>
 
-<h3 id="exercise-2-project-setup">Exercise 2: Project Setup<a class="headerlink" href="#exercise-2-project-setup" title="Permanent link">&para;</a></h3>
-<p>Initialize a new project:</p>
-<div class="codehilite"><pre><span></span><code>&gt; mkdir -p /tmp/demo-project
-&gt; cd /tmp/demo-project &amp;&amp; git init
-&gt; echo &quot;# Demo Project&quot; &gt; README.md
-&gt; git add . &amp;&amp; git commit -m &quot;Initial commit&quot;
+<h3 id="2-check-git-status">2. Check Git Status<a class="headerlink" href="#2-check-git-status" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Show me what files have changed
+
+Result: Displays git status and diff
 </code></pre></div>
 
-<h3 id="exercise-3-background-server">Exercise 3: Background Server<a class="headerlink" href="#exercise-3-background-server" title="Permanent link">&para;</a></h3>
-<p>Start a simple server in background:</p>
-<div class="codehilite"><pre><span></span><code>[Tool: bash]
-command: cd /tmp/demo-project &amp;&amp; python -m http.server 8080
-run_in_background: true
+<h3 id="3-install-dependencies">3. Install Dependencies<a class="headerlink" href="#3-install-dependencies" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Install packages from requirements.txt
+
+Result: Runs pip install -r requirements.txt
 </code></pre></div>
 
-<p>Then verify it's running:</p>
-<div class="codehilite"><pre><span></span><code>&gt; curl http://localhost:8080
+<h3 id="4-start-development-server">4. Start Development Server<a class="headerlink" href="#4-start-development-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Start the Next.js dev server
+
+Result: Launches npm run dev in background
 </code></pre></div>
 
-<h3 id="exercise-4-build-and-test">Exercise 4: Build and Test<a class="headerlink" href="#exercise-4-build-and-test" title="Permanent link">&para;</a></h3>
-<p>Run a typical development workflow:</p>
-<div class="codehilite"><pre><span></span><code>&gt; pip install pytest
-&gt; pytest --version
+<h3 id="5-build-project">5. Build Project<a class="headerlink" href="#5-build-project" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Build the Rust project in release mode
+
+Result: Runs cargo build --release
 </code></pre></div>
 
 <h2 id="errors-and-troubleshooting">Errors and Troubleshooting<a class="headerlink" href="#errors-and-troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="command-not-found">Command Not Found<a class="headerlink" href="#command-not-found" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>bash: npm: command not found
+<div class="codehilite"><pre><span></span><code>Error: bash: pytest: command not found
+
+Solution:
+1. Verify installation: which pytest
+2. Install if missing: pip install pytest
+3. Check PATH: echo $PATH
+4. Use full path: /usr/local/bin/pytest
 </code></pre></div>
 
-<p><strong>Solution:</strong> The command isn't in PATH. Install the required tool or use full path.</p>
 <h3 id="permission-denied">Permission Denied<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>bash: ./script.sh: Permission denied
+<div class="codehilite"><pre><span></span><code>Error: Permission denied: ./script.sh
+
+Solution:
+1. Make executable: chmod +x script.sh
+2. Or run with interpreter: bash script.sh
 </code></pre></div>
 
-<p><strong>Solution:</strong> Make the script executable:</p>
-<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./script.sh
+<h3 id="timeout-issues">Timeout Issues<a class="headerlink" href="#timeout-issues" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Command timed out after 300s
+
+Solution:
+1. Use background mode for long processes
+2. Break into smaller commands
+3. Add progress indicators to scripts
 </code></pre></div>
 
-<h3 id="no-such-file-or-directory">No Such File or Directory<a class="headerlink" href="#no-such-file-or-directory" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>bash: cd: /nonexistent/path: No such file or directory
+<h3 id="truncated-output">Truncated Output<a class="headerlink" href="#truncated-output" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Warning: Output truncated [showing 2000/8000 lines]
+
+Solution:
+1. Redirect to file: command &gt; output.txt
+2. Filter output: command | grep &quot;ERROR&quot;
+3. Use specialized tools for structured data
 </code></pre></div>
 
-<p><strong>Solution:</strong> Verify the path exists. Use <code>ls</code> or <code>glob</code> to find correct path.</p>
-<h3 id="interactive-command-fails">Interactive Command Fails<a class="headerlink" href="#interactive-command-fails" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Error: Command requires interactive input
+<h3 id="working-directory-confusion">Working Directory Confusion<a class="headerlink" href="#working-directory-confusion" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: tests/ directory not found
+
+Solution:
+1. Check current directory: pwd
+2. Use absolute paths: /home/user/project/tests/
+3. Chain cd command: cd project &amp;&amp; pytest tests/
 </code></pre></div>
 
-<p><strong>Solution:</strong> Use non-interactive flags:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Instead of: git commit</span>
-&gt;<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;message&quot;</span>
+<h3 id="interactive-command-hangs">Interactive Command Hangs<a class="headerlink" href="#interactive-command-hangs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Command appears to hang (waiting for input)
 
-<span class="c1"># Instead of: npm init</span>
-&gt;<span class="w"> </span>npm<span class="w"> </span>init<span class="w"> </span>-y
+Solution:
+1. Add non-interactive flags: npm init -y
+2. Use expect/heredoc for scripted input
+3. Pre-create config files before running
 </code></pre></div>
 
-<h3 id="output-too-large">Output Too Large<a class="headerlink" href="#output-too-large" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>[Output truncated - 1.2MB total]
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Error: Missing required environment variable
+
+Solution:
+1. Set inline: API_KEY=abc123 python script.py
+2. Export first: export API_KEY=abc123 &amp;&amp; python script.py
+3. Use .env file: source .env &amp;&amp; python script.py
 </code></pre></div>
 
-<p><strong>Solution:</strong> Redirect to file and read portions:</p>
-<div class="codehilite"><pre><span></span><code>&gt;<span class="w"> </span>long-command<span class="w"> </span>&gt;<span class="w"> </span>output.txt
-<span class="c1"># Then use read_file with offset/limit</span>
+<h2 id="advanced-patterns">Advanced Patterns<a class="headerlink" href="#advanced-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="multi-line-commands">Multi-line Commands<a class="headerlink" href="#multi-line-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use line continuation for readability</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>myapp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>myimage:latest
 </code></pre></div>
 
-<h3 id="timeout-exceeded">Timeout Exceeded<a class="headerlink" href="#timeout-exceeded" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Error: Command timed out after 60 seconds
+<h3 id="conditional-logic">Conditional Logic<a class="headerlink" href="#conditional-logic" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run tests, deploy only if successful</span>
+pytest<span class="w"> </span>tests/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./deploy.sh
 </code></pre></div>
 
-<p><strong>Solution:</strong> Use background mode for long-running processes, or break into smaller operations.</p>
-<h3 id="blocked-command">Blocked Command<a class="headerlink" href="#blocked-command" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Error: Command blocked for safety reasons
+<h3 id="output-processing">Output Processing<a class="headerlink" href="#output-processing" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Filter and transform output</span>
+git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2-
 </code></pre></div>
 
-<p><strong>Solution:</strong> This command is restricted. Find an alternative approach or use more targeted commands.</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>The Bash tool provides:</p>
-<ul>
-<li>Direct shell command execution</li>
-<li>Background process support for servers and watchers</li>
-<li>Safety features to prevent dangerous operations</li>
-<li>Access to build tools, package managers, and system utilities</li>
-</ul>
-<p>Remember: prefer specialized tools when available, but bash is always there when you need raw command-line power.</p>
+<h3 id="variable-substitution">Variable Substitution<a class="headerlink" href="#variable-substitution" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use shell variables</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>VERSION<span class="k">)</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp:<span class="nv">$VERSION</span><span class="w"> </span>.
+</code></pre></div>
+
+<hr />
+<p><strong>Next Steps:</strong>
+- Learn about <a href="/tools/specialized">Specialized Tools</a> for better alternatives
+- Explore <a href="/tools/git">Git Operations</a> for version control
+- See <a href="/tools/python-check">Python Check</a> for code quality</p>
               
             </div>
           </div><footer>

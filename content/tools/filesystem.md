@@ -6,388 +6,491 @@ title: "Filesystem Tool"
 
 # Filesystem Tool
 
-The Filesystem Tool provides direct access to read, write, and edit files on your local system. Unlike shell commands that require parsing text output, these tools offer structured, reliable file operations with built-in safety features.
+The Filesystem Tool provides three essential operations for file manipulation: reading, writing, and editing files. These tools work with absolute paths, relative paths, and @mention paths for bundle resources.
 
-## Overview
-
-The filesystem capabilities are split across three specialized tools, each optimized for a specific operation type:
+## Operations
 
 | Operation | Tool | Purpose |
 |-----------|------|---------|
-| Read | `read_file` | Read file contents or list directories |
-| Write | `write_file` | Create new files or overwrite existing ones |
-| Edit | `edit_file` | Make surgical string replacements in existing files |
-
-This separation ensures clarity of intent and enables appropriate safety checks for each operation type.
-
----
+| Read | read_file | Read file contents or list directories |
+| Write | write_file | Create or overwrite entire files |
+| Edit | edit_file | Perform surgical string replacements |
 
 ## Reading Files
 
-The `read_file` tool retrieves file contents with line numbers, making it easy to reference specific locations in code.
+The `read_file` tool reads file contents or lists directory contents with line numbers.
 
-### Basic Usage
+### Basic File Reading
 
+```json
+{
+  "file_path": "./src/main.py"
+}
 ```
-read_file("src/config.py")
-```
 
-Output format uses `cat -n` style with line numbers:
-
+Returns the file with line numbers in `cat -n` format:
 ```
-     1	import os
-     2	from pathlib import Path
-     3	
-     4	CONFIG_DIR = Path("~/.config/myapp").expanduser()
-     5	DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+1    import sys
+2    
+3    def main():
+4        print("Hello, world!")
 ```
 
 ### Reading Large Files
 
-For files too large to read at once, use `offset` and `limit` parameters:
+For files with many lines, use `offset` and `limit` parameters:
 
-```
-# Read lines 100-200 of a large log file
-read_file("logs/application.log", offset=100, limit=100)
-```
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `file_path` | Path to the file (required) | - |
-| `offset` | Starting line number (1-indexed) | 1 |
-| `limit` | Maximum lines to read | 2000 |
-
-### Line Length Truncation
-
-Lines longer than 2000 characters are automatically truncated to prevent context overflow. This is common with:
-
-- Minified JavaScript/CSS files
-- Generated code with long lines
-- Log files with embedded JSON
-
-### Reading Directories
-
-When given a directory path, `read_file` returns a formatted listing:
-
-```
-read_file("src/components")
+```json
+{
+  "file_path": "./logs/app.log",
+  "offset": 100,
+  "limit": 50
+}
 ```
 
-Output:
+This reads lines 100-150, useful for:
+- Inspecting specific sections of large logs
+- Paginating through long files
+- Reducing context consumption
 
-```
-DIR  Button/
-DIR  Form/
-FILE index.ts
-FILE types.ts
+**Default limits:**
+- Maximum 2000 lines per read
+- Lines longer than 2000 characters are truncated
+- Line numbers start at 1 (not 0)
+
+### Directory Listing
+
+When `file_path` points to a directory, `read_file` returns a formatted listing:
+
+```json
+{
+  "file_path": "./src"
+}
 ```
 
----
+Returns:
+```
+DIR: components/
+DIR: utils/
+FILE: main.py
+FILE: config.py
+```
+
+### Path Formats Supported
+
+**Absolute paths:**
+```json
+{"file_path": "/home/user/project/file.md"}
+```
+
+**Relative paths:**
+```json
+{"file_path": "./docs/README.md"}
+```
+
+**Bundle resources:**
+```json
+{"file_path": "@mybundle:docs/guide.md"}
+```
+
+**Bundle directories:**
+```json
+{"file_path": "@mybundle:docs"}
+```
 
 ## Writing Files
 
-The `write_file` tool creates new files or completely overwrites existing ones.
+The `write_file` tool creates new files or overwrites existing ones completely.
 
-### Basic Usage
+### Basic Writing
 
+```json
+{
+  "file_path": "./src/new_module.py",
+  "content": "def calculate(x, y):\n    return x + y\n"
+}
 ```
-write_file("src/utils/helpers.py", """
-def format_date(dt):
-    return dt.strftime("%Y-%m-%d")
 
-def slugify(text):
-    return text.lower().replace(" ", "-")
-""")
+### Important Rules
+
+⚠️ **MUST read existing files first:**
+```json
+// Step 1: Read first
+{"file_path": "./src/existing.py"}
+
+// Step 2: Then write
+{
+  "file_path": "./src/existing.py",
+  "content": "new content"
+}
 ```
+
+The tool will fail if you attempt to overwrite an existing file without reading it first. This safety mechanism prevents accidental overwrites.
 
 ### When to Use write_file
 
-Use `write_file` when:
+**✅ Good use cases:**
+- Creating entirely new files
+- Generating configuration files
+- Writing output from code generation
+- Creating test fixtures
 
-- Creating a new file that doesn't exist
-- Completely replacing a file's contents
-- The file is small enough to rewrite entirely
-- You've already read the file and need to restructure it significantly
+**❌ Avoid for:**
+- Modifying existing files (use `edit_file` instead)
+- Small changes to files (use `edit_file` instead)
+- Adding single functions to modules (use `edit_file` instead)
 
-Avoid `write_file` when:
+### Content Guidelines
 
-- Making small changes to existing files (use `edit_file` instead)
-- You haven't read the current contents first
-- The file is large and you only need to change a few lines
-
-### Safety Requirements
-
-The tool enforces a critical safety rule:
-
-> You must read a file before you can write to it.
-
-This prevents accidental overwrites of files you haven't examined. The tool will fail if you attempt to write to an existing file without reading it first in the conversation.
-
----
+- Avoid emoji unless explicitly requested by user
+- Never proactively create documentation (*.md) files
+- Always prefer editing existing files over creating new ones
 
 ## Editing Files
 
-The `edit_file` tool performs precise string replacements, making it ideal for surgical changes to existing code.
+The `edit_file` tool performs precise string replacements in existing files.
 
-### Basic Usage
+### Basic Editing
 
-```
-edit_file(
-    file_path="src/config.py",
-    old_string="DEBUG = False",
-    new_string="DEBUG = True"
-)
-```
-
-### How It Works
-
-1. The tool searches for `old_string` in the file
-2. If found exactly once, it replaces with `new_string`
-3. If not found or found multiple times, the operation fails
-
-### Handling Non-Unique Strings
-
-If your `old_string` appears multiple times, you have two options:
-
-**Option 1: Add Context**
-
-Include surrounding lines to make the match unique:
-
-```
-edit_file(
-    file_path="src/handlers.py",
-    old_string="""def process_user(user):
-    return user.name""",
-    new_string="""def process_user(user):
-    return user.display_name"""
-)
-```
-
-**Option 2: Replace All Occurrences**
-
-Use `replace_all=True` to replace every instance:
-
-```
-edit_file(
-    file_path="src/handlers.py",
-    old_string="user.name",
-    new_string="user.display_name",
-    replace_all=True
-)
+```json
+{
+  "file_path": "./src/main.py",
+  "old_string": "def calculate(x):\n    return x * 2",
+  "new_string": "def calculate(x, multiplier=2):\n    return x * multiplier"
+}
 ```
 
 ### Preserving Indentation
 
-When copying text from `read_file` output, preserve the exact indentation. The line number prefix format is:
+⚠️ **Critical:** Preserve exact indentation as shown in `read_file` output.
 
+The line number format is: `spaces + number + tab + content`
+
+**Example from read_file:**
 ```
-     5	    def method(self):
-```
-
-Everything after the tab following the line number is actual file content. Match this exactly in your `old_string`.
-
-### Multi-Line Edits
-
-For changes spanning multiple lines, include all relevant lines:
-
-```
-edit_file(
-    file_path="src/api.py",
-    old_string="""@app.route("/users")
-def get_users():
-    return jsonify(users)""",
-    new_string="""@app.route("/users")
-@require_auth
-def get_users():
-    return jsonify(users)"""
-)
+    42    def helper():
+    43        return True
 ```
 
----
+**Correct old_string** (after the tab):
+```
+"def helper():\n    return True"
+```
+
+**Incorrect** (includes line numbers):
+```
+"    42    def helper():\n    43        return True"
+```
+
+### Ensuring Uniqueness
+
+The tool requires `old_string` to be **unique** in the file:
+
+**❌ Will fail** (matches multiple locations):
+```json
+{
+  "old_string": "return x"
+}
+```
+
+**✅ Include context** to make it unique:
+```json
+{
+  "old_string": "def calculate(x):\n    return x"
+}
+```
+
+### Replace All Occurrences
+
+Use `replace_all: true` for renaming variables or repeated patterns:
+
+```json
+{
+  "file_path": "./src/user.py",
+  "old_string": "userName",
+  "new_string": "user_name",
+  "replace_all": true
+}
+```
+
+**Perfect for:**
+- Variable renaming across a file
+- Updating repeated string literals
+- Changing function names
+- Updating import paths
+
+### When to Use edit_file
+
+**✅ Preferred for:**
+- Modifying functions or classes
+- Adding imports
+- Changing variable names
+- Updating configuration values
+- Bug fixes in existing code
+
+**✅ Benefits:**
+- Preserves surrounding code
+- Safer than full file rewrites
+- More efficient for small changes
+- Less prone to losing unrelated changes
 
 ## Directory Listing
 
-The `read_file` tool doubles as a directory lister when given a directory path.
+List directory contents with `read_file`:
 
-### Basic Listing
-
-```
-read_file("src/")
-```
-
-### Understanding Output
-
-```
-DIR  components/
-DIR  utils/
-FILE app.py
-FILE config.py
-FILE __init__.py
+```json
+{
+  "file_path": "./src/components"
+}
 ```
 
-- `DIR` entries are subdirectories (shown with trailing `/`)
-- `FILE` entries are regular files
-- Results are sorted with directories first
+**Output shows:**
+- `DIR:` prefix for subdirectories
+- `FILE:` prefix for files
+- Alphabetically sorted
+- Relative names only (not full paths)
 
-### Navigating Deep Structures
-
-To explore nested directories, make multiple calls:
-
-```
-read_file("src/")           # See top-level structure
-read_file("src/components") # Dive into components
-read_file("src/components/Button")  # Explore specific component
-```
-
----
+**Use cases:**
+- Exploring project structure
+- Finding configuration files
+- Discovering test files
+- Checking bundle contents
 
 ## Best Practices
 
 ### 1. Always Read Before Editing
 
-Never attempt to edit a file you haven't read in the current conversation:
-
+```json
+// ✅ Correct workflow
+read_file("./src/app.py")
+// ... review contents ...
+edit_file("./src/app.py", old_string, new_string)
 ```
-# Correct workflow
-read_file("config.yaml")    # First, understand current state
-edit_file("config.yaml", old_string="...", new_string="...")
 
-# Incorrect - will fail
-edit_file("config.yaml", old_string="...", new_string="...")  # Haven't read it!
+```json
+// ❌ Will fail
+edit_file("./src/app.py", old_string, new_string)
 ```
 
 ### 2. Prefer edit_file Over write_file
 
-For existing files, `edit_file` is safer and more precise:
+For existing files, surgical edits are safer:
 
-| Scenario | Recommended Tool |
-|----------|------------------|
-| Change one function | `edit_file` |
-| Update a config value | `edit_file` |
-| Rename a variable throughout | `edit_file` with `replace_all` |
-| Create new file | `write_file` |
-| Complete rewrite | `write_file` (after reading) |
-
-### 3. Use Exact Matches
-
-The `old_string` must match exactly, including:
-
-- Whitespace (spaces, tabs, newlines)
-- Indentation
-- Line endings
-
-### 4. Handle Large Files Strategically
-
-For files exceeding 2000 lines:
-
-1. Use `offset` and `limit` to read in chunks
-2. Identify the specific section needing changes
-3. Use `edit_file` for targeted modifications
-
-### 5. Verify After Writing
-
-After significant changes, read the file to confirm:
-
-```
-write_file("new_module.py", content)
-read_file("new_module.py")  # Verify it looks correct
+```json
+// ✅ Preferred - surgical edit
+edit_file({
+  "old_string": "version = \"1.0\"",
+  "new_string": "version = \"2.0\""
+})
 ```
 
----
+```json
+// ❌ Risky - full rewrite
+write_file({
+  "content": "... entire file contents ..."
+})
+```
+
+### 3. Use Parallel Reads
+
+Read multiple files in one message:
+
+```json
+[
+  {"file_path": "./src/main.py"},
+  {"file_path": "./src/utils.py"},
+  {"file_path": "./tests/test_main.py"}
+]
+```
+
+### 4. Handle Large Files Efficiently
+
+```json
+// Check file size first
+read_file("./data/large.json", 0, 10)
+
+// Read in chunks if needed
+read_file("./data/large.json", 0, 100)
+read_file("./data/large.json", 100, 100)
+```
+
+### 5. Verify Bundle Paths
+
+For bundle resources, check directory listing first:
+
+```json
+// List available files
+read_file("@recipes:examples")
+
+// Then read specific file
+read_file("@recipes:examples/workflow.yaml")
+```
 
 ## Try It Yourself
 
-### Exercise 1: Read and Explore
+### Exercise 1: Read and Edit a File
 
-Explore a project structure:
+1. Create a test file:
+```json
+write_file({
+  "file_path": "./test.py",
+  "content": "def greet(name):\n    return f'Hello {name}'"
+})
+```
 
-1. "List the contents of the src directory"
-2. "Show me what's in src/utils"
-3. "Read the first 50 lines of src/main.py"
+2. Read it back:
+```json
+read_file({"file_path": "./test.py"})
+```
 
-### Exercise 2: Create a New File
+3. Edit the function:
+```json
+edit_file({
+  "file_path": "./test.py",
+  "old_string": "def greet(name):\n    return f'Hello {name}'",
+  "new_string": "def greet(name, title='Friend'):\n    return f'Hello {title} {name}'"
+})
+```
 
-Create a configuration file:
+### Exercise 2: Explore a Directory Structure
 
-1. "Create a file called config.json with database settings"
-2. Verify: "Read config.json to confirm"
+```json
+read_file({"file_path": "./content"})
+read_file({"file_path": "./content/tools"})
+```
 
-### Exercise 3: Make Surgical Edits
+### Exercise 3: Variable Renaming
 
-Practice precise editing:
-
-1. "Read src/constants.py"
-2. "Change MAX_RETRIES from 3 to 5"
-3. "Replace all occurrences of 'localhost' with '127.0.0.1'"
-
-### Exercise 4: Multi-Line Edit
-
-Try editing across lines:
-
-1. "Read the authenticate function in src/auth.py"
-2. "Add a logging statement at the start of the function"
-
----
+```json
+edit_file({
+  "file_path": "./src/config.py",
+  "old_string": "max_retries",
+  "new_string": "maximum_retry_count",
+  "replace_all": true
+})
+```
 
 ## Errors and Troubleshooting
 
-### "File not found"
+### Error: "Must read file before editing"
 
-The specified path doesn't exist. Check:
+**Cause:** Attempted to edit without reading first.
 
-- Spelling and case sensitivity (Linux is case-sensitive)
-- Relative vs absolute paths
-- Whether you're in the expected working directory
+**Solution:**
+```json
+read_file({"file_path": "./target.py"})
+// Then edit
+```
 
-### "old_string not found in file"
+### Error: "old_string not unique"
 
-Your search string doesn't match the file contents exactly:
+**Cause:** The string appears multiple times in the file.
 
-- Re-read the file to see current contents
-- Check for whitespace differences
-- Verify indentation matches exactly
-- Look for invisible characters or different line endings
+**Solutions:**
+1. Add more context to make it unique:
+```json
+{
+  "old_string": "return value  // More context needed",
+  "new_string": "function calculate() {\n    return value\n}"
+}
+```
 
-### "old_string appears multiple times"
+2. Use `replace_all: true` if appropriate:
+```json
+{"replace_all": true}
+```
 
-The string isn't unique. Solutions:
+### Error: "File not found"
 
-- Add surrounding context to make it unique
-- Use `replace_all=True` if you want to replace all occurrences
+**Cause:** Path doesn't exist or is incorrect.
 
-### "Must read file before writing"
+**Solutions:**
+- Verify path with directory listing
+- Check for typos in filename
+- Use absolute path if relative path is ambiguous
+- Confirm bundle name for @mention paths
 
-You attempted to overwrite a file without reading it first:
+### Warning: Empty File Contents
 
-- Read the file first: `read_file("path/to/file")`
-- Then proceed with your write or edit operation
+If you read a file that exists but is empty, you'll receive a warning. This helps distinguish between:
+- File doesn't exist (error)
+- File exists but is empty (warning)
+- File has content (normal output)
 
-### "Line truncated at 2000 characters"
+### Indentation Mismatch
 
-The file contains very long lines:
+**Cause:** Including line numbers or wrong whitespace in `old_string`.
 
-- This is informational, not an error
-- Consider if the file is minified or generated
-- You can still edit the file, but may need to work with truncated content
+**Solution:**
+- Copy exact content after the line number tab
+- Preserve spaces/tabs exactly as shown
+- Don't include the line number prefix
 
-### "Permission denied"
+### Line Truncation
 
-The file or directory has restrictive permissions:
+Lines longer than 2000 characters are truncated. For such files:
+- Use specialized tools for specific content types (JSON parsers, etc.)
+- Process in smaller chunks
+- Consider using `bash` tool for stream processing
 
-- Check file ownership and permissions
-- Some system files require elevated privileges
-- Consider whether you should be modifying this file
+## Advanced Patterns
 
----
+### Conditional Edits
+
+Read first, decide, then edit based on content:
+
+```python
+# 1. Read file
+content = read_file("./config.yaml")
+
+# 2. Analyze content
+if "debug: false" in content:
+    # 3. Edit accordingly
+    edit_file(
+        old_string="debug: false",
+        new_string="debug: true"
+    )
+```
+
+### Multi-Step Refactoring
+
+```python
+# 1. Read original
+read_file("./src/api.py")
+
+# 2. First edit - rename function
+edit_file(old_string="def old_name():", new_string="def new_name():")
+
+# 3. Second edit - update callers
+edit_file(old_string="old_name()", new_string="new_name()", replace_all=True)
+```
+
+### Safe Templating
+
+```python
+# 1. Read template
+template = read_file("@mybundle:templates/component.tsx")
+
+# 2. Write new file with modifications
+write_file(
+    file_path="./src/components/MyComponent.tsx",
+    content=template.replace("{{NAME}}", "MyComponent")
+)
+```
 
 ## Summary
 
-| Tool | Use For | Key Parameters |
-|------|---------|----------------|
-| `read_file` | Reading contents, listing directories | `offset`, `limit` |
-| `write_file` | Creating new files, complete rewrites | `content` |
-| `edit_file` | Precise string replacements | `old_string`, `new_string`, `replace_all` |
+The Filesystem Tool provides three complementary operations:
 
-The filesystem tools provide a safe, structured approach to file operations. By separating read, write, and edit operations, each action has appropriate safeguards while remaining straightforward to use.
+- **read_file**: View contents, paginate large files, list directories
+- **write_file**: Create new files (read existing files first!)
+- **edit_file**: Surgical replacements (prefer over write_file)
 
-**Next:** [Search Tool](search.md) - Finding files and content across your codebase
+**Key principles:**
+1. Always read before editing
+2. Prefer edit over write for existing files
+3. Ensure old_string is unique or use replace_all
+4. Preserve exact indentation from read_file output
+5. Use parallel reads for efficiency
+
+These tools form the foundation of file manipulation in Amplifier, enabling precise control over your project's files.

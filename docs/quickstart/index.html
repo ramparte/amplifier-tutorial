@@ -54,17 +54,23 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    <li class="toctree-l2"><a class="reference internal" href="#fast-track-paths">Fast Track Paths</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#path-1-explorer-10-minutes">Path 1: Explorer (10 minutes)</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#recommended-path">Recommended Path</a>
+    <li class="toctree-l3"><a class="reference internal" href="#path-2-builder-30-minutes">Path 2: Builder (30 minutes)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#path-3-power-user-1-hour">Path 3: Power User (1 hour)</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-commands">Quick Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites-checklist">Prerequisites Checklist</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-youll-build">What You'll Build</a>
+    <li class="toctree-l2"><a class="reference internal" href="#time-estimates">Time Estimates</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -194,133 +200,125 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="quickstart-guide">Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permanent link">&para;</a></h1>
-<p>Get up and running with Amplifier in minutes. This section walks you through installation, configuration, and building your first agent—no prior AI development experience required.</p>
-<p>Follow these guides in order for the smoothest learning path, or jump to specific topics as needed.</p>
+<p>Get up and running with Amplifier in minutes. This section provides fast-track paths to productivity, whether you're exploring, building, or deploying. Follow these guides to go from zero to working application with minimal friction.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Page</th>
 <th>Description</th>
-<th>Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="installation.html">Installation</a></td>
 <td>Install Amplifier and dependencies</td>
-<td>5 min</td>
+</tr>
+<tr>
+<td><a href="./first-session.md">First Session</a></td>
+<td>Start your first conversation</td>
 </tr>
 <tr>
 <td><a href="./configuration.md">Configuration</a></td>
-<td>Set up API keys and preferences</td>
-<td>5 min</td>
+<td>Set up providers and preferences</td>
 </tr>
 <tr>
-<td><a href="./first-agent.md">First Agent</a></td>
-<td>Build and run your first agent</td>
-<td>10 min</td>
+<td><a href="first-bundle.html">Your First Bundle</a></td>
+<td>Create a custom behavior package</td>
 </tr>
 <tr>
-<td><a href="./using-tools.md">Using Tools</a></td>
-<td>Learn tool basics with hands-on examples</td>
-<td>15 min</td>
+<td><a href="./using-agents.md">Using Agents</a></td>
+<td>Delegate tasks to specialist agents</td>
 </tr>
 <tr>
-<td><a href="./adding-context.md">Adding Context</a></td>
-<td>Give agents knowledge with context files</td>
-<td>10 min</td>
+<td><a href="./common-workflows.md">Common Workflows</a></td>
+<td>Patterns for everyday tasks</td>
 </tr>
 <tr>
-<td><a href="./creating-skills.md">Creating Skills</a></td>
-<td>Package reusable domain knowledge</td>
-<td>15 min</td>
-</tr>
-<tr>
-<td><a href="./next-steps.md">Next Steps</a></td>
-<td>Where to go from here</td>
-<td>5 min</td>
+<td><a href="./troubleshooting.md">Troubleshooting</a></td>
+<td>Fix common issues quickly</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>API keys required</strong> — You'll need at least one LLM provider key (Anthropic recommended)</li>
-<li><strong>Python 3.11+</strong> — Amplifier requires modern Python; check with <code>python --version</code></li>
-<li><strong>Start simple</strong> — The first-agent guide uses minimal configuration intentionally</li>
-<li><strong>Experiment freely</strong> — Sessions are isolated; you can't break anything permanently</li>
-<li><strong>Use the help</strong> — Run <code>amp --help</code> for CLI options at any time</li>
+<li><strong>Start simple</strong> - Use the default bundle before customizing</li>
+<li><strong>One provider first</strong> - Configure one LLM provider, add more later</li>
+<li><strong>Check the logs</strong> - Most issues reveal themselves in session logs</li>
+<li><strong>Use todo lists</strong> - Track complex tasks to stay organized</li>
+<li><strong>Ask for help</strong> - The built-in agents can explain themselves</li>
 </ul>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="fast-track-paths">Fast Track Paths<a class="headerlink" href="#fast-track-paths" title="Permanent link">&para;</a></h2>
+<h3 id="path-1-explorer-10-minutes">Path 1: Explorer (10 minutes)<a class="headerlink" href="#path-1-explorer-10-minutes" title="Permanent link">&para;</a></h3>
+<ol>
+<li><a href="installation.html">Installation</a> - Get Amplifier installed</li>
+<li><a href="./first-session.md">First Session</a> - Have your first conversation</li>
+<li>Done! Explore from there.</li>
+</ol>
+<h3 id="path-2-builder-30-minutes">Path 2: Builder (30 minutes)<a class="headerlink" href="#path-2-builder-30-minutes" title="Permanent link">&para;</a></h3>
+<ol>
+<li><a href="installation.html">Installation</a> - Get set up</li>
+<li><a href="./configuration.md">Configuration</a> - Configure your provider</li>
+<li><a href="first-bundle.html">Your First Bundle</a> - Create custom behavior</li>
+<li><a href="./using-agents.md">Using Agents</a> - Learn delegation</li>
+</ol>
+<h3 id="path-3-power-user-1-hour">Path 3: Power User (1 hour)<a class="headerlink" href="#path-3-power-user-1-hour" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete Path 2</li>
+<li><a href="./common-workflows.md">Common Workflows</a> - Master patterns</li>
+<li>Explore <a href="../advanced/index.html">Advanced</a> topics</li>
+</ol>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Never used Amplifier?</strong> Start with <a href="installation.html">Installation</a> and follow sequentially.</p>
+<p><strong>Already installed?</strong> Jump to <a href="./first-session.md">First Session</a> to start working.</p>
+<p><strong>Hit a problem?</strong> Go directly to <a href="./troubleshooting.md">Troubleshooting</a>.</p>
+<h2 id="prerequisites-checklist">Prerequisites Checklist<a class="headerlink" href="#prerequisites-checklist" title="Permanent link">&para;</a></h2>
+<p>Before you begin, ensure you have:</p>
+<ul>
+<li>[ ] Python 3.10 or higher</li>
+<li>[ ] An API key for at least one LLM provider</li>
+<li>[ ] A terminal/command line environment</li>
+<li>[ ] Git (optional, but recommended)</li>
+</ul>
+<h2 id="time-estimates">Time Estimates<a class="headerlink" href="#time-estimates" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Requirement</th>
-<th>Version</th>
-<th>Check Command</th>
+<th>Guide</th>
+<th>Time</th>
+<th>Difficulty</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Python</td>
-<td>3.11+</td>
-<td><code>python --version</code></td>
+<td>Installation</td>
+<td>5 min</td>
+<td>Easy</td>
 </tr>
 <tr>
-<td>pip or uv</td>
-<td>Latest</td>
-<td><code>pip --version</code> or <code>uv --version</code></td>
+<td>First Session</td>
+<td>5 min</td>
+<td>Easy</td>
 </tr>
 <tr>
-<td>API Key</td>
-<td>Any LLM</td>
-<td>Set in environment or config</td>
+<td>Configuration</td>
+<td>10 min</td>
+<td>Easy</td>
+</tr>
+<tr>
+<td>First Bundle</td>
+<td>15 min</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Using Agents</td>
+<td>10 min</td>
+<td>Medium</td>
 </tr>
 </tbody>
 </table>
-<h2 id="recommended-path">Recommended Path<a class="headerlink" href="#recommended-path" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>Installation ──► Configuration ──► First Agent
-                                       │
-                     ┌─────────────────┼─────────────────┐
-                     ▼                 ▼                 ▼
-              Using Tools      Adding Context    Creating Skills
-                     │                 │                 │
-                     └─────────────────┴─────────────────┘
-                                       │
-                                       ▼
-                                  Next Steps
-</code></pre></div>
-
-<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>Brand new to Amplifier?</strong> Start with <a href="installation.html">Installation</a> and follow the guides in order. The whole quickstart takes about an hour.</p>
-<p><strong>Already installed?</strong> Jump to <a href="./first-agent.md">First Agent</a> to build something immediately.</p>
-<p><strong>Experienced with AI tools?</strong> Skim <a href="./configuration.md">Configuration</a> for Amplifier-specific settings, then explore <a href="./creating-skills.md">Creating Skills</a>.</p>
-<h2 id="quick-commands">Quick Commands<a class="headerlink" href="#quick-commands" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Install Amplifier</span>
-pip<span class="w"> </span>install<span class="w"> </span>amplifier-cli
-
-<span class="c1"># Verify installation</span>
-amp<span class="w"> </span>--version
-
-<span class="c1"># Start interactive session</span>
-amp
-
-<span class="c1"># Run with specific bundle</span>
-amp<span class="w"> </span>--bundle<span class="w"> </span>foundation
-</code></pre></div>
-
-<h2 id="what-youll-build">What You'll Build<a class="headerlink" href="#what-youll-build" title="Permanent link">&para;</a></h2>
-<p>By the end of this quickstart, you'll have:
-- A working Amplifier installation
-- Your first custom agent
-- Understanding of tools, context, and skills
-- Foundation for building complex AI applications</p>
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../concepts/index.html">Concepts: Core Architecture</a></li>
-<li><a href="../dev-setup/index.html">Dev Setup: Development Environment</a></li>
-<li><a href="../bundles/index.html">Bundles: Using Bundles</a></li>
-</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After completing the quickstart, dive into <a href="../concepts/index.html">Concepts</a> for deeper understanding or <a href="../bundles/index.html">Bundles</a> for more customization.</p>
               
             </div>
           </div><footer>

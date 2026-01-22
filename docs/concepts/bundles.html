@@ -75,21 +75,27 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-bundle">What is a Bundle?</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#the-core-idea">The Core Idea</a>
+    <li class="toctree-l3"><a class="reference internal" href="#core-characteristics">Core Characteristics</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-vs-agent">Bundle vs Agent</a>
+    <li class="toctree-l3"><a class="reference internal" href="#what-bundles-contain">What Bundles Contain</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-thin-bundle-pattern">The Thin Bundle Pattern</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#bundle-structure">Bundle Structure</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-bundle-layout">Basic Bundle Layout</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#the-bundlemd-file">The bundle.md File</a>
+    <li class="toctree-l3"><a class="reference internal" href="#anatomy-of-a-bundle-file">Anatomy of a Bundle File</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#frontmatter-fields">Frontmatter Fields</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#required-fields">Required Fields</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#body-content">Body Content</a>
+    <li class="toctree-l4"><a class="reference internal" href="#common-optional-fields">Common Optional Fields</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#markdown-body">Markdown Body</a>
     </li>
         </ul>
     </li>
@@ -97,7 +103,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#the-includes-field">The includes Field</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#composition-order-matters">Composition Order Matters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#include-resolution">Include Resolution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#composition-order">Composition Order</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#behaviors">Behaviors</a>
     </li>
@@ -109,31 +117,33 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#step-1-define-the-purpose">Step 1: Define the Purpose</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#step-2-create-the-structure">Step 2: Create the Structure</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-choose-your-base">Step 2: Choose Your Base</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#step-3-write-the-bundle-definition">Step 3: Write the Bundle Definition</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-write-the-frontmatter">Step 3: Write the Frontmatter</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#step-4-add-context-files">Step 4: Add Context Files</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-write-instructions">Step 4: Write Instructions</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#step-5-test-the-bundle">Step 5: Test the Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-5-test-your-bundle">Step 5: Test Your Bundle</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-best-practices">Bundle Best Practices</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-6-iterate-and-refine">Step 6: Iterate and Refine</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#advanced-topics">Advanced Topics</a>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#environment-specific-overrides">Environment-Specific Overrides</a>
+    <li class="toctree-l3"><a class="reference internal" href="#keep-bundles-focused">Keep Bundles Focused</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-inheritance-patterns">Bundle Inheritance Patterns</a>
+    <li class="toctree-l3"><a class="reference internal" href="#use-semantic-versioning">Use Semantic Versioning</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#collection-organization">Collection Organization</a>
+    <li class="toctree-l3"><a class="reference internal" href="#document-your-bundles">Document Your Bundles</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#leverage-composition">Leverage Composition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-with-real-scenarios">Test with Real Scenarios</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -240,383 +250,370 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="understanding-bundles">Understanding Bundles<a class="headerlink" href="#understanding-bundles" title="Permanent link">&para;</a></h1>
-<p>Bundles are the primary unit of composition in Amplifier. They package together everything an agent needs—instructions, tools, behaviors, and context—into a single, reusable configuration that can be shared, combined, and customized.</p>
+<p>Bundles are the fundamental unit of composition in Amplifier. They package capabilities,
+behaviors, and configuration into reusable, shareable units that can be combined to create
+powerful AI-powered applications.</p>
 <h2 id="what-is-a-bundle">What is a Bundle?<a class="headerlink" href="#what-is-a-bundle" title="Permanent link">&para;</a></h2>
-<p>A bundle is a composable configuration package that defines an agent's capabilities. Think of it like a recipe: it specifies the ingredients (tools, context files), the instructions (system prompts, behaviors), and how they combine to create a specific agent personality and capability set.</p>
-<h3 id="the-core-idea">The Core Idea<a class="headerlink" href="#the-core-idea" title="Permanent link">&para;</a></h3>
-<p>Traditional AI agent configuration often involves:
-- Scattered configuration files
-- Duplicated prompts across projects
-- Manual tool registration
-- Inconsistent setups between environments</p>
-<p>Bundles solve this by providing a <strong>single source of truth</strong> for an agent's configuration that can be:</p>
+<p>A bundle is a composable configuration package that defines what an AI assistant can do.
+Think of bundles like LEGO sets—each one provides specific pieces that snap together
+with other bundles to build complete solutions.</p>
+<h3 id="core-characteristics">Core Characteristics<a class="headerlink" href="#core-characteristics" title="Permanent link">&para;</a></h3>
+<p>Bundles share several defining characteristics:</p>
+<ol>
+<li><strong>Self-contained</strong>: Each bundle includes everything it needs to function</li>
+<li><strong>Composable</strong>: Bundles can include other bundles to build on existing capabilities</li>
+<li><strong>Declarative</strong>: Configuration is specified in YAML, not imperative code</li>
+<li><strong>Portable</strong>: Bundles can be shared, versioned, and distributed independently</li>
+</ol>
+<h3 id="what-bundles-contain">What Bundles Contain<a class="headerlink" href="#what-bundles-contain" title="Permanent link">&para;</a></h3>
+<p>A typical bundle may include:</p>
 <ul>
-<li><strong>Versioned</strong> alongside your code</li>
-<li><strong>Shared</strong> across teams and projects</li>
-<li><strong>Composed</strong> to build complex agents from simple parts</li>
-<li><strong>Overridden</strong> for environment-specific customization</li>
+<li><strong>Configuration</strong>: YAML frontmatter defining metadata and settings</li>
+<li><strong>Instructions</strong>: Markdown content providing guidance to the AI</li>
+<li><strong>Behaviors</strong>: References to specific capabilities or tools</li>
+<li><strong>Context files</strong>: Supporting documentation and examples</li>
+<li><strong>Includes</strong>: References to other bundles to compose functionality</li>
 </ul>
-<h3 id="bundle-vs-agent">Bundle vs Agent<a class="headerlink" href="#bundle-vs-agent" title="Permanent link">&para;</a></h3>
-<p>It's important to understand the distinction:</p>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Bundle</th>
-<th>Agent</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Definition</td>
-<td>Configuration package</td>
-<td>Runtime instance</td>
-</tr>
-<tr>
-<td>Contains</td>
-<td>Instructions, tools, behaviors</td>
-<td>Active session state</td>
-</tr>
-<tr>
-<td>Lifetime</td>
-<td>Persistent (file-based)</td>
-<td>Ephemeral (session-based)</td>
-</tr>
-<tr>
-<td>Purpose</td>
-<td>Define capabilities</td>
-<td>Execute tasks</td>
-</tr>
-</tbody>
-</table>
-<p>A bundle is the <em>blueprint</em>; an agent is the <em>running instance</em> created from that blueprint.</p>
+<h3 id="the-thin-bundle-pattern">The Thin Bundle Pattern<a class="headerlink" href="#the-thin-bundle-pattern" title="Permanent link">&para;</a></h3>
+<p>Amplifier follows the "thin bundle" philosophy—bundles should be minimal wrappers
+that compose existing capabilities rather than reinventing functionality. A well-designed
+bundle:</p>
+<ul>
+<li>References behaviors instead of duplicating logic</li>
+<li>Includes foundation bundles for common capabilities</li>
+<li>Adds only the specific instructions needed for its use case</li>
+<li>Stays focused on a single domain or purpose</li>
+</ul>
 <h2 id="bundle-structure">Bundle Structure<a class="headerlink" href="#bundle-structure" title="Permanent link">&para;</a></h2>
-<p>Every bundle follows a standard structure using Markdown files with YAML frontmatter. This format is both human-readable and machine-parseable.</p>
-<h3 id="basic-bundle-layout">Basic Bundle Layout<a class="headerlink" href="#basic-bundle-layout" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>my-bundle/
-├── bundle.md           # Main bundle definition
-├── context/            # Supporting context files
-│   ├── guidelines.md
-│   └── examples.md
-├── behaviors/          # Custom behaviors
-│   └── review-code.md
-└── tools/              # Custom tool definitions (optional)
-    └── lint.yaml
-</code></pre></div>
+<p>Every bundle consists of a markdown file with YAML frontmatter. The frontmatter defines
+the bundle's metadata and configuration, while the markdown body provides instructions
+and context for the AI.</p>
+<h3 id="anatomy-of-a-bundle-file">Anatomy of a Bundle File<a class="headerlink" href="#anatomy-of-a-bundle-file" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bundle</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Custom Bundle</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A bundle that does something useful</span>
 
-<h3 id="the-bundlemd-file">The bundle.md File<a class="headerlink" href="#the-bundlemd-file" title="Permanent link">&para;</a></h3>
-<p>The <code>bundle.md</code> file is the entry point for every bundle. It contains:</p>
-<div class="codehilite"><pre><span></span><code>---
-name: code-reviewer
-description: &quot;Expert code review agent&quot;
-version: &quot;1.0.0&quot;
+<span class="c1"># Include other bundles</span>
+<span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span>
 
-<span class="gh"># Tool configuration</span>
-tools:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>read_file
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>write_file
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>grep
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>glob
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>bash
+<span class="c1"># Reference specific behaviors</span>
+<span class="nt">behaviors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing</span>
 
-<span class="gh"># Include other bundles</span>
-includes:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>foundation:core-tools
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>my-org:coding-standards
+<span class="c1"># Configure providers (optional)</span>
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">primary</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
 
-<span class="gh"># Behaviors to activate</span>
-behaviors:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>thorough-review
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>security-focus
+<span class="c1"># Define custom settings (optional)</span>
+<span class="nt">settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">max_file_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">  </span><span class="nt">output_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">markdown</span>
+<span class="nn">---</span>
 
-<span class="gh"># Context files to load</span>
-context:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>context/guidelines.md
-<span class="gu">  - context/examples.md</span>
-<span class="gu">---</span>
+<span class="c1"># My Custom Bundle</span>
 
-<span class="gh"># Code Reviewer</span>
+<span class="l l-Scalar l-Scalar-Plain">Instructions for the AI go here in markdown format.</span>
 
-You are an expert code reviewer focused on quality, security, and maintainability.
+<span class="l l-Scalar l-Scalar-Plain">## What This Bundle Does</span>
 
-<span class="gu">## Your Approach</span>
+<span class="l l-Scalar l-Scalar-Plain">Explain the purpose and capabilities...</span>
 
-<span class="k">1.</span> Read the code thoroughly before commenting
-<span class="k">2.</span> Focus on substantive issues, not style nitpicks
-<span class="k">3.</span> Provide actionable suggestions with examples
-<span class="k">4.</span> Acknowledge good patterns when you see them
+<span class="l l-Scalar l-Scalar-Plain">## How to Use</span>
 
-<span class="gu">## Review Checklist</span>
-
-<span class="k">- [ ]</span> Logic correctness
-<span class="k">- [ ]</span> Error handling
-<span class="k">- [ ]</span> Security considerations
-<span class="k">- [ ]</span> Performance implications
-<span class="k">- [ ]</span> Test coverage
+<span class="l l-Scalar l-Scalar-Plain">Provide guidance on usage patterns...</span>
 </code></pre></div>
 
 <h3 id="frontmatter-fields">Frontmatter Fields<a class="headerlink" href="#frontmatter-fields" title="Permanent link">&para;</a></h3>
+<h4 id="required-fields">Required Fields<a class="headerlink" href="#required-fields" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
 <th>Field</th>
-<th>Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>id</code></td>
+<td>Unique identifier for the bundle (lowercase, hyphens)</td>
+</tr>
+<tr>
 <td><code>name</code></td>
-<td>Yes</td>
-<td>Unique identifier for the bundle</td>
+<td>Human-readable display name</td>
+</tr>
+</tbody>
+</table>
+<h4 id="common-optional-fields">Common Optional Fields<a class="headerlink" href="#common-optional-fields" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>version</code></td>
+<td>Semantic version string (e.g., "1.0.0")</td>
 </tr>
 <tr>
 <td><code>description</code></td>
-<td>No</td>
-<td>Human-readable description</td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>No</td>
-<td>Semantic version string</td>
-</tr>
-<tr>
-<td><code>tools</code></td>
-<td>No</td>
-<td>List of tools to enable</td>
+<td>Brief description of the bundle's purpose</td>
 </tr>
 <tr>
 <td><code>includes</code></td>
-<td>No</td>
-<td>Other bundles to compose</td>
+<td>List of other bundles to include</td>
 </tr>
 <tr>
 <td><code>behaviors</code></td>
-<td>No</td>
-<td>Behaviors to activate</td>
+<td>List of behaviors to enable</td>
+</tr>
+<tr>
+<td><code>providers</code></td>
+<td>Provider configuration (models, endpoints)</td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td>Custom key-value settings</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>Tool configurations and restrictions</td>
 </tr>
 <tr>
 <td><code>context</code></td>
-<td>No</td>
 <td>Additional context files to load</td>
 </tr>
 </tbody>
 </table>
-<h3 id="body-content">Body Content<a class="headerlink" href="#body-content" title="Permanent link">&para;</a></h3>
-<p>The markdown body after the frontmatter becomes the agent's system prompt. This is where you define:</p>
+<h3 id="markdown-body">Markdown Body<a class="headerlink" href="#markdown-body" title="Permanent link">&para;</a></h3>
+<p>The markdown body serves as the primary instruction set for the AI. Write clear,
+actionable guidance that helps the AI understand:</p>
 <ul>
-<li>The agent's role and personality</li>
-<li>Specific instructions and guidelines</li>
-<li>Domain knowledge</li>
-<li>Response formats</li>
+<li>What the bundle is designed to do</li>
+<li>How to approach tasks within its domain</li>
+<li>What patterns and practices to follow</li>
+<li>What to avoid or be careful about</li>
 </ul>
 <h2 id="composition">Composition<a class="headerlink" href="#composition" title="Permanent link">&para;</a></h2>
-<p>One of the most powerful features of bundles is composition. You can build complex agents by combining simpler bundles.</p>
-<h3 id="the-includes-field">The includes Field<a class="headerlink" href="#the-includes-field" title="Permanent link">&para;</a></h3>
-<p>Use <code>includes</code> to inherit from other bundles:</p>
+<p>Composition is where bundles become powerful. Instead of building monolithic
+configurations, you compose small, focused bundles into complete solutions.</p>
+<h3 id="the-includes-field">The <code>includes</code> Field<a class="headerlink" href="#the-includes-field" title="Permanent link">&para;</a></h3>
+<p>The <code>includes</code> field specifies which bundles to incorporate:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core-tools</span><span class="w">      </span><span class="c1"># From foundation collection</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org:coding-standards</span><span class="w">    </span><span class="c1"># From your organization</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./local-overrides</span><span class="w">          </span><span class="c1"># From relative path</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core</span><span class="w">           </span><span class="c1"># Core capabilities</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span><span class="w">       </span><span class="c1"># File operations</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:git-ops</span><span class="w">        </span><span class="c1"># Git operations</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org:code-standards</span><span class="w">     </span><span class="c1"># Organization standards</span>
 </code></pre></div>
 
-<p>When bundles are composed:
-1. Tools are <strong>merged</strong> (union of all tools)
-2. Context is <strong>accumulated</strong> (all context files load)
-3. Behaviors are <strong>combined</strong> (all behaviors activate)
-4. Instructions are <strong>layered</strong> (child overrides parent)</p>
-<h3 id="composition-order-matters">Composition Order Matters<a class="headerlink" href="#composition-order-matters" title="Permanent link">&para;</a></h3>
-<p>Bundles are processed in order, with later bundles taking precedence:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base-agent</span><span class="w">           </span><span class="c1"># Loaded first (lowest priority)</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-focused</span><span class="w">     </span><span class="c1"># Adds security behaviors</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-customizations</span><span class="w">    </span><span class="c1"># Loaded last (highest priority)</span>
-</code></pre></div>
-
+<h3 id="include-resolution">Include Resolution<a class="headerlink" href="#include-resolution" title="Permanent link">&para;</a></h3>
+<p>Bundles are resolved using a namespace:name pattern:</p>
+<ul>
+<li><code>foundation:core</code> → Built-in foundation bundle</li>
+<li><code>my-collection:my-bundle</code> → Bundle from a custom collection</li>
+<li><code>./local-bundle</code> → Relative path to a local bundle file</li>
+</ul>
+<h3 id="composition-order">Composition Order<a class="headerlink" href="#composition-order" title="Permanent link">&para;</a></h3>
+<p>When multiple bundles are composed, they're processed in order:</p>
+<ol>
+<li>Base bundles (from <code>includes</code>) are loaded first</li>
+<li>Each included bundle's includes are resolved recursively</li>
+<li>The current bundle's configuration is applied last</li>
+<li>Later configurations can override earlier ones</li>
+</ol>
 <h3 id="behaviors">Behaviors<a class="headerlink" href="#behaviors" title="Permanent link">&para;</a></h3>
-<p>Behaviors are reusable instruction fragments that modify agent behavior. Unlike full bundles, behaviors are lightweight and focused on a single concern.</p>
-<div class="codehilite"><pre><span></span><code>---
-name: security-focus
-<span class="gu">trigger: &quot;when reviewing code&quot;</span>
-<span class="gu">---</span>
-
-<span class="gu">## Security Review Requirements</span>
-
-When reviewing code, always check for:
-<span class="k">-</span><span class="w"> </span>Input validation and sanitization
-<span class="k">-</span><span class="w"> </span>Authentication and authorization
-<span class="k">-</span><span class="w"> </span>Sensitive data exposure
-<span class="k">-</span><span class="w"> </span>SQL injection vulnerabilities
-<span class="k">-</span><span class="w"> </span>XSS attack vectors
+<p>Behaviors are reusable capability definitions that bundles can reference:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">behaviors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span><span class="w">      </span><span class="c1"># Enable code review capabilities</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing</span><span class="w">          </span><span class="c1"># Enable testing capabilities</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">documentation</span><span class="w">    </span><span class="c1"># Enable documentation generation</span>
 </code></pre></div>
 
-<p>Behaviors can be:
-- <strong>Always active</strong>: Load with every request
-- <strong>Conditionally triggered</strong>: Activate based on context
-- <strong>User-invoked</strong>: Activated by explicit command</p>
+<p>Behaviors differ from includes in that they represent specific capabilities
+rather than complete bundle configurations. A behavior might enable certain
+tools, add specific instructions, or configure particular patterns.</p>
 <h3 id="practical-composition-example">Practical Composition Example<a class="headerlink" href="#practical-composition-example" title="Permanent link">&para;</a></h3>
-<p>Here's how you might compose a specialized agent:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># devops-agent/bundle.md</span>
-<span class="nn">---</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devops-agent</span>
+<p>Here's how you might compose a code review bundle:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">team-code-review</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Team Code Review</span>
 <span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core-tools</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:git-ops</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud:aws-tools</span>
 <span class="nt">behaviors</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure-as-code</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-compliance</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cost-awareness</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-review</span>
 <span class="nn">---</span>
 
-<span class="c1"># DevOps Agent</span>
+<span class="c1"># Team Code Review</span>
 
-<span class="l l-Scalar l-Scalar-Plain">You specialize in infrastructure, deployment, and operational concerns.</span>
+<span class="l l-Scalar l-Scalar-Plain">Use this bundle when reviewing pull requests for our team.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">## Review Checklist</span>
+
+<span class="l l-Scalar l-Scalar-Plain">1. Check for security vulnerabilities</span>
+<span class="l l-Scalar l-Scalar-Plain">2. Verify test coverage</span>
+<span class="l l-Scalar l-Scalar-Plain">3. Ensure code follows our style guide</span>
+<span class="l l-Scalar l-Scalar-Plain">4. Look for performance issues</span>
+
+<span class="l l-Scalar l-Scalar-Plain">## Our Standards</span>
+
+<span class="l l-Scalar l-Scalar-Plain">- All functions must have docstrings</span>
+<span class="l l-Scalar l-Scalar-Plain">- Maximum cyclomatic complexity</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">No hardcoded secrets</span>
 </code></pre></div>
 
-<p>This agent inherits:
-- File and shell tools from <code>core-tools</code>
-- Git capabilities from <code>git-ops</code><br />
-- AWS-specific tools from <code>aws-tools</code>
-- Three domain-specific behaviors</p>
 <h2 id="creating-a-bundle">Creating a Bundle<a class="headerlink" href="#creating-a-bundle" title="Permanent link">&para;</a></h2>
-<p>Let's walk through creating a bundle from scratch.</p>
+<p>Follow these steps to create your own bundle.</p>
 <h3 id="step-1-define-the-purpose">Step 1: Define the Purpose<a class="headerlink" href="#step-1-define-the-purpose" title="Permanent link">&para;</a></h3>
-<p>Before writing any configuration, clearly define:
-- What problem does this agent solve?
-- What tools does it need?
-- What domain knowledge is required?
-- Who will use it?</p>
-<h3 id="step-2-create-the-structure">Step 2: Create the Structure<a class="headerlink" href="#step-2-create-the-structure" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>my-agent/<span class="o">{</span>context,behaviors<span class="o">}</span>
-touch<span class="w"> </span>my-agent/bundle.md
-</code></pre></div>
-
-<h3 id="step-3-write-the-bundle-definition">Step 3: Write the Bundle Definition<a class="headerlink" href="#step-3-write-the-bundle-definition" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>---
-name: documentation-writer
-description: &quot;Creates clear, comprehensive documentation&quot;
-version: &quot;1.0.0&quot;
-
-tools:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>read_file
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>write_file
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>glob
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>grep
-
-includes:
-<span class="w">  </span><span class="k">-</span><span class="w"> </span>foundation:core-tools
-
-context:
-<span class="gu">  - context/style-guide.md</span>
-<span class="gu">---</span>
-
-<span class="gh"># Documentation Writer</span>
-
-You are an expert technical writer who creates clear, 
-comprehensive documentation.
-
-<span class="gu">## Writing Principles</span>
-
-<span class="k">1.</span> <span class="gs">**Clarity first**</span>: Use simple language
-<span class="k">2.</span> <span class="gs">**Structure matters**</span>: Organize logically
-<span class="k">3.</span> <span class="gs">**Examples help**</span>: Show, don&#39;t just tell
-<span class="k">4.</span> <span class="gs">**Audience awareness**</span>: Know your reader
-</code></pre></div>
-
-<h3 id="step-4-add-context-files">Step 4: Add Context Files<a class="headerlink" href="#step-4-add-context-files" title="Permanent link">&para;</a></h3>
-<p>Create supporting context that provides domain knowledge:</p>
-<div class="codehilite"><pre><span></span><code>&lt;!-- context/style-guide.md --&gt;
-<span class="gh"># Documentation Style Guide</span>
-
-<span class="gu">## Voice and Tone</span>
-<span class="k">-</span><span class="w"> </span>Use active voice
-<span class="k">-</span><span class="w"> </span>Be direct and concise
-<span class="k">-</span><span class="w"> </span>Avoid jargon unless necessary
-
-<span class="gu">## Formatting</span>
-<span class="k">-</span><span class="w"> </span>Use headers to organize content
-<span class="k">-</span><span class="w"> </span>Include code examples in fenced blocks
-<span class="k">-</span><span class="w"> </span>Add tables for comparative information
-</code></pre></div>
-
-<h3 id="step-5-test-the-bundle">Step 5: Test the Bundle<a class="headerlink" href="#step-5-test-the-bundle" title="Permanent link">&para;</a></h3>
-<p>Run your bundle and verify it works as expected:</p>
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>--bundle<span class="w"> </span>./my-agent
-</code></pre></div>
-
-<h3 id="bundle-best-practices">Bundle Best Practices<a class="headerlink" href="#bundle-best-practices" title="Permanent link">&para;</a></h3>
-<p><strong>DO:</strong>
-- Keep bundles focused on a single domain
-- Use composition instead of duplication
-- Version your bundles alongside code
-- Document the bundle's purpose and usage</p>
-<p><strong>DON'T:</strong>
-- Create monolithic bundles that do everything
-- Duplicate instructions across bundles
-- Hardcode environment-specific values
-- Include sensitive data in bundles</p>
-<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
-<h3 id="environment-specific-overrides">Environment-Specific Overrides<a class="headerlink" href="#environment-specific-overrides" title="Permanent link">&para;</a></h3>
-<p>Use includes with environment bundles:</p>
+<p>Before writing any configuration, clearly define:</p>
+<ul>
+<li>What problem does this bundle solve?</li>
+<li>Who will use it?</li>
+<li>What capabilities does it need?</li>
+<li>What existing bundles can it build on?</li>
+</ul>
+<h3 id="step-2-choose-your-base">Step 2: Choose Your Base<a class="headerlink" href="#step-2-choose-your-base" title="Permanent link">&para;</a></h3>
+<p>Start by identifying which foundation bundles to include:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base-agent</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENVIRONMENT:-development}</span><span class="w">  </span><span class="c1"># Loads dev/staging/prod bundle</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core</span><span class="w">    </span><span class="c1"># Almost always needed</span>
 </code></pre></div>
 
-<h3 id="bundle-inheritance-patterns">Bundle Inheritance Patterns<a class="headerlink" href="#bundle-inheritance-patterns" title="Permanent link">&para;</a></h3>
-<p><strong>Specialization</strong>: Start general, get specific</p>
-<div class="codehilite"><pre><span></span><code>foundation:core → domain:backend → project:api-service
+<p>Add additional foundations based on your needs:</p>
+<ul>
+<li><code>foundation:file-ops</code> for file manipulation</li>
+<li><code>foundation:git-ops</code> for version control</li>
+<li><code>foundation:web-research</code> for internet access</li>
+</ul>
+<h3 id="step-3-write-the-frontmatter">Step 3: Write the Frontmatter<a class="headerlink" href="#step-3-write-the-frontmatter" title="Permanent link">&para;</a></h3>
+<p>Create your bundle file with appropriate metadata:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-project-helper</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Project Helper</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Helps with tasks specific to my project</span>
+
+<span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:core</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span>
+
+<span class="nt">behaviors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing</span>
+<span class="nn">---</span>
 </code></pre></div>
 
-<p><strong>Layering</strong>: Add capabilities incrementally</p>
-<div class="codehilite"><pre><span></span><code>base + security + monitoring + custom
+<h3 id="step-4-write-instructions">Step 4: Write Instructions<a class="headerlink" href="#step-4-write-instructions" title="Permanent link">&para;</a></h3>
+<p>Add clear, specific instructions in the markdown body:</p>
+<div class="codehilite"><pre><span></span><code><span class="gh"># My Project Helper</span>
+
+You help developers work on the MyProject codebase.
+
+<span class="gu">## Project Structure</span>
+
+<span class="k">-</span><span class="w"> </span><span class="sb">`src/`</span> - Source code
+<span class="k">-</span><span class="w"> </span><span class="sb">`tests/`</span> - Test files
+<span class="k">-</span><span class="w"> </span><span class="sb">`docs/`</span> - Documentation
+
+<span class="gu">## Coding Standards</span>
+
+<span class="k">-</span><span class="w"> </span>Use TypeScript strict mode
+<span class="k">-</span><span class="w"> </span>Write tests for all public functions
+<span class="k">-</span><span class="w"> </span>Follow the error handling patterns in <span class="sb">`src/utils/errors.ts`</span>
+
+<span class="gu">## Common Tasks</span>
+
+<span class="gu">### Adding a New Feature</span>
+<span class="k">1.</span> Create a branch from main
+<span class="k">2.</span> Implement the feature in <span class="sb">`src/features/`</span>
+<span class="k">3.</span> Add tests in <span class="sb">`tests/features/`</span>
+<span class="k">4.</span> Update documentation if needed
 </code></pre></div>
 
-<h3 id="collection-organization">Collection Organization<a class="headerlink" href="#collection-organization" title="Permanent link">&para;</a></h3>
-<p>Group related bundles into collections:</p>
-<div class="codehilite"><pre><span></span><code>my-collection/
-├── collection.yaml     # Collection metadata
-├── agents/
-│   ├── reviewer/
-│   └── writer/
-├── behaviors/
-│   └── shared/
-└── context/
-    └── common/
+<h3 id="step-5-test-your-bundle">Step 5: Test Your Bundle<a class="headerlink" href="#step-5-test-your-bundle" title="Permanent link">&para;</a></h3>
+<p>Test your bundle by running Amplifier with it:</p>
+<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>--bundle<span class="w"> </span>./my-bundle.md
 </code></pre></div>
 
+<p>Verify that:</p>
+<ul>
+<li>All includes resolve correctly</li>
+<li>The AI understands your instructions</li>
+<li>Tools and capabilities work as expected</li>
+</ul>
+<h3 id="step-6-iterate-and-refine">Step 6: Iterate and Refine<a class="headerlink" href="#step-6-iterate-and-refine" title="Permanent link">&para;</a></h3>
+<p>Based on testing, refine your bundle:</p>
+<ul>
+<li>Add missing instructions</li>
+<li>Remove unnecessary includes</li>
+<li>Clarify ambiguous guidance</li>
+<li>Add examples for complex tasks</li>
+</ul>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="keep-bundles-focused">Keep Bundles Focused<a class="headerlink" href="#keep-bundles-focused" title="Permanent link">&para;</a></h3>
+<p>Each bundle should have a clear, singular purpose. If you find yourself adding
+unrelated capabilities, consider splitting into multiple bundles.</p>
+<h3 id="use-semantic-versioning">Use Semantic Versioning<a class="headerlink" href="#use-semantic-versioning" title="Permanent link">&para;</a></h3>
+<p>Version your bundles to track changes:</p>
+<ul>
+<li><strong>Major</strong>: Breaking changes to behavior or structure</li>
+<li><strong>Minor</strong>: New capabilities, backward compatible</li>
+<li><strong>Patch</strong>: Bug fixes and documentation updates</li>
+</ul>
+<h3 id="document-your-bundles">Document Your Bundles<a class="headerlink" href="#document-your-bundles" title="Permanent link">&para;</a></h3>
+<p>Include clear documentation in the markdown body:</p>
+<ul>
+<li>What the bundle does</li>
+<li>How to use it effectively</li>
+<li>What it doesn't do (scope boundaries)</li>
+<li>Examples of common tasks</li>
+</ul>
+<h3 id="leverage-composition">Leverage Composition<a class="headerlink" href="#leverage-composition" title="Permanent link">&para;</a></h3>
+<p>Don't duplicate functionality. If another bundle provides what you need,
+include it rather than recreating it.</p>
+<h3 id="test-with-real-scenarios">Test with Real Scenarios<a class="headerlink" href="#test-with-real-scenarios" title="Permanent link">&para;</a></h3>
+<p>Validate your bundle with actual use cases, not just theoretical ones.
+Real-world testing reveals gaps in instructions and missing capabilities.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Bundles are composable packages</strong> that define everything an agent needs—tools, instructions, behaviors, and context.</p>
+<p><strong>Bundles are composable packages</strong> that define AI assistant capabilities through
+   declarative YAML configuration and markdown instructions.</p>
 </li>
 <li>
-<p><strong>Markdown + YAML frontmatter</strong> provides a human-readable, version-controllable format for agent configuration.</p>
+<p><strong>Structure matters</strong>: Use frontmatter for configuration (id, includes, behaviors)
+   and markdown for instructions and context.</p>
 </li>
 <li>
-<p><strong>Composition is powerful</strong>: Use <code>includes</code> to build complex agents from simple, focused bundles. Tools merge, context accumulates, and instructions layer.</p>
+<p><strong>Composition over duplication</strong>: Build on existing bundles using <code>includes</code> rather
+   than recreating functionality. Follow the thin bundle pattern.</p>
 </li>
 <li>
-<p><strong>Behaviors add modularity</strong>: Extract reusable instruction fragments into behaviors that can be mixed and matched.</p>
+<p><strong>Behaviors extend capabilities</strong>: Reference behaviors to add specific capabilities
+   without including full bundle configurations.</p>
 </li>
 <li>
-<p><strong>Structure matters</strong>: Follow the standard bundle layout for consistency and discoverability.</p>
+<p><strong>Start minimal</strong>: Begin with the smallest set of includes and behaviors needed,
+   then add more as requirements emerge.</p>
 </li>
 <li>
-<p><strong>Keep bundles focused</strong>: One bundle should solve one class of problems. Use composition to combine capabilities.</p>
+<p><strong>Instructions are key</strong>: The markdown body is where you differentiate your bundle.
+   Write clear, actionable guidance for the AI.</p>
 </li>
 <li>
-<p><strong>Test and iterate</strong>: Bundles are code—version them, test them, and refine them based on real usage.</p>
+<p><strong>Test iteratively</strong>: Create your bundle, test it with real scenarios, and refine
+   based on what you learn.</p>
 </li>
 </ol>
-<hr />
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../guides/creating-bundles.md">Creating Your First Bundle</a> - Hands-on tutorial</li>
-<li><a href="./behaviors.md">Behaviors Deep Dive</a> - Learn about behavior composition</li>
-<li><a href="./collections.md">Collections</a> - Organizing bundles at scale</li>
-</ul>
+<p>Bundles embody Amplifier's philosophy of modular, composable design. By creating
+well-structured bundles, you build reusable capabilities that can be shared across
+projects and teams, enabling consistent AI-powered workflows wherever they're needed.</p>
               
             </div>
           </div><footer>

@@ -6,351 +6,330 @@ title: "LSP Tool"
 
 # LSP Tool (Code Intelligence)
 
-The LSP tool provides semantic code understanding through the Language Server Protocol. Unlike text-based search tools, LSP understands your code's actual structure—types, references, call hierarchies, and more.
-
 ## What is LSP?
 
-The Language Server Protocol (LSP) is a standardized protocol for providing programming language features like:
+The **Language Server Protocol (LSP)** is a standardized protocol that provides semantic code understanding capabilities to editors and development tools. Unlike text-based search tools like `grep`, LSP understands the actual structure and meaning of your code.
 
-- Go to definition
-- Find all references
-- Hover information (types, documentation)
-- Call hierarchy analysis
-- Symbol navigation
+LSP enables powerful code intelligence features by:
 
-Amplifier integrates with language servers to give you precise, semantic code intelligence. Instead of matching text patterns, LSP understands what your code actually means.
+- **Understanding syntax and semantics**: LSP knows what identifiers are functions, classes, variables, etc.
+- **Tracking relationships**: It understands how code elements relate to each other (calls, references, inheritance)
+- **Type awareness**: It knows the types of variables and function signatures
+- **Cross-file analysis**: It can trace definitions and references across your entire codebase
 
-### Why Semantic Understanding Matters
+The LSP tool in Amplifier connects to language servers (like Pyright for Python, TypeScript language server, etc.) to provide semantic code analysis that goes far beyond pattern matching.
 
-Consider searching for a function called `process`:
+## LSP vs Grep
 
-- **Text search (grep):** Finds every occurrence of "process" including comments, strings, variable names, and unrelated functions
-- **LSP:** Finds the exact function definition and its actual callers—nothing more, nothing less
-
-This precision becomes critical in large codebases where text matches produce hundreds of false positives.
-
-## LSP vs Grep: When to Use Each
+Understanding when to use LSP versus grep is crucial for efficient code navigation:
 
 | Task | Use LSP | Use Grep |
 |------|---------|----------|
-| Find all callers of a function | `incomingCalls` - semantic, precise | May match strings, comments, false positives |
-| Find where a symbol is defined | `goToDefinition` - exact location | Multiple matches, manual filtering needed |
-| Get type info or signature | `hover` - full type data | **Not possible** with text search |
-| Find text pattern anywhere | Use grep instead | Faster for bulk text search |
-| Search across many files | Use grep instead | Better for pattern matching |
+| Find where function is called | `incomingCalls` - finds actual call sites | Matches any string occurrence, including comments |
+| Find function definition | `goToDefinition` - goes to exact definition | Returns multiple matches including false positives |
+| Get type information | `hover` - shows type, signature, docs | Not possible with text search |
+| Find all references | `findReferences` - semantic references only | Matches variable names in unrelated contexts |
+| Understand code structure | `outgoingCalls` - shows call hierarchy | Can't distinguish between different scopes |
+| Search across languages | Limited language support | Works on any text file |
+| Search in comments/strings | Not designed for this | Perfect for text content |
+| Quick pattern matching | Slower, needs language server | Extremely fast for simple patterns |
 
-### The Rule of Thumb
+**Rule of thumb**: Use LSP for semantic code queries, grep for text pattern matching.
 
-- **LSP:** Semantic code understanding (types, references, call chains)
-- **Grep:** Text pattern matching (fast, broad searches)
+## Operations
 
-## Available Operations
-
-The LSP tool supports these operations:
+The LSP tool provides several powerful operations for code intelligence:
 
 ### goToDefinition
 
-Jump to where a symbol is defined. Works for functions, classes, variables, imports, and more.
+Jump to where a symbol is defined:
 
 ```
-Operation: goToDefinition
-File: src/auth/session.py
-Line: 45
-Character: 12
-
-Result: src/auth/base.py:23 - class SessionManager
+lsp(operation="goToDefinition", path="src/main.py", line=10, character=5)
 ```
 
-**Use when:** You see a function call and want to see its implementation.
+**Use cases:**
+- Find where a function is implemented
+- Locate class definitions
+- Jump to variable declarations
+- Trace imports to their source
+
+**Returns:** File path, line number, and character position of the definition.
 
 ### findReferences
 
-Find all locations where a symbol is used throughout the codebase.
+Find all places where a symbol is used:
 
 ```
-Operation: findReferences
-File: src/models/user.py
-Line: 15
-Character: 7
-
-Result:
-  - src/api/routes.py:34
-  - src/services/auth.py:78
-  - src/utils/validation.py:12
-  - tests/test_user.py:45
+lsp(operation="findReferences", path="src/utils.py", line=15, character=8)
 ```
 
-**Use when:** You're refactoring and need to know everywhere a symbol is used.
+**Use cases:**
+- Understand how widely a function is used
+- Assess impact before refactoring
+- Find all usages of a class or variable
+- Trace data flow through the codebase
+
+**Returns:** List of all locations where the symbol is referenced, including file, line, and character positions.
 
 ### hover
 
-Get type information, documentation, and signatures for any symbol.
+Get detailed information about a symbol at a specific location:
 
 ```
-Operation: hover
-File: src/database/connection.py
-Line: 28
-Character: 15
-
-Result:
-  def get_connection(
-      pool_name: str,
-      timeout: float = 30.0
-  ) -> AsyncConnection
-  
-  "Retrieve a connection from the specified pool."
+lsp(operation="hover", path="src/api.py", line=20, character=12)
 ```
 
-**Use when:** You need to understand a function's signature or a variable's type.
+**Use cases:**
+- Check function signatures and parameter types
+- View documentation strings
+- Understand variable types
+- See return type information
 
-### documentSymbol
-
-List all symbols defined in a single file—functions, classes, variables, constants.
-
-```
-Operation: documentSymbol
-File: src/models/user.py
-
-Result:
-  - class User (line 10)
-  - def __init__ (line 15)
-  - def validate (line 28)
-  - def to_dict (line 45)
-  - USER_ROLES: list (line 5)
-```
-
-**Use when:** You want an overview of a file's structure.
-
-### workspaceSymbol
-
-Search for symbols across the entire workspace by name.
-
-```
-Operation: workspaceSymbol
-Query: "Session"
-
-Result:
-  - class Session (src/auth/session.py:12)
-  - class SessionManager (src/auth/manager.py:8)
-  - def create_session (src/api/auth.py:34)
-  - SESSION_TIMEOUT (src/config.py:15)
-```
-
-**Use when:** You know a symbol's name but not its location.
-
-### goToImplementation
-
-Find concrete implementations of an interface or abstract method.
-
-```
-Operation: goToImplementation
-File: src/providers/base.py
-Line: 12
-Character: 8
-
-Result:
-  - src/providers/openai.py:15 - class OpenAIProvider
-  - src/providers/anthropic.py:18 - class AnthropicProvider
-```
-
-**Use when:** You have an abstract class and want to find all implementations.
-
-### prepareCallHierarchy
-
-Initialize call hierarchy analysis for a function. This prepares for incomingCalls or outgoingCalls operations.
+**Returns:** Type information, documentation, and signature details for the symbol.
 
 ### incomingCalls
 
-Find all functions that call a specific function (who calls this?).
+Find all functions that call a specific function:
 
 ```
-Operation: incomingCalls
-File: src/auth/validate.py
-Line: 20
-Character: 5
-
-Result:
-  - login_user (src/api/auth.py:45) calls validate_token
-  - refresh_session (src/api/auth.py:78) calls validate_token
-  - middleware_check (src/middleware/auth.py:12) calls validate_token
+lsp(operation="incomingCalls", path="src/service.py", line=50, character=4)
 ```
 
-**Use when:** You're changing a function and need to know what might break.
+**Use cases:**
+- Understand the call hierarchy
+- Find who depends on your function
+- Trace execution flow backwards
+- Impact analysis for changes
+
+**Returns:** List of functions that call the target function, with their locations.
 
 ### outgoingCalls
 
-Find all functions that a specific function calls (what does this call?).
+Find all functions that a specific function calls:
 
 ```
-Operation: outgoingCalls
-File: src/api/auth.py
-Line: 45
-Character: 5
-
-Result:
-  - login_user calls:
-    - validate_token (src/auth/validate.py:20)
-    - create_session (src/auth/session.py:35)
-    - log_event (src/utils/logging.py:12)
+lsp(operation="outgoingCalls", path="src/handler.py", line=30, character=4)
 ```
 
-**Use when:** You want to understand a function's dependencies.
+**Use cases:**
+- Understand what a function depends on
+- Trace execution flow forwards
+- Map out component dependencies
+- Analyze function complexity
 
-## Python-Specific Intelligence
+**Returns:** List of functions called by the target function, with their locations.
 
-Amplifier uses Pyright for Python language support, providing:
+## Python-Specific
 
-### Type Inference
+The LSP tool uses **Pyright** as the language server for Python code, providing robust type checking and code intelligence.
 
-Even without type annotations, Pyright infers types from your code:
+### Pyright Integration
 
+Pyright offers excellent Python support including:
+
+- **Type inference**: Understands types even without annotations
+- **Stub file support**: Uses `.pyi` stubs for better type information
+- **Configuration**: Respects `pyproject.toml` and `pyrightconfig.json`
+- **Virtual environment detection**: Automatically finds your venv/virtualenv
+
+### Type Checking Levels
+
+Pyright supports different type checking modes:
+- **Basic**: Minimal type checking (default for LSP queries)
+- **Standard**: Moderate type checking
+- **Strict**: Comprehensive type checking
+
+### Common Python LSP Queries
+
+**Finding method implementations in class hierarchies:**
 ```python
-# No annotations here
-def get_users(limit):
-    return db.query(User).limit(limit).all()
-
-# LSP hover reveals:
-# def get_users(limit: int) -> list[User]
+# Use goToDefinition on a method call to find which implementation is actually used
+result = obj.process()  # goToDefinition here shows the actual implementation
 ```
 
-### Import Resolution
+**Tracing decorators:**
+```python
+# hover over @decorator to see what it does
+@cache
+@validate_input
+def expensive_function():
+    pass
+```
 
-LSP resolves imports correctly, even for:
-- Relative imports (`from .utils import helper`)
-- Package imports (`from mypackage.submodule import func`)
-- Conditional imports
-- Dynamic imports (where possible)
+**Understanding complex types:**
+```python
+# hover over variables to see inferred types
+data = process_items(items)  # hover shows: data: Dict[str, List[Item]]
+```
 
-### Type Hierarchy
+### Python-Specific Tips
 
-Navigate class inheritance chains:
-- Find all subclasses of a base class
-- Trace method overrides through inheritance
-- Understand mixin compositions
-
-### Stub Files
-
-Pyright uses type stubs (`.pyi` files) for standard library and third-party packages, providing accurate type information even for untyped libraries.
+1. **Virtual environments**: Ensure your language server can find your venv for accurate import resolution
+2. **Type hints**: Add type hints for better LSP results
+3. **Docstrings**: LSP shows docstrings in hover information
+4. **Imports**: Use absolute imports for better cross-file navigation
 
 ## Best Practices
 
-### 1. Start with LSP for Code Understanding
+### When to Use LSP
 
-When investigating unfamiliar code:
+✅ **DO use LSP for:**
+- Finding function definitions and implementations
+- Understanding call hierarchies
+- Checking types and signatures
+- Refactoring impact analysis
+- Semantic code navigation
+- Cross-referencing symbols
 
-1. Use `hover` to understand types and signatures
-2. Use `goToDefinition` to see implementations
-3. Use `incomingCalls` to understand usage patterns
+❌ **DON'T use LSP for:**
+- Searching in comments or documentation
+- Finding string literals or patterns
+- Searching across non-code files
+- Quick text-based searches
+- Files without language server support
 
-### 2. Use Call Hierarchy for Impact Analysis
+### Efficient LSP Workflows
 
-Before refactoring:
-
-1. Run `incomingCalls` on the function you're changing
-2. Trace the full call tree to understand blast radius
-3. Check all callers to ensure your changes are safe
-
-### 3. Combine with Grep Strategically
-
-Some workflows benefit from both tools:
-
+**1. Start broad, then narrow:**
 ```
-# First, find all files with "authenticate" (fast, broad)
-grep pattern="authenticate" type="py"
-
-# Then, use LSP on specific hits for semantic analysis
-LSP operation="findReferences" file="src/auth.py" line=45 character=8
+1. Use findReferences to see all usages
+2. Use incomingCalls to understand the call chain
+3. Use goToDefinition to examine specific implementations
 ```
 
-### 4. Position Matters
+**2. Combine with grep:**
+```
+1. Use grep to find candidate files/patterns
+2. Use LSP to understand semantic relationships
+3. Use grep again to verify string patterns if needed
+```
 
-LSP operations require precise positions:
-- **Line:** 1-indexed (first line is 1)
-- **Character:** 1-indexed (first character is 1)
-- Position your cursor ON the symbol you're querying
+**3. Leverage hover for quick insights:**
+- Before diving into definitions, use hover to get a quick overview
+- Check function signatures before tracing calls
+- Understand types before following references
 
-### 5. Delegate Complex Navigation
+### Performance Considerations
 
-For multi-step navigation tasks, use specialized agents:
-- `lsp:code-navigator` for general code navigation
-- `lsp-python:python-code-intel` for Python-specific analysis
+- **Large codebases**: LSP may take time to index initially
+- **Language server startup**: First query may be slower
+- **Multiple files**: Batch queries when possible
+- **Fallback strategy**: If LSP is slow, use grep for initial exploration
+
+### Error Handling
+
+LSP operations may fail if:
+- Language server is not available for the file type
+- File has syntax errors preventing analysis
+- Position is invalid or in a comment
+- Symbol cannot be resolved (e.g., dynamic imports)
+
+In these cases, fall back to text-based tools like grep.
 
 ## Try It Yourself
 
-### Exercise 1: Trace a Function
+### Exercise 1: Navigate a Function Call
 
-Pick any function in your codebase:
+1. Find a function definition in your codebase
+2. Use `findReferences` to see all its usages
+3. Use `incomingCalls` to see what functions call it
+4. Use `goToDefinition` on one of the call sites to jump back
 
-1. Use `hover` to see its signature
-2. Use `goToDefinition` to find its implementation
-3. Use `incomingCalls` to see who calls it
-4. Use `outgoingCalls` to see what it depends on
+### Exercise 2: Understand Type Flow
 
-### Exercise 2: Understand a Type
+1. Pick a variable assignment in your code
+2. Use `hover` to see its type
+3. Use `findReferences` to see where it's used
+4. Use `hover` on each usage to see how the type flows
 
-Find a class you're curious about:
+### Exercise 3: Analyze a Refactoring
 
-1. Use `documentSymbol` to see all its methods
-2. Use `goToImplementation` to find subclasses
-3. Use `findReferences` on the class name to see usage
+1. Choose a function you want to rename
+2. Use `findReferences` to find all usages
+3. Use `incomingCalls` to find all callers
+4. Check if any usage is in a critical path
+5. Assess the refactoring impact
 
-### Exercise 3: Impact Analysis
+### Exercise 4: Trace Execution Flow
 
-Before making a change:
+1. Start with an entry point function
+2. Use `outgoingCalls` to see what it calls
+3. For each called function, repeat step 2
+4. Build a mental map of the execution flow
+5. Use `goToDefinition` to examine key functions
 
-1. Identify the function you'll modify
-2. Use `incomingCalls` recursively to build the call tree
-3. Count how many locations might be affected
-4. Decide if the change is safe
+## Errors and Troubleshooting
 
-## Common Errors and Solutions
+### Common Errors
 
-### "No result found"
+**Error: "Language server not available"**
+- **Cause**: No LSP server configured for this file type
+- **Solution**: Ensure the appropriate language server is installed, or use grep instead
 
-**Cause:** LSP couldn't find semantic information at that position.
+**Error: "Symbol not found"**
+- **Cause**: Position doesn't point to a valid symbol, or symbol can't be resolved
+- **Solution**: Check line/character position, ensure code is valid, try hover first
 
-**Solutions:**
-- Ensure cursor is exactly on the symbol (not whitespace)
-- Check that the file has valid syntax
-- The language server may not have indexed yet—try again
+**Error: "Timeout waiting for language server"**
+- **Cause**: Language server is slow or unresponsive
+- **Solution**: Wait for indexing to complete, restart session, or use alternative tools
 
-### "Language server not available"
+**Error: "Invalid position"**
+- **Cause**: Line or character number is out of bounds
+- **Solution**: Verify the file content and ensure position is within valid range
 
-**Cause:** No language server configured for this file type.
+### Debugging LSP Issues
 
-**Solutions:**
-- Check if the language is supported (Python is built-in)
-- Ensure the language server is properly configured
-- Some file types don't have LSP support
+**1. Verify file syntax:**
+- Ensure the file has no syntax errors
+- Language servers can't analyze invalid code
 
-### "Position out of range"
+**2. Check position carefully:**
+- Line numbers are typically 0-indexed or 1-indexed (check your tool)
+- Character position must point to a symbol, not whitespace
 
-**Cause:** Line or character number exceeds file bounds.
+**3. Confirm language server status:**
+- Check if the language server is running
+- Look for initialization errors in logs
 
-**Solutions:**
-- Remember: lines and characters are 1-indexed
-- Verify the file hasn't changed since you got the position
-- Double-check your line/character values
+**4. Test with hover first:**
+- `hover` is the simplest operation
+- If hover works, other operations should too
 
-### Stale Results
+### When LSP Isn't Working
 
-**Cause:** Language server hasn't processed recent changes.
+If LSP operations consistently fail:
 
-**Solutions:**
-- Save the file to trigger re-analysis
-- Wait a moment for indexing to complete
-- For large changes, the server may need time to catch up
+1. **Fall back to grep**: Use text-based search as a reliable alternative
+2. **Check configuration**: Verify language server settings
+3. **Use glob**: Find files by pattern, then read them
+4. **Manual inspection**: Sometimes reading the code directly is fastest
+
+### Performance Issues
+
+If LSP is too slow:
+
+- **Use grep for initial filtering**: Narrow down candidate files first
+- **Avoid repeated queries**: Cache results when possible  
+- **Target specific files**: Don't query the entire codebase unnecessarily
+- **Consider alternatives**: For large codebases, specialized tools may be faster
 
 ## Summary
 
-The LSP tool provides semantic code intelligence that text search cannot match:
+The LSP tool provides semantic code intelligence that goes far beyond text search. Use it for:
 
-| Capability | What It Does | Key Benefit |
-|------------|--------------|-------------|
-| `goToDefinition` | Jump to source | No more searching |
-| `findReferences` | All usages | Complete picture |
-| `hover` | Type info | Understand without reading |
-| `incomingCalls` | Who calls this | Impact analysis |
-| `outgoingCalls` | What this calls | Dependency mapping |
+- **Precise navigation**: goToDefinition, findReferences
+- **Type understanding**: hover for signatures and types
+- **Call analysis**: incomingCalls and outgoingCalls for dependencies
+- **Refactoring support**: Impact analysis before changes
 
-**Remember:** Use LSP for understanding code relationships. Use grep for finding text patterns. Together, they're a powerful combination for navigating any codebase.
+Remember: LSP is semantic, grep is textual. Choose the right tool for your task, and combine them for maximum efficiency.
+
+---
+
+**Next Steps:**
+- Try the exercises above on your own codebase
+- Compare LSP results with grep to understand the difference
+- Explore language-specific features for your primary language
+- Learn your language server's configuration options for better results

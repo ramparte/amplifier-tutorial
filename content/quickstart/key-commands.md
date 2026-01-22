@@ -6,356 +6,412 @@ title: "Key Commands"
 
 # Key Commands
 
-This reference covers the essential commands you'll use every day with Amplifier. Master these three commands and you'll have complete control over your sessions.
+Essential commands for working with Amplifier CLI and managing your AI development sessions.
 
 ## Command Overview
 
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
-| `amplifier run` | Start a new session | Beginning fresh work |
-| `amplifier continue` | Resume the last session | Picking up where you left off |
-| `amplifier resume` | Choose from session history | Returning to older work |
-
-## Quick Reference
-
-```bash
-# Start fresh
-amplifier run
-
-# Continue last session
-amplifier continue
-
-# Pick a specific session
-amplifier resume
-```
-
----
+| `amplifier run` | Start new session | Beginning a new task or conversation |
+| `amplifier continue` | Resume last session | Pick up where you left off |
+| `amplifier resume` | Pick specific session | Return to any previous session |
+| `amplifier list` | View all sessions | See your session history |
+| `amplifier export` | Export session | Save conversation for sharing |
 
 ## amplifier run
 
-The `run` command starts a new Amplifier session in your current directory.
+Start a new Amplifier session with an initial instruction.
 
 ### Basic Usage
 
 ```bash
+# Start with a prompt
+amplifier run "Create a REST API for user management"
+
+# Start with empty prompt (interactive mode)
 amplifier run
 ```
-
-This launches an interactive session where you can start working with the AI assistant immediately.
 
 ### Common Options
 
 ```bash
-# Start with a specific prompt
-amplifier run "Explain the architecture of this project"
+# Specify an agent
+amplifier run --agent foundation:explorer "Analyze the codebase structure"
 
-# Use a specific bundle configuration
-amplifier run --bundle my-bundle
+# Run with a specific model
+amplifier run --model claude-3-5-sonnet-20241022 "Review code quality"
 
-# Start in a different directory
-amplifier run --cwd /path/to/project
+# Set working directory
+amplifier run --dir /path/to/project "Add unit tests"
 
-# Enable verbose output for debugging
-amplifier run --verbose
+# Load a skill before starting
+amplifier run --skill python-standards "Refactor this module"
 ```
 
-### With Initial Prompt
-
-Pass your first message directly to skip the initial prompt:
+### Advanced Options
 
 ```bash
-amplifier run "Review the authentication module for security issues"
+# Run in non-interactive mode (CI/CD)
+amplifier run --non-interactive "Run all tests"
+
+# Set temperature for creativity
+amplifier run --temperature 0.7 "Generate creative variable names"
+
+# Enable debug logging
+amplifier run --debug "Investigate this bug"
+
+# Use a specific configuration file
+amplifier run --config custom-config.yaml "Deploy to production"
 ```
 
-This immediately starts working on your request without waiting for input.
-
-### Working Directory
-
-Amplifier runs in your current directory by default. The working directory determines:
-
-- Which `AGENTS.md` configuration files are loaded
-- The scope of file operations
-- Git repository context
+### Environment Variables
 
 ```bash
-# Run in current directory
-cd my-project
-amplifier run
+# Set API key
+export ANTHROPIC_API_KEY=your_key_here
 
-# Or specify explicitly
-amplifier run --cwd ~/projects/my-app
+# Set custom config location
+export AMPLIFIER_CONFIG_PATH=~/.config/amplifier/config.yaml
+
+# Enable verbose logging
+export AMPLIFIER_LOG_LEVEL=debug
 ```
 
-### Bundle Selection
-
-Bundles define what tools and agents are available:
+### Examples
 
 ```bash
-# Use the default foundation bundle
-amplifier run
+# Web development task
+amplifier run "Create a React component for user profile"
 
-# Use a specific bundle
-amplifier run --bundle developer
+# Code review
+amplifier run --agent foundation:bug-hunter "Find security issues"
 
-# Use a custom bundle from your project
-amplifier run --bundle .amplifier/bundles/custom.yaml
+# Documentation
+amplifier run "Generate API documentation for all endpoints"
+
+# Testing
+amplifier run --agent foundation:test-coverage "Add tests for auth module"
 ```
-
----
 
 ## amplifier continue
 
-The `continue` command resumes your most recent session. This is your go-to command when returning to work.
+Resume your most recent Amplifier session, picking up exactly where you left off.
 
 ### Basic Usage
 
 ```bash
+# Continue the last session
 amplifier continue
+
+# Continue with a new instruction
+amplifier continue "Now add authentication to the API"
 ```
 
-This picks up exactly where you left off, with full conversation history intact.
+### When to Use
 
-### How It Works
+- **Quick iterations**: You just closed a session and want to continue
+- **Morning workflow**: Resume yesterday's work without searching
+- **Active development**: Rapidly iterate on the current task
 
-1. Amplifier finds your most recent session in the current directory
-2. Loads the complete conversation history
-3. Restores the session state
-4. You can continue the conversation seamlessly
-
-### Typical Workflow
+### Options
 
 ```bash
-# Morning: Start working
-amplifier run "Let's build the user dashboard"
+# Continue with different model
+amplifier continue --model claude-3-5-sonnet-20241022
 
-# ... work for a while, then close terminal ...
-
-# Afternoon: Pick up where you left off
-amplifier continue
+# Continue with additional context
+amplifier continue --skill security-best-practices
 ```
 
-### Session Context
-
-When you continue a session:
-
-- All previous messages are available
-- File changes made during the session are remembered
-- The AI retains context about what you were working on
-- You can reference earlier parts of the conversation
-
-### With Additional Prompt
-
-Resume and immediately send a new message:
+### Workflow Example
 
 ```bash
-amplifier continue "Now let's add the export feature we discussed"
+# Day 1: Start working on a feature
+amplifier run "Create user authentication system"
+# ... work session ...
+# Exit with Ctrl+D
+
+# Day 2: Continue where you left off
+amplifier continue "Add password reset functionality"
 ```
-
-### Directory Matters
-
-`continue` looks for sessions started in your current directory:
-
-```bash
-cd my-project
-amplifier continue  # Continues last session in my-project
-
-cd other-project
-amplifier continue  # Continues last session in other-project
-```
-
----
 
 ## amplifier resume
 
-The `resume` command lets you choose from your session history. Use this when you need to return to an older session or switch between projects.
+Select and resume any previous session from your history.
 
 ### Basic Usage
 
 ```bash
+# Show list of sessions and pick one
 amplifier resume
+
+# Resume specific session by ID
+amplifier resume abc123def456
 ```
 
-This displays an interactive session picker showing recent sessions.
+### Interactive Session Selection
 
-### Session List
+When you run `amplifier resume` without a session ID, you'll see:
 
-The picker shows:
+```
+Recent Sessions:
+1. [2 hours ago] "Create REST API for user management"
+2. [1 day ago] "Add unit tests for authentication"
+3. [2 days ago] "Refactor database models"
+4. [1 week ago] "Setup CI/CD pipeline"
 
-- Session start time
-- Working directory
-- First message or topic
-- Session duration
+Select a session (1-4) or enter session ID:
+```
 
-Navigate with arrow keys and press Enter to select.
-
-### Resume by ID
-
-If you know the session ID, resume directly:
+### Advanced Usage
 
 ```bash
-amplifier resume abc123
+# Resume with filters
+amplifier resume --agent foundation:bug-hunter
+amplifier resume --date 2024-01-15
+amplifier resume --grep "authentication"
+
+# Resume and immediately add instruction
+amplifier resume abc123 "Continue with the OAuth integration"
 ```
 
-Session IDs are shown in the session picker and in session logs.
+### Use Cases
 
-### Filtering Sessions
+- **Context switching**: Return to a paused project
+- **Code archaeology**: Review past decisions and conversations
+- **Learning**: Revisit how you solved similar problems
+- **Collaboration**: Resume a session started by a teammate
 
-Find sessions more easily:
+## amplifier list
+
+View and manage your session history.
+
+### Basic Usage
 
 ```bash
-# Show more sessions
-amplifier resume --limit 20
+# List all sessions
+amplifier list
 
-# Filter by directory
-amplifier resume --cwd ~/projects/api
+# List with details
+amplifier list --verbose
+
+# List recent sessions only
+amplifier list --limit 10
 ```
 
-### When to Use Resume vs Continue
+### Filtering Options
 
-| Scenario | Command |
-|----------|---------|
-| Return to what you were just doing | `continue` |
-| Switch to a different project's session | `resume` |
-| Find a session from earlier today | `resume` |
-| Access a session from a different directory | `resume` |
+```bash
+# Filter by date
+amplifier list --since "2024-01-01"
+amplifier list --until "2024-01-31"
 
----
+# Filter by agent
+amplifier list --agent foundation:explorer
+
+# Search by content
+amplifier list --grep "authentication"
+
+# Filter by status
+amplifier list --active
+amplifier list --completed
+```
+
+## amplifier export
+
+Export session transcripts for sharing, documentation, or archival.
+
+### Basic Usage
+
+```bash
+# Export last session
+amplifier export
+
+# Export specific session
+amplifier export abc123def456
+
+# Export to file
+amplifier export abc123 --output session-log.md
+```
+
+### Export Formats
+
+```bash
+# Markdown (default)
+amplifier export --format markdown
+
+# JSON for processing
+amplifier export --format json
+
+# HTML for viewing
+amplifier export --format html
+```
 
 ## Slash Commands
 
-During an active session, use slash commands for quick actions.
+Special commands available during an active Amplifier session.
 
-### /help
-
-Display available commands and usage information:
+### Help and Information
 
 ```
-/help
+/help                 Show available slash commands
+/tools                List available tools and their capabilities
+/skills               Show loaded skills
+/context              Display current context information
 ```
 
-Shows:
-- All available slash commands
-- Brief description of each
-- Usage examples
-
-### /compact
-
-Compress the conversation to save context space:
+### Display Control
 
 ```
-/compact
+/compact              Toggle compact mode (less verbose output)
+/verbose              Toggle verbose mode (more detailed output)
+/clear                Clear the terminal screen
 ```
 
-This summarizes earlier messages while preserving important context. Use when:
-
-- The conversation is getting long
-- You're hitting context limits
-- You want to focus on recent work
-
-After compacting:
-- Key decisions and context are preserved
-- Detailed earlier messages are summarized
-- You have more room for new conversation
-
-### /tools
-
-List available tools in the current session:
+### Session Management
 
 ```
-/tools
+/status               Show current session status
+/save                 Save session checkpoint
+/export               Export current session
+/quit                 Exit session (Ctrl+D also works)
 ```
 
-Shows all tools the AI can use, including:
-- File operations (read, write, edit)
-- Search tools (grep, glob)
-- Shell commands (bash)
-- Web tools (search, fetch)
-- Agent delegation (task)
+### Context and Memory
 
-### Other Useful Commands
+```
+/forget [topic]       Remove specific context from memory
+/summarize            Get summary of conversation so far
+/tokens               Show token usage statistics
+```
 
-| Command | Purpose |
-|---------|---------|
-| `/status` | Show session status |
-| `/clear` | Clear the screen |
-| `/exit` | End the session |
-| `/undo` | Undo last action |
+### Advanced Commands
 
----
+```
+/agent [name]         Switch to a different agent
+/model [name]         Switch to a different model
+/temperature [0-1]    Adjust response creativity
+/skill [name]         Load additional skill
+```
+
+### Examples
+
+```
+# During a session
+You: Create a user authentication system
+AI: [creates authentication code]
+
+You: /compact
+# Output mode changed to compact
+
+You: /tools
+# Shows: bash, read_file, write_file, grep, etc.
+
+You: /skill security-best-practices
+# Loads security skill for additional guidance
+```
+
+## Tips and Best Practices
+
+### Session Management
+
+- **Use descriptive prompts**: Start sessions with clear, specific goals
+- **Resume frequently**: Don't hesitate to continue previous sessions
+- **Export important sessions**: Save key conversations for documentation
+
+### Command Efficiency
+
+```bash
+# Use aliases for common commands
+alias amp='amplifier'
+alias ampr='amplifier run'
+alias ampc='amplifier continue'
+
+# Chain commands
+amplifier run "Setup project" && amplifier continue "Add tests"
+```
+
+### Working with Multiple Projects
+
+```bash
+# Use project-specific scripts
+cd ~/project-a && amplifier run "Add feature X"
+cd ~/project-b && amplifier run "Fix bug Y"
+
+# Or use --dir flag
+amplifier run --dir ~/project-a "Add feature X"
+```
+
+### Debugging Issues
+
+```bash
+# Enable verbose logging
+amplifier run --debug "Investigate this error"
+
+# Check configuration
+amplifier config show
+
+# Verify installation
+amplifier version
+amplifier doctor
+```
 
 ## Keyboard Shortcuts
 
-While in a session, these shortcuts help navigation:
-
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+C` | Cancel current operation |
-| `Ctrl+D` | End session (EOF) |
-| `Up/Down` | Navigate input history |
-| `Tab` | Auto-complete file paths |
-
----
-
-## Command Cheat Sheet
-
-```bash
-# === Starting Sessions ===
-amplifier run                    # New session
-amplifier run "prompt"           # New session with initial prompt
-amplifier run --bundle dev       # New session with specific bundle
-
-# === Resuming Sessions ===
-amplifier continue               # Resume last session
-amplifier continue "prompt"      # Resume with new message
-amplifier resume                 # Pick from history
-amplifier resume <id>            # Resume specific session
-
-# === In-Session Commands ===
-/help                            # Show help
-/compact                         # Compress context
-/tools                           # List available tools
-/exit                            # End session
-```
-
----
-
-## Troubleshooting
-
-### "No session found to continue"
-
-You haven't started a session in this directory yet:
-
-```bash
-# Start a new session instead
-amplifier run
-```
-
-### Session won't resume
-
-If a session is corrupted or won't load:
-
-```bash
-# Start fresh
-amplifier run
-
-# Or try a different session
-amplifier resume
-```
-
-### Context getting too long
-
-Use the compact command to summarize:
-
-```
-/compact
-```
-
----
+| `Ctrl+D` | Exit session gracefully |
+| `Ctrl+C` | Interrupt current operation |
+| `Ctrl+L` | Clear screen (same as /clear) |
+| `Up/Down` | Navigate command history |
+| `Tab` | Auto-complete (if available) |
 
 ## Next Steps
 
-Now that you know the key commands:
+### Continue Learning
 
-- **[Your First Session](first-session.md)** - Put these commands into practice
-- **[Slash Commands Deep Dive](slash-commands.md)** - Learn all in-session commands
-- **[Session Management](../guides/session-management.md)** - Advanced session workflows
+- **[First Conversation](./first-conversation.md)**: Practice with your first Amplifier session
+- **[Slash Commands Deep Dive](../concepts/sessions.md)**: Learn advanced session control
+- **[Agent System](../concepts/agents.md)**: Understand specialized agents
+
+### Explore Tools
+
+- **[Task Tool](../tools/task.md)**: Launch specialized sub-agents
+- **[Recipe System](../tools/recipes-tool.md)**: Automate multi-step workflows
+- **[File Operations](../tools/filesystem.md)**: Master file manipulation
+
+### Advanced Usage
+
+- **[Configuration](../concepts/configuration.md)**: Customize Amplifier behavior
+- **[Skills](../concepts/skills.md)**: Load domain expertise
+- **[Bundles](../concepts/bundles.md)**: Extend with custom capabilities
+
+## Quick Reference Card
+
+```bash
+# Start new session
+amplifier run "Your instruction here"
+
+# Continue last session
+amplifier continue
+
+# Pick any session
+amplifier resume
+
+# List all sessions
+amplifier list
+
+# Get help
+amplifier --help
+amplifier run --help
+
+# During session
+/help        # Show commands
+/tools       # List tools
+/compact     # Toggle output mode
+Ctrl+D       # Exit
+```
+
+---
+
+**Need Help?** Run `amplifier --help` for command documentation or visit the [documentation site](https://amplifier.dev) for comprehensive guides.

@@ -6,267 +6,248 @@ title: "How It's Different"
 
 # How Amplifier is Different
 
-Amplifier represents a fundamentally different approach to building AI-powered applications.
-Rather than treating AI as a black box to be wrapped in layers of abstraction, Amplifier
-embraces simplicity, modularity, and developer control.
+Amplifier takes a fundamentally different approach to building AI-powered applications. Rather than providing a monolithic framework or a simple API wrapper, Amplifier offers a modular kernel that you compose into exactly what you need.
 
 ## Comparison Overview
 
-Most AI frameworks fall into two categories: either they're too opinionated and lock you
-into specific patterns, or they're too low-level and require you to build everything from
-scratch. Amplifier charts a middle path.
+Most AI development tools fall into one of two categories:
 
-| Aspect | Traditional Frameworks | Amplifier |
-|--------|----------------------|-----------|
-| Architecture | Monolithic, tightly coupled | Modular, composable |
-| Extensibility | Plugin systems, inheritance | First-class module contracts |
-| Multi-Agent | Bolted on, complex | Native, simple |
-| Customization | Configuration files | Behavior composition |
-| Learning Curve | Steep, framework-specific | Gradual, principle-based |
+| Approach | Examples | Trade-offs |
+|----------|----------|------------|
+| **Monolithic Frameworks** | Full-stack AI platforms | Feature-rich but opinionated, hard to customize |
+| **API Wrappers** | Thin client libraries | Flexible but low-level, requires building everything |
+| **Amplifier** | Modular kernel + bundles | Compose what you need, extend without forking |
 
-### What We're Not
+### What Makes Amplifier Different
 
-Amplifier is not:
-
-- A wrapper around a single LLM provider
-- An opinionated application framework
-- A no-code/low-code platform
-- A managed service with vendor lock-in
-
-### What We Are
-
-Amplifier is:
-
-- A kernel for AI agent orchestration
-- A collection of composable behaviors
-- A philosophy of building with AI
-- An open platform for innovation
+1. **Kernel + Module Architecture**: A minimal core with pluggable capabilities
+2. **Composition Over Configuration**: Build your stack by composing bundles
+3. **First-Class Multi-Agent Support**: Agents that collaborate, not just respond
+4. **Open Source Philosophy**: Inspect, modify, and contribute to every layer
 
 ## Modular Architecture
 
-At the heart of Amplifier is the "bricks and studs" philosophy. Like interlocking building
-blocks, every component has well-defined connection points that allow them to snap together
-predictably.
+Amplifier's architecture follows the "bricks and studs" philosophy—small, well-defined modules that snap together through standard interfaces.
 
 ### The Kernel
 
-The Amplifier kernel is intentionally minimal. It provides:
+The kernel is intentionally minimal. It provides:
 
-- **Session lifecycle management** - Creating, persisting, and resuming conversations
-- **Module orchestration** - Loading and coordinating modules at runtime
-- **Event dispatch** - A simple pub/sub system for cross-cutting concerns
-- **Provider abstraction** - A thin layer over LLM providers
+- **Session lifecycle management**: Start, run, persist, resume
+- **Event system**: Hooks and observers for extensibility
+- **Module protocol**: Standard contracts for all module types
+- **Provider abstraction**: Swap LLM backends without code changes
 
-What it doesn't do is equally important. The kernel has no opinions about:
+The kernel does NOT include:
+- Specific tools or capabilities
+- Business logic
+- Opinionated workflows
 
-- How you structure your prompts
-- What tools you expose to agents
-- How agents communicate with each other
-- Where you store your data
+### Module Types
 
-### Modules Over Plugins
-
-Traditional plugin systems are often afterthoughts. They expose limited hooks and require
-you to work around the framework's assumptions. Amplifier modules are different.
-
-Every capability in Amplifier is a module:
+Amplifier defines clear module contracts:
 
 ```
-amplifier-core/
-  modules/
-    providers/     # LLM provider implementations
-    tools/         # Tool definitions and handlers
-    hooks/         # Lifecycle event handlers
-    context/       # Context providers
+Provider     → LLM backends (Anthropic, OpenAI, Azure, etc.)
+Tool         → Capabilities the agent can use
+Hook         → Intercept and modify agent behavior
+Observer     → React to events without modification
+Context      → Inject information into agent sessions
 ```
 
-Modules follow explicit contracts. A provider module must implement the Provider protocol.
-A tool module must implement the Tool protocol. There's no magic, no hidden behavior.
+### Bundles: Composable Capability Packs
 
-### Thin Bundles
-
-Bundles are curated collections of modules composed for specific use cases. The key insight
-is that bundles should be thin - they compose behaviors rather than implementing them.
+Bundles group related modules into reusable packages:
 
 ```yaml
-# A bundle is mostly composition
-name: code-assistant
-extends: foundation
+# Example: A bundle for web development
+name: web-dev-bundle
 modules:
-  - tool-bash
-  - tool-file-ops
-  - tool-lsp
-behaviors:
-  - code-review
-  - test-runner
+  tools:
+    - browser-automation
+    - http-client
+    - html-parser
+  context:
+    - web-standards
+    - accessibility-guidelines
 ```
 
-This approach means you can understand exactly what a bundle does by reading its manifest.
-There's no hidden complexity buried in base classes or inherited configurations.
+You compose your Amplifier instance by selecting bundles:
+
+```yaml
+# Your application's bundle composition
+extends:
+  - foundation          # Core capabilities
+  - web-dev-bundle      # Web development tools
+  - your-custom-bundle  # Your domain-specific additions
+```
 
 ## Extensibility
 
-Extensibility in Amplifier isn't a feature - it's the foundation.
+Traditional frameworks force a choice: use what they provide, or fork and maintain your own version. Amplifier offers a third path.
 
-### Protocol-Based Design
+### Extend Without Forking
 
-Every extension point is defined by a protocol (interface). Want to add a new LLM provider?
-Implement the Provider protocol:
+Every extension point in Amplifier is designed for external modification:
 
-```python
-class Provider(Protocol):
-    async def generate(self, messages: list[Message]) -> Response: ...
-    async def stream(self, messages: list[Message]) -> AsyncIterator[Chunk]: ...
-```
+| Extension Point | What You Can Do |
+|-----------------|-----------------|
+| **Providers** | Add new LLM backends or modify existing ones |
+| **Tools** | Create custom tools with full type safety |
+| **Hooks** | Transform requests/responses in the agent loop |
+| **Observers** | Add logging, metrics, or side effects |
+| **Context** | Inject domain knowledge and instructions |
 
-Want to add a new tool? Implement the Tool protocol:
+### Hook System Example
 
-```python
-class Tool(Protocol):
-    name: str
-    description: str
-    parameters: JsonSchema
-    async def execute(self, params: dict) -> ToolResult: ...
-```
-
-The protocols are minimal and stable. They define the contract, not the implementation.
-
-### Hooks for Cross-Cutting Concerns
-
-Need to log every tool call? Add a hook. Need to filter responses? Add a hook. Need to
-inject context? Add a hook.
+Hooks let you intercept the agent loop at defined points:
 
 ```python
-@hook("tool.before_call")
-async def log_tool_calls(event: ToolCallEvent):
-    logger.info(f"Calling {event.tool_name} with {event.arguments}")
+class ContentFilterHook(Hook):
+    """Filter sensitive content before it reaches the LLM."""
+    
+    async def pre_request(self, messages: list) -> list:
+        return [self.filter_pii(m) for m in messages]
+    
+    async def post_response(self, response: Response) -> Response:
+        return self.validate_output(response)
 ```
 
-Hooks are non-invasive. They observe and optionally modify behavior without requiring
-changes to the core system.
+### Skills: Loadable Domain Knowledge
 
-### No Framework Lock-In
+Skills are structured knowledge that agents can load on demand:
 
-Amplifier doesn't require you to adopt it entirely. You can:
+```python
+# Agent loads a skill for specific domain expertise
+load_skill("python-standards")
+load_skill("security-best-practices")
+```
 
-- Use just the kernel for agent orchestration
-- Use individual modules in your existing application
-- Gradually adopt more capabilities as needed
-- Replace any component with your own implementation
+Skills keep specialized knowledge modular and maintainable.
 
 ## Multi-Agent
 
-Multi-agent systems are notoriously complex. Amplifier makes them simple by design.
+Amplifier treats multi-agent patterns as first-class citizens, not afterthoughts.
 
-### Agents Are Sessions
+### Agent Hierarchy
 
-In Amplifier, an agent is just a session with a specific configuration. There's no special
-"Agent" class or complex initialization:
+Agents in Amplifier can spawn sub-agents for specialized tasks:
+
+```
+Main Agent
+├── Explorer Agent      → Deep codebase reconnaissance
+├── Builder Agent       → Implementation from specs
+├── Reviewer Agent      → Code quality assessment
+└── Test Agent          → Verification and validation
+```
+
+### Delegation Patterns
+
+The `task` tool enables clean agent delegation:
 
 ```python
-# Create an agent by creating a session with behaviors
-research_agent = await amplifier.session(
-    behaviors=["web-research", "summarization"]
-)
-
-# Create another agent with different capabilities
-code_agent = await amplifier.session(
-    behaviors=["code-analysis", "refactoring"]
+# Main agent delegates to a specialist
+result = await task(
+    agent="foundation:bug-hunter",
+    instruction="Investigate the KeyError in auth.py line 42"
 )
 ```
 
-### Simple Delegation
-
-Agents delegate to other agents through the task tool. The pattern is straightforward:
-
-1. Parent agent decides to delegate
-2. Child agent receives instruction and context
-3. Child agent works independently
-4. Child agent returns a result
-5. Parent agent continues
-
-There's no complex message-passing infrastructure, no shared state to synchronize, no
-race conditions to handle. Each agent session is independent.
+Each sub-agent:
+- Runs in its own session
+- Has its own tool access
+- Returns a structured result
+- Cannot access parent context (isolation by default)
 
 ### Parallel Execution
 
-Because agents are independent sessions, parallel execution is natural:
+Independent tasks run in parallel:
 
 ```python
-# Launch multiple agents in parallel
-results = await asyncio.gather(
-    research_agent.run("Find information about X"),
-    code_agent.run("Analyze the authentication module"),
-)
+# These execute concurrently
+results = await parallel([
+    task(agent="test-runner", instruction="Run unit tests"),
+    task(agent="linter", instruction="Check code style"),
+    task(agent="security", instruction="Scan for vulnerabilities"),
+])
 ```
 
-### Hierarchical Composition
+### Recipes: Declarative Workflows
 
-Complex workflows emerge from simple compositions:
+For complex multi-step workflows, Amplifier provides recipes:
 
+```yaml
+name: code-review-workflow
+steps:
+  - agent: explorer
+    instruction: Map the codebase structure
+    
+  - agent: reviewer
+    instruction: Review changes against standards
+    depends_on: [0]
+    
+  - agent: summarizer
+    instruction: Create review summary
+    depends_on: [1]
 ```
-main-agent
-├── planning-agent
-│   └── estimation-agent
-├── implementation-agent
-│   ├── frontend-agent
-│   └── backend-agent
-└── review-agent
-```
-
-Each level only knows about its immediate children. The planning agent doesn't know or
-care how the implementation agent structures its work internally.
 
 ## Open Source
 
-Amplifier is fully open source under a permissive license. But open source means more
-than just "code is available."
+Amplifier is fully open source under the MIT license. But open source means more than just "the code is available."
 
-### Transparent Development
+### Inspect Everything
 
-All development happens in the open. Issues, discussions, and roadmap decisions are
-visible and participatory. There are no private feature branches or surprise releases.
+Every layer of Amplifier is transparent:
+
+- **Kernel source**: See exactly how the agent loop works
+- **Bundle contents**: Inspect any tool, hook, or context
+- **Session logs**: Full event history for debugging
+- **Decision traces**: Understand why agents made choices
+
+### Modify Anything
+
+You can override any component:
+
+```yaml
+# Override a specific tool from a bundle
+modules:
+  tools:
+    - name: file-writer
+      override: my-custom-file-writer
+```
+
+### Contribute Back
+
+The modular architecture makes contributions clean:
+
+- Add a new provider? Create a provider module
+- Build a useful tool? Package it as a bundle
+- Improve the kernel? Submit a focused PR
+
+No need to understand the entire codebase to contribute meaningfully.
 
 ### Community-Driven Evolution
 
-The module system means the community can extend Amplifier without waiting for core
-changes. New providers, tools, and behaviors can be developed and shared independently.
+Amplifier's design supports:
 
-### No Artificial Limitations
+- **Bundle ecosystem**: Share and discover community bundles
+- **Skill libraries**: Domain knowledge anyone can contribute
+- **Recipe patterns**: Proven workflows for common tasks
 
-There are no "enterprise" features held back, no usage limits, no telemetry requirements.
-You get the complete system, and you can deploy it however you want.
+## Summary
 
-### Sustainable Ecosystem
+| Aspect | Traditional Approach | Amplifier Approach |
+|--------|---------------------|-------------------|
+| **Architecture** | Monolithic or minimal | Modular kernel + composable bundles |
+| **Customization** | Fork or workaround | Extend through standard contracts |
+| **Multi-Agent** | Manual orchestration | First-class delegation and recipes |
+| **Transparency** | Black box behaviors | Full inspection at every layer |
+| **Philosophy** | Feature accumulation | Ruthless simplicity |
 
-The modular architecture means:
-
-- Core remains stable and maintained
-- Community modules can evolve independently
-- Breaking changes are isolated to specific modules
-- You can lock versions of individual components
-
-## The Amplifier Philosophy
-
-Beyond technical differences, Amplifier embodies a philosophy:
-
-1. **Simplicity over features** - We'd rather do fewer things well
-2. **Composition over inheritance** - Build by combining, not extending
-3. **Explicit over implicit** - No magic, no hidden behavior
-4. **Trust the developer** - You know your domain better than we do
-5. **Embrace AI as a partner** - AI builds the code, humans guide the vision
-
-This philosophy permeates every design decision. When evaluating new features, we ask:
-Does this make things simpler? Does it compose well? Is it explicit? Does it trust
-developers?
-
-If the answer is no, we find a different approach or don't add the feature at all.
+Amplifier isn't trying to be everything to everyone. It's designed to be exactly what you need—composed from well-defined pieces that you control.
 
 ## Next Steps
 
-Ready to experience the difference?
-
-- [Installation Guide](./installation.md) - Get Amplifier running in minutes
-- [Your First Agent](./first-agent.md) - Build something real
-- [Core Concepts](../concepts/overview.md) - Understand the foundations
-- [Module Development](../guides/creating-modules.md) - Extend Amplifier yourself
+- [Quick Start Guide](./quick-start.md): Build your first Amplifier application
+- [Core Concepts](./core-concepts.md): Understand the fundamental building blocks
+- [Bundle Composition](../guides/bundle-composition.md): Learn to compose your own stack

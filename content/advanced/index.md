@@ -6,86 +6,83 @@ title: Advanced Topics
 
 # Advanced Topics
 
-This section covers advanced Amplifier concepts for users who want to go deeper. Topics here assume familiarity with core concepts, bundles, and basic agent development.
-
-These guides help you build sophisticated AI applications, customize the kernel, and optimize performance.
+Once you've mastered the fundamentals, these advanced topics unlock Amplifier's full power. From multi-agent orchestration to custom kernel modules, this section covers expert-level capabilities. Dive deep into sophisticated patterns for building production-grade AI applications.
 
 ## Section Contents
 
 | Page | Description |
 |------|-------------|
-| [Kernel Internals](./kernel-internals.md) | How the Amplifier kernel works |
-| [Custom Tools](./custom-tools.md) | Building your own tool modules |
-| [Hook Development](./hook-development.md) | Creating custom hooks |
-| [Provider Integration](./provider-integration.md) | Adding new LLM providers |
-| [Multi-Agent Systems](./multi-agent-systems.md) | Complex agent orchestration |
 | [Recipes](./recipes.md) | Declarative multi-step workflows |
-| [Performance](./performance.md) | Optimization and scaling |
-| [Security](./security.md) | Security model and best practices |
+| [Multi-Agent Patterns](./multi-agent.md) | Orchestrating agent collaboration |
+| [Custom Modules](./custom-modules.md) | Extending the kernel |
+| [Provider Configuration](./providers.md) | Advanced LLM setup and routing |
+| [Session Management](./session-management.md) | Persistence, resume, and repair |
+| [Performance Tuning](./performance.md) | Optimization strategies |
+| [Security Hardening](./security.md) | Production security practices |
+| [Debugging Deep Dive](./debugging.md) | Advanced troubleshooting |
 
 ## Quick Tips
 
-- **Understand modules first** — All advanced features build on the module system
-- **Read the source** — Amplifier is open; the code is the best documentation
-- **Test in isolation** — Advanced features can have subtle interactions
-- **Use typed interfaces** — TypedDict and Protocol classes catch errors early
-- **Profile before optimizing** — Measure actual bottlenecks, don't guess
-
-## Architecture Deep Dive
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Application Layer                    │
-├─────────────────────────────────────────────────────────┤
-│  Recipes │ Multi-Agent │ Custom Behaviors               │
-├─────────────────────────────────────────────────────────┤
-│      Modules: Providers │ Tools │ Hooks │ Custom        │
-├─────────────────────────────────────────────────────────┤
-│                   Event System                          │
-├─────────────────────────────────────────────────────────┤
-│    Kernel: Session Manager │ Module Registry │ Router   │
-└─────────────────────────────────────────────────────────┘
-```
-
-## Module Types
-
-| Type | Purpose | Interface |
-|------|---------|-----------|
-| Provider | LLM backends | `ProviderProtocol` |
-| Tool | Agent capabilities | `ToolProtocol` |
-| Hook | Event interception | `HookProtocol` |
-| Context | Knowledge injection | `ContextProtocol` |
-
-## Where to Start
-
-**Want to extend Amplifier?** Start with [Custom Tools](./custom-tools.md)—it's the most common extension point.
-
-**Building complex workflows?** Read [Recipes](./recipes.md) for declarative multi-step orchestration.
-
-**Optimizing performance?** Check [Performance](./performance.md) for profiling and optimization strategies.
-
-**Security concerns?** Review [Security](./security.md) before deploying to production.
+- **Recipes for repeatability** - Codify multi-step workflows as recipes
+- **Agent specialization** - Create focused agents rather than general-purpose
+- **Module contracts** - Follow kernel protocols for reliable extensions
+- **Session hygiene** - Clean up and repair sessions proactively
+- **Monitor everything** - Observability is essential at scale
 
 ## Advanced Patterns
 
-| Pattern | Use Case | Guide |
-|---------|----------|-------|
-| Tool composition | Combine tools for complex ops | Custom Tools |
-| Event sourcing | Audit and replay | Kernel Internals |
-| Agent delegation | Hierarchical task distribution | Multi-Agent Systems |
-| Staged execution | Human-in-loop workflows | Recipes |
+### Recipe-Driven Workflows
+```yaml
+name: code-review
+steps:
+  - agent: zen-architect
+    mode: REVIEW
+    input: "{{file_path}}"
+  - agent: security-guardian
+    input: "{{previous_output}}"
+  - agent: result-validator
+    criteria: "{{acceptance_criteria}}"
+```
 
-## Prerequisites
+### Multi-Agent Collaboration
+```
+┌─────────────┐
+│ Orchestrator│
+└──────┬──────┘
+       │
+  ┌────┴────┐
+  │ Spawn   │
+  ▼         ▼
+┌───┐     ┌───┐
+│ A │     │ B │  Parallel execution
+└─┬─┘     └─┬─┘
+  │         │
+  └────┬────┘
+       │
+  ┌────▼────┐
+  │ Combine │
+  └─────────┘
+```
 
-Before diving into advanced topics, ensure you understand:
+## Where to Start
 
-- [ ] Core concepts (sessions, agents, modules)
-- [ ] Bundle composition and structure
-- [ ] Basic tool usage patterns
-- [ ] Hook event lifecycle
+**Automating workflows?** Begin with [Recipes](./recipes.md) for declarative orchestration.
 
-## Related Sections
+**Building agent systems?** See [Multi-Agent Patterns](./multi-agent.md) for coordination strategies.
 
-- [Concepts: Core Architecture](../concepts/index.md)
-- [Dev Setup: Contributing](../dev-setup/contributing.md)
-- [Bundles: Creating Bundles](../bundles/creating.md)
+**Extending Amplifier?** Start with [Custom Modules](./custom-modules.md) for kernel extension.
+
+## Complexity Budget
+
+Advanced features add power but also complexity. Apply judiciously:
+
+| Feature | Use When |
+|---------|----------|
+| Recipes | Repeatable multi-step workflows |
+| Multi-agent | Tasks benefit from specialization |
+| Custom modules | Core behavior needs modification |
+| Session management | Long-running or resumable work |
+
+## Next Steps
+
+For day-to-day development workflows, see [Dev Setup](../dev-setup/index.md). For foundational concepts, revisit [Concepts](../concepts/index.md).

@@ -6,384 +6,369 @@ title: "Your First Bundle"
 
 # Your First Bundle
 
-A bundle is a portable package of AI capabilities that you can share, compose, and reuse.
-Think of it as a "plugin" that gives an AI assistant new skills, knowledge, and behaviors.
-
-In this tutorial, you'll create a bundle that transforms any AI assistant into a
-specialized code review helper.
+Bundles are the heart of the Amplifier ecosystem. They package skills, agents, recipes, and capabilities into reusable modules that extend your AI assistant's abilities. In this tutorial, you'll create a simple but practical bundle from scratch.
 
 ## What You'll Build
 
-By the end of this tutorial, you'll have:
+You'll create a **code-review** bundle that helps review Python code for common issues. This bundle will include:
 
-- A complete bundle with custom instructions
-- Configured tools for file operations
-- Context files that guide behavior
-- A working code reviewer you can use immediately
+- A custom agent that specializes in code review
+- A skill document with Python best practices
+- A recipe for automated code review workflow
 
-**Time required:** 10-15 minutes
+By the end, you'll understand how to structure bundles, write agent instructions, and configure tools.
 
-**Prerequisites:**
-- Amplifier installed and working
-- Completed the "Hello World" quickstart
+## Prerequisites
+
+- Amplifier installed and configured
+- Basic understanding of YAML format
 - A text editor
 
-## Step 1: Create the Bundle Directory
+## Step 1: Create Bundle Structure
 
-Every bundle lives in its own directory with a specific structure. Let's create one:
-
-```bash
-# Create the bundle directory
-mkdir -p ~/.amplifier/bundles/code-reviewer
-
-# Navigate into it
-cd ~/.amplifier/bundles/code-reviewer
-```
-
-The bundle directory name (`code-reviewer`) becomes the bundle's identifier.
-You'll reference it as `code-reviewer` when composing with other bundles.
-
-### Bundle Directory Structure
-
-Here's what we'll create:
-
-```
-code-reviewer/
-├── bundle.yaml          # Bundle manifest (required)
-├── context/             # Context files loaded into AI
-│   └── instructions.md  # Main behavior instructions
-└── tools/               # Tool configurations (optional)
-    └── tools.yaml       # Tool definitions
-```
-
-## Step 2: Create the Bundle Manifest
-
-The `bundle.yaml` file defines your bundle's metadata and composition:
+Every bundle needs a specific directory structure. Let's create it:
 
 ```bash
-touch bundle.yaml
+mkdir -p ~/.amplifier/bundles/code-review
+cd ~/.amplifier/bundles/code-review
 ```
 
-Add this content to `bundle.yaml`:
+Create the bundle manifest file `bundle.yaml`:
 
 ```yaml
-# Bundle manifest for code-reviewer
-name: code-reviewer
+name: code-review
 version: 1.0.0
-description: "A focused code review assistant that provides actionable feedback"
+description: "Code review assistant for Python projects"
+author: "Your Name"
+license: MIT
 
-# What this bundle provides
+# Define what this bundle provides
 provides:
-  - code-review
-  - best-practices
+  agents:
+    - code-reviewer
+  skills:
+    - python-best-practices
+  recipes:
+    - review-pr
+```
 
-# Context files to load (order matters)
-context:
-  - context/instructions.md
+This manifest tells Amplifier what your bundle provides and how to identify it.
 
-# Tools this bundle needs
+### Create Directory Structure
+
+Create the directories for your bundle components:
+
+```bash
+mkdir -p agents
+mkdir -p skills
+mkdir -p recipes
+```
+
+Your bundle structure should now look like:
+
+```
+~/.amplifier/bundles/code-review/
+├── bundle.yaml
+├── agents/
+├── skills/
+└── recipes/
+```
+
+## Step 2: Create Your Agent
+
+Agents are specialized AI assistants with specific instructions. Create `agents/code-reviewer.yaml`:
+
+```yaml
+name: code-reviewer
+description: "Reviews Python code for best practices and potential issues"
+
+# Agent's system instructions
+instructions: |
+  You are an expert Python code reviewer. Your goal is to help developers
+  write better, more maintainable code.
+
+  When reviewing code:
+  1. Check for PEP 8 style compliance
+  2. Look for potential bugs or logic errors
+  3. Identify security vulnerabilities
+  4. Suggest performance improvements
+  5. Recommend better naming or structure
+  
+  Always be constructive and educational in your feedback. Explain WHY
+  something should change, not just WHAT to change.
+  
+  Format your reviews as:
+  - **Issue**: Description of the problem
+  - **Location**: File and line number
+  - **Severity**: Critical / High / Medium / Low
+  - **Recommendation**: Specific suggestion
+  - **Explanation**: Why this matters
+
+# Tools this agent can use
 tools:
   - read_file
   - grep
   - glob
+  - python_check
+  - bash
 
-# Optional: bundles this one extends
-extends: []
+# Optional: Tool-specific configuration
+tool_config:
+  python_check:
+    checks: ["format", "lint", "types"]
 ```
 
-### Understanding the Manifest
+### Understanding Agent Configuration
 
-| Field | Purpose |
-|-------|---------|
-| `name` | Unique identifier for your bundle |
-| `version` | Semantic version for tracking changes |
-| `description` | Human-readable explanation |
-| `provides` | Capabilities this bundle offers |
-| `context` | Files loaded into the AI's context |
-| `tools` | Tools the AI can use |
-| `extends` | Other bundles to inherit from |
+- **instructions**: The core prompt that defines the agent's behavior and expertise
+- **tools**: Which capabilities the agent has access to
+- **tool_config**: Optional settings for specific tools
 
-## Step 3: Add Instructions
+## Step 3: Add Domain Knowledge with Skills
 
-The instructions file is where you define your bundle's personality and behavior.
-This is the most important file—it shapes how the AI acts.
-
-Create the context directory and instructions file:
-
-```bash
-mkdir -p context
-touch context/instructions.md
-```
-
-Add this content to `context/instructions.md`:
+Skills provide domain-specific knowledge. Create `skills/python-best-practices.md`:
 
 ```markdown
-# Code Review Assistant
+---
+name: python-best-practices
+description: "Python coding standards and best practices"
+version: 1.0.0
+---
 
-You are a focused code review assistant. Your job is to provide clear,
-actionable feedback that helps developers write better code.
+# Python Best Practices
 
-## Review Philosophy
+## Code Style
 
-- **Be specific**: Point to exact lines and explain why something matters
-- **Be constructive**: Suggest improvements, don't just criticize
-- **Be prioritized**: Distinguish critical issues from nice-to-haves
-- **Be educational**: Explain the "why" behind recommendations
+Follow PEP 8 for consistent code style:
+- Use 4 spaces for indentation (never tabs)
+- Limit lines to 88 characters (Black formatter default)
+- Use snake_case for functions and variables
+- Use PascalCase for class names
+- Use UPPER_CASE for constants
 
-## Review Process
+## Common Pitfalls
 
-When asked to review code:
+### Mutable Default Arguments
 
-1. **Understand context**: What does this code do? What problem does it solve?
-2. **Check correctness**: Does it work? Are there bugs or edge cases?
-3. **Evaluate clarity**: Is it readable? Would a new team member understand it?
-4. **Assess maintainability**: Is it easy to change? Are there hidden dependencies?
-5. **Consider performance**: Are there obvious inefficiencies?
-
-## Response Format
-
-Structure your reviews like this:
-
-### Summary
-One paragraph overview of the code and your overall assessment.
-
-### Critical Issues
-Problems that must be fixed (bugs, security issues, data loss risks).
-
-### Improvements
-Suggestions that would meaningfully improve the code.
-
-### Minor Notes
-Style suggestions, nitpicks, or optional enhancements.
-
-## What NOT to Do
-
-- Don't rewrite entire files unprompted
-- Don't focus on style over substance
-- Don't be vague ("this could be better")
-- Don't overwhelm with too many comments
-
-## Example Interaction
-
-User: "Review this function for me"
-
-Good response:
-- Start with what the function does
-- Identify the most important issue first
-- Provide a specific fix with explanation
-- Mention 1-2 secondary concerns
-- End with what's done well
-
-Bad response:
-- List 20 minor style issues
-- Rewrite the entire function
-- Give generic advice without specifics
+❌ **Bad:**
+```python
+def add_item(item, items=[]):
+    items.append(item)
+    return items
 ```
 
-## Step 4: Configure Tools
-
-Your bundle can specify which tools it needs. Create a tools configuration:
-
-```bash
-mkdir -p tools
-touch tools/tools.yaml
+✅ **Good:**
+```python
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
 ```
 
-Add this content to `tools/tools.yaml`:
+### Exception Handling
+
+❌ **Bad:**
+```python
+try:
+    risky_operation()
+except:
+    pass
+```
+
+✅ **Good:**
+```python
+try:
+    risky_operation()
+except ValueError as e:
+    logger.error(f"Invalid value: {e}")
+    raise
+```
+
+## Type Hints
+
+Always use type hints for function signatures:
+
+```python
+def greet(name: str, age: int) -> str:
+    return f"Hello {name}, you are {age} years old"
+```
+
+## Documentation
+
+Use docstrings for all public modules, functions, classes, and methods:
+
+```python
+def calculate_total(items: list[float], tax_rate: float) -> float:
+    """
+    Calculate total price including tax.
+    
+    Args:
+        items: List of item prices
+        tax_rate: Tax rate as decimal (e.g., 0.08 for 8%)
+    
+    Returns:
+        Total price including tax
+        
+    Raises:
+        ValueError: If tax_rate is negative
+    """
+    if tax_rate < 0:
+        raise ValueError("Tax rate cannot be negative")
+    
+    subtotal = sum(items)
+    return subtotal * (1 + tax_rate)
+```
+
+## Testing
+
+- Write tests for all public functions
+- Aim for >80% code coverage
+- Use pytest as the testing framework
+- Keep tests isolated and independent
+
+## Security
+
+- Never hardcode secrets or credentials
+- Validate all user input
+- Use parameterized queries for SQL
+- Keep dependencies updated
+```
+
+## Step 4: Create an Automated Recipe
+
+Recipes define multi-step workflows. Create `recipes/review-pr.yaml`:
 
 ```yaml
-# Tools configuration for code-reviewer bundle
+name: review-pr
+description: "Automated code review for pull requests"
+version: 1.0.0
 
-# File reading for examining code
-read_file:
-  enabled: true
-  description: "Read source files to review"
+# Input context the recipe expects
+context_schema:
+  pr_number:
+    type: integer
+    description: "Pull request number to review"
+    required: true
 
-# Pattern searching for finding issues
-grep:
-  enabled: true
-  description: "Search for patterns in code"
+# Sequential workflow steps
+steps:
+  - name: fetch_changes
+    agent: foundation:git-ops
+    instruction: |
+      Get the list of changed files in PR #{{pr_number}}.
+      Return the file paths as a list.
 
-# File discovery
-glob:
-  enabled: true
-  description: "Find files to review"
+  - name: review_code
+    agent: code-review:code-reviewer
+    instruction: |
+      Review the following changed files: {{fetch_changes.result}}
+      
+      For each file:
+      1. Read the file contents
+      2. Check for style issues using python_check
+      3. Review code quality and best practices
+      4. Identify potential bugs
+      
+      Provide a comprehensive review report.
 
-# Tools we explicitly don't need
-write_file:
-  enabled: false
-  reason: "Review only - no modifications"
-
-bash:
-  enabled: false
-  reason: "Review only - no execution"
+  - name: summarize
+    agent: core:core-expert
+    instruction: |
+      Summarize the code review: {{review_code.result}}
+      
+      Create a concise summary suitable for posting as a PR comment,
+      organized by severity level.
 ```
-
-### Why Limit Tools?
-
-Restricting tools creates a safer, more focused assistant:
-
-- **Principle of least privilege**: Only enable what's needed
-- **Clear boundaries**: Users know what the assistant can/can't do
-- **Reduced risk**: No accidental file modifications or command execution
 
 ## Step 5: Test Your Bundle
 
-Now let's verify everything works. First, validate the bundle structure:
+First, verify your bundle is recognized:
 
 ```bash
-# Check that all files exist
-ls -la ~/.amplifier/bundles/code-reviewer/
+cd ~/.amplifier/bundles/code-review
+ls -la
 ```
 
 You should see:
-
 ```
 bundle.yaml
-context/
-  instructions.md
-tools/
-  tools.yaml
+agents/code-reviewer.yaml
+skills/python-best-practices.md
+recipes/review-pr.yaml
 ```
 
-### Run with Your Bundle
+### Test the Agent
 
-Start Amplifier with your new bundle:
+Start Amplifier and try your agent:
 
 ```bash
-amp --bundle code-reviewer
+amplifier
 ```
 
-Or add it to an existing configuration:
-
-```bash
-amp --bundle foundation --bundle code-reviewer
-```
-
-### Test the Behavior
-
-Try these prompts to verify it's working:
+Then in the chat:
 
 ```
-Review this Python function:
+@code-reviewer Please review this Python function:
 
-def get_user(id):
-    users = load_all_users()
-    for u in users:
-        if u.id == id:
-            return u
-    return None
+def calc(a, b):
+    return a+b
 ```
 
-Your code reviewer should:
-1. Identify the inefficiency (loading all users)
-2. Suggest using a dictionary lookup or database query
-3. Note the missing error handling
-4. Format the response according to your instructions
+Your agent should provide feedback about missing type hints, naming, and documentation.
 
-## Step 6: Iterate and Improve
+### Test the Recipe
 
-Your first bundle is working! Now refine it based on usage:
+To test the recipe workflow:
 
-### Add More Context
-
-Create additional context files for specific scenarios:
-
-```bash
-# Security-focused review guidelines
-touch context/security-review.md
-
-# Performance review checklist
-touch context/performance-review.md
+```
+Run recipe code-review:review-pr with pr_number=42
 ```
 
-Update `bundle.yaml` to include them:
+## Step 6: Refine and Iterate
 
-```yaml
-context:
-  - context/instructions.md
-  - context/security-review.md
-  - context/performance-review.md
-```
+Now that your bundle works, you can enhance it:
 
-### Create Specialized Variants
-
-Make language-specific versions:
-
-```bash
-mkdir -p ~/.amplifier/bundles/python-reviewer
-# Copy and customize for Python-specific guidance
-```
-
-### Compose with Other Bundles
-
-Extend existing bundles to add capabilities:
-
-```yaml
-# In a new bundle's bundle.yaml
-extends:
-  - code-reviewer
-  - python-standards
-```
-
-## Troubleshooting
-
-### Bundle Not Loading
-
-Check these common issues:
-
-1. **File location**: Bundle must be in `~/.amplifier/bundles/` or a configured path
-2. **YAML syntax**: Validate with `yamllint bundle.yaml`
-3. **File permissions**: Ensure files are readable
-
-### Instructions Not Taking Effect
-
-- Context files must be listed in `bundle.yaml`
-- Check file paths are relative to bundle root
-- Verify no syntax errors in markdown
-
-### Tools Not Available
-
-- Tools must be enabled in the base configuration
-- Bundle can only restrict, not add new tools
-- Check tool names match exactly
+1. **Add more patterns** to the skill document
+2. **Improve agent instructions** based on review quality
+3. **Add tool configurations** for better defaults
+4. **Create additional recipes** for different workflows
 
 ## Next Steps
 
-You've created your first bundle. Here's where to go next:
+Now that you've created your first bundle, explore:
 
-1. **[Bundle Composition](./bundle-composition.md)**: Learn to combine bundles effectively
-2. **[Advanced Context](./advanced-context.md)**: Dynamic context and conditional loading
-3. **[Publishing Bundles](./publishing-bundles.md)**: Share your bundles with others
-4. **[Bundle Patterns](../patterns/bundle-patterns.md)**: Common patterns and best practices
+- **[Bundle Architecture](../guides/bundle-architecture.md)** - Deep dive into bundle design
+- **[Writing Effective Agents](../guides/writing-agents.md)** - Master agent instruction writing
+- **[Recipe Development](../guides/recipes.md)** - Create complex automated workflows
+- **[Skill Authoring](../guides/skills.md)** - Build comprehensive knowledge bases
 
-## Quick Reference
+### Share Your Bundle
 
-### Bundle Checklist
+Consider sharing your bundle with the community:
 
-- [ ] `bundle.yaml` with name, version, description
-- [ ] At least one context file with instructions
-- [ ] Tools configured appropriately
-- [ ] Tested with real prompts
-- [ ] Documentation for users
+1. Publish to a Git repository
+2. Add to the Amplifier bundle registry
+3. Get feedback and contributions
 
-### Key Commands
+## Troubleshooting
 
-```bash
-# List available bundles
-amp bundles list
+**Bundle not found**: Ensure `bundle.yaml` is in `~/.amplifier/bundles/code-review/`
 
-# Validate bundle structure
-amp bundles validate code-reviewer
+**Agent not working**: Check that agent name in `bundle.yaml` matches the filename
 
-# Run with bundle
-amp --bundle code-reviewer
+**Recipe fails**: Verify all referenced agents exist and have required tools
 
-# Combine bundles
-amp --bundle foundation --bundle code-reviewer
-```
+## Summary
 
----
+You've learned:
 
-Congratulations! You've built a reusable, composable AI capability.
-The bundle pattern lets you capture expertise once and apply it everywhere.
+✅ How to structure a bundle with manifest, agents, skills, and recipes  
+✅ How to write agent instructions and configure tools  
+✅ How to create skill documents with domain knowledge  
+✅ How to build automated workflows with recipes  
+✅ How to test and refine your bundle  
+
+Bundles are powerful because they're composable—your code-review bundle can be combined with other bundles to create even more sophisticated workflows.
+
+Happy building! 🚀

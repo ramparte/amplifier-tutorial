@@ -8,20 +8,20 @@ title: "LSP Python Bundle"
 
 ## Overview
 
-The LSP Python bundle provides semantic code intelligence for Python projects using the Language Server Protocol (LSP) with Pyright as the backend. Unlike text-based search tools like grep, LSP understands your code semantically—it knows the difference between a function definition, a function call, and a comment mentioning that function.
+The LSP Python bundle provides semantic code intelligence for Python codebases using the Language Server Protocol (LSP) powered by Pyright. Unlike text-based search tools like grep, LSP understands your code's actual structure—types, references, call hierarchies, and more.
 
-This bundle transforms how you navigate and understand Python codebases by providing:
+This bundle transforms how you navigate and understand Python code by providing:
 
-- **Precise symbol resolution** - Find where functions, classes, and variables are actually defined
-- **Type inference** - Get inferred types even in codebases without type hints
-- **Call hierarchy tracing** - Understand what calls what and map dependencies
-- **Semantic references** - Find all usages of a symbol (not just text matches)
+- **Precise symbol lookup**: Find exact definitions, not text matches
+- **Semantic references**: Find actual usages, excluding comments and strings
+- **Type inference**: Get types even without explicit annotations
+- **Call hierarchy**: Trace what calls a function and what it calls
 
 ## What's Included
 
 ### LSP Tool (Pyright)
 
-The bundle configures the LSP tool with Pyright, a fast static type checker for Python. Available operations:
+The bundle configures and provides access to Pyright, Microsoft's static type checker for Python, as an LSP server. This gives you access to powerful code intelligence operations:
 
 | Operation | Description |
 |-----------|-------------|
@@ -31,238 +31,320 @@ The bundle configures the LSP tool with Pyright, a fast static type checker for 
 | `documentSymbol` | List all symbols in a file |
 | `workspaceSymbol` | Search for symbols across the workspace |
 | `goToImplementation` | Find implementations of abstract methods |
-| `prepareCallHierarchy` | Prepare for call hierarchy queries |
+| `prepareCallHierarchy` | Prepare call hierarchy for a symbol |
 | `incomingCalls` | Find what calls a function |
 | `outgoingCalls` | Find what a function calls |
 
 ### python-code-intel Agent
 
-A specialized agent for complex, multi-step Python code navigation tasks. While the LSP tool handles single operations, this agent orchestrates multiple LSP calls to answer higher-level questions like:
+A specialized agent for complex, multi-step Python code navigation tasks. The agent excels at:
 
-- "Trace the inheritance chain for this class"
-- "Map all dependencies of this module"
-- "Show me the complete call graph for this function"
+- Tracing inheritance chains across multiple files
+- Mapping module dependencies
+- Understanding type flows through your codebase
+- Building comprehensive call graphs
+- Debugging type mismatches
 
 ## When to Use
 
-### Use LSP Python When You Need
+### Use LSP Python Bundle When
 
-**Semantic Understanding Over Text Matching**
-
+**Finding where something is defined:**
 ```
-# Finding where authenticate() is defined
-# grep: matches comments, strings, and actual definitions
-# LSP goToDefinition: finds the exact definition location
+"Where is the Session class defined?"
+→ goToDefinition gives exact file:line, not grep's multiple matches
 ```
 
-**Type Information**
-
-```python
-# What type does get_connection() return?
-# Even without type hints, Pyright infers types from implementation
-def get_connection():
-    return DatabaseConnection(host="localhost")
-
-# LSP hover reveals: () -> DatabaseConnection
+**Finding all usages of a symbol:**
+```
+"What uses the authenticate() method?"
+→ findReferences returns actual code usages, ignoring comments/strings
 ```
 
-**Call Hierarchy Analysis**
-
+**Getting type information:**
 ```
-# Who calls process_payment()?
-# LSP incomingCalls gives you the complete call graph
-# grep would match "process_payment" in comments and strings too
+"What type does get_connection() return?"
+→ hover shows inferred types even without annotations
 ```
 
-**Refactoring Preparation**
-
+**Tracing call relationships:**
 ```
-# Before renaming a class, find ALL usages
-# LSP findReferences catches:
-# - Direct instantiations
-# - Type hints
-# - Inheritance relationships
-# - Import statements
+"What functions call handle_request()?"
+→ incomingCalls maps the complete caller graph
 ```
 
-### LSP vs Grep: Decision Guide
+**Understanding complex codebases:**
+```
+"Map the authentication flow from login to session creation"
+→ python-code-intel agent traces multi-step paths
+```
 
-| Task | Use LSP | Use Grep |
-|------|---------|----------|
-| Find function definition | goToDefinition | Pattern matching |
-| Find all callers | incomingCalls | Text search |
-| Get type signature | hover | Not possible |
-| Search across many files | Limited | Faster |
-| Find text in comments | Not possible | Pattern matching |
-| Understand inheritance | goToImplementation | Manual tracing |
+### Use Grep Instead When
 
-**Rule of thumb:** Use LSP for understanding code relationships. Use grep for finding text patterns.
+- Searching for text patterns (log messages, comments, TODOs)
+- Finding configuration values or magic strings
+- Bulk text search across many files
+- Searching non-Python files
+
+### Quick Decision Guide
+
+| Task | Tool |
+|------|------|
+| "Find definition of X" | LSP `goToDefinition` |
+| "Find all callers of X" | LSP `incomingCalls` |
+| "Find text 'ERROR' in logs" | grep |
+| "What type is X?" | LSP `hover` |
+| "Find TODO comments" | grep |
+| "Trace the auth flow" | python-code-intel agent |
+
+## Try It Yourself
+
+### Basic Operations
+
+**1. Go to Definition**
+
+Find where a symbol is defined:
+
+```
+LSP operation: goToDefinition
+file_path: src/auth/login.py
+line: 42
+character: 15
+```
+
+This returns the exact file and line where the symbol at that position is defined.
+
+**2. Find References**
+
+Find all usages of a symbol:
+
+```
+LSP operation: findReferences
+file_path: src/models/user.py
+line: 10
+character: 7
+```
+
+Returns every location where `User` (or whatever symbol is at that position) is referenced.
+
+**3. Hover for Type Info**
+
+Get type information and docstrings:
+
+```
+LSP operation: hover
+file_path: src/utils/cache.py
+line: 25
+character: 12
+```
+
+Returns the inferred type, function signature, and any docstring.
+
+**4. Document Symbols**
+
+List all symbols in a file:
+
+```
+LSP operation: documentSymbol
+file_path: src/services/payment.py
+line: 1
+character: 1
+```
+
+Returns classes, functions, variables, and their locations in the file.
+
+**5. Workspace Symbol Search**
+
+Search for symbols across the entire workspace:
+
+```
+LSP operation: workspaceSymbol
+query: "authenticate"
+file_path: src/main.py
+line: 1
+character: 1
+```
+
+Finds all symbols matching the query pattern.
+
+### Call Hierarchy Operations
+
+**6. Prepare Call Hierarchy**
+
+Prepare a symbol for call hierarchy analysis:
+
+```
+LSP operation: prepareCallHierarchy
+file_path: src/api/handlers.py
+line: 55
+character: 8
+```
+
+**7. Incoming Calls**
+
+Find what calls a function (callers):
+
+```
+LSP operation: incomingCalls
+file_path: src/api/handlers.py
+line: 55
+character: 8
+```
+
+**8. Outgoing Calls**
+
+Find what a function calls (callees):
+
+```
+LSP operation: outgoingCalls
+file_path: src/api/handlers.py
+line: 55
+character: 8
+```
+
+### Using the python-code-intel Agent
+
+For complex navigation tasks, delegate to the specialized agent:
+
+**Example: Tracing a Feature Flow**
+
+```
+Task: "Trace how user authentication works from the login endpoint 
+       to session creation, including all intermediate function calls"
+
+Agent: python-code-intel
+
+The agent will:
+1. Find the login endpoint definition
+2. Trace outgoing calls to identify authentication logic
+3. Follow the call chain to session creation
+4. Build a complete map of the flow
+5. Return a structured summary with file:line references
+```
+
+**Example: Finding All Implementations**
+
+```
+Task: "Find all classes that implement the PaymentProcessor interface
+       and show their process_payment method signatures"
+
+Agent: python-code-intel
+
+The agent will:
+1. Locate the PaymentProcessor base class
+2. Find all implementations using goToImplementation
+3. Extract method signatures using hover
+4. Return a comparison of all implementations
+```
+
+**Example: Debugging Type Issues**
+
+```
+Task: "The function get_user_data() is returning the wrong type somewhere.
+       Trace all the places it's called and check the expected vs actual types"
+
+Agent: python-code-intel
+
+The agent will:
+1. Get the return type of get_user_data()
+2. Find all call sites using incomingCalls
+3. Check type expectations at each call site
+4. Identify type mismatches
+5. Report findings with specific locations
+```
+
+## LSP vs Grep: A Practical Comparison
+
+Consider searching for uses of a function called `validate`:
+
+**With grep:**
+```
+grep -r "validate" src/
+```
+Returns:
+- Actual function calls: `validate(data)`
+- Comments: `# TODO: validate input`
+- Strings: `"Please validate your email"`
+- Other functions: `validate_email()`, `revalidate()`
+- Variable names: `is_validated = True`
+
+**With LSP findReferences:**
+```
+LSP findReferences on validate function
+```
+Returns:
+- Only actual references to that specific function
+- No false positives from comments or strings
+- No confusion with similarly-named symbols
 
 ## Configuration
 
-The bundle is pre-configured for Python. To use it, ensure your workspace has Python files and Pyright can resolve your imports.
+The LSP Python bundle requires Pyright to be available. It's typically configured in your bundle composition:
 
-### Requirements
+```yaml
+# Example bundle including LSP Python
+extends:
+  - lsp-python
 
-- Python project with standard structure
-- Virtual environment recommended (helps Pyright resolve imports)
-- `pyproject.toml` or `pyrightconfig.json` for custom configuration (optional)
+# Pyright will use pyrightconfig.json or pyproject.toml
+# from your project root for configuration
+```
 
 ### Pyright Configuration
 
-For complex projects, create a `pyrightconfig.json`:
+Create a `pyrightconfig.json` in your project root for best results:
 
 ```json
 {
   "include": ["src"],
-  "exclude": ["**/node_modules", "**/__pycache__"],
+  "exclude": ["**/node_modules", "**/__pycache__", ".venv"],
   "venvPath": ".",
   "venv": ".venv",
-  "pythonVersion": "3.11"
+  "typeCheckingMode": "basic"
 }
 ```
 
-## Try It Yourself
+## Tips for Effective Use
 
-### Example 1: Find a Definition
+1. **Position matters**: LSP operations work on specific positions. Place the cursor on the symbol you want to analyze.
 
-Navigate to where a function is defined:
+2. **Let Pyright index first**: Large codebases may need a moment for initial indexing.
 
-```
-User: Where is the authenticate function defined?
+3. **Use the agent for multi-step tasks**: Single operations go direct to LSP; complex traces delegate to python-code-intel.
 
-Amplifier uses LSP goToDefinition to find:
-  src/auth/handlers.py:45 - def authenticate(credentials: dict) -> User
-```
+4. **Combine with grep strategically**: Use LSP for semantic queries, grep for text patterns.
 
-### Example 2: Trace Callers
-
-Find all code that calls a specific function:
-
-```
-User: What calls the validate_token function?
-
-Amplifier uses LSP incomingCalls to map:
-  - src/middleware/auth.py:23 - check_auth()
-  - src/api/routes.py:89 - protected_endpoint()
-  - src/websocket/handlers.py:34 - ws_authenticate()
-```
-
-### Example 3: Get Type Information
-
-Understand types even without annotations:
-
-```
-User: What type does create_session return?
-
-Amplifier uses LSP hover:
-  def create_session(user_id: str) -> Session
-  
-  Returns a Session object containing authentication
-  state and expiration information.
-```
-
-### Example 4: Map Module Dependencies
-
-Use the python-code-intel agent for complex analysis:
-
-```
-User: Map all the dependencies of the payment module
-
-Agent traces imports and call relationships:
-  payment/
-  ├── processor.py
-  │   ├── imports: stripe, logging, .models
-  │   └── calls: validate_card(), create_charge()
-  ├── models.py
-  │   └── imports: dataclasses, typing
-  └── validators.py
-      ├── imports: re, .exceptions
-      └── called by: processor.validate_card()
-```
-
-### Example 5: Understand Inheritance
-
-Trace class hierarchies:
-
-```
-User: Show me the inheritance chain for DatabaseAdapter
-
-LSP reveals:
-  DatabaseAdapter
-    └── inherits from: BaseAdapter (src/core/adapters.py:12)
-        └── inherits from: ABC (abc module)
-  
-  Implementations:
-    - PostgresAdapter (src/adapters/postgres.py:8)
-    - SQLiteAdapter (src/adapters/sqlite.py:8)
-    - MockAdapter (tests/mocks.py:15)
-```
-
-### Example 6: Pre-Refactoring Analysis
-
-Before renaming or moving code:
-
-```
-User: I want to rename UserService to AuthService. Show me all usages.
-
-LSP findReferences locates:
-  Definition:
-    src/services/user.py:10 - class UserService
-
-  Usages (23 total):
-    src/api/routes.py:5 - from services.user import UserService
-    src/api/routes.py:34 - service = UserService()
-    src/api/routes.py:78 - UserService.get_by_id(user_id)
-    src/tests/test_user.py:12 - class TestUserService
-    ... (19 more)
-```
+5. **Check virtual environments**: Ensure Pyright can find your project's dependencies for accurate type inference.
 
 ## Common Patterns
 
-### Debugging Type Errors
+### Pattern: Refactoring Impact Analysis
 
-When Pyright reports a type error, use hover to understand what types are inferred:
+Before renaming or modifying a function:
+1. Use `findReferences` to find all usages
+2. Use `incomingCalls` to understand the call graph
+3. Use `hover` at each call site to check type expectations
 
-```python
-# Error: Argument of type "str | None" cannot be assigned to "str"
-result = process(get_value())  # What's get_value returning?
+### Pattern: Understanding New Codebases
 
-# Use LSP hover on get_value() to see:
-# def get_value() -> str | None
-```
+When exploring unfamiliar code:
+1. Use `documentSymbol` to see file structure
+2. Use `workspaceSymbol` to find entry points
+3. Use `outgoingCalls` to trace execution flow
+4. Delegate complex traces to python-code-intel agent
 
-### Understanding Legacy Code
+### Pattern: Debugging Type Errors
 
-When diving into unfamiliar code:
-
-1. Use `documentSymbol` to see the structure of a file
-2. Use `goToDefinition` to trace imports and dependencies
-3. Use `incomingCalls` to understand how code is used
-4. Use `hover` to understand types without reading implementation
-
-### Verifying Refactoring Safety
-
-Before making changes:
-
-1. Use `findReferences` to locate all usages
-2. Use `incomingCalls` to understand dependencies
-3. Use `goToImplementation` to find all implementations of an interface
-
-## Limitations
-
-- **Startup time:** Pyright needs to index your workspace on first use
-- **Dynamic code:** Highly dynamic Python (heavy use of `getattr`, metaclasses) may not be fully understood
-- **External libraries:** Type stubs needed for best results with third-party packages
-- **Large workspaces:** Very large codebases may have slower response times
+When facing type mismatches:
+1. Use `hover` to get inferred types
+2. Use `goToDefinition` to check type definitions
+3. Trace the data flow with call hierarchy operations
 
 ## Related Bundles
 
-- **lsp** - Base LSP bundle (language-agnostic)
-- **foundation** - Core development tools including grep for text search
+- **lsp**: Base LSP bundle (required dependency)
+- **foundation**: Core development tools
 
 ## Summary
 
-The LSP Python bundle brings IDE-level code intelligence to your Amplifier workflow. Use it when you need to truly understand code relationships—not just find text patterns. The semantic understanding it provides is invaluable for navigating complex codebases, preparing refactoring, and debugging type issues.
-
-For simple text searches, grep remains faster. But when you need to answer "what calls this?" or "what type is this?", LSP Python is the right tool.
+The LSP Python bundle brings IDE-level code intelligence to your Amplifier workflow. By understanding your code semantically rather than as text, it enables precise navigation, accurate refactoring, and deep code understanding—all accessible through simple tool operations or the specialized python-code-intel agent.

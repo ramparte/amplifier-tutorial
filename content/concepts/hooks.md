@@ -6,247 +6,253 @@ title: "Understanding Hooks"
 
 # Understanding Hooks
 
-Hooks are Amplifier's mechanism for observing and reacting to events in the agent lifecycle. They allow you to extend agent behavior without modifying core logic, enabling cross-cutting concerns like logging, metrics, guardrails, and custom integrations.
+Hooks are the observation layer of the Amplifier ecosystem. They allow you to monitor, react to, and extend agent behavior without modifying core logic. Think of hooks as event listeners that tap into the agent lifecycle at specific points.
 
 ## What is a Hook?
 
-A hook is a **lifecycle observer** that receives notifications when specific events occur during agent execution. Unlike tools that agents actively invoke, hooks passively listen and respond to the natural flow of agent activity.
-
-Think of hooks as event listeners attached to the agent runtime. When an agent starts a turn, calls a tool, receives a response, or completes its work, hooks are notified and can take action.
+A hook is a lifecycle observer that receives notifications about events occurring during agent execution. Unlike tools that perform actions, hooks observe and react to what's already happening.
 
 ```python
-from amplifier_core.hooks import Hook, HookContext
+from amplifier import Hook, HookContext
 
 class LoggingHook(Hook):
-    """A simple hook that logs agent activity."""
+    """Simple hook that logs all events."""
     
-    async def on_turn_start(self, ctx: HookContext) -> None:
-        print(f"Turn started: {ctx.turn_id}")
-    
-    async def on_turn_end(self, ctx: HookContext) -> None:
-        print(f"Turn completed in {ctx.duration_ms}ms")
+    async def on_event(self, ctx: HookContext) -> None:
+        print(f"[{ctx.event_type}] {ctx.timestamp}: {ctx.data}")
 ```
 
-Hooks are registered with the agent runtime and automatically invoked at the appropriate lifecycle points. You don't call hooks directly—the system calls them for you.
+Hooks are passive by design. They receive event data, can perform side effects (logging, metrics, notifications), but they don't modify the agent's execution flow. This separation keeps your agent logic clean while enabling rich observability.
+
+### Key Characteristics
+
+- **Non-blocking**: Hooks should complete quickly to avoid slowing the agent
+- **Read-only context**: Hooks observe events but don't modify them
+- **Fail-safe**: Hook failures don't crash the agent
+- **Ordered execution**: Multiple hooks run in registration order
 
 ## Hook vs Tool
 
-Understanding the distinction between hooks and tools is fundamental to Amplifier's design:
+Understanding the difference between hooks and tools is fundamental:
 
-| Aspect | Tool | Hook |
+| Aspect | Hook | Tool |
 |--------|------|------|
-| **Invocation** | Agent explicitly calls | System automatically triggers |
-| **Control** | Agent decides when to use | Fires on lifecycle events |
-| **Visibility** | Agent sees and chooses | Transparent to agent |
-| **Purpose** | Provide capabilities | Observe and react |
-| **Return value** | Returns data to agent | No return to agent |
+| **Purpose** | Observe and react | Perform actions |
+| **Invocation** | Automatic on events | Explicit by agent |
+| **Modifies state** | No (observation only) | Yes (side effects expected) |
+| **Blocking** | Should be fast | Can be long-running |
+| **Failure impact** | Logged, continues | Reported to agent |
 
-**Tools are capabilities**—they extend what an agent *can do*. A file-reading tool gives the agent the ability to read files. The agent decides when and how to use it.
+**Use a hook when you want to:**
+- Log or audit agent activity
+- Collect metrics and telemetry
+- Send notifications on specific events
+- Validate or monitor behavior patterns
 
-**Hooks are observers**—they extend what *happens* during execution. A logging hook records every tool call, but the agent doesn't know or care that logging is happening.
-
-This separation keeps agent logic clean while allowing powerful cross-cutting functionality.
+**Use a tool when you need to:**
+- Perform an action the agent requests
+- Return data the agent will use
+- Modify external state
+- Execute long-running operations
 
 ## Event Types
 
-Hooks can subscribe to various lifecycle events. Here are the primary event categories:
+Hooks subscribe to specific event types that occur during the agent lifecycle:
 
 ### Session Events
 
-- `on_session_start` — A new session begins
-- `on_session_end` — A session completes or terminates
-- `on_session_resume` — A persisted session resumes
-
-### Turn Events
-
-- `on_turn_start` — An agent turn begins (user message received)
-- `on_turn_end` — An agent turn completes (response generated)
-- `on_turn_error` — An error occurs during a turn
-
-### Tool Events
-
-- `on_tool_call_start` — Agent initiates a tool call
-- `on_tool_call_end` — Tool execution completes
-- `on_tool_call_error` — Tool execution fails
+```python
+class SessionEvents:
+    SESSION_START = "session.start"      # Agent session begins
+    SESSION_END = "session.end"          # Agent session completes
+    SESSION_ERROR = "session.error"      # Unhandled error in session
+```
 
 ### Message Events
 
-- `on_user_message` — User submits a message
-- `on_assistant_message` — Agent generates a response
-- `on_system_message` — System injects context
+```python
+class MessageEvents:
+    USER_MESSAGE = "message.user"        # User sends a message
+    ASSISTANT_MESSAGE = "message.assistant"  # Agent responds
+    SYSTEM_MESSAGE = "message.system"    # System injects context
+```
 
-### Provider Events
+### Tool Events
 
-- `on_llm_request` — Request sent to LLM provider
-- `on_llm_response` — Response received from provider
-- `on_llm_stream_chunk` — Streaming chunk received
+```python
+class ToolEvents:
+    TOOL_CALL = "tool.call"              # Agent invokes a tool
+    TOOL_RESULT = "tool.result"          # Tool returns a result
+    TOOL_ERROR = "tool.error"            # Tool execution fails
+```
 
-Each event provides a `HookContext` with relevant data about the event, including timing, identifiers, and payload information.
+### LLM Events
+
+```python
+class LLMEvents:
+    LLM_REQUEST = "llm.request"          # Request sent to LLM
+    LLM_RESPONSE = "llm.response"        # Response received from LLM
+    LLM_STREAM_CHUNK = "llm.stream"      # Streaming chunk received
+```
 
 ## Built-in Hooks
 
-Amplifier provides several hooks out of the box:
+Amplifier provides several hooks out of the box for common observability needs:
+
+### ConsoleLoggingHook
+
+Logs all events to the console with configurable verbosity:
+
+```python
+from amplifier.hooks import ConsoleLoggingHook
+
+hook = ConsoleLoggingHook(
+    level="INFO",
+    include_events=["tool.call", "tool.result"]
+)
+```
 
 ### MetricsHook
 
-Collects timing and usage metrics for observability:
+Collects timing and count metrics for analysis:
 
 ```python
-from amplifier_core.hooks import MetricsHook
+from amplifier.hooks import MetricsHook
 
-metrics_hook = MetricsHook(
-    emit_interval=60,  # Emit aggregated metrics every 60 seconds
-    include_tool_timing=True
+hook = MetricsHook()
+
+# After session, access metrics
+print(hook.metrics.tool_call_count)
+print(hook.metrics.avg_response_time)
+```
+
+### FileAuditHook
+
+Writes a complete audit trail to a file:
+
+```python
+from amplifier.hooks import FileAuditHook
+
+hook = FileAuditHook(
+    path="./logs/session-{session_id}.jsonl",
+    include_content=True  # Include full message content
 )
 ```
 
-### GuardrailHook
+### WebhookNotifierHook
 
-Enforces safety constraints and policies:
-
-```python
-from amplifier_core.hooks import GuardrailHook
-
-guardrail_hook = GuardrailHook(
-    block_patterns=[r"password", r"secret"],
-    max_tool_calls_per_turn=50
-)
-```
-
-### AuditHook
-
-Records a complete audit trail of agent activity:
+Sends HTTP notifications on specific events:
 
 ```python
-from amplifier_core.hooks import AuditHook
+from amplifier.hooks import WebhookNotifierHook
 
-audit_hook = AuditHook(
-    output_path="./audit.jsonl",
-    include_payloads=True
-)
-```
-
-### ContextInjectionHook
-
-Injects dynamic context into agent prompts:
-
-```python
-from amplifier_core.hooks import ContextInjectionHook
-
-context_hook = ContextInjectionHook(
-    injectors=[
-        lambda ctx: f"Current time: {datetime.now()}",
-        lambda ctx: f"Session ID: {ctx.session_id}"
-    ]
+hook = WebhookNotifierHook(
+    url="https://api.example.com/events",
+    events=["session.end", "tool.error"],
+    headers={"Authorization": "Bearer token"}
 )
 ```
 
 ## Creating Hooks
 
-Creating custom hooks is straightforward. Implement the `Hook` base class and override the event methods you care about.
+Building custom hooks is straightforward. Extend the base `Hook` class and implement the methods you need:
 
 ### Basic Hook Structure
 
 ```python
-from amplifier_core.hooks import Hook, HookContext
-from typing import Optional
+from amplifier import Hook, HookContext
 
 class MyCustomHook(Hook):
-    """Custom hook with selective event handling."""
+    """A custom hook with selective event handling."""
     
-    def __init__(self, config: dict):
-        self.config = config
+    def __init__(self, config: dict = None):
+        self.config = config or {}
+        self.event_count = 0
     
-    async def on_turn_start(self, ctx: HookContext) -> None:
-        # Called when a turn begins
-        pass
+    @property
+    def subscribed_events(self) -> list[str]:
+        """Specify which events this hook receives."""
+        return ["tool.call", "tool.result", "session.end"]
     
-    async def on_tool_call_end(self, ctx: HookContext) -> None:
-        # Called after each tool completes
-        tool_name = ctx.tool_name
-        duration = ctx.duration_ms
-        print(f"Tool {tool_name} completed in {duration}ms")
-```
-
-### Hook with State
-
-Hooks can maintain state across events:
-
-```python
-class TokenCounterHook(Hook):
-    """Tracks token usage across a session."""
+    async def on_event(self, ctx: HookContext) -> None:
+        """Handle incoming events."""
+        self.event_count += 1
+        
+        if ctx.event_type == "tool.call":
+            await self._handle_tool_call(ctx)
+        elif ctx.event_type == "session.end":
+            await self._handle_session_end(ctx)
     
-    def __init__(self):
-        self.total_input_tokens = 0
-        self.total_output_tokens = 0
+    async def _handle_tool_call(self, ctx: HookContext) -> None:
+        tool_name = ctx.data.get("tool_name")
+        print(f"Tool called: {tool_name}")
     
-    async def on_llm_response(self, ctx: HookContext) -> None:
-        usage = ctx.payload.get("usage", {})
-        self.total_input_tokens += usage.get("input_tokens", 0)
-        self.total_output_tokens += usage.get("output_tokens", 0)
-    
-    async def on_session_end(self, ctx: HookContext) -> None:
-        print(f"Session totals: {self.total_input_tokens} in, "
-              f"{self.total_output_tokens} out")
+    async def _handle_session_end(self, ctx: HookContext) -> None:
+        print(f"Session ended. Total events observed: {self.event_count}")
 ```
 
 ### Registering Hooks
 
-Register hooks when creating an agent or session:
+Register hooks when configuring your agent:
 
 ```python
-from amplifier_core import Agent
+from amplifier import Agent
 
 agent = Agent(
-    name="my-agent",
     hooks=[
-        MetricsHook(),
-        MyCustomHook(config={"verbose": True}),
-        TokenCounterHook()
+        ConsoleLoggingHook(),
+        MyCustomHook({"verbose": True}),
+        MetricsHook()
     ]
 )
 ```
 
-### Hook Ordering
+### Hook Context
 
-Hooks execute in registration order. If order matters (e.g., a guardrail should run before logging), register them accordingly:
+The `HookContext` object provides rich information about each event:
 
 ```python
-hooks=[
-    GuardrailHook(),   # Check constraints first
-    AuditHook(),       # Then record the activity
-    MetricsHook()      # Finally collect metrics
-]
+class HookContext:
+    event_type: str          # The event type (e.g., "tool.call")
+    timestamp: datetime      # When the event occurred
+    session_id: str          # Current session identifier
+    data: dict               # Event-specific payload
+    metadata: dict           # Additional context (user_id, etc.)
 ```
 
-### Error Handling in Hooks
+### Best Practices
 
-Hook errors are isolated—a failing hook won't crash the agent:
+1. **Keep hooks fast**: Offload heavy work to background tasks
+2. **Handle errors gracefully**: Don't let hook failures affect the agent
+3. **Be selective**: Subscribe only to events you need
+4. **Use async patterns**: Leverage async for I/O operations
 
 ```python
-class SafeHook(Hook):
-    async def on_turn_end(self, ctx: HookContext) -> None:
-        try:
-            await self.do_something_risky()
-        except Exception as e:
-            # Log but don't propagate
-            logger.error(f"Hook error: {e}")
+async def on_event(self, ctx: HookContext) -> None:
+    try:
+        # Quick validation
+        if not self._should_process(ctx):
+            return
+        
+        # Offload heavy work
+        asyncio.create_task(self._process_async(ctx))
+    except Exception as e:
+        # Log but don't raise
+        logger.warning(f"Hook error: {e}")
 ```
 
 ## Key Takeaways
 
-1. **Hooks are observers, not actors.** They watch lifecycle events without interfering with agent logic. The agent doesn't know hooks exist.
+1. **Hooks are observers**: They watch the agent lifecycle without modifying it. Use them for logging, metrics, notifications, and auditing.
 
-2. **Use hooks for cross-cutting concerns.** Logging, metrics, auditing, guardrails, and context injection are perfect hook use cases.
+2. **Hooks complement tools**: While tools perform actions for the agent, hooks monitor what's happening. Both are essential for production systems.
 
-3. **Tools vs hooks is about control.** Agents control tool usage; the system controls hook invocation. Choose based on who should decide when the functionality runs.
+3. **Event types are granular**: Subscribe to specific events like `tool.call` or `session.end` rather than receiving everything.
 
-4. **Hooks execute in order.** Registration order determines execution order. Place guardrails before audit hooks if you want to audit blocked requests.
+4. **Built-in hooks cover common cases**: Use `ConsoleLoggingHook`, `MetricsHook`, and `FileAuditHook` before building custom solutions.
 
-5. **Keep hooks lightweight.** Hooks run synchronously in the event flow. Heavy processing should be offloaded to background tasks.
+5. **Custom hooks are simple**: Extend `Hook`, specify `subscribed_events`, and implement `on_event`. Keep them fast and error-tolerant.
 
-6. **Hooks are isolated.** A failing hook won't crash your agent, but you should still handle errors gracefully.
+6. **Observability enables reliability**: Hooks provide the visibility needed to debug, optimize, and trust your agent systems in production.
 
-7. **State is per-instance.** Each hook instance maintains its own state. Create new instances for independent tracking.
-
-Hooks embody Amplifier's philosophy of composable, non-intrusive extensibility. They let you add powerful functionality to any agent without touching its core implementation.
+Hooks transform opaque agent execution into transparent, observable systems. Start with built-in hooks to understand behavior, then create custom hooks as your monitoring needs evolve.

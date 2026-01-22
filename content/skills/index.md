@@ -1,95 +1,77 @@
 ---
 id: skills-index
 type: section-index
-title: Skills Reference
+title: Skills Guide
 ---
 
-# Skills Reference
+# Skills Guide
 
-Skills are packages of domain knowledge that agents can load on demand. Unlike context files that are always present, skills provide specialized expertise that's loaded only when relevant.
-
-This section covers skill creation, discovery, and effective use patterns.
+Skills are loadable knowledge modules that provide domain expertise on demand. Unlike always-present context, skills are loaded when needed, keeping the base context lean. This section covers how to use existing skills, create custom ones, and integrate them into your workflows.
 
 ## Section Contents
 
 | Page | Description |
 |------|-------------|
-| [Skill Basics](./basics.md) | What skills are and how they work |
-| [Built-in Skills](./built-in.md) | Available skills in the foundation bundle |
-| [Creating Skills](./creating.md) | Build your own domain-specific skills |
-| [Skill Structure](./structure.md) | Anatomy of a skill package |
-| [Discovery](./discovery.md) | How agents find and load skills |
-| [Companion Files](./companion-files.md) | Including examples and templates |
-| [Best Practices](./best-practices.md) | Patterns for effective skills |
-| [Publishing](./publishing.md) | Sharing skills with the community |
+| [Skills Overview](./skills-overview.md) | What skills are and when to use them |
+| [Loading Skills](./loading-skills.md) | How to discover and load skills |
+| [Creating Skills](./creating-skills.md) | Author your own skill files |
+| [Skill Structure](./skill-structure.md) | Anatomy of a well-designed skill |
+| [Companion Files](./companion-files.md) | Supporting resources for skills |
+| [Skill Discovery](./skill-discovery.md) | How skills are found and prioritized |
+| [Skill Best Practices](./skill-best-practices.md) | Patterns for effective skills |
 
 ## Quick Tips
 
-- **Skills are lazy-loaded** — They only consume context when actually needed
-- **One domain per skill** — Keep skills focused on a single area of expertise
-- **Include examples** — Companion files with working code help agents apply knowledge
-- **Version carefully** — Skills become dependencies; changes affect users
-- **Search first** — Use `load_skill(search="term")` to find relevant skills
+- **Load on demand** - Only load skills when the domain knowledge is needed
+- **Check before loading** - Use `info` operation to preview skill metadata
+- **Skills complement docs** - They provide workflows, not just reference
+- **Workspace priority** - Project skills override user skills
+- **Companion files** - Skills can reference additional resources
 
-## Skill Architecture
+## Skills vs Context
 
-```
-skills/
-└── my-skill/
-    ├── skill.yaml       # Skill manifest (name, description, version)
-    ├── skill.md         # Main knowledge content
-    └── examples/        # Companion files
-        ├── basic.py
-        └── advanced.py
-```
-
-## Skill Operations
-
-| Operation | Description | Example |
-|-----------|-------------|---------|
-| List | Show available skills | `load_skill(list=True)` |
-| Search | Find by name/description | `load_skill(search="python")` |
-| Info | Get metadata only | `load_skill(info="curl")` |
-| Load | Load full content | `load_skill(skill_name="curl")` |
+| Aspect | Skills | Context |
+|--------|--------|---------|
+| Loading | On-demand | Always present |
+| Scope | Domain-specific | General behavior |
+| Size | Can be large | Should be concise |
+| Location | Discoverable directories | Bundle-defined |
 
 ## Where to Start
 
-**New to skills?** Begin with [Skill Basics](./basics.md) to understand the skill system and when to use it.
+**Want to use skills?** Start with [Loading Skills](./loading-skills.md) to learn discovery and loading.
 
-**Want to create skills?** Follow [Creating Skills](./creating.md) for a hands-on guide to building your first skill.
+**Creating expertise?** Jump to [Creating Skills](./creating-skills.md) for authoring guidance.
 
-**Looking for existing skills?** Check [Built-in Skills](./built-in.md) for what's already available.
+**Designing skill systems?** See [Skill Structure](./skill-structure.md) for architectural patterns.
 
-## Built-in Skills Overview
+## Skill Operations
 
-| Skill | Domain | Use Case |
-|-------|--------|----------|
-| `curl` | HTTP/APIs | Testing REST endpoints |
-| `playwright` | Browser | Web automation and scraping |
-| `image-vision` | Vision | Analyzing images with LLMs |
+```python
+# List all available skills
+load_skill(list=True)
 
-## Skill vs Context
+# Search for skills by topic
+load_skill(search="python")
 
-| Aspect | Skills | Context Files |
-|--------|--------|---------------|
-| Loading | On-demand | Always present |
-| Scope | Specialized domain | General guidance |
-| Size | Can be large | Should be concise |
-| Updates | Versioned | Part of bundle |
+# Check skill metadata
+load_skill(info="skill-name")
 
-## Common Patterns
-
-```yaml
-# In an agent's workflow:
-1. Recognize domain-specific task
-2. Search for relevant skill
-3. Load skill into context
-4. Apply skill knowledge
-5. Reference companion files if needed
+# Load full skill content
+load_skill(skill_name="skill-name")
 ```
 
-## Related Sections
+## Skill Discovery Paths
 
-- [Quickstart: Creating Skills](../quickstart/creating-skills.md)
-- [Bundles: Context Files](../bundles/context-files.md)
-- [Advanced: Skill Development](../advanced/skill-development.md)
+Skills are discovered from configured directories in priority order:
+
+1. **Workspace skills** - `.amplifier/skills/` (project-specific)
+2. **User skills** - `~/.amplifier/skills/` (personal)
+3. **Bundle skills** - From active bundles
+4. **Collection skills** - From installed collections
+
+First match wins—workspace skills override user skills.
+
+## Next Steps
+
+After understanding skills, explore [Advanced](../advanced/index.md) topics for complex patterns like recipes and multi-agent workflows.

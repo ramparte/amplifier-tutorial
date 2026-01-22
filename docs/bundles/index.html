@@ -109,17 +109,15 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-architecture">Bundle Architecture</a>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-anatomy">Bundle Anatomy</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#built-in-bundles">Built-in Bundles</a>
+    <li class="toctree-l2"><a class="reference internal" href="#the-thin-bundle-philosophy">The Thin Bundle Philosophy</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
+    <li class="toctree-l2"><a class="reference internal" href="#example-minimal-bundle">Example: Minimal Bundle</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#bundle-selection-guide">Bundle Selection Guide</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -194,8 +192,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="bundles-guide">Bundles Guide<a class="headerlink" href="#bundles-guide" title="Permanent link">&para;</a></h1>
-<p>Bundles are the primary way to configure and customize Amplifier. A bundle composes modules, tools, context, and settings into a coherent package that defines an agent's capabilities.</p>
-<p>This section covers bundle structure, composition patterns, and how to create your own bundles.</p>
+<p>Bundles are the primary way to customize Amplifier's behavior. A bundle packages together tools, agents, context, and configuration into a cohesive, reusable unit. This section teaches you how to use existing bundles, create your own, and compose them for powerful applications.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -206,145 +203,106 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="./basics.md">Bundle Basics</a></td>
+<td><a href="./bundle-basics.md">Bundle Basics</a></td>
 <td>What bundles are and how they work</td>
 </tr>
 <tr>
-<td><a href="./built-in.md">Built-in Bundles</a></td>
-<td>Foundation, dev, and other standard bundles</td>
+<td><a href="./using-bundles.md">Using Bundles</a></td>
+<td>Activate and configure existing bundles</td>
 </tr>
 <tr>
-<td><a href="./structure.md">Bundle Structure</a></td>
-<td>Anatomy of a bundle directory</td>
-</tr>
-<tr>
-<td><a href="./composition.md">Composition</a></td>
-<td>Combining multiple bundles</td>
-</tr>
-<tr>
-<td><a href="./creating.md">Creating Bundles</a></td>
+<td><a href="./creating-bundles.md">Creating Bundles</a></td>
 <td>Build your own custom bundles</td>
 </tr>
 <tr>
+<td><a href="./bundle-composition.md">Bundle Composition</a></td>
+<td>Combine bundles effectively</td>
+</tr>
+<tr>
 <td><a href="./context-files.md">Context Files</a></td>
-<td>Adding knowledge to bundles</td>
+<td>Add knowledge and instructions</td>
 </tr>
 <tr>
-<td><a href="./tool-bundles.md">Tool Bundles</a></td>
-<td>Bundles that provide tools</td>
+<td><a href="./agent-definitions.md">Agent Definitions</a></td>
+<td>Define specialist agents in bundles</td>
 </tr>
 <tr>
-<td><a href="./publishing.md">Publishing</a></td>
-<td>Sharing bundles with others</td>
+<td><a href="./bundle-registry.md">Bundle Registry</a></td>
+<td>Discover and share bundles</td>
+</tr>
+<tr>
+<td><a href="./best-practices.md">Best Practices</a></td>
+<td>Patterns for maintainable bundles</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Thin bundles</strong> — Bundles should compose, not implement; keep logic in modules</li>
-<li><strong>Layered composition</strong> — Bundles can extend other bundles for customization</li>
-<li><strong>Context is cheap</strong> — Add relevant context files liberally; they help agents</li>
-<li><strong>One purpose</strong> — Each bundle should have a clear, focused purpose</li>
-<li><strong>Test composition</strong> — Verify bundles work together before deploying</li>
+<li><strong>Thin bundles</strong> - Keep bundles focused; compose for complexity</li>
+<li><strong>Reuse context</strong> - Reference shared context files instead of duplicating</li>
+<li><strong>Version carefully</strong> - Bundle changes affect all users</li>
+<li><strong>Test in isolation</strong> - Verify bundles work independently before composing</li>
+<li><strong>Document behavior</strong> - Clear descriptions help users and AI understand intent</li>
 </ul>
-<h2 id="bundle-architecture">Bundle Architecture<a class="headerlink" href="#bundle-architecture" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>bundle/
-├── bundle.yaml          # Bundle manifest
-├── context/             # Context files (.md)
-│   ├── instructions.md
-│   └── domain-knowledge.md
-├── skills/              # Packaged skills
-├── agents/              # Agent definitions
-└── tools/               # Custom tools (optional)
+<h2 id="bundle-anatomy">Bundle Anatomy<a class="headerlink" href="#bundle-anatomy" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>my-bundle/
+├── bundle.yaml        # Bundle manifest
+├── context/           # Knowledge and instructions
+│   ├── README.md      # Primary context
+│   └── examples/      # Example files
+├── agents/            # Agent definitions
+│   └── specialist.yaml
+└── skills/            # Optional skills
+    └── domain-skill.md
 </code></pre></div>
 
-<h2 id="built-in-bundles">Built-in Bundles<a class="headerlink" href="#built-in-bundles" title="Permanent link">&para;</a></h2>
+<h2 id="the-thin-bundle-philosophy">The Thin Bundle Philosophy<a class="headerlink" href="#the-thin-bundle-philosophy" title="Permanent link">&para;</a></h2>
+<p>Bundles should be minimal compositions, not monolithic packages:</p>
 <table>
 <thead>
 <tr>
-<th>Bundle</th>
-<th>Purpose</th>
-<th>Key Features</th>
+<th>Do</th>
+<th>Don't</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>foundation</code></td>
-<td>General development</td>
-<td>Full toolset, explorer, git-ops</td>
+<td>Reference shared context</td>
+<td>Duplicate instructions</td>
 </tr>
 <tr>
-<td><code>dev</code></td>
-<td>Lightweight coding</td>
-<td>Essential tools, minimal context</td>
+<td>Compose multiple thin bundles</td>
+<td>Build one giant bundle</td>
 </tr>
 <tr>
-<td><code>core</code></td>
-<td>Minimal base</td>
-<td>Kernel only, for custom builds</td>
+<td>Single responsibility</td>
+<td>Kitchen sink approach</td>
 </tr>
 <tr>
-<td><code>lsp-python</code></td>
-<td>Python intelligence</td>
-<td>LSP integration, Pyright</td>
+<td>Clear extension points</td>
+<td>Tightly coupled internals</td>
 </tr>
 </tbody>
 </table>
 <h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>New to bundles?</strong> Begin with <a href="./basics.md">Bundle Basics</a> to understand what bundles are and why they matter.</p>
-<p><strong>Want to customize?</strong> Read <a href="./creating.md">Creating Bundles</a> for a step-by-step guide to building your own.</p>
-<p><strong>Using multiple bundles?</strong> Check <a href="./composition.md">Composition</a> to learn how bundles layer and interact.</p>
-<h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Extend an existing bundle</span>
-<span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<p><strong>New to bundles?</strong> Begin with <a href="./bundle-basics.md">Bundle Basics</a> for foundational understanding.</p>
+<p><strong>Want to customize?</strong> Jump to <a href="./creating-bundles.md">Creating Bundles</a> for hands-on guidance.</p>
+<p><strong>Combining capabilities?</strong> See <a href="./bundle-composition.md">Bundle Composition</a> for composition patterns.</p>
+<h2 id="example-minimal-bundle">Example: Minimal Bundle<a class="headerlink" href="#example-minimal-bundle" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># bundle.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-assistant</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Custom assistant behavior</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
 
-<span class="c1"># Add custom context</span>
 <span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./context/my-domain.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context/README.md</span>
 
-<span class="c1"># Include specific modules</span>
-<span class="nt">modules</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-web</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hook-memory</span>
+<span class="nt">extends</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span><span class="w">  </span><span class="c1"># Inherit base capabilities</span>
 </code></pre></div>
 
-<h2 id="bundle-selection-guide">Bundle Selection Guide<a class="headerlink" href="#bundle-selection-guide" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Use Case</th>
-<th>Recommended Bundle</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>General development</td>
-<td><code>foundation</code></td>
-</tr>
-<tr>
-<td>Quick coding tasks</td>
-<td><code>dev</code></td>
-</tr>
-<tr>
-<td>Python projects</td>
-<td><code>foundation</code> + <code>lsp-python</code></td>
-</tr>
-<tr>
-<td>Custom applications</td>
-<td>Create your own</td>
-</tr>
-<tr>
-<td>Minimal footprint</td>
-<td><code>core</code> + specific modules</td>
-</tr>
-</tbody>
-</table>
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../concepts/modules.html">Concepts: Modules</a></li>
-<li><a href="../skills/index.html">Skills: Using Skills</a></li>
-<li><a href="../advanced/bundle-internals.md">Advanced: Bundle Internals</a></li>
-</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After mastering bundles, explore <a href="../skills/index.html">Skills</a> for adding domain knowledge or <a href="../advanced/index.html">Advanced</a> for complex patterns.</p>
               
             </div>
           </div><footer>

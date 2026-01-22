@@ -64,63 +64,53 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-youll-build">What You'll Build</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-1-create-the-bundle-directory">Step 1: Create the Bundle Directory</a>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-1-create-bundle-structure">Step 1: Create Bundle Structure</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-directory-structure">Bundle Directory Structure</a>
+    <li class="toctree-l3"><a class="reference internal" href="#create-directory-structure">Create Directory Structure</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-2-create-the-bundle-manifest">Step 2: Create the Bundle Manifest</a>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2-create-your-agent">Step 2: Create Your Agent</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#understanding-the-manifest">Understanding the Manifest</a>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-agent-configuration">Understanding Agent Configuration</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-3-add-instructions">Step 3: Add Instructions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-4-configure-tools">Step 4: Configure Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3-add-domain-knowledge-with-skills">Step 3: Add Domain Knowledge with Skills</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#why-limit-tools">Why Limit Tools?</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exception-handling">Exception Handling</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-hints">Type Hints</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security">Security</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#step-5-test-your-bundle">Step 5: Test Your Bundle</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#run-with-your-bundle">Run with Your Bundle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#test-the-agent">Test the Agent</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#test-the-behavior">Test the Behavior</a>
+    <li class="toctree-l3"><a class="reference internal" href="#test-the-recipe">Test the Recipe</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#step-6-iterate-and-improve">Step 6: Iterate and Improve</a>
+    <li class="toctree-l2"><a class="reference internal" href="#step-6-refine-and-iterate">Step 6: Refine and Iterate</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#add-more-context">Add More Context</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-specialized-variants">Create Specialized Variants</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#compose-with-other-bundles">Compose with Other Bundles</a>
+    <li class="toctree-l3"><a class="reference internal" href="#share-your-bundle">Share Your Bundle</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-not-loading">Bundle Not Loading</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#instructions-not-taking-effect">Instructions Not Taking Effect</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tools-not-available">Tools Not Available</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-reference">Quick Reference</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#bundle-checklist">Bundle Checklist</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#key-commands">Key Commands</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
     </li>
     </ul>
                   </li>
@@ -238,351 +228,317 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="your-first-bundle">Your First Bundle<a class="headerlink" href="#your-first-bundle" title="Permanent link">&para;</a></h1>
-<p>A bundle is a portable package of AI capabilities that you can share, compose, and reuse.
-Think of it as a "plugin" that gives an AI assistant new skills, knowledge, and behaviors.</p>
-<p>In this tutorial, you'll create a bundle that transforms any AI assistant into a
-specialized code review helper.</p>
+<p>Bundles are the heart of the Amplifier ecosystem. They package skills, agents, recipes, and capabilities into reusable modules that extend your AI assistant's abilities. In this tutorial, you'll create a simple but practical bundle from scratch.</p>
 <h2 id="what-youll-build">What You'll Build<a class="headerlink" href="#what-youll-build" title="Permanent link">&para;</a></h2>
-<p>By the end of this tutorial, you'll have:</p>
+<p>You'll create a <strong>code-review</strong> bundle that helps review Python code for common issues. This bundle will include:</p>
 <ul>
-<li>A complete bundle with custom instructions</li>
-<li>Configured tools for file operations</li>
-<li>Context files that guide behavior</li>
-<li>A working code reviewer you can use immediately</li>
+<li>A custom agent that specializes in code review</li>
+<li>A skill document with Python best practices</li>
+<li>A recipe for automated code review workflow</li>
 </ul>
-<p><strong>Time required:</strong> 10-15 minutes</p>
-<p><strong>Prerequisites:</strong>
-- Amplifier installed and working
-- Completed the "Hello World" quickstart
-- A text editor</p>
-<h2 id="step-1-create-the-bundle-directory">Step 1: Create the Bundle Directory<a class="headerlink" href="#step-1-create-the-bundle-directory" title="Permanent link">&para;</a></h2>
-<p>Every bundle lives in its own directory with a specific structure. Let's create one:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Create the bundle directory</span>
-mkdir<span class="w"> </span>-p<span class="w"> </span>~/.amplifier/bundles/code-reviewer
-
-<span class="c1"># Navigate into it</span>
-<span class="nb">cd</span><span class="w"> </span>~/.amplifier/bundles/code-reviewer
+<p>By the end, you'll understand how to structure bundles, write agent instructions, and configure tools.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Amplifier installed and configured</li>
+<li>Basic understanding of YAML format</li>
+<li>A text editor</li>
+</ul>
+<h2 id="step-1-create-bundle-structure">Step 1: Create Bundle Structure<a class="headerlink" href="#step-1-create-bundle-structure" title="Permanent link">&para;</a></h2>
+<p>Every bundle needs a specific directory structure. Let's create it:</p>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.amplifier/bundles/code-review
+<span class="nb">cd</span><span class="w"> </span>~/.amplifier/bundles/code-review
 </code></pre></div>
 
-<p>The bundle directory name (<code>code-reviewer</code>) becomes the bundle's identifier.
-You'll reference it as <code>code-reviewer</code> when composing with other bundles.</p>
-<h3 id="bundle-directory-structure">Bundle Directory Structure<a class="headerlink" href="#bundle-directory-structure" title="Permanent link">&para;</a></h3>
-<p>Here's what we'll create:</p>
-<div class="codehilite"><pre><span></span><code>code-reviewer/
-├── bundle.yaml          # Bundle manifest (required)
-├── context/             # Context files loaded into AI
-│   └── instructions.md  # Main behavior instructions
-└── tools/               # Tool configurations (optional)
-    └── tools.yaml       # Tool definitions
-</code></pre></div>
-
-<h2 id="step-2-create-the-bundle-manifest">Step 2: Create the Bundle Manifest<a class="headerlink" href="#step-2-create-the-bundle-manifest" title="Permanent link">&para;</a></h2>
-<p>The <code>bundle.yaml</code> file defines your bundle's metadata and composition:</p>
-<div class="codehilite"><pre><span></span><code>touch<span class="w"> </span>bundle.yaml
-</code></pre></div>
-
-<p>Add this content to <code>bundle.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Bundle manifest for code-reviewer</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<p>Create the bundle manifest file <code>bundle.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
 <span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A</span><span class="nv"> </span><span class="s">focused</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">review</span><span class="nv"> </span><span class="s">assistant</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">provides</span><span class="nv"> </span><span class="s">actionable</span><span class="nv"> </span><span class="s">feedback&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Code</span><span class="nv"> </span><span class="s">review</span><span class="nv"> </span><span class="s">assistant</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">projects&quot;</span>
+<span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Your</span><span class="nv"> </span><span class="s">Name&quot;</span>
+<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MIT</span>
 
-<span class="c1"># What this bundle provides</span>
+<span class="c1"># Define what this bundle provides</span>
 <span class="nt">provides</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">best-practices</span>
+<span class="w">  </span><span class="nt">agents</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<span class="w">  </span><span class="nt">skills</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python-best-practices</span>
+<span class="w">  </span><span class="nt">recipes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review-pr</span>
+</code></pre></div>
 
-<span class="c1"># Context files to load (order matters)</span>
-<span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context/instructions.md</span>
+<p>This manifest tells Amplifier what your bundle provides and how to identify it.</p>
+<h3 id="create-directory-structure">Create Directory Structure<a class="headerlink" href="#create-directory-structure" title="Permanent link">&para;</a></h3>
+<p>Create the directories for your bundle components:</p>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>agents
+mkdir<span class="w"> </span>-p<span class="w"> </span>skills
+mkdir<span class="w"> </span>-p<span class="w"> </span>recipes
+</code></pre></div>
 
-<span class="c1"># Tools this bundle needs</span>
+<p>Your bundle structure should now look like:</p>
+<div class="codehilite"><pre><span></span><code>~/.amplifier/bundles/code-review/
+├── bundle.yaml
+├── agents/
+├── skills/
+└── recipes/
+</code></pre></div>
+
+<h2 id="step-2-create-your-agent">Step 2: Create Your Agent<a class="headerlink" href="#step-2-create-your-agent" title="Permanent link">&para;</a></h2>
+<p>Agents are specialized AI assistants with specific instructions. Create <code>agents/code-reviewer.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Reviews</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">best</span><span class="nv"> </span><span class="s">practices</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">potential</span><span class="nv"> </span><span class="s">issues&quot;</span>
+
+<span class="c1"># Agent&#39;s system instructions</span>
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">You are an expert Python code reviewer. Your goal is to help developers</span>
+<span class="w">  </span><span class="no">write better, more maintainable code.</span>
+
+<span class="w">  </span><span class="no">When reviewing code:</span>
+<span class="w">  </span><span class="no">1. Check for PEP 8 style compliance</span>
+<span class="w">  </span><span class="no">2. Look for potential bugs or logic errors</span>
+<span class="w">  </span><span class="no">3. Identify security vulnerabilities</span>
+<span class="w">  </span><span class="no">4. Suggest performance improvements</span>
+<span class="w">  </span><span class="no">5. Recommend better naming or structure</span>
+
+<span class="w">  </span><span class="no">Always be constructive and educational in your feedback. Explain WHY</span>
+<span class="w">  </span><span class="no">something should change, not just WHAT to change.</span>
+
+<span class="w">  </span><span class="no">Format your reviews as:</span>
+<span class="w">  </span><span class="no">- **Issue**: Description of the problem</span>
+<span class="w">  </span><span class="no">- **Location**: File and line number</span>
+<span class="w">  </span><span class="no">- **Severity**: Critical / High / Medium / Low</span>
+<span class="w">  </span><span class="no">- **Recommendation**: Specific suggestion</span>
+<span class="w">  </span><span class="no">- **Explanation**: Why this matters</span>
+
+<span class="c1"># Tools this agent can use</span>
 <span class="nt">tools</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grep</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glob</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python_check</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
 
-<span class="c1"># Optional: bundles this one extends</span>
-<span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="c1"># Optional: Tool-specific configuration</span>
+<span class="nt">tool_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">python_check</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">checks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;format&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;lint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;types&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 
-<h3 id="understanding-the-manifest">Understanding the Manifest<a class="headerlink" href="#understanding-the-manifest" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>name</code></td>
-<td>Unique identifier for your bundle</td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>Semantic version for tracking changes</td>
-</tr>
-<tr>
-<td><code>description</code></td>
-<td>Human-readable explanation</td>
-</tr>
-<tr>
-<td><code>provides</code></td>
-<td>Capabilities this bundle offers</td>
-</tr>
-<tr>
-<td><code>context</code></td>
-<td>Files loaded into the AI's context</td>
-</tr>
-<tr>
-<td><code>tools</code></td>
-<td>Tools the AI can use</td>
-</tr>
-<tr>
-<td><code>extends</code></td>
-<td>Other bundles to inherit from</td>
-</tr>
-</tbody>
-</table>
-<h2 id="step-3-add-instructions">Step 3: Add Instructions<a class="headerlink" href="#step-3-add-instructions" title="Permanent link">&para;</a></h2>
-<p>The instructions file is where you define your bundle's personality and behavior.
-This is the most important file—it shapes how the AI acts.</p>
-<p>Create the context directory and instructions file:</p>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>context
-touch<span class="w"> </span>context/instructions.md
-</code></pre></div>
-
-<p>Add this content to <code>context/instructions.md</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="gh"># Code Review Assistant</span>
-
-You are a focused code review assistant. Your job is to provide clear,
-actionable feedback that helps developers write better code.
-
-<span class="gu">## Review Philosophy</span>
-
-<span class="k">-</span><span class="w"> </span><span class="gs">**Be specific**</span>: Point to exact lines and explain why something matters
-<span class="k">-</span><span class="w"> </span><span class="gs">**Be constructive**</span>: Suggest improvements, don&#39;t just criticize
-<span class="k">-</span><span class="w"> </span><span class="gs">**Be prioritized**</span>: Distinguish critical issues from nice-to-haves
-<span class="k">-</span><span class="w"> </span><span class="gs">**Be educational**</span>: Explain the &quot;why&quot; behind recommendations
-
-<span class="gu">## Review Process</span>
-
-When asked to review code:
-
-<span class="k">1.</span> <span class="gs">**Understand context**</span>: What does this code do? What problem does it solve?
-<span class="k">2.</span> <span class="gs">**Check correctness**</span>: Does it work? Are there bugs or edge cases?
-<span class="k">3.</span> <span class="gs">**Evaluate clarity**</span>: Is it readable? Would a new team member understand it?
-<span class="k">4.</span> <span class="gs">**Assess maintainability**</span>: Is it easy to change? Are there hidden dependencies?
-<span class="k">5.</span> <span class="gs">**Consider performance**</span>: Are there obvious inefficiencies?
-
-<span class="gu">## Response Format</span>
-
-Structure your reviews like this:
-
-<span class="gu">### Summary</span>
-One paragraph overview of the code and your overall assessment.
-
-<span class="gu">### Critical Issues</span>
-Problems that must be fixed (bugs, security issues, data loss risks).
-
-<span class="gu">### Improvements</span>
-Suggestions that would meaningfully improve the code.
-
-<span class="gu">### Minor Notes</span>
-Style suggestions, nitpicks, or optional enhancements.
-
-<span class="gu">## What NOT to Do</span>
-
-<span class="k">-</span><span class="w"> </span>Don&#39;t rewrite entire files unprompted
-<span class="k">-</span><span class="w"> </span>Don&#39;t focus on style over substance
-<span class="k">-</span><span class="w"> </span>Don&#39;t be vague (&quot;this could be better&quot;)
-<span class="k">-</span><span class="w"> </span>Don&#39;t overwhelm with too many comments
-
-<span class="gu">## Example Interaction</span>
-
-User: &quot;Review this function for me&quot;
-
-Good response:
-<span class="k">-</span><span class="w"> </span>Start with what the function does
-<span class="k">-</span><span class="w"> </span>Identify the most important issue first
-<span class="k">-</span><span class="w"> </span>Provide a specific fix with explanation
-<span class="k">-</span><span class="w"> </span>Mention 1-2 secondary concerns
-<span class="k">-</span><span class="w"> </span>End with what&#39;s done well
-
-Bad response:
-<span class="k">-</span><span class="w"> </span>List 20 minor style issues
-<span class="k">-</span><span class="w"> </span>Rewrite the entire function
-<span class="k">-</span><span class="w"> </span>Give generic advice without specifics
-</code></pre></div>
-
-<h2 id="step-4-configure-tools">Step 4: Configure Tools<a class="headerlink" href="#step-4-configure-tools" title="Permanent link">&para;</a></h2>
-<p>Your bundle can specify which tools it needs. Create a tools configuration:</p>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>tools
-touch<span class="w"> </span>tools/tools.yaml
-</code></pre></div>
-
-<p>Add this content to <code>tools/tools.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Tools configuration for code-reviewer bundle</span>
-
-<span class="c1"># File reading for examining code</span>
-<span class="nt">read_file</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Read</span><span class="nv"> </span><span class="s">source</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">review&quot;</span>
-
-<span class="c1"># Pattern searching for finding issues</span>
-<span class="nt">grep</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">patterns</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">code&quot;</span>
-
-<span class="c1"># File discovery</span>
-<span class="nt">glob</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Find</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">review&quot;</span>
-
-<span class="c1"># Tools we explicitly don&#39;t need</span>
-<span class="nt">write_file</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">modifications&quot;</span>
-
-<span class="nt">bash</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">  </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Review</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">execution&quot;</span>
-</code></pre></div>
-
-<h3 id="why-limit-tools">Why Limit Tools?<a class="headerlink" href="#why-limit-tools" title="Permanent link">&para;</a></h3>
-<p>Restricting tools creates a safer, more focused assistant:</p>
+<h3 id="understanding-agent-configuration">Understanding Agent Configuration<a class="headerlink" href="#understanding-agent-configuration" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Principle of least privilege</strong>: Only enable what's needed</li>
-<li><strong>Clear boundaries</strong>: Users know what the assistant can/can't do</li>
-<li><strong>Reduced risk</strong>: No accidental file modifications or command execution</li>
+<li><strong>instructions</strong>: The core prompt that defines the agent's behavior and expertise</li>
+<li><strong>tools</strong>: Which capabilities the agent has access to</li>
+<li><strong>tool_config</strong>: Optional settings for specific tools</li>
 </ul>
+<h2 id="step-3-add-domain-knowledge-with-skills">Step 3: Add Domain Knowledge with Skills<a class="headerlink" href="#step-3-add-domain-knowledge-with-skills" title="Permanent link">&para;</a></h2>
+<p>Skills provide domain-specific knowledge. Create <code>skills/python-best-practices.md</code>:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: python-best-practices
+description: &quot;Python coding standards and best practices&quot;
+<span class="gu">version: 1.0.0</span>
+<span class="gu">---</span>
+
+<span class="gh"># Python Best Practices</span>
+
+<span class="gu">## Code Style</span>
+
+Follow PEP 8 for consistent code style:
+<span class="k">-</span><span class="w"> </span>Use 4 spaces for indentation (never tabs)
+<span class="k">-</span><span class="w"> </span>Limit lines to 88 characters (Black formatter default)
+<span class="k">-</span><span class="w"> </span>Use snake_case for functions and variables
+<span class="k">-</span><span class="w"> </span>Use PascalCase for class names
+<span class="k">-</span><span class="w"> </span>Use UPPER_CASE for constants
+
+<span class="gu">## Common Pitfalls</span>
+
+<span class="gu">### Mutable Default Arguments</span>
+
+❌ <span class="gs">**Bad:**</span>
+```python
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+</code></pre></div>
+
+<p>✅ <strong>Good:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">items</span>
+</code></pre></div>
+
+<h3 id="exception-handling">Exception Handling<a class="headerlink" href="#exception-handling" title="Permanent link">&para;</a></h3>
+<p>❌ <strong>Bad:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">risky_operation</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<p>✅ <strong>Good:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">risky_operation</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span>
+</code></pre></div>
+
+<h2 id="type-hints">Type Hints<a class="headerlink" href="#type-hints" title="Permanent link">&para;</a></h2>
+<p>Always use type hints for function signatures:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, you are </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old&quot;</span>
+</code></pre></div>
+
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>Use docstrings for all public modules, functions, classes, and methods:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_total</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">tax_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate total price including tax.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        items: List of item prices</span>
+<span class="sd">        tax_rate: Tax rate as decimal (e.g., 0.08 for 8%)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Total price including tax</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If tax_rate is negative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tax_rate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tax rate cannot be negative&quot;</span><span class="p">)</span>
+
+    <span class="n">subtotal</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subtotal</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tax_rate</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Write tests for all public functions</li>
+<li>Aim for &gt;80% code coverage</li>
+<li>Use pytest as the testing framework</li>
+<li>Keep tests isolated and independent</li>
+</ul>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Never hardcode secrets or credentials</li>
+<li>Validate all user input</li>
+<li>Use parameterized queries for SQL</li>
+<li>Keep dependencies updated</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>## Step 4: Create an Automated Recipe
+
+Recipes define multi-step workflows. Create `recipes/review-pr.yaml`:
+
+```yaml
+name: review-pr
+description: &quot;Automated code review for pull requests&quot;
+version: 1.0.0
+
+# Input context the recipe expects
+context_schema:
+  pr_number:
+    type: integer
+    description: &quot;Pull request number to review&quot;
+    required: true
+
+# Sequential workflow steps
+steps:
+  - name: fetch_changes
+    agent: foundation:git-ops
+    instruction: |
+      Get the list of changed files in PR #{{pr_number}}.
+      Return the file paths as a list.
+
+  - name: review_code
+    agent: code-review:code-reviewer
+    instruction: |
+      Review the following changed files: {{fetch_changes.result}}
+
+      For each file:
+      1. Read the file contents
+      2. Check for style issues using python_check
+      3. Review code quality and best practices
+      4. Identify potential bugs
+
+      Provide a comprehensive review report.
+
+  - name: summarize
+    agent: core:core-expert
+    instruction: |
+      Summarize the code review: {{review_code.result}}
+
+      Create a concise summary suitable for posting as a PR comment,
+      organized by severity level.
+</code></pre></div>
+
 <h2 id="step-5-test-your-bundle">Step 5: Test Your Bundle<a class="headerlink" href="#step-5-test-your-bundle" title="Permanent link">&para;</a></h2>
-<p>Now let's verify everything works. First, validate the bundle structure:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Check that all files exist</span>
-ls<span class="w"> </span>-la<span class="w"> </span>~/.amplifier/bundles/code-reviewer/
+<p>First, verify your bundle is recognized:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/.amplifier/bundles/code-review
+ls<span class="w"> </span>-la
 </code></pre></div>
 
 <p>You should see:</p>
 <div class="codehilite"><pre><span></span><code>bundle.yaml
-context/
-  instructions.md
-tools/
-  tools.yaml
+agents/code-reviewer.yaml
+skills/python-best-practices.md
+recipes/review-pr.yaml
 </code></pre></div>
 
-<h3 id="run-with-your-bundle">Run with Your Bundle<a class="headerlink" href="#run-with-your-bundle" title="Permanent link">&para;</a></h3>
-<p>Start Amplifier with your new bundle:</p>
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>--bundle<span class="w"> </span>code-reviewer
+<h3 id="test-the-agent">Test the Agent<a class="headerlink" href="#test-the-agent" title="Permanent link">&para;</a></h3>
+<p>Start Amplifier and try your agent:</p>
+<div class="codehilite"><pre><span></span><code>amplifier
 </code></pre></div>
 
-<p>Or add it to an existing configuration:</p>
-<div class="codehilite"><pre><span></span><code>amp<span class="w"> </span>--bundle<span class="w"> </span>foundation<span class="w"> </span>--bundle<span class="w"> </span>code-reviewer
+<p>Then in the chat:</p>
+<div class="codehilite"><pre><span></span><code>@code-reviewer Please review this Python function:
+
+def calc(a, b):
+    return a+b
 </code></pre></div>
 
-<h3 id="test-the-behavior">Test the Behavior<a class="headerlink" href="#test-the-behavior" title="Permanent link">&para;</a></h3>
-<p>Try these prompts to verify it's working:</p>
-<div class="codehilite"><pre><span></span><code>Review this Python function:
-
-def get_user(id):
-    users = load_all_users()
-    for u in users:
-        if u.id == id:
-            return u
-    return None
+<p>Your agent should provide feedback about missing type hints, naming, and documentation.</p>
+<h3 id="test-the-recipe">Test the Recipe<a class="headerlink" href="#test-the-recipe" title="Permanent link">&para;</a></h3>
+<p>To test the recipe workflow:</p>
+<div class="codehilite"><pre><span></span><code>Run recipe code-review:review-pr with pr_number=42
 </code></pre></div>
 
-<p>Your code reviewer should:
-1. Identify the inefficiency (loading all users)
-2. Suggest using a dictionary lookup or database query
-3. Note the missing error handling
-4. Format the response according to your instructions</p>
-<h2 id="step-6-iterate-and-improve">Step 6: Iterate and Improve<a class="headerlink" href="#step-6-iterate-and-improve" title="Permanent link">&para;</a></h2>
-<p>Your first bundle is working! Now refine it based on usage:</p>
-<h3 id="add-more-context">Add More Context<a class="headerlink" href="#add-more-context" title="Permanent link">&para;</a></h3>
-<p>Create additional context files for specific scenarios:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Security-focused review guidelines</span>
-touch<span class="w"> </span>context/security-review.md
-
-<span class="c1"># Performance review checklist</span>
-touch<span class="w"> </span>context/performance-review.md
-</code></pre></div>
-
-<p>Update <code>bundle.yaml</code> to include them:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context/instructions.md</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context/security-review.md</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context/performance-review.md</span>
-</code></pre></div>
-
-<h3 id="create-specialized-variants">Create Specialized Variants<a class="headerlink" href="#create-specialized-variants" title="Permanent link">&para;</a></h3>
-<p>Make language-specific versions:</p>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.amplifier/bundles/python-reviewer
-<span class="c1"># Copy and customize for Python-specific guidance</span>
-</code></pre></div>
-
-<h3 id="compose-with-other-bundles">Compose with Other Bundles<a class="headerlink" href="#compose-with-other-bundles" title="Permanent link">&para;</a></h3>
-<p>Extend existing bundles to add capabilities:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># In a new bundle&#39;s bundle.yaml</span>
-<span class="nt">extends</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python-standards</span>
-</code></pre></div>
-
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="bundle-not-loading">Bundle Not Loading<a class="headerlink" href="#bundle-not-loading" title="Permanent link">&para;</a></h3>
-<p>Check these common issues:</p>
+<h2 id="step-6-refine-and-iterate">Step 6: Refine and Iterate<a class="headerlink" href="#step-6-refine-and-iterate" title="Permanent link">&para;</a></h2>
+<p>Now that your bundle works, you can enhance it:</p>
 <ol>
-<li><strong>File location</strong>: Bundle must be in <code>~/.amplifier/bundles/</code> or a configured path</li>
-<li><strong>YAML syntax</strong>: Validate with <code>yamllint bundle.yaml</code></li>
-<li><strong>File permissions</strong>: Ensure files are readable</li>
+<li><strong>Add more patterns</strong> to the skill document</li>
+<li><strong>Improve agent instructions</strong> based on review quality</li>
+<li><strong>Add tool configurations</strong> for better defaults</li>
+<li><strong>Create additional recipes</strong> for different workflows</li>
 </ol>
-<h3 id="instructions-not-taking-effect">Instructions Not Taking Effect<a class="headerlink" href="#instructions-not-taking-effect" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Context files must be listed in <code>bundle.yaml</code></li>
-<li>Check file paths are relative to bundle root</li>
-<li>Verify no syntax errors in markdown</li>
-</ul>
-<h3 id="tools-not-available">Tools Not Available<a class="headerlink" href="#tools-not-available" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tools must be enabled in the base configuration</li>
-<li>Bundle can only restrict, not add new tools</li>
-<li>Check tool names match exactly</li>
-</ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>You've created your first bundle. Here's where to go next:</p>
-<ol>
-<li><strong><a href="./bundle-composition.md">Bundle Composition</a></strong>: Learn to combine bundles effectively</li>
-<li><strong><a href="./advanced-context.md">Advanced Context</a></strong>: Dynamic context and conditional loading</li>
-<li><strong><a href="./publishing-bundles.md">Publishing Bundles</a></strong>: Share your bundles with others</li>
-<li><strong><a href="../patterns/bundle-patterns.md">Bundle Patterns</a></strong>: Common patterns and best practices</li>
-</ol>
-<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
-<h3 id="bundle-checklist">Bundle Checklist<a class="headerlink" href="#bundle-checklist" title="Permanent link">&para;</a></h3>
+<p>Now that you've created your first bundle, explore:</p>
 <ul>
-<li>[ ] <code>bundle.yaml</code> with name, version, description</li>
-<li>[ ] At least one context file with instructions</li>
-<li>[ ] Tools configured appropriately</li>
-<li>[ ] Tested with real prompts</li>
-<li>[ ] Documentation for users</li>
+<li><strong><a href="../guides/bundle-architecture.md">Bundle Architecture</a></strong> - Deep dive into bundle design</li>
+<li><strong><a href="../guides/writing-agents.md">Writing Effective Agents</a></strong> - Master agent instruction writing</li>
+<li><strong><a href="../guides/recipes.md">Recipe Development</a></strong> - Create complex automated workflows</li>
+<li><strong><a href="../guides/skills.md">Skill Authoring</a></strong> - Build comprehensive knowledge bases</li>
 </ul>
-<h3 id="key-commands">Key Commands<a class="headerlink" href="#key-commands" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List available bundles</span>
-amp<span class="w"> </span>bundles<span class="w"> </span>list
-
-<span class="c1"># Validate bundle structure</span>
-amp<span class="w"> </span>bundles<span class="w"> </span>validate<span class="w"> </span>code-reviewer
-
-<span class="c1"># Run with bundle</span>
-amp<span class="w"> </span>--bundle<span class="w"> </span>code-reviewer
-
-<span class="c1"># Combine bundles</span>
-amp<span class="w"> </span>--bundle<span class="w"> </span>foundation<span class="w"> </span>--bundle<span class="w"> </span>code-reviewer
-</code></pre></div>
-
-<hr />
-<p>Congratulations! You've built a reusable, composable AI capability.
-The bundle pattern lets you capture expertise once and apply it everywhere.</p>
+<h3 id="share-your-bundle">Share Your Bundle<a class="headerlink" href="#share-your-bundle" title="Permanent link">&para;</a></h3>
+<p>Consider sharing your bundle with the community:</p>
+<ol>
+<li>Publish to a Git repository</li>
+<li>Add to the Amplifier bundle registry</li>
+<li>Get feedback and contributions</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><strong>Bundle not found</strong>: Ensure <code>bundle.yaml</code> is in <code>~/.amplifier/bundles/code-review/</code></p>
+<p><strong>Agent not working</strong>: Check that agent name in <code>bundle.yaml</code> matches the filename</p>
+<p><strong>Recipe fails</strong>: Verify all referenced agents exist and have required tools</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>You've learned:</p>
+<p>✅ How to structure a bundle with manifest, agents, skills, and recipes<br />
+✅ How to write agent instructions and configure tools<br />
+✅ How to create skill documents with domain knowledge<br />
+✅ How to build automated workflows with recipes<br />
+✅ How to test and refine your bundle  </p>
+<p>Bundles are powerful because they're composable—your code-review bundle can be combined with other bundles to create even more sophisticated workflows.</p>
+<p>Happy building! 🚀</p>
               
             </div>
           </div><footer>

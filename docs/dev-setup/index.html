@@ -133,19 +133,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#system-requirements">System Requirements</a>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-checklist">Environment Checklist</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+    <li class="toctree-l2"><a class="reference internal" href="#recommended-stack">Recommended Stack</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#development-workflow">Development Workflow</a>
+    <li class="toctree-l2"><a class="reference internal" href="#development-commands">Development Commands</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#recommended-tools">Recommended Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#debugging-workflow">Debugging Workflow</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-tasks">Common Tasks</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -196,8 +194,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h1>
-<p>This section covers setting up a development environment for working on Amplifier itself or building applications that extend it. Follow these guides to configure a productive local setup.</p>
-<p>Whether you're contributing to the core project or building custom modules, proper setup ensures a smooth experience.</p>
+<p>Set up an optimal development environment for working with Amplifier. This section covers IDE configuration, debugging tools, testing workflows, and developer productivity tips. Get your local environment tuned for efficient Amplifier development.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -209,164 +206,114 @@
 <tbody>
 <tr>
 <td><a href="./environment.md">Environment Setup</a></td>
-<td>Python, dependencies, and tooling</td>
+<td>Python, tools, and dependencies</td>
 </tr>
 <tr>
 <td><a href="./ide-config.md">IDE Configuration</a></td>
 <td>VS Code, PyCharm, and editor setup</td>
 </tr>
 <tr>
+<td><a href="./git-workflows.md">Git Workflows</a></td>
+<td>Version control best practices</td>
+</tr>
+<tr>
+<td><a href="./testing.md">Testing Setup</a></td>
+<td>Test frameworks and patterns</td>
+</tr>
+<tr>
+<td><a href="./debugging-tools.md">Debugging Tools</a></td>
+<td>Inspecting sessions and traces</td>
+</tr>
+<tr>
 <td><a href="./local-dev.md">Local Development</a></td>
-<td>Running Amplifier from source</td>
-</tr>
-<tr>
-<td><a href="./testing.md">Testing</a></td>
-<td>Running and writing tests</td>
-</tr>
-<tr>
-<td><a href="debugging.html">Debugging</a></td>
-<td>Debug techniques and tools</td>
+<td>Running Amplifier locally</td>
 </tr>
 <tr>
 <td><a href="./contributing.md">Contributing</a></td>
-<td>How to contribute to Amplifier</td>
-</tr>
-<tr>
-<td><a href="./code-style.md">Code Style</a></td>
-<td>Conventions and formatting</td>
-</tr>
-<tr>
-<td><a href="./release.md">Release Process</a></td>
-<td>Versioning and publishing</td>
+<td>Guidelines for contributors</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Use uv</strong> — It's faster than pip and handles dependencies better</li>
-<li><strong>Virtual environments</strong> — Always isolate project dependencies</li>
-<li><strong>Pre-commit hooks</strong> — Enable them to catch issues before commits</li>
-<li><strong>Type checking</strong> — Run pyright/mypy regularly during development</li>
-<li><strong>Test early</strong> — Write tests as you develop, not after</li>
+<li><strong>Use virtual environments</strong> - Isolate Amplifier dependencies</li>
+<li><strong>Enable LSP</strong> - Get code intelligence in your editor</li>
+<li><strong>Set up pre-commit</strong> - Catch issues before committing</li>
+<li><strong>Use session logs</strong> - Debug with full conversation traces</li>
+<li><strong>Test incrementally</strong> - Run focused tests during development</li>
 </ul>
-<h2 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Requirement</th>
-<th>Version</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Python</td>
-<td>3.11+</td>
-<td>3.12 recommended</td>
-</tr>
-<tr>
-<td>uv or pip</td>
-<td>Latest</td>
-<td>uv preferred</td>
-</tr>
-<tr>
-<td>Git</td>
-<td>2.30+</td>
-<td>For version control</td>
-</tr>
-<tr>
-<td>Node.js</td>
-<td>18+</td>
-<td>For some tooling (optional)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Clone the repository</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/microsoft/amplifier.git
-<span class="nb">cd</span><span class="w"> </span>amplifier
-
-<span class="c1"># Create virtual environment</span>
-uv<span class="w"> </span>venv
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># or .venv\Scripts\activate on Windows</span>
-
-<span class="c1"># Install in development mode</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-
-<span class="c1"># Run tests to verify setup</span>
-pytest
-
-<span class="c1"># Start development session</span>
-amp<span class="w"> </span>--dev
-</code></pre></div>
-
-<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>Setting up for the first time?</strong> Follow <a href="./environment.md">Environment Setup</a> for complete installation instructions.</p>
-<p><strong>Contributing to Amplifier?</strong> Read <a href="./contributing.md">Contributing</a> for workflow and guidelines.</p>
-<p><strong>Debugging issues?</strong> Check <a href="debugging.html">Debugging</a> for techniques and common problems.</p>
-<h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Feature    │───►│    Tests     │───►│     PR       │
-│   Branch     │    │   Passing    │    │   Review     │
-└──────────────┘    └──────────────┘    └──────────────┘
-       │                   │                   │
-       ▼                   ▼                   ▼
-   Write Code        Run pytest          Address Feedback
-   Type Check        Check Coverage      Merge to Main
-</code></pre></div>
-
-<h2 id="recommended-tools">Recommended Tools<a class="headerlink" href="#recommended-tools" title="Permanent link">&para;</a></h2>
+<h2 id="environment-checklist">Environment Checklist<a class="headerlink" href="#environment-checklist" title="Permanent link">&para;</a></h2>
+<p>Before starting development:</p>
+<ul>
+<li>[ ] Python 3.10+ installed</li>
+<li>[ ] Virtual environment created</li>
+<li>[ ] Amplifier installed in editable mode</li>
+<li>[ ] Editor/IDE configured with Python support</li>
+<li>[ ] LSP server (Pyright) available</li>
+<li>[ ] Git configured with hooks</li>
+<li>[ ] API keys in environment variables</li>
+</ul>
+<h2 id="recommended-stack">Recommended Stack<a class="headerlink" href="#recommended-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Tool</th>
 <th>Purpose</th>
-<th>Install</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>uv</td>
-<td>Package management</td>
-<td><code>pip install uv</code></td>
+<td><code>uv</code></td>
+<td>Fast Python package manager</td>
 </tr>
 <tr>
-<td>ruff</td>
+<td><code>pyright</code></td>
+<td>Type checking and LSP</td>
+</tr>
+<tr>
+<td><code>pytest</code></td>
+<td>Test framework</td>
+</tr>
+<tr>
+<td><code>ruff</code></td>
 <td>Linting and formatting</td>
-<td><code>pip install ruff</code></td>
 </tr>
 <tr>
-<td>pyright</td>
-<td>Type checking</td>
-<td><code>pip install pyright</code></td>
-</tr>
-<tr>
-<td>pytest</td>
-<td>Testing</td>
-<td>Included in dev deps</td>
+<td>VS Code</td>
+<td>Editor with Python extension</td>
 </tr>
 </tbody>
 </table>
-<h2 id="common-tasks">Common Tasks<a class="headerlink" href="#common-tasks" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Format code</span>
-ruff<span class="w"> </span>format<span class="w"> </span>.
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Setting up fresh?</strong> Begin with <a href="./environment.md">Environment Setup</a> for complete setup instructions.</p>
+<p><strong>Configuring editor?</strong> Jump to <a href="./ide-config.md">IDE Configuration</a> for editor-specific guidance.</p>
+<p><strong>Ready to contribute?</strong> See <a href="./contributing.md">Contributing</a> for project guidelines.</p>
+<h2 id="development-commands">Development Commands<a class="headerlink" href="#development-commands" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install in development mode</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 
-<span class="c1"># Check types</span>
-pyright
+<span class="c1"># Run tests</span>
+pytest<span class="w"> </span>tests/
 
-<span class="c1"># Run specific tests</span>
-pytest<span class="w"> </span>tests/test_sessions.py<span class="w"> </span>-v
+<span class="c1"># Type check</span>
+pyright<span class="w"> </span>src/
 
-<span class="c1"># Run with coverage</span>
-pytest<span class="w"> </span>--cov<span class="o">=</span>amplifier
+<span class="c1"># Format code</span>
+ruff<span class="w"> </span>format<span class="w"> </span>src/
+
+<span class="c1"># Lint</span>
+ruff<span class="w"> </span>check<span class="w"> </span>src/<span class="w"> </span>--fix
 </code></pre></div>
 
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../quickstart/installation.html">Quickstart: Installation</a></li>
-<li><a href="../advanced/custom-tools.md">Advanced: Custom Tools</a></li>
-<li><a href="../concepts/modules.html">Concepts: Module System</a></li>
-</ul>
+<h2 id="debugging-workflow">Debugging Workflow<a class="headerlink" href="#debugging-workflow" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Check session logs</strong> - <code>~/.amplifier/sessions/</code></li>
+<li><strong>Use session-analyst</strong> - Delegate to specialist agent</li>
+<li><strong>Enable verbose mode</strong> - More detailed output</li>
+<li><strong>Inspect events.jsonl</strong> - Raw conversation data</li>
+</ol>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After setting up your environment, start with <a href="../quickstart/index.html">Quickstart</a> to build your first application, or explore <a href="../tools/index.html">Tools</a> to understand available capabilities.</p>
               
             </div>
           </div><footer>

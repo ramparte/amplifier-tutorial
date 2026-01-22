@@ -123,47 +123,43 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#when-to-use">When to Use</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#use-lsp-python-when-you-need">Use LSP Python When You Need</a>
+    <li class="toctree-l3"><a class="reference internal" href="#use-lsp-python-bundle-when">Use LSP Python Bundle When</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#lsp-vs-grep-decision-guide">LSP vs Grep: Decision Guide</a>
+    <li class="toctree-l3"><a class="reference internal" href="#use-grep-instead-when">Use Grep Instead When</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pyright-configuration">Pyright Configuration</a>
+    <li class="toctree-l3"><a class="reference internal" href="#quick-decision-guide">Quick Decision Guide</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example-1-find-a-definition">Example 1: Find a Definition</a>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-operations">Basic Operations</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-2-trace-callers">Example 2: Trace Callers</a>
+    <li class="toctree-l3"><a class="reference internal" href="#call-hierarchy-operations">Call Hierarchy Operations</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-3-get-type-information">Example 3: Get Type Information</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-4-map-module-dependencies">Example 4: Map Module Dependencies</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-5-understand-inheritance">Example 5: Understand Inheritance</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-6-pre-refactoring-analysis">Example 6: Pre-Refactoring Analysis</a>
+    <li class="toctree-l3"><a class="reference internal" href="#using-the-python-code-intel-agent">Using the python-code-intel Agent</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#lsp-vs-grep-a-practical-comparison">LSP vs Grep: A Practical Comparison</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pyright-configuration">Pyright Configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips-for-effective-use">Tips for Effective Use</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#debugging-type-errors">Debugging Type Errors</a>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-refactoring-impact-analysis">Pattern: Refactoring Impact Analysis</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#understanding-legacy-code">Understanding Legacy Code</a>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-understanding-new-codebases">Pattern: Understanding New Codebases</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#verifying-refactoring-safety">Verifying Refactoring Safety</a>
+    <li class="toctree-l3"><a class="reference internal" href="#pattern-debugging-type-errors">Pattern: Debugging Type Errors</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#related-bundles">Related Bundles</a>
     </li>
@@ -237,17 +233,17 @@
               
                 <h1 id="lsp-python-bundle">LSP Python Bundle<a class="headerlink" href="#lsp-python-bundle" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The LSP Python bundle provides semantic code intelligence for Python projects using the Language Server Protocol (LSP) with Pyright as the backend. Unlike text-based search tools like grep, LSP understands your code semantically—it knows the difference between a function definition, a function call, and a comment mentioning that function.</p>
-<p>This bundle transforms how you navigate and understand Python codebases by providing:</p>
+<p>The LSP Python bundle provides semantic code intelligence for Python codebases using the Language Server Protocol (LSP) powered by Pyright. Unlike text-based search tools like grep, LSP understands your code's actual structure—types, references, call hierarchies, and more.</p>
+<p>This bundle transforms how you navigate and understand Python code by providing:</p>
 <ul>
-<li><strong>Precise symbol resolution</strong> - Find where functions, classes, and variables are actually defined</li>
-<li><strong>Type inference</strong> - Get inferred types even in codebases without type hints</li>
-<li><strong>Call hierarchy tracing</strong> - Understand what calls what and map dependencies</li>
-<li><strong>Semantic references</strong> - Find all usages of a symbol (not just text matches)</li>
+<li><strong>Precise symbol lookup</strong>: Find exact definitions, not text matches</li>
+<li><strong>Semantic references</strong>: Find actual usages, excluding comments and strings</li>
+<li><strong>Type inference</strong>: Get types even without explicit annotations</li>
+<li><strong>Call hierarchy</strong>: Trace what calls a function and what it calls</li>
 </ul>
 <h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
 <h3 id="lsp-tool-pyright">LSP Tool (Pyright)<a class="headerlink" href="#lsp-tool-pyright" title="Permanent link">&para;</a></h3>
-<p>The bundle configures the LSP tool with Pyright, a fast static type checker for Python. Available operations:</p>
+<p>The bundle configures and provides access to Pyright, Microsoft's static type checker for Python, as an LSP server. This gives you access to powerful code intelligence operations:</p>
 <table>
 <thead>
 <tr>
@@ -282,7 +278,7 @@
 </tr>
 <tr>
 <td><code>prepareCallHierarchy</code></td>
-<td>Prepare for call hierarchy queries</td>
+<td>Prepare call hierarchy for a symbol</td>
 </tr>
 <tr>
 <td><code>incomingCalls</code></td>
@@ -295,223 +291,282 @@
 </tbody>
 </table>
 <h3 id="python-code-intel-agent">python-code-intel Agent<a class="headerlink" href="#python-code-intel-agent" title="Permanent link">&para;</a></h3>
-<p>A specialized agent for complex, multi-step Python code navigation tasks. While the LSP tool handles single operations, this agent orchestrates multiple LSP calls to answer higher-level questions like:</p>
+<p>A specialized agent for complex, multi-step Python code navigation tasks. The agent excels at:</p>
 <ul>
-<li>"Trace the inheritance chain for this class"</li>
-<li>"Map all dependencies of this module"</li>
-<li>"Show me the complete call graph for this function"</li>
+<li>Tracing inheritance chains across multiple files</li>
+<li>Mapping module dependencies</li>
+<li>Understanding type flows through your codebase</li>
+<li>Building comprehensive call graphs</li>
+<li>Debugging type mismatches</li>
 </ul>
 <h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
-<h3 id="use-lsp-python-when-you-need">Use LSP Python When You Need<a class="headerlink" href="#use-lsp-python-when-you-need" title="Permanent link">&para;</a></h3>
-<p><strong>Semantic Understanding Over Text Matching</strong></p>
-<div class="codehilite"><pre><span></span><code># Finding where authenticate() is defined
-# grep: matches comments, strings, and actual definitions
-# LSP goToDefinition: finds the exact definition location
+<h3 id="use-lsp-python-bundle-when">Use LSP Python Bundle When<a class="headerlink" href="#use-lsp-python-bundle-when" title="Permanent link">&para;</a></h3>
+<p><strong>Finding where something is defined:</strong></p>
+<div class="codehilite"><pre><span></span><code>&quot;Where is the Session class defined?&quot;
+→ goToDefinition gives exact file:line, not grep&#39;s multiple matches
 </code></pre></div>
 
-<p><strong>Type Information</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># What type does get_connection() return?</span>
-<span class="c1"># Even without type hints, Pyright infers types from implementation</span>
-<span class="k">def</span> <span class="nf">get_connection</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">DatabaseConnection</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">)</span>
-
-<span class="c1"># LSP hover reveals: () -&gt; DatabaseConnection</span>
+<p><strong>Finding all usages of a symbol:</strong></p>
+<div class="codehilite"><pre><span></span><code>&quot;What uses the authenticate() method?&quot;
+→ findReferences returns actual code usages, ignoring comments/strings
 </code></pre></div>
 
-<p><strong>Call Hierarchy Analysis</strong></p>
-<div class="codehilite"><pre><span></span><code># Who calls process_payment()?
-# LSP incomingCalls gives you the complete call graph
-# grep would match &quot;process_payment&quot; in comments and strings too
+<p><strong>Getting type information:</strong></p>
+<div class="codehilite"><pre><span></span><code>&quot;What type does get_connection() return?&quot;
+→ hover shows inferred types even without annotations
 </code></pre></div>
 
-<p><strong>Refactoring Preparation</strong></p>
-<div class="codehilite"><pre><span></span><code># Before renaming a class, find ALL usages
-# LSP findReferences catches:
-# - Direct instantiations
-# - Type hints
-# - Inheritance relationships
-# - Import statements
+<p><strong>Tracing call relationships:</strong></p>
+<div class="codehilite"><pre><span></span><code>&quot;What functions call handle_request()?&quot;
+→ incomingCalls maps the complete caller graph
 </code></pre></div>
 
-<h3 id="lsp-vs-grep-decision-guide">LSP vs Grep: Decision Guide<a class="headerlink" href="#lsp-vs-grep-decision-guide" title="Permanent link">&para;</a></h3>
+<p><strong>Understanding complex codebases:</strong></p>
+<div class="codehilite"><pre><span></span><code>&quot;Map the authentication flow from login to session creation&quot;
+→ python-code-intel agent traces multi-step paths
+</code></pre></div>
+
+<h3 id="use-grep-instead-when">Use Grep Instead When<a class="headerlink" href="#use-grep-instead-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Searching for text patterns (log messages, comments, TODOs)</li>
+<li>Finding configuration values or magic strings</li>
+<li>Bulk text search across many files</li>
+<li>Searching non-Python files</li>
+</ul>
+<h3 id="quick-decision-guide">Quick Decision Guide<a class="headerlink" href="#quick-decision-guide" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Task</th>
-<th>Use LSP</th>
-<th>Use Grep</th>
+<th>Tool</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Find function definition</td>
-<td>goToDefinition</td>
-<td>Pattern matching</td>
+<td>"Find definition of X"</td>
+<td>LSP <code>goToDefinition</code></td>
 </tr>
 <tr>
-<td>Find all callers</td>
-<td>incomingCalls</td>
-<td>Text search</td>
+<td>"Find all callers of X"</td>
+<td>LSP <code>incomingCalls</code></td>
 </tr>
 <tr>
-<td>Get type signature</td>
-<td>hover</td>
-<td>Not possible</td>
+<td>"Find text 'ERROR' in logs"</td>
+<td>grep</td>
 </tr>
 <tr>
-<td>Search across many files</td>
-<td>Limited</td>
-<td>Faster</td>
+<td>"What type is X?"</td>
+<td>LSP <code>hover</code></td>
 </tr>
 <tr>
-<td>Find text in comments</td>
-<td>Not possible</td>
-<td>Pattern matching</td>
+<td>"Find TODO comments"</td>
+<td>grep</td>
 </tr>
 <tr>
-<td>Understand inheritance</td>
-<td>goToImplementation</td>
-<td>Manual tracing</td>
+<td>"Trace the auth flow"</td>
+<td>python-code-intel agent</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rule of thumb:</strong> Use LSP for understanding code relationships. Use grep for finding text patterns.</p>
+<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
+<h3 id="basic-operations">Basic Operations<a class="headerlink" href="#basic-operations" title="Permanent link">&para;</a></h3>
+<p><strong>1. Go to Definition</strong></p>
+<p>Find where a symbol is defined:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: goToDefinition
+file_path: src/auth/login.py
+line: 42
+character: 15
+</code></pre></div>
+
+<p>This returns the exact file and line where the symbol at that position is defined.</p>
+<p><strong>2. Find References</strong></p>
+<p>Find all usages of a symbol:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: findReferences
+file_path: src/models/user.py
+line: 10
+character: 7
+</code></pre></div>
+
+<p>Returns every location where <code>User</code> (or whatever symbol is at that position) is referenced.</p>
+<p><strong>3. Hover for Type Info</strong></p>
+<p>Get type information and docstrings:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: hover
+file_path: src/utils/cache.py
+line: 25
+character: 12
+</code></pre></div>
+
+<p>Returns the inferred type, function signature, and any docstring.</p>
+<p><strong>4. Document Symbols</strong></p>
+<p>List all symbols in a file:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: documentSymbol
+file_path: src/services/payment.py
+line: 1
+character: 1
+</code></pre></div>
+
+<p>Returns classes, functions, variables, and their locations in the file.</p>
+<p><strong>5. Workspace Symbol Search</strong></p>
+<p>Search for symbols across the entire workspace:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: workspaceSymbol
+query: &quot;authenticate&quot;
+file_path: src/main.py
+line: 1
+character: 1
+</code></pre></div>
+
+<p>Finds all symbols matching the query pattern.</p>
+<h3 id="call-hierarchy-operations">Call Hierarchy Operations<a class="headerlink" href="#call-hierarchy-operations" title="Permanent link">&para;</a></h3>
+<p><strong>6. Prepare Call Hierarchy</strong></p>
+<p>Prepare a symbol for call hierarchy analysis:</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: prepareCallHierarchy
+file_path: src/api/handlers.py
+line: 55
+character: 8
+</code></pre></div>
+
+<p><strong>7. Incoming Calls</strong></p>
+<p>Find what calls a function (callers):</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: incomingCalls
+file_path: src/api/handlers.py
+line: 55
+character: 8
+</code></pre></div>
+
+<p><strong>8. Outgoing Calls</strong></p>
+<p>Find what a function calls (callees):</p>
+<div class="codehilite"><pre><span></span><code>LSP operation: outgoingCalls
+file_path: src/api/handlers.py
+line: 55
+character: 8
+</code></pre></div>
+
+<h3 id="using-the-python-code-intel-agent">Using the python-code-intel Agent<a class="headerlink" href="#using-the-python-code-intel-agent" title="Permanent link">&para;</a></h3>
+<p>For complex navigation tasks, delegate to the specialized agent:</p>
+<p><strong>Example: Tracing a Feature Flow</strong></p>
+<div class="codehilite"><pre><span></span><code>Task: &quot;Trace how user authentication works from the login endpoint 
+       to session creation, including all intermediate function calls&quot;
+
+Agent: python-code-intel
+
+The agent will:
+1. Find the login endpoint definition
+2. Trace outgoing calls to identify authentication logic
+3. Follow the call chain to session creation
+4. Build a complete map of the flow
+5. Return a structured summary with file:line references
+</code></pre></div>
+
+<p><strong>Example: Finding All Implementations</strong></p>
+<div class="codehilite"><pre><span></span><code>Task: &quot;Find all classes that implement the PaymentProcessor interface
+       and show their process_payment method signatures&quot;
+
+Agent: python-code-intel
+
+The agent will:
+1. Locate the PaymentProcessor base class
+2. Find all implementations using goToImplementation
+3. Extract method signatures using hover
+4. Return a comparison of all implementations
+</code></pre></div>
+
+<p><strong>Example: Debugging Type Issues</strong></p>
+<div class="codehilite"><pre><span></span><code>Task: &quot;The function get_user_data() is returning the wrong type somewhere.
+       Trace all the places it&#39;s called and check the expected vs actual types&quot;
+
+Agent: python-code-intel
+
+The agent will:
+1. Get the return type of get_user_data()
+2. Find all call sites using incomingCalls
+3. Check type expectations at each call site
+4. Identify type mismatches
+5. Report findings with specific locations
+</code></pre></div>
+
+<h2 id="lsp-vs-grep-a-practical-comparison">LSP vs Grep: A Practical Comparison<a class="headerlink" href="#lsp-vs-grep-a-practical-comparison" title="Permanent link">&para;</a></h2>
+<p>Consider searching for uses of a function called <code>validate</code>:</p>
+<p><strong>With grep:</strong></p>
+<div class="codehilite"><pre><span></span><code>grep -r &quot;validate&quot; src/
+</code></pre></div>
+
+<p>Returns:
+- Actual function calls: <code>validate(data)</code>
+- Comments: <code># TODO: validate input</code>
+- Strings: <code>"Please validate your email"</code>
+- Other functions: <code>validate_email()</code>, <code>revalidate()</code>
+- Variable names: <code>is_validated = True</code></p>
+<p><strong>With LSP findReferences:</strong></p>
+<div class="codehilite"><pre><span></span><code>LSP findReferences on validate function
+</code></pre></div>
+
+<p>Returns:
+- Only actual references to that specific function
+- No false positives from comments or strings
+- No confusion with similarly-named symbols</p>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>The bundle is pre-configured for Python. To use it, ensure your workspace has Python files and Pyright can resolve your imports.</p>
-<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Python project with standard structure</li>
-<li>Virtual environment recommended (helps Pyright resolve imports)</li>
-<li><code>pyproject.toml</code> or <code>pyrightconfig.json</code> for custom configuration (optional)</li>
-</ul>
+<p>The LSP Python bundle requires Pyright to be available. It's typically configured in your bundle composition:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Example bundle including LSP Python</span>
+<span class="nt">extends</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lsp-python</span>
+
+<span class="c1"># Pyright will use pyrightconfig.json or pyproject.toml</span>
+<span class="c1"># from your project root for configuration</span>
+</code></pre></div>
+
 <h3 id="pyright-configuration">Pyright Configuration<a class="headerlink" href="#pyright-configuration" title="Permanent link">&para;</a></h3>
-<p>For complex projects, create a <code>pyrightconfig.json</code>:</p>
+<p>Create a <code>pyrightconfig.json</code> in your project root for best results:</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;**/node_modules&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;**/__pycache__&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;exclude&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;**/node_modules&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;**/__pycache__&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.venv&quot;</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">&quot;venvPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;venv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.venv&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;pythonVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11&quot;</span>
+<span class="w">  </span><span class="nt">&quot;typeCheckingMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;basic&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="example-1-find-a-definition">Example 1: Find a Definition<a class="headerlink" href="#example-1-find-a-definition" title="Permanent link">&para;</a></h3>
-<p>Navigate to where a function is defined:</p>
-<div class="codehilite"><pre><span></span><code>User: Where is the authenticate function defined?
-
-Amplifier uses LSP goToDefinition to find:
-  src/auth/handlers.py:45 - def authenticate(credentials: dict) -&gt; User
-</code></pre></div>
-
-<h3 id="example-2-trace-callers">Example 2: Trace Callers<a class="headerlink" href="#example-2-trace-callers" title="Permanent link">&para;</a></h3>
-<p>Find all code that calls a specific function:</p>
-<div class="codehilite"><pre><span></span><code>User: What calls the validate_token function?
-
-Amplifier uses LSP incomingCalls to map:
-  - src/middleware/auth.py:23 - check_auth()
-  - src/api/routes.py:89 - protected_endpoint()
-  - src/websocket/handlers.py:34 - ws_authenticate()
-</code></pre></div>
-
-<h3 id="example-3-get-type-information">Example 3: Get Type Information<a class="headerlink" href="#example-3-get-type-information" title="Permanent link">&para;</a></h3>
-<p>Understand types even without annotations:</p>
-<div class="codehilite"><pre><span></span><code>User: What type does create_session return?
-
-Amplifier uses LSP hover:
-  def create_session(user_id: str) -&gt; Session
-
-  Returns a Session object containing authentication
-  state and expiration information.
-</code></pre></div>
-
-<h3 id="example-4-map-module-dependencies">Example 4: Map Module Dependencies<a class="headerlink" href="#example-4-map-module-dependencies" title="Permanent link">&para;</a></h3>
-<p>Use the python-code-intel agent for complex analysis:</p>
-<div class="codehilite"><pre><span></span><code>User: Map all the dependencies of the payment module
-
-Agent traces imports and call relationships:
-  payment/
-  ├── processor.py
-  │   ├── imports: stripe, logging, .models
-  │   └── calls: validate_card(), create_charge()
-  ├── models.py
-  │   └── imports: dataclasses, typing
-  └── validators.py
-      ├── imports: re, .exceptions
-      └── called by: processor.validate_card()
-</code></pre></div>
-
-<h3 id="example-5-understand-inheritance">Example 5: Understand Inheritance<a class="headerlink" href="#example-5-understand-inheritance" title="Permanent link">&para;</a></h3>
-<p>Trace class hierarchies:</p>
-<div class="codehilite"><pre><span></span><code>User: Show me the inheritance chain for DatabaseAdapter
-
-LSP reveals:
-  DatabaseAdapter
-    └── inherits from: BaseAdapter (src/core/adapters.py:12)
-        └── inherits from: ABC (abc module)
-
-  Implementations:
-    - PostgresAdapter (src/adapters/postgres.py:8)
-    - SQLiteAdapter (src/adapters/sqlite.py:8)
-    - MockAdapter (tests/mocks.py:15)
-</code></pre></div>
-
-<h3 id="example-6-pre-refactoring-analysis">Example 6: Pre-Refactoring Analysis<a class="headerlink" href="#example-6-pre-refactoring-analysis" title="Permanent link">&para;</a></h3>
-<p>Before renaming or moving code:</p>
-<div class="codehilite"><pre><span></span><code>User: I want to rename UserService to AuthService. Show me all usages.
-
-LSP findReferences locates:
-  Definition:
-    src/services/user.py:10 - class UserService
-
-  Usages (23 total):
-    src/api/routes.py:5 - from services.user import UserService
-    src/api/routes.py:34 - service = UserService()
-    src/api/routes.py:78 - UserService.get_by_id(user_id)
-    src/tests/test_user.py:12 - class TestUserService
-    ... (19 more)
-</code></pre></div>
-
+<h2 id="tips-for-effective-use">Tips for Effective Use<a class="headerlink" href="#tips-for-effective-use" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Position matters</strong>: LSP operations work on specific positions. Place the cursor on the symbol you want to analyze.</p>
+</li>
+<li>
+<p><strong>Let Pyright index first</strong>: Large codebases may need a moment for initial indexing.</p>
+</li>
+<li>
+<p><strong>Use the agent for multi-step tasks</strong>: Single operations go direct to LSP; complex traces delegate to python-code-intel.</p>
+</li>
+<li>
+<p><strong>Combine with grep strategically</strong>: Use LSP for semantic queries, grep for text patterns.</p>
+</li>
+<li>
+<p><strong>Check virtual environments</strong>: Ensure Pyright can find your project's dependencies for accurate type inference.</p>
+</li>
+</ol>
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="debugging-type-errors">Debugging Type Errors<a class="headerlink" href="#debugging-type-errors" title="Permanent link">&para;</a></h3>
-<p>When Pyright reports a type error, use hover to understand what types are inferred:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Error: Argument of type &quot;str | None&quot; cannot be assigned to &quot;str&quot;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">get_value</span><span class="p">())</span>  <span class="c1"># What&#39;s get_value returning?</span>
-
-<span class="c1"># Use LSP hover on get_value() to see:</span>
-<span class="c1"># def get_value() -&gt; str | None</span>
-</code></pre></div>
-
-<h3 id="understanding-legacy-code">Understanding Legacy Code<a class="headerlink" href="#understanding-legacy-code" title="Permanent link">&para;</a></h3>
-<p>When diving into unfamiliar code:</p>
-<ol>
-<li>Use <code>documentSymbol</code> to see the structure of a file</li>
-<li>Use <code>goToDefinition</code> to trace imports and dependencies</li>
-<li>Use <code>incomingCalls</code> to understand how code is used</li>
-<li>Use <code>hover</code> to understand types without reading implementation</li>
-</ol>
-<h3 id="verifying-refactoring-safety">Verifying Refactoring Safety<a class="headerlink" href="#verifying-refactoring-safety" title="Permanent link">&para;</a></h3>
-<p>Before making changes:</p>
-<ol>
-<li>Use <code>findReferences</code> to locate all usages</li>
-<li>Use <code>incomingCalls</code> to understand dependencies</li>
-<li>Use <code>goToImplementation</code> to find all implementations of an interface</li>
-</ol>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Startup time:</strong> Pyright needs to index your workspace on first use</li>
-<li><strong>Dynamic code:</strong> Highly dynamic Python (heavy use of <code>getattr</code>, metaclasses) may not be fully understood</li>
-<li><strong>External libraries:</strong> Type stubs needed for best results with third-party packages</li>
-<li><strong>Large workspaces:</strong> Very large codebases may have slower response times</li>
-</ul>
+<h3 id="pattern-refactoring-impact-analysis">Pattern: Refactoring Impact Analysis<a class="headerlink" href="#pattern-refactoring-impact-analysis" title="Permanent link">&para;</a></h3>
+<p>Before renaming or modifying a function:
+1. Use <code>findReferences</code> to find all usages
+2. Use <code>incomingCalls</code> to understand the call graph
+3. Use <code>hover</code> at each call site to check type expectations</p>
+<h3 id="pattern-understanding-new-codebases">Pattern: Understanding New Codebases<a class="headerlink" href="#pattern-understanding-new-codebases" title="Permanent link">&para;</a></h3>
+<p>When exploring unfamiliar code:
+1. Use <code>documentSymbol</code> to see file structure
+2. Use <code>workspaceSymbol</code> to find entry points
+3. Use <code>outgoingCalls</code> to trace execution flow
+4. Delegate complex traces to python-code-intel agent</p>
+<h3 id="pattern-debugging-type-errors">Pattern: Debugging Type Errors<a class="headerlink" href="#pattern-debugging-type-errors" title="Permanent link">&para;</a></h3>
+<p>When facing type mismatches:
+1. Use <code>hover</code> to get inferred types
+2. Use <code>goToDefinition</code> to check type definitions
+3. Trace the data flow with call hierarchy operations</p>
 <h2 id="related-bundles">Related Bundles<a class="headerlink" href="#related-bundles" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>lsp</strong> - Base LSP bundle (language-agnostic)</li>
-<li><strong>foundation</strong> - Core development tools including grep for text search</li>
+<li><strong>lsp</strong>: Base LSP bundle (required dependency)</li>
+<li><strong>foundation</strong>: Core development tools</li>
 </ul>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>The LSP Python bundle brings IDE-level code intelligence to your Amplifier workflow. Use it when you need to truly understand code relationships—not just find text patterns. The semantic understanding it provides is invaluable for navigating complex codebases, preparing refactoring, and debugging type issues.</p>
-<p>For simple text searches, grep remains faster. But when you need to answer "what calls this?" or "what type is this?", LSP Python is the right tool.</p>
+<p>The LSP Python bundle brings IDE-level code intelligence to your Amplifier workflow. By understanding your code semantically rather than as text, it enables precise navigation, accurate refactoring, and deep code understanding—all accessible through simple tool operations or the specialized python-code-intel agent.</p>
               
             </div>
           </div><footer>

@@ -73,7 +73,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-module">What is a Module?</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#the-module-philosophy">The Module Philosophy</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-module-lifecycle">The Module Lifecycle</a>
     </li>
         </ul>
     </li>
@@ -93,31 +93,19 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#tool-vs-hook">Tool vs Hook</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-tools">When to Use Tools</a>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-tool">When to Use a Tool</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-hooks">When to Use Hooks</a>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-hook">When to Use a Hook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#the-decision-tree">The Decision Tree</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-composition">Module Composition</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#adding-new-capabilities">Adding New Capabilities</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#swapping-implementations">Swapping Implementations</a>
+    <li class="toctree-l3"><a class="reference internal" href="#can-it-be-both">Can It Be Both?</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-contracts">Module Contracts</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#the-contract-principle">The Contract Principle</a>
+    <li class="toctree-l2"><a class="reference internal" href="#module-configuration">Module Configuration</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-modules">Creating Custom Modules</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#whats-next">What's Next?</a>
     </li>
     </ul>
                   </li>
@@ -226,350 +214,308 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="understanding-modules">Understanding Modules<a class="headerlink" href="#understanding-modules" title="Permanent link">&para;</a></h1>
-<p>Modules are the fundamental building blocks of Amplifier. They represent the "bricks and studs" philosophy—self-contained units with standardized interfaces that snap together to create powerful AI applications. Understanding modules is essential to mastering Amplifier's architecture.</p>
 <h2 id="what-is-a-module">What is a Module?<a class="headerlink" href="#what-is-a-module" title="Permanent link">&para;</a></h2>
-<p>A module is a <strong>self-contained unit of functionality</strong> that:</p>
+<p>A <strong>module</strong> is a pluggable component that extends your agent's capabilities. Think of modules as LEGO blocks—each one serves a specific purpose, and you can mix and match them to build the exact agent you need.</p>
+<p>Modules are the foundation of the framework's architecture. Instead of building a monolithic agent with hardcoded behaviors, you compose your agent from independent, reusable modules. This design makes your agent:</p>
 <ul>
-<li>Has a <strong>single, well-defined purpose</strong></li>
-<li>Implements a <strong>specific contract</strong> (interface)</li>
-<li>Can be <strong>swapped, upgraded, or replaced</strong> without affecting others</li>
-<li>Operates <strong>independently</strong> while integrating seamlessly</li>
+<li><strong>Flexible</strong>: Swap modules without rewriting code</li>
+<li><strong>Testable</strong>: Test each module in isolation</li>
+<li><strong>Maintainable</strong>: Update one module without breaking others</li>
+<li><strong>Extensible</strong>: Add new capabilities by adding modules</li>
 </ul>
-<p>Think of modules like LEGO bricks. Each brick has a specific shape and purpose, but they all share the same connection system (studs and sockets). You can build anything by combining bricks, and you can always swap one brick for another of the same type.</p>
-<h3 id="the-module-philosophy">The Module Philosophy<a class="headerlink" href="#the-module-philosophy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
-│                     YOUR APPLICATION                        │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
-│  │Provider │  │  Tool   │  │ Context │  │  Hook   │        │
-│  │ Module  │  │ Module  │  │ Module  │  │ Module  │        │
-│  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘        │
-│       │            │            │            │              │
-│       └────────────┴─────┬──────┴────────────┘              │
-│                          │                                  │
-│                   ┌──────┴──────┐                           │
-│                   │Orchestrator │                           │
-│                   │   Module    │                           │
-│                   └─────────────┘                           │
-└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
-
-<p>Modules communicate through <strong>contracts</strong>, not implementations. This means:</p>
-<ul>
-<li>A Claude provider and an OpenAI provider are interchangeable</li>
-<li>A filesystem tool and a database tool both implement the same tool contract</li>
-<li>You can add observability hooks without changing any other code</li>
-</ul>
+<p>Every module in the system implements a specific interface (or "contract") that defines how it communicates with the rest of the agent. This contract ensures that modules work together seamlessly, regardless of who wrote them or when they were created.</p>
+<h3 id="the-module-lifecycle">The Module Lifecycle<a class="headerlink" href="#the-module-lifecycle" title="Permanent link">&para;</a></h3>
+<p>When an agent starts, it:</p>
+<ol>
+<li><strong>Loads</strong> all configured modules</li>
+<li><strong>Initializes</strong> them with configuration</li>
+<li><strong>Registers</strong> them with the appropriate systems</li>
+<li><strong>Executes</strong> them during the agent loop</li>
+<li><strong>Cleans up</strong> when the agent shuts down</li>
+</ol>
+<p>Modules can maintain state between invocations, access shared resources, and communicate with each other through well-defined interfaces.</p>
 <h2 id="the-5-module-types">The 5 Module Types<a class="headerlink" href="#the-5-module-types" title="Permanent link">&para;</a></h2>
-<p>Amplifier defines exactly five module types. Each has a specific role and contract:</p>
+<p>The framework defines five core module types, each serving a distinct architectural role:</p>
 <table>
 <thead>
 <tr>
 <th>Type</th>
 <th>Purpose</th>
 <th>Contract</th>
-<th>When It Runs</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Provider</strong></td>
+<td>Provider</td>
 <td>LLM backends</td>
-<td><code>complete()</code></td>
-<td>When AI response needed</td>
+<td>complete()</td>
 </tr>
 <tr>
-<td><strong>Tool</strong></td>
+<td>Tool</td>
 <td>Agent capabilities</td>
-<td><code>execute()</code></td>
-<td>When LLM requests action</td>
+<td>execute()</td>
 </tr>
 <tr>
-<td><strong>Orchestrator</strong></td>
+<td>Orchestrator</td>
 <td>Main engine</td>
-<td>The agent loop</td>
-<td>Continuously during session</td>
+<td>The loop</td>
 </tr>
 <tr>
-<td><strong>Context</strong></td>
-<td>Memory &amp; state</td>
-<td><code>messages</code></td>
-<td>Before each LLM call</td>
+<td>Context</td>
+<td>Memory</td>
+<td>messages</td>
 </tr>
 <tr>
-<td><strong>Hook</strong></td>
+<td>Hook</td>
 <td>Observers</td>
-<td><code>events</code></td>
-<td>On system events</td>
+<td>events</td>
 </tr>
 </tbody>
 </table>
 <h3 id="provider-modules">Provider Modules<a class="headerlink" href="#provider-modules" title="Permanent link">&para;</a></h3>
-<p>Providers connect Amplifier to language models. They abstract away the differences between OpenAI, Anthropic, Azure, local models, and others.</p>
-<p><strong>Contract:</strong> <code>complete(messages, tools, config) -&gt; response</code></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># All providers implement the same interface</span>
-<span class="k">class</span> <span class="nc">Provider</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">],</span>
-        <span class="n">tools</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Tool</span><span class="p">],</span>
-        <span class="n">config</span><span class="p">:</span> <span class="n">CompletionConfig</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletionResponse</span><span class="p">:</span>
-        <span class="o">...</span>
+<p><strong>Purpose</strong>: Connect to language model backends</p>
+<p>Providers abstract away the details of different LLM APIs (OpenAI, Anthropic, local models, etc.). They implement a single <code>complete()</code> method that takes a conversation history and returns the next response.</p>
+<p><strong>Example use cases</strong>:
+- OpenAI GPT-4 provider
+- Anthropic Claude provider
+- Local Llama model provider
+- Custom fine-tuned model provider</p>
+<p><strong>Key characteristics</strong>:
+- Stateless request/response
+- Handles authentication and rate limiting
+- Transforms between framework format and API format
+- Supports streaming responses</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Provider</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate next response from conversation history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 </code></pre></div>
 
-<p><strong>Key characteristics:</strong>
-- Handle authentication and API specifics internally
-- Normalize responses to a common format
-- Support streaming where available
-- Manage rate limiting and retries</p>
-<p><strong>Examples:</strong> <code>AnthropicProvider</code>, <code>OpenAIProvider</code>, <code>AzureProvider</code>, <code>OllamaProvider</code></p>
 <h3 id="tool-modules">Tool Modules<a class="headerlink" href="#tool-modules" title="Permanent link">&para;</a></h3>
-<p>Tools give agents the ability to act in the world. They represent capabilities the LLM can invoke to accomplish tasks.</p>
-<p><strong>Contract:</strong> <code>execute(arguments) -&gt; result</code></p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">parameters</span><span class="p">:</span> <span class="n">JSONSchema</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ToolResult</span><span class="p">:</span>
-        <span class="o">...</span>
+<p><strong>Purpose</strong>: Give your agent capabilities to interact with the world</p>
+<p>Tools are functions that the LLM can call to perform actions—reading files, searching the web, executing code, querying databases, etc. The LLM decides which tool to use based on the conversation context.</p>
+<p><strong>Example use cases</strong>:
+- File system operations (read, write, edit)
+- Web search and scraping
+- Database queries
+- API integrations
+- Code execution</p>
+<p><strong>Key characteristics</strong>:
+- LLM-triggered (agent decides when to use)
+- Synchronous or asynchronous execution
+- Structured input parameters
+- Returns results to the LLM</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the tool with given parameters&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 </code></pre></div>
 
-<p><strong>Key characteristics:</strong>
-- Self-describing (name, description, parameters)
-- Executed when the LLM decides to use them
-- Return structured results back to the conversation
-- Can be dynamically enabled/disabled</p>
-<p><strong>Examples:</strong> <code>read_file</code>, <code>write_file</code>, <code>bash</code>, <code>web_search</code>, <code>grep</code></p>
 <h3 id="orchestrator-modules">Orchestrator Modules<a class="headerlink" href="#orchestrator-modules" title="Permanent link">&para;</a></h3>
-<p>The orchestrator is the brain of the agent. It runs the main loop: getting context, calling the LLM, executing tools, and repeating.</p>
-<p><strong>Contract:</strong> The agent loop itself</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Orchestrator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
-            <span class="c1"># 1. Gather context</span>
-            <span class="n">messages</span> <span class="o">=</span> <span class="k">await</span> <span class="n">context</span><span class="o">.</span><span class="n">get_messages</span><span class="p">()</span>
-
-            <span class="c1"># 2. Call LLM</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">provider</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
-
-            <span class="c1"># 3. Process response</span>
-            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">has_tool_calls</span><span class="p">:</span>
-                <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">execute_tools</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">)</span>
-
-            <span class="c1"># 4. Check completion</span>
-            <span class="n">done</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">is_final</span>
+<p><strong>Purpose</strong>: Control the main agent loop</p>
+<p>The orchestrator is the "brain" of your agent. It manages the conversation flow, decides when to call the LLM, processes tool calls, handles errors, and determines when the agent's work is complete.</p>
+<p><strong>Example use cases</strong>:
+- Simple loop (call LLM → execute tools → repeat)
+- Tree search orchestrator (explore multiple paths)
+- Reflection orchestrator (self-critique and improve)
+- Multi-agent orchestrator (coordinate multiple agents)</p>
+<p><strong>Key characteristics</strong>:
+- Runs the main agent loop
+- Manages state and conversation history
+- Decides when to stop
+- Handles errors and retries</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Orchestrator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the main agent loop&quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_complete</span><span class="p">():</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
 </code></pre></div>
 
-<p><strong>Key characteristics:</strong>
-- Controls the agent's decision-making flow
-- Manages turn-taking between user and agent
-- Coordinates all other module types
-- Handles completion conditions</p>
-<p><strong>Examples:</strong> <code>StandardOrchestrator</code>, <code>ReActOrchestrator</code>, <code>PlanningOrchestrator</code></p>
 <h3 id="context-modules">Context Modules<a class="headerlink" href="#context-modules" title="Permanent link">&para;</a></h3>
-<p>Context modules manage what the agent "knows" during a conversation. They build the message history and inject relevant information.</p>
-<p><strong>Contract:</strong> <code>messages</code> - provides the conversation context</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Context</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
-        <span class="o">...</span>
+<p><strong>Purpose</strong>: Manage conversation memory and state</p>
+<p>Context modules store and organize the conversation history. They decide what information to keep, what to summarize, and what to discard. This is crucial for long conversations where the full history exceeds the LLM's context window.</p>
+<p><strong>Example use cases</strong>:
+- Simple in-memory context (store all messages)
+- Sliding window context (keep last N messages)
+- Semantic context (keep most relevant messages)
+- Persistent context (save to database)</p>
+<p><strong>Key characteristics</strong>:
+- Stores conversation messages
+- Provides access to history
+- May implement compression or summarization
+- Can persist across sessions</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Context</span><span class="p">:</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">messages</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current conversation history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message to history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 </code></pre></div>
 
-<p><strong>Key characteristics:</strong>
-- Maintain conversation history
-- Inject system prompts and instructions
-- Can add retrieved documents (RAG)
-- Handle context window limits</p>
-<p><strong>Examples:</strong> <code>ConversationContext</code>, <code>SlidingWindowContext</code>, <code>RAGContext</code></p>
 <h3 id="hook-modules">Hook Modules<a class="headerlink" href="#hook-modules" title="Permanent link">&para;</a></h3>
-<p>Hooks observe and react to system events without modifying the core flow. They're perfect for logging, analytics, guardrails, and side effects.</p>
-<p><strong>Contract:</strong> <code>events</code> - receives notifications</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hook</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="o">...</span>
+<p><strong>Purpose</strong>: Observe and react to agent events</p>
+<p>Hooks are passive observers that get notified when specific events occur in the agent's lifecycle. Unlike tools (which the LLM chooses to use), hooks are triggered by code events automatically.</p>
+<p><strong>Example use cases</strong>:
+- Logging and debugging
+- Performance monitoring
+- Cost tracking
+- Safety guardrails
+- Analytics and telemetry</p>
+<p><strong>Key characteristics</strong>:
+- Code-triggered (not LLM-triggered)
+- Cannot be chosen by the agent
+- Observe without blocking
+- Multiple hooks can respond to same event</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hook</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle an agent event&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 </code></pre></div>
 
-<p><strong>Key characteristics:</strong>
-- Passive observers (don't change main flow)
-- Subscribe to specific event types
-- Run asynchronously when events occur
-- Can emit their own events</p>
-<p><strong>Examples:</strong> <code>LoggingHook</code>, <code>MetricsHook</code>, <code>GuardrailHook</code>, <code>AuditHook</code></p>
 <h2 id="tool-vs-hook">Tool vs Hook<a class="headerlink" href="#tool-vs-hook" title="Permanent link">&para;</a></h2>
-<p>This distinction confuses many newcomers. Here's the key difference:</p>
+<p>Understanding the difference between Tools and Hooks is crucial for proper module design:</p>
 <table>
 <thead>
 <tr>
-<th>Aspect</th>
+<th></th>
 <th>Tool</th>
 <th>Hook</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Triggered by</strong></td>
-<td>LLM decides to use it</td>
-<td>Code events fire</td>
+<td>Triggered by</td>
+<td>LLM decides</td>
+<td>Code events</td>
 </tr>
 <tr>
-<td><strong>Purpose</strong></td>
-<td>Give agent capabilities</td>
-<td>Observe/react to events</td>
+<td>Choosable</td>
+<td>Yes, agent picks from available tools</td>
+<td>No, always runs on events</td>
 </tr>
 <tr>
-<td><strong>Control flow</strong></td>
-<td>Blocks until complete</td>
-<td>Runs asynchronously</td>
+<td>Blocks execution</td>
+<td>Yes, agent waits for result</td>
+<td>No, runs async or returns quickly</td>
 </tr>
 <tr>
-<td><strong>Visibility</strong></td>
-<td>LLM knows about it</td>
-<td>LLM doesn't know</td>
+<td>Returns value</td>
+<td>Yes, result goes to LLM</td>
+<td>No, side effects only</td>
 </tr>
 <tr>
-<td><strong>Examples</strong></td>
-<td>Read file, search web</td>
-<td>Log events, track metrics</td>
+<td>Example</td>
+<td>"search_web" tool called when agent needs info</td>
+<td>Logging hook records all LLM calls</td>
 </tr>
 </tbody>
 </table>
-<h3 id="when-to-use-tools">When to Use Tools<a class="headerlink" href="#when-to-use-tools" title="Permanent link">&para;</a></h3>
-<p>Use a tool when the <strong>LLM needs to decide</strong> whether to use the capability:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Tool: LLM chooses when to search</span>
-<span class="nd">@tool</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">web_search</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search the web for information.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="k">await</span> <span class="n">search_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<h3 id="when-to-use-a-tool">When to Use a Tool<a class="headerlink" href="#when-to-use-a-tool" title="Permanent link">&para;</a></h3>
+<p>Create a Tool when:
+- The agent should <strong>decide</strong> when to use it
+- The action <strong>produces a result</strong> the LLM needs
+- It's an <strong>explicit capability</strong> you want to advertise</p>
+<p><strong>Example</strong>: A <code>read_file</code> tool that the agent calls when it needs to see file contents.</p>
+<h3 id="when-to-use-a-hook">When to Use a Hook<a class="headerlink" href="#when-to-use-a-hook" title="Permanent link">&para;</a></h3>
+<p>Create a Hook when:
+- The action should happen <strong>automatically</strong> on events
+- It's an <strong>observation</strong> or side effect, not a core capability
+- You want to <strong>monitor or modify</strong> agent behavior</p>
+<p><strong>Example</strong>: A <code>cost_tracker</code> hook that logs every LLM API call to track spending.</p>
+<h3 id="can-it-be-both">Can It Be Both?<a class="headerlink" href="#can-it-be-both" title="Permanent link">&para;</a></h3>
+<p>Sometimes! You might have a Hook that monitors for unsafe behavior AND a Tool that lets the agent explicitly check safety. The key is understanding the use case:</p>
+<ul>
+<li><strong>Tool version</strong>: "Is this action safe?" (agent decides to check)</li>
+<li><strong>Hook version</strong>: "Log every action and alert on unsafe patterns" (always runs)</li>
+</ul>
+<h2 id="module-configuration">Module Configuration<a class="headerlink" href="#module-configuration" title="Permanent link">&para;</a></h2>
+<p>Modules are typically configured in a YAML or JSON file:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+
+<span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file_ops</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+<span class="w">      </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SEARCH_API_KEY}</span>
+
+<span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_loop</span>
+<span class="w">    </span><span class="nt">max_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+
+<span class="w">  </span><span class="nt">context</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sliding_window</span>
+<span class="w">    </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logger</span>
+<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cost_tracker</span>
+<span class="w">      </span><span class="nt">alert_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.00</span>
 </code></pre></div>
 
-<p>The LLM sees this tool, understands its purpose, and invokes it when relevant.</p>
-<h3 id="when-to-use-hooks">When to Use Hooks<a class="headerlink" href="#when-to-use-hooks" title="Permanent link">&para;</a></h3>
-<p>Use a hook when you want to <strong>observe without the LLM knowing</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Hook: Automatically logs all tool calls</span>
-<span class="k">class</span> <span class="nc">ToolLoggingHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;tool_call&quot;</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool called: </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>The LLM never knows this hook exists—it just observes silently.</p>
-<h3 id="the-decision-tree">The Decision Tree<a class="headerlink" href="#the-decision-tree" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Should the LLM decide when this runs?
-    │
-    ├── YES → Use a TOOL
-    │         (agent capability)
-    │
-    └── NO → Use a HOOK
-             (system observation)
-</code></pre></div>
-
-<h2 id="module-composition">Module Composition<a class="headerlink" href="#module-composition" title="Permanent link">&para;</a></h2>
-<p>The power of modules comes from composition. You combine simple modules to create sophisticated behavior:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># A simple but powerful agent configuration</span>
-<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
-<span class="nt">orchestrator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
-
-<span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
-
-<span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conversation</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_prompt</span>
-
-<span class="nt">hooks</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metrics</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guardrails</span>
-</code></pre></div>
-
-<h3 id="adding-new-capabilities">Adding New Capabilities<a class="headerlink" href="#adding-new-capabilities" title="Permanent link">&para;</a></h3>
-<p>Want to add a new capability? Just add a module:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database_query</span><span class="w">  </span><span class="c1"># New capability!</span>
-</code></pre></div>
-
-<h3 id="swapping-implementations">Swapping Implementations<a class="headerlink" href="#swapping-implementations" title="Permanent link">&para;</a></h3>
-<p>Need to change providers? Just swap:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Before</span>
-<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-
-<span class="c1"># After</span>
-<span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
-</code></pre></div>
-
-<p>Everything else stays the same.</p>
-<h2 id="module-contracts">Module Contracts<a class="headerlink" href="#module-contracts" title="Permanent link">&para;</a></h2>
-<p>Every module type has a <strong>contract</strong>—a promise about how it behaves. Contracts enable:</p>
+<h2 id="creating-custom-modules">Creating Custom Modules<a class="headerlink" href="#creating-custom-modules" title="Permanent link">&para;</a></h2>
+<p>To create a custom module:</p>
 <ol>
-<li><strong>Interchangeability</strong>: Any module implementing the contract works</li>
-<li><strong>Testing</strong>: Mock modules that follow the contract</li>
-<li><strong>Evolution</strong>: Improve internals without breaking interfaces</li>
+<li><strong>Choose the right type</strong> based on architectural role</li>
+<li><strong>Implement the contract</strong> (required interface)</li>
+<li><strong>Register with the framework</strong> (add to config)</li>
+<li><strong>Test in isolation</strong> before integration</li>
 </ol>
-<h3 id="the-contract-principle">The Contract Principle<a class="headerlink" href="#the-contract-principle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>┌─────────────┐         ┌─────────────┐
-│  Module A   │         │  Module B   │
-│             │         │             │
-│ (OpenAI)    │         │ (Anthropic) │
-└──────┬──────┘         └──────┬──────┘
-       │                       │
-       └───────────┬───────────┘
-                   │
-            ┌──────┴──────┐
-            │  Contract   │
-            │ complete()  │
-            └─────────────┘
-                   │
-            ┌──────┴──────┐
-            │   Kernel    │
-            └─────────────┘
+<p>Each module type has a base class you extend:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">framework</span> <span class="kn">import</span> <span class="n">ToolModule</span>
+
+<span class="k">class</span> <span class="nc">MyCustomTool</span><span class="p">(</span><span class="n">ToolModule</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_tool&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;What this tool does&quot;</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="c1"># Your implementation</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
 </code></pre></div>
 
-<p>The kernel only knows about contracts, not implementations. This is what makes modules truly interchangeable.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Five module types</strong>: Provider, Tool, Orchestrator, Context, Hook—each with a specific purpose</p>
+<p><strong>Modules are pluggable components</strong> that extend agent capabilities through well-defined interfaces</p>
 </li>
 <li>
-<p><strong>Contracts over implementations</strong>: Modules are interchangeable because they implement standard contracts</p>
+<p><strong>Five module types</strong> serve different architectural roles: Provider (LLM), Tool (capabilities), Orchestrator (loop), Context (memory), Hook (observers)</p>
 </li>
 <li>
-<p><strong>Tools vs Hooks</strong>: Tools are LLM-invoked capabilities; hooks are silent observers</p>
+<p><strong>Tools vs Hooks</strong>: Tools are chosen by the LLM and return results; Hooks are triggered by code events for observation</p>
 </li>
 <li>
-<p><strong>Composition is key</strong>: Combine simple modules to create powerful agents</p>
+<p><strong>Composition over inheritance</strong>: Build agents by combining modules rather than writing monolithic code</p>
 </li>
 <li>
-<p><strong>Single responsibility</strong>: Each module does one thing well</p>
+<p><strong>Each module has a contract</strong>: Implement the required interface, and your module works with the framework</p>
 </li>
 <li>
-<p><strong>The LEGO principle</strong>: Standard interfaces let you build anything from simple, swappable pieces</p>
+<p><strong>Modules enable reusability</strong>: Write once, use across multiple agents and projects</p>
+</li>
+<li>
+<p><strong>Testing is easier</strong>: Test each module independently before integration</p>
+</li>
+<li>
+<p><strong>Configuration-driven</strong>: Change agent behavior by swapping modules in config, not code</p>
 </li>
 </ol>
-<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
-<p>Now that you understand modules, explore each type in depth:</p>
-<ul>
-<li><a href="./providers.md">Providers: Connecting to LLMs</a></li>
-<li><a href="./tools.md">Tools: Agent Capabilities</a></li>
-<li><a href="./orchestrators.md">Orchestrators: The Agent Loop</a></li>
-<li><a href="./context.md">Context: Memory and State</a></li>
-<li><a href="hooks.html">Hooks: Observability</a></li>
-</ul>
-<p>Or see modules in action:</p>
-<ul>
-<li><a href="../guides/first-agent.md">Building Your First Agent</a></li>
-<li><a href="../guides/configuration.md">Module Configuration</a></li>
-</ul>
+<p>The modular architecture is what makes the framework powerful and flexible. By understanding these five module types and their roles, you can build sophisticated agents that are maintainable, testable, and extensible.</p>
+<p>Start simple—use built-in modules first, then create custom modules as you understand the patterns. The framework handles the complexity of wiring modules together, so you can focus on building great capabilities.</p>
               
             </div>
           </div><footer>

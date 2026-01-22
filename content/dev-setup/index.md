@@ -6,109 +6,84 @@ title: Development Setup
 
 # Development Setup
 
-This section covers setting up a development environment for working on Amplifier itself or building applications that extend it. Follow these guides to configure a productive local setup.
-
-Whether you're contributing to the core project or building custom modules, proper setup ensures a smooth experience.
+Set up an optimal development environment for working with Amplifier. This section covers IDE configuration, debugging tools, testing workflows, and developer productivity tips. Get your local environment tuned for efficient Amplifier development.
 
 ## Section Contents
 
 | Page | Description |
 |------|-------------|
-| [Environment Setup](./environment.md) | Python, dependencies, and tooling |
+| [Environment Setup](./environment.md) | Python, tools, and dependencies |
 | [IDE Configuration](./ide-config.md) | VS Code, PyCharm, and editor setup |
-| [Local Development](./local-dev.md) | Running Amplifier from source |
-| [Testing](./testing.md) | Running and writing tests |
-| [Debugging](./debugging.md) | Debug techniques and tools |
-| [Contributing](./contributing.md) | How to contribute to Amplifier |
-| [Code Style](./code-style.md) | Conventions and formatting |
-| [Release Process](./release.md) | Versioning and publishing |
+| [Git Workflows](./git-workflows.md) | Version control best practices |
+| [Testing Setup](./testing.md) | Test frameworks and patterns |
+| [Debugging Tools](./debugging-tools.md) | Inspecting sessions and traces |
+| [Local Development](./local-dev.md) | Running Amplifier locally |
+| [Contributing](./contributing.md) | Guidelines for contributors |
 
 ## Quick Tips
 
-- **Use uv** — It's faster than pip and handles dependencies better
-- **Virtual environments** — Always isolate project dependencies
-- **Pre-commit hooks** — Enable them to catch issues before commits
-- **Type checking** — Run pyright/mypy regularly during development
-- **Test early** — Write tests as you develop, not after
+- **Use virtual environments** - Isolate Amplifier dependencies
+- **Enable LSP** - Get code intelligence in your editor
+- **Set up pre-commit** - Catch issues before committing
+- **Use session logs** - Debug with full conversation traces
+- **Test incrementally** - Run focused tests during development
 
-## System Requirements
+## Environment Checklist
 
-| Requirement | Version | Notes |
-|-------------|---------|-------|
-| Python | 3.11+ | 3.12 recommended |
-| uv or pip | Latest | uv preferred |
-| Git | 2.30+ | For version control |
-| Node.js | 18+ | For some tooling (optional) |
+Before starting development:
 
-## Quick Start
+- [ ] Python 3.10+ installed
+- [ ] Virtual environment created
+- [ ] Amplifier installed in editable mode
+- [ ] Editor/IDE configured with Python support
+- [ ] LSP server (Pyright) available
+- [ ] Git configured with hooks
+- [ ] API keys in environment variables
 
-```bash
-# Clone the repository
-git clone https://github.com/microsoft/amplifier.git
-cd amplifier
+## Recommended Stack
 
-# Create virtual environment
-uv venv
-source .venv/bin/activate  # or .venv\Scripts\activate on Windows
-
-# Install in development mode
-uv pip install -e ".[dev]"
-
-# Run tests to verify setup
-pytest
-
-# Start development session
-amp --dev
-```
+| Tool | Purpose |
+|------|---------|
+| `uv` | Fast Python package manager |
+| `pyright` | Type checking and LSP |
+| `pytest` | Test framework |
+| `ruff` | Linting and formatting |
+| VS Code | Editor with Python extension |
 
 ## Where to Start
 
-**Setting up for the first time?** Follow [Environment Setup](./environment.md) for complete installation instructions.
+**Setting up fresh?** Begin with [Environment Setup](./environment.md) for complete setup instructions.
 
-**Contributing to Amplifier?** Read [Contributing](./contributing.md) for workflow and guidelines.
+**Configuring editor?** Jump to [IDE Configuration](./ide-config.md) for editor-specific guidance.
 
-**Debugging issues?** Check [Debugging](./debugging.md) for techniques and common problems.
+**Ready to contribute?** See [Contributing](./contributing.md) for project guidelines.
 
-## Development Workflow
-
-```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Feature    │───►│    Tests     │───►│     PR       │
-│   Branch     │    │   Passing    │    │   Review     │
-└──────────────┘    └──────────────┘    └──────────────┘
-       │                   │                   │
-       ▼                   ▼                   ▼
-   Write Code        Run pytest          Address Feedback
-   Type Check        Check Coverage      Merge to Main
-```
-
-## Recommended Tools
-
-| Tool | Purpose | Install |
-|------|---------|---------|
-| uv | Package management | `pip install uv` |
-| ruff | Linting and formatting | `pip install ruff` |
-| pyright | Type checking | `pip install pyright` |
-| pytest | Testing | Included in dev deps |
-
-## Common Tasks
+## Development Commands
 
 ```bash
+# Install in development mode
+uv pip install -e ".[dev]"
+
+# Run tests
+pytest tests/
+
+# Type check
+pyright src/
+
 # Format code
-ruff format .
+ruff format src/
 
-# Check types
-pyright
-
-# Run specific tests
-pytest tests/test_sessions.py -v
-
-# Run with coverage
-pytest --cov=amplifier
+# Lint
+ruff check src/ --fix
 ```
 
-## Related Sections
+## Debugging Workflow
 
-- [Quickstart: Installation](../quickstart/installation.md)
-- [Advanced: Custom Tools](../advanced/custom-tools.md)
-- [Concepts: Module System](../concepts/modules.md)
+1. **Check session logs** - `~/.amplifier/sessions/`
+2. **Use session-analyst** - Delegate to specialist agent
+3. **Enable verbose mode** - More detailed output
+4. **Inspect events.jsonl** - Raw conversation data
+
+## Next Steps
+
+After setting up your environment, start with [Quickstart](../quickstart/index.md) to build your first application, or explore [Tools](../tools/index.md) to understand available capabilities.

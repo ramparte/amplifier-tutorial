@@ -71,15 +71,23 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-tips">Quick Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#core-architecture">Core Architecture</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-principles">Key Principles</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#modular-design">Modular Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thin-bundles">Thin Bundles</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ruthless-simplicity">Ruthless Simplicity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#trust-in-emergence">Trust in Emergence</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#concept-dependencies">Concept Dependencies</a>
+    <li class="toctree-l2"><a class="reference internal" href="#concept-map">Concept Map</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-sections">Related Sections</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -192,8 +200,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h1>
-<p>Understanding Amplifier's architecture and design philosophy is key to building effective AI-powered applications. This section explains the foundational concepts that power the system.</p>
-<p>These concepts build on each other—start with the basics and progress to more advanced architectural patterns.</p>
+<p>Understanding Amplifier's architecture and design philosophy is essential for building effective AI-powered applications. These concepts form the mental model you'll use throughout your work. This section explains the foundational ideas, patterns, and principles that make Amplifier work.</p>
 <h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -205,105 +212,75 @@
 <tbody>
 <tr>
 <td><a href="./sessions.md">Sessions</a></td>
-<td>Conversation state and lifecycle management</td>
+<td>Conversation lifecycle and state management</td>
 </tr>
 <tr>
 <td><a href="agents.html">Agents</a></td>
-<td>Autonomous task executors with tools</td>
+<td>Autonomous task executors with specific capabilities</td>
 </tr>
 <tr>
-<td><a href="./providers.md">Providers</a></td>
-<td>LLM backends (Anthropic, OpenAI, Azure)</td>
+<td><a href="bundles.html">Bundles</a></td>
+<td>Composable packages of behaviors and tools</td>
 </tr>
 <tr>
 <td><a href="modules.html">Modules</a></td>
-<td>Extensibility through the module system</td>
+<td>Kernel extension points and contracts</td>
+</tr>
+<tr>
+<td><a href="./providers.md">Providers</a></td>
+<td>LLM backends and model configuration</td>
 </tr>
 <tr>
 <td><a href="hooks.html">Hooks</a></td>
-<td>Event interception and custom behaviors</td>
+<td>Event-driven extensibility system</td>
 </tr>
 <tr>
 <td><a href="./context.md">Context</a></td>
-<td>How agents receive and manage information</td>
+<td>Information flow and prompt construction</td>
 </tr>
 <tr>
-<td><a href="./tool-architecture.md">Tool Architecture</a></td>
-<td>How tools work under the hood</td>
-</tr>
-<tr>
-<td><a href="./multi-agent.md">Multi-Agent Patterns</a></td>
-<td>Coordination between multiple agents</td>
+<td><a href="./tools-vs-agents.md">Tools vs Agents</a></td>
+<td>When to use each pattern</td>
 </tr>
 </tbody>
 </table>
 <h2 id="quick-tips">Quick Tips<a class="headerlink" href="#quick-tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Sessions are stateful</strong> — Each session maintains full conversation history</li>
-<li><strong>Agents are stateless</strong> — Agent definitions are templates; sessions hold state</li>
-<li><strong>Modules are composable</strong> — Mix and match capabilities without conflicts</li>
-<li><strong>Hooks are powerful</strong> — Intercept any event for custom behavior</li>
-<li><strong>Context is king</strong> — What the agent knows determines what it can do</li>
+<li><strong>Sessions are stateful</strong> - Each conversation maintains history and can be resumed</li>
+<li><strong>Agents are specialists</strong> - Delegate complex tasks to purpose-built agents</li>
+<li><strong>Bundles compose</strong> - Layer multiple bundles to build custom capabilities</li>
+<li><strong>Modules extend</strong> - Add new functionality without modifying the kernel</li>
+<li><strong>Context is king</strong> - What the model sees determines what it can do</li>
 </ul>
-<h2 id="core-architecture">Core Architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h2>
+<h2 id="key-principles">Key Principles<a class="headerlink" href="#key-principles" title="Permanent link">&para;</a></h2>
+<h3 id="modular-design">Modular Design<a class="headerlink" href="#modular-design" title="Permanent link">&para;</a></h3>
+<p>Everything in Amplifier is designed to be composed, replaced, and extended. No monoliths.</p>
+<h3 id="thin-bundles">Thin Bundles<a class="headerlink" href="#thin-bundles" title="Permanent link">&para;</a></h3>
+<p>Bundles should be minimal—just enough to define behavior, composed from reusable parts.</p>
+<h3 id="ruthless-simplicity">Ruthless Simplicity<a class="headerlink" href="#ruthless-simplicity" title="Permanent link">&para;</a></h3>
+<p>Complexity is the enemy. Every abstraction must justify its existence.</p>
+<h3 id="trust-in-emergence">Trust in Emergence<a class="headerlink" href="#trust-in-emergence" title="Permanent link">&para;</a></h3>
+<p>Complex behaviors emerge from simple, well-defined components working together.</p>
+<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<p><strong>Just getting started?</strong> Read <a href="./sessions.md">Sessions</a> first—understanding the conversation lifecycle is fundamental.</p>
+<p><strong>Building custom behaviors?</strong> Start with <a href="bundles.html">Bundles</a> to see how capabilities compose.</p>
+<p><strong>Extending the system?</strong> <a href="modules.html">Modules</a> explains the kernel's extension contracts.</p>
+<h2 id="concept-map">Concept Map<a class="headerlink" href="#concept-map" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────┐
 │              Application                │
 ├─────────────────────────────────────────┤
-│    Bundles (composed configurations)    │
+│  Bundle  │  Bundle  │  Bundle           │
+├──────────┴──────────┴──────────────────┤
+│  Agents  │  Tools   │  Context  │ Hooks │
 ├─────────────────────────────────────────┤
-│  Modules: Providers | Tools | Hooks     │
+│              Kernel (Modules)           │
 ├─────────────────────────────────────────┤
-│           Amplifier Kernel              │
+│              Providers (LLMs)           │
 └─────────────────────────────────────────┘
 </code></pre></div>
 
-<h2 id="key-principles">Key Principles<a class="headerlink" href="#key-principles" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Principle</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Thin Bundles</td>
-<td>Bundles compose modules; they don't implement</td>
-</tr>
-<tr>
-<td>Module Contracts</td>
-<td>Clear interfaces between components</td>
-</tr>
-<tr>
-<td>Event-Driven</td>
-<td>Hooks respond to lifecycle events</td>
-</tr>
-<tr>
-<td>Minimal Core</td>
-<td>Kernel is small; features live in modules</td>
-</tr>
-</tbody>
-</table>
-<h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>Just getting started?</strong> Read <a href="./sessions.md">Sessions</a> first — it's the foundation for everything else and explains how conversations work.</p>
-<p><strong>Want to customize behavior?</strong> Jump to <a href="hooks.html">Hooks</a> to learn how to intercept and modify agent behavior.</p>
-<p><strong>Building multi-agent systems?</strong> Start with <a href="agents.html">Agents</a> then proceed to <a href="./multi-agent.md">Multi-Agent Patterns</a>.</p>
-<h2 id="concept-dependencies">Concept Dependencies<a class="headerlink" href="#concept-dependencies" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>Sessions ─────┬──► Agents ──► Multi-Agent
-              │
-Providers ────┤
-              │
-Modules ──────┼──► Hooks
-              │
-Context ──────┴──► Tool Architecture
-</code></pre></div>
-
-<h2 id="related-sections">Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../quickstart/first-agent.md">Quickstart: Your First Agent</a></li>
-<li><a href="../advanced/kernel-internals.md">Advanced: Kernel Internals</a></li>
-<li><a href="../bundles/composition.md">Bundles: Bundle Composition</a></li>
-</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Once you grasp these concepts, move to <a href="../bundles/index.html">Bundles</a> to see them applied in practice.</p>
               
             </div>
           </div><footer>
