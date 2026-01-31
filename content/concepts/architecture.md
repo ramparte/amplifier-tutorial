@@ -318,7 +318,7 @@ conversations flow and how tools integrate.
 
 With this architectural understanding, explore:
 
-- **[Modules Deep Dive](/concepts/modules)** - Creating and configuring modules
-- **[Events Reference](/reference/events)** - Complete event catalog
-- **[Hooks Guide](/guides/hooks)** - Building effective hooks
-- **[Session Management](/concepts/sessions)** - Advanced session handling
+- **[Modules Deep Dive](./modules.md)** - Creating and configuring modules
+- **[Hooks Guide](./hooks.md)** - Building effective hooks
+- **[Bundles Guide](../bundles/index.md)** - Bundle composition patterns
+- **[Advanced Topics](../advanced/index.md)** - Custom modules and tools

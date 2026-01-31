@@ -179,16 +179,15 @@ Understanding what Amplifier isn't helps set proper expectations:
 Ready to get started? Here's your path forward:
 
 1. **[Installation](./installation.md)**: Set up Amplifier in your environment
-2. **[Your First Agent](./first-agent.md)**: Build a simple agent in minutes
-3. **[Core Concepts](../concepts/overview.md)**: Deeper dive into architecture
-4. **[Tutorials](../tutorials/index.md)**: Step-by-step guides for common tasks
+2. **[First Conversation](./first-conversation.md)**: Start your first session
+3. **[Your First Bundle](./first-bundle.md)**: Create custom behavior packages
+4. **[Concepts](../concepts/index.md)**: Deeper dive into architecture
 
 ### Quick Links
 
 - [GitHub Repository](https://github.com/microsoft/amplifier) - Source code and issues
-- [API Reference](../reference/api.md) - Complete API documentation
-- [Examples](../examples/index.md) - Working code samples
-- [Community](../community/index.md) - Get help and contribute
+- [Tools Reference](../tools/index.md) - Complete documentation of available tools
+- [Bundles](../bundles/index.md) - Pre-built capability packages
 
 ---
 

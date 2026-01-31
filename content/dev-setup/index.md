@@ -12,13 +12,10 @@ Set up an optimal development environment for working with Amplifier. This secti
 
 | Page | Description |
 |------|-------------|
-| [Environment Setup](./environment.md) | Python, tools, and dependencies |
-| [IDE Configuration](./ide-config.md) | VS Code, PyCharm, and editor setup |
-| [Git Workflows](./git-workflows.md) | Version control best practices |
-| [Testing Setup](./testing.md) | Test frameworks and patterns |
-| [Debugging Tools](./debugging-tools.md) | Inspecting sessions and traces |
-| [Local Development](./local-dev.md) | Running Amplifier locally |
-| [Contributing](./contributing.md) | Guidelines for contributors |
+| [CLI Tools](./cli-tools.md) | Essential command-line utilities |
+| [Shadow Workspace](./shadow-workspace.md) | Isolated testing environments |
+| [Remote Development](./remote-dev.md) | Working with remote systems |
+| [Debugging](./debugging.md) | Troubleshooting and debugging workflows |
 
 ## Quick Tips
 
@@ -52,11 +49,11 @@ Before starting development:
 
 ## Where to Start
 
-**Setting up fresh?** Begin with [Environment Setup](./environment.md) for complete setup instructions.
+**Setting up fresh?** Begin with [CLI Tools](./cli-tools.md) for essential command-line utilities.
 
-**Configuring editor?** Jump to [IDE Configuration](./ide-config.md) for editor-specific guidance.
+**Testing locally?** Jump to [Shadow Workspace](./shadow-workspace.md) for isolated testing environments.
 
-**Ready to contribute?** See [Contributing](./contributing.md) for project guidelines.
+**Working remotely?** See [Remote Development](./remote-dev.md) for remote system workflows.
 
 ## Development Commands
 

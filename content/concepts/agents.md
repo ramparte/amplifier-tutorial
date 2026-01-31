@@ -317,6 +317,6 @@ instruction: |
 
 ## Next Steps
 
-- [Creating Custom Agents](../guides/custom-agents.md) — Build specialized agents
-- [Agent Patterns](../patterns/agent-patterns.md) — Common agent usage patterns
-- [Task Tool Reference](../reference/task-tool.md) — Complete task tool documentation
+- [Advanced Topics](../advanced/index.md) — Build custom bundles and agents
+- [Bundles Guide](../bundles/index.md) — Learn about bundle composition
+- [Task Tool Reference](../tools/task.md) — Complete task tool documentation

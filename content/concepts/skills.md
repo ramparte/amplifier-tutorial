@@ -267,4 +267,4 @@ For production patterns, refer to `examples/advanced-patterns.py`.
 
 - [Agents](./agents.md) - How agents use skills
 - [Bundles](./bundles.md) - Packaging skills with other components
-- [Context Management](./context.md) - Managing what agents know
+- [Architecture](./architecture.md) - System design and structure

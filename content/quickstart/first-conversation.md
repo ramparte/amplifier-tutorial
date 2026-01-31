@@ -291,10 +291,10 @@ Load the REST API design skill and help me design an endpoint
 
 Now that you understand the basics, explore:
 
-1. **[Core Concepts](../concepts/overview.md)** - Deeper understanding of how Amplifier works
-2. **[Common Workflows](../workflows/code-review.md)** - Step-by-step guides for typical tasks
-3. **[Tool Reference](../reference/tools.md)** - Complete documentation of available tools
-4. **[Best Practices](../guides/best-practices.md)** - Tips for getting the most out of Amplifier
+1. **[Key Commands](./key-commands.md)** - Essential commands and workflows
+2. **[Your First Bundle](./first-bundle.md)** - Create custom behavior packages
+3. **[Concepts](../concepts/index.md)** - Deeper understanding of how Amplifier works
+4. **[Tools](../tools/index.md)** - Complete documentation of available tools
 
 Try experimenting with different types of requests to discover what Amplifier can do for you!
 
@@ -313,4 +313,4 @@ Try experimenting with different types of requests to discover what Amplifier ca
 
 ---
 
-**Ready to dive deeper?** Continue to [Understanding Tools](./understanding-tools.md) to learn about Amplifier's capabilities in detail.
+**Ready to dive deeper?** Continue to [Key Commands](./key-commands.md) to learn about Amplifier's capabilities in detail.

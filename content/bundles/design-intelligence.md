@@ -286,6 +286,6 @@ When you receive design recommendations, you're getting production-ready guidanc
 
 ## Related Resources
 
-- [Amplifier Foundation Bundle](/tutorial/bundles/foundation) - Core development agents
-- [Bundle Composition Guide](/tutorial/guides/bundle-composition) - How bundles work together
-- [Agent Delegation](/tutorial/concepts/agent-delegation) - How agents collaborate
+- [Amplifier Foundation Bundle](./foundation.md) - Core development agents
+- [Advanced Topics](../advanced/index.md) - Custom bundles and tools
+- [Bundles Guide](../bundles/index.md) - How bundles work together

@@ -438,10 +438,10 @@ stages:
 
 ## What's Next?
 
-- Explore [Python Development Bundle](./python-dev.md) for enhanced Python tools
+- Explore [LSP Python Bundle](./lsp-python.md) for enhanced Python tools
 - Learn about [Design Intelligence Bundle](./design-intelligence.md) for UI/UX work
-- Check out [Recipes](../guides/recipes.md) for workflow automation
-- Read [Agent Patterns](../guides/agent-patterns.md) for advanced usage
+- Check out [Recipes Bundle](./recipes.md) for workflow automation
+- Read [Advanced Topics](../advanced/index.md) for complex patterns
 
 ---
 

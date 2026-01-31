@@ -12,14 +12,13 @@ Understanding Amplifier's architecture and design philosophy is essential for bu
 
 | Page | Description |
 |------|-------------|
-| [Sessions](./sessions.md) | Conversation lifecycle and state management |
 | [Agents](./agents.md) | Autonomous task executors with specific capabilities |
 | [Bundles](./bundles.md) | Composable packages of behaviors and tools |
 | [Modules](./modules.md) | Kernel extension points and contracts |
-| [Providers](./providers.md) | LLM backends and model configuration |
 | [Hooks](./hooks.md) | Event-driven extensibility system |
-| [Context](./context.md) | Information flow and prompt construction |
-| [Tools vs Agents](./tools-vs-agents.md) | When to use each pattern |
+| [Skills](./skills.md) | Domain knowledge packages |
+| [Recipes](./recipes.md) | Declarative multi-step workflows |
+| [Architecture](./architecture.md) | System design and philosophy |
 
 ## Quick Tips
 
@@ -45,7 +44,7 @@ Complex behaviors emerge from simple, well-defined components working together.
 
 ## Where to Start
 
-**Just getting started?** Read [Sessions](./sessions.md) first—understanding the conversation lifecycle is fundamental.
+**Understanding architecture?** Read [Architecture](./architecture.md) first—understanding the system design is fundamental.
 
 **Building custom behaviors?** Start with [Bundles](./bundles.md) to see how capabilities compose.
 

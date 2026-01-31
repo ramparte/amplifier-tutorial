@@ -12,14 +12,10 @@ Bundles are the primary way to customize Amplifier's behavior. A bundle packages
 
 | Page | Description |
 |------|-------------|
-| [Bundle Basics](./bundle-basics.md) | What bundles are and how they work |
-| [Using Bundles](./using-bundles.md) | Activate and configure existing bundles |
-| [Creating Bundles](./creating-bundles.md) | Build your own custom bundles |
-| [Bundle Composition](./bundle-composition.md) | Combine bundles effectively |
-| [Context Files](./context-files.md) | Add knowledge and instructions |
-| [Agent Definitions](./agent-definitions.md) | Define specialist agents in bundles |
-| [Bundle Registry](./bundle-registry.md) | Discover and share bundles |
-| [Best Practices](./best-practices.md) | Patterns for maintainable bundles |
+| [Foundation](./foundation.md) | Core Amplifier bundle with essential capabilities |
+| [Recipes](./recipes.md) | Multi-step workflow orchestration |
+| [LSP Python](./lsp-python.md) | Python code intelligence via Language Server Protocol |
+| [Design Intelligence](./design-intelligence.md) | Design system and UI expertise |
 
 ## Quick Tips
 
@@ -56,11 +52,11 @@ Bundles should be minimal compositions, not monolithic packages:
 
 ## Where to Start
 
-**New to bundles?** Begin with [Bundle Basics](./bundle-basics.md) for foundational understanding.
+**Core capabilities?** Begin with [Foundation](./foundation.md) for the essential Amplifier bundle.
 
-**Want to customize?** Jump to [Creating Bundles](./creating-bundles.md) for hands-on guidance.
+**Workflow automation?** Jump to [Recipes](./recipes.md) for multi-step orchestration.
 
-**Combining capabilities?** See [Bundle Composition](./bundle-composition.md) for composition patterns.
+**Python development?** See [LSP Python](./lsp-python.md) for code intelligence.
 
 ## Example: Minimal Bundle
 

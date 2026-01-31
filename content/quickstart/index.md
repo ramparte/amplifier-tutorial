@@ -13,12 +13,11 @@ Get up and running with Amplifier in minutes. This section provides fast-track p
 | Page | Description |
 |------|-------------|
 | [Installation](./installation.md) | Install Amplifier and dependencies |
-| [First Session](./first-session.md) | Start your first conversation |
-| [Configuration](./configuration.md) | Set up providers and preferences |
+| [First Conversation](./first-conversation.md) | Start your first conversation |
+| [What is Amplifier?](./what-is-amplifier.md) | Understanding the fundamentals |
+| [How It's Different](./how-its-different.md) | What sets Amplifier apart |
 | [Your First Bundle](./first-bundle.md) | Create a custom behavior package |
-| [Using Agents](./using-agents.md) | Delegate tasks to specialist agents |
-| [Common Workflows](./common-workflows.md) | Patterns for everyday tasks |
-| [Troubleshooting](./troubleshooting.md) | Fix common issues quickly |
+| [Key Commands](./key-commands.md) | Essential commands and workflows |
 
 ## Quick Tips
 
@@ -32,27 +31,27 @@ Get up and running with Amplifier in minutes. This section provides fast-track p
 
 ### Path 1: Explorer (10 minutes)
 1. [Installation](./installation.md) - Get Amplifier installed
-2. [First Session](./first-session.md) - Have your first conversation
+2. [First Conversation](./first-conversation.md) - Have your first conversation
 3. Done! Explore from there.
 
 ### Path 2: Builder (30 minutes)
 1. [Installation](./installation.md) - Get set up
-2. [Configuration](./configuration.md) - Configure your provider
+2. [What is Amplifier?](./what-is-amplifier.md) - Understand the basics
 3. [Your First Bundle](./first-bundle.md) - Create custom behavior
-4. [Using Agents](./using-agents.md) - Learn delegation
+4. [Key Commands](./key-commands.md) - Learn essential commands
 
 ### Path 3: Power User (1 hour)
 1. Complete Path 2
-2. [Common Workflows](./common-workflows.md) - Master patterns
+2. [How It's Different](./how-its-different.md) - Master key concepts
 3. Explore [Advanced](../advanced/index.md) topics
 
 ## Where to Start
 
 **Never used Amplifier?** Start with [Installation](./installation.md) and follow sequentially.
 
-**Already installed?** Jump to [First Session](./first-session.md) to start working.
+**Already installed?** Jump to [First Conversation](./first-conversation.md) to start working.
 
-**Hit a problem?** Go directly to [Troubleshooting](./troubleshooting.md).
+**Exploring concepts?** Check out [What is Amplifier?](./what-is-amplifier.md) and [How It's Different](./how-its-different.md).
 
 ## Prerequisites Checklist
 

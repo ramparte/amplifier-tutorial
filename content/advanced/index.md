@@ -12,14 +12,10 @@ Once you've mastered the fundamentals, these advanced topics unlock Amplifier's 
 
 | Page | Description |
 |------|-------------|
-| [Recipes](./recipes.md) | Declarative multi-step workflows |
-| [Multi-Agent Patterns](./multi-agent.md) | Orchestrating agent collaboration |
-| [Custom Modules](./custom-modules.md) | Extending the kernel |
-| [Provider Configuration](./providers.md) | Advanced LLM setup and routing |
-| [Session Management](./session-management.md) | Persistence, resume, and repair |
-| [Performance Tuning](./performance.md) | Optimization strategies |
-| [Security Hardening](./security.md) | Production security practices |
-| [Debugging Deep Dive](./debugging.md) | Advanced troubleshooting |
+| [Custom Bundle](./custom-bundle.md) | Creating custom behavior packages |
+| [Custom Recipe](./custom-recipe.md) | Building declarative workflows |
+| [Custom Tool](./custom-tool.md) | Extending Amplifier capabilities |
+| [MCP Integration](./mcp-integration.md) | Model Context Protocol integration |
 
 ## Quick Tips
 
@@ -66,11 +62,11 @@ steps:
 
 ## Where to Start
 
-**Automating workflows?** Begin with [Recipes](./recipes.md) for declarative orchestration.
+**Automating workflows?** Begin with [Custom Recipe](./custom-recipe.md) for declarative orchestration.
 
-**Building agent systems?** See [Multi-Agent Patterns](./multi-agent.md) for coordination strategies.
+**Extending Amplifier?** See [Custom Bundle](./custom-bundle.md) for creating custom behavior packages.
 
-**Extending Amplifier?** Start with [Custom Modules](./custom-modules.md) for kernel extension.
+**Building tools?** Start with [Custom Tool](./custom-tool.md) to extend Amplifier's capabilities.
 
 ## Complexity Budget
 

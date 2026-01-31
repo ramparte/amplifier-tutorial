@@ -248,6 +248,7 @@ Amplifier isn't trying to be everything to everyone. It's designed to be exactly
 
 ## Next Steps
 
-- [Quick Start Guide](./quick-start.md): Build your first Amplifier application
-- [Core Concepts](./core-concepts.md): Understand the fundamental building blocks
-- [Bundle Composition](../guides/bundle-composition.md): Learn to compose your own stack
+- [Installation](./installation.md): Get Amplifier installed and ready
+- [First Conversation](./first-conversation.md): Start your first session
+- [Concepts](../concepts/index.md): Understand the fundamental building blocks
+- [Bundles](../bundles/index.md): Learn to compose your own stack

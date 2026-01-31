@@ -338,10 +338,10 @@ Now that your bundle works, you can enhance it:
 
 Now that you've created your first bundle, explore:
 
-- **[Bundle Architecture](../guides/bundle-architecture.md)** - Deep dive into bundle design
-- **[Writing Effective Agents](../guides/writing-agents.md)** - Master agent instruction writing
-- **[Recipe Development](../guides/recipes.md)** - Create complex automated workflows
-- **[Skill Authoring](../guides/skills.md)** - Build comprehensive knowledge bases
+- **[Bundles Guide](../bundles/index.md)** - Deep dive into bundle design and best practices
+- **[Advanced Topics](../advanced/index.md)** - Custom bundles, recipes, and tools
+- **[Concepts](../concepts/index.md)** - Understand bundles, agents, and modules
+- **[Skills Guide](../skills/index.md)** - Add domain knowledge to your bundles
 
 ### Share Your Bundle
 

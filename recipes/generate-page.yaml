@@ -272,7 +272,34 @@ steps:
     timeout: 180
     on_error: "continue"
 
-  # Step 4: Write the file
+  # Step 4: Check for broken links
+  - id: check-links
+    agent: foundation:file-ops
+    prompt: |
+      Check all markdown links in this content for validity.
+      
+      Content:
+      {{validated.content}}
+      
+      For each link found:
+      1. If it starts with http/https, it's external (skip checking)
+      2. If it's a relative path (./file.md or ../dir/file.md):
+         - Resolve it relative to {{output_dir}}/{{component_type}}/
+         - Check if the target file exists in the content directory
+         - Flag any broken links
+      
+      Return JSON:
+      {
+        "links_checked": 5,
+        "broken_links": ["./missing-file.md", "../other/not-found.md"],
+        "status": "ok" or "has_broken_links"
+      }
+    output: "link_check"
+    parse_json: true
+    timeout: 60
+    on_error: "continue"
+
+  # Step 5: Write the file
   - id: write-file
     agent: foundation:file-ops
     prompt: |
@@ -280,6 +307,9 @@ steps:
       
       Content:
       {{validated.content}}
+      
+      Link check results:
+      {{link_check}}
       
       Create the directory if needed.
       Return the file path written.

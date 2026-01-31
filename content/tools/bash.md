@@ -482,6 +482,6 @@ docker build -t myapp:$VERSION .
 ---
 
 **Next Steps:**
-- Learn about [Specialized Tools](/tools/specialized) for better alternatives
-- Explore [Git Operations](/tools/git) for version control
-- See [Python Check](/tools/python-check) for code quality
+- Learn about [Task (Sub-Agents)](./task.md) for specialized agent delegation
+- Explore [Filesystem](./filesystem.md) for file operations
+- See [LSP (Code Intelligence)](./lsp.md) for code understanding

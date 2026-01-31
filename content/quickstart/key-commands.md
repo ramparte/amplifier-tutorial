@@ -371,8 +371,8 @@ amplifier doctor
 ### Continue Learning
 
 - **[First Conversation](./first-conversation.md)**: Practice with your first Amplifier session
-- **[Slash Commands Deep Dive](../concepts/sessions.md)**: Learn advanced session control
 - **[Agent System](../concepts/agents.md)**: Understand specialized agents
+- **[Bundles](../concepts/bundles.md)**: Extend with custom capabilities
 
 ### Explore Tools
 
@@ -382,9 +382,9 @@ amplifier doctor
 
 ### Advanced Usage
 
-- **[Configuration](../concepts/configuration.md)**: Customize Amplifier behavior
 - **[Skills](../concepts/skills.md)**: Load domain expertise
-- **[Bundles](../concepts/bundles.md)**: Extend with custom capabilities
+- **[Advanced Topics](../advanced/index.md)**: Custom bundles, recipes, and tools
+- **[Concepts](../concepts/index.md)**: Deep understanding of Amplifier architecture
 
 ## Quick Reference Card
 

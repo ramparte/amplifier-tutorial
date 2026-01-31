@@ -12,14 +12,13 @@ Tools are the fundamental building blocks that give Amplifier its capabilities. 
 
 | Page | Description |
 |------|-------------|
-| [File Operations](./file-operations.md) | Read, write, and edit files with precision |
-| [Search Tools](./search-tools.md) | Grep and glob for finding content and files |
-| [Bash Execution](./bash-execution.md) | Run shell commands safely |
-| [Web Tools](./web-tools.md) | Search and fetch content from the web |
-| [LSP Integration](./lsp-integration.md) | Language Server Protocol for code intelligence |
-| [Task Delegation](./task-delegation.md) | Spawn agents for complex operations |
-| [Todo Management](./todo-management.md) | Track multi-step task progress |
-| [Skills Loader](./skills-loader.md) | Load domain knowledge on demand |
+| [Filesystem](./filesystem.md) | Read, write, and edit files with precision |
+| [Search (grep & glob)](./search.md) | Find content and files across your codebase |
+| [Bash](./bash.md) | Run shell commands safely |
+| [Web Tools](./web.md) | Search and fetch content from the web |
+| [LSP (Code Intelligence)](./lsp.md) | Language Server Protocol for code understanding |
+| [Task (Sub-Agents)](./task.md) | Spawn agents for complex operations |
+| [Recipes Tool](./recipes-tool.md) | Declarative multi-step workflows |
 
 ## Quick Tips
 
@@ -48,24 +47,22 @@ Manage complex workflows with task delegation and progress tracking.
 
 ## Where to Start
 
-**New to Amplifier?** Begin with [File Operations](./file-operations.md) to understand the most common tool patterns.
+**New to Amplifier?** Begin with [Filesystem](./filesystem.md) to understand the most common tool patterns.
 
-**Building agents?** Jump to [Task Delegation](./task-delegation.md) to learn how agents spawn sub-agents.
+**Building agents?** Jump to [Task (Sub-Agents)](./task.md) to learn how agents spawn sub-agents.
 
-**Searching code?** See [Search Tools](./search-tools.md) for grep vs glob guidance.
+**Searching code?** See [Search (grep & glob)](./search.md) for grep vs glob guidance.
 
 ## Common Patterns
 
-```yaml
-# Read before edit
-1. read_file → understand content
-2. edit_file → make precise changes
+### Read Before Edit
+1. `read_file` → understand content
+2. `edit_file` → make precise changes
 
-# Find then act
-1. glob → locate files
-2. grep → find specific content
-3. read_file → examine matches
-```
+### Find Then Act
+1. `glob` → locate files
+2. `grep` → find specific content
+3. `read_file` → examine matches
 
 ## Next Steps
 

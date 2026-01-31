@@ -12,13 +12,9 @@ Skills are loadable knowledge modules that provide domain expertise on demand. U
 
 | Page | Description |
 |------|-------------|
-| [Skills Overview](./skills-overview.md) | What skills are and when to use them |
-| [Loading Skills](./loading-skills.md) | How to discover and load skills |
-| [Creating Skills](./creating-skills.md) | Author your own skill files |
-| [Skill Structure](./skill-structure.md) | Anatomy of a well-designed skill |
-| [Companion Files](./companion-files.md) | Supporting resources for skills |
-| [Skill Discovery](./skill-discovery.md) | How skills are found and prioritized |
-| [Skill Best Practices](./skill-best-practices.md) | Patterns for effective skills |
+| [Curl](./curl.md) | HTTP requests and API interactions |
+| [Image Vision](./image-vision.md) | Image understanding and analysis |
+| [Playwright](./playwright.md) | Browser automation and testing |
 
 ## Quick Tips
 
@@ -39,11 +35,11 @@ Skills are loadable knowledge modules that provide domain expertise on demand. U
 
 ## Where to Start
 
-**Want to use skills?** Start with [Loading Skills](./loading-skills.md) to learn discovery and loading.
+**Want HTTP capabilities?** Start with [Curl](./curl.md) for HTTP requests and API interactions.
 
-**Creating expertise?** Jump to [Creating Skills](./creating-skills.md) for authoring guidance.
+**Working with images?** Jump to [Image Vision](./image-vision.md) for image understanding.
 
-**Designing skill systems?** See [Skill Structure](./skill-structure.md) for architectural patterns.
+**Need browser automation?** See [Playwright](./playwright.md) for browser testing.
 
 ## Skill Operations
 
