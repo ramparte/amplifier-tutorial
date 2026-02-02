@@ -286,18 +286,23 @@ steps:
       2. If it's a relative path (./file.md or ../dir/file.md):
          - Resolve it relative to {{output_dir}}/{{component_type}}/
          - Check if the target file exists in the content directory
-         - Flag any broken links
+         - Flag any broken links with the exact link text
       
       Return JSON:
       {
         "links_checked": 5,
-        "broken_links": ["./missing-file.md", "../other/not-found.md"],
+        "broken_links": [
+          {"link": "./missing-file.md", "resolved": "content/tools/missing-file.md"}
+        ],
         "status": "ok" or "has_broken_links"
       }
+      
+      IMPORTANT: If status is "has_broken_links", this step should FAIL to prevent
+      writing a page with broken links.
     output: "link_check"
     parse_json: true
     timeout: 60
-    on_error: "continue"
+    on_error: "fail"
 
   # Step 5: Write the file
   - id: write-file

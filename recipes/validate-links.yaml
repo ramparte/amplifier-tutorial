@@ -1,0 +1,178 @@
+# Link Validation Recipe
+# Validates all markdown links in the tutorial content
+#
+# Usage:
+#   amplifier recipes execute recipes/validate-links.yaml
+#
+# Returns:
+#   - List of broken links with file:line references
+#   - Pass/fail status for CI/CD integration
+
+name: validate-links
+description: Validate all markdown links in tutorial content
+version: "1.0.0"
+author: "Tutorial Team"
+tags: ["validation", "links", "quality"]
+
+context:
+  content_dir: "content"
+  fail_on_broken: true  # Set to false for warnings only
+
+recursion:
+  max_depth: 2
+  max_total_steps: 10
+
+steps:
+  # Step 1: Scan all markdown files
+  - id: scan-files
+    agent: foundation:file-ops
+    prompt: |
+      Find all markdown files in: {{content_dir}}/
+      
+      Return JSON with list of files to check:
+      {
+        "files": [
+          "content/quickstart/index.md",
+          "content/concepts/modules.md",
+          ...
+        ],
+        "total_files": N
+      }
+    output: "file_list"
+    parse_json: true
+    timeout: 60
+
+  # Step 2: Extract and validate links
+  - id: validate-links
+    agent: foundation:file-ops
+    prompt: |
+      For each markdown file in the list, extract all relative links and validate them.
+      
+      Files to check:
+      {{file_list.files}}
+      
+      For each file:
+      1. Read the file
+      2. Find all markdown links: [text](path)
+      3. For relative links (starts with ./ or ../ or no protocol):
+         - Resolve the path relative to the file's directory
+         - Check if target file exists in {{content_dir}}/
+         - Record line number where link appears
+      4. Skip external links (http://, https://)
+      5. Skip anchor-only links (#section)
+      
+      Link resolution examples:
+      - File: content/quickstart/index.md
+      - Link: ./installation.md → Check: content/quickstart/installation.md
+      - Link: ../concepts/modules.md → Check: content/concepts/modules.md
+      
+      Return JSON:
+      {
+        "total_links_checked": N,
+        "broken_links": [
+          {
+            "file": "content/quickstart/index.md",
+            "line": 15,
+            "link": "./missing-file.md",
+            "resolved_path": "content/quickstart/missing-file.md",
+            "reason": "File does not exist"
+          }
+        ],
+        "warnings": [
+          {
+            "file": "content/tools/bash.md",
+            "line": 42,
+            "link": "../advanced/index.md#custom-tools",
+            "reason": "Anchor links cannot be validated (file exists but #custom-tools might not)"
+          }
+        ],
+        "status": "pass" or "fail"
+      }
+      
+      Status should be "fail" if any broken_links found, "pass" otherwise.
+      Warnings are informational only (don't fail the check).
+    output: "validation_result"
+    parse_json: true
+    timeout: 180
+
+  # Step 3: Generate report
+  - id: generate-report
+    agent: foundation:zen-architect
+    mode: "ANALYZE"
+    prompt: |
+      Create a validation report from these results.
+      
+      Validation results:
+      {{validation_result}}
+      
+      Fail on broken links: {{fail_on_broken}}
+      
+      Create a clear markdown report:
+      
+      # Link Validation Report
+      
+      **Status:** ✅ PASS or ❌ FAIL
+      **Total Links Checked:** N
+      **Broken Links Found:** N
+      **Warnings:** N
+      
+      ## Broken Links
+      
+      | File | Line | Link | Issue |
+      |------|------|------|-------|
+      | [file path] | [line] | `[link]` | [reason] |
+      
+      ## Warnings
+      
+      | File | Line | Link | Note |
+      |------|------|------|------|
+      | [file path] | [line] | `[link]` | [reason] |
+      
+      ## Recommendations
+      
+      [Actionable steps to fix broken links]
+      
+      Return the complete markdown report.
+    output: "report"
+    timeout: 120
+
+  # Step 4: Write report file
+  - id: write-report
+    agent: foundation:file-ops
+    prompt: |
+      Write validation report to: .planning/link-validation-report.md
+      
+      Content:
+      {{report}}
+      
+      Create directory if needed.
+      Return confirmation.
+    output: "write_result"
+    timeout: 30
+
+  # Step 5: Fail if broken links found (conditional)
+  - id: check-status
+    type: bash
+    command: |
+      STATUS="{{validation_result.status}}"
+      FAIL_ON_BROKEN="{{fail_on_broken}}"
+      
+      if [ "$STATUS" = "fail" ] && [ "$FAIL_ON_BROKEN" = "true" ]; then
+        echo "❌ VALIDATION FAILED: Broken links found"
+        echo ""
+        echo "Report written to: .planning/link-validation-report.md"
+        echo ""
+        echo "Broken links:"
+        echo "{{validation_result.broken_links}}"
+        exit 1
+      else
+        echo "✅ VALIDATION PASSED"
+        echo ""
+        echo "Links checked: {{validation_result.total_links_checked}}"
+        echo "Broken links: $(echo '{{validation_result.broken_links}}' | jq 'length')"
+        echo "Warnings: $(echo '{{validation_result.warnings}}' | jq 'length')"
+        echo ""
+        echo "Full report: .planning/link-validation-report.md"
+        exit 0
+      fi
+    timeout: 10

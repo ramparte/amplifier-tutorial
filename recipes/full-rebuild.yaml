@@ -251,22 +251,24 @@ stages:
         output: "nav_update"
         timeout: 120
 
+      # Validate all links before building
+      - id: validate-links
+        type: recipe
+        recipe: recipes/validate-links.yaml
+        context:
+          content_dir: "{{output_dir}}"
+          fail_on_broken: false  # Just warn, don't fail the build
+        timeout: 240
+        on_error: "continue"
+
       # Build the site
       - id: build-site
-        agent: foundation:file-ops
-        prompt: |
-          Build the mkdocs site.
-          
-          Commands:
-          ```bash
-          cd /mnt/c/ANext/tutorial
-          source .venv/bin/activate 2>/dev/null || (python -m venv .venv && source .venv/bin/activate)
-          pip install mkdocs mkdocs-material --quiet
-          mkdocs build --clean
-          ```
-          
-          Return build status and any errors.
+        type: bash
+        command: |
+          cd /home/samschillace/dev/ANext/tutorial
+          mkdocs build --clean 2>&1
         output: "build_result"
+        parse_json: false
         timeout: 300
 
       # Final report

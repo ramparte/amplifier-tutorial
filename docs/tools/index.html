@@ -107,6 +107,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#where-to-start">Where to Start</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#read-before-edit">Read Before Edit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#find-then-act">Find Then Act</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
@@ -213,36 +219,32 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="./file-operations.md">File Operations</a></td>
+<td><a href="filesystem.html">Filesystem</a></td>
 <td>Read, write, and edit files with precision</td>
 </tr>
 <tr>
-<td><a href="./search-tools.md">Search Tools</a></td>
-<td>Grep and glob for finding content and files</td>
+<td><a href="search.html">Search (grep &amp; glob)</a></td>
+<td>Find content and files across your codebase</td>
 </tr>
 <tr>
-<td><a href="./bash-execution.md">Bash Execution</a></td>
+<td><a href="bash.html">Bash</a></td>
 <td>Run shell commands safely</td>
 </tr>
 <tr>
-<td><a href="./web-tools.md">Web Tools</a></td>
+<td><a href="web.html">Web Tools</a></td>
 <td>Search and fetch content from the web</td>
 </tr>
 <tr>
-<td><a href="./lsp-integration.md">LSP Integration</a></td>
-<td>Language Server Protocol for code intelligence</td>
+<td><a href="lsp.html">LSP (Code Intelligence)</a></td>
+<td>Language Server Protocol for code understanding</td>
 </tr>
 <tr>
-<td><a href="./task-delegation.md">Task Delegation</a></td>
+<td><a href="task.html">Task (Sub-Agents)</a></td>
 <td>Spawn agents for complex operations</td>
 </tr>
 <tr>
-<td><a href="./todo-management.md">Todo Management</a></td>
-<td>Track multi-step task progress</td>
-</tr>
-<tr>
-<td><a href="./skills-loader.md">Skills Loader</a></td>
-<td>Load domain knowledge on demand</td>
+<td><a href="recipes-tool.html">Recipes Tool</a></td>
+<td>Declarative multi-step workflows</td>
 </tr>
 </tbody>
 </table>
@@ -266,20 +268,21 @@
 <h3 id="orchestration">Orchestration<a class="headerlink" href="#orchestration" title="Permanent link">&para;</a></h3>
 <p>Manage complex workflows with task delegation and progress tracking.</p>
 <h2 id="where-to-start">Where to Start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
-<p><strong>New to Amplifier?</strong> Begin with <a href="./file-operations.md">File Operations</a> to understand the most common tool patterns.</p>
-<p><strong>Building agents?</strong> Jump to <a href="./task-delegation.md">Task Delegation</a> to learn how agents spawn sub-agents.</p>
-<p><strong>Searching code?</strong> See <a href="./search-tools.md">Search Tools</a> for grep vs glob guidance.</p>
+<p><strong>New to Amplifier?</strong> Begin with <a href="filesystem.html">Filesystem</a> to understand the most common tool patterns.</p>
+<p><strong>Building agents?</strong> Jump to <a href="task.html">Task (Sub-Agents)</a> to learn how agents spawn sub-agents.</p>
+<p><strong>Searching code?</strong> See <a href="search.html">Search (grep &amp; glob)</a> for grep vs glob guidance.</p>
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Read before edit</span>
-<span class="l l-Scalar l-Scalar-Plain">1. read_file → understand content</span>
-<span class="l l-Scalar l-Scalar-Plain">2. edit_file → make precise changes</span>
-
-<span class="l l-Scalar l-Scalar-Plain"># Find then act</span>
-<span class="l l-Scalar l-Scalar-Plain">1. glob → locate files</span>
-<span class="l l-Scalar l-Scalar-Plain">2. grep → find specific content</span>
-<span class="l l-Scalar l-Scalar-Plain">3. read_file → examine matches</span>
-</code></pre></div>
-
+<h3 id="read-before-edit">Read Before Edit<a class="headerlink" href="#read-before-edit" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>read_file</code> → understand content</li>
+<li><code>edit_file</code> → make precise changes</li>
+</ol>
+<h3 id="find-then-act">Find Then Act<a class="headerlink" href="#find-then-act" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>glob</code> → locate files</li>
+<li><code>grep</code> → find specific content</li>
+<li><code>read_file</code> → examine matches</li>
+</ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After mastering tools, explore <a href="../concepts/index.html">Concepts</a> to understand how tools fit into the larger architecture.</p>
               

@@ -1005,6 +1005,19 @@ steps:
     on_error: "continue"
 
   # ============================================
+  # VALIDATE LINKS
+  # ============================================
+
+  - id: validate-links
+    type: recipe
+    recipe: recipes/validate-links.yaml
+    context:
+      content_dir: "/mnt/c/ANext/tutorial/content"
+      fail_on_broken: false  # Just warn, don't fail the build
+    timeout: 240
+    on_error: "continue"
+
+  # ============================================
   # BUILD
   # ============================================
 
