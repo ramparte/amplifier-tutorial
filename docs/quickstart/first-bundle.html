@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Your First Bundle - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Your First Bundle";
+        var mkdocs_page_input_path = "quickstart/first-bundle.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="first-bundle.html">Your First Bundle</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-youll-build">What You'll Build</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-1-create-bundle-structure">Step 1: Create Bundle Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-directory-structure">Create Directory Structure</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2-create-your-agent">Step 2: Create Your Agent</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-agent-configuration">Understanding Agent Configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3-add-domain-knowledge-with-skills">Step 3: Add Domain Knowledge with Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exception-handling">Exception Handling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#type-hints">Type Hints</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security">Security</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-5-test-your-bundle">Step 5: Test Your Bundle</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#test-the-agent">Test the Agent</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-the-recipe">Test the Recipe</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-6-refine-and-iterate">Step 6: Refine and Iterate</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#share-your-bundle">Share Your Bundle</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">Your First Bundle</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="your-first-bundle">Your First Bundle<a class="headerlink" href="#your-first-bundle" title="Permanent link">&para;</a></h1>
+<p>Bundles are the heart of the Amplifier ecosystem. They package skills, agents, recipes, and capabilities into reusable modules that extend your AI assistant's abilities. In this tutorial, you'll create a simple but practical bundle from scratch.</p>
+<h2 id="what-youll-build">What You'll Build<a class="headerlink" href="#what-youll-build" title="Permanent link">&para;</a></h2>
+<p>You'll create a <strong>code-review</strong> bundle that helps review Python code for common issues. This bundle will include:</p>
+<ul>
+<li>A custom agent that specializes in code review</li>
+<li>A skill document with Python best practices</li>
+<li>A recipe for automated code review workflow</li>
+</ul>
+<p>By the end, you'll understand how to structure bundles, write agent instructions, and configure tools.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Amplifier installed and configured</li>
+<li>Basic understanding of YAML format</li>
+<li>A text editor</li>
+</ul>
+<h2 id="step-1-create-bundle-structure">Step 1: Create Bundle Structure<a class="headerlink" href="#step-1-create-bundle-structure" title="Permanent link">&para;</a></h2>
+<p>Every bundle needs a specific directory structure. Let's create it:</p>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.amplifier/bundles/code-review
+<span class="nb">cd</span><span class="w"> </span>~/.amplifier/bundles/code-review
+</code></pre></div>
+
+<p>Create the bundle manifest file <code>bundle.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Code</span><span class="nv"> </span><span class="s">review</span><span class="nv"> </span><span class="s">assistant</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">projects&quot;</span>
+<span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Your</span><span class="nv"> </span><span class="s">Name&quot;</span>
+<span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MIT</span>
+
+<span class="c1"># Define what this bundle provides</span>
+<span class="nt">provides</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">agents</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<span class="w">  </span><span class="nt">skills</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python-best-practices</span>
+<span class="w">  </span><span class="nt">recipes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review-pr</span>
+</code></pre></div>
+
+<p>This manifest tells Amplifier what your bundle provides and how to identify it.</p>
+<h3 id="create-directory-structure">Create Directory Structure<a class="headerlink" href="#create-directory-structure" title="Permanent link">&para;</a></h3>
+<p>Create the directories for your bundle components:</p>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>agents
+mkdir<span class="w"> </span>-p<span class="w"> </span>skills
+mkdir<span class="w"> </span>-p<span class="w"> </span>recipes
+</code></pre></div>
+
+<p>Your bundle structure should now look like:</p>
+<div class="codehilite"><pre><span></span><code>~/.amplifier/bundles/code-review/
+├── bundle.yaml
+├── agents/
+├── skills/
+└── recipes/
+</code></pre></div>
+
+<h2 id="step-2-create-your-agent">Step 2: Create Your Agent<a class="headerlink" href="#step-2-create-your-agent" title="Permanent link">&para;</a></h2>
+<p>Agents are specialized AI assistants with specific instructions. Create <code>agents/code-reviewer.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-reviewer</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Reviews</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">best</span><span class="nv"> </span><span class="s">practices</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">potential</span><span class="nv"> </span><span class="s">issues&quot;</span>
+
+<span class="c1"># Agent&#39;s system instructions</span>
+<span class="nt">instructions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">You are an expert Python code reviewer. Your goal is to help developers</span>
+<span class="w">  </span><span class="no">write better, more maintainable code.</span>
+
+<span class="w">  </span><span class="no">When reviewing code:</span>
+<span class="w">  </span><span class="no">1. Check for PEP 8 style compliance</span>
+<span class="w">  </span><span class="no">2. Look for potential bugs or logic errors</span>
+<span class="w">  </span><span class="no">3. Identify security vulnerabilities</span>
+<span class="w">  </span><span class="no">4. Suggest performance improvements</span>
+<span class="w">  </span><span class="no">5. Recommend better naming or structure</span>
+
+<span class="w">  </span><span class="no">Always be constructive and educational in your feedback. Explain WHY</span>
+<span class="w">  </span><span class="no">something should change, not just WHAT to change.</span>
+
+<span class="w">  </span><span class="no">Format your reviews as:</span>
+<span class="w">  </span><span class="no">- **Issue**: Description of the problem</span>
+<span class="w">  </span><span class="no">- **Location**: File and line number</span>
+<span class="w">  </span><span class="no">- **Severity**: Critical / High / Medium / Low</span>
+<span class="w">  </span><span class="no">- **Recommendation**: Specific suggestion</span>
+<span class="w">  </span><span class="no">- **Explanation**: Why this matters</span>
+
+<span class="c1"># Tools this agent can use</span>
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grep</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glob</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python_check</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+
+<span class="c1"># Optional: Tool-specific configuration</span>
+<span class="nt">tool_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">python_check</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">checks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;format&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;lint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;types&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<h3 id="understanding-agent-configuration">Understanding Agent Configuration<a class="headerlink" href="#understanding-agent-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>instructions</strong>: The core prompt that defines the agent's behavior and expertise</li>
+<li><strong>tools</strong>: Which capabilities the agent has access to</li>
+<li><strong>tool_config</strong>: Optional settings for specific tools</li>
+</ul>
+<h2 id="step-3-add-domain-knowledge-with-skills">Step 3: Add Domain Knowledge with Skills<a class="headerlink" href="#step-3-add-domain-knowledge-with-skills" title="Permanent link">&para;</a></h2>
+<p>Skills provide domain-specific knowledge. Create <code>skills/python-best-practices.md</code>:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: python-best-practices
+description: &quot;Python coding standards and best practices&quot;
+<span class="gu">version: 1.0.0</span>
+<span class="gu">---</span>
+
+<span class="gh"># Python Best Practices</span>
+
+<span class="gu">## Code Style</span>
+
+Follow PEP 8 for consistent code style:
+<span class="k">-</span><span class="w"> </span>Use 4 spaces for indentation (never tabs)
+<span class="k">-</span><span class="w"> </span>Limit lines to 88 characters (Black formatter default)
+<span class="k">-</span><span class="w"> </span>Use snake_case for functions and variables
+<span class="k">-</span><span class="w"> </span>Use PascalCase for class names
+<span class="k">-</span><span class="w"> </span>Use UPPER_CASE for constants
+
+<span class="gu">## Common Pitfalls</span>
+
+<span class="gu">### Mutable Default Arguments</span>
+
+❌ <span class="gs">**Bad:**</span>
+```python
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+</code></pre></div>
+
+<p>✅ <strong>Good:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">items</span>
+</code></pre></div>
+
+<h3 id="exception-handling">Exception Handling<a class="headerlink" href="#exception-handling" title="Permanent link">&para;</a></h3>
+<p>❌ <strong>Bad:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">risky_operation</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<p>✅ <strong>Good:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">risky_operation</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span>
+</code></pre></div>
+
+<h2 id="type-hints">Type Hints<a class="headerlink" href="#type-hints" title="Permanent link">&para;</a></h2>
+<p>Always use type hints for function signatures:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, you are </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old&quot;</span>
+</code></pre></div>
+
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>Use docstrings for all public modules, functions, classes, and methods:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_total</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">tax_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate total price including tax.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        items: List of item prices</span>
+<span class="sd">        tax_rate: Tax rate as decimal (e.g., 0.08 for 8%)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Total price including tax</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If tax_rate is negative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tax_rate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Tax rate cannot be negative&quot;</span><span class="p">)</span>
+
+    <span class="n">subtotal</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subtotal</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tax_rate</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Write tests for all public functions</li>
+<li>Aim for &gt;80% code coverage</li>
+<li>Use pytest as the testing framework</li>
+<li>Keep tests isolated and independent</li>
+</ul>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Never hardcode secrets or credentials</li>
+<li>Validate all user input</li>
+<li>Use parameterized queries for SQL</li>
+<li>Keep dependencies updated</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>## Step 4: Create an Automated Recipe
+
+Recipes define multi-step workflows. Create `recipes/review-pr.yaml`:
+
+```yaml
+name: review-pr
+description: &quot;Automated code review for pull requests&quot;
+version: 1.0.0
+
+# Input context the recipe expects
+context_schema:
+  pr_number:
+    type: integer
+    description: &quot;Pull request number to review&quot;
+    required: true
+
+# Sequential workflow steps
+steps:
+  - name: fetch_changes
+    agent: foundation:git-ops
+    instruction: |
+      Get the list of changed files in PR #{{pr_number}}.
+      Return the file paths as a list.
+
+  - name: review_code
+    agent: code-review:code-reviewer
+    instruction: |
+      Review the following changed files: {{fetch_changes.result}}
+
+      For each file:
+      1. Read the file contents
+      2. Check for style issues using python_check
+      3. Review code quality and best practices
+      4. Identify potential bugs
+
+      Provide a comprehensive review report.
+
+  - name: summarize
+    agent: core:core-expert
+    instruction: |
+      Summarize the code review: {{review_code.result}}
+
+      Create a concise summary suitable for posting as a PR comment,
+      organized by severity level.
+</code></pre></div>
+
+<h2 id="step-5-test-your-bundle">Step 5: Test Your Bundle<a class="headerlink" href="#step-5-test-your-bundle" title="Permanent link">&para;</a></h2>
+<p>First, verify your bundle is recognized:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/.amplifier/bundles/code-review
+ls<span class="w"> </span>-la
+</code></pre></div>
+
+<p>You should see:</p>
+<div class="codehilite"><pre><span></span><code>bundle.yaml
+agents/code-reviewer.yaml
+skills/python-best-practices.md
+recipes/review-pr.yaml
+</code></pre></div>
+
+<h3 id="test-the-agent">Test the Agent<a class="headerlink" href="#test-the-agent" title="Permanent link">&para;</a></h3>
+<p>Start Amplifier and try your agent:</p>
+<div class="codehilite"><pre><span></span><code>amplifier
+</code></pre></div>
+
+<p>Then in the chat:</p>
+<div class="codehilite"><pre><span></span><code>@code-reviewer Please review this Python function:
+
+def calc(a, b):
+    return a+b
+</code></pre></div>
+
+<p>Your agent should provide feedback about missing type hints, naming, and documentation.</p>
+<h3 id="test-the-recipe">Test the Recipe<a class="headerlink" href="#test-the-recipe" title="Permanent link">&para;</a></h3>
+<p>To test the recipe workflow:</p>
+<div class="codehilite"><pre><span></span><code>Run recipe code-review:review-pr with pr_number=42
+</code></pre></div>
+
+<h2 id="step-6-refine-and-iterate">Step 6: Refine and Iterate<a class="headerlink" href="#step-6-refine-and-iterate" title="Permanent link">&para;</a></h2>
+<p>Now that your bundle works, you can enhance it:</p>
+<ol>
+<li><strong>Add more patterns</strong> to the skill document</li>
+<li><strong>Improve agent instructions</strong> based on review quality</li>
+<li><strong>Add tool configurations</strong> for better defaults</li>
+<li><strong>Create additional recipes</strong> for different workflows</li>
+</ol>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that you've created your first bundle, explore:</p>
+<ul>
+<li><strong><a href="../bundles/index.html">Bundles Guide</a></strong> - Deep dive into bundle design and best practices</li>
+<li><strong><a href="../advanced/index.html">Advanced Topics</a></strong> - Custom bundles, recipes, and tools</li>
+<li><strong><a href="../concepts/index.html">Concepts</a></strong> - Understand bundles, agents, and modules</li>
+<li><strong><a href="../skills/index.html">Skills Guide</a></strong> - Add domain knowledge to your bundles</li>
+</ul>
+<h3 id="share-your-bundle">Share Your Bundle<a class="headerlink" href="#share-your-bundle" title="Permanent link">&para;</a></h3>
+<p>Consider sharing your bundle with the community:</p>
+<ol>
+<li>Publish to a Git repository</li>
+<li>Add to the Amplifier bundle registry</li>
+<li>Get feedback and contributions</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><strong>Bundle not found</strong>: Ensure <code>bundle.yaml</code> is in <code>~/.amplifier/bundles/code-review/</code></p>
+<p><strong>Agent not working</strong>: Check that agent name in <code>bundle.yaml</code> matches the filename</p>
+<p><strong>Recipe fails</strong>: Verify all referenced agents exist and have required tools</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>You've learned:</p>
+<p>✅ How to structure a bundle with manifest, agents, skills, and recipes<br />
+✅ How to write agent instructions and configure tools<br />
+✅ How to create skill documents with domain knowledge<br />
+✅ How to build automated workflows with recipes<br />
+✅ How to test and refine your bundle  </p>
+<p>Bundles are powerful because they're composable—your code-review bundle can be combined with other bundles to create even more sophisticated workflows.</p>
+<p>Happy building! 🚀</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="key-commands.html" class="btn btn-neutral float-left" title="Key Commands"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../concepts/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="key-commands.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../concepts/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+# Generate Quickstart Page Recipe
+# Generates step-by-step quickstart tutorial pages
+#
+# Usage:
+#   amplifier run "execute recipes/generate-quickstart.yaml with page_id=installation page_name='Installation'"
+
+name: generate-quickstart
+description: Generate a quickstart tutorial page with step-by-step instructions
+version: "1.0.0"
+author: "Tutorial CMS"
+tags: ["content-generation", "tutorial", "quickstart"]
+
+context:
+  page_id: ""
+  page_name: ""
+  description: ""
+  output_dir: "content"
+  supplements_dir: ".planning/supplements/quickstart"
+
+recursion:
+  max_depth: 3
+  max_total_steps: 20
+
+steps:
+  # Step 1: Load supplements
+  - id: load-supplements
+    agent: foundation:file-ops
+    prompt: |
+      Check for supplementary content for quickstart page: {{page_id}}
+      
+      Look in: {{supplements_dir}}/
+      
+      Files might be named: {{page_id}}-*.md, pipe-input.md, etc.
+      
+      Return JSON:
+      {
+        "found": true/false,
+        "files": [],
+        "content": "concatenated content or empty string"
+      }
+    output: "supplements"
+    parse_json: true
+    timeout: 60
+    on_error: "continue"
+
+  # Step 2: Research from Amplifier docs
+  - id: research
+    agent: foundation:web-research
+    prompt: |
+      Research for Amplifier quickstart documentation:
+      
+      Topic: {{page_name}}
+      Description: {{description}}
+      
+      Fetch from:
+      - https://github.com/microsoft/amplifier (README, docs/)
+      - https://github.com/microsoft/amplifier-foundation (docs/)
+      
+      Find:
+      1. Installation commands
+      2. Configuration steps
+      3. First-run examples
+      4. Common setup issues
+      
+      Return comprehensive information for writing user tutorial.
+    output: "research"
+    timeout: 180
+    on_error: "continue"
+
+  # Step 3: Generate content
+  - id: generate-content
+    agent: foundation:modular-builder
+    prompt: |
+      Create a QUICKSTART TUTORIAL page for: {{page_name}}
+      
+      Page info:
+      - ID: {{page_id}}
+      - Description: {{description}}
+      
+      Research:
+      {{research}}
+      
+      Supplementary content to INCLUDE:
+      {{supplements.content}}
+      
+      ===========================================
+      QUICKSTART PAGE STYLE REQUIREMENTS
+      ===========================================
+      
+      This is a STEP-BY-STEP guide for new users.
+      
+      1. Use NUMBERED STEPS with clear actions:
+         
+         ## Step 1: Install Amplifier
+         
+         ```bash
+         uv tool install amplifier
+         ```
+      
+      2. Show EXPECTED OUTPUT after commands:
+         
+         ```
+         Successfully installed amplifier
+         ```
+      
+      3. Include VERIFICATION steps:
+         
+         ```bash
+         amplifier --version
+         ```
+      
+      4. REQUIRED SECTIONS for quickstart:
+         - ## Prerequisites (what you need first)
+         - ## Step 1, Step 2, etc. (numbered steps)
+         - ## Verify It Works
+         - ## Try It Out (first exercise)
+         - ## Common Issues (troubleshooting)
+         - ## Next Steps (what to learn next)
+      
+      5. Keep it ACHIEVABLE in 5-10 minutes
+      
+      6. Include ALL supplementary content
+      
+      7. Make it 150-250 lines
+      
+      ===========================================
+      TEMPLATE
+      ===========================================
+      
+      ---
+      id: {{page_id}}
+      type: quickstart
+      title: "{{page_name}}"
+      ---
+      
+      # {{page_name}}
+      
+      {{description}}
+      
+      **Time:** ~5 minutes
+      
+      ## Prerequisites
+      
+      - [requirement 1]
+      - [requirement 2]
+      
+      ## Step 1: [Action]
+      
+      [instruction]
+      
+      ```bash
+      [command]
+      ```
+      
+      [Continue with steps...]
+      
+      ## Verify It Works
+      
+      [verification steps]
+      
+      ## Common Issues
+      
+      ### "[Error message]"
+      [solution]
+      
+      ## Next Steps
+      
+      - [Link to next page]
+      
+      Return the COMPLETE markdown content.
+    output: "content"
+    timeout: 300
+    on_error: "fail"
+
+  # Step 4: Validate
+  - id: validate
+    agent: foundation:zen-architect
+    mode: "REVIEW"
+    prompt: |
+      Validate this quickstart tutorial.
+      
+      Content:
+      {{content}}
+      
+      CHECKLIST:
+      1. Has YAML frontmatter
+      2. Has Prerequisites section
+      3. Has numbered steps (Step 1, Step 2...)
+      4. Each step has a command or action
+      5. Has Verify It Works section
+      6. Has Common Issues troubleshooting
+      7. Has Next Steps links
+      8. Is 150-250 lines
+      9. Achievable in ~5-10 minutes
+      
+      Fix any issues.
+      
+      Return JSON:
+      {
+        "valid": true,
+        "issues_fixed": [],
+        "warnings": [],
+        "content": "COMPLETE CORRECTED MARKDOWN"
+      }
+    output: "validated"
+    parse_json: true
+    timeout: 180
+    on_error: "continue"
+
+  # Step 5: Write file
+  - id: write-file
+    agent: foundation:file-ops
+    prompt: |
+      Write tutorial content to: {{output_dir}}/quickstart/{{page_id}}.md
+      
+      Content:
+      {{validated.content}}
+      
+      Create directory if needed.
+      
+      Return JSON:
+      {
+        "file_path": "path",
+        "bytes": count,
+        "warnings": {{validated.warnings}}
+      }
+    output: "result"
+    parse_json: true
+    timeout: 60
+    on_error: "fail"

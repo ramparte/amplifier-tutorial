@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Modules - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modules";
+        var mkdocs_page_input_path = "concepts/modules.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="modules.html">Modules</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-module">What is a Module?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-module-lifecycle">The Module Lifecycle</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-5-module-types">The 5 Module Types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#provider-modules">Provider Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-modules">Tool Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#orchestrator-modules">Orchestrator Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#context-modules">Context Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hook-modules">Hook Modules</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-vs-hook">Tool vs Hook</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-tool">When to Use a Tool</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-hook">When to Use a Hook</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#can-it-be-both">Can It Be Both?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#module-configuration">Module Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-modules">Creating Custom Modules</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Modules</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="understanding-modules">Understanding Modules<a class="headerlink" href="#understanding-modules" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-a-module">What is a Module?<a class="headerlink" href="#what-is-a-module" title="Permanent link">&para;</a></h2>
+<p>A <strong>module</strong> is a pluggable component that extends your agent's capabilities. Think of modules as LEGO blocks—each one serves a specific purpose, and you can mix and match them to build the exact agent you need.</p>
+<p>Modules are the foundation of the framework's architecture. Instead of building a monolithic agent with hardcoded behaviors, you compose your agent from independent, reusable modules. This design makes your agent:</p>
+<ul>
+<li><strong>Flexible</strong>: Swap modules without rewriting code</li>
+<li><strong>Testable</strong>: Test each module in isolation</li>
+<li><strong>Maintainable</strong>: Update one module without breaking others</li>
+<li><strong>Extensible</strong>: Add new capabilities by adding modules</li>
+</ul>
+<p>Every module in the system implements a specific interface (or "contract") that defines how it communicates with the rest of the agent. This contract ensures that modules work together seamlessly, regardless of who wrote them or when they were created.</p>
+<h3 id="the-module-lifecycle">The Module Lifecycle<a class="headerlink" href="#the-module-lifecycle" title="Permanent link">&para;</a></h3>
+<p>When an agent starts, it:</p>
+<ol>
+<li><strong>Loads</strong> all configured modules</li>
+<li><strong>Initializes</strong> them with configuration</li>
+<li><strong>Registers</strong> them with the appropriate systems</li>
+<li><strong>Executes</strong> them during the agent loop</li>
+<li><strong>Cleans up</strong> when the agent shuts down</li>
+</ol>
+<p>Modules can maintain state between invocations, access shared resources, and communicate with each other through well-defined interfaces.</p>
+<h2 id="the-5-module-types">The 5 Module Types<a class="headerlink" href="#the-5-module-types" title="Permanent link">&para;</a></h2>
+<p>The framework defines five core module types, each serving a distinct architectural role:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+<th>Contract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td>LLM backends</td>
+<td>complete()</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>Agent capabilities</td>
+<td>execute()</td>
+</tr>
+<tr>
+<td>Orchestrator</td>
+<td>Main engine</td>
+<td>The loop</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>Memory</td>
+<td>messages</td>
+</tr>
+<tr>
+<td>Hook</td>
+<td>Observers</td>
+<td>events</td>
+</tr>
+</tbody>
+</table>
+<h3 id="provider-modules">Provider Modules<a class="headerlink" href="#provider-modules" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Connect to language model backends</p>
+<p>Providers abstract away the details of different LLM APIs (OpenAI, Anthropic, local models, etc.). They implement a single <code>complete()</code> method that takes a conversation history and returns the next response.</p>
+<p><strong>Example use cases</strong>:
+- OpenAI GPT-4 provider
+- Anthropic Claude provider
+- Local Llama model provider
+- Custom fine-tuned model provider</p>
+<p><strong>Key characteristics</strong>:
+- Stateless request/response
+- Handles authentication and rate limiting
+- Transforms between framework format and API format
+- Supports streaming responses</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Provider</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate next response from conversation history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<h3 id="tool-modules">Tool Modules<a class="headerlink" href="#tool-modules" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Give your agent capabilities to interact with the world</p>
+<p>Tools are functions that the LLM can call to perform actions—reading files, searching the web, executing code, querying databases, etc. The LLM decides which tool to use based on the conversation context.</p>
+<p><strong>Example use cases</strong>:
+- File system operations (read, write, edit)
+- Web search and scraping
+- Database queries
+- API integrations
+- Code execution</p>
+<p><strong>Key characteristics</strong>:
+- LLM-triggered (agent decides when to use)
+- Synchronous or asynchronous execution
+- Structured input parameters
+- Returns results to the LLM</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the tool with given parameters&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<h3 id="orchestrator-modules">Orchestrator Modules<a class="headerlink" href="#orchestrator-modules" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Control the main agent loop</p>
+<p>The orchestrator is the "brain" of your agent. It manages the conversation flow, decides when to call the LLM, processes tool calls, handles errors, and determines when the agent's work is complete.</p>
+<p><strong>Example use cases</strong>:
+- Simple loop (call LLM → execute tools → repeat)
+- Tree search orchestrator (explore multiple paths)
+- Reflection orchestrator (self-critique and improve)
+- Multi-agent orchestrator (coordinate multiple agents)</p>
+<p><strong>Key characteristics</strong>:
+- Runs the main agent loop
+- Manages state and conversation history
+- Decides when to stop
+- Handles errors and retries</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Orchestrator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the main agent loop&quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_complete</span><span class="p">():</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+</code></pre></div>
+
+<h3 id="context-modules">Context Modules<a class="headerlink" href="#context-modules" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Manage conversation memory and state</p>
+<p>Context modules store and organize the conversation history. They decide what information to keep, what to summarize, and what to discard. This is crucial for long conversations where the full history exceeds the LLM's context window.</p>
+<p><strong>Example use cases</strong>:
+- Simple in-memory context (store all messages)
+- Sliding window context (keep last N messages)
+- Semantic context (keep most relevant messages)
+- Persistent context (save to database)</p>
+<p><strong>Key characteristics</strong>:
+- Stores conversation messages
+- Provides access to history
+- May implement compression or summarization
+- Can persist across sessions</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Context</span><span class="p">:</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">messages</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current conversation history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message to history&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<h3 id="hook-modules">Hook Modules<a class="headerlink" href="#hook-modules" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>: Observe and react to agent events</p>
+<p>Hooks are passive observers that get notified when specific events occur in the agent's lifecycle. Unlike tools (which the LLM chooses to use), hooks are triggered by code events automatically.</p>
+<p><strong>Example use cases</strong>:
+- Logging and debugging
+- Performance monitoring
+- Cost tracking
+- Safety guardrails
+- Analytics and telemetry</p>
+<p><strong>Key characteristics</strong>:
+- Code-triggered (not LLM-triggered)
+- Cannot be chosen by the agent
+- Observe without blocking
+- Multiple hooks can respond to same event</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hook</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle an agent event&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<h2 id="tool-vs-hook">Tool vs Hook<a class="headerlink" href="#tool-vs-hook" title="Permanent link">&para;</a></h2>
+<p>Understanding the difference between Tools and Hooks is crucial for proper module design:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tool</th>
+<th>Hook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triggered by</td>
+<td>LLM decides</td>
+<td>Code events</td>
+</tr>
+<tr>
+<td>Choosable</td>
+<td>Yes, agent picks from available tools</td>
+<td>No, always runs on events</td>
+</tr>
+<tr>
+<td>Blocks execution</td>
+<td>Yes, agent waits for result</td>
+<td>No, runs async or returns quickly</td>
+</tr>
+<tr>
+<td>Returns value</td>
+<td>Yes, result goes to LLM</td>
+<td>No, side effects only</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>"search_web" tool called when agent needs info</td>
+<td>Logging hook records all LLM calls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-use-a-tool">When to Use a Tool<a class="headerlink" href="#when-to-use-a-tool" title="Permanent link">&para;</a></h3>
+<p>Create a Tool when:
+- The agent should <strong>decide</strong> when to use it
+- The action <strong>produces a result</strong> the LLM needs
+- It's an <strong>explicit capability</strong> you want to advertise</p>
+<p><strong>Example</strong>: A <code>read_file</code> tool that the agent calls when it needs to see file contents.</p>
+<h3 id="when-to-use-a-hook">When to Use a Hook<a class="headerlink" href="#when-to-use-a-hook" title="Permanent link">&para;</a></h3>
+<p>Create a Hook when:
+- The action should happen <strong>automatically</strong> on events
+- It's an <strong>observation</strong> or side effect, not a core capability
+- You want to <strong>monitor or modify</strong> agent behavior</p>
+<p><strong>Example</strong>: A <code>cost_tracker</code> hook that logs every LLM API call to track spending.</p>
+<h3 id="can-it-be-both">Can It Be Both?<a class="headerlink" href="#can-it-be-both" title="Permanent link">&para;</a></h3>
+<p>Sometimes! You might have a Hook that monitors for unsafe behavior AND a Tool that lets the agent explicitly check safety. The key is understanding the use case:</p>
+<ul>
+<li><strong>Tool version</strong>: "Is this action safe?" (agent decides to check)</li>
+<li><strong>Hook version</strong>: "Log every action and alert on unsafe patterns" (always runs)</li>
+</ul>
+<h2 id="module-configuration">Module Configuration<a class="headerlink" href="#module-configuration" title="Permanent link">&para;</a></h2>
+<p>Modules are typically configured in a YAML or JSON file:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">modules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
+
+<span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file_ops</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+<span class="w">      </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SEARCH_API_KEY}</span>
+
+<span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_loop</span>
+<span class="w">    </span><span class="nt">max_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+
+<span class="w">  </span><span class="nt">context</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sliding_window</span>
+<span class="w">    </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logger</span>
+<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cost_tracker</span>
+<span class="w">      </span><span class="nt">alert_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.00</span>
+</code></pre></div>
+
+<h2 id="creating-custom-modules">Creating Custom Modules<a class="headerlink" href="#creating-custom-modules" title="Permanent link">&para;</a></h2>
+<p>To create a custom module:</p>
+<ol>
+<li><strong>Choose the right type</strong> based on architectural role</li>
+<li><strong>Implement the contract</strong> (required interface)</li>
+<li><strong>Register with the framework</strong> (add to config)</li>
+<li><strong>Test in isolation</strong> before integration</li>
+</ol>
+<p>Each module type has a base class you extend:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">framework</span> <span class="kn">import</span> <span class="n">ToolModule</span>
+
+<span class="k">class</span> <span class="nc">MyCustomTool</span><span class="p">(</span><span class="n">ToolModule</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_tool&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;What this tool does&quot;</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="c1"># Your implementation</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Modules are pluggable components</strong> that extend agent capabilities through well-defined interfaces</p>
+</li>
+<li>
+<p><strong>Five module types</strong> serve different architectural roles: Provider (LLM), Tool (capabilities), Orchestrator (loop), Context (memory), Hook (observers)</p>
+</li>
+<li>
+<p><strong>Tools vs Hooks</strong>: Tools are chosen by the LLM and return results; Hooks are triggered by code events for observation</p>
+</li>
+<li>
+<p><strong>Composition over inheritance</strong>: Build agents by combining modules rather than writing monolithic code</p>
+</li>
+<li>
+<p><strong>Each module has a contract</strong>: Implement the required interface, and your module works with the framework</p>
+</li>
+<li>
+<p><strong>Modules enable reusability</strong>: Write once, use across multiple agents and projects</p>
+</li>
+<li>
+<p><strong>Testing is easier</strong>: Test each module independently before integration</p>
+</li>
+<li>
+<p><strong>Configuration-driven</strong>: Change agent behavior by swapping modules in config, not code</p>
+</li>
+</ol>
+<p>The modular architecture is what makes the framework powerful and flexible. By understanding these five module types and their roles, you can build sophisticated agents that are maintainable, testable, and extensible.</p>
+<p>Start simple—use built-in modules first, then create custom modules as you understand the patterns. The framework handles the complexity of wiring modules together, so you can focus on building great capabilities.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture Deep Dive"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="bundles.html" class="btn btn-neutral float-right" title="Bundles">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="architecture.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="bundles.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

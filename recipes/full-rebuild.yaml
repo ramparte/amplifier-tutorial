@@ -1,0 +1,300 @@
+# Full Tutorial Rebuild Recipe
+# Complete regeneration of tutorial content section by section
+#
+# Usage:
+#   amplifier recipes execute recipes/full-rebuild.yaml
+#
+#   # Skip specific sections
+#   amplifier recipes execute recipes/full-rebuild.yaml \
+#     --context '{"skip_sections": ["advanced", "dev-setup"]}'
+
+name: full-rebuild
+description: Regenerate all tutorial content from Amplifier repositories
+version: "1.0.0"
+author: "Tutorial Team"
+tags: ["rebuild", "tutorial", "full"]
+
+context:
+  skip_sections: []  # Sections to skip: quickstart, concepts, tools, bundles, skills, dev-setup, advanced
+  manifest_path: ".planning/ecosystem-manifest.yaml"
+  content_base: "content"
+  output_dir: "content"  # Where to write (can be changed for testing)
+
+recursion:
+  max_depth: 10
+  max_total_steps: 200
+
+# Staged approach for controlled rebuild
+stages:
+  # Stage 1: Scan ecosystem and plan
+  - name: "scan-and-plan"
+    steps:
+      # Step 1: Ensure manifest is current
+      - id: scan-ecosystem
+        type: "recipe"
+        recipe: "recipes/scan-ecosystem.yaml"
+        timeout: 900
+
+      # Step 2: Load updated manifest
+      - id: load-manifest
+        agent: foundation:file-ops
+        prompt: |
+          Read the ecosystem manifest at {{manifest_path}}.
+          Return the full YAML content.
+        output: "manifest"
+        timeout: 60
+
+      # Step 3: Plan sections to rebuild
+      - id: plan-sections
+        agent: foundation:zen-architect
+        mode: "ANALYZE"
+        prompt: |
+          Plan which sections to rebuild based on the manifest.
+          
+          Manifest:
+          {{manifest}}
+          
+          Sections to skip: {{skip_sections}}
+          
+          For each section NOT in skip list, identify:
+          - Section name
+          - Components to generate
+          - Expected output files
+          
+          Available sections and their manifest sources:
+          - quickstart: Manual content (6 pages, not from manifest)
+          - concepts: Manual content (7 pages, architecture docs)
+          - tools: From manifest "tools" section
+          - bundles: From manifest "bundles" section
+          - skills: From manifest "skills" section
+          - dev-setup: From manifest "dev_tools" section
+          - advanced: Manual content (5 pages, custom development)
+          
+          Return JSON:
+          {
+            "sections_to_build": [
+              {
+                "name": "tools",
+                "source": "manifest.tools",
+                "components": [{"id": "...", "name": "...", "repo": "..."}],
+                "page_count": N
+              }
+            ],
+            "sections_skipped": ["advanced"],
+            "total_pages": N,
+            "estimated_time_minutes": N
+          }
+        output: "build_plan"
+        parse_json: true
+        timeout: 300
+
+    approval:
+      required: true
+      prompt: |
+        Tutorial rebuild planned.
+        
+        Sections to build: {{build_plan.sections_to_build}}
+        Sections skipped: {{build_plan.sections_skipped}}
+        Total pages: {{build_plan.total_pages}}
+        Estimated time: {{build_plan.estimated_time_minutes}} minutes
+        
+        Approve to begin content generation?
+      timeout: 3600
+      default: "deny"
+
+  # Stage 2: Generate content for manifest-based sections
+  - name: "generate-manifest-sections"
+    steps:
+      # Generate tools section
+      - id: generate-tools
+        foreach: "{{build_plan.sections_to_build}}"
+        as: "section"
+        condition: "{{section.source}} != 'manual'"
+        agent: foundation:modular-builder
+        prompt: |
+          Generate tutorial content for section: {{section.name}}
+          
+          Components to cover:
+          {{section.components}}
+          
+          For each component, create a page following this template:
+          
+          ```markdown
+          ---
+          id: [component-id]
+          type: {{section.name}}
+          title: "[Component Name]"
+          source_repo: "[repo]"
+          last_synced: "2026-01-09"
+          ---
+          
+          # [Component Name]
+          
+          [What it does - 1 paragraph]
+          
+          ## Quick Start
+          [Minimal example]
+          
+          ## What It Does
+          [Detailed capabilities]
+          
+          ## Usage Examples
+          [2-3 examples]
+          
+          ## Configuration
+          [Options]
+          
+          ## Related
+          [Links]
+          ```
+          
+          Return a JSON object with all generated content:
+          {
+            "section": "{{section.name}}",
+            "pages": [
+              {"id": "component-id", "filename": "component-id.md", "content": "full markdown"}
+            ]
+          }
+        output: "section_content"
+        collect: "manifest_sections"
+        parse_json: true
+        timeout: 600
+        retry:
+          max_attempts: 2
+          backoff: "exponential"
+          initial_delay: 15
+        on_error: "continue"
+
+      # Generate index pages for each section
+      - id: generate-indexes
+        agent: foundation:modular-builder
+        prompt: |
+          Generate index pages for each section that was built.
+          
+          Sections built:
+          {{manifest_sections}}
+          
+          For each section, create an index.md that:
+          - Introduces the section
+          - Lists all pages with brief descriptions
+          - Links to each page
+          
+          Return JSON:
+          {
+            "indexes": [
+              {"section": "tools", "filename": "index.md", "content": "markdown"}
+            ]
+          }
+        output: "index_pages"
+        parse_json: true
+        timeout: 300
+
+    approval:
+      required: true
+      prompt: |
+        Manifest-based sections generated.
+        
+        Sections completed:
+        {{manifest_sections}}
+        
+        Index pages:
+        {{index_pages}}
+        
+        Approve to write files and build site?
+      timeout: 3600
+      default: "deny"
+
+  # Stage 3: Write files and build
+  - name: "write-and-build"
+    steps:
+      # Write all content files
+      - id: write-content-files
+        agent: foundation:file-ops
+        prompt: |
+          Write all generated content to the filesystem.
+          
+          Output directory: {{output_dir}}
+          
+          Content to write:
+          {{manifest_sections}}
+          
+          Index pages:
+          {{index_pages}}
+          
+          For each page:
+          1. Ensure directory exists: {{output_dir}}/[section]/
+          2. Write file: {{output_dir}}/[section]/[filename]
+          
+          Return summary of files written.
+        output: "write_result"
+        timeout: 300
+        retry:
+          max_attempts: 2
+          backoff: "exponential"
+          initial_delay: 5
+
+      # Update mkdocs navigation
+      - id: update-navigation
+        agent: foundation:file-ops
+        prompt: |
+          Update mkdocs.yml to include all generated pages.
+          
+          Read the current mkdocs.yml at /mnt/c/ANext/tutorial/mkdocs.yml
+          
+          Ensure the nav: section includes all pages from:
+          {{manifest_sections}}
+          
+          Maintain the existing structure but add any missing pages.
+          
+          Write the updated mkdocs.yml.
+          Return what was changed.
+        output: "nav_update"
+        timeout: 120
+
+      # Validate all links before building
+      - id: validate-links
+        type: recipe
+        recipe: recipes/validate-links.yaml
+        context:
+          content_dir: "{{output_dir}}"
+          fail_on_broken: false  # Just warn, don't fail the build
+        timeout: 240
+        on_error: "continue"
+
+      # Build the site
+      - id: build-site
+        type: bash
+        command: |
+          cd /home/samschillace/dev/ANext/tutorial
+          mkdocs build --clean 2>&1
+        output: "build_result"
+        parse_json: false
+        timeout: 300
+
+      # Final report
+      - id: final-report
+        agent: foundation:zen-architect
+        mode: "ANALYZE"
+        prompt: |
+          Create a comprehensive rebuild report.
+          
+          Build plan:
+          {{build_plan}}
+          
+          Files written:
+          {{write_result}}
+          
+          Navigation update:
+          {{nav_update}}
+          
+          Build result:
+          {{build_result}}
+          
+          Create markdown report with:
+          - Summary of what was rebuilt
+          - Files created/updated
+          - Build status
+          - Any issues encountered
+          - Recommendations for manual review
+        output: "final_report"
+        timeout: 120

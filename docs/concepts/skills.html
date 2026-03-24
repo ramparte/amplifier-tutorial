@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Skills - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Skills";
+        var mkdocs_page_input_path = "concepts/skills.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="skills.html">Skills</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-skill">What is a Skill?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-characteristics">Key Characteristics</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#anatomy-of-a-skill">Anatomy of a Skill</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#discovering-skills">Discovering Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#listing-all-skills">Listing All Skills</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#searching-for-skills">Searching for Skills</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getting-skill-metadata">Getting Skill Metadata</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#skill-discovery-locations">Skill Discovery Locations</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loading-skills">Loading Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-loading">Basic Loading</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#accessing-companion-files">Accessing Companion Files</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-load-skills">When to Load Skills</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#context-management">Context Management</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-skills">Creating Skills</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#skill-structure">Skill Structure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#where-to-place-skills">Where to Place Skills</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#writing-effective-skills">Writing Effective Skills</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-concepts">Related Concepts</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Skills</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="understanding-skills">Understanding Skills<a class="headerlink" href="#understanding-skills" title="Permanent link">&para;</a></h1>
+<p>Skills are one of Amplifier's most powerful features for extending agent capabilities. They provide a way to inject domain-specific knowledge, best practices, and workflows into your agents without modifying core system code.</p>
+<h2 id="what-is-a-skill">What is a Skill?<a class="headerlink" href="#what-is-a-skill" title="Permanent link">&para;</a></h2>
+<p>A skill is <strong>loadable domain knowledge</strong> packaged as markdown files that agents can access on demand. Think of skills as specialized instruction manuals that agents can consult when they need expertise in a particular area.</p>
+<h3 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>On-demand loading</strong>: Skills are loaded only when needed, keeping agent context lean</li>
+<li><strong>Domain-specific</strong>: Each skill focuses on a particular area of expertise</li>
+<li><strong>Declarative</strong>: Skills describe <em>what</em> to do, not <em>how</em> to implement it</li>
+<li><strong>Composable</strong>: Multiple skills can be loaded together for complex tasks</li>
+<li><strong>Versionable</strong>: Skills can be versioned and updated independently</li>
+</ul>
+<h3 id="anatomy-of-a-skill">Anatomy of a Skill<a class="headerlink" href="#anatomy-of-a-skill" title="Permanent link">&para;</a></h3>
+<p>A skill typically consists of:</p>
+<div class="codehilite"><pre><span></span><code>my-skill/
+├── skill.md          # Main skill content (required)
+├── examples/         # Optional companion files
+│   ├── basic.py
+│   └── advanced.py
+└── templates/        # Optional templates
+    └── config.yaml
+</code></pre></div>
+
+<p>The <code>skill.md</code> file contains:</p>
+<ol>
+<li><strong>Frontmatter</strong>: Metadata about the skill (name, version, description)</li>
+<li><strong>Context</strong>: Background knowledge the agent needs</li>
+<li><strong>Guidelines</strong>: Best practices and decision frameworks</li>
+<li><strong>Workflows</strong>: Step-by-step procedures for common tasks</li>
+<li><strong>Examples</strong>: Concrete illustrations of concepts</li>
+</ol>
+<h2 id="discovering-skills">Discovering Skills<a class="headerlink" href="#discovering-skills" title="Permanent link">&para;</a></h2>
+<p>Before loading a skill, you need to know what's available. Amplifier provides several ways to discover skills.</p>
+<h3 id="listing-all-skills">Listing All Skills<a class="headerlink" href="#listing-all-skills" title="Permanent link">&para;</a></h3>
+<p>Use the <code>load_skill</code> tool with the <code>list</code> parameter:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="nb">list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This returns all available skills with their names and descriptions.</p>
+<h3 id="searching-for-skills">Searching for Skills<a class="headerlink" href="#searching-for-skills" title="Permanent link">&para;</a></h3>
+<p>If you're looking for skills in a specific domain:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">search</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This filters skills by name or description matching your search term.</p>
+<h3 id="getting-skill-metadata">Getting Skill Metadata<a class="headerlink" href="#getting-skill-metadata" title="Permanent link">&para;</a></h3>
+<p>Before loading a full skill (which consumes context), you can inspect its metadata:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;design-patterns&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This returns the skill's name, description, version, and path without loading the full content.</p>
+<h3 id="skill-discovery-locations">Skill Discovery Locations<a class="headerlink" href="#skill-discovery-locations" title="Permanent link">&para;</a></h3>
+<p>Skills are discovered from multiple directories in priority order:</p>
+<ol>
+<li><strong>Workspace skills</strong> (<code>.amplifier/skills/</code>) - Project-specific skills</li>
+<li><strong>User skills</strong> (<code>~/.amplifier/skills/</code>) - Personal skills across projects</li>
+<li><strong>Collection skills</strong> - Skills bundled with Amplifier collections</li>
+</ol>
+<p>First-match-wins: if the same skill exists in multiple locations, the first one found is used.</p>
+<h2 id="loading-skills">Loading Skills<a class="headerlink" href="#loading-skills" title="Permanent link">&para;</a></h2>
+<p>When you need domain expertise, load the relevant skill into context.</p>
+<h3 id="basic-loading">Basic Loading<a class="headerlink" href="#basic-loading" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">skill_name</span><span class="o">=</span><span class="s2">&quot;python-standards&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This loads the full skill content and returns:
+- The skill content itself
+- The <code>skill_directory</code> path for accessing companion files</p>
+<h3 id="accessing-companion-files">Accessing Companion Files<a class="headerlink" href="#accessing-companion-files" title="Permanent link">&para;</a></h3>
+<p>Many skills include additional resources like examples, templates, or reference files. Use the returned <code>skill_directory</code> to access them:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Load the skill</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">load_skill</span><span class="p">(</span><span class="n">skill_name</span><span class="o">=</span><span class="s2">&quot;api-design&quot;</span><span class="p">)</span>
+<span class="n">skill_dir</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;skill_directory&quot;</span><span class="p">]</span>
+
+<span class="c1"># Read a companion file</span>
+<span class="n">read_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">skill_dir</span><span class="si">}</span><span class="s2">/examples/rest-api.py&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="when-to-load-skills">When to Load Skills<a class="headerlink" href="#when-to-load-skills" title="Permanent link">&para;</a></h3>
+<p>Load skills when you need:</p>
+<ul>
+<li><strong>Domain expertise</strong>: Working in an unfamiliar area</li>
+<li><strong>Best practices</strong>: Ensuring code follows established patterns</li>
+<li><strong>Consistency</strong>: Applying the same standards across a project</li>
+<li><strong>Complex workflows</strong>: Following multi-step procedures correctly</li>
+</ul>
+<h3 id="context-management">Context Management<a class="headerlink" href="#context-management" title="Permanent link">&para;</a></h3>
+<p>Skills consume context tokens when loaded. Best practices:</p>
+<ul>
+<li>Load skills on-demand, not preemptively</li>
+<li>Use <code>info</code> to check skill size before loading</li>
+<li>Load only the skills you actually need</li>
+<li>Consider skill size when working with limited context</li>
+</ul>
+<h2 id="creating-skills">Creating Skills<a class="headerlink" href="#creating-skills" title="Permanent link">&para;</a></h2>
+<p>You can create custom skills for your projects or personal use.</p>
+<h3 id="skill-structure">Skill Structure<a class="headerlink" href="#skill-structure" title="Permanent link">&para;</a></h3>
+<p>Create a directory with at least a <code>skill.md</code> file:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: my-custom-skill
+description: Brief description of what this skill provides
+<span class="gu">version: 1.0.0</span>
+<span class="gu">---</span>
+
+<span class="gh"># My Custom Skill</span>
+
+<span class="gu">## Overview</span>
+Explain the domain this skill covers.
+
+<span class="gu">## Guidelines</span>
+List best practices and decision frameworks.
+
+<span class="gu">## Workflows</span>
+Document step-by-step procedures.
+
+<span class="gu">## Examples</span>
+Provide concrete illustrations.
+</code></pre></div>
+
+<h3 id="where-to-place-skills">Where to Place Skills<a class="headerlink" href="#where-to-place-skills" title="Permanent link">&para;</a></h3>
+<p>Choose based on scope:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Scope</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.amplifier/skills/</code></td>
+<td>Project</td>
+<td>Team-specific patterns</td>
+</tr>
+<tr>
+<td><code>~/.amplifier/skills/</code></td>
+<td>User</td>
+<td>Personal workflows</td>
+</tr>
+<tr>
+<td>Collection</td>
+<td>Distribution</td>
+<td>Shared with community</td>
+</tr>
+</tbody>
+</table>
+<h3 id="writing-effective-skills">Writing Effective Skills<a class="headerlink" href="#writing-effective-skills" title="Permanent link">&para;</a></h3>
+<p><strong>Be specific</strong>: Focus on one domain or problem area.</p>
+<div class="codehilite"><pre><span></span><code><span class="gh"># Good: Focused skill</span>
+---
+name: react-testing
+<span class="gu">description: Testing patterns for React components</span>
+<span class="gu">---</span>
+
+<span class="gh"># Bad: Too broad</span>
+---
+name: frontend
+<span class="gu">description: Everything about frontend development</span>
+<span class="gu">---</span>
+</code></pre></div>
+
+<p><strong>Be actionable</strong>: Provide clear guidance, not just information.</p>
+<div class="codehilite"><pre><span></span><code><span class="gh"># Good: Actionable guideline</span>
+When testing async components, always:
+<span class="k">1.</span> Use <span class="sb">`waitFor`</span> for state changes
+<span class="k">2.</span> Mock API calls at the network level
+<span class="k">3.</span> Test loading and error states
+
+<span class="gh"># Bad: Vague advice</span>
+Make sure to test your components properly.
+</code></pre></div>
+
+<p><strong>Include examples</strong>: Show, don't just tell.</p>
+<div class="codehilite"><pre><span></span><code><span class="gu">## Example: Testing a Form Component</span>
+
+```tsx
+test(&#39;submits form data&#39;, async () =&gt; {
+  render(&lt;ContactForm /&gt;);
+
+  await userEvent.type(screen.getByLabelText(&#39;Email&#39;), &#39;test@example.com&#39;);
+  await userEvent.click(screen.getByRole(&#39;button&#39;, { name: &#39;Submit&#39; }));
+
+  await waitFor(() =&gt; {
+    expect(mockSubmit).toHaveBeenCalledWith({ email: &#39;test@example.com&#39; });
+  });
+});
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>### Companion Files
+
+For complex skills, include additional resources:
+</code></pre></div>
+
+<p>my-skill/
+├── skill.md
+├── examples/
+│   ├── basic-usage.py
+│   └── advanced-patterns.py
+├── templates/
+│   └── project-structure/
+└── reference/
+    └── cheatsheet.md</p>
+<div class="codehilite"><pre><span></span><code>Reference these in your skill content:
+
+```markdown
+## Getting Started
+
+See `examples/basic-usage.py` for a minimal working example.
+
+For production patterns, refer to `examples/advanced-patterns.py`.
+</code></pre></div>
+
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Skills are loadable expertise</strong>: They inject domain knowledge into agents on demand, keeping base context lean while enabling deep specialization.</p>
+</li>
+<li>
+<p><strong>Discovery before loading</strong>: Use <code>list</code>, <code>search</code>, and <code>info</code> operations to find the right skill without consuming context unnecessarily.</p>
+</li>
+<li>
+<p><strong>Location determines scope</strong>: Workspace skills override user skills, enabling project-specific customization while maintaining personal defaults.</p>
+</li>
+<li>
+<p><strong>Focus on actionability</strong>: The best skills provide clear guidelines, decision frameworks, and concrete examples—not just reference information.</p>
+</li>
+<li>
+<p><strong>Companion files extend capabilities</strong>: Skills can include examples, templates, and reference materials that agents access via the <code>skill_directory</code> path.</p>
+</li>
+<li>
+<p><strong>Context is precious</strong>: Load skills judiciously. Each loaded skill consumes tokens that could be used for other context.</p>
+</li>
+</ol>
+<hr />
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="agents.html">Agents</a> - How agents use skills</li>
+<li><a href="bundles.html">Bundles</a> - Packaging skills with other components</li>
+<li><a href="architecture.html">Architecture</a> - System design and structure</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="recipes.html" class="btn btn-neutral float-left" title="Recipes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="hooks.html" class="btn btn-neutral float-right" title="Hooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="recipes.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="hooks.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

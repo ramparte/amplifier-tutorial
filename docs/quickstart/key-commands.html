@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Key Commands - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Key Commands";
+        var mkdocs_page_input_path = "quickstart/key-commands.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="key-commands.html">Key Commands</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#command-overview">Command Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-run">amplifier run</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#common-options">Common Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#advanced-options">Advanced Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-continue">amplifier continue</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_1">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use">When to Use</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#options">Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workflow-example">Workflow Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-resume">amplifier resume</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_2">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#interactive-session-selection">Interactive Session Selection</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#advanced-usage">Advanced Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-list">amplifier list</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_3">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filtering-options">Filtering Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amplifier-export">amplifier export</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage_4">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#export-formats">Export Formats</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#slash-commands">Slash Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#help-and-information">Help and Information</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#display-control">Display Control</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-management">Session Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#context-and-memory">Context and Memory</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#advanced-commands">Advanced Commands</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#examples_1">Examples</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips-and-best-practices">Tips and Best Practices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#session-management_1">Session Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#command-efficiency">Command Efficiency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#working-with-multiple-projects">Working with Multiple Projects</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debugging-issues">Debugging Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#keyboard-shortcuts">Keyboard Shortcuts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#continue-learning">Continue Learning</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#explore-tools">Explore Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#advanced-usage_1">Advanced Usage</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-reference-card">Quick Reference Card</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">Key Commands</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="key-commands">Key Commands<a class="headerlink" href="#key-commands" title="Permanent link">&para;</a></h1>
+<p>Essential commands for working with Amplifier CLI and managing your AI development sessions.</p>
+<h2 id="command-overview">Command Overview<a class="headerlink" href="#command-overview" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>amplifier run</code></td>
+<td>Start new session</td>
+<td>Beginning a new task or conversation</td>
+</tr>
+<tr>
+<td><code>amplifier continue</code></td>
+<td>Resume last session</td>
+<td>Pick up where you left off</td>
+</tr>
+<tr>
+<td><code>amplifier resume</code></td>
+<td>Pick specific session</td>
+<td>Return to any previous session</td>
+</tr>
+<tr>
+<td><code>amplifier list</code></td>
+<td>View all sessions</td>
+<td>See your session history</td>
+</tr>
+<tr>
+<td><code>amplifier export</code></td>
+<td>Export session</td>
+<td>Save conversation for sharing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="amplifier-run">amplifier run<a class="headerlink" href="#amplifier-run" title="Permanent link">&para;</a></h2>
+<p>Start a new Amplifier session with an initial instruction.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start with a prompt</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Create a REST API for user management&quot;</span>
+
+<span class="c1"># Start with empty prompt (interactive mode)</span>
+amplifier<span class="w"> </span>run
+</code></pre></div>
+
+<h3 id="common-options">Common Options<a class="headerlink" href="#common-options" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Specify an agent</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>foundation:explorer<span class="w"> </span><span class="s2">&quot;Analyze the codebase structure&quot;</span>
+
+<span class="c1"># Run with a specific model</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--model<span class="w"> </span>claude-3-5-sonnet-20241022<span class="w"> </span><span class="s2">&quot;Review code quality&quot;</span>
+
+<span class="c1"># Set working directory</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--dir<span class="w"> </span>/path/to/project<span class="w"> </span><span class="s2">&quot;Add unit tests&quot;</span>
+
+<span class="c1"># Load a skill before starting</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--skill<span class="w"> </span>python-standards<span class="w"> </span><span class="s2">&quot;Refactor this module&quot;</span>
+</code></pre></div>
+
+<h3 id="advanced-options">Advanced Options<a class="headerlink" href="#advanced-options" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Run in non-interactive mode (CI/CD)</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--non-interactive<span class="w"> </span><span class="s2">&quot;Run all tests&quot;</span>
+
+<span class="c1"># Set temperature for creativity</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--temperature<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="s2">&quot;Generate creative variable names&quot;</span>
+
+<span class="c1"># Enable debug logging</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--debug<span class="w"> </span><span class="s2">&quot;Investigate this bug&quot;</span>
+
+<span class="c1"># Use a specific configuration file</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--config<span class="w"> </span>custom-config.yaml<span class="w"> </span><span class="s2">&quot;Deploy to production&quot;</span>
+</code></pre></div>
+
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Set API key</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>your_key_here
+
+<span class="c1"># Set custom config location</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AMPLIFIER_CONFIG_PATH</span><span class="o">=</span>~/.config/amplifier/config.yaml
+
+<span class="c1"># Enable verbose logging</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AMPLIFIER_LOG_LEVEL</span><span class="o">=</span>debug
+</code></pre></div>
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Web development task</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Create a React component for user profile&quot;</span>
+
+<span class="c1"># Code review</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>foundation:bug-hunter<span class="w"> </span><span class="s2">&quot;Find security issues&quot;</span>
+
+<span class="c1"># Documentation</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Generate API documentation for all endpoints&quot;</span>
+
+<span class="c1"># Testing</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--agent<span class="w"> </span>foundation:test-coverage<span class="w"> </span><span class="s2">&quot;Add tests for auth module&quot;</span>
+</code></pre></div>
+
+<h2 id="amplifier-continue">amplifier continue<a class="headerlink" href="#amplifier-continue" title="Permanent link">&para;</a></h2>
+<p>Resume your most recent Amplifier session, picking up exactly where you left off.</p>
+<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Continue the last session</span>
+amplifier<span class="w"> </span><span class="k">continue</span>
+
+<span class="c1"># Continue with a new instruction</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="s2">&quot;Now add authentication to the API&quot;</span>
+</code></pre></div>
+
+<h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Quick iterations</strong>: You just closed a session and want to continue</li>
+<li><strong>Morning workflow</strong>: Resume yesterday's work without searching</li>
+<li><strong>Active development</strong>: Rapidly iterate on the current task</li>
+</ul>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Continue with different model</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span>--model<span class="w"> </span>claude-3-5-sonnet-20241022
+
+<span class="c1"># Continue with additional context</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span>--skill<span class="w"> </span>security-best-practices
+</code></pre></div>
+
+<h3 id="workflow-example">Workflow Example<a class="headerlink" href="#workflow-example" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Day 1: Start working on a feature</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Create user authentication system&quot;</span>
+<span class="c1"># ... work session ...</span>
+<span class="c1"># Exit with Ctrl+D</span>
+
+<span class="c1"># Day 2: Continue where you left off</span>
+amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="s2">&quot;Add password reset functionality&quot;</span>
+</code></pre></div>
+
+<h2 id="amplifier-resume">amplifier resume<a class="headerlink" href="#amplifier-resume" title="Permanent link">&para;</a></h2>
+<p>Select and resume any previous session from your history.</p>
+<h3 id="basic-usage_2">Basic Usage<a class="headerlink" href="#basic-usage_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Show list of sessions and pick one</span>
+amplifier<span class="w"> </span>resume
+
+<span class="c1"># Resume specific session by ID</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>abc123def456
+</code></pre></div>
+
+<h3 id="interactive-session-selection">Interactive Session Selection<a class="headerlink" href="#interactive-session-selection" title="Permanent link">&para;</a></h3>
+<p>When you run <code>amplifier resume</code> without a session ID, you'll see:</p>
+<div class="codehilite"><pre><span></span><code>Recent Sessions:
+1. [2 hours ago] &quot;Create REST API for user management&quot;
+2. [1 day ago] &quot;Add unit tests for authentication&quot;
+3. [2 days ago] &quot;Refactor database models&quot;
+4. [1 week ago] &quot;Setup CI/CD pipeline&quot;
+
+Select a session (1-4) or enter session ID:
+</code></pre></div>
+
+<h3 id="advanced-usage">Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Resume with filters</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>--agent<span class="w"> </span>foundation:bug-hunter
+amplifier<span class="w"> </span>resume<span class="w"> </span>--date<span class="w"> </span><span class="m">2024</span>-01-15
+amplifier<span class="w"> </span>resume<span class="w"> </span>--grep<span class="w"> </span><span class="s2">&quot;authentication&quot;</span>
+
+<span class="c1"># Resume and immediately add instruction</span>
+amplifier<span class="w"> </span>resume<span class="w"> </span>abc123<span class="w"> </span><span class="s2">&quot;Continue with the OAuth integration&quot;</span>
+</code></pre></div>
+
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Context switching</strong>: Return to a paused project</li>
+<li><strong>Code archaeology</strong>: Review past decisions and conversations</li>
+<li><strong>Learning</strong>: Revisit how you solved similar problems</li>
+<li><strong>Collaboration</strong>: Resume a session started by a teammate</li>
+</ul>
+<h2 id="amplifier-list">amplifier list<a class="headerlink" href="#amplifier-list" title="Permanent link">&para;</a></h2>
+<p>View and manage your session history.</p>
+<h3 id="basic-usage_3">Basic Usage<a class="headerlink" href="#basic-usage_3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># List all sessions</span>
+amplifier<span class="w"> </span>list
+
+<span class="c1"># List with details</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--verbose
+
+<span class="c1"># List recent sessions only</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--limit<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+
+<h3 id="filtering-options">Filtering Options<a class="headerlink" href="#filtering-options" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Filter by date</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;2024-01-01&quot;</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--until<span class="w"> </span><span class="s2">&quot;2024-01-31&quot;</span>
+
+<span class="c1"># Filter by agent</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--agent<span class="w"> </span>foundation:explorer
+
+<span class="c1"># Search by content</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--grep<span class="w"> </span><span class="s2">&quot;authentication&quot;</span>
+
+<span class="c1"># Filter by status</span>
+amplifier<span class="w"> </span>list<span class="w"> </span>--active
+amplifier<span class="w"> </span>list<span class="w"> </span>--completed
+</code></pre></div>
+
+<h2 id="amplifier-export">amplifier export<a class="headerlink" href="#amplifier-export" title="Permanent link">&para;</a></h2>
+<p>Export session transcripts for sharing, documentation, or archival.</p>
+<h3 id="basic-usage_4">Basic Usage<a class="headerlink" href="#basic-usage_4" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Export last session</span>
+amplifier<span class="w"> </span><span class="nb">export</span>
+
+<span class="c1"># Export specific session</span>
+amplifier<span class="w"> </span><span class="nb">export</span><span class="w"> </span>abc123def456
+
+<span class="c1"># Export to file</span>
+amplifier<span class="w"> </span><span class="nb">export</span><span class="w"> </span>abc123<span class="w"> </span>--output<span class="w"> </span>session-log.md
+</code></pre></div>
+
+<h3 id="export-formats">Export Formats<a class="headerlink" href="#export-formats" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Markdown (default)</span>
+amplifier<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>markdown
+
+<span class="c1"># JSON for processing</span>
+amplifier<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>json
+
+<span class="c1"># HTML for viewing</span>
+amplifier<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>html
+</code></pre></div>
+
+<h2 id="slash-commands">Slash Commands<a class="headerlink" href="#slash-commands" title="Permanent link">&para;</a></h2>
+<p>Special commands available during an active Amplifier session.</p>
+<h3 id="help-and-information">Help and Information<a class="headerlink" href="#help-and-information" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/help                 Show available slash commands
+/tools                List available tools and their capabilities
+/skills               Show loaded skills
+/context              Display current context information
+</code></pre></div>
+
+<h3 id="display-control">Display Control<a class="headerlink" href="#display-control" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/compact              Toggle compact mode (less verbose output)
+/verbose              Toggle verbose mode (more detailed output)
+/clear                Clear the terminal screen
+</code></pre></div>
+
+<h3 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/status               Show current session status
+/save                 Save session checkpoint
+/export               Export current session
+/quit                 Exit session (Ctrl+D also works)
+</code></pre></div>
+
+<h3 id="context-and-memory">Context and Memory<a class="headerlink" href="#context-and-memory" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/forget [topic]       Remove specific context from memory
+/summarize            Get summary of conversation so far
+/tokens               Show token usage statistics
+</code></pre></div>
+
+<h3 id="advanced-commands">Advanced Commands<a class="headerlink" href="#advanced-commands" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/agent [name]         Switch to a different agent
+/model [name]         Switch to a different model
+/temperature [0-1]    Adjust response creativity
+/skill [name]         Load additional skill
+</code></pre></div>
+
+<h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code># During a session
+You: Create a user authentication system
+AI: [creates authentication code]
+
+You: /compact
+# Output mode changed to compact
+
+You: /tools
+# Shows: bash, read_file, write_file, grep, etc.
+
+You: /skill security-best-practices
+# Loads security skill for additional guidance
+</code></pre></div>
+
+<h2 id="tips-and-best-practices">Tips and Best Practices<a class="headerlink" href="#tips-and-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="session-management_1">Session Management<a class="headerlink" href="#session-management_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Use descriptive prompts</strong>: Start sessions with clear, specific goals</li>
+<li><strong>Resume frequently</strong>: Don't hesitate to continue previous sessions</li>
+<li><strong>Export important sessions</strong>: Save key conversations for documentation</li>
+</ul>
+<h3 id="command-efficiency">Command Efficiency<a class="headerlink" href="#command-efficiency" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use aliases for common commands</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">amp</span><span class="o">=</span><span class="s1">&#39;amplifier&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ampr</span><span class="o">=</span><span class="s1">&#39;amplifier run&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ampc</span><span class="o">=</span><span class="s1">&#39;amplifier continue&#39;</span>
+
+<span class="c1"># Chain commands</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Setup project&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>amplifier<span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="s2">&quot;Add tests&quot;</span>
+</code></pre></div>
+
+<h3 id="working-with-multiple-projects">Working with Multiple Projects<a class="headerlink" href="#working-with-multiple-projects" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use project-specific scripts</span>
+<span class="nb">cd</span><span class="w"> </span>~/project-a<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Add feature X&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>~/project-b<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Fix bug Y&quot;</span>
+
+<span class="c1"># Or use --dir flag</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--dir<span class="w"> </span>~/project-a<span class="w"> </span><span class="s2">&quot;Add feature X&quot;</span>
+</code></pre></div>
+
+<h3 id="debugging-issues">Debugging Issues<a class="headerlink" href="#debugging-issues" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Enable verbose logging</span>
+amplifier<span class="w"> </span>run<span class="w"> </span>--debug<span class="w"> </span><span class="s2">&quot;Investigate this error&quot;</span>
+
+<span class="c1"># Check configuration</span>
+amplifier<span class="w"> </span>config<span class="w"> </span>show
+
+<span class="c1"># Verify installation</span>
+amplifier<span class="w"> </span>version
+amplifier<span class="w"> </span>doctor
+</code></pre></div>
+
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+D</code></td>
+<td>Exit session gracefully</td>
+</tr>
+<tr>
+<td><code>Ctrl+C</code></td>
+<td>Interrupt current operation</td>
+</tr>
+<tr>
+<td><code>Ctrl+L</code></td>
+<td>Clear screen (same as /clear)</td>
+</tr>
+<tr>
+<td><code>Up/Down</code></td>
+<td>Navigate command history</td>
+</tr>
+<tr>
+<td><code>Tab</code></td>
+<td>Auto-complete (if available)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h3 id="continue-learning">Continue Learning<a class="headerlink" href="#continue-learning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="first-conversation.html">First Conversation</a></strong>: Practice with your first Amplifier session</li>
+<li><strong><a href="../concepts/agents.html">Agent System</a></strong>: Understand specialized agents</li>
+<li><strong><a href="../concepts/bundles.html">Bundles</a></strong>: Extend with custom capabilities</li>
+</ul>
+<h3 id="explore-tools">Explore Tools<a class="headerlink" href="#explore-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../tools/task.html">Task Tool</a></strong>: Launch specialized sub-agents</li>
+<li><strong><a href="../tools/recipes-tool.html">Recipe System</a></strong>: Automate multi-step workflows</li>
+<li><strong><a href="../tools/filesystem.html">File Operations</a></strong>: Master file manipulation</li>
+</ul>
+<h3 id="advanced-usage_1">Advanced Usage<a class="headerlink" href="#advanced-usage_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../concepts/skills.html">Skills</a></strong>: Load domain expertise</li>
+<li><strong><a href="../advanced/index.html">Advanced Topics</a></strong>: Custom bundles, recipes, and tools</li>
+<li><strong><a href="../concepts/index.html">Concepts</a></strong>: Deep understanding of Amplifier architecture</li>
+</ul>
+<h2 id="quick-reference-card">Quick Reference Card<a class="headerlink" href="#quick-reference-card" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start new session</span>
+amplifier<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Your instruction here&quot;</span>
+
+<span class="c1"># Continue last session</span>
+amplifier<span class="w"> </span><span class="k">continue</span>
+
+<span class="c1"># Pick any session</span>
+amplifier<span class="w"> </span>resume
+
+<span class="c1"># List all sessions</span>
+amplifier<span class="w"> </span>list
+
+<span class="c1"># Get help</span>
+amplifier<span class="w"> </span>--help
+amplifier<span class="w"> </span>run<span class="w"> </span>--help
+
+<span class="c1"># During session</span>
+/help<span class="w">        </span><span class="c1"># Show commands</span>
+/tools<span class="w">       </span><span class="c1"># List tools</span>
+/compact<span class="w">     </span><span class="c1"># Toggle output mode</span>
+Ctrl+D<span class="w">       </span><span class="c1"># Exit</span>
+</code></pre></div>
+
+<hr />
+<p><strong>Need Help?</strong> Run <code>amplifier --help</code> for command documentation or visit the <a href="https://amplifier.dev">documentation site</a> for comprehensive guides.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="first-conversation.html" class="btn btn-neutral float-left" title="Your First Conversation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="first-bundle.html" class="btn btn-neutral float-right" title="Your First Bundle">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="first-conversation.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="first-bundle.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

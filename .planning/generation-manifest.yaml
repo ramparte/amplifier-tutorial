@@ -1,0 +1,210 @@
+# Tutorial Generation Manifest
+# Tracks what was generated, when, and from what sources
+# Updated automatically by the update-tutorial.yaml recipe
+
+meta:
+  version: "1.0.0"
+  last_full_run: "2026-01-09T15:59:03"
+  last_partial_run: null
+
+# Generation history by content type
+# Each entry tracks: generated_at, source_commit, warnings, fallback_used
+generations:
+  tools:
+    tool-filesystem:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-bash:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-web:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-search:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-task:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-lsp:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+    tool-recipes:
+      generated_at: "2026-01-09T15:59:03"
+      status: fallback
+      fallback_used: true
+  bundles:
+    foundation:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    recipes:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    design-intelligence:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    lsp-python:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+  concepts:
+    agents:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/agents.md
+    bundles:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/bundles.md
+    modules:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/modules.md
+    recipes:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/recipes.md
+    skills:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/skills.md
+    hooks:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/hooks.md
+    architecture:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+      file: content/concepts/architecture.md
+  quickstart:
+    what-is-amplifier:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    how-its-different:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    installation:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    first-conversation:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    key-commands:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+    first-bundle:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+      fallback_used: true
+  skills: {}
+  advanced: {}
+  dev-setup: {}
+  indexes:
+    tools:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    bundles:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    concepts:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    quickstart:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    skills:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    advanced:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+    dev-setup:
+      generated_at: "2026-01-09T15:59:03"
+      status: generated
+
+# Files that failed generation and fell back to previous version
+fallbacks:
+  - section: tools
+    items:
+      - tool-filesystem
+      - tool-bash
+      - tool-web
+      - tool-search
+      - tool-task
+      - tool-lsp
+      - tool-recipes
+  - section: bundles
+    items:
+      - foundation
+      - recipes
+      - design-intelligence
+      - lsp-python
+  - section: concepts
+    items:
+      - agents
+      - bundles
+      - modules
+      - recipes
+      - skills
+      - hooks
+      - architecture
+  - section: quickstart
+    items:
+      - what-is-amplifier
+      - how-its-different
+      - installation
+      - first-conversation
+      - key-commands
+      - first-bundle
+
+# Warnings from last run
+warnings:
+  - source: tools
+    message: "Recipe execution unavailable in sub-session context (no agent spawning). All existing tutorial pages verified and used as fallbacks - they meet all requirements."
+  - source: bundles
+    message: "Recipe execution blocked: session spawning capability not available in sub-session context. Existing bundle pages used as fallbacks."
+  - source: concepts
+    message: "Recipe execution failed: session.spawn capability not available in sub-session context"
+  - source: concepts
+    message: "All pages generated using direct fallback approach"
+  - source: concepts
+    message: "Supplements incorporated for agents and architecture concepts"
+  - source: quickstart
+    message: "Recipe execution unavailable in sub-sessions (no session.spawn capability) - used direct generation fallback for all pages"
+  - source: indexes
+    message: "Recipe execution unavailable in sub-session - performed manual index generation instead"
+
+# Git-based change detection
+# Maps source repos to last-checked commit
+source_commits:
+  microsoft/amplifier: null
+  microsoft/amplifier-core: null
+  microsoft/amplifier-foundation: null
+  microsoft/amplifier-bundle-recipes: null
+  microsoft/amplifier-bundle-lsp: null
+  microsoft/amplifier-bundle-lsp-python: null
+  microsoft/amplifier-bundle-design-intelligence: null
+  robotdad/skills: null
+  bkrabach/amplifier-cli-tools: null
+  bkrabach/amplifier-shadow: null
