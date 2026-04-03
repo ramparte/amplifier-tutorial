@@ -6,295 +6,263 @@ title: "Understanding Recipes"
 
 # Understanding Recipes
 
-Recipes are declarative YAML specifications that define multi-step AI agent workflows. They provide a structured way to orchestrate complex tasks that require multiple sequential or parallel operations, with built-in support for state persistence, error handling, and human approval gates.
+Recipes are declarative YAML specifications that define multi-step agent workflows. They let you orchestrate complex tasks that require multiple sequential or parallel operations, with built-in support for state persistence, checkpointing, and human approval gates.
 
 ## What is a Recipe?
 
-A recipe is essentially a blueprint for AI-assisted work. Rather than manually guiding an agent through each step of a complex process, you define the entire workflow upfront in a YAML file. The recipe system then executes each step in order, passing context between steps and handling failures gracefully.
+A recipe is a blueprint for AI-assisted work. Rather than manually guiding an agent through each step of a complex process, you define the entire workflow upfront in a YAML file. The recipe system executes each step in order, passing context between steps and handling failures gracefully.
 
-Think of recipes like cooking recipes: they specify ingredients (context), steps (operations), and expected outcomes. Just as a cooking recipe ensures consistent results regardless of who follows it, an agent recipe ensures consistent, reproducible workflows.
+- **Declarative**: You specify *what* should happen, not *how*. The executor handles sequencing, context management, and error recovery.
+- **Stateful**: Each step's output is stored in context and available to every subsequent step.
+- **Resumable**: If a recipe is interrupted, it resumes from the last successful checkpoint. No work is lost.
+- **Composable**: Recipes can invoke other recipes as sub-workflows, enabling modular, reusable components.
 
-### Core Characteristics
+## How It Works
 
-**Declarative**: You specify *what* should happen, not *how* to do it. The recipe executor handles the mechanics of step execution, context management, and error recovery.
-
-**Sequential with State**: Each step can access the accumulated context from all previous steps. This creates a natural flow where early steps gather information that later steps act upon.
-
-**Resumable**: If a recipe is interrupted (network failure, timeout, manual stop), it can be resumed from the last successful checkpoint. No work is lost.
-
-**Composable**: Recipes can be simple (3-4 steps) or complex (dozens of steps with conditional branching). You build what you need.
-
-## When to Use Recipes
-
-Recipes shine in scenarios where manual orchestration would be tedious, error-prone, or inconsistent.
-
-### Ideal Use Cases
-
-**Code Review Workflows**: A recipe can analyze code changes, check for security issues, verify test coverage, and generate a comprehensive review report - all in one automated flow.
-
-**Research and Synthesis**: Gather information from multiple sources, analyze patterns, synthesize findings, and produce a structured report.
-
-**Multi-Stage Deployments**: Validate configuration, run tests, build artifacts, deploy to staging, run smoke tests, and optionally promote to production.
-
-**Document Generation**: Analyze a codebase, extract documentation, generate API references, and compile everything into a cohesive document.
-
-**Refactoring Operations**: Analyze current code, identify patterns to change, plan modifications, execute changes across files, and verify results.
-
-### When NOT to Use Recipes
-
-- **Simple one-shot tasks**: If a single agent call suffices, skip the recipe overhead
-- **Highly interactive work**: Recipes are designed for autonomous execution, not back-and-forth conversation
-- **Exploratory tasks**: When you don't know the steps upfront, manual guidance is better
-
-## Recipe Structure
-
-A recipe file has a clear structure with metadata, context, and steps.
-
-### Basic Anatomy
+A recipe file has a straightforward structure: metadata at the top, optional context variables, and an ordered list of steps.
 
 ```yaml
-# Recipe metadata
-name: code-review
-description: Comprehensive code review workflow
-version: "1.0"
+name: "code-review"
+description: "Analyze code for security and quality issues"
+version: "1.0.0"
 
-# Input context (variables passed at execution time)
 context:
-  required:
-    - file_path    # Path to file being reviewed
-  optional:
-    - focus_areas  # Specific areas to emphasize
+  file_path: "src/auth.py"
 
-# The workflow steps
 steps:
-  - name: analyze-structure
-    agent: foundation:explorer
+  - id: "analyze"
+    agent: "foundation:explorer"
+    prompt: "Analyze the structure and patterns in {{file_path}}"
+    output: "analysis"
+
+  - id: "security-check"
+    agent: "foundation:security-guardian"
     prompt: |
-      Analyze the structure of {{ file_path }}.
-      Identify key components, dependencies, and patterns.
+      Review {{file_path}} for security vulnerabilities.
+      Previous analysis: {{analysis}}
+    output: "security_findings"
 
-  - name: security-check
-    agent: foundation:security-guardian
+  - id: "report"
+    agent: "foundation:zen-architect"
     prompt: |
-      Review {{ file_path }} for security vulnerabilities.
-      Previous analysis: {{ steps.analyze-structure.result }}
-
-  - name: generate-report
-    agent: foundation:file-ops
-    prompt: |
-      Generate a code review report based on:
-      - Structure analysis: {{ steps.analyze-structure.result }}
-      - Security findings: {{ steps.security-check.result }}
+      Generate a review report combining:
+      - Structure analysis: {{analysis}}
+      - Security findings: {{security_findings}}
+    output: "final_report"
 ```
 
-### Key Elements
+### Context Flow Between Steps
 
-**name**: A unique identifier for the recipe. Used for execution and logging.
+The `{{variable}}` syntax is how data moves through a recipe. When a step declares `output: "analysis"`, its result becomes available to every later step as `{{analysis}}`. Context comes from step outputs, the top-level `context` block, and built-in variables like `{{recipe.name}}` and `{{session.id}}`. If a referenced variable doesn't exist at runtime, the recipe fails immediately with a clear error.
 
-**description**: Human-readable explanation of what the recipe does.
+## Using Recipes
 
-**context**: Defines inputs the recipe expects. Required context must be provided at execution time; optional context has defaults or can be omitted.
+### Running a Recipe
 
-**steps**: The ordered list of operations to execute. Each step has a name, an agent to invoke, and a prompt template.
+To execute a recipe, ask Amplifier to run it. Recipes can live in bundles or as local files:
 
-## Steps and Context
+> Run the code review recipe on src/auth.py
 
-Steps are the building blocks of recipes. Each step represents a discrete unit of work performed by an agent.
+Behind the scenes, the recipe tool supports these operations:
 
-### Step Definition
+| Operation | Purpose |
+|-----------|---------|
+| `execute` | Run a recipe from a YAML file |
+| `resume` | Resume an interrupted session |
+| `list` | List active recipe sessions |
+| `validate` | Check a recipe for errors without running it |
+| `cancel` | Cancel a running session |
+
+Recipes are referenced by path. Bundle recipes use the `@bundle:path` format (e.g., `@recipes:examples/code-review.yaml`), while local recipes use filesystem paths.
+
+### Step Types
+
+Not every step needs an LLM. Recipes support three step types:
+
+**Agent steps** (default) spawn an LLM agent with a prompt:
 
 ```yaml
-steps:
-  - name: step-identifier        # Unique name within recipe
-    agent: foundation:explorer   # Agent to invoke
-    prompt: |                    # Instructions for the agent
-      Your task description here.
-      You can reference context: {{ variable_name }}
-      And previous results: {{ steps.previous-step.result }}
+- id: "analyze"
+  agent: "foundation:zen-architect"
+  prompt: "Analyze the architecture of {{file_path}}"
+  output: "analysis"
 ```
 
-### Context Flow
-
-Context flows through recipes in a predictable way:
-
-1. **Initial Context**: Variables provided at recipe execution
-2. **Step Results**: Each step's output is stored and accessible to later steps
-3. **Accumulated State**: Later steps have access to all prior results
+**Bash steps** execute shell commands directly, with no LLM overhead:
 
 ```yaml
-# Step 1 receives initial context
-- name: gather-info
-  prompt: "Analyze {{ target_directory }}"  # target_directory from initial context
-
-# Step 2 receives initial context + step 1 results
-- name: process-info
-  prompt: |
-    Based on: {{ steps.gather-info.result }}
-    Process the information...
-
-# Step 3 receives everything
-- name: synthesize
-  prompt: |
-    Original target: {{ target_directory }}
-    Gathered info: {{ steps.gather-info.result }}
-    Processed info: {{ steps.process-info.result }}
+- id: "run-tests"
+  type: "bash"
+  command: "npm test"
+  output: "test_output"
 ```
 
-### Template Syntax
-
-Recipes use Jinja2-style templating for dynamic content:
-
-- `{{ variable }}`: Insert a context variable
-- `{{ steps.step-name.result }}`: Insert a previous step's result
-- `{{ context.required_var }}`: Explicitly reference required context
-
-### Step Options
-
-Steps support additional configuration:
+**Recipe steps** invoke another recipe as a sub-workflow:
 
 ```yaml
-- name: critical-operation
-  agent: foundation:modular-builder
-  prompt: "Implement the feature..."
-  
-  # Error handling
-  on_error: continue    # Options: fail (default), continue, retry
-  max_retries: 3        # For retry strategy
-  
-  # Timeouts
-  timeout: 300          # Seconds before timeout
-  
-  # Conditional execution
-  when: "{{ steps.validation.result.passed }}"
+- id: "security-audit"
+  type: "recipe"
+  recipe: "audits/security-audit.yaml"
+  context:
+    target_file: "{{file_path}}"
+  output: "audit_result"
 ```
 
-## Approval Gates
+Sub-recipes receive only the context you explicitly pass to them. This isolation prevents accidental data leakage and makes each sub-recipe predictable and testable on its own.
 
-For workflows that require human oversight, recipes support approval gates. These pause execution at critical points, allowing humans to review progress before continuing.
+### Conditional Execution
 
-### Staged Recipes
-
-Approval gates are implemented through staged recipes - recipes divided into stages that require explicit approval between them.
+Steps can be skipped based on runtime conditions:
 
 ```yaml
-name: production-deployment
-description: Deploy to production with approval gates
+- id: "critical-fix"
+  condition: "{{severity}} == 'critical'"
+  agent: "foundation:zen-architect"
+  prompt: "Fix critical issues in {{file_path}}"
+```
+
+Conditions support `==`, `!=`, `<`, `>`, `<=`, `>=`, along with `and`, `or`, `not`, and parentheses for grouping.
+
+### Iteration with Foreach
+
+Process collections by iterating over list variables:
+
+```yaml
+- id: "discover-files"
+  agent: "foundation:explorer"
+  prompt: "List all Python files in {{directory}}"
+  output: "files"
+
+- id: "analyze-each"
+  foreach: "{{files}}"
+  as: "current_file"
+  agent: "foundation:zen-architect"
+  prompt: "Analyze {{current_file}} for issues"
+  collect: "all_analyses"
+```
+
+The `collect` field gathers all iteration results into a list. Without it, `output` holds only the last iteration's result. Add `parallel: true` to run iterations concurrently, or `parallel: 5` for bounded concurrency.
+
+### While Loops
+
+For convergence-based workflows where you don't know iteration count upfront, use `while_condition`:
+
+```yaml
+- id: "refine"
+  agent: "foundation:zen-architect"
+  prompt: "Refine the design. Current state: {{draft}}"
+  output: "refined"
+  while_condition: "{{quality_score}} < 8"
+  max_while_iterations: 10
+  update_context:
+    draft: "{{refined}}"
+    quality_score: "{{refined.score}}"
+  break_when: "{{quality_score}} >= 8"
+```
+
+The loop evaluates `while_condition` before each iteration, executes the step, applies `update_context` to mutate state, then checks `break_when` for early exit.
+
+## Staged Recipes and Approval Gates
+
+For high-stakes workflows that need human oversight, recipes support **staged mode** with approval gates. Instead of a flat `steps` list, you organize work into `stages`, each with an optional approval checkpoint.
+
+```yaml
+name: "production-deploy"
+description: "Deploy with human approval gates"
+version: "1.0.0"
 
 stages:
-  - name: preparation
+  - name: "validation"
     steps:
-      - name: validate-config
-        agent: foundation:explorer
-        prompt: "Validate deployment configuration..."
-      
-      - name: run-tests
-        agent: foundation:test-coverage
-        prompt: "Execute full test suite..."
+      - id: "check-config"
+        agent: "foundation:explorer"
+        prompt: "Validate deployment configuration"
+        output: "validation_result"
+    approval:
+      required: true
+      prompt: "Validation complete: {{validation_result}}. Proceed to deploy?"
+      timeout: 3600
+      default: "deny"
 
-  - name: staging-deployment
-    approval_required: true
-    approval_message: |
-      Preparation complete. Test results:
-      {{ steps.run-tests.result }}
-      
-      Approve to deploy to staging?
+  - name: "deployment"
     steps:
-      - name: deploy-staging
-        agent: foundation:modular-builder
-        prompt: "Deploy to staging environment..."
-
-  - name: production-release
-    approval_required: true
-    approval_message: |
-      Staging deployment successful.
-      Approve production release?
-    steps:
-      - name: deploy-production
-        agent: foundation:modular-builder
-        prompt: "Deploy to production..."
+      - id: "deploy"
+        type: "bash"
+        command: "deploy.sh --env production"
+        output: "deploy_result"
 ```
 
-### Approval Workflow
+When execution reaches an approval gate, it pauses and returns a `paused_for_approval` status. Use `approvals` to list pending gates, `approve` or `deny` to respond (with an optional message or reason), then `resume` to continue. The approval message is available to subsequent steps as `{{_approval_message}}`, letting you pass human guidance into the workflow.
 
-1. Recipe executes until it hits a stage with `approval_required: true`
-2. Execution pauses and the approval message is displayed
-3. Human reviews the state and either approves or denies
-4. On approval: execution continues to the next stage
-5. On denial: execution stops with the provided reason
+A recipe must use either `steps` (flat mode) or `stages` (staged mode), not both. Start with flat mode for simplicity and upgrade to staged mode when human oversight becomes necessary.
 
-### Managing Approvals
+## Creating Your Own
 
-```bash
-# List pending approvals across all sessions
-amp recipes approvals
+Every recipe needs `name`, `description`, and `version` (semver format). Add `context` for input variables and `steps` for the workflow. Before running, validate your recipe to catch errors early:
 
-# Approve a pending stage
-amp recipes approve --session-id <id> --stage-name staging-deployment
+> Validate my recipe at ./recipes/my-workflow.yaml
 
-# Deny with reason
-amp recipes deny --session-id <id> --stage-name production-release \
-  --reason "Test coverage below threshold"
-```
+The validator checks structure, step ID uniqueness, variable references, and dependency ordering.
 
-### Use Cases for Approval Gates
+### Error Handling
 
-- **Production deployments**: Human sign-off before going live
-- **Data migrations**: Review migration plan before execution
-- **Bulk operations**: Approve after seeing what will be affected
-- **Compliance workflows**: Required human verification for audit trails
-
-## Advanced Features
-
-### Foreach Loops
-
-Execute steps for each item in a collection:
+Each step supports error handling configuration:
 
 ```yaml
-- name: process-files
-  foreach: "{{ discovered_files }}"
-  as: current_file
-  steps:
-    - name: analyze
-      agent: foundation:explorer
-      prompt: "Analyze {{ current_file }}..."
+- id: "optional-check"
+  agent: "foundation:explorer"
+  prompt: "Run optional validation"
+  on_error: "continue"     # Don't fail the whole recipe
+  timeout: 300             # 5 minute timeout
+  retry:
+    max_attempts: 3
+    backoff: "exponential"
 ```
 
-### Conditional Steps
+The `on_error` field accepts `"fail"` (default), `"continue"` (log and move on), or `"skip_remaining"` (stop without marking as failure).
 
-Skip steps based on conditions:
+### Where Recipes Live
 
-```yaml
-- name: security-scan
-  when: "{{ context.security_required }}"
-  agent: foundation:security-guardian
-  prompt: "Perform security scan..."
-```
+| Location | Format | Use Case |
+|----------|--------|----------|
+| Bundle | `@recipes:path/name.yaml` | Shared, versioned workflows |
+| Workspace | `./recipes/name.yaml` | Project-specific workflows |
+| Absolute path | `/path/to/recipe.yaml` | One-off or testing |
 
-### Error Recovery
+## Best Practices
 
-Configure how failures are handled:
+**Keep steps focused.** Each step should have a single, clear purpose. A step named "analyze-and-fix-and-report" is doing too much. Split it into three steps that pass context between them.
 
-```yaml
-- name: optional-optimization
-  agent: foundation:zen-architect
-  prompt: "Optimize if possible..."
-  on_error: continue  # Don't fail the whole recipe
-```
+**Name outputs descriptively.** Use `output: "security_findings"` rather than `output: "result"`. Later steps read more naturally: `{{security_findings}}` vs `{{result}}`.
+
+**Use bash steps for deterministic work.** Running tests, installing dependencies, or fetching data with `curl` don't need an LLM. Bash steps are faster and more predictable.
+
+**Start flat, add stages when needed.** Begin with simple sequential steps. Add approval gates only when your workflow genuinely needs human checkpoints. Changing from flat to staged mode is a breaking change (major version bump).
+
+**Use recipes for repeatable workflows, not ad-hoc tasks.** If you're exploring something interactively or running a one-shot task, direct agent conversation is simpler. Recipes shine when you'll run the same multi-step process repeatedly with different inputs.
+
+**Test sub-recipes independently.** Because sub-recipes receive only explicitly passed context, each one should work on its own. This makes debugging and iteration much faster.
 
 ## Key Takeaways
 
-1. **Recipes are declarative workflows**: Define what you want, not how to do it. The recipe system handles execution mechanics.
+1. **Recipes are declarative workflows**: Define steps in YAML, and the executor handles sequencing, state management, and error recovery.
 
-2. **State flows automatically**: Each step can access all previous results. No manual state management required.
+2. **Context flows automatically**: Each step's output becomes a variable available to all subsequent steps via `{{variable_name}}` syntax.
 
-3. **Resumability is built-in**: Interrupted recipes can be resumed. Checkpointing happens automatically.
+3. **Three step types cover all needs**: Agent steps for reasoning, bash steps for deterministic commands, recipe steps for composing sub-workflows.
 
-4. **Approval gates enable human oversight**: For critical workflows, pause and require human approval before proceeding.
+4. **Resumability is built-in**: Automatic checkpointing means interrupted recipes resume from the last successful step, not from scratch.
 
-5. **Start simple, grow as needed**: Begin with linear sequences of steps. Add stages, conditions, and loops only when your workflow demands it.
+5. **Approval gates enable human oversight**: Staged recipes pause at approval gates, letting humans review progress before critical operations proceed.
 
-6. **Recipes are reusable**: Once defined, a recipe can be executed repeatedly with different inputs. Build a library of workflows for common tasks.
+6. **Iteration handles collections**: Foreach loops process lists with optional parallelism; while loops handle convergence-based workflows.
 
-7. **Think in discrete steps**: Each step should have a clear, focused purpose. Avoid monolithic steps that try to do everything.
+7. **Recipes vs direct conversation**: Use recipes for repeatable multi-step processes. Use direct agent interaction for exploratory or one-shot work.
 
-Recipes transform complex, multi-step processes into repeatable, reliable workflows. They bridge the gap between manual agent interaction and fully automated pipelines, giving you control over the workflow design while letting AI handle the execution.
+---
+
+## Related Concepts
+
+- [Agents](./agents.md) - The agents that execute recipe steps
+- [Bundles](./bundles.md) - How recipes are packaged and distributed
+- [Modules](./modules.md) - The module system that recipes build upon

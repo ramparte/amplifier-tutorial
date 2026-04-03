@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Model Routing - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Model Routing";
+        var mkdocs_page_input_path = "concepts/routing.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="routing.html">Model Routing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-routing-matrix">The Routing Matrix</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-13-roles">The 13 Roles</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#foundation">Foundation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#coding">Coding</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cognitive">Cognitive</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#capability">Capability</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#operational">Operational</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fallback-chains">Fallback Chains</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-roles-in-agents">Using Roles in Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#in-delegate-calls">In Delegate Calls</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#matrix-configuration">Matrix Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#model-tiers">Model Tiers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reasoning-effort">Reasoning Effort</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choosing-the-right-role">Choosing the Right Role</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-youve-learned">What You've Learned</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Model Routing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="model-routing">Model Routing<a class="headerlink" href="#model-routing" title="Permanent link">&para;</a></h1>
+<p>Every task has an ideal model. A quick file rename doesn't need the same
+horsepower as a multi-step architectural redesign. Model routing is the system
+that automatically matches each task to the right model -- so you get speed
+where speed matters and depth where depth matters, without thinking about it.</p>
+<h2 id="the-routing-matrix">The Routing Matrix<a class="headerlink" href="#the-routing-matrix" title="Permanent link">&para;</a></h2>
+<p>At the heart of model routing is the <strong>routing matrix</strong> -- a configuration that
+maps abstract <em>roles</em> to concrete <em>models</em>. You never hard-code "use GPT-4" or
+"use Claude Sonnet." Instead, you declare what <em>kind</em> of work you're doing, and
+the matrix resolves it to the best available model.</p>
+<div class="codehilite"><pre><span></span><code>You: &quot;Rename all .jsx files to .tsx&quot;
+  [role: fast]  →  matrix lookup  →  Flash-tier model  →  done in 2s
+
+You: &quot;Design a plugin architecture for this auth system&quot;
+  [role: reasoning]  →  matrix lookup  →  Heavy-tier, extra-high reasoning  →  deep analysis
+</code></pre></div>
+
+<p>This separation means you can swap models, upgrade providers, or tune cost
+profiles -- all without changing a single agent definition.</p>
+<h2 id="the-13-roles">The 13 Roles<a class="headerlink" href="#the-13-roles" title="Permanent link">&para;</a></h2>
+<p>Amplifier defines 13 model roles organized into five categories. Each role is a
+semantic declaration of intent, not a model name.</p>
+<h3 id="foundation">Foundation<a class="headerlink" href="#foundation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Personality</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>general</code></td>
+<td>The explorer -- versatile, no specialization needed</td>
+<td>Default catch-all; conversation, planning, coordination</td>
+</tr>
+<tr>
+<td><code>fast</code></td>
+<td>The file clerk -- quick utility tasks</td>
+<td>Parsing, classification, file ops, bulk transforms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="coding">Coding<a class="headerlink" href="#coding" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Personality</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>coding</code></td>
+<td>The bug hunter -- implementation specialist</td>
+<td>Code generation, debugging, refactoring</td>
+</tr>
+<tr>
+<td><code>ui-coding</code></td>
+<td>The pixel whisperer -- spatial reasoning</td>
+<td>Frontend components, layouts, styling, CSS</td>
+</tr>
+<tr>
+<td><code>security-audit</code></td>
+<td>The paranoid reviewer -- attack surface analysis</td>
+<td>Vulnerability assessment, code auditing, threat modeling</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cognitive">Cognitive<a class="headerlink" href="#cognitive" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Personality</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reasoning</code></td>
+<td>The zen architect -- deep multi-step analysis</td>
+<td>System design, complex tradeoffs, architectural decisions</td>
+</tr>
+<tr>
+<td><code>critique</code></td>
+<td>The devil's advocate -- finding flaws</td>
+<td>Evaluating existing work, reviewing plans, poking holes</td>
+</tr>
+<tr>
+<td><code>creative</code></td>
+<td>The art director -- aesthetic judgment</td>
+<td>Design direction, creative output, visual concepts</td>
+</tr>
+<tr>
+<td><code>writing</code></td>
+<td>The storyteller -- long-form content</td>
+<td>Documentation, marketing copy, case studies, tutorials</td>
+</tr>
+<tr>
+<td><code>research</code></td>
+<td>The detective -- deep investigation</td>
+<td>Information synthesis, multi-source analysis, fact-finding</td>
+</tr>
+</tbody>
+</table>
+<h3 id="capability">Capability<a class="headerlink" href="#capability" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Personality</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vision</code></td>
+<td>The observer -- understanding visual input</td>
+<td>Screenshots, diagrams, UI mockups, image analysis</td>
+</tr>
+<tr>
+<td><code>image-gen</code></td>
+<td>The illustrator -- creating visual output</td>
+<td>Image generation, mockups, visual ideation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operational">Operational<a class="headerlink" href="#operational" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Personality</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>critical-ops</code></td>
+<td>The mission controller -- high-reliability tasks</td>
+<td>Infrastructure changes, orchestration, coordination</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fallback-chains">Fallback Chains<a class="headerlink" href="#fallback-chains" title="Permanent link">&para;</a></h2>
+<p>Not every model supports every role. When the matrix can't find a model for your
+requested role, it walks a <strong>fallback chain</strong> -- trying each role left-to-right
+until one resolves.</p>
+<div class="codehilite"><pre><span></span><code>Requested: ui-coding
+Chain:     [ui-coding, coding, general]
+
+Step 1: ui-coding  →  no model configured?  →  try next
+Step 2: coding     →  found! Use this model
+</code></pre></div>
+
+<p>The chains are designed so specialized roles degrade gracefully into broader
+ones:</p>
+<table>
+<thead>
+<tr>
+<th>Starting Role</th>
+<th>Fallback Chain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ui-coding</code></td>
+<td>ui-coding → coding → general</td>
+</tr>
+<tr>
+<td><code>security-audit</code></td>
+<td>security-audit → coding → general</td>
+</tr>
+<tr>
+<td><code>critique</code></td>
+<td>critique → reasoning → general</td>
+</tr>
+<tr>
+<td><code>creative</code></td>
+<td>creative → writing → general</td>
+</tr>
+<tr>
+<td><code>research</code></td>
+<td>research → reasoning → general</td>
+</tr>
+<tr>
+<td><code>image-gen</code></td>
+<td>image-gen <em>(no fallback -- capability required)</em></td>
+</tr>
+<tr>
+<td><code>vision</code></td>
+<td>vision <em>(no fallback -- capability required)</em></td>
+</tr>
+<tr>
+<td><code>general</code></td>
+<td>general <em>(terminal -- always configured)</em></td>
+</tr>
+</tbody>
+</table>
+<p>Notice that capability roles like <code>vision</code> and <code>image-gen</code> have no fallback.
+You can't approximate image generation with a text model. If the capability
+isn't available, the request fails explicitly rather than silently degrading.</p>
+<h2 id="using-roles-in-agents">Using Roles in Agents<a class="headerlink" href="#using-roles-in-agents" title="Permanent link">&para;</a></h2>
+<p>You declare what role an agent needs in its frontmatter with <code>model_role</code>:</p>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: code-reviewer
+  description: &quot;Reviews code for quality and security issues.&quot;
+<span class="gu">model_role: critique</span>
+<span class="gu">---</span>
+
+<span class="gh"># Code Reviewer</span>
+
+You are a code review specialist. Analyze the code for...
+</code></pre></div>
+
+<p>When this agent runs, the routing matrix resolves <code>critique</code> to whatever model
+is configured for analytical evaluation in the active matrix.</p>
+<h3 id="in-delegate-calls">In Delegate Calls<a class="headerlink" href="#in-delegate-calls" title="Permanent link">&para;</a></h3>
+<p>When Amplifier delegates to an agent, the role travels with the delegation:</p>
+<blockquote>
+<p>Review auth.py for security issues and suggest hardening measures.</p>
+</blockquote>
+<p>[Tool: delegate] agent="foundation:code-reviewer", instruction="Review src/auth.py for security vulnerabilities, injection risks, and authentication bypasses."</p>
+<p>The delegate tool reads <code>model_role: critique</code> from the agent's frontmatter and
+routes the sub-session to the appropriate model. You don't specify the model --
+the agent's definition carries its own routing preference.</p>
+<h2 id="matrix-configuration">Matrix Configuration<a class="headerlink" href="#matrix-configuration" title="Permanent link">&para;</a></h2>
+<p>The routing matrix is configured in your bundle's YAML or at the global settings
+level. Amplifier ships with a <code>balanced</code> matrix as the default:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">balanced</span>
+</code></pre></div>
+
+<p>Matrices define which model tier handles each role:</p>
+<div class="codehilite"><pre><span></span><code>Matrix: balanced
+┌─────────────────┬──────────┬───────────┐
+│ Role            │ Tier     │ Reasoning │
+├─────────────────┼──────────┼───────────┤
+│ general         │ Mid      │ default   │
+│ fast            │ Flash    │ default   │
+│ coding          │ Mid      │ high      │
+│ ui-coding       │ Mid      │ high      │
+│ security-audit  │ Heavy    │ high      │
+│ reasoning       │ Heavy    │ extra-high│
+│ critique        │ Heavy    │ high      │
+│ creative        │ Mid      │ high      │
+│ writing         │ Mid      │ default   │
+│ research        │ Heavy    │ high      │
+│ vision          │ Mid      │ default   │
+│ image-gen       │ Mid      │ default   │
+│ critical-ops    │ Heavy    │ extra-high│
+└─────────────────┴──────────┴───────────┘
+</code></pre></div>
+
+<h3 id="model-tiers">Model Tiers<a class="headerlink" href="#model-tiers" title="Permanent link">&para;</a></h3>
+<p>The matrix uses abstract <strong>tiers</strong> rather than specific model names, making
+matrices portable across providers:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Characteristic</th>
+<th>Example Models</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Heavy</strong></td>
+<td>Maximum capability, highest cost</td>
+<td>GPT-4, Claude Opus, Gemini Ultra</td>
+</tr>
+<tr>
+<td><strong>Mid</strong></td>
+<td>Strong general-purpose, balanced cost</td>
+<td>Claude Sonnet, GPT-4o, Gemini Pro</td>
+</tr>
+<tr>
+<td><strong>Flash</strong></td>
+<td>Fast and cheap, good for simple tasks</td>
+<td>Claude Haiku, GPT-4o-mini, Gemini Flash</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reasoning-effort">Reasoning Effort<a class="headerlink" href="#reasoning-effort" title="Permanent link">&para;</a></h3>
+<p>Each role also specifies a <strong>reasoning effort</strong> level -- <code>default</code>, <code>high</code>, or
+<code>extra-high</code> -- controlling how much "thinking" the model does. Combined with
+tiers, this creates a 3x3 grid of cost and capability:</p>
+<div class="codehilite"><pre><span></span><code>                 default      high         extra-high
+  Heavy      │  capable    │ deep        │ maximum     │
+  Mid        │  balanced   │ thorough    │ very deep   │
+  Flash      │  quick      │ careful     │ reasoned    │
+</code></pre></div>
+
+<h2 id="choosing-the-right-role">Choosing the Right Role<a class="headerlink" href="#choosing-the-right-role" title="Permanent link">&para;</a></h2>
+<p>When you're building an agent or choosing how to delegate, use this decision
+flowchart:</p>
+<div class="codehilite"><pre><span></span><code>Is it a simple utility task (rename, parse, classify)?
+  → fast
+
+Does it involve writing or modifying code?
+  → coding (or ui-coding for frontend, security-audit for security)
+
+Does it require analyzing something that already exists?
+  → critique
+
+Does it require designing something new and complex?
+  → reasoning
+
+Does it require creative or aesthetic judgment?
+  → creative
+
+Does it require long-form prose?
+  → writing
+
+Does it require synthesizing information from many sources?
+  → research
+
+Does it involve images (input or output)?
+  → vision (input) or image-gen (output)
+
+Is it a high-stakes operational task?
+  → critical-ops
+
+None of the above?
+  → general
+</code></pre></div>
+
+<p>The key principle: <strong>declare intent, not implementation.</strong> Say <em>what kind of
+thinking</em> the task requires, and let the routing matrix handle the rest. When
+better models arrive or costs change, your agents keep working -- only the
+matrix needs updating.</p>
+<h2 id="what-youve-learned">What You've Learned<a class="headerlink" href="#what-youve-learned" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The routing matrix maps 13 semantic roles to concrete models via abstract tiers</li>
+<li>Roles are organized into five categories: Foundation, Coding, Cognitive,
+  Capability, and Operational</li>
+<li>Fallback chains degrade gracefully when a role isn't configured</li>
+<li>Agents declare their role in frontmatter with <code>model_role</code></li>
+<li>Model tiers (Heavy/Mid/Flash) combined with reasoning effort
+  (default/high/extra-high) create a cost-capability grid</li>
+<li>You declare intent, not implementation -- the matrix handles resolution</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="modes.html" class="btn btn-neutral float-left" title="Modes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="shadows.html" class="btn btn-neutral float-right" title="Shadow Environments">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="modes.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="shadows.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

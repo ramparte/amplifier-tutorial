@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ollama (Local) - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ollama (Local)";
+        var mkdocs_page_input_path = "providers/ollama.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="ollama.html">Ollama (Local)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-install-ollama">Step 1: Install Ollama</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-start-the-server">Step 2: Start the Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-pull-a-model">Step 3: Pull a Model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-verify-the-connection">Step 4: Verify the Connection</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#minimal-configuration">Minimal Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#full-configuration">Full Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-parameters">Configuration Parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remote-ollama-server">Remote Ollama Server</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#models">Models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#llama-31-best-general-purpose">Llama 3.1 — Best General Purpose</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#codellama-code-specialized">CodeLlama — Code-Specialized</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mistral-fast-and-compact">Mistral — Fast and Compact</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#deepseek-coder-strong-at-code">DeepSeek Coder — Strong at Code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#choosing-model-sizes">Choosing Model Sizes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-fully-local-amplifier-environment">A Fully Local Amplifier Environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">Ollama (Local)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ollama-provider">Ollama Provider<a class="headerlink" href="#ollama-provider" title="Permanent link">&para;</a></h1>
+<p>No API keys. No cloud. No data leaving your machine. Ollama runs open-source LLMs directly on your hardware — your laptop, your workstation, your air-gapped server in the basement. The tradeoff is obvious: local models are smaller and slower than cloud-hosted frontier models. But for privacy-sensitive work, offline development, or just experimenting without burning API credits, nothing beats a model that runs entirely under your control.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Ollama provider connects Amplifier to models running through <a href="https://ollama.ai">Ollama</a>, a local model server that manages downloading, running, and serving open-source LLMs. Ollama exposes an OpenAI-compatible API on <code>localhost</code>, so Amplifier talks to it exactly like it would talk to any cloud provider — except the inference happens on your CPU or GPU.</p>
+<p>This is the only provider where your conversation data never touches a network. Not encrypted in transit, not stored on someone else's server — it simply never leaves your machine.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-install-ollama">Step 1: Install Ollama<a class="headerlink" href="#step-1-install-ollama" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Install Ollama on your system</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] curl -fsSL https://ollama.ai/install.sh | sh
+</code></pre></div>
+
+<p>On macOS, you can also install via Homebrew:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] brew install ollama
+</code></pre></div>
+
+<p>On Windows, download the installer from <a href="https://ollama.ai">ollama.ai</a>.</p>
+<h3 id="step-2-start-the-server">Step 2: Start the Server<a class="headerlink" href="#step-2-start-the-server" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Start the Ollama server</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama serve
+Ollama is running on http://127.0.0.1:11434
+</code></pre></div>
+
+<p>On macOS and Windows, the Ollama desktop app starts the server automatically. On Linux, you may want to run it as a systemd service for persistence.</p>
+<h3 id="step-3-pull-a-model">Step 3: Pull a Model<a class="headerlink" href="#step-3-pull-a-model" title="Permanent link">&para;</a></h3>
+<p>Ollama doesn't include models by default — you pull them like Docker images.</p>
+<blockquote>
+<p>Pull some useful models for development</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull llama3.1
+pulling manifest... done
+pulling model... 100% ████████████████████ 4.7 GB
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull codellama
+pulling manifest... done
+pulling model... 100% ████████████████████ 3.8 GB
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull mistral
+pulling manifest... done
+pulling model... 100% ████████████████████ 4.1 GB
+</code></pre></div>
+
+<blockquote>
+<p>See what's available locally</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama list
+NAME              SIZE    MODIFIED
+llama3.1:latest   4.7 GB  2 minutes ago
+codellama:latest  3.8 GB  1 minute ago
+mistral:latest    4.1 GB  30 seconds ago
+</code></pre></div>
+
+<h3 id="step-4-verify-the-connection">Step 4: Verify the Connection<a class="headerlink" href="#step-4-verify-the-connection" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Test that Ollama responds</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] curl -s http://localhost:11434/api/tags | python3 -m json.tool | head -10
+{
+    &quot;models&quot;: [
+        {
+            &quot;name&quot;: &quot;llama3.1:latest&quot;,
+            &quot;size&quot;: 4661223424,
+            ...
+</code></pre></div>
+
+<p>If you see your models listed, the server is ready.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="minimal-configuration">Minimal Configuration<a class="headerlink" href="#minimal-configuration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1</span>
+</code></pre></div>
+
+<p>The <code>base_url</code> defaults to <code>http://localhost:11434</code> — no need to specify it unless you've changed the port or are running Ollama on another machine.</p>
+<h3 id="full-configuration">Full Configuration<a class="headerlink" href="#full-configuration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4096</span>
+</code></pre></div>
+
+<h3 id="configuration-parameters">Configuration Parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>—</td>
+<td>Always <code>ollama</code></td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td>—</td>
+<td>Model name as shown in <code>ollama list</code></td>
+</tr>
+<tr>
+<td><strong>base_url</strong></td>
+<td><code>http://localhost:11434</code></td>
+<td>Ollama server address</td>
+</tr>
+<tr>
+<td><strong>temperature</strong></td>
+<td><code>0.8</code></td>
+<td>Randomness (0.0 = deterministic, higher = creative)</td>
+</tr>
+<tr>
+<td><strong>max_tokens</strong></td>
+<td><code>2048</code></td>
+<td>Maximum tokens in the response</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remote-ollama-server">Remote Ollama Server<a class="headerlink" href="#remote-ollama-server" title="Permanent link">&para;</a></h3>
+<p>Running Ollama on a beefy GPU server while developing on a lighter laptop? Point Amplifier at the remote instance:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://gpu-server.local:11434</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1:70b</span>
+</code></pre></div>
+
+<p>Just make sure the server is reachable on your network. Ollama binds to localhost by default — set <code>OLLAMA_HOST=0.0.0.0</code> on the server to accept remote connections.</p>
+<h2 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>Open-source models vary widely in capability. Here's what works well with Amplifier.</p>
+<h3 id="llama-31-best-general-purpose">Llama 3.1 — Best General Purpose<a class="headerlink" href="#llama-31-best-general-purpose" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1</span>
+</code></pre></div>
+
+<p>Meta's flagship open model. Llama 3.1 handles general coding, explanation, and conversation well. The 8B parameter version runs on most laptops; the 70B version needs a serious GPU but approaches cloud model quality.</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull llama3.1        # 8B - runs on most hardware
+[Tool: bash] ollama pull llama3.1:70b    # 70B - needs ~40GB VRAM
+</code></pre></div>
+
+<p><strong>Best for:</strong> General coding tasks, conversation, explanation, the default choice.</p>
+<h3 id="codellama-code-specialized">CodeLlama — Code-Specialized<a class="headerlink" href="#codellama-code-specialized" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codellama</span>
+</code></pre></div>
+
+<p>Fine-tuned specifically for code generation. CodeLlama understands programming patterns better than general models of the same size. Supports fill-in-the-middle completions natively.</p>
+<p><strong>Best for:</strong> Code generation, completion, code-focused tasks on limited hardware.</p>
+<h3 id="mistral-fast-and-compact">Mistral — Fast and Compact<a class="headerlink" href="#mistral-fast-and-compact" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mistral</span>
+</code></pre></div>
+
+<p>Mistral's 7B model punches above its weight. Fast inference, small memory footprint, and solid general performance. A good choice when you need speed over depth.</p>
+<p><strong>Best for:</strong> Quick tasks, limited hardware, fast iteration cycles.</p>
+<h3 id="deepseek-coder-strong-at-code">DeepSeek Coder — Strong at Code<a class="headerlink" href="#deepseek-coder-strong-at-code" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deepseek-coder-v2</span>
+</code></pre></div>
+
+<p>A code-specialized model with strong benchmark performance. Handles complex code generation and understanding well for its size class.</p>
+<p><strong>Best for:</strong> Code-heavy workflows where you need better-than-average local code quality.</p>
+<h3 id="choosing-model-sizes">Choosing Model Sizes<a class="headerlink" href="#choosing-model-sizes" title="Permanent link">&para;</a></h3>
+<p>The <code>:latest</code> tag typically pulls the smallest variant. Specify sizes explicitly:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull llama3.1:8b     # 8B params, ~5GB, runs on 8GB RAM
+[Tool: bash] ollama pull llama3.1:70b    # 70B params, ~40GB, needs serious GPU
+</code></pre></div>
+
+<p><strong>Rule of thumb:</strong> Use the largest model your hardware can run at acceptable speed. An 8B model responding in 2 seconds beats a 70B model that takes 30 seconds — for most interactive work.</p>
+<h2 id="a-fully-local-amplifier-environment">A Fully Local Amplifier Environment<a class="headerlink" href="#a-fully-local-amplifier-environment" title="Permanent link">&para;</a></h2>
+<p>Here's the complete setup for running Amplifier with zero cloud dependencies:</p>
+<blockquote>
+<p>Set up a fully offline Amplifier workspace</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml — fully local configuration</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1</span>
+
+<span class="c1"># No API keys needed anywhere</span>
+<span class="c1"># No network access required</span>
+<span class="c1"># All data stays on this machine</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama serve &amp;
+[Tool: bash] ollama pull llama3.1
+</code></pre></div>
+
+<blockquote>
+<p>Verify the local setup works</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>&gt; Write a Python function to parse CSV files
+
+Here&#39;s a CSV parser using the standard library...
+</code></pre></div>
+
+<p>Everything runs locally. The conversation, the model inference, the tool execution — all on your machine. This is ideal for:</p>
+<ul>
+<li>Working on classified or highly sensitive codebases</li>
+<li>Development in air-gapped environments</li>
+<li>Planes, trains, and places without internet</li>
+<li>Experimenting without spending money on API calls</li>
+</ul>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Start with llama3.1.</strong> It's the best general-purpose local model. Branch out once you know your needs.</li>
+<li><strong>GPU makes a huge difference.</strong> CPU inference works but is slow — 10-30x slower than GPU. If you have an NVIDIA GPU, Ollama uses it automatically via CUDA.</li>
+<li><strong>Monitor memory usage.</strong> Models load into RAM (or VRAM). An 8B model needs ~5GB, 70B needs ~40GB. If your system starts swapping, use a smaller model.</li>
+<li><strong>Expect shorter, simpler responses.</strong> Local models are less capable than cloud frontier models. They'll handle straightforward tasks well but may struggle with complex multi-step reasoning.</li>
+<li><strong>Use Ollama for privacy, cloud for power.</strong> A common pattern: Ollama for sensitive code, Claude or GPT for everything else. The routing matrix makes this seamless.</li>
+<li><strong>Keep models updated.</strong> Run <code>ollama pull &lt;model&gt;</code> periodically — new quantizations and model versions improve quality without hardware changes.</li>
+<li><strong>Run the server as a service.</strong> On Linux, set up a systemd unit so Ollama starts on boot. No need to remember <code>ollama serve</code> every morning.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="index.html">Provider Index</a> for mixing Ollama with cloud providers in a routing matrix</li>
+<li>Explore <a href="community.html">Community Providers</a> for vLLM if you need higher-throughput local serving</li>
+<li>Check the <a href="anthropic.html">Anthropic Provider</a> or <a href="openai.html">OpenAI Provider</a> for cloud alternatives when you need more capable models</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="azure.html" class="btn btn-neutral float-left" title="Azure OpenAI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="community.html" class="btn btn-neutral float-right" title="Community Providers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="azure.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="community.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

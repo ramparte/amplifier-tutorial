@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Anthropic (Claude) - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Anthropic (Claude)";
+        var mkdocs_page_input_path = "providers/anthropic.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="anthropic.html">Anthropic (Claude)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-parameters">Configuration Parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extended-thinking">Extended Thinking</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#models">Models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#claude-opus-maximum-capability">Claude Opus — Maximum Capability</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#claude-sonnet-the-sweet-spot">Claude Sonnet — The Sweet Spot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#claude-haiku-speed-and-efficiency">Claude Haiku — Speed and Efficiency</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model-selection-in-routing">Model Selection in Routing</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">Anthropic (Claude)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="anthropic-provider">Anthropic Provider<a class="headerlink" href="#anthropic-provider" title="Permanent link">&para;</a></h1>
+<p>Anthropic's Claude is the default provider for Amplifier — and for good reason. Claude models consistently produce clean, well-structured code, handle long contexts gracefully, and excel at the kind of multi-step reasoning that real development work demands. If you're new to Amplifier, start here. Most teams never need to look further.</p>
+<p>This page covers setup, model selection, and configuration so you can get Claude working in your Amplifier environment quickly.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Anthropic provider connects Amplifier to Claude models through the Anthropic API. It supports the full range of Amplifier capabilities: streaming responses, tool use, extended thinking, and multi-turn conversations. Because Amplifier was designed with Claude as the primary model, integration is deep — features like extended thinking and reasoning traces map directly to Anthropic's API without translation layers.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>You need one thing: an API key from <a href="https://console.anthropic.com">console.anthropic.com</a>.</p>
+<p>There are two ways to provide it.</p>
+<p><strong>Option 1: Environment variable (recommended for personal use)</strong></p>
+<blockquote>
+<p>Set your Anthropic API key</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export ANTHROPIC_API_KEY=&quot;sk-ant-api03-...&quot;
+</code></pre></div>
+
+<p>Add it to your shell profile (<code>~/.bashrc</code>, <code>~/.zshrc</code>) so it persists across sessions.</p>
+<p><strong>Option 2: Keys file (recommended for teams)</strong></p>
+<p>Amplifier checks <code>~/.amplifier/keys.env</code> for credentials on startup:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] cat ~/.amplifier/keys.env
+ANTHROPIC_API_KEY=sk-ant-api03-...
+</code></pre></div>
+
+<p>The keys file keeps secrets out of your shell history and lets you manage multiple provider keys in one place. Either approach works — pick the one that fits your workflow.</p>
+<blockquote>
+<p>Verify the key is set</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] echo $ANTHROPIC_API_KEY | head -c 12
+sk-ant-api03
+</code></pre></div>
+
+<p>If you see the prefix, you're good.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Provider configuration lives in your bundle's YAML file. Here's the minimal setup:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>The <code>api_key</code> is pulled from your environment automatically. You can also set it explicitly:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8192</span>
+</code></pre></div>
+
+<h3 id="configuration-parameters">Configuration Parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>—</td>
+<td>Always <code>anthropic</code></td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td><code>claude-sonnet-4-20250514</code></td>
+<td>Which Claude model to use</td>
+</tr>
+<tr>
+<td><strong>temperature</strong></td>
+<td><code>1.0</code></td>
+<td>Randomness (0.0 = deterministic, 1.0 = creative)</td>
+</tr>
+<tr>
+<td><strong>max_tokens</strong></td>
+<td><code>8192</code></td>
+<td>Maximum tokens in the response</td>
+</tr>
+<tr>
+<td><strong>api_key</strong></td>
+<td>from env</td>
+<td>Explicit key override</td>
+</tr>
+</tbody>
+</table>
+<p>For coding tasks, a temperature of 0.0–0.3 keeps output focused and consistent. For creative work — brainstorming, writing, design exploration — let it run higher.</p>
+<h3 id="extended-thinking">Extended Thinking<a class="headerlink" href="#extended-thinking" title="Permanent link">&para;</a></h3>
+<p>Claude supports extended thinking, where the model reasons through a problem step by step before producing its answer. This is especially valuable for complex debugging, architectural decisions, and multi-file refactors.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">extended_thinking</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">budget_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+</code></pre></div>
+
+<p>When extended thinking is enabled, temperature must be set to <code>1.0</code> — the API requires it. The <code>budget_tokens</code> parameter caps how many tokens the model can spend reasoning before it commits to an answer. Higher budgets produce deeper analysis but cost more and take longer.</p>
+<blockquote>
+<p>Solve this concurrency bug — I need you to think carefully</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mode] set reasoning
+
+Reasoning mode activated. Extended thinking enabled with 10K token budget.
+Claude will reason step-by-step before responding.
+</code></pre></div>
+
+<p>You don't usually configure extended thinking manually in YAML — Amplifier's mode system activates it when you need deep reasoning.</p>
+<h2 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>Anthropic offers three model tiers, each optimized for different workloads:</p>
+<h3 id="claude-opus-maximum-capability">Claude Opus — Maximum Capability<a class="headerlink" href="#claude-opus-maximum-capability" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-opus-4-20250514</span>
+</code></pre></div>
+
+<p>The most capable Claude model. Opus handles the hardest problems: complex multi-file refactors, deep architectural analysis, nuanced code review, and tasks that require holding large amounts of context simultaneously. It's slower and more expensive than Sonnet, so use it when the problem genuinely demands it.</p>
+<p><strong>Best for:</strong> Hard debugging, large-scale refactoring, architecture design, security audits.</p>
+<h3 id="claude-sonnet-the-sweet-spot">Claude Sonnet — The Sweet Spot<a class="headerlink" href="#claude-sonnet-the-sweet-spot" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>The recommended default. Sonnet delivers strong coding performance at a fraction of Opus's cost and latency. For the vast majority of development tasks — writing features, fixing bugs, generating tests, explaining code — Sonnet is the right choice.</p>
+<p><strong>Best for:</strong> Day-to-day coding, feature implementation, test generation, code explanation.</p>
+<h3 id="claude-haiku-speed-and-efficiency">Claude Haiku — Speed and Efficiency<a class="headerlink" href="#claude-haiku-speed-and-efficiency" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-haiku-3-5-20241022</span>
+</code></pre></div>
+
+<p>The fastest and cheapest Claude model. Haiku excels at quick utility tasks: parsing, classification, simple edits, bulk file operations, and anything where latency matters more than depth. In multi-provider routing, Haiku often fills the "fast" role.</p>
+<p><strong>Best for:</strong> Quick edits, classification, parsing, high-volume tasks, cost-sensitive workloads.</p>
+<h3 id="model-selection-in-routing">Model Selection in Routing<a class="headerlink" href="#model-selection-in-routing" title="Permanent link">&para;</a></h3>
+<p>You can assign different Claude models to different roles in the routing matrix:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+
+<span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-haiku-3-5-20241022</span>
+<span class="w">  </span><span class="nt">reasoning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-opus-4-20250514</span>
+<span class="w">  </span><span class="nt">research</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>This gives you Opus-grade reasoning when you need it, Haiku speed for quick tasks, and Sonnet for everything in between — all without manually switching models.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Start with Sonnet.</strong> It handles 90% of coding tasks well. Only reach for Opus when you hit a problem Sonnet can't crack.</li>
+<li><strong>Use extended thinking for hard problems.</strong> If you're debugging a subtle race condition or planning a complex refactor, reasoning mode is worth the extra tokens.</li>
+<li><strong>Lower temperature for code.</strong> Set <code>temperature: 0.0</code> or <code>0.1</code> when you want deterministic, reproducible output — especially for generated tests or structured data.</li>
+<li><strong>Let routing pick the model.</strong> Instead of manually choosing models, configure the routing matrix and let Amplifier dispatch to the right tier automatically.</li>
+<li><strong>Watch your max_tokens.</strong> If responses are getting cut off, bump <code>max_tokens</code>. If you're paying too much for simple queries, lower it.</li>
+<li><strong>Keys file for teams.</strong> If you're sharing a machine or using shared configuration, <code>~/.amplifier/keys.env</code> keeps API keys out of your YAML files and shell history.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="index.html">Provider Index</a> for multi-provider routing and how to combine Claude with other models</li>
+<li>Learn about <a href="../concepts/modes.html">Modes</a> to understand how Amplifier activates extended thinking automatically</li>
+<li>Explore the <a href="openai.html">OpenAI Provider</a> or <a href="gemini.html">Gemini Provider</a> if you need additional model capabilities</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="openai.html" class="btn btn-neutral float-right" title="OpenAI (GPT)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="openai.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

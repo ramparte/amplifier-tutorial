@@ -1,341 +1,248 @@
 ---
 id: recipes-bundle
-type: bundles
+type: bundle
 title: "Recipes Bundle"
 ---
 
 # Recipes Bundle
 
-The Recipes Bundle brings declarative workflow orchestration to Amplifier. Define multi-step AI agent workflows in YAML, execute them with automatic checkpointing, and add human-in-the-loop approval gates when needed.
+## What is the Recipes Bundle?
 
-## Overview
+You've used Amplifier to read files, run commands, and delegate to agents. Each of those is a single action. But real work often looks like a pipeline: analyze the code, then check for security issues, then generate a report, then wait for someone to approve before deploying. That's a multi-step workflow — and doing it manually means typing each prompt, waiting, copying context forward, and hoping nothing breaks in the middle.
 
-Recipes are declarative YAML specifications that define multi-step agent workflows. Instead of manually orchestrating complex tasks through multiple prompts, you define the workflow once and let the recipe engine handle execution, state management, and error recovery.
+The Recipes Bundle adds declarative workflow orchestration to Amplifier. You define multi-step agent workflows in YAML, and the recipe engine handles execution order, state management, checkpointing, and error recovery. If a recipe gets interrupted — network glitch, laptop closed, timeout — it resumes from the last completed step, not from scratch.
 
-**Key Characteristics:**
-
-- **Declarative**: Define *what* you want, not *how* to do it
-- **Resumable**: Automatic checkpointing means interrupted workflows can continue
-- **Composable**: Build complex workflows from simpler steps with dependencies
-- **Auditable**: Full execution history for debugging and compliance
-- **Approval Gates**: Pause workflows for human review at critical points
-
-Recipes solve the coordination problem: orchestrating multiple AI agents across complex, multi-step tasks without manual intervention between each step.
+Recipes follow a simple philosophy: define *what* should happen, not *how*. You declare the steps, the agents, and the context flow. The engine does the rest.
 
 ## What's Included
 
-### recipes Tool
+The bundle provides three components that work together:
 
-The `recipes` tool is your interface to the recipe execution engine.
+**The `recipes` tool** — your interface to the execution engine. It runs recipes, manages sessions, handles approvals, and validates YAML before you commit to running it. See the [Recipes Tool](../tools/recipes-tool.md) page for the full operation reference.
 
-| Operation | Description |
-|-----------|-------------|
-| `execute` | Run a recipe from a YAML file with optional context |
-| `resume` | Resume an interrupted session from checkpoint |
-| `list` | List all active recipe sessions |
-| `validate` | Validate recipe structure without executing |
-| `approvals` | List pending approvals across all sessions |
-| `approve` | Approve a stage to continue execution |
-| `deny` | Deny a stage to halt execution |
-| `cancel` | Cancel a running recipe session |
+**The `recipe-author` agent** — a specialist that creates, validates, and refines recipe YAML through conversation. Describe your workflow in plain English, and it generates a valid specification, asking clarifying questions along the way.
 
-**Basic Usage:**
+**The `result-validator` agent** — an objective verifier that checks whether a recipe's output matches your original intent. Use it after execution to assess whether the outcome meets your goals.
 
-```yaml
-# Execute a recipe
-recipes:
+The bundle also ships with example recipes and starter templates you can customize.
+
+## Getting Started
+
+The simplest way to use a recipe is to run one that already exists. The bundle includes several examples you can try immediately.
+
+> Run the code review recipe on src/auth.py
+
+```
+[Tool: recipes]
   operation: execute
-  recipe_path: workflows/code-review.yaml
-  context:
-    file_path: src/auth.py
+  recipe_path: "@recipes:examples/code-review-recipe.yaml"
+  context: { "file_path": "src/auth.py" }
 
-# Resume interrupted session
-recipes:
-  operation: resume
-  session_id: recipe_20251118_143022_a3f2
+Session started: recipe_20260402_143022_a3f2
+Step 1/3 [analyze]: Analyzing src/auth.py...
+Step 2/3 [security-check]: Reviewing for vulnerabilities...
+Step 3/3 [report]: Generating final report...
+Recipe completed successfully.
 ```
 
-### recipe-author Agent
+Each step runs in order. The output from `analyze` flows into `security-check` as context, and both flow into `report`. You didn't have to copy anything between steps — the engine handles context accumulation automatically. Before running a new recipe, validate it first:
 
-The `recipe-author` agent helps you create, validate, and refine recipe YAML specifications through conversation. It understands recipe schema, design patterns, and best practices.
+> Validate the recipe at ./recipes/my-workflow.yaml
 
-**Use it to:**
-- Create new recipes from requirements
-- Validate existing recipe syntax
-- Refine error handling and retry logic
-- Add approval gates to workflows
-- Optimize step dependencies
+```
+[Tool: recipes]
+  operation: validate
+  recipe_path: "./recipes/my-workflow.yaml"
 
-## Recipe Structure
+Validation passed. 4 steps, 0 approval gates, all variable references resolved.
+```
 
-### Flat Recipes
+This catches structural problems — missing fields, broken template variables, invalid step references — before they fail mid-execution.
 
-Flat recipes execute steps sequentially with explicit dependencies:
+## Key Features
+
+### Sequential Steps with Context Flow
+
+Each step's output becomes a variable that later steps can reference. This is how data moves through a recipe:
 
 ```yaml
-name: code-review-workflow
-description: Automated code review pipeline
-
+name: "code-review"
+version: "1.0.0"
+description: "Multi-stage code review"
 context:
-  file_path: ""  # Provided at runtime
-
+  file_path: ""
 steps:
-  - id: analyze
-    agent: foundation:zen-architect
-    instruction: |
-      Analyze the code structure in {{ file_path }}.
-      Focus on architecture, patterns, and issues.
-    
-  - id: security
-    agent: foundation:security-guardian
-    instruction: Review {{ file_path }} for security vulnerabilities.
-    depends_on: [analyze]
-    
-  - id: summarize
-    agent: foundation:zen-architect
-    instruction: |
-      Create summary combining:
-      - Architecture: {{ steps.analyze.output }}
-      - Security: {{ steps.security.output }}
-    depends_on: [analyze, security]
+  - id: "analyze"
+    agent: "foundation:explorer"
+    prompt: "Analyze the structure of {{file_path}}"
+    output: "analysis"
+
+  - id: "suggest"
+    agent: "foundation:zen-architect"
+    prompt: "Based on this analysis: {{analysis}}, suggest improvements"
+    output: "suggestions"
 ```
 
-### Staged Recipes
+### Agent, Bash, and Sub-Recipe Steps
 
-Staged recipes group steps into approval stages. Execution pauses at stage boundaries for human approval:
+Not every step needs an LLM. **Agent steps** (default) spawn a sub-agent with a prompt. **Bash steps** run shell commands directly — faster and deterministic. **Recipe steps** invoke another recipe as a sub-workflow:
 
 ```yaml
-name: deploy-pipeline
-description: Production deployment with approval gates
+- id: "run-tests"
+  type: "bash"
+  command: "pytest --tb=short"
+  output: "test_results"
 
+- id: "security-audit"
+  type: "recipe"
+  recipe: "audits/security-scan.yaml"
+  context:
+    target: "{{file_path}}"
+  output: "audit_results"
+```
+
+### Checkpointing and Resumability
+
+Every completed step is checkpointed. If execution is interrupted, resume where you left off:
+
+> Resume recipe session recipe_20260402_143022_a3f2
+
+```
+[Tool: recipes]
+  operation: resume
+  session_id: "recipe_20260402_143022_a3f2"
+
+Resuming from step 3/5 [validate]...
+```
+
+### Approval Gates
+
+Staged recipes pause at stage boundaries for human review — essential for deployments or data migrations:
+
+```yaml
 stages:
-  - name: planning
+  - name: "planning"
     steps:
-      - id: analyze-changes
-        agent: foundation:zen-architect
-        instruction: Analyze changes for deployment risks.
-        
-      - id: generate-plan
-        agent: foundation:modular-builder
-        instruction: Generate deployment plan.
-        depends_on: [analyze-changes]
+      - id: "generate-plan"
+        agent: "foundation:zen-architect"
+        prompt: "Plan the dependency upgrades"
+        output: "upgrade_plan"
 
-  - name: execution
+  - name: "execution"
     approval_required: true
     steps:
-      - id: deploy
-        agent: foundation:modular-builder
-        instruction: Execute deployment according to plan.
+      - id: "apply-upgrades"
+        agent: "foundation:modular-builder"
+        prompt: "Apply these upgrades: {{upgrade_plan}}"
 ```
 
-### Step Configuration
+When execution reaches the approval gate, it pauses. You review the plan, then approve or deny:
 
-Each step supports these options:
+> Approve the execution stage for the deploy session
 
-```yaml
-steps:
-  - id: unique-step-id           # Required: unique identifier
-    agent: bundle:agent-name     # Required: agent to invoke
-    instruction: |               # Required: task instructions
-      What the agent should do.
-      Can use {{ variable }} interpolation.
-    
-    # Optional configuration
-    depends_on: [step-id]        # Steps that must complete first
-    timeout: 300                 # Timeout in seconds (default: 300)
-    retries: 3                   # Number of retry attempts
-    on_error: continue           # continue | fail | skip
-    condition: "{{ prev.success }}"  # Conditional execution
 ```
-
-### Context and Variables
-
-Recipes support context variables and step output interpolation:
-
-```yaml
-context:
-  project_name: my-app
-  environment: production
-  
-steps:
-  - id: build
-    agent: foundation:modular-builder
-    instruction: Build {{ project_name }} for {{ environment }}.
-    
-  - id: deploy
-    agent: foundation:modular-builder
-    instruction: |
-      Deploy using build artifacts.
-      Build output: {{ steps.build.output }}
-    depends_on: [build]
+[Tool: recipes]
+  operation: approve
+  session_id: "recipe_20260402_143022_a3f2"
+  stage_name: "execution"
+  message: "Plan looks good, proceed"
 ```
 
 ### Foreach Loops
 
-Process collections with foreach:
+Process collections by iterating over lists. Add `parallel: true` for concurrent execution:
 
 ```yaml
-steps:
-  - id: review-files
-    foreach: "{{ files }}"
-    as: current_file
-    agent: foundation:zen-architect
-    instruction: Review {{ current_file }} for code quality.
+- id: "review-files"
+  foreach: "{{files}}"
+  as: "current_file"
+  parallel: true
+  collect: "all_reviews"
+  agent: "foundation:zen-architect"
+  prompt: "Review {{current_file}} for code quality"
 ```
 
-## When to Use
+### While Loops and Conditional Execution
 
-### Good Use Cases
-
-✅ **Multi-agent workflows**: Tasks requiring multiple specialized agents working in sequence or parallel  
-✅ **Approval-gated processes**: Workflows requiring human approval at critical points (deployments, data migrations)  
-✅ **Repeatable processes**: Tasks performed regularly with the same structure  
-✅ **Complex dependencies**: Steps with intricate dependencies and conditional execution  
-✅ **Auditable workflows**: When you need full execution history for compliance  
-
-### When Not to Use
-
-❌ **Simple one-shot tasks**: Single agent can handle it? Invoke directly  
-❌ **Highly dynamic workflows**: Next step depends entirely on unpredictable user input  
-❌ **Exploratory work**: Don't know the steps upfront? Work interactively first  
-
-## Try It Yourself
-
-### Example 1: Create and Execute a Simple Recipe
-
-Create `~/.amplifier/recipes/analyze-module.yaml`:
+For convergence workflows where iteration count isn't known upfront, use `while_condition`. For skipping steps based on runtime state, use `condition`:
 
 ```yaml
-name: analyze-module
-description: Analyze a Python module for quality and security
+- id: "refine-draft"
+  agent: "foundation:zen-architect"
+  prompt: "Improve this draft: {{draft}}"
+  output: "refined"
+  while_condition: "{{quality_score}} < 8"
+  max_while_iterations: 5
 
-context:
-  module_path: ""
-
-steps:
-  - id: structure
-    agent: foundation:explorer
-    instruction: |
-      Map the structure of {{ module_path }}.
-      Identify key classes, functions, and dependencies.
-      
-  - id: quality
-    agent: foundation:zen-architect
-    instruction: |
-      Review code quality in {{ module_path }}.
-      Context: {{ steps.structure.output }}
-    depends_on: [structure]
-    
-  - id: security
-    agent: foundation:security-guardian
-    instruction: |
-      Check {{ module_path }} for security issues.
-      Focus on input validation and data handling.
-    depends_on: [structure]
-    
-  - id: report
-    agent: foundation:zen-architect
-    instruction: |
-      Create summary report:
-      - Quality: {{ steps.quality.output }}
-      - Security: {{ steps.security.output }}
-    depends_on: [quality, security]
+- id: "critical-fix"
+  condition: "{{severity}} == 'critical'"
+  agent: "foundation:modular-builder"
+  prompt: "Apply critical fix to {{file_path}}"
 ```
 
-Execute it:
-```
-Execute the analyze-module recipe for src/auth/
-```
+## Example Recipes
 
-### Example 2: Staged Recipe with Approvals
+The bundle includes working recipes across several domains:
 
-Create `~/.amplifier/recipes/publish-content.yaml`:
+| Recipe | What It Does |
+|--------|-------------|
+| **Code Review** | Analyze code structure, check security, generate improvement report |
+| **Dependency Upgrade** | Audit dependencies, plan upgrades, validate, apply (with approval gates) |
+| **Test Generation** | Analyze code paths, generate comprehensive tests, validate coverage |
+| **Security Audit** | Multi-perspective security analysis from different threat angles |
+| **Parallel Analysis** | Concurrent multi-file processing with collected results |
 
-```yaml
-name: publish-content
-description: Content publication with review gates
+### The Authoring Lifecycle
 
-stages:
-  - name: draft
-    steps:
-      - id: generate
-        agent: foundation:modular-builder
-        instruction: Generate content based on outline.
-        
-      - id: initial-review
-        agent: foundation:zen-architect
-        instruction: Review draft for clarity and structure.
-        depends_on: [generate]
+Rather than writing YAML by hand, use the recipe-author agent to create recipes conversationally. Then use the result-validator to verify the output matches your intent.
 
-  - name: editorial
-    approval_required: true
-    steps:
-      - id: fact-check
-        agent: foundation:web-research
-        instruction: Verify facts and claims in content.
-        
-      - id: style-edit
-        agent: foundation:zen-architect
-        instruction: Apply style guide and polish prose.
-
-  - name: publish
-    approval_required: true
-    steps:
-      - id: final-publish
-        agent: foundation:modular-builder
-        instruction: Publish to production.
-```
-
-### Example 3: Using the recipe-author Agent
+> I need a recipe that reviews PRs by analyzing code changes, running security checks, validating test coverage, and requiring approval before posting comments
 
 ```
-Help me create a recipe for automated PR review that:
-1. Analyzes code changes
-2. Runs security checks
-3. Validates test coverage
-4. Requires approval before posting comments
+[Tool: task] Delegating to recipes:recipe-author
+  └─ "Create a recipe for PR review with analysis, security, coverage, and approval gate"
 ```
 
-The recipe-author agent will guide you through the design, asking clarifying questions and generating valid YAML.
-
-### Example 4: Managing Recipe Sessions
+The recipe-author asks clarifying questions — which agents to use, what context variables you need, whether steps should run in parallel — then generates valid YAML. Once you have a draft:
+> Validate the recipe the author just created
 
 ```
-# List active sessions
-List my active recipe sessions
+[Tool: recipes]
+  operation: validate
+  recipe_path: "./recipes/pr-review.yaml"
 
-# Check pending approvals
-Show pending recipe approvals
-
-# Approve a stage
-Approve the validation stage for session recipe_20251118_143022
-
-# Resume interrupted session
-Resume recipe session recipe_20251118_143022
+Validation passed. 2 stages, 4 steps, 1 approval gate.
 ```
 
-## Best Practices
+After execution, the result-validator checks whether the output actually accomplished your goal:
+> Have the result-validator check whether the PR review recipe output matches my original requirements
 
-1. **Start simple**: Begin with flat recipes, add stages when you need approval gates
-2. **Use meaningful IDs**: Step IDs appear in logs and error messages
-3. **Handle errors explicitly**: Set `on_error` behavior based on criticality
-4. **Test with validate**: Always validate before executing new recipes
-5. **Version your recipes**: Store recipes in version control alongside code
-6. **Keep steps focused**: Each step should do one thing well
-7. **Use context for configuration**: Parameterize via context, don't hardcode
+```
+[Tool: task] Delegating to recipes:result-validator
+  └─ "Verify recipe output against original intent: PR review with analysis, security, coverage"
+```
 
-## Troubleshooting
+This create → validate → execute → verify cycle is the recommended way to develop recipes.
 
-**Recipe won't execute**: Run `validate` first to check for syntax errors  
-**Step times out**: Increase `timeout` value or break into smaller pieces  
-**Can't resume session**: Use `list` to verify session ID exists and isn't completed  
-**Approval not working**: Ensure `approval_required: true` is on the stage, not the step  
+## Tips
 
-## Related Bundles
+**Start with flat recipes.** Use a simple `steps` list first. Add stages and approval gates only when your workflow genuinely needs human checkpoints.
 
-- **foundation**: Provides agents commonly used in recipe steps
-- **amplifier**: Core agent orchestration that recipes build upon
+**Validate before executing.** Always run `validate` on new or modified recipes. It catches problems that would otherwise fail mid-execution, wasting time and tokens.
 
-## Summary
+**Use bash steps for deterministic work.** Running tests, installing dependencies, or fetching data with `curl` don't need an LLM. Bash steps are faster and more predictable.
 
-The Recipes Bundle transforms complex multi-agent workflows into maintainable, repeatable, auditable processes. Define your workflow once in YAML, execute it reliably, and add human oversight where needed through approval gates.
+**Name outputs descriptively.** Use `output: "security_findings"` rather than `output: "result"`. Later steps read more naturally: `{{security_findings}}` is self-documenting.
+
+**Keep steps focused.** A step named "analyze-and-fix-and-report" is doing too much. Split it into three steps that pass context between them.
+
+**Version your recipes.** Store recipe YAML in version control alongside your code. Bump the semver `version` field when you change the workflow.
+
+**Test sub-recipes independently.** Sub-recipes receive only explicitly passed context, so each should work standalone. This makes debugging much faster.
+
+## Next Steps
+
+- **[Recipes Tool](../tools/recipes-tool.md)** — Full reference for all recipe operations
+- **[Understanding Recipes](../concepts/recipes.md)** — Deeper dive into recipe concepts and patterns
+- **[Foundation Bundle](./foundation.md)** — The agents commonly used in recipe steps
+- **[Your First Bundle](../quickstart/first-bundle.md)** — How bundles work and how to install them

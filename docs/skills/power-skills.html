@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Power Skills - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Power Skills";
+        var mkdocs_page_input_path = "skills/power-skills.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="power-skills.html">Power Skills</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#how-power-skills-work">How Power Skills Work</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#code-review">/code-review</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-three-reviewers">The Three Reviewers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mass-change">/mass-change</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-it">When to Use It</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#when-not-to-use-it">When Not to Use It</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#session-debug">/session-debug</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-it-checks">What It Checks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example_1">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#invocation-and-behavior">Invocation and Behavior</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Skills</li>
+      <li class="breadcrumb-item active">Power Skills</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="power-skills">Power Skills<a class="headerlink" href="#power-skills" title="Permanent link">&para;</a></h1>
+<p>Most skills teach the agent how to think about a domain. Power skills go further — they take over, spawning dedicated agents that work in parallel to accomplish complex tasks. Amplifier ships with three built-in power skills that handle code review, large-scale changes, and session diagnostics.</p>
+<p>These aren't auto-suggested. You invoke them explicitly with slash commands: <code>/code-review</code>, <code>/mass-change</code>, <code>/session-debug</code>. When triggered, they fork execution, spin up specialist agents, and return consolidated results. Think of them as pre-built workflows that happen to be invoked like skills.</p>
+<h2 id="how-power-skills-work">How Power Skills Work<a class="headerlink" href="#how-power-skills-work" title="Permanent link">&para;</a></h2>
+<p>Power skills differ from regular skills in two critical ways:</p>
+<ol>
+<li><strong>They fork execution</strong> — each spawned agent runs in its own context (<code>context: fork</code>), isolated from your main session</li>
+<li><strong>They disable model invocation</strong> — the spawned agents use <code>disable-model-invocation: true</code>, meaning they operate with their own model calls, not yours</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>┌─────────────────┐
+│  Your Session    │
+│                  │
+│  &gt; /code-review  │
+│                  │
+│  ┌───┬───┬───┐  │
+│  │ A │ B │ C │  │  ← 3 forked agents (parallel)
+│  └─┬─┘ └─┬─┘ └─┬┘
+│    │     │     │
+│    ▼     ▼     ▼
+│  ┌─────────────┐ │
+│  │  Merged     │ │  ← Results combined back
+│  │  Results    │ │
+│  └─────────────┘ │
+└─────────────────┘
+</code></pre></div>
+
+<p>Each forked agent gets its own context window, its own tool access, and its own model calls. Your session waits for all agents to finish, then presents the merged output. You stay in control — the agents do the heavy lifting.</p>
+<h2 id="code-review">/code-review<a class="headerlink" href="#code-review" title="Permanent link">&para;</a></h2>
+<p>Spawns three parallel review agents, each examining your recent changes from a different angle. Instead of one generic review pass, you get three specialized perspectives.</p>
+<h3 id="the-three-reviewers">The Three Reviewers<a class="headerlink" href="#the-three-reviewers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Focus</th>
+<th>What It Catches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reuse Analyst</strong></td>
+<td>Code duplication and reuse opportunities</td>
+<td>Repeated patterns, missed abstractions, existing utilities that could replace new code</td>
+</tr>
+<tr>
+<td><strong>Quality Auditor</strong></td>
+<td>Code quality and maintainability</td>
+<td>Naming issues, complexity hotspots, missing error handling, test gaps</td>
+</tr>
+<tr>
+<td><strong>Efficiency Reviewer</strong></td>
+<td>Performance and resource efficiency</td>
+<td>Unnecessary allocations, N+1 queries, blocking calls, cache opportunities</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>/code-review</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] git diff HEAD~3 --stat
+ src/auth/login.py      | 47 ++++++++++++
+ src/auth/session.py    | 23 ++++++
+ src/api/middleware.py   | 15 ++++
+ tests/test_auth.py     | 38 ++++++++++
+ 4 files changed, 123 insertions(+)
+</code></pre></div>
+
+<p>Amplifier spawns three agents. Each reviews the same diff independently:</p>
+<div class="codehilite"><pre><span></span><code>── Reuse Analyst ──────────────────────────────────
+⚠ src/auth/login.py:12 — Token validation logic duplicates
+  src/auth/session.py:8. Extract to shared validator.
+✓ Good reuse of existing middleware patterns in api/middleware.py.
+
+── Quality Auditor ────────────────────────────────
+⚠ src/auth/login.py:34 — bare except clause. Catch specific
+  exceptions (AuthError, TokenExpired).
+⚠ src/auth/session.py:19 — missing docstring on public method.
+✓ Test coverage looks solid — all new paths have assertions.
+
+── Efficiency Reviewer ────────────────────────────
+⚠ src/auth/login.py:28 — database query inside a loop.
+  Consider batch lookup.
+✓ Session creation uses connection pooling correctly.
+✓ No unnecessary allocations detected.
+</code></pre></div>
+
+<p>After all three complete, Amplifier asks if you want to apply fixes:</p>
+<blockquote>
+<p>Apply all suggested fixes</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: edit_file] src/auth/login.py — extracted shared validator
+[Tool: edit_file] src/auth/login.py — replaced bare except
+[Tool: edit_file] src/auth/session.py — added docstring
+[Tool: edit_file] src/auth/login.py — converted loop query to batch
+</code></pre></div>
+
+<p>Four files updated. Three reviewers, one command.</p>
+<h2 id="mass-change">/mass-change<a class="headerlink" href="#mass-change" title="Permanent link">&para;</a></h2>
+<p>When a change touches dozens of files — a dependency upgrade, an API migration, a rename that ripples across the codebase — doing it sequentially is slow. <code>/mass-change</code> decomposes the work into independent units and runs them in parallel.</p>
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Analysis</strong> — scans the codebase to understand the full scope of the change</li>
+<li><strong>Decomposition</strong> — breaks the change into 5–30 independent units, each touching a small set of files</li>
+<li><strong>Parallel execution</strong> — spawns one agent per unit, all working simultaneously</li>
+<li><strong>Verification</strong> — each agent runs tests for its unit before reporting completion</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>&gt; /mass-change Migrate all datetime.utcnow() calls to datetime.now(timezone.utc)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>── Analysis ───────────────────────────────────────
+Scanning codebase for datetime.utcnow() usage...
+Found 47 call sites across 23 files in 8 modules.
+
+── Decomposition ──────────────────────────────────
+Grouped into 8 independent units by module:
+  Unit 1: src/auth/     (6 files, 11 call sites)
+  Unit 2: src/api/      (4 files, 8 call sites)
+  Unit 3: src/billing/  (3 files, 7 call sites)
+  Unit 4: src/jobs/     (3 files, 6 call sites)
+  Unit 5: src/notify/   (2 files, 5 call sites)
+  Unit 6: src/export/   (2 files, 4 call sites)
+  Unit 7: src/admin/    (2 files, 4 call sites)
+  Unit 8: tests/        (1 file, 2 call sites)
+
+── Parallel Execution (8 agents) ──────────────────
+  ✓ Unit 1: src/auth/      — 11/11 migrated, tests pass
+  ✓ Unit 2: src/api/       — 8/8 migrated, tests pass
+  ✓ Unit 3: src/billing/   — 7/7 migrated, tests pass
+  ✓ Unit 4: src/jobs/      — 6/6 migrated, tests pass
+  ✓ Unit 5: src/notify/    — 5/5 migrated, tests pass
+  ✓ Unit 6: src/export/    — 4/4 migrated, tests pass
+  ✓ Unit 7: src/admin/     — 4/4 migrated, tests pass
+  ✓ Unit 8: tests/         — 2/2 migrated, tests pass
+
+All 47 call sites migrated. 23 files updated. Full test suite passing.
+</code></pre></div>
+
+<p>Each agent works in isolation — if Unit 3 has a tricky edge case, it doesn't block Units 1 through 8. The decomposition ensures units don't touch overlapping files, so there are no merge conflicts.</p>
+<h3 id="when-to-use-it">When to Use It<a class="headerlink" href="#when-to-use-it" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Dependency upgrades that change an API surface</li>
+<li>Renaming a concept across the entire codebase</li>
+<li>Migrating from one pattern to another (e.g., callbacks to async/await)</li>
+<li>Applying a new linting rule that requires code changes</li>
+</ul>
+<h3 id="when-not-to-use-it">When Not to Use It<a class="headerlink" href="#when-not-to-use-it" title="Permanent link">&para;</a></h3>
+<p>If the change can't be decomposed into independent units — for example, a refactor where every file depends on a new shared interface you're still designing — do it sequentially. <code>/mass-change</code> needs independence between units.</p>
+<h2 id="session-debug">/session-debug<a class="headerlink" href="#session-debug" title="Permanent link">&para;</a></h2>
+<p>When something in your Amplifier session isn't working — a tool fails silently, a hook misbehaves, the wrong provider is being selected — <code>/session-debug</code> spawns a diagnostic agent that investigates the issue from the inside.</p>
+<h3 id="what-it-checks">What It Checks<a class="headerlink" href="#what-it-checks" title="Permanent link">&para;</a></h3>
+<p>The session-analyst agent inspects:</p>
+<ul>
+<li><strong>Tool registration</strong> — are all expected tools mounted and responding?</li>
+<li><strong>Provider connectivity</strong> — can the configured provider reach its API?</li>
+<li><strong>Hook chain</strong> — are hooks firing in the expected order?</li>
+<li><strong>Bundle conflicts</strong> — are multiple bundles trying to configure the same thing?</li>
+<li><strong>Context health</strong> — is the session context within token limits?</li>
+<li><strong>Module errors</strong> — any modules that failed to mount or threw during execution?</li>
+</ul>
+<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>/session-debug The LSP tool isn't finding any references</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>── Session Analyst ────────────────────────────────
+
+Checking tool registration...
+  ✓ 14 tools registered
+  ✓ LSP tool is mounted
+
+Checking LSP configuration...
+  ⚠ LSP server for Python: not running
+    Expected: pyright-langserver at port 4826
+    Status: process not found
+
+  Root cause: The Python language server hasn&#39;t been started
+  for this workspace.
+
+  Fix: Run the LSP initialization:
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] cd /home/user/project &amp;&amp; pyright-langserver --stdio &amp;
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>── Session Analyst (continued) ─────────────────────
+
+Retesting LSP...
+  ✓ Python language server: connected
+  ✓ findReferences: responding (tested on 3 symbols)
+
+Issue resolved. LSP tool is now fully operational.
+</code></pre></div>
+
+<p>One command diagnosed the problem, identified the root cause, and fixed it.</p>
+<h2 id="invocation-and-behavior">Invocation and Behavior<a class="headerlink" href="#invocation-and-behavior" title="Permanent link">&para;</a></h2>
+<p>All three power skills share these characteristics:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Trigger</strong></td>
+<td>Slash command only (<code>/code-review</code>, <code>/mass-change</code>, <code>/session-debug</code>)</td>
+</tr>
+<tr>
+<td><strong>Auto-suggested</strong></td>
+<td>No — never triggered automatically</td>
+</tr>
+<tr>
+<td><strong>Execution model</strong></td>
+<td>Forked context (<code>context: fork</code>)</td>
+</tr>
+<tr>
+<td><strong>Model isolation</strong></td>
+<td><code>disable-model-invocation: true</code> per agent</td>
+</tr>
+<tr>
+<td><strong>Parallelism</strong></td>
+<td>Yes, except <code>/session-debug</code> (single agent)</td>
+</tr>
+<tr>
+<td><strong>Session impact</strong></td>
+<td>Forked agents don't pollute your main context</td>
+</tr>
+</tbody>
+</table>
+<p>Because forked agents run in isolation, they don't consume your session's context window. A <code>/mass-change</code> spawning 15 agents doesn't make your session 15x larger — each agent has its own window that's cleaned up when it finishes.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>For the conceptual foundation behind skills, see <a href="../concepts/skills.html">Skills</a>. To browse other available skills, check the <a href="index.html">Skills Guide</a>. For building your own power skill, see <a href="../advanced/custom-recipe.html">Custom Recipe</a> — power skills are recipes with forked execution.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="playwright.html" class="btn btn-neutral float-right" title="Playwright">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="playwright.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

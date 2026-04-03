@@ -1,448 +1,205 @@
 ---
 id: foundation
-type: bundles
+type: bundle
 title: "Foundation Bundle"
 ---
 
 # Foundation Bundle
 
-## Overview
+Every Amplifier bundle you'll ever build starts the same way: it includes Foundation. This is the base layer of the entire ecosystem -- the bundle that provides file operations, shell access, search, web research, streaming UI, and over twenty specialized agents. When you type a prompt and Amplifier reads a file, runs a test, or delegates to a sub-agent, that's Foundation at work.
 
-The Foundation Bundle is the default bundle that ships with Amplifier, providing essential tools and agents for general-purpose software development workflows. It forms the backbone of most development tasks, offering file operations, code search, shell access, web research capabilities, and a suite of specialized agents for common development patterns.
+## What is Foundation?
 
-**Key Characteristics:**
-- **Universal Coverage**: Handles 80% of common development tasks
-- **Production-Ready**: Battle-tested tools with robust error handling
-- **Zero Configuration**: Works out of the box with sensible defaults
-- **Extensible**: Serves as a foundation for specialized bundles
+Foundation is the primary library for building Amplifier applications. It's both a Python package (bundle loading, composition, validation, utilities) and a reference bundle (agents, behaviors, context, provider configs). Most bundles in the ecosystem are *thin* -- they include Foundation and add only what's unique to their purpose.
 
-The Foundation Bundle is automatically loaded when Amplifier starts, making its tools and agents immediately available without additional configuration.
+The design philosophy is **mechanism, not policy**. Foundation provides the loading and composition machinery. It provides agents and behaviors. But it doesn't decide how you use them -- your bundle does.
 
-## Tools Included
+## What's Included
 
-| Tool | Purpose | Key Use Cases |
-|------|---------|---------------|
-| **bash** | Shell command execution | Running builds, tests, package managers, git operations |
-| **read_file** | Read files and directories | Inspecting code, configuration files, documentation |
-| **write_file** | Create/overwrite files | Writing new code, generating configs, creating documentation |
-| **edit_file** | Precise string replacements | Modifying existing code, refactoring, bug fixes |
-| **grep** | Content search with regex | Finding function definitions, locating imports, tracking usage |
-| **glob** | File pattern matching | Discovering project structure, finding files by type |
-| **task** | Launch specialized agents | Delegating complex multi-step workflows to sub-agents |
-| **load_skill** | Access domain knowledge | Loading best practices, coding standards, design patterns |
-| **python_check** | Python code quality | Linting, formatting, type checking Python code |
-| **recipes** | Execute workflows | Running multi-stage automated processes |
-| **todo** | Task tracking | Managing complex multi-step work |
+Foundation ships four categories of content:
 
-### Tool Details
+| Category | What It Provides |
+|----------|-----------------|
+| **Bundle System** | `load_bundle()`, `Bundle.compose()`, validation, `@mention` resolution |
+| **Reference Content** | 20+ agents, 4 behavior groups, provider configs, shared context |
+| **Utilities** | YAML/frontmatter I/O, deep merge, path handling, caching |
+| **Examples** | 22+ examples from hello-world to full workflow orchestration |
 
-#### Filesystem Tools
-The `read_file`, `write_file`, and `edit_file` tools provide comprehensive file manipulation:
-- Support for absolute and relative paths
-- Bundle resource access via `@bundle:path` syntax
-- Automatic backup before destructive operations
-- Line-based reading for large files with offset/limit parameters
-
-#### Search Tools
-`grep` and `glob` enable fast codebase navigation:
-- `grep`: Regex-based content search with ripgrep performance
-- `glob`: Fast file pattern matching with ignore rules
-- Both exclude common directories (node_modules, .venv, .git) by default
-- Pagination support for large result sets
-
-#### Shell Access
-The `bash` tool provides controlled shell access:
-- Safe execution with destructive command blocking
-- Background process support for dev servers
-- Output truncation to prevent context overflow
-- Proper handling of exit codes and errors
-
-## Agents Included
-
-| Agent | Purpose | When to Use |
-|-------|---------|-------------|
-| **explorer** | Codebase reconnaissance | Understanding unfamiliar projects, mapping dependencies |
-| **zen-architect** | Design and architecture | Planning major features, refactoring, system design |
-| **modular-builder** | Implementation | Building features, writing tests, creating modules |
-| **bug-hunter** | Debugging and diagnosis | Investigating failures, tracing errors, fixing bugs |
-| **git-ops** | Git operations | Branch management, commits, PR workflows |
-| **file-ops** | Bulk file operations | Renaming, moving, restructuring multiple files |
-| **ecosystem-expert** | Technology guidance | Learning APIs, frameworks, best practices |
-| **integration-specialist** | System integration | Connecting services, APIs, third-party tools |
-| **security-guardian** | Security analysis | Reviewing code for vulnerabilities, security best practices |
-| **test-coverage** | Test strategy | Analyzing coverage, writing tests, test planning |
-| **web-research** | Internet research | Finding documentation, examples, solutions |
-| **post-task-cleanup** | Code cleanup | Organizing imports, removing dead code, formatting |
-| **session-analyst** | Workflow analysis | Understanding conversation history, extracting insights |
-
-### Agent Details
-
-#### explorer
-**Capabilities:**
-- Analyzes project structure and technology stack
-- Maps dependencies and relationships
-- Identifies entry points and core modules
-- Generates architecture summaries
-
-**Best For:**
-- First-time project exploration
-- Onboarding to unfamiliar codebases
-- Pre-implementation reconnaissance
-
-#### zen-architect
-**Capabilities:**
-- Designs system architecture and component boundaries
-- Plans implementation strategies
-- Creates technical specifications
-- Evaluates design tradeoffs
-
-**Best For:**
-- Major feature planning
-- Refactoring large systems
-- API design
-- Database schema design
-
-#### modular-builder
-**Capabilities:**
-- Implements features following best practices
-- Creates modular, testable code
-- Writes comprehensive tests
-- Documents public APIs
-
-**Best For:**
-- Feature implementation
-- Module creation
-- Test development
-- Code generation
-
-#### bug-hunter
-**Capabilities:**
-- Investigates test failures and runtime errors
-- Traces execution paths
-- Identifies root causes
-- Proposes and implements fixes
-
-**Best For:**
-- Debugging failing tests
-- Investigating production issues
-- Performance problems
-- Unexpected behavior
-
-#### git-ops
-**Capabilities:**
-- Manages branches and commits
-- Handles merge conflicts
-- Creates pull requests
-- Reviews git history
-
-**Best For:**
-- Branch operations
-- Commit management
-- Git workflow automation
-- History analysis
+The bundle itself declares tools (filesystem, bash, search, web, task delegation), hooks (streaming UI, status reporting), the orchestrator, and all the shared context that makes Amplifier sessions work out of the box.
 
 ## Getting Started
 
-### Basic Usage
+Foundation is loaded automatically when you include it in a bundle. The most common pattern is a thin bundle that inherits everything:
 
-The Foundation Bundle is active by default. Simply start using Amplifier and all Foundation tools and agents are immediately available.
+```markdown
+---
+bundle:
+  name: my-assistant
+  version: 1.0.0
 
-**Example 1: Reading and Editing Code**
-```
-You: "Find all TODO comments in the src/ directory"
-Amplifier: [Uses grep tool to search for TODO patterns]
+includes:
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
+---
 
-You: "Update the authentication logic in auth.py"
-Amplifier: [Uses read_file to inspect, then edit_file to modify]
-```
+# My Assistant
 
-**Example 2: Delegating to Agents**
-```
-You: "I need to understand this legacy codebase"
-Amplifier: [Launches explorer agent to analyze structure]
-
-You: "Design a new caching layer for this system"
-Amplifier: [Launches zen-architect to create design]
-
-You: "Now implement that design"
-Amplifier: [Launches modular-builder to write code]
-```
-
-### Agent Workflows
-
-Agents can be chained for complex workflows:
-
-1. **Full Feature Development:**
-   - `explorer` → Understand existing code
-   - `zen-architect` → Design the feature
-   - `modular-builder` → Implement with tests
-   - `git-ops` → Commit and create PR
-
-2. **Bug Investigation and Fix:**
-   - `bug-hunter` → Diagnose the issue
-   - `modular-builder` → Implement fix
-   - `test-coverage` → Add regression tests
-   - `git-ops` → Create fix PR
-
-3. **Code Quality Improvement:**
-   - `session-analyst` → Review recent changes
-   - `security-guardian` → Check for vulnerabilities
-   - `post-task-cleanup` → Clean up code
-   - `test-coverage` → Ensure adequate testing
-
-### Configuration
-
-The Foundation Bundle works with zero configuration, but can be customized via `.amplifier/config.yaml`:
-
-```yaml
-bundles:
-  foundation:
-    enabled: true
-    agents:
-      # Customize agent behavior
-      explorer:
-        max_depth: 5
-      bug-hunter:
-        auto_fix: false
-```
-
-## When to Use
-
-### Perfect For:
-
-✅ **General software development** - Most common programming tasks  
-✅ **Project exploration** - Understanding new codebases  
-✅ **Feature implementation** - Building new functionality  
-✅ **Bug fixing** - Debugging and resolving issues  
-✅ **Code refactoring** - Improving code structure  
-✅ **Git workflows** - Managing version control  
-✅ **Test development** - Writing and maintaining tests  
-✅ **Documentation** - Creating and updating docs  
-
-### Consider Specialized Bundles For:
-
-🔧 **Python development** - Use `python-dev` bundle for enhanced Python tools  
-🎨 **Design work** - Use `design-intelligence` bundle for UI/UX  
-⚙️ **DevOps tasks** - Use infrastructure-specific bundles  
-📊 **Data science** - Use data-analysis bundles  
-
-### Complementary Bundles
-
-The Foundation Bundle works well alongside:
-- **python-dev**: Adds Python-specific linting, type checking, testing tools
-- **design-intelligence**: Adds UI/UX design agents and tools
-- **recipes**: Adds workflow automation and multi-stage processes
-
-Multiple bundles can be loaded simultaneously, with their tools and agents available together.
-
-## Best Practices
-
-### Tool Selection
-
-**Use specialized tools first:**
-- Prefer `read_file` over `bash cat` for reading files
-- Use `grep` instead of `bash grep` for searching
-- Use `glob` for file discovery before manual searching
-
-**Delegate complex tasks:**
-- Launch agents for multi-step workflows
-- Use `task` tool when work requires multiple operations
-- Let agents operate autonomously instead of micromanaging
-
-### Agent Usage
-
-**Choose the right agent:**
-- `explorer` for understanding, not building
-- `zen-architect` for design, not implementation
-- `modular-builder` for implementation, not debugging
-- `bug-hunter` for diagnosis and fixes
-
-**Provide clear instructions:**
-```
-Good: "Use bug-hunter to investigate why test_auth.py::test_login fails"
-Bad: "Fix the tests"
-```
-
-### Workflow Patterns
-
-**1. Exploration First**
-Before major changes, understand the codebase:
-```
-explorer → zen-architect → modular-builder
-```
-
-**2. Test-Driven Development**
-Write tests before implementation:
-```
-zen-architect → test-coverage → modular-builder
-```
-
-**3. Iterative Refinement**
-Build, test, improve:
-```
-modular-builder → test-coverage → post-task-cleanup
-```
-
-## Common Patterns
-
-### Pattern: Safe Refactoring
-
-1. **Search** - Find all usages with `grep`
-2. **Analyze** - Review with `explorer` or `session-analyst`
-3. **Plan** - Design changes with `zen-architect`
-4. **Execute** - Implement with `modular-builder`
-5. **Verify** - Test with `test-coverage`
-6. **Commit** - Save with `git-ops`
-
-### Pattern: New Feature Development
-
-1. **Explore** - Use `explorer` to understand integration points
-2. **Design** - Use `zen-architect` to plan architecture
-3. **Build** - Use `modular-builder` to implement
-4. **Test** - Use `test-coverage` to ensure quality
-5. **Document** - Update docs with `write_file`
-6. **Review** - Use `security-guardian` for security check
-7. **Ship** - Create PR with `git-ops`
-
-### Pattern: Bug Fix Workflow
-
-1. **Reproduce** - Verify the issue with `bash` to run tests
-2. **Investigate** - Use `bug-hunter` to diagnose
-3. **Fix** - Implement solution (often done by `bug-hunter`)
-4. **Test** - Add regression test
-5. **Commit** - Save fix with descriptive message
-
-## Try It Yourself
-
-### Exercise 1: Project Exploration
-
-Try exploring a new project:
-```
-1. Launch explorer agent to analyze project structure
-2. Use grep to find all exported functions
-3. Use glob to list all test files
-4. Read package.json or requirements.txt to understand dependencies
-```
-
-### Exercise 2: Feature Implementation
-
-Build a simple feature:
-```
-1. Use zen-architect to design a new utility function
-2. Launch modular-builder to implement it
-3. Use test-coverage to ensure it's tested
-4. Use post-task-cleanup to format code
-5. Use git-ops to commit changes
-```
-
-### Exercise 3: Bug Hunt
-
-Practice debugging:
-```
-1. Run tests with bash to identify failures
-2. Launch bug-hunter to investigate
-3. Review the proposed fix
-4. Run tests again to verify
-5. Commit the fix
-```
-
-### Exercise 4: Search and Replace
-
-Try refactoring:
-```
-1. Use grep to find all occurrences of a function name
-2. Use read_file to inspect each usage
-3. Use edit_file to update the function signature
-4. Use bash to run tests
-5. Use post-task-cleanup to organize imports
-```
-
-## Advanced Usage
-
-### Multi-Agent Workflows
-
-Launch multiple agents in parallel for complex tasks:
-```
-You: "Audit this codebase for quality and security"
-Amplifier: [Launches security-guardian and test-coverage simultaneously]
-```
-
-### Custom Agent Instructions
-
-Provide detailed context for better results:
-```
-You: "Use explorer to map the authentication flow, focusing on JWT token
-validation and refresh logic. Document the security boundaries."
-```
-
-### Combining Tools and Agents
-
-Mix direct tool usage with agent delegation:
-```
-1. Use glob to find all API route files
-2. Launch explorer to analyze each route
-3. Use zen-architect to design improvements
-4. Implement changes yourself with edit_file
-```
-
-## Integration
-
-### With Other Bundles
-
-Foundation provides the base layer for specialized bundles:
-- **python-dev** extends Foundation with Python-specific tools
-- **design-intelligence** adds design agents while using Foundation's filesystem tools
-- Custom bundles can leverage Foundation's agents in their workflows
-
-### With Recipes
-
-Foundation agents are frequently used in recipes:
-```yaml
-stages:
-  - name: analyze
-    agent: foundation:explorer
-    instruction: "Analyze project structure"
-  
-  - name: design
-    agent: foundation:zen-architect
-    instruction: "Design new feature based on analysis"
-  
-  - name: implement
-    agent: foundation:modular-builder
-    instruction: "Implement the designed feature"
-```
-
-## Troubleshooting
-
-### Common Issues
-
-**Agent not responding or slow:**
-- Check if task is too broad - provide more specific instructions
-- Review agent's tool access - ensure needed tools are available
-
-**Search returning too many results:**
-- Use more specific regex patterns with `grep`
-- Add file type filters with `glob`
-- Use `head_limit` parameter to paginate
-
-**File operations failing:**
-- Verify file paths are correct
-- Check file permissions
-- Ensure files exist before editing
-
-### Getting Help
-
-- Use `load_skill` to access domain-specific knowledge
-- Launch `ecosystem-expert` for technology questions
-- Use `web-research` agent for finding documentation
-
-## What's Next?
-
-- Explore [LSP Python Bundle](./lsp-python.md) for enhanced Python tools
-- Learn about [Design Intelligence Bundle](./design-intelligence.md) for UI/UX work
-- Check out [Recipes Bundle](./recipes.md) for workflow automation
-- Read [Advanced Topics](../advanced/index.md) for complex patterns
+Custom instructions go here.
 
 ---
 
-The Foundation Bundle provides everything you need for general-purpose development. Master these tools and agents, and you'll be productive in any programming environment.
+@foundation:context/shared/common-system-base.md
+```
+
+That's a complete, working bundle. All of Foundation's tools, agents, hooks, and streaming UI are inherited. Your bundle adds only its own instructions.
+
+> Show me what tools are available
+
+```
+[Tool: bash] amplifier tools list
+  bash, read_file, write_file, edit_file, grep, glob, web_search,
+  web_fetch, python_check, LSP, recipes, todo, load_skill, mode, ...
+```
+
+Everything listed comes from Foundation. You didn't declare any of it -- composition handled that.
+
+## Key Agents
+
+Foundation includes over twenty agents, each a specialist that carries its own context and instructions. Here are the ones you'll use most:
+
+| Agent | Role |
+|-------|------|
+| **explorer** | Codebase reconnaissance -- maps structure, dependencies, and entry points |
+| **zen-architect** | System design and architecture planning |
+| **modular-builder** | Feature implementation following best practices |
+| **bug-hunter** | Debugging, root cause analysis, and fix implementation |
+| **git-ops** | Branch management, commits, and PR workflows |
+| **security-guardian** | Vulnerability scanning and security review |
+| **web-research** | Internet research for docs, examples, and solutions |
+| **file-ops** | Bulk file operations -- rename, move, restructure |
+| **test-coverage** | Test strategy, coverage analysis, and test writing |
+| **integration-specialist** | Connecting services, APIs, and third-party tools |
+| **post-task-cleanup** | Code cleanup -- imports, formatting, dead code removal |
+| **session-analyst** | Conversation history analysis and insight extraction |
+| **ecosystem-expert** | Technology guidance for APIs, frameworks, and libraries |
+| **foundation-expert** | Guidance on building bundles with Foundation itself |
+| **amplifier-smoke-test** | End-to-end verification of Amplifier installations |
+
+These agents are invoked through the task tool. You describe what you need, and Amplifier delegates:
+
+> Investigate why the login tests are failing
+
+```
+[Tool: task] Delegating to bug-hunter...
+  Analyzing test_auth.py::test_login
+  Found: mock for token service returns expired timestamp
+  Fix applied in auth/token_service.py line 47
+  All 12 auth tests now pass.
+```
+
+> Design a caching layer for the API
+
+```
+[Tool: task] Delegating to zen-architect...
+  Analyzed current request flow (3 database calls per request)
+  Proposed: two-tier cache (in-memory LRU + Redis)
+  Created design spec with interface contracts and eviction strategy.
+```
+
+Agents chain naturally. A common workflow: **explorer** maps the territory, **zen-architect** designs the approach, **modular-builder** implements it, **test-coverage** validates it, and **git-ops** ships it.
+
+## Key Behaviors
+
+Behaviors are reusable capability packages -- bundles of agents, context, and tools grouped by domain. Foundation organizes its reference content into four behavior groups:
+
+**agents** -- The delegation patterns. This behavior includes all of Foundation's agents and the context that teaches Amplifier *when* to delegate versus handle directly. It's why Amplifier knows to call bug-hunter for a failing test and zen-architect for a design question.
+
+**filesystem** -- File reading, writing, editing, and the `@mention` resolution system for cross-bundle file references.
+
+**web** -- Web search and fetch capabilities, plus the instructions that guide responsible web usage.
+
+**search** -- The grep and glob tools with their configuration for ignoring build artifacts, respecting `.gitignore`, and paginating large result sets.
+
+You can include individual behaviors rather than the entire bundle when composing lightweight configurations:
+
+```yaml
+includes:
+  - bundle: foundation:behaviors/agents
+  - bundle: foundation:behaviors/filesystem
+```
+
+## Composition Patterns
+
+Foundation's architecture enables three key patterns for building bundles:
+
+### Thin Bundles
+
+The most important pattern. Your bundle declares `includes:` and custom instructions -- nothing else. Foundation provides all the machinery. This is how most production bundles work:
+
+```yaml
+includes:
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
+  - bundle: my-bundle:behaviors/my-capability
+```
+
+Two lines of includes. Everything else is inherited.
+
+### Context Sinks
+
+Agents carry heavy documentation so your root session stays lean. When Foundation's `zen-architect` is invoked, it loads its own architecture context, design principles, and decision frameworks. That context lives inside the agent's session -- not yours. Your root session prompt stays small and fast.
+
+This is why Foundation can have 20+ agents without bloating every conversation. Each agent is a **context sink**: it absorbs domain-specific knowledge only when activated.
+
+> Plan a migration from REST to GraphQL
+
+```
+[Tool: task] Delegating to zen-architect...
+  (zen-architect loads architecture context, API design patterns,
+   migration strategies -- none of this enters your root session)
+```
+
+### Behavior Composition
+
+Build capabilities by mixing behaviors from multiple bundles:
+
+```yaml
+includes:
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-recipes@main
+  - bundle: my-bundle:behaviors/data-pipeline
+```
+
+Foundation provides the base. Recipes adds workflow orchestration. Your behavior adds domain agents. The result is a focused assistant that inherits everything and adds only what's unique.
+
+## The Examples Directory
+
+Foundation's repository includes 22+ examples that progress from basics to advanced patterns:
+
+| Range | What You'll Learn |
+|-------|-------------------|
+| `01_hello_world` | Minimal working session |
+| `04_load_and_inspect` | Loading bundles from git URLs, local paths, and registries |
+| `05_composition` | Merging bundles and understanding override rules |
+| `06_sources_and_registry` | Git URLs, BundleRegistry, and source management |
+| `07_full_workflow` | Complete pipeline: prepare, create session, execute |
+| Advanced examples | Custom providers, behavior authoring, agent creation |
+
+These are Python scripts you can run directly. They're the fastest way to understand how Foundation's API works in practice.
+
+## Tips
+
+- **Start with Foundation, add sparingly.** Most bundles need nothing beyond `includes: foundation` plus custom instructions. Resist the urge to redeclare tools Foundation already provides.
+
+- **Use agents, don't micromanage.** Instead of manually reading files, grepping, and editing, describe your goal and let the right agent handle the workflow. "Fix the failing auth tests" is better than step-by-step instructions.
+
+- **Lean on context sinks.** If you're building a custom agent, give it rich context in its own definition file. That context loads only when the agent is invoked, keeping root sessions fast.
+
+- **Compose behaviors, not whole bundles.** When you need only Foundation's agents (not its full tool suite), include `foundation:behaviors/agents` directly. Granular composition keeps bundles minimal.
+
+- **Check the examples first.** Before building something from scratch, browse Foundation's `examples/` directory. There's likely a pattern that matches your use case.
+
+## Next Steps
+
+- Learn about [Bundles](../concepts/bundles.md) as a concept -- composition, namespaces, and merge rules
+- Explore the [Recipes Bundle](./recipes.md) for multi-step workflow orchestration
+- See [Design Intelligence Bundle](./design-intelligence.md) for UI/UX specialized agents
+- Read about the [Task Tool](../tools/task.md) to understand how agents are delegated to

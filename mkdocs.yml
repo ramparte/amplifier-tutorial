@@ -48,42 +48,79 @@ nav:
     - Your First Bundle: quickstart/first-bundle.md
   - Core Concepts:
     - Overview: concepts/index.md
-    - Architecture Deep Dive: concepts/architecture.md
+    - Architecture: concepts/architecture.md
     - Modules: concepts/modules.md
     - Bundles: concepts/bundles.md
     - Agents: concepts/agents.md
     - Recipes: concepts/recipes.md
     - Skills: concepts/skills.md
     - Hooks: concepts/hooks.md
+    - Modes: concepts/modes.md
+    - Model Routing: concepts/routing.md
+    - Shadow Environments: concepts/shadows.md
   - Tools Reference:
     - Overview: tools/index.md
     - Filesystem: tools/filesystem.md
     - Bash: tools/bash.md
     - Search (grep & glob): tools/search.md
     - Web Tools: tools/web.md
-    - Task (Sub-Agents): tools/task.md
+    - Delegate (Sub-Agents): tools/task.md
     - LSP (Code Intelligence): tools/lsp.md
     - Recipes Tool: tools/recipes-tool.md
-  - Bundles Reference:
+    - Todo: tools/todo.md
+    - Python Check: tools/python-check.md
+    - DOT Graph: tools/dot-graph.md
+    - Mode: tools/mode.md
+    - Projector: tools/projector.md
+  - Bundles:
     - Overview: bundles/index.md
     - Foundation: bundles/foundation.md
     - Recipes: bundles/recipes.md
-    - LSP Python: bundles/lsp-python.md
+    - Python Dev: bundles/python-dev.md
     - Design Intelligence: bundles/design-intelligence.md
-  - Skills Reference:
+    - Superpowers: bundles/superpowers.md
+    - DOT Graph: bundles/dot-graph.md
+    - Browser Tester: bundles/browser-tester.md
+    - Team Knowledge: bundles/team-knowledge.md
+    - Dev Memory: bundles/dev-memory.md
+    - Projector: bundles/projector.md
+    - Stories: bundles/stories.md
+  - Providers:
+    - Overview: providers/index.md
+    - Anthropic (Claude): providers/anthropic.md
+    - OpenAI (GPT): providers/openai.md
+    - Google Gemini: providers/gemini.md
+    - Azure OpenAI: providers/azure.md
+    - Ollama (Local): providers/ollama.md
+    - Community Providers: providers/community.md
+  - Applications:
+    - Overview: apps/index.md
+    - CLI App: apps/cli.md
+    - Chat App: apps/chat.md
+    - Building Your Own: apps/building-apps.md
+    - MCP Integration: apps/mcp.md
+  - Skills:
     - Overview: skills/index.md
+    - Power Skills: skills/power-skills.md
     - Playwright: skills/playwright.md
     - Curl: skills/curl.md
     - Image Vision: skills/image-vision.md
-  - Developer Setup:
-    - Overview: dev-setup/index.md
-    - CLI Tools: dev-setup/cli-tools.md
-    - Shadow Workspace: dev-setup/shadow-workspace.md
-    - Remote Development: dev-setup/remote-dev.md
-    - Debugging: dev-setup/debugging.md
+  - Contributing:
+    - Overview: contributing/index.md
+    - Writing Modules: contributing/writing-modules.md
+    - Writing Bundles: contributing/writing-bundles.md
+    - Writing Skills: contributing/writing-skills.md
+    - Writing Agents: contributing/writing-agents.md
+  - Community: community/index.md
   - Advanced:
     - Overview: advanced/index.md
     - Custom Bundles: advanced/custom-bundle.md
     - Custom Tools: advanced/custom-tool.md
     - Custom Recipes: advanced/custom-recipe.md
     - MCP Integration: advanced/mcp-integration.md
+  - Developer Setup:
+    - Overview: dev-setup/index.md
+    - CLI Tools: dev-setup/cli-tools.md
+    - Shadow Workspace: dev-setup/shadow-workspace.md
+    - Remote Development: dev-setup/remote-dev.md
+    - Debugging: dev-setup/debugging.md

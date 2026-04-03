@@ -1,298 +1,230 @@
 ---
 id: modules
-type: concepts
-title: "Understanding Modules"
+type: concept
+title: "Modules"
 ---
 
-# Understanding Modules
+# Modules
 
 ## What is a Module?
 
-A **module** is a pluggable component that extends your agent's capabilities. Think of modules as LEGO blocks—each one serves a specific purpose, and you can mix and match them to build the exact agent you need.
+A module is a swappable capability unit that plugs into the Amplifier kernel. If the kernel is the engine block, modules are everything you bolt onto it — the fuel injector (provider), the transmission (orchestrator), the dashboard instruments (hooks), the navigation system (tools), and the memory (context).
 
-Modules are the foundation of the framework's architecture. Instead of building a monolithic agent with hardcoded behaviors, you compose your agent from independent, reusable modules. This design makes your agent:
+Every module follows a contract: a small interface that the kernel understands. As long as your module speaks that contract, the kernel doesn't care who wrote it, when, or why. This is what makes Amplifier modular in practice, not just in name. You can swap your LLM provider from Anthropic to OpenAI by changing one line in a YAML file. You can add file system access to your agent by mounting a tool. You can completely change how the agent loop works by swapping the orchestrator.
 
-- **Flexible**: Swap modules without rewriting code
-- **Testable**: Test each module in isolation
-- **Maintainable**: Update one module without breaking others
-- **Extensible**: Add new capabilities by adding modules
+The kernel itself is tiny and stable. It provides **mechanisms** — module loading, event emission, session lifecycle — but makes zero **policy** decisions. Which LLM to use? That's a provider module. How to run the agent loop? That's an orchestrator module. What to log? That's a hook module. The kernel just wires them together.
 
-Every module in the system implements a specific interface (or "contract") that defines how it communicates with the rest of the agent. This contract ensures that modules work together seamlessly, regardless of who wrote them or when they were created.
+## How It Works
 
-### The Module Lifecycle
+Modules flow from configuration to runtime through a clear pipeline:
 
-When an agent starts, it:
-
-1. **Loads** all configured modules
-2. **Initializes** them with configuration
-3. **Registers** them with the appropriate systems
-4. **Executes** them during the agent loop
-5. **Cleans up** when the agent shuts down
-
-Modules can maintain state between invocations, access shared resources, and communicate with each other through well-defined interfaces.
-
-## The 5 Module Types
-
-The framework defines five core module types, each serving a distinct architectural role:
-
-| Type | Purpose | Contract |
-|------|---------|----------|
-| Provider | LLM backends | complete() |
-| Tool | Agent capabilities | execute() |
-| Orchestrator | Main engine | The loop |
-| Context | Memory | messages |
-| Hook | Observers | events |
-
-### Provider Modules
-
-**Purpose**: Connect to language model backends
-
-Providers abstract away the details of different LLM APIs (OpenAI, Anthropic, local models, etc.). They implement a single `complete()` method that takes a conversation history and returns the next response.
-
-**Example use cases**:
-- OpenAI GPT-4 provider
-- Anthropic Claude provider
-- Local Llama model provider
-- Custom fine-tuned model provider
-
-**Key characteristics**:
-- Stateless request/response
-- Handles authentication and rate limiting
-- Transforms between framework format and API format
-- Supports streaming responses
-
-```python
-class Provider:
-    def complete(self, messages: list) -> Response:
-        """Generate next response from conversation history"""
-        pass
-```
-
-### Tool Modules
-
-**Purpose**: Give your agent capabilities to interact with the world
-
-Tools are functions that the LLM can call to perform actions—reading files, searching the web, executing code, querying databases, etc. The LLM decides which tool to use based on the conversation context.
-
-**Example use cases**:
-- File system operations (read, write, edit)
-- Web search and scraping
-- Database queries
-- API integrations
-- Code execution
-
-**Key characteristics**:
-- LLM-triggered (agent decides when to use)
-- Synchronous or asynchronous execution
-- Structured input parameters
-- Returns results to the LLM
-
-```python
-class Tool:
-    def execute(self, **params) -> dict:
-        """Execute the tool with given parameters"""
-        pass
-```
-
-### Orchestrator Modules
-
-**Purpose**: Control the main agent loop
-
-The orchestrator is the "brain" of your agent. It manages the conversation flow, decides when to call the LLM, processes tool calls, handles errors, and determines when the agent's work is complete.
-
-**Example use cases**:
-- Simple loop (call LLM → execute tools → repeat)
-- Tree search orchestrator (explore multiple paths)
-- Reflection orchestrator (self-critique and improve)
-- Multi-agent orchestrator (coordinate multiple agents)
-
-**Key characteristics**:
-- Runs the main agent loop
-- Manages state and conversation history
-- Decides when to stop
-- Handles errors and retries
-
-```python
-class Orchestrator:
-    def run(self) -> Result:
-        """Execute the main agent loop"""
-        while not self.is_complete():
-            response = self.provider.complete(self.context.messages)
-            self.process_response(response)
-        return self.result
-```
-
-### Context Modules
-
-**Purpose**: Manage conversation memory and state
-
-Context modules store and organize the conversation history. They decide what information to keep, what to summarize, and what to discard. This is crucial for long conversations where the full history exceeds the LLM's context window.
-
-**Example use cases**:
-- Simple in-memory context (store all messages)
-- Sliding window context (keep last N messages)
-- Semantic context (keep most relevant messages)
-- Persistent context (save to database)
-
-**Key characteristics**:
-- Stores conversation messages
-- Provides access to history
-- May implement compression or summarization
-- Can persist across sessions
-
-```python
-class Context:
-    @property
-    def messages(self) -> list:
-        """Get current conversation history"""
-        pass
-    
-    def add_message(self, message: dict):
-        """Add message to history"""
-        pass
-```
-
-### Hook Modules
-
-**Purpose**: Observe and react to agent events
-
-Hooks are passive observers that get notified when specific events occur in the agent's lifecycle. Unlike tools (which the LLM chooses to use), hooks are triggered by code events automatically.
-
-**Example use cases**:
-- Logging and debugging
-- Performance monitoring
-- Cost tracking
-- Safety guardrails
-- Analytics and telemetry
-
-**Key characteristics**:
-- Code-triggered (not LLM-triggered)
-- Cannot be chosen by the agent
-- Observe without blocking
-- Multiple hooks can respond to same event
-
-```python
-class Hook:
-    def on_event(self, event: Event):
-        """Handle an agent event"""
-        pass
-```
-
-## Tool vs Hook
-
-Understanding the difference between Tools and Hooks is crucial for proper module design:
-
-| | Tool | Hook |
-|--|------|------|
-| Triggered by | LLM decides | Code events |
-| Choosable | Yes, agent picks from available tools | No, always runs on events |
-| Blocks execution | Yes, agent waits for result | No, runs async or returns quickly |
-| Returns value | Yes, result goes to LLM | No, side effects only |
-| Example | "search_web" tool called when agent needs info | Logging hook records all LLM calls |
-
-### When to Use a Tool
-
-Create a Tool when:
-- The agent should **decide** when to use it
-- The action **produces a result** the LLM needs
-- It's an **explicit capability** you want to advertise
-
-**Example**: A `read_file` tool that the agent calls when it needs to see file contents.
-
-### When to Use a Hook
-
-Create a Hook when:
-- The action should happen **automatically** on events
-- It's an **observation** or side effect, not a core capability
-- You want to **monitor or modify** agent behavior
-
-**Example**: A `cost_tracker` hook that logs every LLM API call to track spending.
-
-### Can It Be Both?
-
-Sometimes! You might have a Hook that monitors for unsafe behavior AND a Tool that lets the agent explicitly check safety. The key is understanding the use case:
-
-- **Tool version**: "Is this action safe?" (agent decides to check)
-- **Hook version**: "Log every action and alert on unsafe patterns" (always runs)
-
-## Module Configuration
-
-Modules are typically configured in a YAML or JSON file:
+**1. Bundle declares modules.** Your bundle YAML lists which modules the session needs:
 
 ```yaml
-modules:
-  provider:
-    type: openai
-    model: gpt-4
-    
-  tools:
-    - name: file_ops
-      enabled: true
-    - name: web_search
-      api_key: ${SEARCH_API_KEY}
-      
-  orchestrator:
-    type: simple_loop
-    max_iterations: 20
-    
-  context:
-    type: sliding_window
-    window_size: 10
-    
-  hooks:
-    - name: logger
-      level: info
-    - name: cost_tracker
-      alert_threshold: 10.00
+---
+bundle:
+  name: my-assistant
+  version: 1.0.0
+
+tools:
+  - module: tool-filesystem
+  - module: tool-bash
+  - module: tool-web
+---
 ```
 
-## Creating Custom Modules
+**2. Kernel loads and mounts them.** When a session starts, the kernel reads the bundle, discovers each module by name, calls its `mount(coordinator, config)` entry point, and registers the result in the right slot — tools go in the tool registry, hooks go in the hook registry, and so on.
 
-To create a custom module:
+**3. Session uses them.** During execution, the orchestrator drives the loop. It calls the provider for LLM completions, dispatches tool calls the LLM requests, fires events that hooks observe, and reads/writes messages through the context manager. Every step touches modules.
 
-1. **Choose the right type** based on architectural role
-2. **Implement the contract** (required interface)
-3. **Register with the framework** (add to config)
-4. **Test in isolation** before integration
+```
+Bundle YAML ──→ Kernel loads ──→ Session uses
+  (config)       (mount)          (execute)
+```
 
-Each module type has a base class you extend:
+The beauty of this pipeline is that modules are isolated from each other. A tool doesn't know which provider is active. A hook doesn't care which orchestrator is running. They all communicate through the kernel's contracts.
+
+## The Five Types
+
+Amplifier defines exactly five module types. No more, no less. Each serves a distinct architectural role.
+
+### 1. Provider — LLM Backends
+
+Providers connect your agent to language models. Their contract is simple: take a completion request, return a response.
+
+```
+complete(request) → response
+```
+
+That's it. Everything else — authentication, rate limiting, streaming, format translation — is the provider's internal concern. From the kernel's perspective, all providers look identical.
+
+The ecosystem currently includes **11 providers**: Anthropic, OpenAI, Azure OpenAI, Gemini, Ollama, vLLM, GitHub Copilot, and a mock provider for testing, plus community-built providers for AWS Bedrock, Perplexity, and OpenAI Realtime. Whether you're calling Claude through an API or running Llama locally through Ollama, the rest of your agent doesn't change.
+
+### 2. Tool — Agent Capabilities
+
+Tools give the LLM the ability to act in the world. The critical thing about tools is that the **LLM decides** when to use them. You mount a set of tools, the LLM sees their names and descriptions, and it chooses which to call based on the conversation.
+
+```
+execute(input) → result
+```
+
+The ecosystem includes **12+ tools**: filesystem operations, bash execution, web search and fetching, code search (grep/glob), agent delegation (task), LSP code intelligence, Python quality checking, todo tracking, DOT graph analysis, MCP server integration, and more. Each one gives the agent a specific capability — reading files, running commands, searching the web — that the LLM can invoke when it decides the moment is right.
+
+### 3. Orchestrator — The Main Engine
+
+The orchestrator is the single most powerful module type. It controls **the loop** — the fundamental cycle of calling the LLM, processing tool calls, and deciding what happens next. Swap the orchestrator and you radically change how your agent behaves.
+
+There are currently **3 orchestrators**:
+
+- **loop-basic** — Sequential request/response. Simple and predictable.
+- **loop-streaming** — Real-time streaming with extended thinking support. What you see in the CLI.
+- **loop-events** — Event-driven orchestration with full hook integration. The most capable.
+
+Most users never think about the orchestrator because the default just works. But if you need custom retry logic, multi-agent coordination, or a fundamentally different execution strategy, this is where you'd build it.
+
+### 4. Hook — Lifecycle Observers
+
+Hooks observe what's happening in the session and react to events. The critical distinction: hooks are **code-decided**, not LLM-decided. The LLM never chooses to invoke a hook. Instead, hooks fire automatically when lifecycle events occur — a message is sent, a tool is called, a response arrives.
+
+```
+__call__(event, data) → HookResult
+```
+
+The ecosystem includes **12+ hooks**: JSONL logging, real-time streaming UI, git status context injection, approval gates for sensitive operations, privacy redaction, session backup, cost-aware scheduling, and more. Hooks are how you add observability, safety, and policy without touching the agent's core behavior.
+
+### 5. Context — Memory Management
+
+Context modules manage the conversation's memory. They store messages, provide access to history, and handle compaction when conversations get long.
+
+```
+add_message() / get_messages() / set_messages() / clear()
+```
+
+There are currently **2 context modules**:
+
+- **context-simple** — In-memory with automatic compaction. The default for most sessions.
+- **context-persistent** — File-backed storage that survives across sessions. For long-running work.
+
+## Tool vs. Hook: The Triggering Difference
+
+This is the single most important design distinction in Amplifier's module system. Both tools and hooks extend what the agent can do, but they differ in **who decides when they run**:
+
+| | Tool | Hook |
+|---|------|------|
+| **Triggered by** | The LLM decides | Code fires automatically |
+| **Visible to LLM?** | Yes — it sees the name, description, and schema | No — completely invisible |
+| **Returns to LLM?** | Yes — results flow back into the conversation | No — side effects only |
+| **Example** | `bash` — LLM decides to run a shell command | `hooks-logging` — every event is logged to disk |
+
+Here's the intuition: if you want the agent to **choose** when to do something, make it a tool. If you want something to **always happen** regardless of what the agent decides, make it a hook.
+
+A `read_file` tool makes sense because the agent should decide when it needs to see a file. But a logging hook makes sense because you want every event logged, whether the agent "wants" that or not.
+
+## Using Modules
+
+In practice, you rarely think about individual modules. Your bundle declares what you need, and the kernel handles the rest. But there are times when you want to see what's loaded or change things on the fly.
+
+> What modules are available?
+
+```bash
+amplifier module list
+```
+
+> I want to add web search to my current bundle.
+
+In your bundle YAML, add the tool:
+
+```yaml
+tools:
+  - module: tool-web
+    source: git+https://github.com/microsoft/amplifier-module-tool-web@main
+```
+
+> Can I swap providers mid-session?
+
+Yes. This is one of the most practical things about the module architecture. Say you're working with Claude and want to try the same task with GPT-4:
+
+```
+> /model openai/gpt-4.1
+
+Switched to openai/gpt-4.1
+
+> Now summarize the changes we discussed.
+
+[Response now comes from GPT-4.1 instead of Claude,
+ with full access to the same conversation history
+ and the same tools]
+```
+
+The context, tools, hooks, and orchestrator all stay the same. Only the provider changes. This is what "swappable" means in practice — the contracts make modules interchangeable within their type.
+
+## Creating Your Own
+
+Amplifier uses Python's structural typing (protocols), so you never need to inherit from a base class. If your object has the right methods, it's a valid module.
+
+Here's a complete custom tool:
 
 ```python
-from framework import ToolModule
+from amplifier_core.models import ToolResult
 
-class MyCustomTool(ToolModule):
-    name = "my_tool"
-    description = "What this tool does"
-    
-    parameters = {
-        "param1": {"type": "string", "description": "..."},
-        "param2": {"type": "number", "description": "..."}
-    }
-    
-    def execute(self, param1: str, param2: int) -> dict:
-        # Your implementation
-        result = self.do_something(param1, param2)
-        return {"result": result}
+class WordCounter:
+    """Counts words in text."""
+
+    @property
+    def name(self) -> str:
+        return "word_counter"
+
+    @property
+    def description(self) -> str:
+        return "Count the number of words in a given text"
+
+    async def execute(self, input: dict) -> ToolResult:
+        text = input.get("text", "")
+        count = len(text.split())
+        return ToolResult(output=f"Word count: {count}")
+
+async def mount(coordinator, config):
+    tool = WordCounter()
+    await coordinator.mount("tools", tool, name="word_counter")
+
+    async def cleanup():
+        pass
+    return cleanup
 ```
+
+Register it in `pyproject.toml`:
+
+```toml
+[project.entry-points."amplifier.modules"]
+tool-word-counter = "my_tool:mount"
+```
+
+That's it. The kernel discovers the module by its entry point name, calls `mount()`, and the tool appears in the agent's capabilities. No framework classes to extend, no decorators to apply. Just implement the contract.
+
+## Best Practices
+
+**Start with existing modules.** The ecosystem has 11 providers, 12+ tools, 3 orchestrators, 12+ hooks, and 2 context managers. Before building something custom, check whether a module already does what you need.
+
+**Choose the right type.** The most common mistake is building a hook when you need a tool (or vice versa). Ask: "Should the LLM decide when this runs?" If yes, it's a tool. If no, it's a hook.
+
+**Keep modules focused.** A module should do one thing well. If your tool is growing to handle multiple unrelated tasks, split it into multiple tools. The LLM is better at choosing between focused tools than navigating a Swiss Army knife.
+
+**Handle errors gracefully.** A module should never crash the kernel. Return error information in your result rather than raising exceptions that propagate upward.
+
+**Respect the contract.** Protocols exist for a reason. Don't add hidden side channels between modules. If your tool needs to communicate with a hook, go through the coordinator's event system.
 
 ## Key Takeaways
 
-1. **Modules are pluggable components** that extend agent capabilities through well-defined interfaces
+1. **Modules are swappable units** that plug into the kernel through contracts. Change a module, change the behavior — without touching anything else.
 
-2. **Five module types** serve different architectural roles: Provider (LLM), Tool (capabilities), Orchestrator (loop), Context (memory), Hook (observers)
+2. **Exactly five types**, each with a clear role: Provider (LLM), Tool (capabilities), Orchestrator (the loop), Hook (observers), and Context (memory).
 
-3. **Tools vs Hooks**: Tools are chosen by the LLM and return results; Hooks are triggered by code events for observation
+3. **Tool vs. Hook is about who decides.** The LLM triggers tools; code triggers hooks. This is the most important design decision when building modules.
 
-4. **Composition over inheritance**: Build agents by combining modules rather than writing monolithic code
+4. **Bundle YAML drives everything.** Declare your modules in the bundle, and the kernel loads, mounts, and wires them automatically.
 
-5. **Each module has a contract**: Implement the required interface, and your module works with the framework
+5. **The ecosystem is rich.** With 11 providers, 12+ tools, 3 orchestrators, 12+ hooks, and growing community contributions, you can compose powerful agents from existing pieces.
 
-6. **Modules enable reusability**: Write once, use across multiple agents and projects
+6. **Structural typing means no inheritance.** Implement the right methods and your class is a valid module. Duck typing at its best.
 
-7. **Testing is easier**: Test each module independently before integration
-
-8. **Configuration-driven**: Change agent behavior by swapping modules in config, not code
-
-The modular architecture is what makes the framework powerful and flexible. By understanding these five module types and their roles, you can build sophisticated agents that are maintainable, testable, and extensible.
-
-Start simple—use built-in modules first, then create custom modules as you understand the patterns. The framework handles the complexity of wiring modules together, so you can focus on building great capabilities.
+7. **Swapping is practical, not theoretical.** You can switch providers mid-session, add tools to a running bundle, or change orchestrators — and everything else keeps working.

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Shadow Environments - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Shadow Environments";
+        var mkdocs_page_input_path = "concepts/shadows.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="shadows.html">Shadow Environments</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-shadow-environment">What Is a Shadow Environment?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-os-level-isolation">1. OS-Level Isolation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-local-source-snapshots">2. Local Source Snapshots</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-git-url-rewriting">3. Git URL Rewriting</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-shadows">Using Shadows</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create">Create</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#execute">Execute</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inspect-and-iterate">Inspect and Iterate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clean-up">Clean Up</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#verifying-your-code-is-used">Verifying Your Code Is Used</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-cases">Use Cases</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#testing-core-changes">Testing Core Changes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-repo-integration">Multi-Repo Integration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#destructive-tests">Destructive Tests</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-testing-ladder">The Testing Ladder</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-each-level">When to Use Each Level</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-youve-learned">What You've Learned</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Shadow Environments</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="shadow-environments">Shadow Environments<a class="headerlink" href="#shadow-environments" title="Permanent link">&para;</a></h1>
+<p>You've made a change to a core library. The unit tests pass. But will the six
+downstream packages that depend on it still work? You could push and wait for
+CI, but that's a 15-minute feedback loop -- and if it breaks, you've broken
+everyone's builds. Shadow environments give you a faster answer: an OS-isolated sandbox where your
+local changes become the "real" repository, and you can test the full dependency
+chain without pushing anything.</p>
+<h2 id="what-is-a-shadow-environment">What Is a Shadow Environment?<a class="headerlink" href="#what-is-a-shadow-environment" title="Permanent link">&para;</a></h2>
+<p>A shadow environment is an <strong>isolated container</strong> that sees your local working
+tree as if it were the upstream repository. When code inside the shadow runs
+<code>pip install git+https://github.com/microsoft/amplifier-core</code>, it doesn't
+fetch from GitHub -- it fetches from a snapshot of your local checkout. Everything
+else resolves normally.</p>
+<div class="codehilite"><pre><span></span><code>Your machine:                  Shadow container:
+┌──────────────────┐           ┌──────────────────────────┐
+│ ~/repos/core     │──snapshot─▶│ Embedded Gitea server     │
+│  (your changes)  │           │   ↕ git URL rewriting     │
+└──────────────────┘           │                          │
+                               │ pip install git+https://  │
+                               │   github.com/ms/core     │
+                               │   → resolves to Gitea    │
+                               │   → YOUR local code      │
+                               │                          │
+                               │ Everything else           │
+                               │   → real GitHub           │
+                               └──────────────────────────┘
+</code></pre></div>
+
+<p>The key insight: <strong>selective git URL rewriting</strong>. Only the URLs you specify
+get redirected. The container has full network access for everything else --
+real dependencies, real package registries, real GitHub for repos you aren't
+overriding.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>Shadow environments use three components working together:</p>
+<h3 id="1-os-level-isolation">1. OS-Level Isolation<a class="headerlink" href="#1-os-level-isolation" title="Permanent link">&para;</a></h3>
+<p>On <strong>Linux</strong>, shadows use <a href="https://github.com/containers/bubblewrap">bubblewrap</a>
+(<code>bwrap</code>) -- the same sandboxing technology used by Flatpak. On <strong>macOS</strong>, they
+use <code>sandbox-exec</code> with a custom profile. Both provide:</p>
+<ul>
+<li>Filesystem isolation (the shadow can't modify your host files)</li>
+<li>Network namespace separation</li>
+<li>Dropped capabilities and no-new-privileges flags</li>
+<li>Security-hardened containers by default</li>
+</ul>
+<h3 id="2-local-source-snapshots">2. Local Source Snapshots<a class="headerlink" href="#2-local-source-snapshots" title="Permanent link">&para;</a></h3>
+<p>When you create a shadow, it takes an <strong>exact working tree snapshot</strong> of your
+local repo -- including untracked files, uncommitted changes, and deleted files.
+This isn't just the latest commit; it's the exact state of your working
+directory. The snapshot is pushed to an embedded Gitea server running inside the
+container, preserving full git history so pinned commits still resolve.</p>
+<h3 id="3-git-url-rewriting">3. Git URL Rewriting<a class="headerlink" href="#3-git-url-rewriting" title="Permanent link">&para;</a></h3>
+<p>Git is configured inside the container to rewrite <em>only</em> the specific GitHub
+URLs you specify to point at the embedded Gitea server. When any tool -- pip,
+uv, cargo, npm -- resolves a git dependency, the rewriting happens at the git
+transport layer. The tools don't know they're hitting a local server.</p>
+<h2 id="using-shadows">Using Shadows<a class="headerlink" href="#using-shadows" title="Permanent link">&para;</a></h2>
+<h3 id="create">Create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h3>
+<p>Create a shadow with one or more local source overrides:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Single repo override</span>
+amplifier-shadow<span class="w"> </span>create<span class="w"> </span>--local<span class="w"> </span>~/repos/amplifier-core:microsoft/amplifier-core
+
+<span class="c1"># Multiple repos in one shadow</span>
+amplifier-shadow<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--local<span class="w"> </span>~/repos/amplifier-core:microsoft/amplifier-core<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--local<span class="w"> </span>~/repos/amplifier-foundation:microsoft/amplifier-foundation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--local<span class="w"> </span>~/repos/amplifier-app-cli:microsoft/amplifier-app-cli
+</code></pre></div>
+
+<p>The <code>--local</code> flag maps a local path to a GitHub <code>org/repo</code> identifier. Inside
+the shadow, any git fetch to <code>github.com/microsoft/amplifier-core</code> resolves to
+your local snapshot instead.</p>
+<h3 id="execute">Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h3>
+<p>Run commands inside the shadow:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install a package (resolves to your local code)</span>
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;uv pip install git+https://github.com/microsoft/amplifier-core&quot;</span>
+
+<span class="c1"># Run Amplifier itself against your changes</span>
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;amplifier run &#39;Hello from shadow&#39;&quot;</span>
+
+<span class="c1"># Run a test suite</span>
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;cd /workspace &amp;&amp; pytest tests/&quot;</span>
+</code></pre></div>
+
+<h3 id="inspect-and-iterate">Inspect and Iterate<a class="headerlink" href="#inspect-and-iterate" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># See what changed inside the shadow</span>
+amplifier-shadow<span class="w"> </span>diff<span class="w"> </span>&lt;id&gt;
+
+<span class="c1"># Open an interactive shell</span>
+amplifier-shadow<span class="w"> </span>shell<span class="w"> </span>&lt;id&gt;
+
+<span class="c1"># Check shadow status and snapshot commits</span>
+amplifier-shadow<span class="w"> </span>status<span class="w"> </span>&lt;id&gt;
+
+<span class="c1"># Inject a file into the running shadow</span>
+amplifier-shadow<span class="w"> </span>inject<span class="w"> </span>&lt;id&gt;<span class="w"> </span>local-fix.py<span class="w"> </span>/workspace/src/fix.py
+
+<span class="c1"># Extract results from the shadow</span>
+amplifier-shadow<span class="w"> </span>extract<span class="w"> </span>&lt;id&gt;<span class="w"> </span>/workspace/test-results.xml<span class="w"> </span>./results.xml
+</code></pre></div>
+
+<h3 id="clean-up">Clean Up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Destroy a single shadow</span>
+amplifier-shadow<span class="w"> </span>destroy<span class="w"> </span>&lt;id&gt;
+
+<span class="c1"># List all active shadows</span>
+amplifier-shadow<span class="w"> </span>list
+</code></pre></div>
+
+<h3 id="verifying-your-code-is-used">Verifying Your Code Is Used<a class="headerlink" href="#verifying-your-code-is-used" title="Permanent link">&para;</a></h3>
+<p>The <code>create</code> and <code>status</code> commands return the exact commit hash captured from
+your local repo. When pip or uv installs a package inside the shadow, the
+resolved commit appears in the install output. Match those hashes to confirm
+your local code is actually being used -- not a stale cached version.</p>
+<blockquote>
+<p>I want to verify my local core changes are being picked up in the shadow.</p>
+</blockquote>
+<p>[Tool: bash] amplifier-shadow status shadow-7f3a</p>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="testing-core-changes">Testing Core Changes<a class="headerlink" href="#testing-core-changes" title="Permanent link">&para;</a></h3>
+<p>You've changed the Amplifier kernel's tool dispatch logic. Before pushing, you
+want to know if downstream bundles still load correctly:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-shadow<span class="w"> </span>create<span class="w"> </span>--local<span class="w"> </span>~/repos/amplifier-core:microsoft/amplifier-core
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;uv tool install git+https://github.com/microsoft/amplifier&quot;</span>
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;amplifier run &#39;load foundation bundle and list tools&#39;&quot;</span>
+</code></pre></div>
+
+<p>If the bundle loads and tools fire, your change is compatible. If not, you
+caught the regression before CI did.</p>
+<h3 id="multi-repo-integration">Multi-Repo Integration<a class="headerlink" href="#multi-repo-integration" title="Permanent link">&para;</a></h3>
+<p>You're changing a data model in <code>amplifier-core</code> and updating the CLI in
+<code>amplifier-app-cli</code> to match. These changes must ship together:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-shadow<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--local<span class="w"> </span>~/repos/amplifier-core:microsoft/amplifier-core<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--local<span class="w"> </span>~/repos/amplifier-app-cli:microsoft/amplifier-app-cli
+
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;uv tool install git+https://github.com/microsoft/amplifier&quot;</span>
+amplifier-shadow<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;id&gt;<span class="w"> </span><span class="s2">&quot;amplifier --version &amp;&amp; amplifier run &#39;smoke test&#39;&quot;</span>
+</code></pre></div>
+
+<p>Both repos resolve to your local snapshots. You're testing the <em>combination</em>
+of changes, not each in isolation.</p>
+<h3 id="destructive-tests">Destructive Tests<a class="headerlink" href="#destructive-tests" title="Permanent link">&para;</a></h3>
+<p>Need to test an uninstall script? A database migration rollback? A filesystem
+cleanup routine? Run it in a shadow. The container is disposable -- destroy it
+when done and your host is untouched.</p>
+<h2 id="the-testing-ladder">The Testing Ladder<a class="headerlink" href="#the-testing-ladder" title="Permanent link">&para;</a></h2>
+<p>Shadow environments sit in the middle of a testing progression. Each level
+catches different kinds of bugs at different costs:</p>
+<div class="codehilite"><pre><span></span><code>Level 1: Unit Tests
+  ├─ Scope: Single function or class
+  ├─ Speed: Seconds
+  └─ Catches: Logic errors, regressions in isolated code
+
+Level 2: Local Override
+  ├─ Scope: Your package, editable install
+  ├─ Speed: Seconds
+  └─ Catches: Integration within your own repo
+
+Level 3: Shadow Environment          ← you are here
+  ├─ Scope: Full dependency chain, multi-repo
+  ├─ Speed: Minutes
+  └─ Catches: Cross-repo breakage, dependency conflicts, install failures
+
+Level 4: Push &amp; CI
+  ├─ Scope: Full matrix (OS × Python version × config)
+  ├─ Speed: 10-30 minutes
+  └─ Catches: Platform-specific issues, environment matrix failures
+
+Level 5: Docker E2E
+  ├─ Scope: Production-like environment
+  ├─ Speed: 15-45 minutes
+  └─ Catches: Deployment issues, config drift, system integration
+</code></pre></div>
+
+<h3 id="when-to-use-each-level">When to Use Each Level<a class="headerlink" href="#when-to-use-each-level" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Best Level</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed a typo in a docstring</td>
+<td>Unit tests (1)</td>
+<td>No behavior change to verify</td>
+</tr>
+<tr>
+<td>Changed a function signature</td>
+<td>Unit tests + local override (1-2)</td>
+<td>Need to check callers within the repo</td>
+</tr>
+<tr>
+<td>Changed a public API used by other repos</td>
+<td>Shadow (3)</td>
+<td>Need to check cross-repo consumers</td>
+</tr>
+<tr>
+<td>Adding a new dependency</td>
+<td>Shadow (3)</td>
+<td>Need to verify it installs cleanly in context</td>
+</tr>
+<tr>
+<td>Multi-repo coordinated change</td>
+<td>Shadow (3)</td>
+<td>Need to test the combination</td>
+</tr>
+<tr>
+<td>Ready to merge</td>
+<td>Push &amp; CI (4)</td>
+<td>Need the full platform matrix</td>
+</tr>
+<tr>
+<td>Preparing a release</td>
+<td>Docker E2E (5)</td>
+<td>Need production-like validation</td>
+</tr>
+</tbody>
+</table>
+<p>The key question for shadows: <strong>"Does my change break things outside my repo?"</strong>
+If the blast radius is contained to your repository, unit tests and local
+overrides are sufficient. If it crosses repo boundaries, reach for a shadow.</p>
+<h2 id="what-youve-learned">What You've Learned<a class="headerlink" href="#what-youve-learned" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Shadow environments are OS-isolated containers that redirect specific git URLs
+  to your local working tree snapshots</li>
+<li>They use bubblewrap (Linux) or sandbox-exec (macOS) for security isolation
+  and an embedded Gitea server for git URL rewriting</li>
+<li>The <code>amplifier-shadow</code> CLI manages the full lifecycle: create, exec, shell,
+  diff, inject, extract, destroy</li>
+<li>Shadows excel at cross-repo integration testing -- verifying that your local
+  changes work with the full dependency chain before pushing</li>
+<li>They sit at Level 3 of the testing ladder, between local overrides and CI --
+  catching cross-repo breakage at the cost of minutes, not the 15+ minutes of
+  a full CI pipeline</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="routing.html" class="btn btn-neutral float-left" title="Model Routing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="routing.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tools/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

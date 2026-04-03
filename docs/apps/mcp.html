@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>MCP Integration - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MCP Integration";
+        var mkdocs_page_input_path = "apps/mcp.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="mcp.html">MCP Integration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#how-mcp-works">How MCP Works</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-mcp-servers">Configuring MCP Servers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#in-user-settings">In User Settings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#in-a-bundle">In a Bundle</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-mcp-tools-appear">How MCP Tools Appear</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-cases">Use Cases</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-example-connecting-a-database">Practical Example: Connecting a Database</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#install-the-server">Install the Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-it">Configure It</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-it">Use It</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-your-own-mcp-server">Building Your Own MCP Server</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security-considerations">Security Considerations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Applications</li>
+      <li class="breadcrumb-item active">MCP Integration</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mcp-integration">MCP Integration<a class="headerlink" href="#mcp-integration" title="Permanent link">&para;</a></h1>
+<p>Amplifier's built-in tools -- bash, read_file, grep, web_search -- cover a lot of ground. But sometimes you need capabilities that don't ship with any bundle: querying a Postgres database, calling a company-internal API, searching a vector store, or controlling a Kubernetes cluster. That's where MCP comes in.</p>
+<p>MCP (Model Context Protocol) is an open standard for connecting AI assistants to external tool servers. Instead of writing a custom Amplifier module for every new capability, you point Amplifier at an MCP server, and its tools appear alongside the native ones. The LLM doesn't know the difference -- it sees <code>query_database</code> next to <code>read_file</code> and picks whichever one fits the task.</p>
+<h2 id="how-mcp-works">How MCP Works<a class="headerlink" href="#how-mcp-works" title="Permanent link">&para;</a></h2>
+<p>The architecture is straightforward:</p>
+<div class="codehilite"><pre><span></span><code>Amplifier (MCP Client)
+    |
+    v
+MCP Server (separate process)
+    |
+    v
+External System (database, API, service)
+</code></pre></div>
+
+<p>Amplifier acts as an <strong>MCP client</strong>. It connects to one or more <strong>MCP servers</strong>, discovers what tools they offer, and makes those tools available to the LLM during a session. Each MCP server is a standalone process -- it might be an npm package, a Python script, or a compiled binary. The server handles the actual communication with whatever external system it wraps.</p>
+<p>The protocol is standardized: tool discovery, invocation, and response all follow the MCP spec. This means any MCP server works with any MCP client. A server you build for Amplifier also works with other MCP-compatible tools, and servers built for other clients work with Amplifier.</p>
+<h2 id="configuring-mcp-servers">Configuring MCP Servers<a class="headerlink" href="#configuring-mcp-servers" title="Permanent link">&para;</a></h2>
+<p>You can declare MCP servers in two places: your user settings (available in every session) or a specific bundle (available only when that bundle is loaded).</p>
+<h3 id="in-user-settings">In User Settings<a class="headerlink" href="#in-user-settings" title="Permanent link">&para;</a></h3>
+<p>For servers you want available everywhere:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ~/.amplifier/settings.yaml</span>
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-postgres</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DATABASE_URL}</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-github</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${GITHUB_TOKEN}</span>
+</code></pre></div>
+
+<p>These servers start automatically when a session begins. Environment variables are resolved at launch, so you can use <code>${VAR}</code> references to keep credentials out of config files.</p>
+<h3 id="in-a-bundle">In a Bundle<a class="headerlink" href="#in-a-bundle" title="Permanent link">&para;</a></h3>
+<p>For servers tied to a specific project or workflow:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># my-bundle/bundle.yaml</span>
+<span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-analyst</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warehouse</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ./mcp_servers/warehouse_server.py</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--read-only&quot;</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analytics</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @company/analytics-mcp</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">API_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANALYTICS_KEY}</span>
+</code></pre></div>
+
+<p>Bundle-level servers only run when that bundle is active. This keeps project-specific tools from cluttering unrelated sessions.</p>
+<h2 id="how-mcp-tools-appear">How MCP Tools Appear<a class="headerlink" href="#how-mcp-tools-appear" title="Permanent link">&para;</a></h2>
+<p>Once configured, MCP tools show up alongside native tools seamlessly. The LLM sees a unified tool list and picks the right one based on your request.</p>
+<blockquote>
+<p>How many active users signed up last week?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:warehouse/query] SELECT COUNT(*) FROM users
+    WHERE created_at &gt; NOW() - INTERVAL &#39;7 days&#39; AND status = &#39;active&#39;
+    Result: 1,247 new active users in the last 7 days.
+</code></pre></div>
+
+<p>The <code>mcp:warehouse/query</code> prefix tells you the tool came from the MCP server named <code>warehouse</code>. But to the LLM, it's just another tool. It made the same kind of decision it makes when picking <code>grep</code> over <code>read_file</code> -- matching the tool's description to your intent.</p>
+<blockquote>
+<p>What open issues are assigned to me?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:github/list_issues] owner=&quot;acme&quot; repo=&quot;backend&quot; assignee=&quot;@me&quot; state=&quot;open&quot;
+    Found 3 open issues:
+    #421 - Fix rate limiter edge case
+    #418 - Add pagination to /users endpoint
+    #415 - Update API docs for v2
+</code></pre></div>
+
+<p>Native and MCP tools can work together in the same turn. The LLM might use <code>grep</code> to find something in your codebase, then call an MCP tool to check the production database, then use <code>edit_file</code> to apply a fix -- all in one response.</p>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
+<p>MCP integration shines in several scenarios:</p>
+<p><strong>Databases</strong> -- Connect to Postgres, SQLite, or any database without writing custom tools. The MCP server handles queries and returns results. The LLM can explore schemas, write queries, and summarize data.</p>
+<p><strong>APIs and services</strong> -- Wrap any REST or GraphQL API in an MCP server. Company-internal services, SaaS platforms, monitoring systems -- anything with an API becomes a tool the LLM can use.</p>
+<p><strong>Specialized tools</strong> -- Vector search, code analysis, infrastructure management, CI/CD systems. The MCP ecosystem has servers for many of these, and writing new ones is straightforward.</p>
+<p><strong>Cross-tool workflows</strong> -- Because MCP tools appear alongside native tools, the LLM can chain them naturally. "Find the slow endpoint in the logs, query the database for related errors, and create a GitHub issue" spans three different MCP servers plus native file tools, and the LLM orchestrates it without special configuration.</p>
+<h2 id="practical-example-connecting-a-database">Practical Example: Connecting a Database<a class="headerlink" href="#practical-example-connecting-a-database" title="Permanent link">&para;</a></h2>
+<p>Let's walk through setting up a Postgres MCP server from scratch.</p>
+<h3 id="install-the-server">Install the Server<a class="headerlink" href="#install-the-server" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@modelcontextprotocol/server-postgres
+</code></pre></div>
+
+<h3 id="configure-it">Configure It<a class="headerlink" href="#configure-it" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ~/.amplifier/settings.yaml</span>
+<span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">appdb</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx @modelcontextprotocol/server-postgres</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://dev:devpass@localhost:5432/myapp&quot;</span>
+</code></pre></div>
+
+<h3 id="use-it">Use It<a class="headerlink" href="#use-it" title="Permanent link">&para;</a></h3>
+<p>Start a session and ask questions about your data:</p>
+<blockquote>
+<p>What tables are in the database?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:appdb/list_tables]
+    Tables: users, orders, products, order_items, sessions
+</code></pre></div>
+
+<blockquote>
+<p>Show me the top 10 customers by order count</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:appdb/query] SELECT u.name, COUNT(o.id) as order_count
+    FROM users u JOIN orders o ON u.id = o.user_id
+    GROUP BY u.name ORDER BY order_count DESC LIMIT 10
+    ...
+</code></pre></div>
+
+<blockquote>
+<p>Are there any orders stuck in "processing" for more than 24 hours?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:appdb/query] SELECT id, user_id, created_at
+    FROM orders WHERE status = &#39;processing&#39;
+    AND created_at &lt; NOW() - INTERVAL &#39;24 hours&#39;
+    Result: 3 stuck orders found. Order #8812 has been processing for 47 hours.
+</code></pre></div>
+
+<p>The LLM generates SQL, the MCP server executes it safely against the database, and you get answers in natural language. No custom tool module required.</p>
+<h2 id="building-your-own-mcp-server">Building Your Own MCP Server<a class="headerlink" href="#building-your-own-mcp-server" title="Permanent link">&para;</a></h2>
+<p>When no existing server fits your needs, you can write one in Python:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">mcp.server</span> <span class="kn">import</span> <span class="n">Server</span>
+<span class="kn">from</span> <span class="nn">mcp.types</span> <span class="kn">import</span> <span class="n">Tool</span><span class="p">,</span> <span class="n">TextContent</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">)</span>
+
+<span class="nd">@server</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">check_stock</span><span class="p">(</span><span class="n">product_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check current inventory level for a product.&quot;&quot;&quot;</span>
+    <span class="c1"># Your business logic here</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="k">await</span> <span class="n">inventory_db</span><span class="o">.</span><span class="n">get_count</span><span class="p">(</span><span class="n">product_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Product </span><span class="si">{</span><span class="n">product_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> units in stock&quot;</span>
+
+<span class="nd">@server</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">low_stock_report</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all products with inventory below reorder threshold.&quot;&quot;&quot;</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="k">await</span> <span class="n">inventory_db</span><span class="o">.</span><span class="n">get_low_stock</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> units&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Register it in your bundle:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">mcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inventory</span>
+<span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python ./mcp_servers/inventory_server.py</span>
+</code></pre></div>
+
+<p>Now the LLM can check stock and pull reports:</p>
+<blockquote>
+<p>Are we running low on anything?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mcp:inventory/low_stock_report]
+    Widget A: 12 units (threshold: 50)
+    Gadget X: 3 units (threshold: 25)
+    Two products are below reorder threshold.
+</code></pre></div>
+
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<p>MCP servers run as separate processes with their own access to external systems. Keep these principles in mind:</p>
+<p><strong>Least privilege.</strong> Give each server access to only what it needs. A database server should use a read-only connection unless writes are required. A file server should be scoped to a specific directory.</p>
+<p><strong>Credential hygiene.</strong> Use environment variable references (<code>${DATABASE_URL}</code>) rather than hardcoding secrets in config files. This keeps credentials out of version control and lets you use different values per environment.</p>
+<p><strong>Audit trail.</strong> MCP tool calls appear in session event logs just like native tool calls. You can filter for them to review what external actions the LLM took:</p>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>events.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;select(.tool_name | startswith(&quot;mcp:&quot;))&#39;</span>
+</code></pre></div>
+
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
+<p>If an MCP server isn't working as expected, check these common issues:</p>
+<p><strong>Server not starting</strong> -- Verify the command path and that dependencies are installed. Run the command manually to see error output.</p>
+<p><strong>Tools not appearing</strong> -- Restart the Amplifier session. MCP tool discovery happens at session startup. If you added a server config after the session started, you need a new session.</p>
+<p><strong>Unexpected results</strong> -- Enable debug logging to see the raw MCP protocol messages:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">AMPLIFIER_LOG_LEVEL</span><span class="o">=</span>debug
+amp
+</code></pre></div>
+
+<p>This shows exactly what's being sent to and received from each MCP server.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Read <a href="building-apps.html">Building Your Own App</a> for using MCP servers in custom applications</li>
+<li>See <a href="../concepts/architecture.html">Architecture</a> to understand how MCP fits into the module system</li>
+<li>Learn about <a href="../advanced/custom-tool.html">Creating Custom Tools</a> for when you need a native module instead</li>
+<li>Explore <a href="../advanced/custom-bundle.html">Creating Custom Bundles</a> for packaging MCP configurations</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="building-apps.html" class="btn btn-neutral float-left" title="Building Your Own"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../skills/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="building-apps.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../skills/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

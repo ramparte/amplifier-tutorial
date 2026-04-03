@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Writing Skills - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Writing Skills";
+        var mkdocs_page_input_path = "contributing/writing-skills.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="writing-skills.html">Writing Skills</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-skill-file-format">The Skill File Format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-mistakes">Common Mistakes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#optional-fields">Optional Fields</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#descriptions-are-triggers">Descriptions Are Triggers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#directory-placement">Directory Placement</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#companion-files-and-skill_directory">Companion Files and skill_directory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enhanced-features">Enhanced Features</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fork-execution">Fork Execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#user-invocable-skills-power-skills">User-Invocable Skills (Power Skills)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-effective-skill-content">Writing Effective Skill Content</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-your-skill">Testing Your Skill</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#distributing-skills-via-bundles">Distributing Skills via Bundles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Contributing</li>
+      <li class="breadcrumb-item active">Writing Skills</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="writing-skills">Writing Skills<a class="headerlink" href="#writing-skills" title="Permanent link">&para;</a></h1>
+<p>Skills inject domain expertise into an agent's context on demand. Unlike tools
+(which do things) and agents (which delegate things), skills teach things. They're
+Markdown files that shape how an agent approaches problems -- your team's best
+practices, decision frameworks, and workflows, loadable in a single call.</p>
+<p>This guide covers creating, placing, testing, and distributing custom skills.</p>
+<h2 id="the-skill-file-format">The Skill File Format<a class="headerlink" href="#the-skill-file-format" title="Permanent link">&para;</a></h2>
+<p>A skill is a Markdown file with YAML frontmatter following the
+<a href="https://agentskills.io">Agent Skills specification</a>. At minimum, it looks like this:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: docker-multi-stage
+description: &gt;
+  Use when building Dockerfiles, optimizing image sizes,
+<span class="gu">  or debugging container build failures</span>
+<span class="gu">---</span>
+
+<span class="gh"># Docker Multi-Stage Builds</span>
+
+<span class="gu">## Core Pattern</span>
+
+Separate build dependencies from runtime for minimal production images.
+
+```dockerfile
+FROM node:20 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci &amp;&amp; npm run build
+
+FROM node:20-slim
+COPY --from=builder /app/dist ./dist
+CMD [&quot;node&quot;, &quot;dist/index.js&quot;]
+</code></pre></div>
+
+<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Installing dev dependencies in production stage</li>
+<li>Using <code>latest</code> tag (breaks reproducibility)</li>
+<li>Running as root in production containers</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>No code, no build step, no registration. Drop a Markdown file in the right
+directory and it&#39;s discoverable.
+
+## Three-Level Progressive Disclosure
+
+Skills use a token-efficient loading strategy. The agent peels back layers only
+as needed:
+
+| Level | What Loads | Token Cost | When |
+|-------|-----------|------------|------|
+| **1 -- Metadata** | Name + description | ~100 tokens | Always visible via list/search |
+| **2 -- Content** | Full markdown body | ~1-5k tokens | Loaded on demand via `load_skill` |
+| **3 -- References** | Companion files | 0 until accessed | Read via `skill_directory` path |
+
+This means a session with 30 available skills pays only ~3,000 tokens for
+visibility (Level 1 for all). When one skill gets loaded, it adds its content
+(Level 2). Companion files (Level 3) load only when the agent explicitly reads
+them. Token budget stays under control.
+
+## Frontmatter Fields
+
+### Required Fields
+
+```yaml
+name: my-skill              # Unique identifier, used with load_skill
+description: &gt;              # WHEN to load this skill (trigger condition)
+  Use when writing database migrations
+  or debugging schema conflicts
+</code></pre></div>
+
+<h3 id="optional-fields">Optional Fields<a class="headerlink" href="#optional-fields" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span><span class="w">              </span><span class="c1"># Semantic version</span>
+<span class="nt">tags</span><span class="p">:</span><span class="w">                        </span><span class="c1"># Discovery aids</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">migrations</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fork</span><span class="w">                </span><span class="c1"># fork = runs as isolated subagent (see below)</span>
+<span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inline</span><span class="w">              </span><span class="c1"># inline = loads into current session (default)</span>
+<span class="nt">disable-model-invocation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># User-only, invoked via /command</span>
+<span class="nt">model_role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reasoning</span><span class="w">        </span><span class="c1"># Preferred model role for fork execution</span>
+</code></pre></div>
+
+<h3 id="descriptions-are-triggers">Descriptions Are Triggers<a class="headerlink" href="#descriptions-are-triggers" title="Permanent link">&para;</a></h3>
+<p>The description field determines whether the agent loads your skill. Write it
+as a trigger condition, not a summary:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Good: tells the agent WHEN to load</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when building Dockerfiles or debugging build failures</span>
+
+<span class="c1"># Bad: summarizes WHAT the skill does</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Teaches multi-stage Docker builds with layer caching</span>
+</code></pre></div>
+
+<p>Start with "Use when..." and focus on symptoms and situations the user might
+describe. If the description summarizes content, the agent may try to follow
+the summary instead of reading the full skill.</p>
+<h2 id="directory-placement">Directory Placement<a class="headerlink" href="#directory-placement" title="Permanent link">&para;</a></h2>
+<p>Skills are discovered from multiple directories, in priority order:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Scope</th>
+<th>Typical Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.amplifier/skills/</code></td>
+<td>Workspace</td>
+<td>Project-specific patterns</td>
+</tr>
+<tr>
+<td><code>~/.amplifier/skills/</code></td>
+<td>User (global)</td>
+<td>Personal workflows across projects</td>
+</tr>
+<tr>
+<td>Bundle skill sources</td>
+<td>Distribution</td>
+<td>Skills shipped with bundles</td>
+</tr>
+</tbody>
+</table>
+<p>Each skill lives in its own directory with a <code>SKILL.md</code> file:</p>
+<div class="codehilite"><pre><span></span><code>.amplifier/skills/
+└── docker-multi-stage/
+    ├── SKILL.md             # Required: main skill content
+    ├── examples/            # Optional: companion files
+    │   └── basic.dockerfile
+    └── templates/           # Optional: reusable templates
+        └── multi-stage.dockerfile
+</code></pre></div>
+
+<p><strong>First-match-wins</strong>: if the same skill name exists in both workspace and user
+directories, the workspace copy takes precedence. This lets you customize shared
+skills per-project while keeping personal defaults as fallback.</p>
+<h2 id="companion-files-and-skill_directory">Companion Files and skill_directory<a class="headerlink" href="#companion-files-and-skill_directory" title="Permanent link">&para;</a></h2>
+<p>When a skill is loaded, the response includes a <code>skill_directory</code> path:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] skill_name=&quot;docker-multi-stage&quot;
+→ Skill loaded (1,820 tokens). skill_directory: /path/to/docker-multi-stage/
+</code></pre></div>
+
+<p>The agent can then read companion files from that directory without loading them
+all upfront:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: read_file] file_path=&quot;/path/to/docker-multi-stage/examples/basic.dockerfile&quot;
+</code></pre></div>
+
+<p>This is Level 3 disclosure -- zero tokens until the agent actually needs the
+reference material. Use companion files for:</p>
+<ul>
+<li>Code examples and templates</li>
+<li>API reference tables</li>
+<li>Configuration snippets</li>
+<li>Lengthy decision trees</li>
+</ul>
+<p>Keep <code>SKILL.md</code> itself under ~5,000 tokens. Move heavy reference material into
+companion files.</p>
+<h2 id="enhanced-features">Enhanced Features<a class="headerlink" href="#enhanced-features" title="Permanent link">&para;</a></h2>
+<h3 id="fork-execution">Fork Execution<a class="headerlink" href="#fork-execution" title="Permanent link">&para;</a></h3>
+<p>Skills with <code>context: fork</code> run as isolated subagents rather than loading into
+your main context:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture-consultant</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">Authoritative consultant for architecture decisions.</span>
+<span class="w">  </span><span class="no">Use when evaluating tradeoffs between approaches.</span>
+<span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fork</span>
+<span class="nt">model_role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reasoning</span>
+<span class="nn">---</span>
+</code></pre></div>
+
+<p>Fork skills are useful for heavyweight expertise that would overwhelm your main
+context window, or for skills that need conversational back-and-forth. The agent
+delegates to the fork skill, which works independently and returns results --
+similar to delegating to an agent.</p>
+<p>The <code>model_role</code> field tells Amplifier which model routing to prefer when
+executing the fork. Use <code>reasoning</code> for analytical skills, <code>coding</code> for
+implementation-heavy ones.</p>
+<h3 id="user-invocable-skills-power-skills">User-Invocable Skills (Power Skills)<a class="headerlink" href="#user-invocable-skills-power-skills" title="Permanent link">&para;</a></h3>
+<p>Skills with <code>disable-model-invocation: true</code> aren't loaded by the agent
+automatically. Instead, you trigger them via slash commands:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review changed code for quality and efficiency</span>
+<span class="nt">disable-model-invocation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nn">---</span>
+</code></pre></div>
+
+<p>Invoke with <code>/code-review</code> in a session. Power skills are for workflows you
+initiate deliberately -- mass changes, session debugging, structured reviews.
+They won't fire on their own.</p>
+<h2 id="writing-effective-skill-content">Writing Effective Skill Content<a class="headerlink" href="#writing-effective-skill-content" title="Permanent link">&para;</a></h2>
+<p>Structure your <code>SKILL.md</code> for the agent, not a human reader:</p>
+<div class="codehilite"><pre><span></span><code>---
+name: api-error-handling
+description: &gt;
+  Use when implementing API error responses, designing
+  error codes, or debugging inconsistent error formats
+version: 1.0.0
+<span class="gu">tags: [api, errors, rest]</span>
+<span class="gu">---</span>
+
+<span class="gh"># API Error Handling Standards</span>
+
+<span class="gu">## When to Use</span>
+<span class="k">-</span><span class="w"> </span>Implementing new API endpoints with error responses
+<span class="k">-</span><span class="w"> </span>Reviewing error handling in existing endpoints
+<span class="k">-</span><span class="w"> </span>Debugging inconsistent error formats across services
+
+<span class="gu">## Core Pattern</span>
+Always return errors in this format:
+...
+
+<span class="gu">## Decision Framework</span>
+| Situation | Status Code | Error Type |
+...
+
+<span class="gu">## Common Mistakes</span>
+<span class="k">-</span><span class="w"> </span>Returning 200 with error body (use proper status codes)
+<span class="k">-</span><span class="w"> </span>Leaking stack traces in production responses
+<span class="k">-</span><span class="w"> </span>Inconsistent field names across endpoints
+
+<span class="gu">## Examples</span>
+See companion files for complete examples:
+<span class="k">-</span><span class="w"> </span><span class="sb">`examples/validation-errors.json`</span>
+<span class="k">-</span><span class="w"> </span><span class="sb">`examples/auth-errors.json`</span>
+</code></pre></div>
+
+<p>The "When to Use" section reinforces the description. The "Core Pattern" gives
+the essential guidance. "Decision Framework" handles conditional logic.
+"Common Mistakes" prevents known pitfalls. "Examples" points to companions.</p>
+<h2 id="testing-your-skill">Testing Your Skill<a class="headerlink" href="#testing-your-skill" title="Permanent link">&para;</a></h2>
+<p>Place the skill in your workspace and test interactively:</p>
+<blockquote>
+<p>List available skills.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] list=True
+→ 24 skills found: ... api-error-handling ...
+</code></pre></div>
+
+<p>Confirm your skill appears. Then load it:</p>
+<blockquote>
+<p>Load the api-error-handling skill.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] skill_name=&quot;api-error-handling&quot;
+→ Skill loaded (2,100 tokens). skill_directory: /path/to/api-error-handling/
+</code></pre></div>
+
+<p>Now test that the agent actually uses it:</p>
+<blockquote>
+<p>Help me implement error handling for this new POST /users endpoint.</p>
+</blockquote>
+<p>The agent's response should follow patterns from your skill, not generic advice.
+If it doesn't, check that your description triggers correctly for the task phrasing
+and that the content is specific enough to override default behavior.</p>
+<p>To test companion file access:</p>
+<blockquote>
+<p>Show me the validation error examples from the skill.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: read_file] file_path=&quot;/path/to/api-error-handling/examples/validation-errors.json&quot;
+</code></pre></div>
+
+<h2 id="distributing-skills-via-bundles">Distributing Skills via Bundles<a class="headerlink" href="#distributing-skills-via-bundles" title="Permanent link">&para;</a></h2>
+<p>Bundles can register skill directories so their skills appear in discovery:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-team-bundle</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">skill_sources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./skills</span>
+</code></pre></div>
+
+<p>All skills in the <code>./skills</code> directory (relative to the bundle) become available
+when the bundle is loaded. This is how skill collections ship to teams -- package
+them in a bundle, publish the bundle, and everyone gets the same expertise.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Keep skills focused.</strong> One domain per skill. "React Testing" is good;
+"Frontend Development" is too broad. Focused skills are easier to discover and
+provide more actionable guidance.</p>
+<p><strong>Write for triggers, not summaries.</strong> Your description answers "when should I
+load this?" not "what does this contain?"</p>
+<p><strong>Use companion files for heavy reference.</strong> Keep SKILL.md concise. Move lengthy
+API references, examples, and templates into companion files that load only when
+needed.</p>
+<p><strong>Workspace overrides user.</strong> Keep personal defaults in <code>~/.amplifier/skills/</code>
+and project-specific overrides in <code>.amplifier/skills/</code>.</p>
+<p><strong>Load on demand, not preemptively.</strong> Each loaded skill consumes context tokens.
+The agent should use <code>info</code> to check relevance first and load only what the
+current task needs.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="writing-bundles.html" class="btn btn-neutral float-left" title="Writing Bundles"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="writing-agents.html" class="btn btn-neutral float-right" title="Writing Agents">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="writing-bundles.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="writing-agents.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

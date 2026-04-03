@@ -67,43 +67,35 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="modules.html">Modules</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-module">What is a Module?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-five-types">The Five Types</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#the-module-lifecycle">The Module Lifecycle</a>
+    <li class="toctree-l3"><a class="reference internal" href="#1-provider-llm-backends">1. Provider — LLM Backends</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-tool-agent-capabilities">2. Tool — Agent Capabilities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-orchestrator-the-main-engine">3. Orchestrator — The Main Engine</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-hook-lifecycle-observers">4. Hook — Lifecycle Observers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-context-memory-management">5. Context — Memory Management</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-5-module-types">The 5 Module Types</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#provider-modules">Provider Modules</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tool-vs-hook-the-triggering-difference">Tool vs. Hook: The Triggering Difference</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tool-modules">Tool Modules</a>
+    <li class="toctree-l2"><a class="reference internal" href="#using-modules">Using Modules</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#orchestrator-modules">Orchestrator Modules</a>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own">Creating Your Own</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#context-modules">Context Modules</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-modules">Hook Modules</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tool-vs-hook">Tool vs Hook</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-tool">When to Use a Tool</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-a-hook">When to Use a Hook</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#can-it-be-both">Can It Be Both?</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-configuration">Module Configuration</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-modules">Creating Custom Modules</a>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
     </li>
@@ -119,6 +111,12 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
               <ul>
@@ -132,14 +130,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -147,20 +155,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -174,19 +258,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -213,172 +284,75 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="understanding-modules">Understanding Modules<a class="headerlink" href="#understanding-modules" title="Permanent link">&para;</a></h1>
+                <h1 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h1>
 <h2 id="what-is-a-module">What is a Module?<a class="headerlink" href="#what-is-a-module" title="Permanent link">&para;</a></h2>
-<p>A <strong>module</strong> is a pluggable component that extends your agent's capabilities. Think of modules as LEGO blocks—each one serves a specific purpose, and you can mix and match them to build the exact agent you need.</p>
-<p>Modules are the foundation of the framework's architecture. Instead of building a monolithic agent with hardcoded behaviors, you compose your agent from independent, reusable modules. This design makes your agent:</p>
+<p>A module is a swappable capability unit that plugs into the Amplifier kernel. If the kernel is the engine block, modules are everything you bolt onto it — the fuel injector (provider), the transmission (orchestrator), the dashboard instruments (hooks), the navigation system (tools), and the memory (context).</p>
+<p>Every module follows a contract: a small interface that the kernel understands. As long as your module speaks that contract, the kernel doesn't care who wrote it, when, or why. This is what makes Amplifier modular in practice, not just in name. You can swap your LLM provider from Anthropic to OpenAI by changing one line in a YAML file. You can add file system access to your agent by mounting a tool. You can completely change how the agent loop works by swapping the orchestrator.</p>
+<p>The kernel itself is tiny and stable. It provides <strong>mechanisms</strong> — module loading, event emission, session lifecycle — but makes zero <strong>policy</strong> decisions. Which LLM to use? That's a provider module. How to run the agent loop? That's an orchestrator module. What to log? That's a hook module. The kernel just wires them together.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>Modules flow from configuration to runtime through a clear pipeline:</p>
+<p><strong>1. Bundle declares modules.</strong> Your bundle YAML lists which modules the session needs:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-assistant</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-filesystem</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-web</span>
+<span class="nn">---</span>
+</code></pre></div>
+
+<p><strong>2. Kernel loads and mounts them.</strong> When a session starts, the kernel reads the bundle, discovers each module by name, calls its <code>mount(coordinator, config)</code> entry point, and registers the result in the right slot — tools go in the tool registry, hooks go in the hook registry, and so on.</p>
+<p><strong>3. Session uses them.</strong> During execution, the orchestrator drives the loop. It calls the provider for LLM completions, dispatches tool calls the LLM requests, fires events that hooks observe, and reads/writes messages through the context manager. Every step touches modules.</p>
+<div class="codehilite"><pre><span></span><code>Bundle YAML ──→ Kernel loads ──→ Session uses
+  (config)       (mount)          (execute)
+</code></pre></div>
+
+<p>The beauty of this pipeline is that modules are isolated from each other. A tool doesn't know which provider is active. A hook doesn't care which orchestrator is running. They all communicate through the kernel's contracts.</p>
+<h2 id="the-five-types">The Five Types<a class="headerlink" href="#the-five-types" title="Permanent link">&para;</a></h2>
+<p>Amplifier defines exactly five module types. No more, no less. Each serves a distinct architectural role.</p>
+<h3 id="1-provider-llm-backends">1. Provider — LLM Backends<a class="headerlink" href="#1-provider-llm-backends" title="Permanent link">&para;</a></h3>
+<p>Providers connect your agent to language models. Their contract is simple: take a completion request, return a response.</p>
+<div class="codehilite"><pre><span></span><code>complete(request) → response
+</code></pre></div>
+
+<p>That's it. Everything else — authentication, rate limiting, streaming, format translation — is the provider's internal concern. From the kernel's perspective, all providers look identical.</p>
+<p>The ecosystem currently includes <strong>11 providers</strong>: Anthropic, OpenAI, Azure OpenAI, Gemini, Ollama, vLLM, GitHub Copilot, and a mock provider for testing, plus community-built providers for AWS Bedrock, Perplexity, and OpenAI Realtime. Whether you're calling Claude through an API or running Llama locally through Ollama, the rest of your agent doesn't change.</p>
+<h3 id="2-tool-agent-capabilities">2. Tool — Agent Capabilities<a class="headerlink" href="#2-tool-agent-capabilities" title="Permanent link">&para;</a></h3>
+<p>Tools give the LLM the ability to act in the world. The critical thing about tools is that the <strong>LLM decides</strong> when to use them. You mount a set of tools, the LLM sees their names and descriptions, and it chooses which to call based on the conversation.</p>
+<div class="codehilite"><pre><span></span><code>execute(input) → result
+</code></pre></div>
+
+<p>The ecosystem includes <strong>12+ tools</strong>: filesystem operations, bash execution, web search and fetching, code search (grep/glob), agent delegation (task), LSP code intelligence, Python quality checking, todo tracking, DOT graph analysis, MCP server integration, and more. Each one gives the agent a specific capability — reading files, running commands, searching the web — that the LLM can invoke when it decides the moment is right.</p>
+<h3 id="3-orchestrator-the-main-engine">3. Orchestrator — The Main Engine<a class="headerlink" href="#3-orchestrator-the-main-engine" title="Permanent link">&para;</a></h3>
+<p>The orchestrator is the single most powerful module type. It controls <strong>the loop</strong> — the fundamental cycle of calling the LLM, processing tool calls, and deciding what happens next. Swap the orchestrator and you radically change how your agent behaves.</p>
+<p>There are currently <strong>3 orchestrators</strong>:</p>
 <ul>
-<li><strong>Flexible</strong>: Swap modules without rewriting code</li>
-<li><strong>Testable</strong>: Test each module in isolation</li>
-<li><strong>Maintainable</strong>: Update one module without breaking others</li>
-<li><strong>Extensible</strong>: Add new capabilities by adding modules</li>
+<li><strong>loop-basic</strong> — Sequential request/response. Simple and predictable.</li>
+<li><strong>loop-streaming</strong> — Real-time streaming with extended thinking support. What you see in the CLI.</li>
+<li><strong>loop-events</strong> — Event-driven orchestration with full hook integration. The most capable.</li>
 </ul>
-<p>Every module in the system implements a specific interface (or "contract") that defines how it communicates with the rest of the agent. This contract ensures that modules work together seamlessly, regardless of who wrote them or when they were created.</p>
-<h3 id="the-module-lifecycle">The Module Lifecycle<a class="headerlink" href="#the-module-lifecycle" title="Permanent link">&para;</a></h3>
-<p>When an agent starts, it:</p>
-<ol>
-<li><strong>Loads</strong> all configured modules</li>
-<li><strong>Initializes</strong> them with configuration</li>
-<li><strong>Registers</strong> them with the appropriate systems</li>
-<li><strong>Executes</strong> them during the agent loop</li>
-<li><strong>Cleans up</strong> when the agent shuts down</li>
-</ol>
-<p>Modules can maintain state between invocations, access shared resources, and communicate with each other through well-defined interfaces.</p>
-<h2 id="the-5-module-types">The 5 Module Types<a class="headerlink" href="#the-5-module-types" title="Permanent link">&para;</a></h2>
-<p>The framework defines five core module types, each serving a distinct architectural role:</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Purpose</th>
-<th>Contract</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Provider</td>
-<td>LLM backends</td>
-<td>complete()</td>
-</tr>
-<tr>
-<td>Tool</td>
-<td>Agent capabilities</td>
-<td>execute()</td>
-</tr>
-<tr>
-<td>Orchestrator</td>
-<td>Main engine</td>
-<td>The loop</td>
-</tr>
-<tr>
-<td>Context</td>
-<td>Memory</td>
-<td>messages</td>
-</tr>
-<tr>
-<td>Hook</td>
-<td>Observers</td>
-<td>events</td>
-</tr>
-</tbody>
-</table>
-<h3 id="provider-modules">Provider Modules<a class="headerlink" href="#provider-modules" title="Permanent link">&para;</a></h3>
-<p><strong>Purpose</strong>: Connect to language model backends</p>
-<p>Providers abstract away the details of different LLM APIs (OpenAI, Anthropic, local models, etc.). They implement a single <code>complete()</code> method that takes a conversation history and returns the next response.</p>
-<p><strong>Example use cases</strong>:
-- OpenAI GPT-4 provider
-- Anthropic Claude provider
-- Local Llama model provider
-- Custom fine-tuned model provider</p>
-<p><strong>Key characteristics</strong>:
-- Stateless request/response
-- Handles authentication and rate limiting
-- Transforms between framework format and API format
-- Supports streaming responses</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Provider</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate next response from conversation history&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+<p>Most users never think about the orchestrator because the default just works. But if you need custom retry logic, multi-agent coordination, or a fundamentally different execution strategy, this is where you'd build it.</p>
+<h3 id="4-hook-lifecycle-observers">4. Hook — Lifecycle Observers<a class="headerlink" href="#4-hook-lifecycle-observers" title="Permanent link">&para;</a></h3>
+<p>Hooks observe what's happening in the session and react to events. The critical distinction: hooks are <strong>code-decided</strong>, not LLM-decided. The LLM never chooses to invoke a hook. Instead, hooks fire automatically when lifecycle events occur — a message is sent, a tool is called, a response arrives.</p>
+<div class="codehilite"><pre><span></span><code>__call__(event, data) → HookResult
 </code></pre></div>
 
-<h3 id="tool-modules">Tool Modules<a class="headerlink" href="#tool-modules" title="Permanent link">&para;</a></h3>
-<p><strong>Purpose</strong>: Give your agent capabilities to interact with the world</p>
-<p>Tools are functions that the LLM can call to perform actions—reading files, searching the web, executing code, querying databases, etc. The LLM decides which tool to use based on the conversation context.</p>
-<p><strong>Example use cases</strong>:
-- File system operations (read, write, edit)
-- Web search and scraping
-- Database queries
-- API integrations
-- Code execution</p>
-<p><strong>Key characteristics</strong>:
-- LLM-triggered (agent decides when to use)
-- Synchronous or asynchronous execution
-- Structured input parameters
-- Returns results to the LLM</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Tool</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the tool with given parameters&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+<p>The ecosystem includes <strong>12+ hooks</strong>: JSONL logging, real-time streaming UI, git status context injection, approval gates for sensitive operations, privacy redaction, session backup, cost-aware scheduling, and more. Hooks are how you add observability, safety, and policy without touching the agent's core behavior.</p>
+<h3 id="5-context-memory-management">5. Context — Memory Management<a class="headerlink" href="#5-context-memory-management" title="Permanent link">&para;</a></h3>
+<p>Context modules manage the conversation's memory. They store messages, provide access to history, and handle compaction when conversations get long.</p>
+<div class="codehilite"><pre><span></span><code>add_message() / get_messages() / set_messages() / clear()
 </code></pre></div>
 
-<h3 id="orchestrator-modules">Orchestrator Modules<a class="headerlink" href="#orchestrator-modules" title="Permanent link">&para;</a></h3>
-<p><strong>Purpose</strong>: Control the main agent loop</p>
-<p>The orchestrator is the "brain" of your agent. It manages the conversation flow, decides when to call the LLM, processes tool calls, handles errors, and determines when the agent's work is complete.</p>
-<p><strong>Example use cases</strong>:
-- Simple loop (call LLM → execute tools → repeat)
-- Tree search orchestrator (explore multiple paths)
-- Reflection orchestrator (self-critique and improve)
-- Multi-agent orchestrator (coordinate multiple agents)</p>
-<p><strong>Key characteristics</strong>:
-- Runs the main agent loop
-- Manages state and conversation history
-- Decides when to stop
-- Handles errors and retries</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Orchestrator</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the main agent loop&quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_complete</span><span class="p">():</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">process_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
-</code></pre></div>
-
-<h3 id="context-modules">Context Modules<a class="headerlink" href="#context-modules" title="Permanent link">&para;</a></h3>
-<p><strong>Purpose</strong>: Manage conversation memory and state</p>
-<p>Context modules store and organize the conversation history. They decide what information to keep, what to summarize, and what to discard. This is crucial for long conversations where the full history exceeds the LLM's context window.</p>
-<p><strong>Example use cases</strong>:
-- Simple in-memory context (store all messages)
-- Sliding window context (keep last N messages)
-- Semantic context (keep most relevant messages)
-- Persistent context (save to database)</p>
-<p><strong>Key characteristics</strong>:
-- Stores conversation messages
-- Provides access to history
-- May implement compression or summarization
-- Can persist across sessions</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Context</span><span class="p">:</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">messages</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current conversation history&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-
-    <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add message to history&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-</code></pre></div>
-
-<h3 id="hook-modules">Hook Modules<a class="headerlink" href="#hook-modules" title="Permanent link">&para;</a></h3>
-<p><strong>Purpose</strong>: Observe and react to agent events</p>
-<p>Hooks are passive observers that get notified when specific events occur in the agent's lifecycle. Unlike tools (which the LLM chooses to use), hooks are triggered by code events automatically.</p>
-<p><strong>Example use cases</strong>:
-- Logging and debugging
-- Performance monitoring
-- Cost tracking
-- Safety guardrails
-- Analytics and telemetry</p>
-<p><strong>Key characteristics</strong>:
-- Code-triggered (not LLM-triggered)
-- Cannot be chosen by the agent
-- Observe without blocking
-- Multiple hooks can respond to same event</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Hook</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle an agent event&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-</code></pre></div>
-
-<h2 id="tool-vs-hook">Tool vs Hook<a class="headerlink" href="#tool-vs-hook" title="Permanent link">&para;</a></h2>
-<p>Understanding the difference between Tools and Hooks is crucial for proper module design:</p>
+<p>There are currently <strong>2 context modules</strong>:</p>
+<ul>
+<li><strong>context-simple</strong> — In-memory with automatic compaction. The default for most sessions.</li>
+<li><strong>context-persistent</strong> — File-backed storage that survives across sessions. For long-running work.</li>
+</ul>
+<h2 id="tool-vs-hook-the-triggering-difference">Tool vs. Hook: The Triggering Difference<a class="headerlink" href="#tool-vs-hook-the-triggering-difference" title="Permanent link">&para;</a></h2>
+<p>This is the single most important design distinction in Amplifier's module system. Both tools and hooks extend what the agent can do, but they differ in <strong>who decides when they run</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -389,138 +363,133 @@
 </thead>
 <tbody>
 <tr>
-<td>Triggered by</td>
-<td>LLM decides</td>
-<td>Code events</td>
+<td><strong>Triggered by</strong></td>
+<td>The LLM decides</td>
+<td>Code fires automatically</td>
 </tr>
 <tr>
-<td>Choosable</td>
-<td>Yes, agent picks from available tools</td>
-<td>No, always runs on events</td>
+<td><strong>Visible to LLM?</strong></td>
+<td>Yes — it sees the name, description, and schema</td>
+<td>No — completely invisible</td>
 </tr>
 <tr>
-<td>Blocks execution</td>
-<td>Yes, agent waits for result</td>
-<td>No, runs async or returns quickly</td>
+<td><strong>Returns to LLM?</strong></td>
+<td>Yes — results flow back into the conversation</td>
+<td>No — side effects only</td>
 </tr>
 <tr>
-<td>Returns value</td>
-<td>Yes, result goes to LLM</td>
-<td>No, side effects only</td>
-</tr>
-<tr>
-<td>Example</td>
-<td>"search_web" tool called when agent needs info</td>
-<td>Logging hook records all LLM calls</td>
+<td><strong>Example</strong></td>
+<td><code>bash</code> — LLM decides to run a shell command</td>
+<td><code>hooks-logging</code> — every event is logged to disk</td>
 </tr>
 </tbody>
 </table>
-<h3 id="when-to-use-a-tool">When to Use a Tool<a class="headerlink" href="#when-to-use-a-tool" title="Permanent link">&para;</a></h3>
-<p>Create a Tool when:
-- The agent should <strong>decide</strong> when to use it
-- The action <strong>produces a result</strong> the LLM needs
-- It's an <strong>explicit capability</strong> you want to advertise</p>
-<p><strong>Example</strong>: A <code>read_file</code> tool that the agent calls when it needs to see file contents.</p>
-<h3 id="when-to-use-a-hook">When to Use a Hook<a class="headerlink" href="#when-to-use-a-hook" title="Permanent link">&para;</a></h3>
-<p>Create a Hook when:
-- The action should happen <strong>automatically</strong> on events
-- It's an <strong>observation</strong> or side effect, not a core capability
-- You want to <strong>monitor or modify</strong> agent behavior</p>
-<p><strong>Example</strong>: A <code>cost_tracker</code> hook that logs every LLM API call to track spending.</p>
-<h3 id="can-it-be-both">Can It Be Both?<a class="headerlink" href="#can-it-be-both" title="Permanent link">&para;</a></h3>
-<p>Sometimes! You might have a Hook that monitors for unsafe behavior AND a Tool that lets the agent explicitly check safety. The key is understanding the use case:</p>
-<ul>
-<li><strong>Tool version</strong>: "Is this action safe?" (agent decides to check)</li>
-<li><strong>Hook version</strong>: "Log every action and alert on unsafe patterns" (always runs)</li>
-</ul>
-<h2 id="module-configuration">Module Configuration<a class="headerlink" href="#module-configuration" title="Permanent link">&para;</a></h2>
-<p>Modules are typically configured in a YAML or JSON file:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">modules</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">provider</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
-<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4</span>
-
-<span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file_ops</span>
-<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
-<span class="w">      </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SEARCH_API_KEY}</span>
-
-<span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_loop</span>
-<span class="w">    </span><span class="nt">max_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
-
-<span class="w">  </span><span class="nt">context</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sliding_window</span>
-<span class="w">    </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-
-<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logger</span>
-<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">info</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cost_tracker</span>
-<span class="w">      </span><span class="nt">alert_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.00</span>
+<p>Here's the intuition: if you want the agent to <strong>choose</strong> when to do something, make it a tool. If you want something to <strong>always happen</strong> regardless of what the agent decides, make it a hook.</p>
+<p>A <code>read_file</code> tool makes sense because the agent should decide when it needs to see a file. But a logging hook makes sense because you want every event logged, whether the agent "wants" that or not.</p>
+<h2 id="using-modules">Using Modules<a class="headerlink" href="#using-modules" title="Permanent link">&para;</a></h2>
+<p>In practice, you rarely think about individual modules. Your bundle declares what you need, and the kernel handles the rest. But there are times when you want to see what's loaded or change things on the fly.</p>
+<blockquote>
+<p>What modules are available?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>amplifier<span class="w"> </span>module<span class="w"> </span>list
 </code></pre></div>
 
-<h2 id="creating-custom-modules">Creating Custom Modules<a class="headerlink" href="#creating-custom-modules" title="Permanent link">&para;</a></h2>
-<p>To create a custom module:</p>
-<ol>
-<li><strong>Choose the right type</strong> based on architectural role</li>
-<li><strong>Implement the contract</strong> (required interface)</li>
-<li><strong>Register with the framework</strong> (add to config)</li>
-<li><strong>Test in isolation</strong> before integration</li>
-</ol>
-<p>Each module type has a base class you extend:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">framework</span> <span class="kn">import</span> <span class="n">ToolModule</span>
-
-<span class="k">class</span> <span class="nc">MyCustomTool</span><span class="p">(</span><span class="n">ToolModule</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_tool&quot;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;What this tool does&quot;</span>
-
-    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">},</span>
-        <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="c1"># Your implementation</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_something</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+<blockquote>
+<p>I want to add web search to my current bundle.</p>
+</blockquote>
+<p>In your bundle YAML, add the tool:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-web</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/microsoft/amplifier-module-tool-web@main</span>
 </code></pre></div>
 
+<blockquote>
+<p>Can I swap providers mid-session?</p>
+</blockquote>
+<p>Yes. This is one of the most practical things about the module architecture. Say you're working with Claude and want to try the same task with GPT-4:</p>
+<div class="codehilite"><pre><span></span><code>&gt; /model openai/gpt-4.1
+
+Switched to openai/gpt-4.1
+
+&gt; Now summarize the changes we discussed.
+
+[Response now comes from GPT-4.1 instead of Claude,
+ with full access to the same conversation history
+ and the same tools]
+</code></pre></div>
+
+<p>The context, tools, hooks, and orchestrator all stay the same. Only the provider changes. This is what "swappable" means in practice — the contracts make modules interchangeable within their type.</p>
+<h2 id="creating-your-own">Creating Your Own<a class="headerlink" href="#creating-your-own" title="Permanent link">&para;</a></h2>
+<p>Amplifier uses Python's structural typing (protocols), so you never need to inherit from a base class. If your object has the right methods, it's a valid module.</p>
+<p>Here's a complete custom tool:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_core.models</span> <span class="kn">import</span> <span class="n">ToolResult</span>
+
+<span class="k">class</span> <span class="nc">WordCounter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Counts words in text.&quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;word_counter&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Count the number of words in a given text&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ToolResult</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">ToolResult</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Word count: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">coordinator</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">WordCounter</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;word_counter&quot;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">cleanup</span>
+</code></pre></div>
+
+<p>Register it in <code>pyproject.toml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[project.entry-points.</span><span class="s2">&quot;amplifier.modules&quot;</span><span class="k">]</span>
+<span class="n">tool-word-counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_tool:mount&quot;</span>
+</code></pre></div>
+
+<p>That's it. The kernel discovers the module by its entry point name, calls <code>mount()</code>, and the tool appears in the agent's capabilities. No framework classes to extend, no decorators to apply. Just implement the contract.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Start with existing modules.</strong> The ecosystem has 11 providers, 12+ tools, 3 orchestrators, 12+ hooks, and 2 context managers. Before building something custom, check whether a module already does what you need.</p>
+<p><strong>Choose the right type.</strong> The most common mistake is building a hook when you need a tool (or vice versa). Ask: "Should the LLM decide when this runs?" If yes, it's a tool. If no, it's a hook.</p>
+<p><strong>Keep modules focused.</strong> A module should do one thing well. If your tool is growing to handle multiple unrelated tasks, split it into multiple tools. The LLM is better at choosing between focused tools than navigating a Swiss Army knife.</p>
+<p><strong>Handle errors gracefully.</strong> A module should never crash the kernel. Return error information in your result rather than raising exceptions that propagate upward.</p>
+<p><strong>Respect the contract.</strong> Protocols exist for a reason. Don't add hidden side channels between modules. If your tool needs to communicate with a hook, go through the coordinator's event system.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Modules are pluggable components</strong> that extend agent capabilities through well-defined interfaces</p>
+<p><strong>Modules are swappable units</strong> that plug into the kernel through contracts. Change a module, change the behavior — without touching anything else.</p>
 </li>
 <li>
-<p><strong>Five module types</strong> serve different architectural roles: Provider (LLM), Tool (capabilities), Orchestrator (loop), Context (memory), Hook (observers)</p>
+<p><strong>Exactly five types</strong>, each with a clear role: Provider (LLM), Tool (capabilities), Orchestrator (the loop), Hook (observers), and Context (memory).</p>
 </li>
 <li>
-<p><strong>Tools vs Hooks</strong>: Tools are chosen by the LLM and return results; Hooks are triggered by code events for observation</p>
+<p><strong>Tool vs. Hook is about who decides.</strong> The LLM triggers tools; code triggers hooks. This is the most important design decision when building modules.</p>
 </li>
 <li>
-<p><strong>Composition over inheritance</strong>: Build agents by combining modules rather than writing monolithic code</p>
+<p><strong>Bundle YAML drives everything.</strong> Declare your modules in the bundle, and the kernel loads, mounts, and wires them automatically.</p>
 </li>
 <li>
-<p><strong>Each module has a contract</strong>: Implement the required interface, and your module works with the framework</p>
+<p><strong>The ecosystem is rich.</strong> With 11 providers, 12+ tools, 3 orchestrators, 12+ hooks, and growing community contributions, you can compose powerful agents from existing pieces.</p>
 </li>
 <li>
-<p><strong>Modules enable reusability</strong>: Write once, use across multiple agents and projects</p>
+<p><strong>Structural typing means no inheritance.</strong> Implement the right methods and your class is a valid module. Duck typing at its best.</p>
 </li>
 <li>
-<p><strong>Testing is easier</strong>: Test each module independently before integration</p>
-</li>
-<li>
-<p><strong>Configuration-driven</strong>: Change agent behavior by swapping modules in config, not code</p>
+<p><strong>Swapping is practical, not theoretical.</strong> You can switch providers mid-session, add tools to a running bundle, or change orchestrators — and everything else keeps working.</p>
 </li>
 </ol>
-<p>The modular architecture is what makes the framework powerful and flexible. By understanding these five module types and their roles, you can build sophisticated agents that are maintainable, testable, and extensible.</p>
-<p>Start simple—use built-in modules first, then create custom modules as you understand the patterns. The framework handles the complexity of wiring modules together, so you can focus on building great capabilities.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture Deep Dive"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="bundles.html" class="btn btn-neutral float-right" title="Bundles">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 

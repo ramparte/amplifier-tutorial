@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Modes - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Modes";
+        var mkdocs_page_input_path = "concepts/modes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="modes.html">Modes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-mode">What is a Mode?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#activating-a-mode">Activating a Mode</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-policies">Tool Policies</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#context-injection">Context Injection</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#available-modes">Available Modes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-practical-session">A Practical Session</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-mode-tool">The Mode Tool</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-custom-modes">Creating Custom Modes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-concepts">Related Concepts</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Core Concepts</li>
+      <li class="breadcrumb-item active">Modes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h1>
+<p>An agent with every tool available at all times is an agent with no guardrails.
+Modes fix that. When you activate a mode, you change the agent's runtime
+behavior — which tools it can use, what guidance it follows, how it approaches
+your problem — without touching the bundle that defines it. Think of a mode as
+a transparent overlay: the agent underneath is the same, but the rules it
+operates under shift to match the task at hand.</p>
+<h2 id="what-is-a-mode">What is a Mode?<a class="headerlink" href="#what-is-a-mode" title="Permanent link">&para;</a></h2>
+<p>A mode is a <strong>runtime behavior overlay</strong> — a markdown file with YAML frontmatter
+that modifies how Amplifier operates when active. It does three things
+simultaneously:</p>
+<ol>
+<li><strong>Injects context.</strong> The mode's markdown body becomes a system reminder,
+   shaping how the agent reasons and responds.</li>
+<li><strong>Enforces tool policies.</strong> Each tool gets a policy — safe, warn, confirm,
+   or block — controlling what the agent can and can't do.</li>
+<li><strong>Shows a visual indicator.</strong> The prompt changes so you always know which
+   mode is active.</li>
+</ol>
+<p>Modes are <em>temporary</em>. They activate, they shape behavior, and they deactivate.
+The bundle never changes. You can switch modes mid-session, clear them entirely,
+or let one mode transition into another as your workflow progresses.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<h3 id="activating-a-mode">Activating a Mode<a class="headerlink" href="#activating-a-mode" title="Permanent link">&para;</a></h3>
+<p>The simplest way to enter a mode is the slash command:</p>
+<blockquote>
+<p>Enter brainstorm mode.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>/brainstorm
+→ Mode activated: brainstorm
+  &quot;Design refinement before any creative work&quot;
+</code></pre></div>
+
+<p>That's it. The agent now operates under brainstorm rules — read-only tools are
+safe, write tools are blocked, and the markdown body of the brainstorm mode
+file guides every response.</p>
+<h3 id="tool-policies">Tool Policies<a class="headerlink" href="#tool-policies" title="Permanent link">&para;</a></h3>
+<p>The heart of a mode is its tool policy map. Every tool gets one of four
+policies:</p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Behavior</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>safe</strong></td>
+<td>Normal execution, no restrictions</td>
+<td>Read-only tools in exploration modes</td>
+</tr>
+<tr>
+<td><strong>warn</strong></td>
+<td>First call blocked with a reminder; retry to proceed</td>
+<td>Bash in planning modes — discouraged but allowed</td>
+</tr>
+<tr>
+<td><strong>confirm</strong></td>
+<td>User must approve each call</td>
+<td>File writes in careful mode</td>
+</tr>
+<tr>
+<td><strong>block</strong></td>
+<td>Tool completely disabled</td>
+<td>Write tools in brainstorm mode</td>
+</tr>
+</tbody>
+</table>
+<p>Any tool not explicitly listed falls to the mode's <code>default_action</code>. Most modes
+set <code>default_action: block</code>, meaning only explicitly listed tools are available.
+This is allowlist behavior — safer than trying to enumerate everything to deny.</p>
+<p>Here's how the brainstorm mode configures its tools:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">mode</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">brainstorm</span>
+<span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">safe</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glob</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grep</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_search</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">load_skill</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LSP</span>
+<span class="w">    </span><span class="nt">warn</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">  </span><span class="nt">default_action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">block</span>
+</code></pre></div>
+
+<p>Reading and searching — safe. Bash — warned (you can still run it, but the
+system nudges you first). Everything else — <code>write_file</code>, <code>edit_file</code>,
+<code>apply_patch</code> — blocked entirely. The agent physically cannot modify files
+while brainstorming. That's not a suggestion; it's an enforcement.</p>
+<h3 id="context-injection">Context Injection<a class="headerlink" href="#context-injection" title="Permanent link">&para;</a></h3>
+<p>The markdown body below the YAML frontmatter becomes the mode's guidance. When
+a mode is active, this content is injected as a system reminder before each
+turn. The agent sees it as authoritative instructions:</p>
+<div class="codehilite"><pre><span></span><code>---
+mode:
+  name: explore
+  tools:
+    safe: [read_file, glob, grep, web_search, LSP]
+<span class="gu">  default_action: block</span>
+<span class="gu">---</span>
+
+EXPLORE MODE: Understand the codebase with zero side effects.
+
+Your role:
+<span class="k">-</span><span class="w"> </span>MAP the codebase structure
+<span class="k">-</span><span class="w"> </span>TRACE code paths and dependencies
+<span class="k">-</span><span class="w"> </span>ANSWER questions about how things work
+<span class="k">-</span><span class="w"> </span>BUILD mental model before any action
+
+Do NOT:
+<span class="k">-</span><span class="w"> </span>Modify files
+<span class="k">-</span><span class="w"> </span>Execute commands
+<span class="k">-</span><span class="w"> </span>Make any changes whatsoever
+</code></pre></div>
+
+<p>The tool policies <em>enforce</em> the "Do NOT modify files" rule. The markdown body
+<em>explains</em> the intent so the agent understands why.</p>
+<h2 id="available-modes">Available Modes<a class="headerlink" href="#available-modes" title="Permanent link">&para;</a></h2>
+<p>Amplifier bundles ship modes for common workflows. The Superpowers bundle
+provides a complete development pipeline:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Shortcut</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>brainstorm</strong></td>
+<td><code>/brainstorm</code></td>
+<td>Design refinement through collaborative dialogue</td>
+</tr>
+<tr>
+<td><strong>write-plan</strong></td>
+<td><code>/write-plan</code></td>
+<td>Create detailed implementation plans with TDD tasks</td>
+</tr>
+<tr>
+<td><strong>execute-plan</strong></td>
+<td><code>/execute-plan</code></td>
+<td>Subagent-driven development with review pipeline</td>
+</tr>
+<tr>
+<td><strong>debug</strong></td>
+<td><code>/debug</code></td>
+<td>Systematic 4-phase debugging</td>
+</tr>
+<tr>
+<td><strong>verify</strong></td>
+<td><code>/verify</code></td>
+<td>Evidence-based completion verification</td>
+</tr>
+<tr>
+<td><strong>finish</strong></td>
+<td><code>/finish</code></td>
+<td>Complete branch — merge, PR, keep, or discard</td>
+</tr>
+</tbody>
+</table>
+<p>These modes form a pipeline. You brainstorm a design, write an implementation
+plan, execute it with subagents, verify the results, and finish the branch.
+Each mode constrains the agent to exactly the tools and mindset that phase
+requires.</p>
+<p>Other bundles add their own modes. The <code>modes</code> bundle provides lightweight
+general-purpose modes like <code>explore</code> (read-only codebase navigation), <code>plan</code>
+(analyze without implementing), and <code>careful</code> (full capability with
+confirmation gates on destructive actions).</p>
+<blockquote>
+<p>List all available modes.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mode] operation=&quot;list&quot;
+→ 16 modes available:
+  brainstorm (superpowers), write-plan (superpowers), debug (superpowers),
+  explore (modes), plan (modes), careful (modes), ...
+</code></pre></div>
+
+<h3 id="a-practical-session">A Practical Session<a class="headerlink" href="#a-practical-session" title="Permanent link">&para;</a></h3>
+<p>Here's what a mode-driven workflow looks like in practice:</p>
+<blockquote>
+<p>I need to add WebSocket support to the notification system. /brainstorm</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>→ Mode activated: brainstorm
+  Exploring project context...
+  Let me ask some clarifying questions before we design this.
+  What notification types need real-time delivery?
+</code></pre></div>
+
+<p>The agent reads code, asks questions, proposes approaches — but cannot write
+files. After you validate the design section by section:</p>
+<blockquote>
+<p>Design looks good. Let's plan the implementation.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mode] operation=&quot;set&quot;, name=&quot;write-plan&quot;
+→ Mode activated: write-plan
+  Creating implementation plan with TDD tasks...
+</code></pre></div>
+
+<p>The mode transitions. Now the agent has the same read-only tools plus planning
+structure. It produces a task-by-task implementation plan — still without
+writing any code.</p>
+<h3 id="the-mode-tool">The Mode Tool<a class="headerlink" href="#the-mode-tool" title="Permanent link">&para;</a></h3>
+<p>Agents can also manage modes programmatically using the <code>mode</code> tool. This
+enables agent-initiated transitions during automated workflows:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>set</code></td>
+<td>Activate a mode by name</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Deactivate the current mode</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>Show all available modes with sources</td>
+</tr>
+<tr>
+<td><code>current</code></td>
+<td>Show the currently active mode</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>set</code> operation has a built-in safety gate — the first call is blocked
+with a reminder, and the agent must call again to confirm. This prevents
+accidental mode transitions during complex reasoning chains.</p>
+<h2 id="creating-custom-modes">Creating Custom Modes<a class="headerlink" href="#creating-custom-modes" title="Permanent link">&para;</a></h2>
+<p>A mode is a markdown file with YAML frontmatter. Place it in <code>.amplifier/modes/</code>
+for project scope or <code>~/.amplifier/modes/</code> for global scope.</p>
+<p>Here's a complete custom mode for security-focused code review:</p>
+<div class="codehilite"><pre><span></span><code>---
+mode:
+  name: security-review
+  description: Security-focused code audit with no modification capability
+  shortcut: security-review
+
+  tools:
+    safe:
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>read_file
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>glob
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>grep
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>LSP
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>load_skill
+    confirm:
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>bash
+
+<span class="gu">  default_action: block</span>
+<span class="gu">---</span>
+
+SECURITY REVIEW MODE: Audit code for vulnerabilities. No modifications.
+
+Focus areas:
+<span class="k">-</span><span class="w"> </span>Authentication and authorization flows
+<span class="k">-</span><span class="w"> </span>Input validation and sanitization
+<span class="k">-</span><span class="w"> </span>Secret management (hardcoded keys, tokens, credentials)
+<span class="k">-</span><span class="w"> </span>SQL injection, XSS, CSRF vectors
+<span class="k">-</span><span class="w"> </span>Dependency vulnerabilities
+
+For each finding, report:
+<span class="k">1.</span> Severity (critical / high / medium / low)
+<span class="k">2.</span> Location (file:line)
+<span class="k">3.</span> Description of the vulnerability
+<span class="k">4.</span> Recommended fix
+
+Do NOT fix issues directly. Document them for human review.
+</code></pre></div>
+
+<p>Save it as <code>.amplifier/modes/security-review.md</code> and it's immediately available
+via <code>/security-review</code>. The YAML frontmatter defines the tool policies; the
+markdown body defines the agent's mission.</p>
+<p>Bundles can also ship modes by including a <code>modes/</code> directory. Any <code>.md</code> file
+in that directory with valid <code>mode:</code> frontmatter becomes available when the
+bundle is active.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Default to block.</strong> Set <code>default_action: block</code> and explicitly allowlist the
+tools your mode needs. An explore mode that accidentally allows <code>bash</code> defeats
+its purpose. Allowlists are safer than denylists.</p>
+<p><strong>Match policies to intent.</strong> Use <code>safe</code> for tools the mode encourages, <code>warn</code>
+for tools that are allowed but discouraged, <code>confirm</code> for tools that need
+human oversight, and <code>block</code> for tools that violate the mode's purpose.</p>
+<p><strong>Write the body as instructions, not documentation.</strong> The markdown body is
+injected as a system reminder. Write it in imperative voice: "Focus on X,"
+"Do NOT do Y," "Report findings as Z." The agent reads it as orders.</p>
+<p><strong>Keep modes focused.</strong> A mode that tries to govern everything governs nothing.
+"Explore" does one thing: read-only navigation. "Careful" does one thing:
+confirm before writing. Resist the urge to combine unrelated constraints.</p>
+<p><strong>Use transitions for pipelines.</strong> Modes like brainstorm define
+<code>allowed_transitions</code> to guide the natural flow from design to planning to
+execution. This keeps the workflow structured without requiring the user to
+remember what comes next.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Modes are runtime overlays.</strong> They modify tool access, inject context,
+   and shape behavior — without changing the underlying bundle.</p>
+</li>
+<li>
+<p><strong>Tool policies are the enforcement mechanism.</strong> Four levels — safe, warn,
+   confirm, block — give precise control over what the agent can do in each
+   mode.</p>
+</li>
+<li>
+<p><strong>Context injection is the guidance mechanism.</strong> The markdown body becomes
+   a system reminder that tells the agent <em>how</em> to work, not just <em>what</em> tools
+   it has.</p>
+</li>
+<li>
+<p><strong>Modes compose into pipelines.</strong> Brainstorm → write-plan → execute-plan →
+   verify → finish. Each mode constrains the agent to exactly what that phase
+   requires.</p>
+</li>
+<li>
+<p><strong>Custom modes are just markdown files.</strong> YAML frontmatter for policies,
+   markdown body for guidance, drop into <code>.amplifier/modes/</code> — immediately
+   available.</p>
+</li>
+<li>
+<p><strong>The mode tool enables programmatic transitions.</strong> Agents can set, clear,
+   list, and query modes, supporting automated workflows with built-in safety
+   gates.</p>
+</li>
+</ol>
+<hr />
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="skills.html">Skills</a> — Loadable expertise that modes can reference</li>
+<li><a href="hooks.html">Hooks</a> — Lifecycle observers that modes use for context injection and policy enforcement</li>
+<li><a href="bundles.html">Bundles</a> — Packaging modes with tools, agents, and configuration</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="hooks.html" class="btn btn-neutral float-left" title="Hooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="routing.html" class="btn btn-neutral float-right" title="Model Routing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="hooks.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="routing.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

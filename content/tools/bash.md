@@ -1,487 +1,231 @@
 ---
 id: tool-bash
-type: tools
+type: tool
 title: "Bash Tool"
 ---
 
 # Bash Tool
 
-The Bash Tool provides low-level shell command execution for build operations, testing, package management, version control, and system utilities. While specialized tools exist for many operations, bash serves as a powerful fallback for commands that don't have dedicated interfaces.
+Every tool in Amplifier is designed for a specific job — reading files, searching code, navigating symbols. But sometimes you just need to run a shell command. That's what the Bash tool is for: a general-purpose fallback that gives you direct access to the shell when no specialized tool fits.
 
-## Operations
+The key word there is *fallback*. Amplifier's specialized tools are almost always a better choice — they have structured output, better error handling, and domain-specific intelligence built in. Bash is for everything else: running your test suite, installing a package, checking git status, or spinning up a dev server.
 
-| Operation | Purpose | Example |
-|-----------|---------|---------|
-| Run command | Execute shell command synchronously | `pytest tests/` |
-| Background | Long-running process (returns immediately) | `npm run dev` |
+## Core Capabilities
 
-## Basic Usage
+The Bash tool takes three parameters:
 
-### Conversation Format
+- **command** (required) — the shell command to execute
+- **timeout** (default: 30 seconds) — how long to wait before killing the process
+- **run_in_background** (default: false) — returns immediately with a PID instead of waiting
 
-When you ask Amplifier to run commands, it uses the bash tool behind the scenes:
+That's it. Simple by design — the complexity lives in what you ask it to do.
 
-```
-> Run pytest tests/test_auth.py
+## Running Commands
 
-[Tool: bash]
-Command: pytest tests/test_auth.py
-Output: ===== test session starts =====
-        test_auth.py::test_login PASSED
-        ===== 1 passed in 0.23s =====
-```
+Most of the time, you just ask Amplifier to do something and it reaches for bash when appropriate:
 
-### Direct Syntax
-
-The tool accepts these parameters:
-
-```json
-{
-  "command": "pytest tests/",
-  "run_in_background": false
-}
-```
-
-## Common Commands
-
-### Build and Test
-
-Execute test runners and build tools:
-
-```
 > Run the test suite
 
-pytest tests/ --verbose --cov
-cargo test --all
-npm test
-make test
-go test ./...
-mvn test
+```
+[Tool: bash] pytest tests/ --verbose
+===== test session starts =====
+tests/test_auth.py::test_login PASSED
+tests/test_auth.py::test_logout PASSED
+tests/test_api.py::test_create_user PASSED
+===== 3 passed in 1.42s =====
 ```
 
-### Package Management
-
-Install and manage dependencies:
+> Install the requests library
 
 ```
-> Install the requests package
-
-pip install requests
-npm install lodash
-cargo add serde
-gem install rails
-brew install ripgrep
-apt-get install curl
+[Tool: bash] pip install requests
+Successfully installed requests-2.31.0
 ```
 
-### Version Control
-
-Git operations for tracking changes:
+> What branch am I on?
 
 ```
-> Show git status
-
-git status
-git diff src/main.py
-git log --oneline -10
-git branch -a
-git add .
-git commit -m "feat: add authentication"
-git push origin main
+[Tool: bash] git branch --show-current
+feature/auth-redesign
 ```
 
-### Container Operations
+Notice that you're speaking naturally — Amplifier decides when bash is the right tool and formulates the command for you.
 
-Work with Docker and Kubernetes:
+## When to Use Bash (and When Not To)
 
-```
-> Build the docker image
+This is the most important thing to understand about the Bash tool. Amplifier has specialized tools that do many things better than raw shell commands. Here's the decision matrix:
 
-docker build -t myapp:latest .
-docker ps
-docker logs container-name
-kubectl get pods
-kubectl logs pod-name
-podman run -d nginx
-```
+| Task | Best tool | Why not bash? |
+|------|-----------|---------------|
+| Run tests, builds | **Bash** | This is bash's sweet spot |
+| Install packages | **Bash** | pip, npm, cargo — all bash territory |
+| Git status, diff, commit | **Bash** | Simple git ops work great here |
+| Read a file | **read_file** | Structured output with line numbers |
+| Search file contents | **grep** | Regex-aware, respects .gitignore, paginated |
+| Find files by name | **glob** | Faster, handles exclusions automatically |
+| Fetch a web page | **web_fetch** | Handles encoding, size limits, save-to-file |
+| Complex git workflows | **git-ops agent** | Multi-step reasoning about branches and merges |
 
-### GitHub CLI
+The rule of thumb: if Amplifier has a dedicated tool for the job, use it. Reach for bash when you need to run an actual program — a test runner, a build system, a package manager, a container tool.
 
-Interact with GitHub repositories:
+## Timeouts and Long-Running Commands
 
-```
-> Create a pull request
+By default, commands time out after 30 seconds. That's fine for `git status` or `pip install`, but a full test suite or a production build needs more room:
 
-gh pr create --title "Fix bug" --body "Details"
-gh issue list --label bug
-gh repo view
-gh workflow run tests.yml
-```
-
-### System Utilities
-
-File operations and system commands:
+> Run the full integration test suite
 
 ```
-> Find all Python files
-
-find . -name "*.py"
-ls -la src/
-cat config.json
-wc -l src/*.py
-df -h
-ps aux | grep python
+[Tool: bash] pytest tests/integration/ --verbose
+  timeout: 300
+===== 47 passed, 2 skipped in 4m 12s =====
 ```
+
+Here's the general guidance:
+
+- **30s (default)** — quick commands: git status, ls, pip install a single package
+- **120–300s** — builds and test suites: pytest, cargo build, npm run build
+- **run_in_background** — anything that runs indefinitely: dev servers, file watchers
 
 ## Background Processes
 
-Use `run_in_background: true` for long-running processes that shouldn't block:
+Some commands aren't meant to finish — dev servers, file watchers, database processes. Use `run_in_background` to start them without blocking your session:
 
-```
-> Start the development server
-
-[Tool: bash]
-{
-  "command": "npm run dev",
-  "run_in_background": true
-}
-
-Returns immediately with PID: 12345
-```
-
-### When to Use Background Mode
-
-**Use background mode for:**
-- Development servers (`npm run dev`, `python manage.py runserver`)
-- File watchers (`npm run watch`, `cargo watch`)
-- Database servers (`mongod`, `redis-server`)
-- Any process that runs continuously
-
-**Don't use background mode for:**
-- Quick commands that finish in seconds
-- Commands where you need to see the full output
-- Build or test commands that should block
-
-### Managing Background Processes
-
-Once started, background processes run independently:
-
-```
-> Start the dev server
-npm run dev  # Started in background as PID 12345
-
-> Kill the process later
-kill 12345
-# or
-pkill -f "npm run dev"
-```
-
-## Safety Features
-
-### Blocked Commands
-
-Amplifier blocks destructive operations to protect your system:
-
-```
-❌ BLOCKED:
-rm -rf /
-sudo rm -rf /
-dd if=/dev/zero of=/dev/sda
-mkfs.ext4 /dev/sda1
-:(){ :|:& };:  # Fork bomb
-```
-
-### Interactive Commands Not Supported
-
-Commands requiring user input will fail:
-
-```
-❌ NOT SUPPORTED:
-vim file.txt
-nano config.ini
-python  # Interactive REPL
-npm init  # Without -y flag
-sudo apt install package  # Without -y flag
-```
-
-**Workaround:** Use non-interactive flags:
-
-```
-✅ WORKS:
-npm init -y
-sudo apt install -y package
-python script.py  # Non-interactive script
-```
-
-### Output Truncation
-
-Long outputs are automatically truncated to prevent context overflow:
-
-```
-Command: find / -name "*.log"
-Output: /var/log/syslog
-        /var/log/auth.log
-        ... [truncated 1847 lines] ...
-        /home/user/app.log
-        
-[Truncated: 2000/5234 lines, 45KB shown, 180KB total]
-```
-
-**Workaround for large outputs:**
-
-```bash
-# Redirect to file instead
-find / -name "*.log" > results.txt
-
-# Then read the file in chunks
-head -n 100 results.txt
-tail -n 100 results.txt
-```
-
-### Structured Data Warning
-
-⚠️ **JSON/XML truncation breaks parsing:**
-
-```bash
-# ❌ Bad: Large JSON may get truncated mid-structure
-curl https://api.example.com/large-dataset
-
-# ✅ Good: Save to file first
-curl https://api.example.com/large-dataset > data.json
-# Then read specific parts
-```
-
-## Best Practices
-
-### Path Handling
-
-Quote paths with spaces and prefer absolute paths:
-
-```bash
-# ✅ Good
-cd "/path/with spaces/project"
-pytest /home/user/project/tests/
-
-# ❌ Problematic
-cd /path/with spaces/project  # Breaks on spaces
-pytest ../tests/  # Relative paths lose context
-```
-
-### Command Chaining
-
-Chain dependent commands with `&&` to stop on failure:
-
-```bash
-# ✅ Stops if mkdir fails
-mkdir build && cd build && cmake ..
-
-# ❌ Continues even if mkdir fails
-mkdir build; cd build; cmake ..
-```
-
-### Error Handling
-
-Check command exit codes for critical operations:
-
-```bash
-# ✅ Explicit error handling
-npm test || echo "Tests failed with exit code $?"
-
-# ✅ Conditional execution
-if pytest tests/; then
-    echo "Tests passed, deploying..."
-    ./deploy.sh
-fi
-```
-
-### Working Directory Context
-
-Remember that each bash invocation maintains context:
-
-```
-> Create directory and enter it
-mkdir myproject && cd myproject
-
-> Next command runs in myproject/
-pwd  # Shows: /home/user/myproject
-```
-
-### Prefer Specialized Tools
-
-Before using bash, check if a specialized tool exists:
-
-```
-# ❌ Avoid: Manual file operations
-bash: cat file.py
-
-# ✅ Better: Use read_file
-[Tool: read_file]
-
-# ❌ Avoid: Manual search
-bash: find . -name "*.py" | xargs grep "class User"
-
-# ✅ Better: Use grep tool
-[Tool: grep]
-pattern: "class User"
-type: "py"
-```
-
-## Try It Yourself
-
-Practice these common scenarios:
-
-### 1. Run Tests
-```
-> Run my Python tests with coverage
-
-Result: Executes pytest with coverage report
-```
-
-### 2. Check Git Status
-```
-> Show me what files have changed
-
-Result: Displays git status and diff
-```
-
-### 3. Install Dependencies
-```
-> Install packages from requirements.txt
-
-Result: Runs pip install -r requirements.txt
-```
-
-### 4. Start Development Server
-```
 > Start the Next.js dev server
 
-Result: Launches npm run dev in background
+```
+[Tool: bash] npm run dev
+  run_in_background: true
+Started background process with PID 48291
 ```
 
-### 5. Build Project
-```
-> Build the Rust project in release mode
+The process runs independently and Amplifier returns immediately. You can check on it later or stop it:
 
-Result: Runs cargo build --release
-```
-
-## Errors and Troubleshooting
-
-### Command Not Found
+> Is the dev server still running?
 
 ```
-Error: bash: pytest: command not found
-
-Solution:
-1. Verify installation: which pytest
-2. Install if missing: pip install pytest
-3. Check PATH: echo $PATH
-4. Use full path: /usr/local/bin/pytest
+[Tool: bash] ps aux | grep "npm run dev"
+user  48291  0.5  1.2  npm run dev
 ```
 
-### Permission Denied
+> Stop the dev server
 
 ```
-Error: Permission denied: ./script.sh
-
-Solution:
-1. Make executable: chmod +x script.sh
-2. Or run with interpreter: bash script.sh
+[Tool: bash] kill 48291
 ```
 
-### Timeout Issues
+Background mode is perfect for:
+- Development servers (`npm run dev`, `python manage.py runserver`)
+- File watchers (`cargo watch`, `nodemon`)
+- Local databases (`redis-server`, `mongod`)
+
+Don't use it for commands where you need the output — test results, build logs, or anything with an exit code you care about.
+
+## Output Truncation
+
+When a command produces a lot of output, Amplifier automatically truncates it to prevent flooding the conversation context. You'll see something like this:
 
 ```
-Error: Command timed out after 300s
+[Tool: bash] find . -name "*.py" -type f
+./src/main.py
+./src/config.py
+./src/utils/helpers.py
+[...truncated...]
+./tests/test_integration.py
+./tests/conftest.py
 
-Solution:
-1. Use background mode for long processes
-2. Break into smaller commands
-3. Add progress indicators to scripts
+[Truncated: showing 2000 of 5234 lines, 45KB of 180KB total]
 ```
 
-### Truncated Output
+The truncation shows the first lines, a `[...truncated...]` marker, and the last lines, plus byte counts so you know what you're missing.
+
+**Warning:** If the output contains JSON, XML, or other structured data, truncation can break it mid-structure. The workaround is to redirect to a file:
+
+> Get the full API response
 
 ```
-Warning: Output truncated [showing 2000/8000 lines]
-
-Solution:
-1. Redirect to file: command > output.txt
-2. Filter output: command | grep "ERROR"
-3. Use specialized tools for structured data
+[Tool: bash] curl https://api.example.com/data > response.json
+[Tool: read_file] response.json (lines 1-50)
 ```
 
-### Working Directory Confusion
+Redirect first, then read the file in controlled chunks.
+
+## Safety Guardrails
+
+The Bash tool blocks destructive commands that could damage your system — things like `rm -rf /` or `sudo rm -rf`. It also doesn't support interactive commands that wait for user input. Editors like vim, interactive REPLs, and commands without `-y` flags will hang and eventually time out.
+
+The fix is usually straightforward — add non-interactive flags:
+
+> Initialize a new npm project
 
 ```
-Error: tests/ directory not found
-
-Solution:
-1. Check current directory: pwd
-2. Use absolute paths: /home/user/project/tests/
-3. Chain cd command: cd project && pytest tests/
+[Tool: bash] npm init -y
+Wrote to /home/user/project/package.json
 ```
 
-### Interactive Command Hangs
+The `-y` flag accepts all defaults without prompting.
+
+## Practical Patterns
+
+### Chaining Commands
+
+Use `&&` to chain dependent commands — if any step fails, the rest don't run:
+
+> Set up a new Python virtual environment and install dependencies
 
 ```
-Error: Command appears to hang (waiting for input)
-
-Solution:
-1. Add non-interactive flags: npm init -y
-2. Use expect/heredoc for scripted input
-3. Pre-create config files before running
+[Tool: bash] python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 ```
 
-### Environment Variables
+Avoid `;` for chaining — it runs every command regardless of failures, which can leave you in a messy state.
 
-```
-Error: Missing required environment variable
+### Quoting Paths
 
-Solution:
-1. Set inline: API_KEY=abc123 python script.py
-2. Export first: export API_KEY=abc123 && python script.py
-3. Use .env file: source .env && python script.py
-```
-
-## Advanced Patterns
-
-### Multi-line Commands
+Always quote paths that might contain spaces:
 
 ```bash
-# Use line continuation for readability
-docker run -d \
-  --name myapp \
-  -p 8080:80 \
-  -v $(pwd):/app \
-  myimage:latest
+# Works
+cd "/home/user/My Projects/webapp"
+
+# Breaks — shell sees three arguments
+cd /home/user/My Projects/webapp
 ```
 
-### Conditional Logic
+### Absolute vs. Relative Paths
+
+Prefer absolute paths when you're unsure of the working directory. Each bash invocation maintains its directory context within a session, but absolute paths remove all ambiguity:
 
 ```bash
-# Run tests, deploy only if successful
-pytest tests/ && npm run build && ./deploy.sh
+# Unambiguous
+pytest /home/user/project/tests/
+
+# Depends on where you are
+pytest tests/
 ```
 
-### Output Processing
+### Redirecting Large Output
 
-```bash
-# Filter and transform output
-git log --oneline | head -n 10 | cut -d' ' -f2-
+When a command generates more output than you need in context, redirect and then inspect:
+
+```
+> Show me just the failing tests from the full suite
+
+[Tool: bash] pytest tests/ --tb=short 2>&1 | grep -E "FAILED|ERROR"
+tests/test_api.py::test_timeout FAILED
+tests/test_api.py::test_retry ERROR
 ```
 
-### Variable Substitution
+Piping through grep keeps the output focused and avoids truncation.
 
-```bash
-# Use shell variables
-VERSION=$(cat VERSION)
-docker build -t myapp:$VERSION .
-```
+## Tips
 
----
+- **Increase timeout for builds.** A 30-second default is too short for `cargo build --release` or `npm run build`. Bump to 120–300 seconds.
+- **Redirect structured output.** If a command returns JSON or XML, save to a file first: `command > output.json`. Then use `read_file` to inspect it.
+- **Check before you chain.** Run `which pytest` or `python --version` before a long chain — catching a missing tool early saves time.
+- **Use background for servers, not builds.** You want to see build output. You don't want to wait for a server to "finish."
+- **Pipe to filter.** Combine bash with `grep`, `head`, `tail`, or `wc` to keep output manageable within a single command.
 
-**Next Steps:**
-- Learn about [Task (Sub-Agents)](./task.md) for specialized agent delegation
-- Explore [Filesystem](./filesystem.md) for file operations
-- See [LSP (Code Intelligence)](./lsp.md) for code understanding
+## Next Steps
+
+- Learn about the [Filesystem Tool](./filesystem.md) for reading and editing files — the preferred alternative to `cat` and `sed` via bash
+- Explore [Search Tools](./search.md) to see why `grep` and `glob` beat `find | xargs grep`
+- See [Task (Sub-Agents)](./task.md) for delegating complex work to specialized agents

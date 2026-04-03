@@ -67,7 +67,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
                   </li>
@@ -81,6 +81,12 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
               <ul class="current">
@@ -92,102 +98,66 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="search.html">Search (grep & glob)</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#when-to-use-each">When to Use Each</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-are-grep-and-glob">What Are grep and glob?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#glob-patterns">Glob Patterns</a>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities-glob">Core Capabilities: glob</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities-grep">Core Capabilities: grep</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-patterns">Basic Patterns</a>
+    <li class="toctree-l3"><a class="reference internal" href="#finding-matches">Finding matches</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-syntax">Pattern Syntax</a>
+    <li class="toctree-l3"><a class="reference internal" href="#seeing-content">Seeing content</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#common-use-cases">Common Use Cases</a>
+    <li class="toctree-l3"><a class="reference internal" href="#context-lines">Context lines</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#glob-parameters">Glob Parameters</a>
+    <li class="toctree-l3"><a class="reference internal" href="#counting-matches">Counting matches</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#glob-output">Glob Output</a>
+    <li class="toctree-l3"><a class="reference internal" href="#filtering-what-you-search">Filtering what you search</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#grep-patterns">Grep Patterns</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-patterns_1">Basic Patterns</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#regex-syntax">Regex Syntax</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#output-modes">Output Modes</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#1-files_with_matches-default">1. files_with_matches (Default)</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#2-content">2. content</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#3-count">3. count</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#content-mode-features">Content Mode Features</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#file-filtering">File Filtering</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#multiline-patterns">Multiline Patterns</a>
+    <li class="toctree-l3"><a class="reference internal" href="#case-insensitive-and-multiline">Case-insensitive and multiline</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#pagination">Pagination</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#combining-tools">Combining Tools</a>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-examples">Practical Examples</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-1-narrow-down-files-first">Pattern 1: Narrow Down Files First</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exploring-an-unfamiliar-project">Exploring an unfamiliar project</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-2-search-then-explore">Pattern 2: Search Then Explore</a>
+    <li class="toctree-l3"><a class="reference internal" href="#finding-all-callers-of-a-function">Finding all callers of a function</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pattern-3-iterative-refinement">Pattern 3: Iterative Refinement</a>
+    <li class="toctree-l3"><a class="reference internal" href="#combining-glob-and-grep">Combining glob and grep</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#performance-tips">Performance Tips</a>
+    <li class="toctree-l2"><a class="reference internal" href="#grep-vs-lsp-when-to-use-which">grep vs LSP: When to Use Which</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-strategy">Search Strategy</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#common-patterns">Common Patterns</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-find-all-tests">Exercise 1: Find All Tests</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-find-unused-imports">Exercise 2: Find Unused Imports</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-configuration-audit">Exercise 3: Configuration Audit</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-4-code-complexity">Exercise 4: Code Complexity</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#glob-errors">Glob Errors</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grep-errors">Grep Errors</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pro-tips">Pro Tips</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -195,20 +165,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -222,19 +268,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -261,542 +294,251 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="search-tools-grep-glob">Search Tools (grep &amp; glob)<a class="headerlink" href="#search-tools-grep-glob" title="Permanent link">&para;</a></h1>
-<p>Master the art of finding files and searching content across your codebase. The <code>grep</code> and <code>glob</code> tools are your primary search capabilities for navigating projects of any size.</p>
-<h2 id="when-to-use-each">When to Use Each<a class="headerlink" href="#when-to-use-each" title="Permanent link">&para;</a></h2>
+                <h1 id="search-tools">Search Tools<a class="headerlink" href="#search-tools" title="Permanent link">&para;</a></h1>
+<p>You have two tools for finding things in a codebase: <code>grep</code> searches <em>inside</em> files for content that matches a pattern, and <code>glob</code> finds files <em>by name</em>. Together they cover every "where is that thing?" question — from "which file defines this function?" to "show me every Python file under src/."</p>
+<h2 id="what-are-grep-and-glob">What Are grep and glob?<a class="headerlink" href="#what-are-grep-and-glob" title="Permanent link">&para;</a></h2>
+<p>Think of it this way: <code>glob</code> is your file explorer's search bar, and <code>grep</code> is Ctrl+F across every file at once.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What It Searches</th>
+<th>Think of It As</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep</code></td>
+<td>Text inside files</td>
+<td>"Find in Files"</td>
+</tr>
+<tr>
+<td><code>glob</code></td>
+<td>File and directory names</td>
+<td>"Find File by Name"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quick decision:</strong> If you know the filename, use <code>glob</code>. If you know what's <em>written</em> in the file, use <code>grep</code>. If you need both — find the files first with <code>glob</code>, then search inside them with <code>grep</code>.</p>
+<h2 id="core-capabilities-glob">Core Capabilities: glob<a class="headerlink" href="#core-capabilities-glob" title="Permanent link">&para;</a></h2>
+<p><code>glob</code> matches file paths against patterns. You give it a pattern like <code>**/*.py</code> and it returns every Python file in the project:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Find all the Python files in this project
+
+[Tool: glob] **/*.py
+  src/main.py
+  src/config.py
+  src/utils/helpers.py
+  tests/test_main.py
+  tests/test_utils.py
+  (5 files, sorted by modification time)
+</code></pre></div>
+
+<p>Results come back sorted by modification time — newest first — so the file you just touched is at the top. Common non-source directories (<code>node_modules</code>, <code>.venv</code>, <code>.git</code>, <code>__pycache__</code>) are automatically excluded, and results cap at 500 files.</p>
+<p>You can narrow the search with a base path, filter by type, or reach into excluded directories:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Find all directories under src/
+
+[Tool: glob] src/*
+  type: dir
+  src/utils/
+  src/models/
+  src/api/
+</code></pre></div>
+
+<p>Common patterns:</p>
+<div class="codehilite"><pre><span></span><code>**/*.py              All Python files, recursively
+**/*.{js,ts,tsx}     JavaScript and TypeScript files
+**/test_*.py         Python test files
+**/Dockerfile        All Dockerfiles
+**/*.md              All Markdown files
+</code></pre></div>
+
+<h2 id="core-capabilities-grep">Core Capabilities: grep<a class="headerlink" href="#core-capabilities-grep" title="Permanent link">&para;</a></h2>
+<p><code>grep</code> searches file contents using regular expressions. It's powered by ripgrep under the hood — fast, respects exclusions, and handles large codebases without breaking a sweat.</p>
+<h3 id="finding-matches">Finding matches<a class="headerlink" href="#finding-matches" title="Permanent link">&para;</a></h3>
+<p>The simplest use: search for a string and see which files contain it.</p>
+<div class="codehilite"><pre><span></span><code>&gt; Where are the TODO comments in this project?
+
+[Tool: grep] pattern: &quot;TODO&quot;
+  src/main.py
+  src/utils/helpers.py
+  tests/test_main.py
+</code></pre></div>
+
+<p>That's the default <code>files_with_matches</code> mode — the fastest way to answer "which files mention this?"</p>
+<h3 id="seeing-content">Seeing content<a class="headerlink" href="#seeing-content" title="Permanent link">&para;</a></h3>
+<p>When you need to see the actual matching lines, switch to <code>content</code> mode:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Show me every function definition in the Python source
+
+[Tool: grep] pattern: &quot;def \w+&quot;, type: py, output_mode: content
+  src/main.py:
+    15: def process_data(input):
+    42: def validate_input(data):
+  src/utils/helpers.py:
+    8: def format_date(dt):
+    23: def retry(func, attempts=3):
+</code></pre></div>
+
+<h3 id="context-lines">Context lines<a class="headerlink" href="#context-lines" title="Permanent link">&para;</a></h3>
+<p>Seeing a matching line is useful; seeing what's <em>around</em> it is often better. Use <code>-A</code> (after), <code>-B</code> (before), or <code>-C</code> (both) to include surrounding lines:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Show me every raise ValueError with context
+
+[Tool: grep] pattern: &quot;raise ValueError&quot;, output_mode: content, -C: 2
+  src/main.py:
+    28:     if not valid:
+    29:         logger.error(&quot;Invalid input&quot;)
+    30:         raise ValueError(&quot;Input validation failed&quot;)
+    31:     return None
+    32:     process(data)
+</code></pre></div>
+
+<h3 id="counting-matches">Counting matches<a class="headerlink" href="#counting-matches" title="Permanent link">&para;</a></h3>
+<p>When you want statistics rather than content, use <code>count</code> mode:</p>
+<div class="codehilite"><pre><span></span><code>&gt; How many import statements are in each file?
+
+[Tool: grep] pattern: &quot;^import&quot;, type: py, output_mode: count
+  src/main.py: 12 matches
+  src/utils/helpers.py: 5 matches
+  tests/test_main.py: 8 matches
+</code></pre></div>
+
+<h3 id="filtering-what-you-search">Filtering what you search<a class="headerlink" href="#filtering-what-you-search" title="Permanent link">&para;</a></h3>
+<p>You can narrow <code>grep</code> searches three ways:</p>
+<ul>
+<li><strong>By file type</strong> — <code>type: "py"</code> searches only Python files. Supports <code>py</code>, <code>js</code>, <code>ts</code>, <code>go</code>, <code>rust</code>, <code>java</code>, <code>c</code>, <code>cpp</code>, <code>rb</code>, <code>sh</code>, <code>md</code>, <code>json</code>, <code>yaml</code>, and many more.</li>
+<li><strong>By glob pattern</strong> — <code>glob: "src/**/*.{js,ts}"</code> limits to matching paths.</li>
+<li><strong>By directory</strong> — <code>path: "./tests"</code> searches only within that subtree.</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>&gt; Find TODO comments, but only in the test files
+
+[Tool: grep] pattern: &quot;TODO&quot;, path: &quot;./tests&quot;, type: py
+  tests/test_main.py
+  tests/test_integration.py
+</code></pre></div>
+
+<p>Like <code>glob</code>, <code>grep</code> automatically excludes <code>node_modules</code>, <code>.venv</code>, <code>.git</code>, <code>__pycache__</code>, and build directories. Set <code>include_ignored: true</code> to override that.</p>
+<h3 id="case-insensitive-and-multiline">Case-insensitive and multiline<a class="headerlink" href="#case-insensitive-and-multiline" title="Permanent link">&para;</a></h3>
+<p>Add <code>-i: true</code> for case-insensitive matching — useful when you're not sure whether someone wrote <code>Error</code>, <code>ERROR</code>, or <code>error</code>.</p>
+<p>For patterns that span multiple lines, set <code>multiline: true</code>. This lets <code>.</code> match newlines so you can find multi-line structures like decorators followed by function definitions.</p>
+<h3 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h3>
+<p>Large result sets are capped by default (200 files, 500 content matches). Use <code>head_limit</code> and <code>offset</code> to page through them:</p>
+<div class="codehilite"><pre><span></span><code>&gt; Show me the next batch of results
+
+[Tool: grep] pattern: &quot;import&quot;, head_limit: 100, offset: 100
+</code></pre></div>
+
+<p>The response includes <code>total_matches</code> so you always know how many exist beyond what's shown.</p>
+<h2 id="practical-examples">Practical Examples<a class="headerlink" href="#practical-examples" title="Permanent link">&para;</a></h2>
+<h3 id="exploring-an-unfamiliar-project">Exploring an unfamiliar project<a class="headerlink" href="#exploring-an-unfamiliar-project" title="Permanent link">&para;</a></h3>
+<p>Start broad with <code>glob</code>, then drill in with <code>grep</code>:</p>
+<div class="codehilite"><pre><span></span><code>&gt; I just cloned this repo. What are we working with?
+
+[Tool: glob] **/*.py
+  (42 files found)
+
+[Tool: glob] **/*.{json,yaml,toml}
+  pyproject.toml
+  config/settings.yaml
+
+[Tool: grep] pattern: &quot;def main&quot;, type: py, output_mode: content
+  src/main.py:
+    8: def main():
+</code></pre></div>
+
+<h3 id="finding-all-callers-of-a-function">Finding all callers of a function<a class="headerlink" href="#finding-all-callers-of-a-function" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>&gt; Where is process_data called?
+
+[Tool: grep] pattern: &quot;process_data\(&quot;, type: py, output_mode: content
+  src/main.py:
+    45:     result = process_data(raw_input)
+  src/api/handlers.py:
+    22:     return process_data(request.body)
+  tests/test_main.py:
+    15:     assert process_data(&quot;hello&quot;) == expected
+</code></pre></div>
+
+<h3 id="combining-glob-and-grep">Combining glob and grep<a class="headerlink" href="#combining-glob-and-grep" title="Permanent link">&para;</a></h3>
+<p>The classic two-step: find the right files, then search within them.</p>
+<div class="codehilite"><pre><span></span><code>&gt; Are there any hardcoded passwords in the config files?
+
+[Tool: glob] **/*.{yaml,json,toml,env}
+  config/settings.yaml
+  config/prod.yaml
+  .env.example
+
+[Tool: grep] pattern: &quot;(password|secret|api_key)&quot;, -i: true, glob: &quot;**/*.{yaml,json,toml,env}&quot;, output_mode: content
+  config/settings.yaml:
+    12: database_password: &quot;${DB_PASSWORD}&quot;
+  .env.example:
+    3: API_KEY=your-key-here
+</code></pre></div>
+
+<h2 id="grep-vs-lsp-when-to-use-which">grep vs LSP: When to Use Which<a class="headerlink" href="#grep-vs-lsp-when-to-use-which" title="Permanent link">&para;</a></h2>
+<p>Amplifier also has <a href="lsp.html">LSP (Code Intelligence)</a> tools that understand code <em>semantically</em> — types, definitions, call hierarchies. Here's when each is the right choice:</p>
 <table>
 <thead>
 <tr>
 <th>Task</th>
-<th>Tool</th>
+<th>Best Tool</th>
 <th>Why</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Find files by name/extension</td>
-<td><code>glob</code></td>
-<td>Fast pattern matching on file paths</td>
+<td>Find callers of a function</td>
+<td><strong>LSP</strong> <code>incomingCalls</code></td>
+<td>Semantic — ignores comments and strings</td>
 </tr>
 <tr>
-<td>Search inside file contents</td>
-<td><code>grep</code></td>
-<td>Regex-based content search</td>
+<td>Find where a symbol is defined</td>
+<td><strong>LSP</strong> <code>goToDefinition</code></td>
+<td>Jumps straight to the definition</td>
 </tr>
 <tr>
-<td>Find all Python files</td>
-<td><code>glob</code></td>
-<td>Use <code>**/*.py</code> pattern</td>
+<td>Get type info or signature</td>
+<td><strong>LSP</strong> <code>hover</code></td>
+<td>grep can't infer types</td>
 </tr>
 <tr>
-<td>Find TODO comments</td>
-<td><code>grep</code></td>
-<td>Search for <code>TODO:</code> in code</td>
+<td>Rename a symbol safely</td>
+<td><strong>LSP</strong> <code>rename</code></td>
+<td>Cross-file, semantically aware</td>
 </tr>
 <tr>
-<td>List all test files</td>
-<td><code>glob</code></td>
-<td>Match <code>**/test_*.py</code> or <code>*.test.js</code></td>
+<td>Find a text pattern anywhere</td>
+<td><strong>grep</strong></td>
+<td>Faster, works on any file type</td>
 </tr>
 <tr>
-<td>Find function definitions</td>
-<td><code>grep</code></td>
-<td>Regex like <code>function\s+\w+</code></td>
+<td>Search across many files at once</td>
+<td><strong>grep</strong></td>
+<td>Bulk text search is grep's strength</td>
 </tr>
 <tr>
-<td>Locate config files</td>
-<td><code>glob</code></td>
-<td>Match <code>**/*.{json,yaml,toml}</code></td>
+<td>Find TODO/FIXME comments</td>
+<td><strong>grep</strong></td>
+<td>Text matching, not code analysis</td>
 </tr>
 <tr>
-<td>Find import statements</td>
-<td><code>grep</code></td>
-<td>Search for <code>import.*Module</code></td>
+<td>Search non-code files (docs, config)</td>
+<td><strong>grep</strong></td>
+<td>LSP only covers source code</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Quick Decision Guide:</strong>
-- Know the filename? → Use <code>glob</code>
-- Know what's <em>inside</em> the file? → Use <code>grep</code>
-- Need both? → Combine them!</p>
-<h2 id="glob-patterns">Glob Patterns<a class="headerlink" href="#glob-patterns" title="Permanent link">&para;</a></h2>
-<p>Glob finds files by matching path patterns. Think of it as a smart file finder.</p>
-<h3 id="basic-patterns">Basic Patterns<a class="headerlink" href="#basic-patterns" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find all Python files in current directory</span>
-*.py
-
-<span class="c1"># Find all Python files recursively</span>
-**/*.py
-
-<span class="c1"># Find all JavaScript and TypeScript files</span>
-**/*.<span class="o">{</span>js,ts<span class="o">}</span>
-
-<span class="c1"># Find all test files</span>
-**/test_*.py
-**/*_test.go
-**/*.test.js
-</code></pre></div>
-
-<h3 id="pattern-syntax">Pattern Syntax<a class="headerlink" href="#pattern-syntax" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Matches</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>*</code></td>
-<td>Any characters (except <code>/</code>)</td>
-<td><code>*.md</code> → <code>README.md</code></td>
-</tr>
-<tr>
-<td><code>**</code></td>
-<td>Any directories recursively</td>
-<td><code>**/src/*.js</code></td>
-</tr>
-<tr>
-<td><code>?</code></td>
-<td>Single character</td>
-<td><code>test?.py</code> → <code>test1.py</code></td>
-</tr>
-<tr>
-<td><code>[abc]</code></td>
-<td>Any character in brackets</td>
-<td><code>file[123].txt</code></td>
-</tr>
-<tr>
-<td><code>{a,b}</code></td>
-<td>Either a or b</td>
-<td><code>*.{js,ts}</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h3>
-<p><strong>Find all source files:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Python project</span>
-**/*.py
-
-<span class="c1"># JavaScript/TypeScript project</span>
-**/*.<span class="o">{</span>js,ts,jsx,tsx<span class="o">}</span>
-
-<span class="c1"># Rust project</span>
-**/*.rs
-</code></pre></div>
-
-<p><strong>Find configuration files:</strong></p>
-<div class="codehilite"><pre><span></span><code>**/*.<span class="o">{</span>json,yaml,yml,toml,ini<span class="o">}</span>
-</code></pre></div>
-
-<p><strong>Find documentation:</strong></p>
-<div class="codehilite"><pre><span></span><code>**/*.md
-**/docs/**/*.md
-</code></pre></div>
-
-<p><strong>Find specific directories:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find all __init__.py files (Python packages)</span>
-**/__init__.py
-
-<span class="c1"># Find all package.json files (Node modules)</span>
-**/package.json
-</code></pre></div>
-
-<h3 id="glob-parameters">Glob Parameters<a class="headerlink" href="#glob-parameters" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/*.py&quot;</span><span class="w">           </span><span class="c1"># Required: glob pattern</span>
-<span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./src&quot;</span><span class="w">                </span><span class="c1"># Optional: base directory (default: current)</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file&quot;</span><span class="w">                 </span><span class="c1"># Optional: file, dir, or any (default: file)</span>
-<span class="nt">include_ignored</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">       </span><span class="c1"># Optional: search in node_modules, .venv, etc.</span>
-<span class="nt">exclude</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;**/test_*.py&quot;</span><span class="p p-Indicator">]</span><span class="w">    </span><span class="c1"># Optional: patterns to exclude</span>
-</code></pre></div>
-
-<h3 id="glob-output">Glob Output<a class="headerlink" href="#glob-output" title="Permanent link">&para;</a></h3>
-<p>Results are sorted by modification time (newest first) and limited to 500 files:</p>
-<div class="codehilite"><pre><span></span><code>Files matched (250 of 500+ total):
-  src/main.py
-  src/utils.py
-  tests/test_main.py
-  ...
-
-Note: Results limited to 500 files. 234 additional files not shown.
-</code></pre></div>
-
-<h2 id="grep-patterns">Grep Patterns<a class="headerlink" href="#grep-patterns" title="Permanent link">&para;</a></h2>
-<p>Grep searches <em>inside</em> files using regular expressions. It's your content detective.</p>
-<h3 id="basic-patterns_1">Basic Patterns<a class="headerlink" href="#basic-patterns_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find TODO comments</span>
-TODO
-
-<span class="c1"># Find function definitions (JavaScript)</span>
-<span class="k">function</span><span class="se">\s</span>+<span class="se">\w</span>+
-
-<span class="c1"># Find class definitions (Python)</span>
-class<span class="se">\s</span>+<span class="se">\w</span>+
-
-<span class="c1"># Find import statements</span>
-import.*requests
-
-<span class="c1"># Find error handling</span>
-except<span class="se">\s</span>+<span class="se">\w</span>+Error
-
-<span class="c1"># Case insensitive search</span>
--i:<span class="w"> </span><span class="nb">true</span>
-pattern:<span class="w"> </span><span class="s2">&quot;error&quot;</span>
-</code></pre></div>
-
-<h3 id="regex-syntax">Regex Syntax<a class="headerlink" href="#regex-syntax" title="Permanent link">&para;</a></h3>
-<p>Grep uses ripgrep regex (Rust flavor):</p>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Matches</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.</code></td>
-<td>Any character</td>
-<td><code>log.</code> → <code>log1</code>, <code>logA</code></td>
-</tr>
-<tr>
-<td><code>\d</code></td>
-<td>Any digit</td>
-<td><code>user\d+</code> → <code>user123</code></td>
-</tr>
-<tr>
-<td><code>\w</code></td>
-<td>Word character</td>
-<td><code>\w+</code> → <code>hello</code></td>
-</tr>
-<tr>
-<td><code>\s</code></td>
-<td>Whitespace</td>
-<td><code>if\s+</code> → <code>if</code></td>
-</tr>
-<tr>
-<td><code>*</code></td>
-<td>0 or more</td>
-<td><code>error.*</code> → <code>error: failed</code></td>
-</tr>
-<tr>
-<td><code>+</code></td>
-<td>1 or more</td>
-<td><code>\d+</code> → <code>123</code></td>
-</tr>
-<tr>
-<td><code>?</code></td>
-<td>0 or 1</td>
-<td><code>colou?r</code> → <code>color</code>, <code>colour</code></td>
-</tr>
-<tr>
-<td><code>^</code></td>
-<td>Start of line</td>
-<td><code>^import</code> → import at start</td>
-</tr>
-<tr>
-<td><code>$</code></td>
-<td>End of line</td>
-<td><code>;$</code> → semicolon at end</td>
-</tr>
-<tr>
-<td><code>[abc]</code></td>
-<td>Character class</td>
-<td><code>[Ee]rror</code> → Error, error</td>
-</tr>
-<tr>
-<td><code>(a\|b)</code></td>
-<td>Alternation</td>
-<td><code>(get\|set)</code> → get or set</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Important:</strong> Ripgrep requires escaping braces: <code>interface\{</code> to find <code>interface{</code></p>
-<h3 id="output-modes">Output Modes<a class="headerlink" href="#output-modes" title="Permanent link">&para;</a></h3>
-<p>Grep has three output modes for different needs:</p>
-<h4 id="1-files_with_matches-default">1. files_with_matches (Default)<a class="headerlink" href="#1-files_with_matches-default" title="Permanent link">&para;</a></h4>
-<p>Lists files containing matches (fastest):</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TODO&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;files_with_matches&quot;</span>
-</code></pre></div>
-
-<p>Output:</p>
-<div class="codehilite"><pre><span></span><code>src/main.py
-src/utils.py
-tests/test_main.py
-</code></pre></div>
-
-<p><strong>Use when:</strong> You just need to know <em>which</em> files contain something.</p>
-<h4 id="2-content">2. content<a class="headerlink" href="#2-content" title="Permanent link">&para;</a></h4>
-<p>Shows matching lines with content:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;def</span><span class="err">\</span><span class="s">s+</span><span class="err">\</span><span class="s">w+&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<p>Output:</p>
-<div class="codehilite"><pre><span></span><code>src/main.py:
-  15: def process_data(input):
-  42: def validate_input(data):
-
-src/utils.py:
-  8: def helper_function():
-</code></pre></div>
-
-<p><strong>Use when:</strong> You need to see the actual matches.</p>
-<h4 id="3-count">3. count<a class="headerlink" href="#3-count" title="Permanent link">&para;</a></h4>
-<p>Shows count of matches per file:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;import&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;count&quot;</span>
-</code></pre></div>
-
-<p>Output:</p>
-<div class="codehilite"><pre><span></span><code>src/main.py: 15 matches
-src/utils.py: 8 matches
-tests/test_main.py: 12 matches
-</code></pre></div>
-
-<p><strong>Use when:</strong> You need statistics or metrics.</p>
-<h3 id="content-mode-features">Content Mode Features<a class="headerlink" href="#content-mode-features" title="Permanent link">&para;</a></h3>
-<p>When using <code>output_mode: "content"</code>, you get extra options:</p>
-<p><strong>Line numbers</strong> (default: true):</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">-n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Show line numbers</span>
-</code></pre></div>
-
-<p><strong>Context lines:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">-A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">  </span><span class="c1"># Show 2 lines AFTER match</span>
-<span class="nt">-B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">  </span><span class="c1"># Show 2 lines BEFORE match</span>
-<span class="nt">-C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">  </span><span class="c1"># Show 2 lines before AND after (context)</span>
-</code></pre></div>
-
-<p>Example with context:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;raise</span><span class="nv"> </span><span class="s">ValueError&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-<span class="nt">-C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-</code></pre></div>
-
-<p>Output:</p>
-<div class="codehilite"><pre><span></span><code>src/main.py:
-  28:     if not valid:
-  29:         logger.error(&quot;Invalid input&quot;)
-  30:         raise ValueError(&quot;Input validation failed&quot;)
-  31:         return None
-  32:     process(data)
-</code></pre></div>
-
-<h3 id="file-filtering">File Filtering<a class="headerlink" href="#file-filtering" title="Permanent link">&para;</a></h3>
-<p><strong>By file type:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TODO&quot;</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;py&quot;</span><span class="w">  </span><span class="c1"># Search only Python files</span>
-</code></pre></div>
-
-<p>Supported types: <code>py</code>, <code>js</code>, <code>ts</code>, <code>go</code>, <code>rust</code>, <code>java</code>, <code>c</code>, <code>cpp</code>, <code>rb</code>, <code>sh</code>, <code>md</code>, <code>json</code>, <code>yaml</code>, <code>html</code>, <code>css</code>, <code>xml</code>, <code>php</code>, <code>sql</code>, <code>swift</code>, <code>lua</code>, <code>toml</code>, <code>txt</code></p>
-<p><strong>By glob pattern:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TODO&quot;</span>
-<span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/*.{js,ts}&quot;</span><span class="w">  </span><span class="c1"># Search only JS/TS files</span>
-</code></pre></div>
-
-<p><strong>By path:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test&quot;</span>
-<span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./tests&quot;</span><span class="w">  </span><span class="c1"># Search only in tests directory</span>
-</code></pre></div>
-
-<p><strong>Include ignored directories:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;config&quot;</span>
-<span class="nt">include_ignored</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">  </span><span class="c1"># Search in node_modules, .venv, etc.</span>
-</code></pre></div>
-
-<p>By default, grep excludes: <code>node_modules</code>, <code>.venv</code>, <code>.git</code>, <code>__pycache__</code>, <code>build</code>, <code>dist</code>, <code>.next</code>, <code>target</code></p>
-<h3 id="multiline-patterns">Multiline Patterns<a class="headerlink" href="#multiline-patterns" title="Permanent link">&para;</a></h3>
-<p>Search across multiple lines:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;function.*\\{.*\\}&quot;</span>
-<span class="nt">multiline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</code></pre></div>
-
-<p>This allows <code>.</code> to match newlines and patterns to span multiple lines.</p>
-<h3 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h3>
-<p>Handle large result sets:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;import&quot;</span>
-<span class="nt">head_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">      </span><span class="c1"># Show first 100 results</span>
-<span class="nt">offset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">            </span><span class="c1"># Start from beginning</span>
-
-<span class="c1"># For next page:</span>
-<span class="nt">head_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
-<span class="nt">offset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">          </span><span class="c1"># Skip first 100</span>
-</code></pre></div>
-
-<p>The response includes <code>total_matches</code> so you know how many exist.</p>
-<h2 id="combining-tools">Combining Tools<a class="headerlink" href="#combining-tools" title="Permanent link">&para;</a></h2>
-<p>The real power comes from using both tools together!</p>
-<h3 id="pattern-1-narrow-down-files-first">Pattern 1: Narrow Down Files First<a class="headerlink" href="#pattern-1-narrow-down-files-first" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Use <code>glob</code> to find candidate files</li>
-<li>Use <code>grep</code> to search within those files</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Step 1: Find all TypeScript files</span>
-<span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/*.ts&quot;</span>
-
-<span class="c1"># Step 2: Search for React hooks in those files</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;use[A-Z]\\w+&quot;</span>
-<span class="nt">glob</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/*.ts&quot;</span>
-</code></pre></div>
-
-<h3 id="pattern-2-search-then-explore">Pattern 2: Search Then Explore<a class="headerlink" href="#pattern-2-search-then-explore" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Use <code>grep</code> to find files with matches</li>
-<li>Read those files to see context</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Step 1: Find files with TODO comments</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TODO&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;files_with_matches&quot;</span>
-
-<span class="c1"># Step 2: Read specific files</span>
-<span class="c1"># (Use read_file tool on results)</span>
-</code></pre></div>
-
-<h3 id="pattern-3-iterative-refinement">Pattern 3: Iterative Refinement<a class="headerlink" href="#pattern-3-iterative-refinement" title="Permanent link">&para;</a></h3>
-<p>Start broad, narrow down:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Round 1: Find all error handling</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;except&quot;</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;py&quot;</span>
-
-<span class="c1"># Round 2: Find specific exception types</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;except\\s+(ValueError|TypeError)&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-
-<span class="c1"># Round 3: Add context to see full try/except blocks</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;except\\s+(ValueError|TypeError)&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-<span class="nt">-C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-</code></pre></div>
-
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Use file type filters</strong>: <code>type: "py"</code> is faster than searching all files</li>
-<li><strong>Specify paths</strong>: Searching <code>./src</code> is faster than entire project</li>
-<li><strong>Start with files_with_matches</strong>: Cheapest output mode</li>
-<li><strong>Use head_limit</strong>: Limit results to prevent overwhelming context</li>
-</ol>
-<h3 id="search-strategy">Search Strategy<a class="headerlink" href="#search-strategy" title="Permanent link">&para;</a></h3>
-<p><strong>For unknown codebases:</strong></p>
-<div class="codehilite"><pre><span></span><code>1. glob → Find what files exist
-2. grep (files_with_matches) → Find relevant files
-3. grep (content) → See actual code
-4. read_file → Read full context
-</code></pre></div>
-
-<p><strong>For specific searches:</strong></p>
-<div class="codehilite"><pre><span></span><code>1. Combine grep with type/glob filters immediately
-2. Use content mode with context (-C)
-3. Read promising files
-</code></pre></div>
-
-<h3 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h3>
-<p><strong>Find API endpoints:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;@(app|router)\\.(get|post|put|delete)&quot;</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;py&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<p><strong>Find environment variables:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;os\\.environ|process\\.env&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<p><strong>Find security issues:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(eval|exec|system|shell_exec)\\(&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-<span class="nt">-C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-</code></pre></div>
-
-<p><strong>Find deprecated code:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;@deprecated|DEPRECATED|FIXME&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-find-all-tests">Exercise 1: Find All Tests<a class="headerlink" href="#exercise-1-find-all-tests" title="Permanent link">&para;</a></h3>
-<p>Find all test files in your project:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Glob approach:</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/test_*.py&quot;</span>
-</code></pre></div>
-
-<h3 id="exercise-2-find-unused-imports">Exercise 2: Find Unused Imports<a class="headerlink" href="#exercise-2-find-unused-imports" title="Permanent link">&para;</a></h3>
-<p>Search for imports that might be unused:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^import\\s+\\w+&quot;</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;py&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<h3 id="exercise-3-configuration-audit">Exercise 3: Configuration Audit<a class="headerlink" href="#exercise-3-configuration-audit" title="Permanent link">&para;</a></h3>
-<p>Find all configuration values:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find config files</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**/*.{json,yaml,yml,toml}&quot;</span>
-
-<span class="c1"># Then search for secrets/credentials</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(password|secret|api_key|token)&quot;</span>
-<span class="nt">-i</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-</code></pre></div>
-
-<h3 id="exercise-4-code-complexity">Exercise 4: Code Complexity<a class="headerlink" href="#exercise-4-code-complexity" title="Permanent link">&para;</a></h3>
-<p>Find long functions (might need refactoring):</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Find function definitions</span>
-<span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^(def|function)\\s+\\w+&quot;</span>
-<span class="nt">output_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;content&quot;</span>
-<span class="nt">-A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w">  </span><span class="c1"># Show next 50 lines to see function size</span>
-</code></pre></div>
-
-<h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<h3 id="glob-errors">Glob Errors<a class="headerlink" href="#glob-errors" title="Permanent link">&para;</a></h3>
-<p><strong>"No files matched pattern"</strong>
-- Check your pattern syntax
-- Try simpler patterns first: <code>*.py</code> before <code>**/*.py</code>
-- Verify you're in the right directory
-- Use <code>include_ignored: true</code> if searching excluded dirs</p>
-<p><strong>"Too many results (&gt;500)"</strong>
-- Be more specific with your pattern
-- Search in a subdirectory: <code>path: "./src"</code>
-- Use exclude patterns: <code>exclude: ["**/node_modules/**"]</code></p>
-<h3 id="grep-errors">Grep Errors<a class="headerlink" href="#grep-errors" title="Permanent link">&para;</a></h3>
-<p><strong>"Pattern not found"</strong>
-- Verify regex syntax (ripgrep flavor)
-- Try case insensitive: <code>-i: true</code>
-- Check file type filter: <code>type: "py"</code>
-- Use simpler pattern first, then refine</p>
-<p><strong>"Results truncated"</strong>
-- This is normal! Results are limited for performance
-- Use <code>head_limit</code> and <code>offset</code> for pagination
-- Consider narrowing search with <code>path</code> or <code>type</code></p>
-<p><strong>"Regex syntax error"</strong>
-- Escape special characters: <code>\{</code>, <code>\(</code>, <code>\.</code>
-- Use raw strings in your mind: <code>\\</code> for backslash
-- Test simpler patterns first</p>
-<p><strong>"Multiline not working"</strong>
-- Set <code>multiline: true</code> explicitly
-- Remember <code>.</code> now matches newlines
-- Patterns can span lines: <code>function.*\\{.*\\}</code></p>
-<h3 id="pro-tips">Pro Tips<a class="headerlink" href="#pro-tips" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Test patterns incrementally</strong>: Start simple, add complexity</li>
-<li><strong>Use files_with_matches first</strong>: See what files match before getting content</li>
-<li><strong>Combine with read_file</strong>: Grep finds it, read_file shows full context</li>
-<li><strong>Watch output limits</strong>: Default limits prevent context overflow</li>
-<li><strong>Case sensitivity matters</strong>: Use <code>-i: true</code> when unsure</li>
-<li><strong>Escape ripgrep regex</strong>: <code>\{</code> <code>\}</code> <code>\(</code> <code>\)</code> need escaping</li>
-</ol>
-<hr />
-<p><strong>Next Steps:</strong>
-- Practice with your own codebase
-- Combine with other tools like <code>read_file</code> and <code>bash</code>
-- Learn advanced regex patterns
-- Build search workflows for common tasks</p>
-<p><strong>Related Tools:</strong>
-- <code>read_file</code> - Read full file content after finding matches
-- <code>bash</code> - Use shell commands like <code>find</code> or <code>ag</code> if needed
-- <code>task:explorer</code> - For complex multi-step searches</p>
+<p>The rule of thumb: use LSP when you need to understand code <em>meaning</em> (definitions, types, usages). Use <code>grep</code> when you need to find <em>text</em> (patterns, comments, configuration values).</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Start with <code>files_with_matches</code>.</strong> It's the cheapest output mode. See which files match first, then switch to <code>content</code> for the ones that matter.</p>
+<p><strong>Filter early.</strong> Searching <code>path: "./src"</code> with <code>type: "py"</code> is much faster than searching the entire project tree. Narrow the scope before you search.</p>
+<p><strong>Use context lines liberally.</strong> A bare match line rarely tells the whole story. <code>-C: 3</code> costs almost nothing and often saves a follow-up <code>read_file</code> call.</p>
+<p><strong>Combine, don't replace.</strong> <code>glob</code> and <code>grep</code> are teammates. Use <code>glob</code> to orient yourself ("what files exist?"), then <code>grep</code> to find what's inside them.</p>
+<p><strong>Escape ripgrep regex.</strong> Literal braces need escaping: <code>interface\{</code> to match <code>interface{</code>. Parentheses, dots, and brackets are regex metacharacters too.</p>
+<p><strong>Don't forget <code>-i</code>.</strong> Case-insensitive search catches <code>Error</code>, <code>ERROR</code>, and <code>error</code> in one pass. Use it when you're not sure about casing.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about <a href="filesystem.html">Filesystem Tools</a> for reading and editing the files you find</li>
+<li>See <a href="lsp.html">LSP (Code Intelligence)</a> for semantic navigation — definitions, references, and rename</li>
+<li>Explore <a href="bash.html">Bash Tool</a> for running tests and builds after making changes</li>
+</ul>
               
             </div>
           </div><footer>

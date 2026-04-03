@@ -14,8 +14,16 @@ Bundles are the primary way to customize Amplifier's behavior. A bundle packages
 |------|-------------|
 | [Foundation](./foundation.md) | Core Amplifier bundle with essential capabilities |
 | [Recipes](./recipes.md) | Multi-step workflow orchestration |
-| [LSP Python](./lsp-python.md) | Python code intelligence via Language Server Protocol |
 | [Design Intelligence](./design-intelligence.md) | Design system and UI expertise |
+| [Python Dev](./python-dev.md) | Integrated Python code quality and intelligence |
+| [Superpowers](./superpowers.md) | Power-user bundle with advanced modes and agents |
+| [Dot Graph](./dot-graph.md) | DOT/Graphviz diagramming and analysis bundle |
+| [Browser Tester](./browser-tester.md) | AI-assisted browser and UI testing |
+| [Team Knowledge](./team-knowledge.md) | Shared team knowledge base integration |
+| [Dev Memory](./dev-memory.md) | Persistent memory across development sessions |
+| [Projector](./projector.md) | Project and strategy management bundle |
+| [Stories](./stories.md) | Structured story and narrative workflows |
+| [LSP Python](./lsp-python.md) | Legacy Python LSP bundle (redirects to python-dev) |
 
 ## Quick Tips
 
@@ -56,7 +64,7 @@ Bundles should be minimal compositions, not monolithic packages:
 
 **Workflow automation?** Jump to [Recipes](./recipes.md) for multi-step orchestration.
 
-**Python development?** See [LSP Python](./lsp-python.md) for code intelligence.
+**Python development?** See [Python Dev](./python-dev.md) for code quality and intelligence.
 
 ## Example: Minimal Bundle
 

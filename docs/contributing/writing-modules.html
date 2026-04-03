@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Writing Modules - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Writing Modules";
+        var mkdocs_page_input_path = "contributing/writing-modules.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="writing-modules.html">Writing Modules</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-youll-learn">What You'll Learn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#module-types-and-their-contracts">Module Types and Their Contracts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-mount-function">The mount() Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-building-a-custom-tool">Example: Building a Custom Tool</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#module-directory-structure">Module Directory Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-modules-in-isolation">Testing Modules in Isolation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#publishing-your-module">Publishing Your Module</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pyprojecttoml">pyproject.toml</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#using-your-module-in-a-bundle">Using Your Module in a Bundle</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#adding-to-the-ecosystem-catalog">Adding to the Ecosystem Catalog</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Contributing</li>
+      <li class="breadcrumb-item active">Writing Modules</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="writing-a-module">Writing a Module<a class="headerlink" href="#writing-a-module" title="Permanent link">&para;</a></h1>
+<p>Every capability in Amplifier is delivered through a module. When you build a new tool, provider, hook, orchestrator, or context manager, you're extending the ecosystem in a way that any bundle can compose. This page walks you through creating a custom module from scratch — the contracts, the directory structure, testing, and publishing.</p>
+<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>By the end of this page, you'll know how to:</p>
+<ul>
+<li>Choose the right module type for your use case</li>
+<li>Implement the <code>mount()</code> function and satisfy protocol compliance</li>
+<li>Structure your module directory</li>
+<li>Test your module in isolation</li>
+<li>Package and publish it for others to use</li>
+</ul>
+<hr />
+<h2 id="module-types-and-their-contracts">Module Types and Their Contracts<a class="headerlink" href="#module-types-and-their-contracts" title="Permanent link">&para;</a></h2>
+<p>Amplifier defines exactly five module types. Each has a protocol — a set of methods your module must implement. Amplifier uses Python's structural typing (duck typing via protocols), so you never inherit from a base class. If your object has the right methods, it's a valid module.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Contract</th>
+<th>Who Triggers It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Provider</strong></td>
+<td><code>complete(request) → response</code></td>
+<td>Orchestrator calls it</td>
+</tr>
+<tr>
+<td><strong>Tool</strong></td>
+<td><code>name</code>, <code>description</code>, <code>execute(input) → ToolResult</code></td>
+<td>LLM decides when</td>
+</tr>
+<tr>
+<td><strong>Hook</strong></td>
+<td><code>__call__(event, data) → HookResult</code></td>
+<td>Kernel fires automatically</td>
+</tr>
+<tr>
+<td><strong>Orchestrator</strong></td>
+<td>Controls the request/response loop</td>
+<td>Kernel runs it</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td><code>add_message()</code>, <code>get_messages()</code>, <code>set_messages()</code>, <code>clear()</code></td>
+<td>Orchestrator and kernel</td>
+</tr>
+</tbody>
+</table>
+<p>The key design question: <strong>"Should the LLM decide when this runs?"</strong></p>
+<ul>
+<li><strong>Yes</strong> → Build a <strong>Tool</strong>. The LLM sees its name and description and chooses when to invoke it.</li>
+<li><strong>No</strong> → Build a <strong>Hook</strong>. It fires automatically on lifecycle events, invisible to the LLM.</li>
+<li><strong>Neither</strong> → It's probably a Provider, Orchestrator, or Context module.</li>
+</ul>
+<hr />
+<h2 id="the-mount-function">The mount() Function<a class="headerlink" href="#the-mount-function" title="Permanent link">&para;</a></h2>
+<p>Every module has one entry point: <code>mount()</code>. This is the function the kernel calls when loading your module. It receives a coordinator (for registering capabilities) and a config dict, and it returns a cleanup function.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">coordinator</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="c1"># 1. Create your module instance</span>
+    <span class="n">my_tool</span> <span class="o">=</span> <span class="n">MyTool</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># 2. Register it with the coordinator</span>
+    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">my_tool</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-tool&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 3. Return a cleanup function</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span>
+        <span class="k">await</span> <span class="n">my_tool</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cleanup</span>
+</code></pre></div>
+
+<p>Three things happen in <code>mount()</code>:</p>
+<ol>
+<li><strong>Instantiate.</strong> Create your module with whatever config it needs.</li>
+<li><strong>Register.</strong> Tell the coordinator what slot to put it in — <code>"tools"</code>, <code>"hooks"</code>, <code>"providers"</code>, etc.</li>
+<li><strong>Cleanup.</strong> Return an async function the kernel calls when the session ends.</li>
+</ol>
+<p>The kernel validates protocol compliance at mount time. If your tool is missing <code>execute()</code>, or your provider doesn't implement <code>complete()</code>, the kernel rejects it immediately — not at runtime when a user hits the bug. Fail fast, fail loud.</p>
+<hr />
+<h2 id="example-building-a-custom-tool">Example: Building a Custom Tool<a class="headerlink" href="#example-building-a-custom-tool" title="Permanent link">&para;</a></h2>
+<p>Let's build a tool that counts lines in files — simple enough to show every piece of the pattern.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier_module_tool_line_counter/tool.py</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">amplifier_core.models</span> <span class="kn">import</span> <span class="n">ToolResult</span>
+
+<span class="k">class</span> <span class="nc">LineCounter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Count lines in files within the workspace.&quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;line_counter&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Count the number of lines in one or more files&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;File or directory path to count lines in&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ToolResult</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ToolResult</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error: path &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39; does not exist&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">ToolResult</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> lines&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Directory: count all files recursively</span>
+        <span class="n">total</span><span class="p">,</span> <span class="n">results</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+                <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">fpath</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">total</span> <span class="o">+=</span> <span class="n">count</span>
+        <span class="k">return</span> <span class="n">ToolResult</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Total: </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> lines&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>name</code>, <code>description</code>, and <code>parameters</code> properties tell the LLM what this tool does. <code>execute()</code> does the work. Errors return messages in <code>ToolResult</code> rather than raising exceptions — a module should never crash the kernel. The mount function wires it up:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier_module_tool_line_counter/__init__.py</span>
+<span class="kn">from</span> <span class="nn">.tool</span> <span class="kn">import</span> <span class="n">LineCounter</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">coordinator</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">LineCounter</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;line_counter&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">cleanup</span>
+</code></pre></div>
+
+<p>Once mounted, the LLM invokes your tool when it's relevant:</p>
+<blockquote>
+<p>How many lines of code are in the src directory?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: line_counter] src/
+  src/auth.py: 142
+  src/config.py: 67
+  src/main.py: 203
+  src/utils.py: 89
+
+Total: 501 lines
+</code></pre></div>
+
+<hr />
+<h2 id="module-directory-structure">Module Directory Structure<a class="headerlink" href="#module-directory-structure" title="Permanent link">&para;</a></h2>
+<p>A well-organized module follows this layout:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-module-tool-line-counter/
+├── amplifier_module_tool_line_counter/
+│   ├── __init__.py        # mount() function lives here
+│   └── tool.py            # Tool implementation
+├── tests/
+│   ├── __init__.py
+│   └── test_tool.py       # Unit tests
+├── pyproject.toml          # Package metadata + entry point
+├── README.md               # What this module does
+└── LICENSE
+</code></pre></div>
+
+<p>The naming convention: the repository is <code>amplifier-module-{type}-{name}</code>, and the Python package uses underscores: <code>amplifier_module_{type}_{name}</code>.</p>
+<hr />
+<h2 id="testing-modules-in-isolation">Testing Modules in Isolation<a class="headerlink" href="#testing-modules-in-isolation" title="Permanent link">&para;</a></h2>
+<p>Modules are plain Python objects with known interfaces. You don't need a running Amplifier session to test them:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># tests/test_tool.py</span>
+<span class="kn">import</span> <span class="nn">pytest</span><span class="o">,</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">amplifier_module_tool_line_counter.tool</span> <span class="kn">import</span> <span class="n">LineCounter</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">tool</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">LineCounter</span><span class="p">()</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">temp_file</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.py&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;line one</span><span class="se">\n</span><span class="s2">line two</span><span class="se">\n</span><span class="s2">line three</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">yield</span> <span class="n">path</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_name</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">tool</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;line_counter&quot;</span>
+
+<span class="k">def</span> <span class="nf">test_description</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="s2">&quot;lines&quot;</span> <span class="ow">in</span> <span class="n">tool</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_count_file</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">temp_file</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tool</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">temp_file</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="s2">&quot;3 lines&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_missing_path</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tool</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/nonexistent/path&quot;</span><span class="p">})</span>
+    <span class="k">assert</span> <span class="s2">&quot;Error&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span>
+</code></pre></div>
+
+<blockquote>
+<p>Run the tests</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] pytest tests/ --verbose
+===== test session starts =====
+tests/test_tool.py::test_name PASSED
+tests/test_tool.py::test_description PASSED
+tests/test_tool.py::test_count_file PASSED
+tests/test_tool.py::test_missing_path PASSED
+===== 4 passed in 0.12s =====
+</code></pre></div>
+
+<p>Test the contract surface first — <code>name</code>, <code>description</code>, <code>parameters</code> — then test behavior. This ensures protocol compliance before you ever mount the module in a live session.</p>
+<hr />
+<h2 id="publishing-your-module">Publishing Your Module<a class="headerlink" href="#publishing-your-module" title="Permanent link">&para;</a></h2>
+<h3 id="pyprojecttoml">pyproject.toml<a class="headerlink" href="#pyprojecttoml" title="Permanent link">&para;</a></h3>
+<p>The entry point registration is what makes your module discoverable by the kernel:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;amplifier-module-tool-line-counter&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Count lines in files for Amplifier&quot;</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.11&quot;</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;amplifier-core&quot;</span><span class="p">]</span>
+
+<span class="k">[project.entry-points.</span><span class="s2">&quot;amplifier.modules&quot;</span><span class="k">]</span>
+<span class="n">tool-line-counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;amplifier_module_tool_line_counter:mount&quot;</span>
+
+<span class="k">[build-system]</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;hatchling&quot;</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hatchling.build&quot;</span>
+</code></pre></div>
+
+<p>The entry point key (<code>tool-line-counter</code>) is the module ID that bundles reference. The value points Python to your <code>mount()</code> function.</p>
+<h3 id="using-your-module-in-a-bundle">Using Your Module in a Bundle<a class="headerlink" href="#using-your-module-in-a-bundle" title="Permanent link">&para;</a></h3>
+<p>Once published to a git repository, any bundle can reference it:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-line-counter</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/yourname/amplifier-module-tool-line-counter@main</span>
+</code></pre></div>
+
+<h3 id="adding-to-the-ecosystem-catalog">Adding to the Ecosystem Catalog<a class="headerlink" href="#adding-to-the-ecosystem-catalog" title="Permanent link">&para;</a></h3>
+<p>When your module is ready for the community, submit a PR to the main Amplifier repository adding your entry to <code>docs/MODULES.md</code>:</p>
+<div class="codehilite"><pre><span></span><code>| <span class="gs">**tool-line-counter**</span> | Count lines in files | <span class="ni">@yourname</span> | [<span class="nt">repo</span>](<span class="na">https://github.com/yourname/amplifier-module-tool-line-counter</span>) |
+</code></pre></div>
+
+<hr />
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Every module starts with <code>mount()</code>.</strong> The kernel calls it, you register your capabilities, you return cleanup.</p>
+</li>
+<li>
+<p><strong>Protocols, not inheritance.</strong> Implement the right methods and your class is a valid module. No base classes, no decorators, no framework magic.</p>
+</li>
+<li>
+<p><strong>The LLM triggers tools; code triggers hooks.</strong> This is the fundamental design decision when choosing your module type.</p>
+</li>
+<li>
+<p><strong>Test in isolation.</strong> Modules are plain Python objects. Test them with pytest without running Amplifier.</p>
+</li>
+<li>
+<p><strong>Entry points make it discoverable.</strong> The <code>[project.entry-points."amplifier.modules"]</code> section in <code>pyproject.toml</code> is how the kernel finds your module.</p>
+</li>
+<li>
+<p><strong>Error handling is non-negotiable.</strong> Return errors in your results. Never raise unhandled exceptions. Never crash the kernel.</p>
+</li>
+<li>
+<p><strong>Name it right.</strong> <code>amplifier-module-{type}-{name}</code> for the repo, <code>amplifier_module_{type}_{name}</code> for the package. Consistency enables discovery.</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="writing-bundles.html" class="btn btn-neutral float-right" title="Writing Bundles">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="writing-bundles.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

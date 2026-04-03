@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Superpowers - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Superpowers";
+        var mkdocs_page_input_path = "bundles/superpowers.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="superpowers.html">Superpowers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-superpowers-bundle">What is the Superpowers Bundle?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#modes">Modes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#brainstorm-collaborative-design">/brainstorm -- Collaborative Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#write-plan-task-decomposition">/write-plan -- Task Decomposition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#execute-plan-three-agent-pipeline">/execute-plan -- Three-Agent Pipeline</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debug-systematic-root-cause-analysis">/debug -- Systematic Root Cause Analysis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#verify-evidence-based-completion">/verify -- Evidence-Based Completion</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#finish-clean-completion">/finish -- Clean Completion</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-agents">Key Agents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipes">Recipes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#full-development-cycle-autopilot">Full Development Cycle (Autopilot)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subagent-driven-development">Subagent-Driven Development</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#two-tracks-autopilot-vs-manual">Two Tracks: Autopilot vs. Manual</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#methodology-calibration">Methodology Calibration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-gate-function">The Gate Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Bundles</li>
+      <li class="breadcrumb-item active">Superpowers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="superpowers-bundle">Superpowers Bundle<a class="headerlink" href="#superpowers-bundle" title="Permanent link">&para;</a></h1>
+<p>Most AI coding assistants will happily write code the moment you ask. No tests, no design, no review -- just output. It works until it doesn't, and when it doesn't, you're debugging AI-generated code you never fully understood in the first place.</p>
+<p>The Superpowers bundle takes a different position: test-driven development is non-negotiable. Every feature starts with a failing test. Every implementation passes through a two-stage review. Every claim of "it works" requires evidence. This isn't extra process for the sake of process -- it's the methodology that makes AI-assisted development reliable enough to trust.</p>
+<h2 id="what-is-the-superpowers-bundle">What is the Superpowers Bundle?<a class="headerlink" href="#what-is-the-superpowers-bundle" title="Permanent link">&para;</a></h2>
+<p>Superpowers is a TDD-focused development methodology bundle. It layers a complete software engineering workflow on top of Foundation, enforcing discipline through modes, specialized agents, and approval gates.</p>
+<p>The core philosophy rests on four principles:</p>
+<ul>
+<li><strong>Test-driven development is non-negotiable.</strong> No production code without a failing test first. RED-GREEN-REFACTOR, always.</li>
+<li><strong>Systematic over ad-hoc.</strong> Every phase has a defined process. Brainstorming has structure. Debugging has phases. Verification has evidence requirements.</li>
+<li><strong>Evidence over claims.</strong> "Should work" is not evidence. Run the test. Read the output. Then -- and only then -- claim success.</li>
+<li><strong>Complexity reduction.</strong> Break large problems into small, testable pieces. A task that can't be tested in isolation is a task that hasn't been decomposed enough.</li>
+</ul>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<p>Superpowers provides six modes, five agents, two recipes, and a methodology framework:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What It Provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modes</strong></td>
+<td>6 runtime behavior overlays that enforce workflow discipline</td>
+</tr>
+<tr>
+<td><strong>Agents</strong></td>
+<td>5 specialized agents for implementation, review, design, and planning</td>
+</tr>
+<tr>
+<td><strong>Recipes</strong></td>
+<td>Full development cycle (autopilot) and subagent-driven development</td>
+</tr>
+<tr>
+<td><strong>Skills</strong></td>
+<td>TDD methodology, integration testing discipline, reference tables</td>
+</tr>
+<tr>
+<td><strong>Philosophy</strong></td>
+<td>Core principles, anti-rationalization rules, the Gate Function</td>
+</tr>
+</tbody>
+</table>
+<p>The bundle includes Foundation and builds on its tools, agents, and delegation system -- everything Foundation provides, plus the methodology layer that makes development systematic.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Include Superpowers in your bundle configuration:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">bundles</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superpowers</span>
+</code></pre></div>
+
+<p>Once loaded, Superpowers watches every prompt for mode applicability. Before starting any work, it checks: does a mode apply here? If even 1% likely, it suggests it.</p>
+<blockquote>
+<p>I need to add pagination to the users API endpoint.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>This looks like feature work. I&#39;d recommend starting with /brainstorm
+to nail down the design, then /write-plan to break it into tasks,
+then /execute-plan to implement with full TDD and review.
+
+Want to start brainstorming?
+</code></pre></div>
+
+<p>The simplest way to begin is to describe what you want to build. Superpowers figures out which mode applies and guides you through the process.</p>
+<h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
+<p>Modes are runtime behavior overlays -- they change how Amplifier works when activated. Each mode enforces specific rules and constraints.</p>
+<h3 id="brainstorm-collaborative-design">/brainstorm -- Collaborative Design<a class="headerlink" href="#brainstorm-collaborative-design" title="Permanent link">&para;</a></h3>
+<p>Activates before any coding begins. You and the assistant explore requirements, constraints, trade-offs, and edge cases through back-and-forth conversation. No code is written. The output is a validated design document.</p>
+<blockquote>
+<p>/brainstorm -- I want to add a caching layer to our API</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>Let&#39;s think through this. A few questions before we design anything:
+
+1. What&#39;s your current request latency? Where&#39;s the bottleneck?
+2. Are responses user-specific or shared across users?
+3. What&#39;s your invalidation strategy -- time-based, event-based, or both?
+4. What infrastructure do you already have? Redis? Memcached?
+</code></pre></div>
+
+<p>The assistant owns the conversation. When the design is validated section by section, it delegates to the <code>brainstormer</code> agent to produce the final design document.</p>
+<h3 id="write-plan-task-decomposition">/write-plan -- Task Decomposition<a class="headerlink" href="#write-plan-task-decomposition" title="Permanent link">&para;</a></h3>
+<p>Takes a validated design and breaks it into bite-sized, implementable tasks. Each task includes the exact test to write first and the exact code to make it pass. No vague descriptions -- every task is concrete enough for a fresh agent to execute without ambiguity.</p>
+<blockquote>
+<p>/write-plan -- based on the caching design we just finished</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to plan-writer...
+  Created implementation plan: 8 tasks
+  Task 1: Add CacheConfig dataclass with TTL, max_size, backend fields
+  Task 2: Implement CacheBackend protocol with get/set/delete/clear
+  Task 3: Build InMemoryCache implementing CacheBackend
+  ...
+  Each task has: failing test first, implementation code, acceptance criteria
+</code></pre></div>
+
+<h3 id="execute-plan-three-agent-pipeline">/execute-plan -- Three-Agent Pipeline<a class="headerlink" href="#execute-plan-three-agent-pipeline" title="Permanent link">&para;</a></h3>
+<p>This is where code gets written -- but not by you. Every task goes through a three-agent pipeline:</p>
+<ol>
+<li><strong>Implementer</strong> writes the failing test, then makes it pass (RED-GREEN-REFACTOR)</li>
+<li><strong>Spec-reviewer</strong> checks: does the implementation match the spec?</li>
+<li><strong>Code-quality-reviewer</strong> checks: is the code clean, maintainable, and idiomatic?</li>
+</ol>
+<p>Each task gets a fresh agent with clean context. You orchestrate; the agents execute.</p>
+<blockquote>
+<p>/execute-plan -- run the caching implementation plan</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Task 1/8] CacheConfig dataclass
+  [Tool: task] implementer → RED: wrote test_cache_config_defaults... FAIL ✓
+  [Tool: task] implementer → GREEN: implemented CacheConfig... PASS ✓
+  [Tool: task] implementer → REFACTOR: extracted defaults to constants
+  [Tool: task] spec-reviewer → Spec compliance: PASS (all fields match design)
+  [Tool: task] code-quality-reviewer → Quality: PASS (clean, typed, documented)
+</code></pre></div>
+
+<h3 id="debug-systematic-root-cause-analysis">/debug -- Systematic Root Cause Analysis<a class="headerlink" href="#debug-systematic-root-cause-analysis" title="Permanent link">&para;</a></h3>
+<p>When something breaks, don't guess. Debug mode enforces a four-phase framework: reproduce, hypothesize, verify, then fix. You own the investigation (phases 1-3), but the fix itself must be delegated.</p>
+<blockquote>
+<p>/debug -- the cache is returning stale data after invalidation</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>Phase 1 — Reproduce
+  Running invalidation test... confirmed: stale data persists
+Phase 2 — Hypothesize
+  Three candidates: race condition, async flush delay, key mismatch
+Phase 3 — Verify
+  Added logging to delete path... key mismatch confirmed.
+  Cache key uses request URL, but invalidation uses entity ID.
+Phase 4 — Fix
+  [Tool: task] Delegating fix to implementer...
+</code></pre></div>
+
+<h3 id="verify-evidence-based-completion">/verify -- Evidence-Based Completion<a class="headerlink" href="#verify-evidence-based-completion" title="Permanent link">&para;</a></h3>
+<p>Before claiming anything is done, verify mode demands proof. Run the tests. Check the output. Confirm the behavior. "Should work" gets rejected -- only evidence counts.</p>
+<blockquote>
+<p>/verify -- is the caching implementation complete?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>Running full test suite...     142 passed, 0 failed ✓
+Running integration tests...   18 passed, 0 failed ✓
+Checking coverage...           cache module: 94% ✓
+Manual smoke test...           GET /users → 200 (cache HIT, 3ms) ✓
+
+Verification: COMPLETE with evidence.
+</code></pre></div>
+
+<h3 id="finish-clean-completion">/finish -- Clean Completion<a class="headerlink" href="#finish-clean-completion" title="Permanent link">&para;</a></h3>
+<p>Wraps up the development branch. Verifies everything one final time, then presents options: merge to main, create a PR, keep the branch, or discard.</p>
+<blockquote>
+<p>/finish</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>Final verification: all tests pass, no lint errors, no type errors.
+Options: 1) Merge to main  2) Create PR  3) Keep branch  4) Discard
+</code></pre></div>
+
+<h2 id="key-agents">Key Agents<a class="headerlink" href="#key-agents" title="Permanent link">&para;</a></h2>
+<p>Five agents, each with a specific role in the pipeline:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Role</th>
+<th>When Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>brainstormer</strong></td>
+<td>Writes design documents from validated conversations</td>
+<td>After <code>/brainstorm</code> conversation completes</td>
+</tr>
+<tr>
+<td><strong>plan-writer</strong></td>
+<td>Creates detailed implementation plans with TDD tasks</td>
+<td>After <code>/write-plan</code> conversation completes</td>
+</tr>
+<tr>
+<td><strong>implementer</strong></td>
+<td>Implements tasks following strict RED-GREEN-REFACTOR</td>
+<td>Every task in <code>/execute-plan</code></td>
+</tr>
+<tr>
+<td><strong>spec-reviewer</strong></td>
+<td>Reviews implementation against the spec</td>
+<td>After implementer, every task</td>
+</tr>
+<tr>
+<td><strong>code-quality-reviewer</strong></td>
+<td>Reviews code quality, style, and best practices</td>
+<td>After spec-reviewer, every task</td>
+</tr>
+</tbody>
+</table>
+<p>The two-stage review is critical. Spec compliance checks "did you build the right thing?" Code quality checks "did you build it well?" These are separate concerns that require separate reviewers. The spec-reviewer always runs first -- there's no point reviewing code quality on something that doesn't meet the spec.</p>
+<h2 id="recipes">Recipes<a class="headerlink" href="#recipes" title="Permanent link">&para;</a></h2>
+<h3 id="full-development-cycle-autopilot">Full Development Cycle (Autopilot)<a class="headerlink" href="#full-development-cycle-autopilot" title="Permanent link">&para;</a></h3>
+<p>The autopilot recipe runs the entire pipeline end-to-end with approval gates at key transitions:</p>
+<div class="codehilite"><pre><span></span><code>recipes execute @superpowers:recipes/superpowers-full-development-cycle.yaml
+</code></pre></div>
+
+<p>This recipe walks through brainstorm → write-plan → execute-plan → verify → finish, pausing for your approval between stages. The gates ensure you stay in control while the system does the heavy lifting.</p>
+<h3 id="subagent-driven-development">Subagent-Driven Development<a class="headerlink" href="#subagent-driven-development" title="Permanent link">&para;</a></h3>
+<p>For executing an existing plan in the current session:</p>
+<div class="codehilite"><pre><span></span><code>recipes execute @superpowers:recipes/subagent-driven-development.yaml
+</code></pre></div>
+
+<p>This recipe iterates through plan tasks, spinning up a fresh implementer for each one, followed by both reviewers. It's the inner loop of execute-plan, packaged as a standalone recipe.</p>
+<h2 id="two-tracks-autopilot-vs-manual">Two Tracks: Autopilot vs. Manual<a class="headerlink" href="#two-tracks-autopilot-vs-manual" title="Permanent link">&para;</a></h2>
+<p>Superpowers supports two working styles:</p>
+<p><strong>Autopilot (recipe-driven)</strong> -- For feature development, use the full development cycle recipe. It handles mode transitions, approval gates, and agent delegation automatically. You describe what you want, approve at checkpoints, and get tested, reviewed code.</p>
+<p><strong>Manual (mode-by-mode)</strong> -- For ad-hoc work, activate modes directly. Need to brainstorm? Type <code>/brainstorm</code>. Found a bug? Type <code>/debug</code>. Fine-grained control when you don't need the full pipeline. Most feature work benefits from autopilot; most exploratory or maintenance work benefits from manual.</p>
+<h2 id="methodology-calibration">Methodology Calibration<a class="headerlink" href="#methodology-calibration" title="Permanent link">&para;</a></h2>
+<p>Not every task needs the full ceremony. Superpowers calibrates rigor to task size:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Appropriate Process</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fix a typo in a docstring</td>
+<td>Just fix it. No mode needed.</td>
+</tr>
+<tr>
+<td>Add a small utility function</td>
+<td><code>/execute-plan</code> with TDD. Skip brainstorm if obvious.</td>
+</tr>
+<tr>
+<td>Build a new feature</td>
+<td>Full cycle: <code>/brainstorm</code> → <code>/write-plan</code> → <code>/execute-plan</code> → <code>/verify</code> → <code>/finish</code></td>
+</tr>
+<tr>
+<td>Refactor a subsystem</td>
+<td>Full cycle with extra design attention in brainstorm.</td>
+</tr>
+<tr>
+<td>Debug a production issue</td>
+<td><code>/debug</code> immediately. Four phases, no shortcuts.</td>
+</tr>
+</tbody>
+</table>
+<p>The rule is simple: match the process to the risk. A typo fix doesn't need a design document. A new authentication system does.</p>
+<h2 id="the-gate-function">The Gate Function<a class="headerlink" href="#the-gate-function" title="Permanent link">&para;</a></h2>
+<p>Every claim of completion -- at any level -- must pass through the same four-step gate:</p>
+<ol>
+<li><strong>Identify</strong> -- What specific command or test proves this works?</li>
+<li><strong>Run</strong> -- Execute that command. Actually run it, don't imagine the output.</li>
+<li><strong>Read</strong> -- Read the actual output. Don't assume it says what you expect.</li>
+<li><strong>Verify</strong> -- Does the output prove the claim? Only then assert success.</li>
+</ol>
+<p>This applies everywhere: individual tests, task completion, mode transitions, final verification. The gate function is why Superpowers catches issues that ad-hoc development misses -- it replaces hope with evidence.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Trust the process, especially when it feels slow.</strong> Writing the failing test first feels like overhead until it catches a design flaw in minute two instead of hour two.</p>
+</li>
+<li>
+<p><strong>Don't skip brainstorm for "obvious" features.</strong> The questions you didn't think to ask are the ones that create bugs. If the design truly is obvious, the conversation will be short.</p>
+</li>
+<li>
+<p><strong>Let the three-agent pipeline work.</strong> The implementer, spec-reviewer, and code-quality-reviewer exist because a single agent writing and reviewing its own code has blind spots. Fresh eyes catch what familiarity misses.</p>
+</li>
+<li>
+<p><strong>Use <code>/debug</code> before guessing.</strong> When something breaks, the instinct is to start changing things. Resist it. Reproduce first. Hypothesize second. Verify third. Fix last.</p>
+</li>
+<li>
+<p><strong>Approval gates are checkpoints, not obstacles.</strong> When the recipe pauses for approval, read what it produced. This is your chance to course-correct before the system commits more effort.</p>
+</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about <a href="foundation.html">Foundation Bundle</a> -- the base layer Superpowers builds on</li>
+<li>Explore <a href="recipes.html">Recipes</a> -- the engine behind autopilot workflows</li>
+<li>Read about <a href="../concepts/modules.html">Modes</a> -- how runtime behavior overlays work</li>
+<li>See the <a href="../tools/task.html">Task Tool</a> -- the delegation mechanism agents use</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="design-intelligence.html" class="btn btn-neutral float-left" title="Design Intelligence"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="dot-graph.html" class="btn btn-neutral float-right" title="DOT Graph">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="design-intelligence.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="dot-graph.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

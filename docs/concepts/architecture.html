@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Architecture Deep Dive - Amplifier Tutorial</title>
+    <title>Architecture - Amplifier Tutorial</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Architecture Deep Dive";
+        var mkdocs_page_name = "Architecture";
         var mkdocs_page_input_path = "concepts/architecture.md";
         var mkdocs_page_url = null;
       </script>
@@ -67,67 +67,37 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="architecture.html">Architecture</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#the-kernel-philosophy">The Kernel Philosophy</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-architecture">What is the Architecture?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-layers-explained">The Layers Explained</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanism-not-policy">Mechanism, Not Policy</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-five-module-types">The Five Module Types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tool-vs-hook-who-decides">Tool vs Hook: Who Decides?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-orchestrator-is-the-engine">The Orchestrator is THE Engine</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-event-system">The Event System</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#session-lifecycle">Session Lifecycle</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#session-states">Session States</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#the-agent-loop">The Agent Loop</a>
+    <li class="toctree-l2"><a class="reference internal" href="#bundle-composition">Bundle Composition</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own">Creating Your Own</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#event-flow">Event Flow</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#event-categories">Event Categories</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#event-structure">Event Structure</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subscribing-to-events">Subscribing to Events</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#module-mounting">Module Mounting</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#module-types">Module Types</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mount-order">Mount Order</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#module-resolution">Module Resolution</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#module-dependencies">Module Dependencies</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tool-registration">Tool Registration</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-execution">Hook Execution</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-points">Hook Points</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-chain">Hook Chain</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-example">Hook Example</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-kernel-is-minimal">1. Kernel is Minimal</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-sessions-are-stateful">2. Sessions are Stateful</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-events-enable-observability">3. Events Enable Observability</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-modules-are-the-extension-point">4. Modules are the Extension Point</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-order-matters">5. Order Matters</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#6-the-agent-loop-is-central">6. The Agent Loop is Central</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
@@ -145,6 +115,12 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
               <ul>
@@ -158,14 +134,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -173,20 +159,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -200,19 +262,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -230,7 +279,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Core Concepts</li>
-      <li class="breadcrumb-item active">Architecture Deep Dive</li>
+      <li class="breadcrumb-item active">Architecture</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -239,352 +288,247 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h1>
-<p>This document provides a comprehensive overview of the system architecture, explaining how
-components interact to create a flexible, extensible AI agent runtime.</p>
-<h2 id="the-kernel-philosophy">The Kernel Philosophy<a class="headerlink" href="#the-kernel-philosophy" title="Permanent link">&para;</a></h2>
-<p>The kernel follows a fundamental principle: <strong>mechanism, not policy</strong>.</p>
-<p>This means the kernel provides the <em>how</em> but never the <em>what</em>. It offers primitives for:</p>
-<ul>
-<li>Session management and lifecycle</li>
-<li>Event emission and subscription</li>
-<li>Module mounting and discovery</li>
-<li>Tool invocation and result handling</li>
-<li>Hook execution chains</li>
-</ul>
-<p>What it explicitly avoids:</p>
-<ul>
-<li>Deciding which tools to expose</li>
-<li>Defining conversation strategies</li>
-<li>Implementing specific behaviors</li>
-<li>Making business logic decisions</li>
-</ul>
-<p>This separation keeps the kernel minimal and stable while allowing infinite customization
-through modules. The kernel changes rarely; modules change constantly.</p>
-<h2 id="session-lifecycle">Session Lifecycle<a class="headerlink" href="#session-lifecycle" title="Permanent link">&para;</a></h2>
-<p>Every interaction flows through a well-defined session lifecycle:</p>
-<div class="codehilite"><pre><span></span><code>User Input
-    ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                          SESSION                                 │
-│  ┌─────────────────────────────────────────────────────────┐    │
-│  │ State: user_id, session_id, context, history            │    │
-│  └─────────────────────────────────────────────────────────┘    │
-└────────────────────────────┬────────────────────────────────────┘
-                             ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                        COORDINATOR                               │
-│  • Validates input                                               │
-│  • Manages conversation flow                                     │
-│  • Handles turn transitions                                      │
-└────────────────────────────┬────────────────────────────────────┘
-                             ↓
-┌─────────────────────────────────────────────────────────────────┐
-│                       ORCHESTRATOR                               │
-│  • Manages the agent loop                                        │
-│  • Dispatches to provider                                        │
-│  • Processes tool calls                                          │
-│  • Executes hooks at each phase                                  │
-└────────────────────────────┬────────────────────────────────────┘
-                             ↓
-              ┌──────────────┴──────────────┐
-              ↓                             ↓
-┌─────────────────────────┐   ┌─────────────────────────┐
-│        PROVIDER         │   │      TOOLS/HOOKS        │
-│  (Claude, GPT, etc.)    │   │  (Mounted Modules)      │
-└─────────────────────────┘   └─────────────────────────┘
+                <h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
+<p>You've seen Amplifier work -- you type a prompt, tools fire, and a response appears. But what's actually running under the hood? Understanding the architecture explains <em>why</em> things work the way they do: why you can swap providers without changing bundles, why modules never break each other, and why the whole system stays stable as the ecosystem grows.</p>
+<h2 id="what-is-the-architecture">What is the Architecture?<a class="headerlink" href="#what-is-the-architecture" title="Permanent link">&para;</a></h2>
+<p>Amplifier's architecture is a layered stack with a tiny, stable kernel at the center and everything else -- tools, providers, orchestrators, hooks -- living in replaceable modules at the edges. The design is borrowed from the Linux kernel: the core provides <strong>mechanisms</strong> (how things work), while modules provide <strong>policies</strong> (what to do).</p>
+<p>The kernel is implemented in Rust (~2,600 lines) with Python bindings via PyO3. It's small enough for one person to understand completely. Everything you actually interact with -- the CLI, the tools, the AI models -- lives in modules and libraries that surround it.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>Here's the full stack, from the user interface down to the modules:</p>
+<div class="codehilite"><pre><span></span><code>+------------------------------------------------------------------+
+|  APPLICATIONS                                                     |
+|  amplifier-app-cli, amplifierd, amplifier-chat, amplifier-voice   |
++----------------------------+-------------------------------------+
+                             |
++----------------------------v-------------------------------------+
+|  LIBRARIES (Foundation)                                           |
+|  amplifier-foundation: bundles, module resolution, utilities      |
++----------------------------+-------------------------------------+
+                             |
++----------------------------v-------------------------------------+
+|  KERNEL (amplifier-core)                    ~2,600 lines of Rust  |
+|  * Session lifecycle         * Event system                       |
+|  * Coordinator               * Hook registry                     |
+|  * Module contracts          * Cancellation tokens                |
+|  * Mount plan execution      * PyO3 Python bindings               |
++----------------------------+-------------------------------------+
+                             |
+         +-------------------+-------------------+
+         |         |         |         |         |
+    +----v---+ +---v----+ +-v------+ +v------+ +v--------+
+    |Provider| |  Tool  | |Orchestr| | Hook  | | Context |
+    |        | |        | |  ator  | |       | | Manager |
+    +--------+ +--------+ +--------+ +-------+ +---------+
+     Claude     bash       loop-      logging   simple
+     OpenAI     read_file  streaming  redaction  persistent
+     Gemini     web_search loop-basic approval
+     Ollama     grep       loop-events
 </code></pre></div>
 
-<h3 id="session-states">Session States<a class="headerlink" href="#session-states" title="Permanent link">&para;</a></h3>
-<p>A session progresses through these states:</p>
-<ol>
-<li><strong>INITIALIZING</strong> - Session created, loading configuration</li>
-<li><strong>READY</strong> - All modules mounted, waiting for input</li>
-<li><strong>PROCESSING</strong> - Actively handling a user turn</li>
-<li><strong>AWAITING_TOOL</strong> - Waiting for tool execution results</li>
-<li><strong>COMPLETED</strong> - Session ended normally</li>
-<li><strong>ERROR</strong> - Session ended due to an error</li>
-</ol>
-<h3 id="the-agent-loop">The Agent Loop<a class="headerlink" href="#the-agent-loop" title="Permanent link">&para;</a></h3>
-<p>The orchestrator runs the core agent loop:</p>
-<div class="codehilite"><pre><span></span><code>┌──────────────────────────────────────────────────────────────┐
-│                      AGENT LOOP                               │
-│                                                               │
-│   ┌─────────┐    ┌──────────┐    ┌─────────────┐            │
-│   │  User   │───→│ Provider │───→│ Tool Calls? │            │
-│   │  Input  │    │  (LLM)   │    └──────┬──────┘            │
-│   └─────────┘    └──────────┘           │                    │
-│                                   Yes   │   No               │
-│                       ┌─────────────────┼──────────┐         │
-│                       ↓                              ↓        │
-│              ┌────────────────┐              ┌───────────┐   │
-│              │ Execute Tools  │              │  Return   │   │
-│              │ (with hooks)   │              │ Response  │   │
-│              └───────┬────────┘              └───────────┘   │
-│                      │                                       │
-│                      └──────→ Back to Provider ─────────────┘│
-│                                                               │
-└──────────────────────────────────────────────────────────────┘
-</code></pre></div>
-
-<p>The loop continues until the provider returns a response without tool calls,
-or a maximum iteration limit is reached.</p>
-<h2 id="event-flow">Event Flow<a class="headerlink" href="#event-flow" title="Permanent link">&para;</a></h2>
-<p>The system uses an event-driven architecture for observability and extensibility.
-Events flow through a central bus, allowing modules to subscribe to what they need.</p>
-<h3 id="event-categories">Event Categories<a class="headerlink" href="#event-categories" title="Permanent link">&para;</a></h3>
+<p>Each layer has a clear boundary. Applications consume the Foundation library. The Foundation library uses the kernel. Modules only depend on the kernel -- never on the Foundation or applications. This means a tool module works identically whether it's running in the CLI, the web daemon, or a test harness.</p>
+<h3 id="the-layers-explained">The Layers Explained<a class="headerlink" href="#the-layers-explained" title="Permanent link">&para;</a></h3>
+<p><strong>Applications</strong> are the user-facing interfaces. The CLI (<code>amplifier-app-cli</code>) is the one most people use, but <code>amplifierd</code> exposes the same kernel over HTTP/SSE, and <code>amplifier-chat</code> and <code>amplifier-voice</code> add web and voice interfaces on top of it.</p>
+<p><strong>Libraries</strong> sit between applications and the kernel. <code>amplifier-foundation</code> handles bundle resolution, module discovery, and shared utilities. This is where bundles get compiled into mount plans that the kernel can execute.</p>
+<p><strong>The Kernel</strong> (<code>amplifier-core</code>) is the stable center. It manages sessions, coordinates modules, dispatches hooks, and emits events. It never decides <em>which</em> modules to load or <em>how</em> to orchestrate a conversation -- those are policy decisions that belong in modules.</p>
+<p><strong>Modules</strong> are the replaceable edges. Every capability the agent has -- talking to an LLM, reading files, running shell commands, logging events -- is delivered through a module.</p>
+<h3 id="mechanism-not-policy">Mechanism, Not Policy<a class="headerlink" href="#mechanism-not-policy" title="Permanent link">&para;</a></h3>
+<p>The kernel's design principle is simple: provide capabilities, don't make decisions.</p>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Purpose</th>
-<th>Examples</th>
+<th>Kernel Provides (Mechanism)</th>
+<th>Modules Decide (Policy)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>session.*</code></td>
+<td>Module loading</td>
+<td>Which modules to load</td>
+</tr>
+<tr>
+<td>Event emission</td>
+<td>What to log, and where</td>
+</tr>
+<tr>
 <td>Session lifecycle</td>
-<td><code>session.started</code>, <code>session.ended</code></td>
+<td>Orchestration strategy</td>
 </tr>
 <tr>
-<td><code>turn.*</code></td>
-<td>Turn processing</td>
-<td><code>turn.started</code>, <code>turn.completed</code></td>
-</tr>
-<tr>
-<td><code>tool.*</code></td>
-<td>Tool invocation</td>
-<td><code>tool.called</code>, <code>tool.result</code></td>
-</tr>
-<tr>
-<td><code>provider.*</code></td>
-<td>LLM interactions</td>
-<td><code>provider.request</code>, <code>provider.response</code></td>
-</tr>
-<tr>
-<td><code>hook.*</code></td>
-<td>Hook execution</td>
-<td><code>hook.before</code>, <code>hook.after</code></td>
+<td>Hook registration</td>
+<td>Security and filtering rules</td>
 </tr>
 </tbody>
 </table>
-<h3 id="event-structure">Event Structure<a class="headerlink" href="#event-structure" title="Permanent link">&para;</a></h3>
-<p>Every event follows a consistent structure:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;event_type&quot;</span><span class="p">:</span> <span class="s2">&quot;tool.called&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-15T10:30:00Z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;tool_name&quot;</span><span class="p">:</span> <span class="s2">&quot;read_file&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;arguments&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/src/main.py&quot;</span><span class="p">},</span>
-        <span class="s2">&quot;invocation_id&quot;</span><span class="p">:</span> <span class="s2">&quot;inv_456&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;source_module&quot;</span><span class="p">:</span> <span class="s2">&quot;tool-filesystem&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;turn_number&quot;</span><span class="p">:</span> <span class="mi">3</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<h3 id="subscribing-to-events">Subscribing to Events<a class="headerlink" href="#subscribing-to-events" title="Permanent link">&para;</a></h3>
-<p>Modules subscribe to events using pattern matching:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Subscribe to all tool events</span>
-<span class="nd">@event_handler</span><span class="p">(</span><span class="s2">&quot;tool.*&quot;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">on_tool_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool event: </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">event_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1"># Subscribe to specific event</span>
-<span class="nd">@event_handler</span><span class="p">(</span><span class="s2">&quot;session.started&quot;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_start</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-    <span class="k">await</span> <span class="n">initialize_user_context</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="module-mounting">Module Mounting<a class="headerlink" href="#module-mounting" title="Permanent link">&para;</a></h2>
-<p>Modules are the primary extension mechanism. They provide tools, hooks, context, and
-behaviors that customize the system.</p>
-<h3 id="module-types">Module Types<a class="headerlink" href="#module-types" title="Permanent link">&para;</a></h3>
+<p>The litmus test: <em>"Could two teams want different behavior here?"</em> If yes, it's policy, and it belongs in a module -- not the kernel.</p>
+<p>This is why one team can use Claude with streaming orchestration and file-safety hooks, while another uses GPT with basic orchestration and no hooks at all. The kernel doesn't care. It provides the same mechanisms to both.</p>
+<h2 id="the-five-module-types">The Five Module Types<a class="headerlink" href="#the-five-module-types" title="Permanent link">&para;</a></h2>
+<p>Every capability in Amplifier flows through one of five module contracts. Each uses Python's Protocol (structural typing -- no inheritance required):</p>
+<p><strong>Provider</strong> -- The AI brain. Providers connect to language models via <code>complete()</code>. Swap Anthropic for OpenAI or Ollama without touching anything else.</p>
+<p><strong>Tool</strong> -- Hands for the AI. Tools expose <code>execute()</code> and are <em>chosen by the LLM</em> based on the conversation. When you ask "find all TODOs in my code," the agent picks the <code>grep</code> tool.</p>
+<p><strong>Orchestrator</strong> -- The main engine. This is not just a strategy pattern -- the orchestrator <em>is</em> the agent loop. It receives user input, calls the provider, processes tool calls, fires hooks, and decides when the turn is complete. Everything flows through it.</p>
+<p><strong>Hook</strong> -- Lifecycle observers. Hooks fire <em>automatically</em> on code events -- the agent never chooses to invoke a hook. Logging, redaction, approval gates, cost tracking -- all hooks.</p>
+<p><strong>Context</strong> -- Memory management. Context modules control what the agent remembers via <code>add_message()</code>, <code>get_messages()</code>, and <code>compact()</code>. Simple context keeps everything in memory; persistent context survives across sessions.</p>
+<h3 id="tool-vs-hook-who-decides">Tool vs Hook: Who Decides?<a class="headerlink" href="#tool-vs-hook-who-decides" title="Permanent link">&para;</a></h3>
+<p>This distinction matters for module design:</p>
 <table>
 <thead>
 <tr>
-<th>Type</th>
-<th>Purpose</th>
-<th>Examples</th>
+<th>Aspect</th>
+<th>Tool</th>
+<th>Hook</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Tool Modules</strong></td>
-<td>Provide callable tools</td>
-<td><code>tool-filesystem</code>, <code>tool-web</code></td>
+<td><strong>Triggered by</strong></td>
+<td>LLM decides to call it</td>
+<td>Code events, automatic</td>
 </tr>
 <tr>
-<td><strong>Hook Modules</strong></td>
-<td>Intercept/modify flows</td>
-<td><code>hook-auth</code>, <code>hook-logging</code></td>
+<td><strong>Returns value</strong></td>
+<td>Yes, result goes back to LLM</td>
+<td>No, side effects only</td>
 </tr>
 <tr>
-<td><strong>Context Modules</strong></td>
-<td>Inject system prompts</td>
-<td><code>context-project</code>, <code>context-user</code></td>
+<td><strong>Blocks agent</strong></td>
+<td>Yes, agent waits for result</td>
+<td>No, runs quickly</td>
 </tr>
 <tr>
-<td><strong>Provider Modules</strong></td>
-<td>LLM integrations</td>
-<td><code>provider-anthropic</code>, <code>provider-openai</code></td>
-</tr>
-<tr>
-<td><strong>Behavior Modules</strong></td>
-<td>Complex behaviors</td>
-<td><code>behavior-agents</code>, <code>behavior-memory</code></td>
+<td><strong>Example</strong></td>
+<td><code>read_file</code> reads a file on demand</td>
+<td><code>hooks-logging</code> records every event</td>
 </tr>
 </tbody>
 </table>
-<h3 id="mount-order">Mount Order<a class="headerlink" href="#mount-order" title="Permanent link">&para;</a></h3>
-<p>Modules are mounted in a specific order:</p>
-<ol>
-<li><strong>Core modules</strong> - Kernel-provided fundamentals</li>
-<li><strong>Provider modules</strong> - LLM connectivity</li>
-<li><strong>Context modules</strong> - System prompt building</li>
-<li><strong>Tool modules</strong> - Available capabilities</li>
-<li><strong>Hook modules</strong> - Processing interceptors</li>
-<li><strong>Behavior modules</strong> - High-level behaviors</li>
-</ol>
-<p>Within each category, modules mount in the order specified in configuration.</p>
-<h3 id="module-resolution">Module Resolution<a class="headerlink" href="#module-resolution" title="Permanent link">&para;</a></h3>
-<p>When mounting, the system follows this flow:</p>
-<div class="codehilite"><pre><span></span><code>┌────────────┐    ┌────────────┐    ┌────────────┐
-│  Discover  │───→│  Validate  │───→│ Initialize │
-└────────────┘    └────────────┘    └────────────┘
-                                          │
-                                          ↓
-┌────────────┐    ┌────────────┐    ┌────────────┐
-│  Activate  │←───│  Register  │←───│   Ready    │
-└────────────┘    └────────────┘    └────────────┘
+<p>The question to ask: <em>"Should the AI decide when this runs?"</em> If yes, it's a Tool. If it should always happen automatically, it's a Hook.</p>
+<h3 id="the-orchestrator-is-the-engine">The Orchestrator is THE Engine<a class="headerlink" href="#the-orchestrator-is-the-engine" title="Permanent link">&para;</a></h3>
+<p>It's worth emphasizing: the orchestrator isn't a pluggable strategy sitting alongside the agent. It <em>is</em> the agent loop. Here's what <code>loop-streaming</code> does on every turn:</p>
+<div class="codehilite"><pre><span></span><code>User input arrives
+    |
+    v
+[Hook: pre_turn] -----&gt; Hooks observe/modify
+    |
+    v
+Provider.complete() ---&gt; Streams response from LLM
+    |
+    v
+Tool calls found? --+---&gt; No ----&gt; Return response to user
+                    |
+                    v Yes
+              Execute tools
+              [Hook: pre_tool / post_tool]
+                    |
+                    v
+              Feed results back to Provider
+              (loop continues)
 </code></pre></div>
 
-<ol>
-<li><strong>Discovers</strong> - Finds the module by name/path</li>
-<li><strong>Validates</strong> - Checks dependencies and compatibility</li>
-<li><strong>Initializes</strong> - Calls the module's init function</li>
-<li><strong>Registers</strong> - Adds tools/hooks to the session</li>
-<li><strong>Activates</strong> - Marks the module as ready</li>
-</ol>
-<h3 id="module-dependencies">Module Dependencies<a class="headerlink" href="#module-dependencies" title="Permanent link">&para;</a></h3>
-<p>Modules can declare dependencies on other modules:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># module.yaml</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tool</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">dependencies</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tool-filesystem</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=1.0.0&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hook-auth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;=2.0.0&quot;</span>
+<p>Different orchestrators implement fundamentally different execution strategies. <code>loop-basic</code> does simple request/response. <code>loop-streaming</code> adds real-time token streaming with extended thinking. <code>loop-events</code> adds event-driven hook integration. Swapping orchestrators changes <em>how your agent thinks</em>.</p>
+<h2 id="the-event-system">The Event System<a class="headerlink" href="#the-event-system" title="Permanent link">&para;</a></h2>
+<p>Every significant action in Amplifier emits an event. These events are written to a per-session JSONL file that serves as the <strong>source of truth</strong> for what happened during a session.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;session.started&quot;</span><span class="p">,</span> <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-04-02T10:00:00Z&quot;</span><span class="p">,</span> <span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc123&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;turn.started&quot;</span><span class="p">,</span>   <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-04-02T10:00:01Z&quot;</span><span class="p">,</span> <span class="s2">&quot;turn&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;tool.called&quot;</span><span class="p">,</span>    <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-04-02T10:00:02Z&quot;</span><span class="p">,</span> <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;read_file&quot;</span><span class="p">,</span> <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;src/main.py&quot;</span><span class="p">}}</span>
+<span class="p">{</span><span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;tool.result&quot;</span><span class="p">,</span>    <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-04-02T10:00:02Z&quot;</span><span class="p">,</span> <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="s2">&quot;read_file&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;turn.completed&quot;</span><span class="p">,</span> <span class="s2">&quot;ts&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-04-02T10:00:05Z&quot;</span><span class="p">,</span> <span class="s2">&quot;turn&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 </code></pre></div>
 
-<p>The mount system ensures dependencies are satisfied before loading.</p>
-<h3 id="tool-registration">Tool Registration<a class="headerlink" href="#tool-registration" title="Permanent link">&para;</a></h3>
-<p>When a tool module mounts, it registers its tools:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">FilesystemModule</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">register_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registry</span><span class="p">):</span>
-        <span class="n">registry</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;read_file&quot;</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Read contents of a file&quot;</span><span class="p">,</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="n">ReadFileParams</span><span class="p">,</span>
-            <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">read_file</span>
-        <span class="p">)</span>
+<p>Hooks subscribe to these events using pattern matching. The <code>hooks-logging</code> module writes them to disk. The <code>hooks-streaming-ui</code> module renders them as live terminal output. The <code>hooks-approval</code> module intercepts specific events and pauses for human confirmation. Same event stream, different policies.</p>
+<h2 id="session-lifecycle">Session Lifecycle<a class="headerlink" href="#session-lifecycle" title="Permanent link">&para;</a></h2>
+<p>A session is the execution context that ties everything together. It holds mounted modules, conversation state, and configuration. Here's the lifecycle:</p>
+<div class="codehilite"><pre><span></span><code>create --&gt; configure --&gt; run --&gt; complete
+  |           |          |         |
+  |     Mount plan     Agent     Cleanup
+  |     compiled       loop      modules,
+  |     from bundle    runs      flush events
+  |
+  Session ID assigned,
+  event log opened
 </code></pre></div>
 
-<h2 id="hook-execution">Hook Execution<a class="headerlink" href="#hook-execution" title="Permanent link">&para;</a></h2>
-<p>Hooks allow modules to intercept and modify the processing flow at defined points.</p>
-<h3 id="hook-points">Hook Points<a class="headerlink" href="#hook-points" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Hook Point</th>
-<th>When</th>
-<th>Use Cases</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pre_turn</code></td>
-<td>Before processing starts</td>
-<td>Auth, rate limiting</td>
-</tr>
-<tr>
-<td><code>pre_provider</code></td>
-<td>Before LLM call</td>
-<td>Prompt modification</td>
-</tr>
-<tr>
-<td><code>post_provider</code></td>
-<td>After LLM response</td>
-<td>Response filtering</td>
-</tr>
-<tr>
-<td><code>pre_tool</code></td>
-<td>Before tool execution</td>
-<td>Permission checks</td>
-</tr>
-<tr>
-<td><code>post_tool</code></td>
-<td>After tool execution</td>
-<td>Result transformation</td>
-</tr>
-<tr>
-<td><code>post_turn</code></td>
-<td>After turn completes</td>
-<td>Logging, cleanup</td>
-</tr>
-</tbody>
-</table>
-<h3 id="hook-chain">Hook Chain<a class="headerlink" href="#hook-chain" title="Permanent link">&para;</a></h3>
-<p>Multiple hooks at the same point form a chain:</p>
-<div class="codehilite"><pre><span></span><code>Input → Hook1 → Hook2 → Hook3 → Continue Processing
-              ↑
-        (can modify or abort)
+<p>In code, this maps to:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">with</span> <span class="n">AmplifierSession</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>     <span class="c1"># create + configure</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;List files&quot;</span><span class="p">)</span>   <span class="c1"># run</span>
+                                                     <span class="c1"># complete (on exit)</span>
 </code></pre></div>
 
-<p>Hooks execute in registration order. Any hook can:
-- <strong>Pass through</strong> - Let the chain continue
-- <strong>Modify</strong> - Change the data and continue
-- <strong>Abort</strong> - Stop the chain and return early</p>
-<h3 id="hook-example">Hook Example<a class="headerlink" href="#hook-example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nd">@hook</span><span class="p">(</span><span class="s2">&quot;pre_tool&quot;</span><span class="p">)</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">validate_file_access</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">tool_name</span> <span class="o">==</span> <span class="s2">&quot;write_file&quot;</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_allowed_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">PermissionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot write to: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">arguments</span>  <span class="c1"># Continue with (possibly modified) args</span>
+<p>The <code>async with</code> block handles the full lifecycle: creating the session, mounting modules from the config, running the agent loop, and cleaning up when done.</p>
+<h2 id="bundle-composition">Bundle Composition<a class="headerlink" href="#bundle-composition" title="Permanent link">&para;</a></h2>
+<p>Bundles are the composition layer between human intent and the kernel's mount plan. A bundle is a Markdown file with YAML frontmatter that declares what modules, behaviors, and agents to include:</p>
+<div class="codehilite"><pre><span></span><code>Bundle (Markdown + YAML)
+    |
+    +--&gt; Behaviors (reusable capability sets)
+    |       +--&gt; Tools, hooks, context injections
+    |
+    +--&gt; Agents (specialized personas)
+    |       +--&gt; System prompt + curated tool access
+    |
+    +--&gt; Includes (other bundles)
+            +--&gt; Recursive composition
 </code></pre></div>
 
-<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
-<p>Understanding the architecture helps you work effectively with the system:</p>
-<h3 id="1-kernel-is-minimal">1. Kernel is Minimal<a class="headerlink" href="#1-kernel-is-minimal" title="Permanent link">&para;</a></h3>
-<p>The kernel provides mechanisms, not policies. It's deliberately simple and stable.
-Customize through modules, not kernel changes.</p>
-<h3 id="2-sessions-are-stateful">2. Sessions are Stateful<a class="headerlink" href="#2-sessions-are-stateful" title="Permanent link">&para;</a></h3>
-<p>Each session maintains its own state, mounted modules, and conversation history.
-Sessions are isolated from each other.</p>
-<h3 id="3-events-enable-observability">3. Events Enable Observability<a class="headerlink" href="#3-events-enable-observability" title="Permanent link">&para;</a></h3>
-<p>Everything emits events. Use them for logging, debugging, metrics, and extending
-behavior without modifying core code.</p>
-<h3 id="4-modules-are-the-extension-point">4. Modules are the Extension Point<a class="headerlink" href="#4-modules-are-the-extension-point" title="Permanent link">&para;</a></h3>
-<p>Need new functionality? Create a module. Need to modify behavior? Create a hook.
-The module system is designed for this.</p>
-<h3 id="5-order-matters">5. Order Matters<a class="headerlink" href="#5-order-matters" title="Permanent link">&para;</a></h3>
-<p>Mount order, hook order, and event order all affect behavior. Be intentional
-about ordering in your configurations.</p>
-<h3 id="6-the-agent-loop-is-central">6. The Agent Loop is Central<a class="headerlink" href="#6-the-agent-loop-is-central" title="Permanent link">&para;</a></h3>
-<p>Understanding the orchestrator's agent loop is key to understanding how
-conversations flow and how tools integrate.</p>
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>With this architectural understanding, explore:</p>
+<p>The Foundation library compiles bundles into a <strong>mount plan</strong> -- a flat configuration dictionary that tells the kernel exactly which modules to load and how to configure them. The kernel never sees bundles; it only sees mount plans.</p>
+<p>This separation means you can create a mount plan by hand, generate one programmatically, or let the Foundation compile one from bundles. The kernel doesn't care where the plan came from.</p>
+<h2 id="creating-your-own">Creating Your Own<a class="headerlink" href="#creating-your-own" title="Permanent link">&para;</a></h2>
+<p>Understanding the architecture helps you decide <em>where</em> to extend:</p>
 <ul>
-<li><strong><a href="modules.html">Modules Deep Dive</a></strong> - Creating and configuring modules</li>
-<li><strong><a href="hooks.html">Hooks Guide</a></strong> - Building effective hooks</li>
-<li><strong><a href="../bundles/index.html">Bundles Guide</a></strong> - Bundle composition patterns</li>
-<li><strong><a href="../advanced/index.html">Advanced Topics</a></strong> - Custom modules and tools</li>
+<li><strong>Need a new capability?</strong> Write a Tool module. Implement <code>execute()</code>, register via <code>mount()</code>.</li>
+<li><strong>Need to observe or guard behavior?</strong> Write a Hook module. Subscribe to events you care about.</li>
+<li><strong>Need a different AI model?</strong> Write a Provider module. Implement <code>complete()</code>.</li>
+<li><strong>Need a different execution strategy?</strong> Write an Orchestrator module. Own the entire agent loop.</li>
+<li><strong>Need different memory behavior?</strong> Write a Context module. Control <code>add_message()</code> and <code>compact()</code>.</li>
+</ul>
+<p>Every module follows the same pattern: implement a <code>mount(coordinator, config)</code> function that registers your component with the coordinator and returns a cleanup function.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">coordinator</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">tool</span> <span class="o">=</span> <span class="n">MyTool</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tool&quot;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span>
+        <span class="k">pass</span>  <span class="c1"># Release resources</span>
+    <span class="k">return</span> <span class="n">cleanup</span>
+</code></pre></div>
+
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Respect the layers.</strong> Modules depend on <code>amplifier-core</code> only -- never on <code>amplifier-foundation</code> or applications. This keeps modules portable across any Amplifier interface.</p>
+<p><strong>Use the litmus test.</strong> Before putting logic in the kernel, ask: "Could two teams want different behavior?" If yes, it's a module.</p>
+<p><strong>Let the orchestrator orchestrate.</strong> Don't fight the agent loop. If you need custom execution flow, write a new orchestrator rather than hacking around the existing one.</p>
+<p><strong>Events are your observability layer.</strong> Don't log manually inside tools. Emit events and let hooks handle logging, metrics, and alerting. This keeps concerns separated.</p>
+<p><strong>Keep modules isolated.</strong> Modules shouldn't know about each other. They communicate through the kernel's coordination mechanisms -- hooks, events, and the coordinator. If two modules need to share data, that's a design signal to reconsider.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Layered stack</strong>: Applications -&gt; Foundation -&gt; Kernel -&gt; Modules. Each layer has a clear boundary and dependency direction.</p>
+</li>
+<li>
+<p><strong>Tiny kernel, large ecosystem</strong>: The Rust kernel (~2,600 lines) provides mechanisms. All behavior lives in replaceable modules.</p>
+</li>
+<li>
+<p><strong>Five module types</strong>: Provider (LLM), Tool (capabilities), Orchestrator (the loop), Hook (observers), Context (memory). Each has a protocol contract.</p>
+</li>
+<li>
+<p><strong>Mechanism, not policy</strong>: The kernel never decides what to do -- only how things can be done. Litmus test: "Could two teams differ?" -&gt; Module.</p>
+</li>
+<li>
+<p><strong>The orchestrator is the engine</strong>: It's not a strategy pattern. It <em>is</em> the agent loop that drives everything.</p>
+</li>
+<li>
+<p><strong>Tools vs Hooks</strong>: Tools are LLM-decided ("I need to read this file"). Hooks are code-decided ("Log every event automatically").</p>
+</li>
+<li>
+<p><strong>Events are the source of truth</strong>: JSONL session logs capture everything. Hooks subscribe to events for observability without coupling.</p>
+</li>
+<li>
+<p><strong>Bundles compile to mount plans</strong>: The composition layer (bundles, behaviors, agents) is resolved by the Foundation library into flat mount plans the kernel executes.</p>
+</li>
+</ol>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>With this architectural understanding, go deeper into each layer:</p>
+<ul>
+<li><strong><a href="modules.html">Modules</a></strong> -- The five module types in detail, with creation patterns</li>
+<li><strong><a href="hooks.html">Hooks</a></strong> -- Event subscription, hook chains, and lifecycle points</li>
+<li><strong><a href="bundles.html">Bundles</a></strong> -- Composition, includes, behaviors, and the thin bundle pattern</li>
+<li><strong><a href="agents.html">Agents</a></strong> -- Specialized personas and session delegation</li>
 </ul>
               
             </div>

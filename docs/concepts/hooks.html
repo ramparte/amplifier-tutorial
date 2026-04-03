@@ -67,7 +67,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
                   </li>
@@ -82,52 +82,46 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="hooks.html">Hooks</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-hook">What is a Hook?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#key-characteristics">Key Characteristics</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-hook-contract">The Hook Contract</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hookresult-actions">HookResult Actions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lifecycle-events">Lifecycle Events</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#hook-vs-tool">Hook vs Tool</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#event-types">Event Types</a>
+    <li class="toctree-l2"><a class="reference internal" href="#using-hooks">Using Hooks</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#session-events">Session Events</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#message-events">Message Events</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tool-events">Tool Events</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#llm-events">LLM Events</a>
+    <li class="toctree-l3"><a class="reference internal" href="#hooks-in-the-ecosystem">Hooks in the Ecosystem</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#built-in-hooks">Built-in Hooks</a>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own">Creating Your Own</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#consolelogginghook">ConsoleLoggingHook</a>
+    <li class="toctree-l3"><a class="reference internal" href="#a-simple-logging-hook">A Simple Logging Hook</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#metricshook">MetricsHook</a>
+    <li class="toctree-l3"><a class="reference internal" href="#the-approval-gate-pattern">The Approval Gate Pattern</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fileaudithook">FileAuditHook</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#webhooknotifierhook">WebhookNotifierHook</a>
+    <li class="toctree-l3"><a class="reference internal" href="#hooks-that-use-models">Hooks That Use Models</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-hooks">Creating Hooks</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-hook-structure">Basic Hook Structure</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#registering-hooks">Registering Hooks</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hook-context">Hook Context</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#best-practices">Best Practices</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-concepts">Related Concepts</a>
+    </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -142,14 +136,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -157,20 +161,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -184,19 +264,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -223,254 +290,412 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="understanding-hooks">Understanding Hooks<a class="headerlink" href="#understanding-hooks" title="Permanent link">&para;</a></h1>
-<p>Hooks are the observation layer of the Amplifier ecosystem. They allow you to monitor, react to, and extend agent behavior without modifying core logic. Think of hooks as event listeners that tap into the agent lifecycle at specific points.</p>
+                <h1 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h1>
+<p>Tools wait to be called. Hooks don't wait for anyone. Every time something
+happens in an Amplifier session — a tool fires, a message arrives, a turn
+begins — hooks are already there, watching. They log, they validate, they
+inject context, they ask for permission. And the LLM never even knows they
+exist.</p>
 <h2 id="what-is-a-hook">What is a Hook?<a class="headerlink" href="#what-is-a-hook" title="Permanent link">&para;</a></h2>
-<p>A hook is a lifecycle observer that receives notifications about events occurring during agent execution. Unlike tools that perform actions, hooks observe and react to what's already happening.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
-
-<span class="k">class</span> <span class="nc">LoggingHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple hook that logs all events.&quot;&quot;&quot;</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>Hooks are passive by design. They receive event data, can perform side effects (logging, metrics, notifications), but they don't modify the agent's execution flow. This separation keeps your agent logic clean while enabling rich observability.</p>
-<h3 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Non-blocking</strong>: Hooks should complete quickly to avoid slowing the agent</li>
-<li><strong>Read-only context</strong>: Hooks observe events but don't modify them</li>
-<li><strong>Fail-safe</strong>: Hook failures don't crash the agent</li>
-<li><strong>Ordered execution</strong>: Multiple hooks run in registration order</li>
-</ul>
-<h2 id="hook-vs-tool">Hook vs Tool<a class="headerlink" href="#hook-vs-tool" title="Permanent link">&para;</a></h2>
-<p>Understanding the difference between hooks and tools is fundamental:</p>
+<p>A hook is a <strong>lifecycle observer</strong> — a function that fires automatically at
+specific points during agent execution. The crucial word is <em>automatically</em>.
+The LLM doesn't choose to invoke a hook the way it chooses to call a tool.
+Hooks are <strong>code-decided</strong>, triggered by events in the system, not by the
+model's reasoning.</p>
+<p>This is the fundamental distinction in Amplifier's module system:</p>
 <table>
 <thead>
 <tr>
-<th>Aspect</th>
-<th>Hook</th>
+<th></th>
 <th>Tool</th>
+<th>Hook</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Purpose</strong></td>
-<td>Observe and react</td>
-<td>Perform actions</td>
+<td><strong>Triggered by</strong></td>
+<td>The LLM decides</td>
+<td>Code fires automatically</td>
 </tr>
 <tr>
-<td><strong>Invocation</strong></td>
-<td>Automatic on events</td>
-<td>Explicit by agent</td>
+<td><strong>Visible to LLM?</strong></td>
+<td>Yes — sees name, description, schema</td>
+<td>No — completely invisible</td>
 </tr>
 <tr>
-<td><strong>Modifies state</strong></td>
-<td>No (observation only)</td>
-<td>Yes (side effects expected)</td>
+<td><strong>Returns to LLM?</strong></td>
+<td>Yes — results enter conversation</td>
+<td>Only if the hook injects context</td>
 </tr>
 <tr>
-<td><strong>Blocking</strong></td>
-<td>Should be fast</td>
-<td>Can be long-running</td>
-</tr>
-<tr>
-<td><strong>Failure impact</strong></td>
-<td>Logged, continues</td>
-<td>Reported to agent</td>
+<td><strong>Example</strong></td>
+<td><code>bash</code> — LLM decides to run a command</td>
+<td><code>hooks-logging</code> — every event logged to disk</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Use a hook when you want to:</strong>
-- Log or audit agent activity
-- Collect metrics and telemetry
-- Send notifications on specific events
-- Validate or monitor behavior patterns</p>
-<p><strong>Use a tool when you need to:</strong>
-- Perform an action the agent requests
-- Return data the agent will use
-- Modify external state
-- Execute long-running operations</p>
-<h2 id="event-types">Event Types<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h2>
-<p>Hooks subscribe to specific event types that occur during the agent lifecycle:</p>
-<h3 id="session-events">Session Events<a class="headerlink" href="#session-events" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SessionEvents</span><span class="p">:</span>
-    <span class="n">SESSION_START</span> <span class="o">=</span> <span class="s2">&quot;session.start&quot;</span>      <span class="c1"># Agent session begins</span>
-    <span class="n">SESSION_END</span> <span class="o">=</span> <span class="s2">&quot;session.end&quot;</span>          <span class="c1"># Agent session completes</span>
-    <span class="n">SESSION_ERROR</span> <span class="o">=</span> <span class="s2">&quot;session.error&quot;</span>      <span class="c1"># Unhandled error in session</span>
+<p>A <code>read_file</code> tool makes sense because the agent should decide when it needs
+to see a file. But a logging hook makes sense because you want every event
+logged whether the agent "wants" that or not.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<h3 id="the-hook-contract">The Hook Contract<a class="headerlink" href="#the-hook-contract" title="Permanent link">&para;</a></h3>
+<p>Every hook follows the same contract — receive an event, return a result:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">my_hook</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HookResult</span><span class="p">:</span>
+    <span class="c1"># Observe, validate, or react to the event</span>
+    <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="message-events">Message Events<a class="headerlink" href="#message-events" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">MessageEvents</span><span class="p">:</span>
-    <span class="n">USER_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.user&quot;</span>        <span class="c1"># User sends a message</span>
-    <span class="n">ASSISTANT_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.assistant&quot;</span>  <span class="c1"># Agent responds</span>
-    <span class="n">SYSTEM_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;message.system&quot;</span>    <span class="c1"># System injects context</span>
+<p>That's it. The kernel calls your function with an event name and a data dict.
+You inspect what happened and return a <code>HookResult</code> telling the kernel what
+to do next.</p>
+<h3 id="hookresult-actions">HookResult Actions<a class="headerlink" href="#hookresult-actions" title="Permanent link">&para;</a></h3>
+<p>The <code>HookResult</code> is where hooks get their power. You're not limited to
+passive observation — you can actively shape what happens:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>What It Does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>continue</code></td>
+<td>Proceed normally</td>
+<td>Default — nothing to report</td>
+</tr>
+<tr>
+<td><code>deny</code></td>
+<td>Block the operation</td>
+<td>Security violation, validation failure</td>
+</tr>
+<tr>
+<td><code>modify</code></td>
+<td>Transform the event data</td>
+<td>Redact PII, enrich context</td>
+</tr>
+<tr>
+<td><code>inject_context</code></td>
+<td>Add a message to the agent's conversation</td>
+<td>Linter feedback, status updates</td>
+</tr>
+<tr>
+<td><code>ask_user</code></td>
+<td>Pause and request human approval</td>
+<td>Sensitive file writes, production deploys</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Action precedence matters.</strong> When multiple hooks fire on the same event,
+blocking actions (<code>deny</code>, <code>ask_user</code>) always win over non-blocking ones
+(<code>inject_context</code>, <code>modify</code>, <code>continue</code>). A security hook's <code>deny</code> can never
+be silently overridden by an informational hook's <code>continue</code>.</p>
+<h3 id="lifecycle-events">Lifecycle Events<a class="headerlink" href="#lifecycle-events" title="Permanent link">&para;</a></h3>
+<p>Hooks tap into events that span the full session lifecycle:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When It Fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session_start</code></td>
+<td>A new session begins</td>
+</tr>
+<tr>
+<td><code>session_end</code></td>
+<td>The session wraps up</td>
+</tr>
+<tr>
+<td><code>turn_start</code></td>
+<td>The agent begins processing a user message</td>
+</tr>
+<tr>
+<td><code>turn_end</code></td>
+<td>The agent finishes its response</td>
+</tr>
+<tr>
+<td><code>tool:pre</code></td>
+<td>Just before a tool executes</td>
+</tr>
+<tr>
+<td><code>tool:post</code></td>
+<td>Right after a tool returns</td>
+</tr>
+<tr>
+<td><code>provider_request</code></td>
+<td>An LLM API call is about to go out</td>
+</tr>
+<tr>
+<td><code>provider_response</code></td>
+<td>An LLM response has arrived</td>
+</tr>
+</tbody>
+</table>
+<p>Each event delivers relevant data. A <code>tool:pre</code> event includes the tool
+name, input parameters, and file paths. A <code>provider_response</code> event includes
+token counts and timing. Your hook decides which events it cares about and
+ignores the rest.</p>
+<h2 id="using-hooks">Using Hooks<a class="headerlink" href="#using-hooks" title="Permanent link">&para;</a></h2>
+<p>Hooks are configured in your bundle YAML, just like tools and providers.
+You declare them, the kernel mounts them, and they start firing automatically.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-assistant</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-logging</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-streaming-ui</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-status-context</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks-approval</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">require_approval</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write_file</span>
 </code></pre></div>
 
-<h3 id="tool-events">Tool Events<a class="headerlink" href="#tool-events" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">ToolEvents</span><span class="p">:</span>
-    <span class="n">TOOL_CALL</span> <span class="o">=</span> <span class="s2">&quot;tool.call&quot;</span>              <span class="c1"># Agent invokes a tool</span>
-    <span class="n">TOOL_RESULT</span> <span class="o">=</span> <span class="s2">&quot;tool.result&quot;</span>          <span class="c1"># Tool returns a result</span>
-    <span class="n">TOOL_ERROR</span> <span class="o">=</span> <span class="s2">&quot;tool.error&quot;</span>            <span class="c1"># Tool execution fails</span>
+<p>That's a bundle with four hooks. The logging hook records every event. The
+streaming UI hook renders real-time output. The status context hook injects
+git status and environment info. The approval hook pauses before <code>bash</code> and
+<code>write_file</code> calls to ask for permission. None of these require the LLM to
+do anything — they just work.</p>
+<h3 id="hooks-in-the-ecosystem">Hooks in the Ecosystem<a class="headerlink" href="#hooks-in-the-ecosystem" title="Permanent link">&para;</a></h3>
+<p>The Amplifier ecosystem includes a rich set of hooks for common needs:</p>
+<table>
+<thead>
+<tr>
+<th>Hook</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hooks-logging</strong></td>
+<td>Writes every event to a JSONL log file — your audit trail</td>
+</tr>
+<tr>
+<td><strong>hooks-streaming-ui</strong></td>
+<td>Renders real-time streaming display as the LLM generates tokens</td>
+</tr>
+<tr>
+<td><strong>hooks-status-context</strong></td>
+<td>Injects git status, environment info, and workspace context into each turn</td>
+</tr>
+<tr>
+<td><strong>hooks-approval</strong></td>
+<td>Requires user confirmation before sensitive tool calls proceed</td>
+</tr>
+<tr>
+<td><strong>hooks-redaction</strong></td>
+<td>Strips PII (emails, tokens, keys) from data before it reaches the LLM</td>
+</tr>
+<tr>
+<td><strong>hooks-todo-reminder</strong></td>
+<td>Surfaces task tracking reminders so the agent stays on track</td>
+</tr>
+<tr>
+<td><strong>hooks-skills-visibility</strong></td>
+<td>Shows available skills to the agent before each request</td>
+</tr>
+<tr>
+<td><strong>hooks-python-check</strong></td>
+<td>Auto-runs linting and type checking after Python file edits</td>
+</tr>
+</tbody>
+</table>
+<p>Notice the range. Some hooks are pure observation (logging). Some inject
+information (status-context, skills-visibility, todo-reminder). Some gate
+operations (approval). Some transform data (redaction). The hook contract is
+flexible enough to support all of these patterns.</p>
+<h2 id="creating-your-own">Creating Your Own<a class="headerlink" href="#creating-your-own" title="Permanent link">&para;</a></h2>
+<p>Let's build a practical hook from scratch — a simple event logger that
+writes tool calls to a file.</p>
+<h3 id="a-simple-logging-hook">A Simple Logging Hook<a class="headerlink" href="#a-simple-logging-hook" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">amplifier_core.models</span> <span class="kn">import</span> <span class="n">HookResult</span>
+
+<span class="n">LOG_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./logs/tool-calls.jsonl&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">tool_logger</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HookResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log every tool call with timestamp and parameters.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">event</span> <span class="o">!=</span> <span class="s2">&quot;tool:pre&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
+
+    <span class="n">LOG_PATH</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">entry</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+        <span class="s2">&quot;tool&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_input&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">LOG_PATH</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="llm-events">LLM Events<a class="headerlink" href="#llm-events" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">LLMEvents</span><span class="p">:</span>
-    <span class="n">LLM_REQUEST</span> <span class="o">=</span> <span class="s2">&quot;llm.request&quot;</span>          <span class="c1"># Request sent to LLM</span>
-    <span class="n">LLM_RESPONSE</span> <span class="o">=</span> <span class="s2">&quot;llm.response&quot;</span>        <span class="c1"># Response received from LLM</span>
-    <span class="n">LLM_STREAM_CHUNK</span> <span class="o">=</span> <span class="s2">&quot;llm.stream&quot;</span>      <span class="c1"># Streaming chunk received</span>
+<p>Register it as a module with a <code>mount</code> function:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">coordinator</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">registry</span> <span class="o">=</span> <span class="n">coordinator</span><span class="o">.</span><span class="n">hook_registry</span>
+    <span class="n">unregister</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+        <span class="n">event</span><span class="o">=</span><span class="s2">&quot;tool:pre&quot;</span><span class="p">,</span>
+        <span class="n">handler</span><span class="o">=</span><span class="n">tool_logger</span><span class="p">,</span>
+        <span class="n">priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tool_logger&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">cleanup</span><span class="p">():</span>
+        <span class="n">unregister</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cleanup</span>
 </code></pre></div>
 
-<h2 id="built-in-hooks">Built-in Hooks<a class="headerlink" href="#built-in-hooks" title="Permanent link">&para;</a></h2>
-<p>Amplifier provides several hooks out of the box for common observability needs:</p>
-<h3 id="consolelogginghook">ConsoleLoggingHook<a class="headerlink" href="#consolelogginghook" title="Permanent link">&para;</a></h3>
-<p>Logs all events to the console with configurable verbosity:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">ConsoleLoggingHook</span>
-
-<span class="n">hook</span> <span class="o">=</span> <span class="n">ConsoleLoggingHook</span><span class="p">(</span>
-    <span class="n">level</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
-    <span class="n">include_events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tool.call&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.result&quot;</span><span class="p">]</span>
-<span class="p">)</span>
+<p>And declare it in <code>pyproject.toml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[project.entry-points.</span><span class="s2">&quot;amplifier.modules&quot;</span><span class="k">]</span>
+<span class="n">hooks-my-logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_hooks.tool_logger:mount&quot;</span>
 </code></pre></div>
 
-<h3 id="metricshook">MetricsHook<a class="headerlink" href="#metricshook" title="Permanent link">&para;</a></h3>
-<p>Collects timing and count metrics for analysis:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">MetricsHook</span>
+<p>That's a complete hook module. The kernel discovers it by entry point, calls
+<code>mount()</code>, and your logger starts receiving events.</p>
+<h3 id="the-approval-gate-pattern">The Approval Gate Pattern<a class="headerlink" href="#the-approval-gate-pattern" title="Permanent link">&para;</a></h3>
+<p>The approval hook is one of the most powerful patterns. It intercepts tool
+calls and pauses execution until a human says "yes":</p>
+<div class="codehilite"><pre><span></span><code><span class="n">SENSITIVE_TOOLS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bash&quot;</span><span class="p">,</span> <span class="s2">&quot;write_file&quot;</span><span class="p">,</span> <span class="s2">&quot;delete_file&quot;</span><span class="p">}</span>
 
-<span class="n">hook</span> <span class="o">=</span> <span class="n">MetricsHook</span><span class="p">()</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">approval_gate</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HookResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Require user approval for sensitive operations.&quot;&quot;&quot;</span>
+    <span class="n">tool_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-<span class="c1"># After session, access metrics</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">tool_call_count</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">avg_response_time</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tool_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SENSITIVE_TOOLS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
+
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_input&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_input&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">detail</span> <span class="o">=</span> <span class="n">file_path</span> <span class="ow">or</span> <span class="n">command</span> <span class="ow">or</span> <span class="s2">&quot;(no details)&quot;</span>
+
+    <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;ask_user&quot;</span><span class="p">,</span>
+        <span class="n">approval_prompt</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Allow </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">detail</span><span class="si">}</span><span class="s2">?&quot;</span><span class="p">,</span>
+        <span class="n">approval_options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Allow once&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow always&quot;</span><span class="p">,</span> <span class="s2">&quot;Deny&quot;</span><span class="p">],</span>
+        <span class="n">approval_timeout</span><span class="o">=</span><span class="mf">300.0</span><span class="p">,</span>
+        <span class="n">approval_default</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
 
-<h3 id="fileaudithook">FileAuditHook<a class="headerlink" href="#fileaudithook" title="Permanent link">&para;</a></h3>
-<p>Writes a complete audit trail to a file:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">FileAuditHook</span>
+<p>When this hook fires on a <code>tool:pre</code> event for <code>bash</code>, the session pauses.
+The user sees the prompt, makes a choice, and the session continues or
+blocks accordingly. The LLM never knows any of this happened — it just sees
+the tool result (or a denial message).</p>
+<h3 id="hooks-that-use-models">Hooks That Use Models<a class="headerlink" href="#hooks-that-use-models" title="Permanent link">&para;</a></h3>
+<p>Here's a subtle point: hooks can use LLM calls internally. A redaction hook
+might call a small model to classify whether text contains PII. A
+summarization hook might condense long tool output before it enters context.</p>
+<p>The key difference from tools remains the <strong>triggering mechanism</strong>. The outer
+LLM never decides to invoke the hook — code fires it automatically. What the
+hook does internally (including calling models) is its own business.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">smart_redaction</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HookResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use a fast model to classify and redact sensitive content.&quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_result&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
-<span class="n">hook</span> <span class="o">=</span> <span class="n">FileAuditHook</span><span class="p">(</span>
-    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./logs/session-</span><span class="si">{session_id}</span><span class="s2">.jsonl&quot;</span><span class="p">,</span>
-    <span class="n">include_content</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Include full message content</span>
-<span class="p">)</span>
+    <span class="c1"># Call a small, fast model for classification</span>
+    <span class="n">classification</span> <span class="o">=</span> <span class="k">await</span> <span class="n">classify_pii</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;fast&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">classification</span><span class="o">.</span><span class="n">has_pii</span><span class="p">:</span>
+        <span class="n">redacted</span> <span class="o">=</span> <span class="n">redact_matches</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">classification</span><span class="o">.</span><span class="n">matches</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;modify&quot;</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;tool_result&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="n">redacted</span><span class="p">}},</span>
+            <span class="n">user_message</span><span class="o">=</span><span class="s2">&quot;Redacted sensitive content from output&quot;</span><span class="p">,</span>
+            <span class="n">user_message_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="webhooknotifierhook">WebhookNotifierHook<a class="headerlink" href="#webhooknotifierhook" title="Permanent link">&para;</a></h3>
-<p>Sends HTTP notifications on specific events:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier.hooks</span> <span class="kn">import</span> <span class="n">WebhookNotifierHook</span>
-
-<span class="n">hook</span> <span class="o">=</span> <span class="n">WebhookNotifierHook</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.example.com/events&quot;</span><span class="p">,</span>
-    <span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;session.end&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.error&quot;</span><span class="p">],</span>
-    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;Bearer token&quot;</span><span class="p">}</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<h2 id="creating-hooks">Creating Hooks<a class="headerlink" href="#creating-hooks" title="Permanent link">&para;</a></h2>
-<p>Building custom hooks is straightforward. Extend the base <code>Hook</code> class and implement the methods you need:</p>
-<h3 id="basic-hook-structure">Basic Hook Structure<a class="headerlink" href="#basic-hook-structure" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Hook</span><span class="p">,</span> <span class="n">HookContext</span>
-
-<span class="k">class</span> <span class="nc">MyCustomHook</span><span class="p">(</span><span class="n">Hook</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom hook with selective event handling.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">event_count</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">subscribed_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Specify which events this hook receives.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;tool.call&quot;</span><span class="p">,</span> <span class="s2">&quot;tool.result&quot;</span><span class="p">,</span> <span class="s2">&quot;session.end&quot;</span><span class="p">]</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle incoming events.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">event_count</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="s2">&quot;tool.call&quot;</span><span class="p">:</span>
-            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_tool_call</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="s2">&quot;session.end&quot;</span><span class="p">:</span>
-            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_session_end</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_handle_tool_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">tool_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_name&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tool called: </span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_handle_session_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Session ended. Total events observed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">event_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="registering-hooks">Registering Hooks<a class="headerlink" href="#registering-hooks" title="Permanent link">&para;</a></h3>
-<p>Register hooks when configuring your agent:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier</span> <span class="kn">import</span> <span class="n">Agent</span>
-
-<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
-    <span class="n">hooks</span><span class="o">=</span><span class="p">[</span>
-        <span class="n">ConsoleLoggingHook</span><span class="p">(),</span>
-        <span class="n">MyCustomHook</span><span class="p">({</span><span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
-        <span class="n">MetricsHook</span><span class="p">()</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<h3 id="hook-context">Hook Context<a class="headerlink" href="#hook-context" title="Permanent link">&para;</a></h3>
-<p>The <code>HookContext</code> object provides rich information about each event:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HookContext</span><span class="p">:</span>
-    <span class="n">event_type</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># The event type (e.g., &quot;tool.call&quot;)</span>
-    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span>      <span class="c1"># When the event occurred</span>
-    <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span>          <span class="c1"># Current session identifier</span>
-    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span>               <span class="c1"># Event-specific payload</span>
-    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span>           <span class="c1"># Additional context (user_id, etc.)</span>
-</code></pre></div>
-
-<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Keep hooks fast</strong>: Offload heavy work to background tasks</li>
-<li><strong>Handle errors gracefully</strong>: Don't let hook failures affect the agent</li>
-<li><strong>Be selective</strong>: Subscribe only to events you need</li>
-<li><strong>Use async patterns</strong>: Leverage async for I/O operations</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">HookContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<p>The agent sees clean output. It never knows redaction happened. That's the
+hook philosophy — invisible infrastructure that keeps things safe.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Keep hooks fast.</strong> Pre-tool hooks (<code>tool:pre</code>) block execution until they
+return. Heavy work should be offloaded to background tasks or deferred to
+post-event hooks. Use async I/O for external calls.</p>
+<p><strong>Fail open by default.</strong> A crashing hook should not take down the session.
+Catch exceptions and return <code>HookResult(action="continue")</code> unless you
+explicitly intend to block. The kernel treats hook failures as non-fatal, but
+your hook should handle errors gracefully too.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">safe_hook</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HookResult</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Quick validation</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_process</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
-            <span class="k">return</span>
-
-        <span class="c1"># Offload heavy work</span>
-        <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_async</span><span class="p">(</span><span class="n">ctx</span><span class="p">))</span>
+        <span class="c1"># Your logic here</span>
+        <span class="k">return</span> <span class="n">do_validation</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="c1"># Log but don&#39;t raise</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hook error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HookResult</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;continue&quot;</span><span class="p">)</span>
 </code></pre></div>
 
+<p><strong>Be selective about events.</strong> Subscribe only to the events your hook needs.
+A logging hook might want everything, but an approval hook should fire only
+on <code>tool:pre</code> for specific tools. Unnecessary hook invocations add latency.</p>
+<p><strong>Use <code>deny</code> sparingly.</strong> Blocking is powerful but disruptive. Prefer
+<code>ask_user</code> over <code>deny</code> when the situation is ambiguous — let the human
+decide. Reserve <code>deny</code> for clear violations (invalid paths, known-bad
+patterns).</p>
+<p><strong>Mind the injection budget.</strong> Context injections consume tokens. Amplifier
+enforces a configurable budget (default 10,000 tokens per turn). Keep
+injections concise and use <code>ephemeral: True</code> for transient state like todo
+reminders that refresh every turn.</p>
+<p><strong>Use priorities to control ordering.</strong> Hooks fire in priority order (lower
+number = earlier). Put security hooks at low priorities (0-10) so they run
+first, and informational hooks at higher priorities (50+).</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Hooks are observers</strong>: They watch the agent lifecycle without modifying it. Use them for logging, metrics, notifications, and auditing.</p>
+<p><strong>Hooks are code-decided, not LLM-decided.</strong> They fire automatically on
+   lifecycle events. The LLM never chooses to invoke a hook — that's what
+   makes them different from tools.</p>
 </li>
 <li>
-<p><strong>Hooks complement tools</strong>: While tools perform actions for the agent, hooks monitor what's happening. Both are essential for production systems.</p>
+<p><strong>The contract is simple.</strong> Receive <code>(event, data)</code>, return a
+   <code>HookResult</code>. Five actions cover the full range: <code>continue</code>, <code>deny</code>,
+   <code>modify</code>, <code>inject_context</code>, and <code>ask_user</code>.</p>
 </li>
 <li>
-<p><strong>Event types are granular</strong>: Subscribe to specific events like <code>tool.call</code> or <code>session.end</code> rather than receiving everything.</p>
+<p><strong>Hooks shape behavior invisibly.</strong> Logging, approval gates, PII
+   redaction, context injection — hooks provide safety and observability
+   without the agent ever knowing they're there.</p>
 </li>
 <li>
-<p><strong>Built-in hooks cover common cases</strong>: Use <code>ConsoleLoggingHook</code>, <code>MetricsHook</code>, and <code>FileAuditHook</code> before building custom solutions.</p>
+<p><strong>The ecosystem is rich.</strong> Eight built-in hooks cover logging, streaming,
+   status context, approval, redaction, reminders, skill visibility, and
+   code checking. Start there before building custom.</p>
 </li>
 <li>
-<p><strong>Custom hooks are simple</strong>: Extend <code>Hook</code>, specify <code>subscribed_events</code>, and implement <code>on_event</code>. Keep them fast and error-tolerant.</p>
+<p><strong>Approval gates are the power pattern.</strong> Intercepting <code>tool:pre</code> events
+   and returning <code>ask_user</code> gives humans a safety valve over sensitive
+   operations without disrupting the agent's flow.</p>
 </li>
 <li>
-<p><strong>Observability enables reliability</strong>: Hooks provide the visibility needed to debug, optimize, and trust your agent systems in production.</p>
+<p><strong>Hooks can use models internally.</strong> A hook can call an LLM for
+   classification or summarization. The distinction isn't <em>what</em> hooks do —
+   it's <em>who decides when</em> they run.</p>
 </li>
 </ol>
-<p>Hooks transform opaque agent execution into transparent, observable systems. Start with built-in hooks to understand behavior, then create custom hooks as your monitoring needs evolve.</p>
+<hr />
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="modules.html">Modules</a> — The five module types and how hooks fit into the architecture</li>
+<li><a href="bundles.html">Bundles</a> — Packaging hooks with tools, agents, and configuration</li>
+<li><a href="architecture.html">Architecture</a> — How hooks integrate with the kernel event system</li>
+</ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="skills.html" class="btn btn-neutral float-left" title="Skills"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../tools/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="modes.html" class="btn btn-neutral float-right" title="Modes">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -496,7 +721,7 @@
       <span><a href="skills.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tools/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="modes.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

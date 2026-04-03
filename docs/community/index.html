@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Community - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Community";
+        var mkdocs_page_input_path = "community/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Community</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-youll-learn">What You'll Learn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-to-find-community-contributions">Where to Find Community Contributions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#popular-community-contributions">Popular Community Contributions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#community-providers">Community Providers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#community-bundles_1">Community Bundles</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#community-tools-and-hooks">Community Tools and Hooks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-a-community-bundle">Using a Community Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#publishing-your-own">Publishing Your Own</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-create-a-repository">1. Create a Repository</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-structure-it-properly">2. Structure It Properly</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-test-thoroughly">3. Test Thoroughly</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-add-to-the-catalog">4. Add to the Catalog</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quality-and-trust">Quality and Trust</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#for-users">For Users</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#for-authors">For Authors</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Community</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="community-bundles">Community Bundles<a class="headerlink" href="#community-bundles" title="Permanent link">&para;</a></h1>
+<p>Amplifier ships with a rich set of official modules and bundles maintained by the core team. But the ecosystem doesn't stop there. A growing community of developers is building providers for new AI services, tools for specialized workflows, bundles for entire domains, and hooks that change how you interact with the agent. This page shows you how to find, use, and publish community contributions.</p>
+<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>By the end of this page, you'll know how to:</p>
+<ul>
+<li>Find community bundles, modules, and skills</li>
+<li>Evaluate community contributions for quality and trust</li>
+<li>Install a community bundle into your configuration</li>
+<li>Publish your own work for others to use</li>
+</ul>
+<hr />
+<h2 id="where-to-find-community-contributions">Where to Find Community Contributions<a class="headerlink" href="#where-to-find-community-contributions" title="Permanent link">&para;</a></h2>
+<p>The canonical directory of everything in the Amplifier ecosystem — official and community — lives in one place: the <strong>MODULES.md</strong> file in the main Amplifier repository.</p>
+<blockquote>
+<p>Where do I find community bundles?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch] https://github.com/microsoft/amplifier/blob/main/docs/MODULES.md
+</code></pre></div>
+
+<p>This file is the ecosystem catalog. It lists every known component: core infrastructure, official modules, and community contributions organized by type. When someone builds something new for Amplifier, they submit a pull request to add it here.</p>
+<p>You can also browse GitHub directly. Community projects follow a consistent naming convention:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Naming Pattern</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bundle</strong></td>
+<td><code>amplifier-bundle-{name}</code></td>
+<td><code>amplifier-bundle-memory</code></td>
+</tr>
+<tr>
+<td><strong>Module</strong></td>
+<td><code>amplifier-module-{type}-{name}</code></td>
+<td><code>amplifier-module-provider-bedrock</code></td>
+</tr>
+<tr>
+<td><strong>App</strong></td>
+<td><code>amplifier-app-{name}</code></td>
+<td><code>amplifier-app-voice</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Search GitHub for community providers</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_search] &quot;amplifier-module-provider&quot; github
+</code></pre></div>
+
+<p>The naming convention makes discovery straightforward. If you're looking for a Perplexity provider, search for <code>amplifier-module-provider-perplexity</code>. Looking for a memory bundle? Try <code>amplifier-bundle-memory</code>.</p>
+<hr />
+<h2 id="popular-community-contributions">Popular Community Contributions<a class="headerlink" href="#popular-community-contributions" title="Permanent link">&para;</a></h2>
+<p>The community has built some impressive extensions. Here's a sampling across the major categories.</p>
+<h3 id="community-providers">Community Providers<a class="headerlink" href="#community-providers" title="Permanent link">&para;</a></h3>
+<p>These connect Amplifier to AI backends beyond the official set:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>What It Does</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>provider-bedrock</strong></td>
+<td>AWS Bedrock with cross-region inference for Claude models</td>
+<td>@brycecutt-msft</td>
+</tr>
+<tr>
+<td><strong>provider-perplexity</strong></td>
+<td>Perplexity AI chat completions with sonar models</td>
+<td>@colombod</td>
+</tr>
+<tr>
+<td><strong>provider-openai-realtime</strong></td>
+<td>Native speech-to-speech via OpenAI Realtime API</td>
+<td>@robotdad</td>
+</tr>
+</tbody>
+</table>
+<p>Because all providers follow the same <code>complete(request) → response</code> contract, swapping in a community provider works exactly like swapping between official ones. Your tools, hooks, and orchestrator don't change — only the AI backend does.</p>
+<h3 id="community-bundles_1">Community Bundles<a class="headerlink" href="#community-bundles_1" title="Permanent link">&para;</a></h3>
+<p>Bundles package entire experiences — agents, context, tools, and configuration:</p>
+<table>
+<thead>
+<tr>
+<th>Bundle</th>
+<th>What It Does</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>memory</strong></td>
+<td>Persistent memory with automatic capture and progressive disclosure</td>
+<td>@michaeljabbour</td>
+</tr>
+<tr>
+<td><strong>perplexity</strong></td>
+<td>Deep web research with citations and cost-aware guidance</td>
+<td>@colombod</td>
+</tr>
+<tr>
+<td><strong>deepwiki</strong></td>
+<td>Ask questions about any public GitHub repo via DeepWiki MCP</td>
+<td>@colombod</td>
+</tr>
+<tr>
+<td><strong>browser</strong></td>
+<td>Browser automation with JS rendering, auth flows, and form filling</td>
+<td>@samueljklee</td>
+</tr>
+<tr>
+<td><strong>expert-cookbook</strong></td>
+<td>State-of-the-art workflows and techniques for Amplifier</td>
+<td>@DavidKoleczek</td>
+</tr>
+<tr>
+<td><strong>tui-tester</strong></td>
+<td>AI-assisted testing for TUI and terminal applications</td>
+<td>@colombod</td>
+</tr>
+<tr>
+<td><strong>web-ux-dev</strong></td>
+<td>Visual regression testing, console debugging, pre-commit checks</td>
+<td>@colombod</td>
+</tr>
+</tbody>
+</table>
+<h3 id="community-tools-and-hooks">Community Tools and Hooks<a class="headerlink" href="#community-tools-and-hooks" title="Permanent link">&para;</a></h3>
+<p>Individual modules that add specific capabilities:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What It Does</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>tool-memory</strong></td>
+<td>Persistent fact storage across sessions</td>
+<td>@michaeljabbour</td>
+</tr>
+<tr>
+<td><strong>tool-rlm</strong></td>
+<td>Process 10M+ token contexts via sandboxed Python REPL</td>
+<td>@michaeljabbour</td>
+</tr>
+<tr>
+<td><strong>tool-youtube-dl</strong></td>
+<td>Download audio and video from YouTube</td>
+<td>@robotdad</td>
+</tr>
+<tr>
+<td><strong>hooks-explanatory</strong></td>
+<td>Educational ★ Insight blocks in responses</td>
+<td>@michaeljabbour</td>
+</tr>
+<tr>
+<td><strong>hooks-concise-display</strong></td>
+<td>Cleaner, more condensed terminal output</td>
+<td>@obra</td>
+</tr>
+<tr>
+<td><strong>hooks-event-broadcast</strong></td>
+<td>Transport-agnostic event broadcasting for streaming UIs</td>
+<td>@michaeljabbour</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="using-a-community-bundle">Using a Community Bundle<a class="headerlink" href="#using-a-community-bundle" title="Permanent link">&para;</a></h2>
+<p>Installing a community bundle follows the same pattern as any bundle — you point Amplifier at a git URL:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Add a community bundle to your registry</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/michaeljabbour/amplifier-bundle-memory@main
+
+<span class="c1"># Activate it</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>use<span class="w"> </span>memory
+</code></pre></div>
+
+<p>You can also reference community bundles directly in your bundle YAML when composing configurations:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-research-setup</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">extends</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/colombod/amplifier-bundle-perplexity@main</span>
+<span class="nn">---</span>
+
+<span class="c1"># Research assistant with deep web search</span>
+<span class="l l-Scalar l-Scalar-Plain">Use Perplexity for research tasks requiring citations.</span>
+</code></pre></div>
+
+<p>For individual modules — a community provider, tool, or hook — add them in your bundle's module section:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider-bedrock</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/brycecutt-msft/amplifier-module-provider-bedrock@main</span>
+</code></pre></div>
+
+<blockquote>
+<p>Add the memory bundle to my current setup</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier bundle add git+https://github.com/michaeljabbour/amplifier-bundle-memory@main
+Added bundle: memory (v1.2.0)
+
+[Tool: bash] amplifier bundle use memory
+Active bundle: memory
+</code></pre></div>
+
+<p>That's it. The kernel discovers the bundle, loads its modules, and the new capabilities appear in your session.</p>
+<hr />
+<h2 id="publishing-your-own">Publishing Your Own<a class="headerlink" href="#publishing-your-own" title="Permanent link">&para;</a></h2>
+<p>Built something useful? Here's how to share it with the ecosystem.</p>
+<h3 id="1-create-a-repository">1. Create a Repository<a class="headerlink" href="#1-create-a-repository" title="Permanent link">&para;</a></h3>
+<p>Follow the naming convention so others can discover your work:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-bundle-{your-name}     # for bundles
+amplifier-module-{type}-{name}   # for modules (e.g., tool-*, provider-*, hooks-*)
+</code></pre></div>
+
+<h3 id="2-structure-it-properly">2. Structure It Properly<a class="headerlink" href="#2-structure-it-properly" title="Permanent link">&para;</a></h3>
+<p>For a bundle, include a <code>bundle.yaml</code> with clear metadata:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-awesome-bundle</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">What this bundle does in one sentence</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="w">  </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-github-handle</span>
+</code></pre></div>
+
+<p>For a module, include a <code>pyproject.toml</code> with the entry point:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[project.entry-points.</span><span class="s2">&quot;amplifier.modules&quot;</span><span class="k">]</span>
+<span class="n">tool-my-thing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_tool:mount&quot;</span>
+</code></pre></div>
+
+<h3 id="3-test-thoroughly">3. Test Thoroughly<a class="headerlink" href="#3-test-thoroughly" title="Permanent link">&para;</a></h3>
+<p>Make sure your contribution works with the current Amplifier release. Include tests, and document any prerequisites or environment variables.</p>
+<h3 id="4-add-to-the-catalog">4. Add to the Catalog<a class="headerlink" href="#4-add-to-the-catalog" title="Permanent link">&para;</a></h3>
+<p>Submit a pull request to the main <a href="https://github.com/microsoft/amplifier">amplifier</a> repository, adding your entry to <code>docs/MODULES.md</code> under the appropriate community section. Include your GitHub handle, a concise description, and a link to the repository.</p>
+<hr />
+<h2 id="quality-and-trust">Quality and Trust<a class="headerlink" href="#quality-and-trust" title="Permanent link">&para;</a></h2>
+<p>Community contributions are powerful, but they come with responsibility — both for authors and users.</p>
+<blockquote>
+<p><strong>Security consideration</strong>: Community modules execute code in your environment with full access to your filesystem, network, and credentials. Only use modules from sources you trust.</p>
+</blockquote>
+<h3 id="for-users">For Users<a class="headerlink" href="#for-users" title="Permanent link">&para;</a></h3>
+<p>Before installing a community module:</p>
+<ol>
+<li><strong>Read the source code.</strong> Community modules aren't reviewed by the Amplifier core team. Skim the <code>mount()</code> function and understand what it registers.</li>
+<li><strong>Check the author's reputation.</strong> Look at their GitHub profile, other contributions, and activity in the Amplifier community.</li>
+<li><strong>Pin to a specific commit.</strong> Use <code>@sha</code> instead of <code>@main</code> for production setups to avoid surprise changes.</li>
+<li><strong>Test in isolation.</strong> Try the module in a scratch session before adding it to your daily workflow.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Pin to a specific commit for safety</span>
+amplifier<span class="w"> </span>bundle<span class="w"> </span>add<span class="w"> </span>git+https://github.com/author/amplifier-bundle-example@a1b2c3d
+</code></pre></div>
+
+<h3 id="for-authors">For Authors<a class="headerlink" href="#for-authors" title="Permanent link">&para;</a></h3>
+<p>When publishing community modules:</p>
+<ol>
+<li><strong>Document clearly.</strong> Explain what your module does, what permissions it needs, and any external dependencies.</li>
+<li><strong>Handle errors gracefully.</strong> A module should never crash the kernel. Return error information rather than raising unhandled exceptions.</li>
+<li><strong>Follow the contracts.</strong> Use Amplifier's protocols and structural typing. If your module passes protocol compliance, it's a good citizen.</li>
+<li><strong>Version your releases.</strong> Use semantic versioning and tag releases so users can pin to stable versions.</li>
+</ol>
+<hr />
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>MODULES.md is the catalog.</strong> The canonical directory of all Amplifier components — official and community — lives in the main repository's <code>docs/MODULES.md</code>.</p>
+</li>
+<li>
+<p><strong>Naming conventions enable discovery.</strong> Follow <code>amplifier-bundle-*</code> and <code>amplifier-module-*</code> patterns so others can find your work.</p>
+</li>
+<li>
+<p><strong>Installation is a git URL.</strong> Community bundles install the same way as official ones — <code>amplifier bundle add</code> with a git URL.</p>
+</li>
+<li>
+<p><strong>Trust requires verification.</strong> Community code runs with full access to your environment. Read the source, check the author, pin versions.</p>
+</li>
+<li>
+<p><strong>Publishing is a PR.</strong> Build it, name it correctly, test it, and submit a pull request to add it to the ecosystem catalog.</p>
+</li>
+<li>
+<p><strong>The ecosystem is growing.</strong> Community providers, bundles, tools, hooks, and apps are expanding what Amplifier can do in every direction.</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../contributing/writing-agents.html" class="btn btn-neutral float-left" title="Writing Agents"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../advanced/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../contributing/writing-agents.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../advanced/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

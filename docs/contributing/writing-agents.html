@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Writing Agents - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Writing Agents";
+        var mkdocs_page_input_path = "contributing/writing-agents.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="writing-agents.html">Writing Agents</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-agent-file-format">The Agent File Format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-meta-section">The meta: Section</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-description-most-important-field">The Description: Most Important Field</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#good-vs-bad-descriptions">Good vs Bad Descriptions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-description-formula">The Description Formula</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-context-sink-pattern">The Context Sink Pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-authoring-checklist">Agent Authoring Checklist</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-your-agent">Testing Your Agent</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#iterating-on-descriptions">Iterating on Descriptions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-examples">Practical Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-focused-agent-good">A Focused Agent (Good)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#a-diffuse-agent-bad">A Diffuse Agent (Bad)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Contributing</li>
+      <li class="breadcrumb-item active">Writing Agents</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="writing-agents">Writing Agents<a class="headerlink" href="#writing-agents" title="Permanent link">&para;</a></h1>
+<p>Agents are bundles. Same Markdown file, same YAML frontmatter. There is no special
+"agent format" to learn. The only difference is a frontmatter convention: bundles use
+a <code>bundle:</code> key, agents use a <code>meta:</code> key. Everything else -- the file structure, the
+Markdown body as system prompt, the <code>@mention</code> syntax -- works identically.</p>
+<p>This guide covers how to write effective agents, with emphasis on the one thing that
+matters most: the description.</p>
+<h2 id="the-agent-file-format">The Agent File Format<a class="headerlink" href="#the-agent-file-format" title="Permanent link">&para;</a></h2>
+<p>An agent is a Markdown file in <code>agents/</code> inside a bundle. Here's a complete one:</p>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: api-reviewer
+  description: &gt;
+    Reviews REST API designs for consistency, RESTfulness, and documentation
+    coverage. Use when designing new endpoints, auditing existing APIs, or
+    reviewing OpenAPI specs. Examines HTTP methods, status codes, naming
+    conventions, pagination, error formats, and documentation completeness.
+    Returns a structured report with an overall grade and specific recommendations.
+<span class="gu">  model_role: coding</span>
+<span class="gu">---</span>
+
+<span class="gh"># API Reviewer</span>
+
+You are an expert in REST API design. When given an API to review, evaluate:
+
+<span class="k">1.</span> <span class="gs">**RESTfulness**</span> -- HTTP methods, status codes, resource naming
+<span class="k">2.</span> <span class="gs">**Consistency**</span> -- naming conventions, pagination patterns, error format
+<span class="k">3.</span> <span class="gs">**Documentation**</span> -- OpenAPI coverage, example requests and responses
+
+Return a structured report with:
+<span class="k">-</span><span class="w"> </span>Overall grade (A-F)
+<span class="k">-</span><span class="w"> </span>Issues with severity (critical / warning / note)
+<span class="k">-</span><span class="w"> </span>Specific recommendations with code examples
+
+Always examine the actual code, not just documentation. Read route definitions,
+middleware, and response handlers to verify behavior matches documentation.
+</code></pre></div>
+
+<p>That's it. Save it as <code>agents/api-reviewer.md</code>, register it in a behavior, and
+it's ready for delegation.</p>
+<h2 id="the-meta-section">The <code>meta:</code> Section<a class="headerlink" href="#the-meta-section" title="Permanent link">&para;</a></h2>
+<p>The frontmatter distinguishes agents from bundles:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>meta.name</code></td>
+<td>The agent's identifier, used in delegation calls</td>
+</tr>
+<tr>
+<td><code>meta.description</code></td>
+<td>When and why to use this agent (the most important field)</td>
+</tr>
+<tr>
+<td><code>meta.model_role</code></td>
+<td>Preferred model routing: <code>coding</code>, <code>reasoning</code>, <code>research</code>, etc.</td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite"><pre><span></span><code><span class="nt">meta</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-auditor</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Audits code for security vulnerabilities, hardcoded secrets, injection</span>
+<span class="w">    </span><span class="no">risks, and authentication weaknesses. Use when reviewing PRs, onboarding</span>
+<span class="w">    </span><span class="no">to a new codebase, or before releases.</span>
+<span class="w">  </span><span class="nt">model_role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coding</span>
+</code></pre></div>
+
+<p>The <code>model_role</code> tells Amplifier's routing which model class to prefer. Common
+choices:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>coding</code></td>
+<td>Implementation, code review, debugging</td>
+</tr>
+<tr>
+<td><code>reasoning</code></td>
+<td>Architecture decisions, complex analysis</td>
+</tr>
+<tr>
+<td><code>research</code></td>
+<td>Information gathering, documentation lookup</td>
+</tr>
+<tr>
+<td><code>fast</code></td>
+<td>Quick classification, parsing, bulk operations</td>
+</tr>
+</tbody>
+</table>
+<p>When omitted, the agent inherits the session's default routing.</p>
+<h2 id="the-description-most-important-field">The Description: Most Important Field<a class="headerlink" href="#the-description-most-important-field" title="Permanent link">&para;</a></h2>
+<p>The description is the single most consequential thing you write. It determines
+<strong>whether</strong> Amplifier delegates to your agent, <strong>when</strong> it's selected over
+alternatives, and <strong>what</strong> instructions the orchestrator crafts. A bad description
+means your agent sits unused or gets called for the wrong tasks.</p>
+<h3 id="good-vs-bad-descriptions">Good vs Bad Descriptions<a class="headerlink" href="#good-vs-bad-descriptions" title="Permanent link">&para;</a></h3>
+<p><strong>Bad -- vague and passive:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Helps</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">code.&quot;</span>
+</code></pre></div>
+
+<p>Why it fails: every agent "helps with code." The orchestrator can't distinguish
+this from explorer, modular-builder, or bug-hunter.</p>
+<p><strong>Bad -- too narrow:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Checks</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">PEP</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">violations.&quot;</span>
+</code></pre></div>
+
+<p>Why it fails: the agent won't be selected for related tasks like reviewing type
+hints, checking import organization, or auditing docstring coverage.</p>
+<p><strong>Good -- clear domain with trigger conditions:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">Reviews Python code quality including PEP 8 style, type annotation coverage,</span>
+<span class="w">  </span><span class="no">import organization, and docstring completeness. Use when reviewing PRs,</span>
+<span class="w">  </span><span class="no">auditing code before release, or establishing coding standards for a project.</span>
+<span class="w">  </span><span class="no">Examines actual source files and returns a prioritized report with specific</span>
+<span class="w">  </span><span class="no">line-level recommendations.</span>
+</code></pre></div>
+
+<p>Why it works: states the domain (Python code quality), lists what it covers
+(style, types, imports, docs), describes trigger situations (PR review, audit,
+standards), and sets expectations for output format (prioritized report).</p>
+<h3 id="the-description-formula">The Description Formula<a class="headerlink" href="#the-description-formula" title="Permanent link">&para;</a></h3>
+<p>Write descriptions that answer four questions:</p>
+<ol>
+<li><strong>WHAT</strong> does this agent do? (domain and capabilities)</li>
+<li><strong>WHEN</strong> should it be used? (trigger situations)</li>
+<li><strong>WHY</strong> choose this over alternatives? (distinguishing expertise)</li>
+<li><strong>HOW</strong> does it deliver results? (output format expectations)</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">[WHAT] Analyzes test suites for coverage gaps, flaky tests, and structural</span>
+<span class="w">  </span><span class="no">issues. [WHEN] Use when evaluating test health, planning test improvements,</span>
+<span class="w">  </span><span class="no">or investigating CI failures. [WHY] Goes beyond line coverage to assess test</span>
+<span class="w">  </span><span class="no">quality -- meaningful assertions, edge case coverage, test isolation.</span>
+<span class="w">  </span><span class="no">[HOW] Returns a structured report with coverage map, risk areas, and</span>
+<span class="w">  </span><span class="no">prioritized recommendations.</span>
+</code></pre></div>
+
+<p>You don't need to label the sections -- just make sure all four questions are
+answered naturally in the text.</p>
+<h2 id="the-context-sink-pattern">The Context Sink Pattern<a class="headerlink" href="#the-context-sink-pattern" title="Permanent link">&para;</a></h2>
+<p>This is the architectural reason agents exist. When an agent investigates your
+codebase, it might read 40 files and consume 20,000 tokens of working context.
+Your session receives only the distilled summary -- maybe 500 tokens.</p>
+<p>Agents that need heavy reference material should carry it themselves using
+<code>@mentions</code> in the Markdown body:</p>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: api-reviewer
+<span class="gu">  description: ...</span>
+<span class="gu">---</span>
+
+<span class="gh"># API Reviewer</span>
+
+<span class="ni">@my</span>-bundle:context/api-standards.md
+
+<span class="ni">@my</span>-bundle:context/rest-best-practices.md
+
+You are an expert in REST API design...
+</code></pre></div>
+
+<p>The <code>@mentioned</code> files load into the <strong>agent's</strong> context when it spawns -- not
+into your main session. This is the context sink in action: heavy reference
+material lives with the specialist, not in your conversation.</p>
+<p>Use this pattern for agents that need:
+- Coding standards or style guides
+- API specifications or schemas
+- Domain-specific reference material
+- Long lists of rules or checklists</p>
+<p>Your main session stays lean while the agent has everything it needs.</p>
+<h2 id="agent-authoring-checklist">Agent Authoring Checklist<a class="headerlink" href="#agent-authoring-checklist" title="Permanent link">&para;</a></h2>
+<p>Before shipping an agent, verify each of these:</p>
+<p><strong>Clear domain.</strong> Can you state the agent's purpose in one sentence? If you need
+two sentences, you might need two agents.</p>
+<p><strong>Good description.</strong> Answers WHAT, WHEN, WHY, HOW. Specific enough to distinguish
+from foundation agents. Includes trigger conditions.</p>
+<p><strong>Appropriate model_role.</strong> Match the work to the model: <code>coding</code> for implementation,
+<code>reasoning</code> for analysis, <code>research</code> for gathering, <code>fast</code> for bulk operations.</p>
+<p><strong>Self-contained instructions.</strong> The Markdown body tells the agent everything it
+needs to know -- goals, constraints, output format. Don't assume it inherits
+context from the parent session.</p>
+<p><strong>Context files via @mentions.</strong> If the agent needs reference material, load it
+into the agent's context, not the parent's. Use the context sink pattern.</p>
+<p><strong>Registered in a behavior.</strong> The agent file exists in <code>agents/</code> and is listed
+in your behavior's <code>agents.include</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># behaviors/my-capability.yaml</span>
+<span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bundle:api-reviewer</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-bundle:security-auditor</span>
+</code></pre></div>
+
+<p><strong>Output format specified.</strong> Tell the agent what to return -- structured report,
+summary paragraph, list of findings. Agents that know their output format
+produce dramatically better results.</p>
+<h2 id="testing-your-agent">Testing Your Agent<a class="headerlink" href="#testing-your-agent" title="Permanent link">&para;</a></h2>
+<p>Test agents by delegating to them from a live session:</p>
+<blockquote>
+<p>amplifier run --bundle ./my-bundle/bundle.md</p>
+</blockquote>
+<p>Then in the session:</p>
+<blockquote>
+<p>Delegate to api-reviewer to review the endpoints in src/api/</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: delegate] agent=&quot;my-bundle:api-reviewer&quot;, instruction=&quot;Review REST API endpoints in src/api/...&quot;
+</code></pre></div>
+
+<p>Watch for these signals:</p>
+<p><strong>Good signs:</strong>
+- Agent reads relevant files systematically
+- Response follows the format you specified
+- Findings are specific and actionable
+- Token usage is reasonable (not reading the entire repo)</p>
+<p><strong>Warning signs:</strong>
+- Agent reads unrelated files (instructions too vague)
+- Response is generic advice (system prompt lacks specificity)
+- Agent asks clarifying questions instead of working (missing context)
+- Delegation fails entirely (agent not registered in behavior)</p>
+<h3 id="iterating-on-descriptions">Iterating on Descriptions<a class="headerlink" href="#iterating-on-descriptions" title="Permanent link">&para;</a></h3>
+<p>If the orchestrator doesn't select your agent when it should, the description
+needs work. Test by describing scenarios and checking which agent gets selected:</p>
+<blockquote>
+<p>Review the API code quality in src/api/</p>
+</blockquote>
+<p>If <code>foundation:explorer</code> fires instead of your <code>api-reviewer</code>, your description
+doesn't signal clearly enough that API review is this agent's domain. Add more
+specific trigger conditions.</p>
+<h2 id="practical-examples">Practical Examples<a class="headerlink" href="#practical-examples" title="Permanent link">&para;</a></h2>
+<h3 id="a-focused-agent-good">A Focused Agent (Good)<a class="headerlink" href="#a-focused-agent-good" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: migration-planner
+  description: &gt;
+    Plans database migration strategies for schema changes. Use when adding
+    columns, changing types, splitting tables, or migrating data between
+    schemas. Evaluates migration safety (can it run without downtime?),
+    generates migration scripts, and identifies rollback strategies.
+<span class="gu">  model_role: reasoning</span>
+<span class="gu">---</span>
+
+<span class="gh"># Migration Planner</span>
+
+You plan safe database migrations. For every schema change:
+
+<span class="k">1.</span> Assess if the migration can run without downtime
+<span class="k">2.</span> Generate forward migration SQL
+<span class="k">3.</span> Generate rollback migration SQL
+<span class="k">4.</span> Identify data integrity risks
+<span class="k">5.</span> Recommend a deployment sequence
+
+Always check for: foreign key dependencies, index impact on large tables,
+default value implications, and NOT NULL constraints on populated columns.
+</code></pre></div>
+
+<h3 id="a-diffuse-agent-bad">A Diffuse Agent (Bad)<a class="headerlink" href="#a-diffuse-agent-bad" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: helper
+<span class="gu">  description: &quot;Helps with various development tasks.&quot;</span>
+<span class="gu">---</span>
+
+<span class="gh"># Helper</span>
+
+You help with development. Do whatever is asked.
+</code></pre></div>
+
+<p>This agent will never be selected -- its description is indistinguishable from
+the base session itself. No clear domain, no trigger conditions, no expected
+output. Every field is an opportunity wasted.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Agents ARE bundles</strong> -- same file format, <code>meta:</code> instead of <code>bundle:</code> in
+   frontmatter. No new format to learn.</p>
+</li>
+<li>
+<p><strong>The description is everything</strong> -- it determines selection, timing, and
+   instruction quality. Answer WHAT, WHEN, WHY, HOW.</p>
+</li>
+<li>
+<p><strong>Context sink pattern</strong> -- load heavy reference material into the agent via
+   <code>@mentions</code>, keeping your main session lean.</p>
+</li>
+<li>
+<p><strong>One agent, one job</strong> -- sharp specialists outperform generalists. If you
+   can't state the purpose in one sentence, split into multiple agents.</p>
+</li>
+<li>
+<p><strong>Self-contained instructions</strong> -- the Markdown body should tell the agent
+   everything: goals, constraints, output format. Don't rely on inherited context.</p>
+</li>
+<li>
+<p><strong>Test by delegating</strong> -- run your bundle, delegate to the agent, and check
+   that it reads the right files, follows your format, and produces actionable
+   output.</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="writing-skills.html" class="btn btn-neutral float-left" title="Writing Skills"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../community/index.html" class="btn btn-neutral float-right" title="Community">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="writing-skills.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../community/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

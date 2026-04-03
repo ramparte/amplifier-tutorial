@@ -12,7 +12,7 @@ author: "Tutorial CMS"
 tags: ["orchestration", "tutorial", "cms"]
 
 context:
-  output_dir: "/mnt/c/ANext/tutorial/content"
+  output_dir: "content"
 
 recursion:
   max_depth: 3
@@ -1012,7 +1012,7 @@ steps:
     type: recipe
     recipe: recipes/validate-links.yaml
     context:
-      content_dir: "/mnt/c/ANext/tutorial/content"
+      content_dir: "content"
       fail_on_broken: false  # Just warn, don't fail the build
     timeout: 240
     on_error: "continue"
@@ -1023,7 +1023,7 @@ steps:
 
   - id: build-site
     type: bash
-    command: "cd /mnt/c/ANext/tutorial && mkdocs build --clean 2>&1"
+    command: "mkdocs build --clean 2>&1"
     output: "build_result"
     timeout: 120
     on_error: "continue"
@@ -1034,7 +1034,7 @@ steps:
 
   - id: count-files
     type: bash
-    command: "find /mnt/c/ANext/tutorial/content -name '*.md' -type f | wc -l && find /mnt/c/ANext/tutorial/docs -name '*.html' -type f | wc -l"
+    command: "find content -name '*.md' -type f | wc -l && find docs -name '*.html' -type f | wc -l"
     output: "file_counts"
     timeout: 30
     on_error: "continue"
@@ -1044,11 +1044,11 @@ steps:
     command: |
       echo "=== Tutorial Build Complete ==="
       echo ""
-      echo "Content files: $(find /mnt/c/ANext/tutorial/content -name '*.md' -type f | wc -l)"
-      echo "HTML files: $(find /mnt/c/ANext/tutorial/docs -name '*.html' -type f | wc -l)"
+      echo "Content files: $(find content -name '*.md' -type f | wc -l)"
+      echo "HTML files: $(find docs -name '*.html' -type f | wc -l)"
       echo ""
       echo "=== Recently modified ==="
-      find /mnt/c/ANext/tutorial/content -name '*.md' -mmin -5 -type f | head -20
+      find content -name '*.md' -mmin -5 -type f | head -20
     output: "report"
     timeout: 30
     on_error: "continue"

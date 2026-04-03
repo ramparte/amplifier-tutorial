@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Todo - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Todo";
+        var mkdocs_page_input_path = "tools/todo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="todo.html">Todo</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-full-example">A Full Example</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#when-to-use-it">When to Use It</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#checking-progress">Checking Progress</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Todo</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="todo-tool">Todo Tool<a class="headerlink" href="#todo-tool" title="Permanent link">&para;</a></h1>
+<p>When Amplifier is working through a complex, multi-step task, you might wonder: where are we? What's done? What's left? The todo tool answers those questions. It lets Amplifier create a visible checklist that tracks progress through multi-step work — and you see it updating in real time in your UI.</p>
+<p>This isn't a background mechanism. The todo list appears directly in your interface, so you can watch items move from pending to in-progress to completed as Amplifier works. It's your window into what's happening during long-running tasks, and it's used <em>constantly</em>. Any time Amplifier is planning or executing multi-step work, the todo tool should be involved.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<p>The todo tool has three operations:</p>
+<ul>
+<li><strong>create</strong> — build a new todo list, replacing any existing one</li>
+<li><strong>update</strong> — replace the entire list with a new version (used to change statuses)</li>
+<li><strong>list</strong> — read the current todo list without changing it</li>
+</ul>
+<p>Each todo item has three fields:</p>
+<ul>
+<li><strong>content</strong> — an imperative description of the task: "Run tests", "Build project", "Update imports"</li>
+<li><strong>activeForm</strong> — the present continuous version: "Running tests", "Building project", "Updating imports"</li>
+<li><strong>status</strong> — one of <code>pending</code>, <code>in_progress</code>, or <code>completed</code></li>
+</ul>
+<p>The <code>content</code> field describes what to do. The <code>activeForm</code> field is what you see in the UI while that step is active — it reads naturally as a status indicator. And the <code>status</code> field tracks where things stand.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>When Amplifier starts complex work, it creates a todo list up front with all the steps planned out. Then, as it works through each step, it updates the list — marking the current step as <code>in_progress</code> and completed steps as <code>completed</code>. The key discipline: exactly one item should be <code>in_progress</code> at any time.</p>
+<p>Here's what that looks like. Say you ask:</p>
+<blockquote>
+<p>Add a rate limiter to the API endpoints</p>
+</blockquote>
+<p>Amplifier starts by creating the plan:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] create
+  - &quot;Research existing rate limiting patterns&quot;     pending
+  - &quot;Create rate limiter middleware&quot;               pending
+  - &quot;Add configuration options&quot;                    pending
+  - &quot;Apply middleware to API routes&quot;               pending
+  - &quot;Write tests for rate limiting&quot;                pending
+  - &quot;Run tests and verify&quot;                         pending
+</code></pre></div>
+
+<p>Your UI immediately shows six items, all pending. Then Amplifier begins work and updates the list as it goes:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Research existing rate limiting patterns&quot;     completed
+  - &quot;Create rate limiter middleware&quot;               in_progress
+  - &quot;Add configuration options&quot;                    pending
+  - &quot;Apply middleware to API routes&quot;               pending
+  - &quot;Write tests for rate limiting&quot;                pending
+  - &quot;Run tests and verify&quot;                         pending
+</code></pre></div>
+
+<p>You can see at a glance: research is done, the middleware is being created now, four steps remain. This continues through each step until everything is completed.</p>
+<h2 id="a-full-example">A Full Example<a class="headerlink" href="#a-full-example" title="Permanent link">&para;</a></h2>
+<p>Let's walk through a realistic scenario to see the todo tool in action throughout an entire task.</p>
+<blockquote>
+<p>Add user avatar support — upload, storage, and display</p>
+</blockquote>
+<p>First, Amplifier plans the work:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] create
+  - &quot;Explore current user model and file handling&quot;     pending
+  - &quot;Add avatar field to user model&quot;                   pending
+  - &quot;Create avatar upload endpoint&quot;                    pending
+  - &quot;Add file validation and resizing&quot;                 pending
+  - &quot;Update user profile response to include avatar&quot;   pending
+  - &quot;Write tests&quot;                                      pending
+  - &quot;Run tests and verify&quot;                             pending
+</code></pre></div>
+
+<p>Amplifier starts exploring the codebase:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Explore current user model and file handling&quot;     in_progress
+  - &quot;Add avatar field to user model&quot;                   pending
+  ...
+
+[Tool: read_file] src/models/user.py
+[Tool: grep] &quot;upload&quot; --type py
+[Tool: read_file] src/utils/storage.py
+</code></pre></div>
+
+<p>After exploring, it moves on to the model change:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Explore current user model and file handling&quot;     completed
+  - &quot;Add avatar field to user model&quot;                   in_progress
+  - &quot;Create avatar upload endpoint&quot;                    pending
+  ...
+
+[Tool: edit_file] src/models/user.py
+  + avatar_url: Optional[str] = None
+  + avatar_updated_at: Optional[datetime] = None
+</code></pre></div>
+
+<p>Then the upload endpoint:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Explore current user model and file handling&quot;     completed
+  - &quot;Add avatar field to user model&quot;                   completed
+  - &quot;Create avatar upload endpoint&quot;                    in_progress
+  ...
+
+[Tool: write_file] src/routes/avatar.py
+[Tool: edit_file] src/routes/__init__.py
+</code></pre></div>
+
+<p>This continues step by step. By the time tests run, the list looks like:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Explore current user model and file handling&quot;     completed
+  - &quot;Add avatar field to user model&quot;                   completed
+  - &quot;Create avatar upload endpoint&quot;                    completed
+  - &quot;Add file validation and resizing&quot;                 completed
+  - &quot;Update user profile response to include avatar&quot;   completed
+  - &quot;Write tests&quot;                                      completed
+  - &quot;Run tests and verify&quot;                             in_progress
+
+[Tool: bash] pytest tests/test_avatar.py --verbose
+===== 8 passed in 2.1s =====
+</code></pre></div>
+
+<p>And finally:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] update
+  - &quot;Explore current user model and file handling&quot;     completed
+  - &quot;Add avatar field to user model&quot;                   completed
+  - &quot;Create avatar upload endpoint&quot;                    completed
+  - &quot;Add file validation and resizing&quot;                 completed
+  - &quot;Update user profile response to include avatar&quot;   completed
+  - &quot;Write tests&quot;                                      completed
+  - &quot;Run tests and verify&quot;                             completed
+</code></pre></div>
+
+<p>All done. Throughout the entire process, you could see exactly where things stood without asking.</p>
+<h2 id="when-to-use-it">When to Use It<a class="headerlink" href="#when-to-use-it" title="Permanent link">&para;</a></h2>
+<p>The todo tool should appear any time work involves more than a couple of steps. Here's the decision:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Use todo?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fix this typo"</td>
+<td>No</td>
+<td>One step, nothing to track</td>
+</tr>
+<tr>
+<td>"Add a new API endpoint"</td>
+<td><strong>Yes</strong></td>
+<td>Multiple steps: model, route, tests</td>
+</tr>
+<tr>
+<td>"Refactor the auth module"</td>
+<td><strong>Yes</strong></td>
+<td>Research, plan, implement, verify</td>
+</tr>
+<tr>
+<td>"What does this function do?"</td>
+<td>No</td>
+<td>Single investigation, immediate answer</td>
+</tr>
+<tr>
+<td>"Set up CI/CD for the project"</td>
+<td><strong>Yes</strong></td>
+<td>Many discrete steps across config files</td>
+</tr>
+<tr>
+<td>"Run the tests"</td>
+<td>No</td>
+<td>Single command</td>
+</tr>
+</tbody>
+</table>
+<p>The rule: if you're planning, you should be using the todo tool. It keeps both you and Amplifier honest about what's been done and what remains.</p>
+<h2 id="checking-progress">Checking Progress<a class="headerlink" href="#checking-progress" title="Permanent link">&para;</a></h2>
+<p>You can always ask about the current state:</p>
+<blockquote>
+<p>Where are we on that refactor?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: todo] list
+  - &quot;Extract shared utilities&quot;                completed
+  - &quot;Update import paths&quot;                     completed
+  - &quot;Refactor database layer&quot;                 in_progress
+  - &quot;Update API handlers&quot;                     pending
+  - &quot;Run full test suite&quot;                     pending
+</code></pre></div>
+
+<p>The list operation reads without modifying — useful when you want a status check mid-task or when resuming after a break.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Create the list early.</strong> The best time to create a todo list is right when work starts — before any files are read or commands are run. Planning up front gives you visibility from the very beginning.</li>
+<li><strong>Keep exactly one item <code>in_progress</code>.</strong> This is the most important discipline. Zero in-progress items means you can't tell what's happening. Two means the list is inaccurate. One gives you a clear signal.</li>
+<li><strong>Mark items completed immediately.</strong> Don't batch status updates. As soon as a step finishes, update the list before moving on. This keeps the UI accurate in real time.</li>
+<li><strong>Use imperative content, continuous activeForm.</strong> "Run tests" and "Running tests" is the pattern. The content says what to do; the activeForm says what's happening right now.</li>
+<li><strong>Update replaces the whole list.</strong> There's no "update item 3" operation — you send the full list each time. This keeps things simple and means the list is always a complete, consistent snapshot.</li>
+<li><strong>Don't over-plan.</strong> Five to eight items is the sweet spot. Two items isn't worth tracking. Fifteen items means your steps are too granular — group related work into meaningful chunks.</li>
+<li><strong>Adjust the plan as you go.</strong> If you discover a step needs to be split, or a planned step turns out to be unnecessary, update the list. The todo list is a living plan, not a contract.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="bash.html">Bash Tool</a> for running the test commands that often appear as todo items</li>
+<li>Learn about <a href="task.html">Delegate Tool</a> for breaking large tasks into parallel sub-agents — each with their own todo tracking</li>
+<li>Read <a href="recipes-tool.html">Recipes</a> for declarative multi-step workflows that formalize sequential execution</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="recipes-tool.html" class="btn btn-neutral float-left" title="Recipes Tool"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="python-check.html" class="btn btn-neutral float-right" title="Python Check">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="recipes-tool.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="python-check.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

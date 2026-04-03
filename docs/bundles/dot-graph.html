@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>DOT Graph - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "DOT Graph";
+        var mkdocs_page_input_path = "bundles/dot-graph.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="dot-graph.html">DOT Graph</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-dot-graph-bundle">What is the DOT Graph Bundle?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-agents">Key Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dot-author">dot-author</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#diagram-reviewer">diagram-reviewer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#discovery-orchestrator">discovery-orchestrator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#discovery-pipeline">Discovery Pipeline</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-three-perspectives">The Three Perspectives</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fidelity-tiers">Fidelity Tiers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipeline-stages">Pipeline Stages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipeline-agents">Pipeline Agents</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-example-investigating-a-codebase">Practical Example: Investigating a Codebase</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dot-as-analysis-substrate">DOT as Analysis Substrate</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Bundles</li>
+      <li class="breadcrumb-item active">DOT Graph</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dot-graph-bundle">DOT Graph Bundle<a class="headerlink" href="#dot-graph-bundle" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-the-dot-graph-bundle">What is the DOT Graph Bundle?<a class="headerlink" href="#what-is-the-dot-graph-bundle" title="Permanent link">&para;</a></h2>
+<p>Most tools treat diagrams as decoration -- something you draw after you understand a system. The DOT Graph bundle treats graphs as an <strong>analysis substrate</strong>. You can encode structure in a compact text format, render it visually, and query it programmatically -- all within the same artifact. A DOT file isn't just a picture; it's a data structure that both humans and machines can reason over.</p>
+<p>The bundle provides three capabilities: <strong>graph authoring</strong> (create and refine DOT diagrams with expert knowledge), <strong>graph analysis</strong> (validate syntax, detect cycles, compute reachability, diff structural changes), and <strong>codebase investigation</strong> (the Parallax Discovery pipeline, which dispatches teams of specialized agents to map an unfamiliar repository's architecture automatically).</p>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<p>The bundle ships agents, a tool, skills, and a multi-agent discovery pipeline:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What It Provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agents</strong></td>
+<td><code>dot-author</code>, <code>diagram-reviewer</code>, <code>discovery-orchestrator</code>, plus 8 pipeline agents</td>
+</tr>
+<tr>
+<td><strong>Tool</strong></td>
+<td><code>dot_graph</code> -- validate, render, analyze, prescan, assemble</td>
+</tr>
+<tr>
+<td><strong>Skills</strong></td>
+<td><code>dot-syntax</code>, <code>dot-patterns</code>, <code>dot-as-analysis</code>, <code>dot-quality</code>, <code>dot-graph-intelligence</code></td>
+</tr>
+<tr>
+<td><strong>Recipes</strong></td>
+<td>Quick and deep discovery pipelines with approval gates</td>
+</tr>
+<tr>
+<td><strong>Docs</strong></td>
+<td>Full DOT language reference, pattern catalog, quality standards, Graphviz setup guide</td>
+</tr>
+</tbody>
+</table>
+<p>The shape vocabulary gives every node semantic meaning:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Meaning</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>box</code></td>
+<td>Process / component</td>
+<td>Services, modules, pipeline steps</td>
+</tr>
+<tr>
+<td><code>ellipse</code></td>
+<td>Data / state</td>
+<td>Data stores, states, inputs/outputs</td>
+</tr>
+<tr>
+<td><code>diamond</code></td>
+<td>Decision</td>
+<td>Branch points, conditions</td>
+</tr>
+<tr>
+<td><code>cylinder</code></td>
+<td>Storage</td>
+<td>Databases, file systems</td>
+</tr>
+<tr>
+<td><code>folder</code></td>
+<td>Group / namespace</td>
+<td>Clusters, packages</td>
+</tr>
+<tr>
+<td><code>circle</code> / <code>doublecircle</code></td>
+<td>Start / terminal</td>
+<td>FSM entry and exit states</td>
+</tr>
+</tbody>
+</table>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Include the bundle in your Amplifier configuration:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
+<span class="nt">bundles</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dot-graph</span>
+</code></pre></div>
+
+<p>Once loaded, DOT capabilities are available immediately. Ask for a diagram, and Amplifier delegates to the right specialist.</p>
+<blockquote>
+<p>Create an architecture diagram for our authentication system.</p>
+</blockquote>
+<p><code>[Tool: dot-author]</code> Analyzes the request, selects the appropriate pattern (layered architecture), chooses shapes from the vocabulary (box for services, cylinder for the user store, diamond for the auth decision point), and produces complete, valid DOT with clusters, a legend, and graph-level attributes.</p>
+<blockquote>
+<p>Is this diagram production-ready?</p>
+</blockquote>
+<p><code>[Tool: diagram-reviewer]</code> Runs the 5-level review checklist (syntax, structure, quality, style, reconciliation) and returns a structured PASS/WARN/FAIL verdict with specific evidence for every finding.</p>
+<h2 id="key-agents">Key Agents<a class="headerlink" href="#key-agents" title="Permanent link">&para;</a></h2>
+<h3 id="dot-author">dot-author<a class="headerlink" href="#dot-author" title="Permanent link">&para;</a></h3>
+<p>The expert DOT/Graphviz author. This agent carries the full DOT syntax reference, pattern library, and quality standards. It creates diagrams from scratch, refines existing DOT, converts natural language descriptions into graph form, and explains existing graph structures.</p>
+<blockquote>
+<p>Show our deployment pipeline as a graph.</p>
+</blockquote>
+<p><code>[Tool: dot-author]</code> Chooses the DAG/flowchart pattern, uses <code>rankdir=LR</code> for left-to-right workflow flow, applies the shape vocabulary (box for build steps, diamond for approval gates, cylinder for the artifact registry), and outputs complete DOT with a legend and consistent <code>snake_case</code> node IDs.</p>
+<h3 id="diagram-reviewer">diagram-reviewer<a class="headerlink" href="#diagram-reviewer" title="Permanent link">&para;</a></h3>
+<p>An independent quality reviewer -- deliberately separate from <code>dot-author</code> so no agent reviews its own work. It evaluates diagrams against a 5-level checklist:</p>
+<ol>
+<li><strong>Syntax</strong> -- valid DOT that parses correctly</li>
+<li><strong>Structure</strong> -- no orphan nodes, consistent flow direction, proper <code>cluster_</code> prefixes</li>
+<li><strong>Quality</strong> -- line count within targets, legend present when needed, <code>snake_case</code> IDs</li>
+<li><strong>Style</strong> -- shapes reflect semantic roles, edge styles are consistent, labels are clear</li>
+<li><strong>Reconciliation</strong> -- structural patterns that map to system problems (hub nodes with 10+ edges, isolated clusters, unlabeled cycles)</li>
+</ol>
+<p>The verdict is always PASS, WARN, or FAIL, with every finding citing specific nodes, edges, or attributes. Level 5 reconciliation findings are especially valuable -- a hub node with too many edges isn't just a layout problem, it signals a missing abstraction layer in the system itself.</p>
+<h3 id="discovery-orchestrator">discovery-orchestrator<a class="headerlink" href="#discovery-orchestrator" title="Permanent link">&para;</a></h3>
+<p>The natural language entry point for codebase investigation. You don't invoke pipeline agents or recipes directly -- you describe what you want, and the orchestrator routes to the correct pipeline.</p>
+<blockquote>
+<p>Investigate this codebase and give me an architectural overview.</p>
+</blockquote>
+<p><code>[Tool: discovery-orchestrator]</code> Reads the fidelity signal ("overview" suggests quick), resolves the repository path, and invokes the quick discovery pipeline recipe. You see an approval gate with the selected investigation topics before agents are dispatched.</p>
+<blockquote>
+<p>Run a deep, thorough investigation of this repository.</p>
+</blockquote>
+<p><code>[Tool: discovery-orchestrator]</code> Detects the deep fidelity signal ("deep," "thorough"), and invokes the deep pipeline with full triplicate teams and reconciliation.</p>
+<h2 id="discovery-pipeline">Discovery Pipeline<a class="headerlink" href="#discovery-pipeline" title="Permanent link">&para;</a></h2>
+<p>The Parallax Discovery pipeline is the bundle's most distinctive capability. Named after astronomical parallax -- where depth is measured by observing from multiple positions -- it triangulates architectural understanding by examining code from three independent perspectives.</p>
+<h3 id="the-three-perspectives">The Three Perspectives<a class="headerlink" href="#the-three-perspectives" title="Permanent link">&para;</a></h3>
+<p>Each investigation topic gets a <strong>triplicate team</strong> of agents, each with fresh context and zero shared state:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Perspective</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code-tracer</code></td>
+<td><strong>HOW</strong></td>
+<td>Traces execution paths using LSP, requires file:line evidence</td>
+</tr>
+<tr>
+<td><code>behavior-observer</code></td>
+<td><strong>WHAT</strong></td>
+<td>Examines 10+ real instances, catalogs and quantifies patterns</td>
+</tr>
+<tr>
+<td><code>integration-mapper</code></td>
+<td><strong>WHERE/WHY</strong></td>
+<td>Maps cross-boundary connections, finds composition effects</td>
+</tr>
+</tbody>
+</table>
+<p>Discrepancies between agents are the most valuable findings -- they mark where design intent and reality have separated.</p>
+<h3 id="fidelity-tiers">Fidelity Tiers<a class="headerlink" href="#fidelity-tiers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Agents Per Topic</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>quick</strong></td>
+<td>1 (code-tracer only)</td>
+<td>Fast initial scan, time-constrained</td>
+</tr>
+<tr>
+<td><strong>standard</strong></td>
+<td>2 (code-tracer + integration-mapper)</td>
+<td>Default for most investigations</td>
+</tr>
+<tr>
+<td><strong>deep</strong></td>
+<td>3 (full triplicate team)</td>
+<td>High-stakes, unfamiliar, or complex systems</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pipeline-stages">Pipeline Stages<a class="headerlink" href="#pipeline-stages" title="Permanent link">&para;</a></h3>
+<p>The pipeline runs in three stages with an approval gate after the first:</p>
+<p><strong>Stage 1 -- Scan.</strong> The <code>discovery-prescan</code> agent scans the repository structure (using the <code>dot_graph</code> tool's prescan operation) and selects 3-7 investigation topics based on fidelity. You review and approve the topics before agents are dispatched.</p>
+<p><strong>Stage 2 -- Investigate.</strong> Each topic dispatches its agent team in parallel. Agents write to isolated subdirectories -- no shared mutable state.</p>
+<p><strong>Stage 3 -- Synthesize.</strong> The <code>discovery-synthesizer</code> reconciles per-topic agent findings into consensus diagrams. The <code>discovery-combiner</code> merges module-level results. The <code>discovery-level-synthesizer</code> and <code>discovery-overview-synthesizer</code> build progressively higher-level views until a final <code>overview.dot</code> and <code>overview.md</code> capture the system architecture.</p>
+<h3 id="pipeline-agents">Pipeline Agents<a class="headerlink" href="#pipeline-agents" title="Permanent link">&para;</a></h3>
+<p>Beyond the three investigator roles, the pipeline includes synthesis agents:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>discovery-prescan</code></td>
+<td>Selects investigation topics from structural inventory</td>
+</tr>
+<tr>
+<td><code>discovery-synthesizer</code></td>
+<td>Reconciles multi-agent findings into consensus DOT</td>
+</tr>
+<tr>
+<td><code>discovery-combiner</code></td>
+<td>Merges module-level results across topics</td>
+</tr>
+<tr>
+<td><code>discovery-level-synthesizer</code></td>
+<td>Builds subsystem-level views from module findings</td>
+</tr>
+<tr>
+<td><code>discovery-overview-synthesizer</code></td>
+<td>Produces the final system-spine overview</td>
+</tr>
+<tr>
+<td><code>discovery-architecture-writer</code></td>
+<td>Writes the architecture overview document</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practical-example-investigating-a-codebase">Practical Example: Investigating a Codebase<a class="headerlink" href="#practical-example-investigating-a-codebase" title="Permanent link">&para;</a></h2>
+<p>Here's what a full discovery run looks like end-to-end. You've just cloned an unfamiliar repository and need to understand its architecture.</p>
+<p><strong>Step 1 -- Ask</strong></p>
+<blockquote>
+<p>Investigate this codebase and map the architecture.</p>
+</blockquote>
+<p><code>[Tool: discovery-orchestrator]</code> Resolves the repo path, selects the quick pipeline (no deep signal), and invokes the recipe.</p>
+<p><strong>Step 2 -- Approve topics</strong></p>
+<p>The pipeline scans the repository and presents its selected topics for approval:</p>
+<div class="codehilite"><pre><span></span><code>Quick Discovery Pipeline -- Scan Complete
+
+Repository:  /home/user/project
+Fidelity:    standard
+
+Selected investigation topics (4 topics):
+  * API Layer (api-layer)
+    HTTP routing, middleware chain, and request lifecycle
+  * Data Model (data-model)
+    Schema definitions, ORM mappings, and migration patterns
+  * Auth Subsystem (auth-subsystem)
+    Authentication flow, session management, and token handling
+  * Event Pipeline (event-pipeline)
+    Async event dispatch, consumer registration, and retry logic
+
+Type APPROVE to proceed with investigation, or DENY to cancel.
+</code></pre></div>
+
+<p><strong>Step 3 -- Agents investigate</strong></p>
+<p>After approval, agent teams dispatch in parallel. Each topic gets its assigned agents (2 for standard fidelity), writing findings and diagrams to isolated directories under <code>.discovery/modules/</code>.</p>
+<p><strong>Step 4 -- Synthesis</strong></p>
+<p>The synthesizer agents reconcile findings, build consensus diagrams, and the <code>dot-author</code> produces a final system-spine <code>overview.dot</code> with 10-15 nodes representing the primary components and their relationships.</p>
+<p><strong>Step 5 -- Results</strong></p>
+<p>You receive an <code>overview.md</code> summarizing the architecture and an <code>overview.dot</code> you can render, query, or diff against future runs:</p>
+<div class="codehilite"><pre><span></span><code>.discovery/
+  output/
+    overview.md          # Architecture summary
+    overview.dot         # System-spine diagram
+    modules/
+      api-layer/diagram.dot
+      data-model/diagram.dot
+      ...
+  last-run.json          # Change detection for incremental updates
+</code></pre></div>
+
+<p>The next time you run discovery, change detection compares git commits and only re-investigates what changed.</p>
+<h2 id="dot-as-analysis-substrate">DOT as Analysis Substrate<a class="headerlink" href="#dot-as-analysis-substrate" title="Permanent link">&para;</a></h2>
+<p>The <code>dot_graph</code> tool goes beyond rendering. Its analysis operations let you query graph structure programmatically:</p>
+<blockquote>
+<p>Analyze the architecture diagram for cycles.</p>
+</blockquote>
+<p><code>[Tool: dot_graph]</code> Runs the <code>analyze</code> operation with <code>cycles</code> analysis -- returns any circular dependencies found in the graph structure.</p>
+<blockquote>
+<p>Which components are reachable from the API gateway?</p>
+</blockquote>
+<p><code>[Tool: dot_graph]</code> Runs <code>reachability</code> analysis from the gateway node -- returns every component in the dependency chain.</p>
+<blockquote>
+<p>What changed between the last two discovery runs?</p>
+</blockquote>
+<p><code>[Tool: dot_graph]</code> Runs <code>diff</code> analysis comparing two DOT files -- reports added nodes, removed edges, and structural changes.</p>
+<p>The full analysis toolkit:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stats</code></td>
+<td>Node count, edge count, density, DAG detection, components</td>
+</tr>
+<tr>
+<td><code>reachability</code></td>
+<td>All nodes reachable from a source</td>
+</tr>
+<tr>
+<td><code>cycles</code></td>
+<td>Detect circular dependencies</td>
+</tr>
+<tr>
+<td><code>paths</code></td>
+<td>All simple paths between two nodes</td>
+</tr>
+<tr>
+<td><code>critical_path</code></td>
+<td>Longest path in a DAG</td>
+</tr>
+<tr>
+<td><code>diff</code></td>
+<td>Structural differences between two graphs</td>
+</tr>
+</tbody>
+</table>
+<p>This is what makes DOT an analysis substrate rather than just a visual format -- the same artifact serves humans and machines.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Use discovery-orchestrator, not the pipeline directly.</strong> The orchestrator handles fidelity selection, repo path resolution, and recipe invocation. Invoking pipeline agents or recipes directly bypasses its routing logic.</p>
+<p><strong>Start with quick or standard fidelity.</strong> Deep investigations dispatch three agents per topic and take significantly longer. Use deep when the stakes justify it -- unfamiliar codebases, pre-refactor audits, or architecture reviews.</p>
+<p><strong>Let diagram-reviewer check dot-author's work.</strong> No agent should review its own output. The author-reviewer separation is deliberate -- always run <code>diagram-reviewer</code> after <code>dot-author</code> for objective quality assessment.</p>
+<p><strong>Treat reconciliation findings as system signals.</strong> When <code>diagram-reviewer</code> flags a hub node with 10+ edges, that's not a diagram problem -- it's a design problem. Structural patterns in graphs map directly to architectural issues in code.</p>
+<p><strong>Use incremental discovery.</strong> The pipeline writes <code>last-run.json</code> with the git commit hash. Subsequent runs detect changes and only re-investigate affected topics.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about the <a href="foundation.html">Foundation Bundle</a> for core development agents</li>
+<li>Explore the <a href="recipes.html">Recipes Bundle</a> for multi-step workflow orchestration</li>
+<li>See <a href="design-intelligence.html">Design Intelligence Bundle</a> for UI/UX specialized agents</li>
+<li>Read about <a href="../concepts/agents.html">Agents</a> for how agent delegation works under the hood</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="superpowers.html" class="btn btn-neutral float-left" title="Superpowers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="browser-tester.html" class="btn btn-neutral float-right" title="Browser Tester">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="superpowers.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="browser-tester.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

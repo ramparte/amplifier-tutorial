@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Overview - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "providers/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-provider-contract">The Provider Contract</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#official-providers">Official Providers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#anthropic-claude">Anthropic (Claude)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#openai-gpt">OpenAI (GPT)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#google-gemini">Google Gemini</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#azure-openai">Azure OpenAI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ollama-local-models">Ollama (Local Models)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#community-providers">Community Providers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-provider-configuration">Multi-Provider Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#provider-selection-criteria">Provider Selection Criteria</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-setup-checklist">Quick Setup Checklist</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="provider-index">Provider Index<a class="headerlink" href="#provider-index" title="Permanent link">&para;</a></h1>
+<p>Amplifier doesn't lock you into a single AI vendor. Every model interaction flows through a <strong>provider module</strong> — a thin adapter that translates Amplifier's internal request format into whatever a particular LLM API expects. Swap providers, mix providers, or run models locally. The rest of the system never notices.</p>
+<p>This page maps out every provider available today, shows you how to configure each one, and explains how multi-provider routing works.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="anthropic.html">Anthropic (Claude)</a></td>
+<td>Default provider — Claude models for code and reasoning</td>
+</tr>
+<tr>
+<td><a href="openai.html">OpenAI (GPT)</a></td>
+<td>GPT-4o, GPT-4 Turbo, and o-series reasoning models</td>
+</tr>
+<tr>
+<td><a href="gemini.html">Google Gemini</a></td>
+<td>Gemini Pro and Ultra with native multimodal support</td>
+</tr>
+<tr>
+<td><a href="azure.html">Azure OpenAI</a></td>
+<td>Enterprise-grade OpenAI with compliance and data residency</td>
+</tr>
+<tr>
+<td><a href="ollama.html">Ollama (Local)</a></td>
+<td>Run models locally — no API keys, no data leaving your machine</td>
+</tr>
+<tr>
+<td><a href="community.html">Community Providers</a></td>
+<td>Third-party and community-maintained provider modules</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-provider-contract">The Provider Contract<a class="headerlink" href="#the-provider-contract" title="Permanent link">&para;</a></h2>
+<p>Every provider module implements one function:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">complete</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="err">→</span> <span class="n">response</span>
+</code></pre></div>
+
+<p>That's the entire contract. The <code>request</code> carries the conversation history, model parameters, and tool definitions. The <code>response</code> returns the model's output in Amplifier's normalized format. Streaming, tool calls, token counting — all handled inside the provider so nothing upstream needs to care which model answered.</p>
+<div class="codehilite"><pre><span></span><code>┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│  Amplifier   │────▶│   Provider   │────▶│   LLM API    │
+│   Kernel     │◀────│   Module     │◀────│  (any vendor) │
+└──────────────┘     └──────────────┘     └──────────────┘
+</code></pre></div>
+
+<p>Because every provider speaks the same internal protocol, switching from Claude to GPT is a config change — not a code change.</p>
+<h2 id="official-providers">Official Providers<a class="headerlink" href="#official-providers" title="Permanent link">&para;</a></h2>
+<p>These providers ship with Amplifier and are actively maintained.</p>
+<h3 id="anthropic-claude">Anthropic (Claude)<a class="headerlink" href="#anthropic-claude" title="Permanent link">&para;</a></h3>
+<p>The default provider. Claude models excel at code generation, long-context reasoning, and tool use.</p>
+<blockquote>
+<p>Set up Claude as your provider</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export ANTHROPIC_API_KEY=&quot;sk-ant-...&quot;
+</code></pre></div>
+
+<h3 id="openai-gpt">OpenAI (GPT)<a class="headerlink" href="#openai-gpt" title="Permanent link">&para;</a></h3>
+<p>Full support for GPT-4o, GPT-4 Turbo, and o-series reasoning models.</p>
+<blockquote>
+<p>Configure OpenAI</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export OPENAI_API_KEY=&quot;sk-...&quot;
+</code></pre></div>
+
+<h3 id="google-gemini">Google Gemini<a class="headerlink" href="#google-gemini" title="Permanent link">&para;</a></h3>
+<p>Access to Gemini Pro and Ultra models with native multimodal support.</p>
+<blockquote>
+<p>Configure Gemini</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${GOOGLE_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-2.5-pro</span>
+</code></pre></div>
+
+<h3 id="azure-openai">Azure OpenAI<a class="headerlink" href="#azure-openai" title="Permanent link">&para;</a></h3>
+<p>For teams that need Azure's compliance, data residency, and enterprise controls.</p>
+<blockquote>
+<p>Configure Azure OpenAI</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure-openai</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${AZURE_OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-resource.openai.azure.com</span>
+<span class="w">  </span><span class="nt">deployment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-deployment</span>
+<span class="w">  </span><span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-06-01&quot;</span>
+</code></pre></div>
+
+<p>Azure requires both an endpoint and a deployment name — the model is tied to the deployment, not specified directly.</p>
+<h3 id="ollama-local-models">Ollama (Local Models)<a class="headerlink" href="#ollama-local-models" title="Permanent link">&para;</a></h3>
+<p>Run models entirely on your machine. No API keys, no network calls, no data leaving your laptop.</p>
+<blockquote>
+<p>Configure Ollama for local inference</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3.1:70b</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] ollama pull llama3.1:70b
+[Tool: bash] ollama serve
+</code></pre></div>
+
+<p>Ollama is ideal for air-gapped environments, sensitive codebases, or just experimenting without burning API credits.</p>
+<h2 id="community-providers">Community Providers<a class="headerlink" href="#community-providers" title="Permanent link">&para;</a></h2>
+<p>These providers are maintained by the community. They follow the same <code>complete(request) → response</code> contract and install as standard modules.</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Best For</th>
+<th>Install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AWS Bedrock</strong></td>
+<td>Enterprise AWS environments, managed scaling</td>
+<td><code>amplifier install provider-bedrock</code></td>
+</tr>
+<tr>
+<td><strong>Perplexity</strong></td>
+<td>Research-heavy tasks with built-in web search</td>
+<td><code>amplifier install provider-perplexity</code></td>
+</tr>
+<tr>
+<td><strong>GitHub Copilot</strong></td>
+<td>Teams already on Copilot enterprise plans</td>
+<td><code>amplifier install provider-copilot</code></td>
+</tr>
+<tr>
+<td><strong>LiteLLM</strong></td>
+<td>Unified proxy for 100+ providers</td>
+<td><code>amplifier install provider-litellm</code></td>
+</tr>
+<tr>
+<td><strong>vLLM</strong></td>
+<td>Self-hosted high-throughput inference</td>
+<td><code>amplifier install provider-vllm</code></td>
+</tr>
+<tr>
+<td><strong>Fireworks</strong></td>
+<td>Fast inference with competitive pricing</td>
+<td><code>amplifier install provider-fireworks</code></td>
+</tr>
+</tbody>
+</table>
+<p>Community providers are versioned independently. Check each module's docs for supported models and configuration options.</p>
+<h2 id="multi-provider-configuration">Multi-Provider Configuration<a class="headerlink" href="#multi-provider-configuration" title="Permanent link">&para;</a></h2>
+<p>Here's where it gets interesting. Amplifier's <strong>routing matrix</strong> lets you assign different providers to different roles — so your coding tasks use one model while your research tasks use another.</p>
+<blockquote>
+<p>Set up a multi-provider routing matrix</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+
+<span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o-mini</span>
+<span class="w">  </span><span class="nt">research</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">reasoning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">creative</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o</span>
+<span class="w">  </span><span class="nt">security-audit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">vision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o</span>
+</code></pre></div>
+
+<p>Each role maps to a provider/model pair. When Amplifier dispatches a task, the routing matrix picks the right model automatically. You never manually select — you just work, and the system routes.</p>
+<blockquote>
+<p>Check which provider handles each role</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: mode] operation: current
+Active routing matrix: balanced
+  coding      → anthropic/claude-sonnet-4-20250514
+  fast        → openai/gpt-4o-mini
+  research    → anthropic/claude-sonnet-4-20250514
+  creative    → openai/gpt-4o
+</code></pre></div>
+
+<h2 id="provider-selection-criteria">Provider Selection Criteria<a class="headerlink" href="#provider-selection-criteria" title="Permanent link">&para;</a></h2>
+<p>Choosing providers is a tradeoff. Here's a framework:</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Best Choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Ollama, GPT-4o-mini</td>
+<td>Local = free; mini models are cheap</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>GPT-4o-mini, Fireworks</td>
+<td>Optimized for low latency</td>
+</tr>
+<tr>
+<td><strong>Code quality</strong></td>
+<td>Claude Sonnet</td>
+<td>Strong at structured code generation</td>
+</tr>
+<tr>
+<td><strong>Reasoning depth</strong></td>
+<td>Claude Sonnet, o-series</td>
+<td>Extended thinking for hard problems</td>
+</tr>
+<tr>
+<td><strong>Privacy</strong></td>
+<td>Ollama, vLLM</td>
+<td>Data never leaves your infrastructure</td>
+</tr>
+<tr>
+<td><strong>Multimodal</strong></td>
+<td>GPT-4o, Gemini Pro</td>
+<td>Native image and vision support</td>
+</tr>
+<tr>
+<td><strong>Enterprise compliance</strong></td>
+<td>Azure OpenAI, Bedrock</td>
+<td>SOC2, HIPAA, data residency</td>
+</tr>
+</tbody>
+</table>
+<p>Most teams start with a single provider and add more as specific needs emerge. The routing matrix makes it painless to experiment — change one line, see if the results improve.</p>
+<h2 id="quick-setup-checklist">Quick Setup Checklist<a class="headerlink" href="#quick-setup-checklist" title="Permanent link">&para;</a></h2>
+<p>For any provider, setup follows the same pattern:</p>
+<ol>
+<li><strong>Get credentials</strong> — API key, endpoint, or local server</li>
+<li><strong>Set environment variable</strong> — <code>export PROVIDER_API_KEY="..."</code></li>
+<li><strong>Add to config</strong> — provider block in <code>amplifier.yaml</code></li>
+<li><strong>Verify</strong> — run a simple prompt and confirm the response</li>
+</ol>
+<blockquote>
+<p>Verify your provider is working</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>&gt; What model are you?
+
+I&#39;m Claude, made by Anthropic. Your Amplifier session is routing
+through the anthropic provider with claude-sonnet-4-20250514.
+</code></pre></div>
+
+<p>If you see a response, you're connected. If not, check that your API key is set and the endpoint is reachable.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>With providers configured, explore <a href="../concepts/routing.html">Routing</a> to understand how Amplifier selects models for different tasks. For building your own provider module, see <a href="../advanced/custom-tool.html">Custom Tool</a> — the module contract is the same pattern.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../bundles/stories.html" class="btn btn-neutral float-left" title="Stories"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="anthropic.html" class="btn btn-neutral float-right" title="Anthropic (Claude)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../bundles/stories.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="anthropic.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

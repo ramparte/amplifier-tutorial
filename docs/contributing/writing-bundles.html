@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Writing Bundles - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Writing Bundles";
+        var mkdocs_page_input_path = "contributing/writing-bundles.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="writing-bundles.html">Writing Bundles</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-file-format">The File Format</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-bundle-section">The bundle: Section</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-includes-section">The includes: Section</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-yaml-sections">Other YAML Sections</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-thin-bundle-pattern">The Thin Bundle Pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bundles-vs-behaviors">Bundles vs Behaviors</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#source-uri-formats">Source URI Formats</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-a-complete-bundle">Building a Complete Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-your-bundle">Testing Your Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#publishing-your-bundle">Publishing Your Bundle</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Contributing</li>
+      <li class="breadcrumb-item active">Writing Bundles</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="writing-a-bundle">Writing a Bundle<a class="headerlink" href="#writing-a-bundle" title="Permanent link">&para;</a></h1>
+<p>You've been using bundles -- composing foundation with recipes, layering on python-dev.
+Now it's time to build one from scratch and publish it. This guide walks through the
+file format, composition patterns, testing, and publishing conventions.</p>
+<h2 id="the-file-format">The File Format<a class="headerlink" href="#the-file-format" title="Permanent link">&para;</a></h2>
+<p>A bundle is a Markdown file with YAML frontmatter. The frontmatter declares structure;
+the body becomes the system prompt.</p>
+<div class="codehilite"><pre><span></span><code>---
+bundle:
+  name: my-toolkit
+  version: 1.0.0
+  description: A custom toolkit for my team
+
+includes:
+<span class="gu">  - bundle: git+https://github.com/microsoft/amplifier-foundation@main</span>
+<span class="gu">---</span>
+
+<span class="gh"># My Toolkit</span>
+
+Instructions for the AI go here as plain Markdown.
+</code></pre></div>
+
+<p>That's a complete, functional bundle. Let's break down what each piece does.</p>
+<h3 id="the-bundle-section">The <code>bundle:</code> Section<a class="headerlink" href="#the-bundle-section" title="Permanent link">&para;</a></h3>
+<p>Every bundle starts with identity:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit</span><span class="w">        </span><span class="c1"># Becomes the namespace for @mentions</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span><span class="w">          </span><span class="c1"># Semantic versioning</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A custom toolkit for my team</span>
+</code></pre></div>
+
+<p>The <code>name</code> matters -- it becomes the namespace you use in <code>@my-toolkit:path</code> references
+throughout the ecosystem.</p>
+<h3 id="the-includes-section">The <code>includes:</code> Section<a class="headerlink" href="#the-includes-section" title="Permanent link">&para;</a></h3>
+<p>This is where composition happens. Each entry pulls in another bundle:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/microsoft/amplifier-foundation@main</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git+https://github.com/microsoft/amplifier-bundle-recipes@main</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit:behaviors/my-toolkit</span>
+</code></pre></div>
+
+<h3 id="other-yaml-sections">Other YAML Sections<a class="headerlink" href="#other-yaml-sections" title="Permanent link">&para;</a></h3>
+<p>Bundles can declare any combination of these:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tools:</code></td>
+<td>Tool modules to mount (e.g., <code>module: tool-bash</code>)</td>
+</tr>
+<tr>
+<td><code>providers:</code></td>
+<td>LLM backend configurations</td>
+</tr>
+<tr>
+<td><code>agents:</code></td>
+<td>Agent references via <code>include:</code></td>
+</tr>
+<tr>
+<td><code>hooks:</code></td>
+<td>Lifecycle observers (logging, approval, streaming)</td>
+</tr>
+<tr>
+<td><code>context:</code></td>
+<td>Additional files loaded into the system prompt</td>
+</tr>
+<tr>
+<td><code>behaviors:</code></td>
+<td>Reusable capability packages (agents + context + tools)</td>
+</tr>
+<tr>
+<td><code>spawn:</code></td>
+<td>Controls what tools sub-agents inherit</td>
+</tr>
+<tr>
+<td><code>session:</code></td>
+<td>Orchestrator and session-level configuration</td>
+</tr>
+</tbody>
+</table>
+<p>Most bundles declare very few of these. That's by design.</p>
+<h2 id="the-thin-bundle-pattern">The Thin Bundle Pattern<a class="headerlink" href="#the-thin-bundle-pattern" title="Permanent link">&para;</a></h2>
+<p>The most important pattern in bundle authoring is <strong>thin bundles</strong>: compose from
+existing bundles rather than redeclaring what they already provide.</p>
+<p>Here's what NOT to do:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># BAD: Redeclares everything foundation already provides</span>
+<span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bundle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
+
+<span class="nt">tools</span><span class="p">:</span><span class="w">                        </span><span class="c1"># foundation already has these!</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-filesystem</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tool-bash</span>
+
+<span class="nt">session</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">orchestrator</span><span class="p">:</span><span class="w">               </span><span class="c1"># foundation already has this!</span>
+<span class="w">    </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loop-streaming</span>
+</code></pre></div>
+
+<p>Here's the correct approach:</p>
+<div class="codehilite"><pre><span></span><code>---
+bundle:
+  name: my-team-assistant
+  version: 1.0.0
+  description: Our team&#39;s development assistant
+
+includes:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>bundle: git+https://github.com/microsoft/amplifier-foundation@main
+<span class="gu">  - bundle: my-team-assistant:behaviors/my-team-assistant</span>
+<span class="gu">---</span>
+
+<span class="gh"># Team Assistant</span>
+
+<span class="ni">@my</span>-team-assistant:context/instructions.md
+
+---
+
+<span class="ni">@foundation:context/shared/common</span>-system-base.md
+</code></pre></div>
+
+<p>All tools, hooks, orchestrator, and streaming UI come from foundation. You add
+only what's unique -- your behavior and your instructions.</p>
+<h2 id="bundles-vs-behaviors">Bundles vs Behaviors<a class="headerlink" href="#bundles-vs-behaviors" title="Permanent link">&para;</a></h2>
+<p>This distinction matters for reusability.</p>
+<p>A <strong>bundle</strong> is a top-level configuration that defines a complete session. It's what
+you pass to <code>amplifier run --bundle</code>.</p>
+<p>A <strong>behavior</strong> is a reusable capability package that lives in <code>behaviors/</code> inside
+a bundle. It packages agents, context, and optionally tools into a composable unit
+that any bundle can include.</p>
+<div class="codehilite"><pre><span></span><code>my-toolkit/
+├── bundle.md                    # The top-level bundle
+├── behaviors/
+│   └── my-toolkit.yaml          # Reusable capability package
+├── agents/
+│   ├── code-reviewer.md
+│   └── test-writer.md
+└── context/
+    └── instructions.md
+</code></pre></div>
+
+<p>The behavior file (<code>behaviors/my-toolkit.yaml</code>) wires the pieces together:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit-behavior</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Code review and test writing agents</span>
+
+<span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit:code-reviewer</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit:test-writer</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-toolkit:context/instructions.md</span>
+</code></pre></div>
+
+<p>Why separate them? Because another bundle can include just your behavior without
+taking your entire bundle configuration. Your agents become composable building
+blocks for the wider ecosystem.</p>
+<h2 id="source-uri-formats">Source URI Formats<a class="headerlink" href="#source-uri-formats" title="Permanent link">&para;</a></h2>
+<p>Bundles are addressable through three URI formats:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Example</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Git URL</strong></td>
+<td><code>git+https://github.com/microsoft/amplifier-foundation@main</code></td>
+<td>Published bundles</td>
+</tr>
+<tr>
+<td><strong>Local path</strong></td>
+<td><code>file:///home/me/my-bundle</code> or <code>./bundles/variant.yaml</code></td>
+<td>Development and testing</td>
+</tr>
+<tr>
+<td><strong>Namespace path</strong></td>
+<td><code>recipes:behaviors/recipes</code></td>
+<td>Cross-bundle references</td>
+</tr>
+</tbody>
+</table>
+<p>Git URLs pin to a branch or tag with <code>@</code>. Local paths are useful during development
+before publishing. Namespace paths reference content within already-loaded bundles
+using the <code>bundle.name</code> as the prefix.</p>
+<p>In Markdown body text, add <code>@</code> to eagerly load content:
+<code>@foundation:context/shared/common-system-base.md</code>. In YAML sections, use the bare
+<code>namespace:path</code> without the <code>@</code> prefix.</p>
+<h2 id="building-a-complete-bundle">Building a Complete Bundle<a class="headerlink" href="#building-a-complete-bundle" title="Permanent link">&para;</a></h2>
+<p>Let's walk through creating a data science team bundle step by step.</p>
+<p><strong>1. Create the directory structure:</strong></p>
+<div class="codehilite"><pre><span></span><code>data-science-bundle/
+├── bundle.md
+├── behaviors/
+│   └── data-science.yaml
+├── agents/
+│   └── notebook-reviewer.md
+└── context/
+    └── instructions.md
+</code></pre></div>
+
+<p><strong>2. Write <code>bundle.md</code></strong> -- thin, just includes and instructions:</p>
+<div class="codehilite"><pre><span></span><code>---
+bundle:
+  name: data-science
+  version: 1.0.0
+  description: Data science team assistant
+
+includes:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>bundle: git+https://github.com/microsoft/amplifier-foundation@main
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>bundle: git+https://github.com/microsoft/amplifier-bundle-python-dev@main
+<span class="gu">  - bundle: data-science:behaviors/data-science</span>
+<span class="gu">---</span>
+
+<span class="gh"># Data Science Assistant</span>
+
+<span class="ni">@data</span>-science:context/instructions.md
+
+---
+
+<span class="ni">@foundation:context/shared/common</span>-system-base.md
+</code></pre></div>
+
+<p><strong>3. Write the behavior</strong> (<code>behaviors/data-science.yaml</code>):</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-science-behavior</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+
+<span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-science:notebook-reviewer</span>
+
+<span class="nt">context</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">include</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-science:context/instructions.md</span>
+</code></pre></div>
+
+<p><strong>4. Write the agent</strong> (<code>agents/notebook-reviewer.md</code>):</p>
+<div class="codehilite"><pre><span></span><code>---
+meta:
+  name: notebook-reviewer
+  description: &quot;Reviews Jupyter notebooks for reproducibility, code quality,
+<span class="gu">    and documentation. Use when auditing or cleaning up notebooks.&quot;</span>
+<span class="gu">---</span>
+
+<span class="gh"># Notebook Reviewer</span>
+
+You are a notebook review specialist...
+</code></pre></div>
+
+<p>Three existing bundles composed, one custom agent added, under 20 lines of YAML.</p>
+<h2 id="testing-your-bundle">Testing Your Bundle<a class="headerlink" href="#testing-your-bundle" title="Permanent link">&para;</a></h2>
+<p>Test locally before publishing:</p>
+<blockquote>
+<p>amplifier run --bundle ./data-science-bundle/bundle.md "What agents are available?"</p>
+</blockquote>
+<p>The <code>--bundle</code> flag accepts a local file path. Amplifier resolves the bundle,
+loads all includes, and starts a session. Iterate until everything wires up correctly.</p>
+<p>Check that your agents are registered:</p>
+<blockquote>
+<p>amplifier run --bundle ./data-science-bundle/bundle.md "Delegate to notebook-reviewer to review notebooks in examples/"</p>
+</blockquote>
+<p>[Tool: delegate] agent="data-science:notebook-reviewer", instruction="Review notebooks in examples/..."</p>
+<p>If the delegation fails, check that the agent is listed in your behavior's
+<code>agents.include</code> and that the namespace matches your <code>bundle.name</code>.</p>
+<h2 id="publishing-your-bundle">Publishing Your Bundle<a class="headerlink" href="#publishing-your-bundle" title="Permanent link">&para;</a></h2>
+<p>Amplifier bundles follow a naming convention for discoverability:</p>
+<div class="codehilite"><pre><span></span><code>amplifier-bundle-&lt;name&gt;
+</code></pre></div>
+
+<p>For example: <code>amplifier-bundle-recipes</code>, <code>amplifier-bundle-python-dev</code>,
+<code>amplifier-bundle-stories</code>.</p>
+<p>To publish:</p>
+<ol>
+<li>Create a GitHub repository following the naming convention</li>
+<li>Put your <code>bundle.md</code> at the repository root</li>
+<li>Include <code>behaviors/</code>, <code>agents/</code>, and <code>context/</code> directories as needed</li>
+<li>Tag releases with semantic versions</li>
+</ol>
+<p>Others install your bundle with:</p>
+<blockquote>
+<p>amplifier bundle add git+https://github.com/your-org/amplifier-bundle-data-science@main</p>
+</blockquote>
+<p>The canonical example to study is <code>amplifier-bundle-recipes</code> -- it demonstrates
+behaviors, agents, context files, and composition with foundation.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Keep bundles thin.</strong> If you're including foundation, don't redeclare its tools
+or hooks. Your bundle should be a short list of includes plus your unique content.</p>
+<p><strong>Use behaviors for reusability.</strong> Package agents and context in <code>behaviors/</code> so
+others can include just your capability independently.</p>
+<p><strong>Consolidate instructions.</strong> Put instructions in <code>context/instructions.md</code>, not
+inline in bundle.md. This lets both your behavior and root bundle reference the
+same content without duplication.</p>
+<p><strong>One purpose per bundle.</strong> If your bundle does code review AND deployment AND
+monitoring, split into three bundles with behaviors. Each composes independently.</p>
+<p><strong>Don't put secrets in bundles.</strong> Provider API keys and environment-specific paths
+belong in <code>~/.amplifier/settings.yaml</code>, not in bundle configuration.</p>
+<p><strong>Use <code>@mentions</code> in Markdown, bare paths in YAML.</strong> The <code>@</code> prefix is for Markdown
+body text. YAML sections use <code>namespace:path</code> without <code>@</code>. Mixing these up causes
+silent failures.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="writing-modules.html" class="btn btn-neutral float-left" title="Writing Modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="writing-skills.html" class="btn btn-neutral float-right" title="Writing Skills">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="writing-modules.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="writing-skills.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

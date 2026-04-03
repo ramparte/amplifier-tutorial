@@ -1,0 +1,1120 @@
+# =============================================================================
+# Amplifier Ecosystem Manifest
+# Unified registry of all components across official catalog, core repo scans,
+# and community contributions.
+#
+# Priority: 1=core, 2=recommended, 3=optional
+# =============================================================================
+
+meta:
+  version: "1.0.0"
+  last_scan: "2026-04-02T18:27:00Z"
+  sources:
+    - https://raw.githubusercontent.com/microsoft/amplifier/main/docs/MODULES.md
+    - https://github.com/microsoft/amplifier
+    - https://github.com/microsoft/amplifier-core
+    - https://github.com/microsoft/amplifier-foundation
+    - https://github.com/robotdad  # community scan
+    - https://github.com/bkrabach  # community scan
+  total_components: 138
+  categories:
+    core: 3
+    applications: 13
+    bundles: 35
+    providers: 11
+    tools: 17
+    orchestrators: 3
+    context: 2
+    hooks: 17
+    skills: 2
+    dev_tools: 2
+    example_recipes: 6
+    foundation_examples: 5
+
+# =============================================================================
+# Core Platform
+# =============================================================================
+
+core:
+  - id: amplifier
+    name: Amplifier
+    repo: microsoft/amplifier
+    type: application
+    description: Main Amplifier project and entry point - installs amplifier-app-cli via uv tool install
+    version: "0.1.0"
+    priority: 1
+
+  - id: amplifier-core
+    name: amplifier-core
+    repo: microsoft/amplifier-core
+    type: kernel
+    description: Rust kernel with Python/Node bindings providing stable contracts for modular AI agent systems
+    version: "1.3.3"
+    priority: 1
+    crates:
+      - amplifier-core
+      - amplifier-guest
+      - amplifier-ffi
+    bindings:
+      - python
+      - node
+    protocols:
+      - Provider
+      - Tool
+      - Orchestrator
+      - ContextManager
+      - Hook
+      - Approval
+
+  - id: amplifier-foundation
+    name: amplifier-foundation
+    repo: microsoft/amplifier-foundation
+    type: library
+    description: Ultra-thin mechanism layer for bundle composition, module resolution, and shared utilities
+    version: "1.0.0"
+    priority: 1
+    library_modules:
+      - bundle
+      - cache
+      - dicts
+      - discovery
+      - grpc_adapter
+      - io
+      - mentions
+      - modules
+      - paths
+      - registry
+      - session
+      - sources
+
+# =============================================================================
+# Applications
+# =============================================================================
+
+applications:
+  # --- Official ---
+  - id: amplifier-app-cli
+    name: amplifier-app-cli
+    repo: microsoft/amplifier-app-cli
+    type: application
+    description: Reference CLI application implementing the Amplifier platform
+    priority: 1
+
+  - id: amplifierd
+    name: amplifierd
+    repo: microsoft/amplifierd
+    type: application
+    description: Localhost HTTP daemon exposing amplifier-core and amplifier-foundation over REST and SSE
+    priority: 2
+
+  - id: amplifier-chat
+    name: amplifier-chat
+    repo: microsoft/amplifier-chat
+    type: application
+    description: Chat UI plugin for amplifierd - browser-based conversational interface
+    priority: 2
+
+  - id: amplifier-voice
+    name: amplifier-voice
+    repo: microsoft/amplifier-voice
+    type: application
+    description: Voice plugin for amplifierd - WebRTC voice interface using the OpenAI Realtime API
+    priority: 2
+
+  - id: amplifier-app-log-viewer
+    name: amplifier-app-log-viewer
+    repo: microsoft/amplifier-app-log-viewer
+    type: application
+    description: Web-based log viewer for debugging sessions with real-time updates
+    priority: 2
+
+  - id: amplifier-app-benchmarks
+    name: amplifier-app-benchmarks
+    repo: DavidKoleczek/amplifier-app-benchmarks
+    type: application
+    description: Benchmarking and evaluating Amplifier
+    owner: DavidKoleczek
+    priority: 3
+
+  # --- Community ---
+  - id: app-transcribe
+    name: app-transcribe
+    repo: robotdad/amplifier-app-transcribe
+    type: community-application
+    description: Transform YouTube videos and audio files into searchable transcripts with AI-powered insights
+    owner: robotdad
+    priority: 3
+
+  - id: app-blog-creator
+    name: app-blog-creator
+    repo: robotdad/amplifier-app-blog-creator
+    type: community-application
+    description: AI-powered blog creation with style-aware generation and rich markdown editor
+    owner: robotdad
+    priority: 3
+
+  - id: app-voice
+    name: app-voice
+    repo: robotdad/amplifier-app-voice
+    type: community-application
+    description: Desktop voice assistant with native speech-to-speech via OpenAI Realtime API
+    owner: robotdad
+    priority: 3
+
+  - id: app-tool-generator
+    name: app-tool-generator
+    repo: samueljklee/amplifier-app-tool-generator
+    type: community-application
+    description: AI-powered tool generator for creating custom Amplifier tools
+    owner: samueljklee
+    priority: 3
+
+  - id: amplifier-playground
+    name: amplifier-playground
+    repo: samueljklee/amplifier-playground
+    type: community-application
+    description: Interactive environment for building, configuring, and testing Amplifier AI agent sessions
+    owner: samueljklee
+    priority: 3
+
+  - id: amplifier-lakehouse
+    name: amplifier-lakehouse
+    repo: payneio/lakehouse
+    type: community-application
+    description: Amplifier on top of your data (daemon and webapp)
+    owner: payneio
+    priority: 3
+
+  - id: app-session-analyzer
+    name: app-session-analyzer
+    repo: DavidKoleczek/amplifier-app-session-analyzer
+    type: community-application
+    description: Analyze Amplifier session logs and generate interesting metrics about your usage
+    owner: DavidKoleczek
+    priority: 3
+
+# =============================================================================
+# Bundles
+# =============================================================================
+
+bundles:
+  # --- Official ---
+  - id: recipes
+    name: recipes
+    repo: microsoft/amplifier-bundle-recipes
+    type: bundle
+    description: Multi-step AI agent orchestration with behavior overlays and standalone options
+    priority: 1
+
+  - id: python-dev
+    name: python-dev
+    repo: microsoft/amplifier-bundle-python-dev
+    type: bundle
+    description: Comprehensive Python development tools - code quality, LSP, and expert agent
+    priority: 2
+
+  - id: ts-dev
+    name: ts-dev
+    repo: microsoft/amplifier-bundle-ts-dev
+    type: bundle
+    description: Comprehensive TypeScript/JavaScript development tools
+    priority: 2
+
+  - id: rust-dev
+    name: rust-dev
+    repo: microsoft/amplifier-bundle-rust-dev
+    type: bundle
+    description: Comprehensive Rust development tools with code quality and LSP
+    priority: 2
+
+  - id: lsp
+    name: lsp
+    repo: microsoft/amplifier-bundle-lsp
+    type: bundle
+    description: Core Language Server Protocol support for code intelligence operations
+    priority: 2
+
+  - id: dot-graph
+    name: dot-graph
+    repo: microsoft/amplifier-bundle-dot-graph
+    type: bundle
+    description: DOT/Graphviz infrastructure for validation, rendering, and graph intelligence
+    priority: 2
+
+  - id: browser-tester
+    name: browser-tester
+    repo: microsoft/amplifier-bundle-browser-tester
+    type: bundle
+    description: Browser automation and testing with 3 specialized agents (operator, researcher, visual documenter)
+    priority: 2
+
+  - id: design-intelligence
+    name: design-intelligence
+    repo: microsoft/amplifier-bundle-design-intelligence
+    type: bundle
+    description: Comprehensive design intelligence with 7 specialized agents and design philosophy framework
+    priority: 2
+
+  - id: stories
+    name: stories
+    repo: microsoft/amplifier-bundle-stories
+    type: bundle
+    description: Autonomous storytelling engine with 11 specialist agents and multiple output formats
+    priority: 2
+
+  - id: superpowers
+    name: superpowers
+    repo: microsoft/amplifier-bundle-superpowers
+    type: bundle
+    description: TDD-driven development workflows with specialized agents and full development cycle
+    priority: 2
+
+  - id: shadow
+    name: shadow
+    repo: microsoft/amplifier-bundle-shadow
+    type: bundle
+    description: OS-level sandboxed environments for testing local Amplifier changes
+    priority: 2
+
+  - id: skills
+    name: skills
+    repo: microsoft/amplifier-bundle-skills
+    type: bundle
+    description: Skills tool and Microsoft-curated skills collection
+    priority: 2
+
+  - id: routing-matrix
+    name: routing-matrix
+    repo: microsoft/amplifier-bundle-routing-matrix
+    type: bundle
+    description: Declarative model routing with semantic roles and curated matrices
+    priority: 2
+
+  - id: digital-twin-universe
+    name: digital-twin-universe
+    repo: microsoft/amplifier-bundle-digital-twin-universe
+    type: bundle
+    description: On-demand isolated environments from declarative profiles using Incus containers
+    priority: 2
+
+  - id: execution-environments
+    name: execution-environments
+    repo: microsoft/amplifier-bundle-execution-environments
+    type: bundle
+    description: Instance-based execution environments for local, Docker, and SSH targets
+    priority: 2
+
+  - id: issues
+    name: issues
+    repo: microsoft/amplifier-bundle-issues
+    type: bundle
+    description: Persistent issue tracking with dependency management and priority scheduling
+    priority: 2
+
+  - id: gitea
+    name: gitea
+    repo: microsoft/amplifier-bundle-gitea
+    type: bundle
+    description: On-demand ephemeral Gitea instances for isolated git workflows
+    priority: 3
+
+  - id: notify
+    name: notify
+    repo: microsoft/amplifier-bundle-notify
+    type: bundle
+    description: Desktop and push notifications when assistant turns complete
+    priority: 3
+
+  - id: observers
+    name: observers
+    repo: microsoft/amplifier-bundle-observers
+    type: bundle
+    description: Orchestration pattern with background observer sessions running in parallel
+    priority: 2
+
+  - id: orchestration
+    name: orchestration
+    repo: microsoft/amplifier-bundle-orchestration
+    type: bundle
+    description: Event-driven orchestration primitives for multi-session coordination
+    priority: 2
+
+  - id: terminal-tester
+    name: terminal-tester
+    repo: microsoft/amplifier-bundle-terminal-tester
+    type: bundle
+    description: Terminal application testing with 3 specialist agents
+    priority: 3
+
+  # --- Deprecated (forwarding stubs) ---
+  - id: lsp-python
+    name: lsp-python
+    repo: microsoft/amplifier-bundle-lsp-python
+    type: bundle
+    description: "DEPRECATED - forwarding stub, use python-dev instead"
+    deprecated: true
+    replacement: python-dev
+    priority: 3
+
+  - id: lsp-rust
+    name: lsp-rust
+    repo: microsoft/amplifier-bundle-lsp-rust
+    type: bundle
+    description: "DEPRECATED - forwarding stub, use rust-dev instead"
+    deprecated: true
+    replacement: rust-dev
+    priority: 3
+
+  - id: lsp-typescript
+    name: lsp-typescript
+    repo: microsoft/amplifier-bundle-lsp-typescript
+    type: bundle
+    description: "DEPRECATED - forwarding stub, use typescript-dev instead"
+    deprecated: true
+    replacement: ts-dev
+    priority: 3
+
+  # --- Community ---
+  - id: foreman
+    name: foreman
+    repo: payneio/amplifier-bundle-foreman
+    type: community-bundle
+    description: Assistant pattern where the conversation assistant manages a fleet of other assistants
+    owner: payneio
+    priority: 3
+
+  - id: deepwiki
+    name: deepwiki
+    repo: colombod/amplifier-bundle-deepwiki
+    type: community-bundle
+    description: AI-powered open-source project understanding via DeepWiki MCP
+    owner: colombod
+    priority: 3
+
+  - id: expert-cookbook
+    name: expert-cookbook
+    repo: DavidKoleczek/amplifier-expert-cookbook
+    type: community-bundle
+    description: Achieve the State of the Art with Microsoft Amplifier
+    owner: DavidKoleczek
+    priority: 3
+
+  - id: memory
+    name: memory
+    repo: michaeljabbour/amplifier-bundle-memory
+    type: community-bundle
+    description: Persistent memory system with automatic capture and context injection
+    owner: michaeljabbour
+    priority: 3
+
+  - id: parallax-discovery
+    name: parallax-discovery
+    repo: bkrabach/amplifier-bundle-parallax-discovery
+    type: community-bundle
+    description: Multi-agent deep investigation methodology with code-tracer, behavior-observer, integration-mapper
+    owner: bkrabach
+    priority: 2
+
+  - id: perplexity
+    name: perplexity
+    repo: colombod/amplifier-bundle-perplexity
+    type: community-bundle
+    description: Deep web research capabilities using Perplexity's Agentic Research API
+    owner: colombod
+    priority: 3
+
+  - id: browser
+    name: browser
+    repo: samueljklee/amplifier-bundle-browser
+    type: community-bundle
+    description: Browser automation for AI agents using agent-browser
+    owner: samueljklee
+    priority: 3
+
+  - id: tui-tester
+    name: tui-tester
+    repo: colombod/amplifier-bundle-tui-tester
+    type: community-bundle
+    description: AI-assisted testing for TUI applications
+    owner: colombod
+    priority: 3
+
+  - id: web-ux-dev
+    name: web-ux-dev
+    repo: colombod/amplifier-bundle-web-ux-dev
+    type: community-bundle
+    description: Web UX development tools with visual regression testing and console debugging
+    owner: colombod
+    priority: 3
+
+  - id: frontdoor
+    name: frontdoor
+    repo: robotdad/frontdoor
+    type: community-bundle
+    description: Authentication gateway and service dashboard for Tailscale-based hosts
+    owner: robotdad
+    priority: 3
+
+  - id: pr-review
+    name: pr-review
+    repo: robotdad/amplifier-bundle-pr-review
+    type: community-bundle
+    description: Comprehensive workflow for reviewing Pull Requests to Amplifier ecosystem repos with multi-PR support
+    owner: robotdad
+    priority: 3
+
+  - id: blog-creator-bundle
+    name: blog-creator-bundle
+    repo: robotdad/amplifier-bundle-blog-creator
+    type: community-bundle
+    description: AI-powered blog creation bundle with specialized agents for style analysis, drafting, review, and illustration
+    owner: robotdad
+    priority: 3
+
+  - id: unified-llm
+    name: unified-llm
+    repo: bkrabach/amplifier-bundle-unified-llm
+    type: community-bundle
+    description: Rust-native provider bundle supporting multiple LLM backends through gRPC sidecar pattern
+    owner: bkrabach
+    priority: 3
+
+  - id: dot-docs
+    name: dot-docs
+    repo: bkrabach/amplifier-bundle-dot-docs
+    type: community-bundle
+    description: DOT graph documentation generation recipes for architecture diagrams and system documentation
+    owner: bkrabach
+    priority: 3
+
+# =============================================================================
+# Providers
+# =============================================================================
+
+providers:
+  # --- Official ---
+  - id: provider-anthropic
+    name: provider-anthropic
+    repo: microsoft/amplifier-module-provider-anthropic
+    type: provider
+    description: Anthropic Claude integration (Sonnet 4.5, Opus, etc.)
+    priority: 1
+
+  - id: provider-openai
+    name: provider-openai
+    repo: microsoft/amplifier-module-provider-openai
+    type: provider
+    description: OpenAI GPT integration
+    priority: 1
+
+  - id: provider-azure-openai
+    name: provider-azure-openai
+    repo: microsoft/amplifier-module-provider-azure-openai
+    type: provider
+    description: Azure OpenAI with managed identity support
+    priority: 1
+
+  - id: provider-gemini
+    name: provider-gemini
+    repo: microsoft/amplifier-module-provider-gemini
+    type: provider
+    description: Google Gemini integration with 1M context and thinking
+    priority: 2
+
+  - id: provider-github-copilot
+    name: provider-github-copilot
+    repo: microsoft/amplifier-module-provider-github-copilot
+    type: provider
+    description: GitHub Copilot models via the Copilot SDK
+    priority: 2
+
+  - id: provider-vllm
+    name: provider-vllm
+    repo: microsoft/amplifier-module-provider-vllm
+    type: provider
+    description: vLLM server integration for self-hosted models
+    priority: 2
+
+  - id: provider-ollama
+    name: provider-ollama
+    repo: microsoft/amplifier-module-provider-ollama
+    type: provider
+    description: Local Ollama models for offline development
+    priority: 2
+
+  - id: provider-mock
+    name: provider-mock
+    repo: microsoft/amplifier-module-provider-mock
+    type: provider
+    description: Mock provider for testing without API calls
+    priority: 2
+
+  # --- Community ---
+  - id: provider-bedrock
+    name: provider-bedrock
+    repo: brycecutt-msft/amplifier-module-provider-bedrock
+    type: community-provider
+    description: AWS Bedrock integration with cross-region inference support
+    owner: brycecutt-msft
+    priority: 3
+
+  - id: provider-perplexity
+    name: provider-perplexity
+    repo: colombod/amplifier-module-provider-perplexity
+    type: community-provider
+    description: Perplexity AI integration for chat completions with sonar models
+    owner: colombod
+    priority: 3
+
+  - id: provider-openai-realtime
+    name: provider-openai-realtime
+    repo: robotdad/amplifier-module-provider-openai-realtime
+    type: community-provider
+    description: OpenAI Realtime API for native speech-to-speech interactions
+    owner: robotdad
+    priority: 3
+
+# =============================================================================
+# Tools
+# =============================================================================
+
+tools:
+  # --- Official ---
+  - id: tool-filesystem
+    name: tool-filesystem
+    repo: microsoft/amplifier-module-tool-filesystem
+    type: tool
+    description: File operations (read, write, edit, list, glob)
+    priority: 1
+
+  - id: tool-bash
+    name: tool-bash
+    repo: microsoft/amplifier-module-tool-bash
+    type: tool
+    description: Shell command execution
+    priority: 1
+
+  - id: tool-web
+    name: tool-web
+    repo: microsoft/amplifier-module-tool-web
+    type: tool
+    description: Web search and content fetching
+    priority: 1
+
+  - id: tool-search
+    name: tool-search
+    repo: microsoft/amplifier-module-tool-search
+    type: tool
+    description: Code search capabilities (grep/glob)
+    priority: 1
+
+  - id: tool-task
+    name: tool-task
+    repo: microsoft/amplifier-module-tool-task
+    type: tool
+    description: Agent delegation and sub-session spawning
+    priority: 1
+
+  - id: tool-todo
+    name: tool-todo
+    repo: microsoft/amplifier-module-tool-todo
+    type: tool
+    description: AI self-accountability and todo list management
+    priority: 1
+
+  - id: tool-skills
+    name: tool-skills
+    repo: microsoft/amplifier-module-tool-skills
+    type: tool
+    description: Load domain knowledge from skills following the Anthropic Skills format
+    priority: 2
+
+  - id: tool-mcp
+    name: tool-mcp
+    repo: microsoft/amplifier-module-tool-mcp
+    type: tool
+    description: Model Context Protocol integration for MCP servers
+    priority: 2
+
+  - id: tool-slash-command
+    name: tool-slash-command
+    repo: microsoft/amplifier-module-tool-slash-command
+    type: tool
+    description: Extensible slash command system with custom commands
+    priority: 2
+
+  - id: tool-delegate
+    name: tool-delegate
+    repo: microsoft/amplifier-foundation
+    type: tool
+    description: Agent delegation tool (packaged within amplifier-foundation)
+    path: modules/tool-delegate/
+    priority: 1
+
+  # --- Community ---
+  - id: tool-youtube-dl
+    name: tool-youtube-dl
+    repo: robotdad/amplifier-module-tool-youtube-dl
+    type: community-tool
+    description: Download audio and video from YouTube with metadata extraction
+    owner: robotdad
+    priority: 3
+
+  - id: tool-whisper
+    name: tool-whisper
+    repo: robotdad/amplifier-module-tool-whisper
+    type: community-tool
+    description: Speech-to-text transcription using OpenAI's Whisper API
+    owner: robotdad
+    priority: 3
+
+  - id: tool-memory
+    name: tool-memory
+    repo: michaeljabbour/amplifier-module-tool-memory
+    type: community-tool
+    description: Persistent memory tool for storing and retrieving facts across sessions
+    owner: michaeljabbour
+    priority: 3
+
+  - id: tool-rlm
+    name: tool-rlm
+    repo: michaeljabbour/amplifier-module-tool-rlm
+    type: community-tool
+    description: Recursive Language Model for processing 10M+ token contexts
+    owner: michaeljabbour
+    priority: 3
+
+  - id: tool-deepresearch
+    name: tool-deepresearch
+    repo: robotdad/amplifier-module-tool-deepresearch
+    type: community-tool
+    description: Deep research tool with automatic provider selection for AI-powered research
+    owner: robotdad
+    priority: 3
+
+  - id: module-image-generation
+    name: module-image-generation
+    repo: robotdad/amplifier-module-image-generation
+    type: community-tool
+    description: Multi-provider AI image generation with DALL-E, Imagen, and GPT-Image-1
+    owner: robotdad
+    priority: 3
+
+  - id: module-style-extraction
+    name: module-style-extraction
+    repo: robotdad/amplifier-module-style-extraction
+    type: community-tool
+    description: Extract and apply writing style from text samples
+    owner: robotdad
+    priority: 3
+
+  - id: module-markdown-utils
+    name: module-markdown-utils
+    repo: robotdad/amplifier-module-markdown-utils
+    type: community-tool
+    description: Markdown parsing, injection, and metadata extraction utilities
+    owner: robotdad
+    priority: 3
+
+# =============================================================================
+# Orchestrators
+# =============================================================================
+
+orchestrators:
+  - id: loop-basic
+    name: loop-basic
+    repo: microsoft/amplifier-module-loop-basic
+    type: orchestrator
+    description: Standard sequential execution - simple request/response flow
+    priority: 1
+
+  - id: loop-streaming
+    name: loop-streaming
+    repo: microsoft/amplifier-module-loop-streaming
+    type: orchestrator
+    description: Real-time streaming responses with extended thinking support
+    priority: 1
+
+  - id: loop-events
+    name: loop-events
+    repo: microsoft/amplifier-module-loop-events
+    type: orchestrator
+    description: Event-driven orchestrator with hook integration
+    priority: 2
+
+# =============================================================================
+# Context Managers
+# =============================================================================
+
+context:
+  - id: context-simple
+    name: context-simple
+    repo: microsoft/amplifier-module-context-simple
+    type: context-manager
+    description: In-memory context with automatic compaction
+    priority: 1
+
+  - id: context-persistent
+    name: context-persistent
+    repo: microsoft/amplifier-module-context-persistent
+    type: context-manager
+    description: File-backed persistent context across sessions
+    priority: 2
+
+# =============================================================================
+# Hooks
+# =============================================================================
+
+hooks:
+  # --- Official (standalone repos) ---
+  - id: hooks-logging
+    name: hooks-logging
+    repo: microsoft/amplifier-module-hooks-logging
+    type: hook
+    description: Unified JSONL event logging to per-session files
+    priority: 1
+
+  - id: hooks-redaction
+    name: hooks-redaction
+    repo: microsoft/amplifier-module-hooks-redaction
+    type: hook
+    description: Privacy-preserving data redaction for secrets/PII
+    priority: 2
+
+  - id: hooks-approval
+    name: hooks-approval
+    repo: microsoft/amplifier-module-hooks-approval
+    type: hook
+    description: Interactive approval gates for sensitive operations
+    priority: 2
+
+  - id: hooks-backup
+    name: hooks-backup
+    repo: microsoft/amplifier-module-hooks-backup
+    type: hook
+    description: Automatic session transcript backup
+    priority: 2
+
+  - id: hooks-streaming-ui
+    name: hooks-streaming-ui
+    repo: microsoft/amplifier-module-hooks-streaming-ui
+    type: hook
+    description: Real-time console UI for streaming responses
+    priority: 1
+
+  - id: hooks-status-context
+    name: hooks-status-context
+    repo: microsoft/amplifier-module-hooks-status-context
+    type: hook
+    description: Inject git status and datetime into agent context
+    priority: 2
+
+  - id: hooks-todo-reminder
+    name: hooks-todo-reminder
+    repo: microsoft/amplifier-module-hooks-todo-reminder
+    type: hook
+    description: Inject todo list reminders into AI context
+    priority: 2
+
+  - id: hooks-scheduler-cost-aware
+    name: hooks-scheduler-cost-aware
+    repo: microsoft/amplifier-module-hooks-scheduler-cost-aware
+    type: hook
+    description: Cost-aware model routing for event-driven orchestration
+    priority: 2
+
+  - id: hooks-scheduler-heuristic
+    name: hooks-scheduler-heuristic
+    repo: microsoft/amplifier-module-hooks-scheduler-heuristic
+    type: hook
+    description: Heuristic-based model selection scheduler
+    priority: 2
+
+  - id: hook-shell
+    name: hook-shell
+    repo: microsoft/amplifier-module-hook-shell
+    type: hook
+    description: Shell-based hooks with Claude Code format compatibility
+    priority: 3
+
+  # --- Foundation-packaged hooks ---
+  - id: hooks-deprecation
+    name: hooks-deprecation
+    repo: microsoft/amplifier-foundation
+    type: hook
+    description: Deprecation warning hooks (packaged within amplifier-foundation)
+    path: modules/hooks-deprecation/
+    priority: 2
+
+  - id: hooks-process-guard
+    name: hooks-process-guard
+    repo: microsoft/amplifier-foundation
+    type: hook
+    description: Process guard hooks (packaged within amplifier-foundation)
+    path: modules/hooks-process-guard/
+    priority: 2
+
+  - id: hooks-progress-monitor
+    name: hooks-progress-monitor
+    repo: microsoft/amplifier-foundation
+    type: hook
+    description: Progress monitoring hooks (packaged within amplifier-foundation)
+    path: modules/hooks-progress-monitor/
+    priority: 2
+
+  - id: hooks-session-naming
+    name: hooks-session-naming
+    repo: microsoft/amplifier-foundation
+    type: hook
+    description: Automatic session naming hooks (packaged within amplifier-foundation)
+    path: modules/hooks-session-naming/
+    priority: 2
+
+  - id: hooks-todo-display
+    name: hooks-todo-display
+    repo: microsoft/amplifier-foundation
+    type: hook
+    description: Todo list display hooks (packaged within amplifier-foundation)
+    path: modules/hooks-todo-display/
+    priority: 2
+
+  # --- Community ---
+  - id: hooks-explanatory
+    name: hooks-explanatory
+    repo: michaeljabbour/amplifier-module-hooks-explanatory
+    type: community-hook
+    description: Inject explanatory output style with educational Insight blocks
+    owner: michaeljabbour
+    priority: 3
+
+  - id: hooks-event-broadcast
+    name: hooks-event-broadcast
+    repo: michaeljabbour/amplifier-module-hooks-event-broadcast
+    type: community-hook
+    description: Transport-agnostic event broadcasting for streaming UI applications
+    owner: michaeljabbour
+    priority: 3
+
+  - id: hooks-concise-display
+    name: hooks-concise-display
+    repo: obra/amplifier-module-hooks-concise-display
+    type: community-hook
+    description: Cleaner, more condensed terminal output for Amplifier sessions
+    owner: obra
+    priority: 3
+
+  - id: hooks-otel
+    name: hooks-otel
+    repo: robotdad/amplifier-module-hooks-otel
+    type: community-hook
+    description: OpenTelemetry instrumentation - traces, span events, and metrics with multiple exporters
+    owner: robotdad
+    priority: 3
+
+# =============================================================================
+# Skills
+# =============================================================================
+
+skills:
+  - id: bundle-to-dot
+    name: bundle-to-dot
+    repo: microsoft/amplifier-foundation
+    type: skill
+    description: Skill for converting bundle definitions to DOT graph visualizations
+    path: skills/bundle-to-dot/SKILL.md
+    priority: 2
+
+  - id: creating-amplifier-modules
+    name: creating-amplifier-modules
+    repo: microsoft/amplifier-foundation
+    type: skill
+    description: Skill for creating new Amplifier modules covering mount() contract and protocol compliance
+    path: skills/creating-amplifier-modules/SKILL.md
+    priority: 2
+
+# =============================================================================
+# Collections (curated stacks for common use cases)
+# =============================================================================
+
+collections:
+  - id: python-development
+    name: Python Development Stack
+    description: Complete Python development experience
+    components:
+      - python-dev
+      - lsp
+      - superpowers
+
+  - id: typescript-development
+    name: TypeScript Development Stack
+    description: Complete TypeScript/JavaScript development experience
+    components:
+      - ts-dev
+      - lsp
+      - superpowers
+
+  - id: rust-development
+    name: Rust Development Stack
+    description: Complete Rust development experience
+    components:
+      - rust-dev
+      - lsp
+      - superpowers
+
+  - id: multi-agent-orchestration
+    name: Multi-Agent Orchestration Stack
+    description: Full agent orchestration and delegation capabilities
+    components:
+      - recipes
+      - observers
+      - orchestration
+      - routing-matrix
+
+  - id: investigation
+    name: Codebase Investigation Stack
+    description: Deep codebase analysis and architecture discovery
+    components:
+      - dot-graph
+      - parallax-discovery
+      - skills
+
+  - id: web-testing
+    name: Web Testing Stack
+    description: Browser-based testing and automation
+    components:
+      - browser-tester
+      - design-intelligence
+
+  - id: observability
+    name: Observability Stack
+    description: Logging, monitoring, and session analysis
+    components:
+      - hooks-logging
+      - hooks-progress-monitor
+      - app-session-analyzer
+
+  - id: self-hosted
+    name: Self-Hosted Stack
+    description: Local/self-hosted model providers
+    components:
+      - provider-ollama
+      - provider-vllm
+
+# =============================================================================
+# Developer Tools
+# =============================================================================
+
+dev_tools:
+  - id: amplifier-web
+    name: Amplifier Web Interface
+    repo: bkrabach/amplifier-web
+    type: dev-tool
+    description: Interactive browser-based experience with FastAPI backend and React frontend
+    owner: bkrabach
+    priority: 3
+
+  - id: amplifier-cli-tools
+    name: Amplifier CLI Tools
+    repo: bkrabach/amplifier-cli-tools
+    type: dev-tool
+    description: Python CLI tools for development workflows including amplifier-dev and amplifier-reset
+    owner: bkrabach
+    priority: 3
+
+# =============================================================================
+# Example Recipes (from microsoft/amplifier)
+# =============================================================================
+
+example_recipes:
+  - id: amplifier-ecosystem-audit
+    name: amplifier-ecosystem-audit
+    repo: microsoft/amplifier
+    type: recipe
+    description: Audit the Amplifier ecosystem
+    path: recipes/amplifier-ecosystem-audit.yaml
+    priority: 2
+
+  - id: document-generation
+    name: document-generation
+    repo: microsoft/amplifier
+    type: recipe
+    description: Document generation workflow
+    path: recipes/document-generation.yaml
+    priority: 2
+
+  - id: ecosystem-activity-report
+    name: ecosystem-activity-report
+    repo: microsoft/amplifier
+    type: recipe
+    description: Generate ecosystem activity reports
+    path: recipes/ecosystem-activity-report.yaml
+    priority: 2
+
+  - id: outline-generation-from-doc
+    name: outline-generation-from-doc
+    repo: microsoft/amplifier
+    type: recipe
+    description: Generate outlines from existing documents
+    path: recipes/outline-generation-from-doc.yaml
+    priority: 3
+
+  - id: repo-activity-analysis
+    name: repo-activity-analysis
+    repo: microsoft/amplifier
+    type: recipe
+    description: Analyze repository activity
+    path: recipes/repo-activity-analysis.yaml
+    priority: 2
+
+  - id: repo-audit
+    name: repo-audit
+    repo: microsoft/amplifier
+    type: recipe
+    description: Audit a repository for compliance and quality
+    path: recipes/repo-audit.yaml
+    priority: 2
+
+# =============================================================================
+# Foundation Examples and Experiments
+# =============================================================================
+
+foundation_examples:
+  - id: foundation-examples
+    name: Foundation Examples
+    repo: microsoft/amplifier-foundation
+    type: examples
+    description: Example configurations and usage patterns
+    path: examples/
+    priority: 2
+
+  - id: app-policies-example
+    name: Application Policies Example
+    repo: microsoft/amplifier-foundation
+    type: example
+    description: Example application-level policy configurations
+    path: examples/app-policies/
+    priority: 2
+
+  - id: exp-delegation-only
+    name: Delegation-Only Experiment
+    repo: microsoft/amplifier-foundation
+    type: experiment
+    description: Experimental bundle for delegation-only operating mode
+    path: experiments/delegation-only/bundle.md
+    priority: 3
+
+  - id: exp-amplifier-dev
+    name: Amplifier Dev Experiment
+    repo: microsoft/amplifier-foundation
+    type: experiment
+    description: Experimental Amplifier development configuration
+    path: experiments/exp-amplifier-dev.md
+    priority: 3
+
+  - id: foundation-notebooks
+    name: Foundation Notebooks
+    repo: microsoft/amplifier-foundation
+    type: examples
+    description: Jupyter notebooks for foundation library exploration
+    path: notebooks/
+    priority: 3

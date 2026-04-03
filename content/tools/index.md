@@ -13,12 +13,17 @@ Tools are the fundamental building blocks that give Amplifier its capabilities. 
 | Page | Description |
 |------|-------------|
 | [Filesystem](./filesystem.md) | Read, write, and edit files with precision |
-| [Search (grep & glob)](./search.md) | Find content and files across your codebase |
 | [Bash](./bash.md) | Run shell commands safely |
+| [Search (grep & glob)](./search.md) | Find content and files across your codebase |
 | [Web Tools](./web.md) | Search and fetch content from the web |
-| [LSP (Code Intelligence)](./lsp.md) | Language Server Protocol for code understanding |
 | [Task (Sub-Agents)](./task.md) | Spawn agents for complex operations |
+| [LSP (Code Intelligence)](./lsp.md) | Language Server Protocol for code understanding |
 | [Recipes Tool](./recipes-tool.md) | Declarative multi-step workflows |
+| [Todo](./todo.md) | Track multi-step task progress within a session |
+| [Python Check](./python-check.md) | Lint, format, and type-check Python code |
+| [Dot Graph](./dot-graph.md) | Validate, render, and analyze DOT/Graphviz graphs |
+| [Mode](./mode.md) | Activate and manage runtime behavior modes |
+| [Projector](./projector.md) | Project and strategy tracking across sessions |
 
 ## Quick Tips
 

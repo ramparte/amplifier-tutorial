@@ -67,7 +67,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
                   </li>
@@ -80,46 +80,42 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="skills.html">Skills</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-skill">What is a Skill?</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#key-characteristics">Key Characteristics</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#anatomy-of-a-skill">Anatomy of a Skill</a>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#three-level-progressive-disclosure">Three-Level Progressive Disclosure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-visibility-hook">The Visibility Hook</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#discovering-skills">Discovering Skills</a>
+    <li class="toctree-l2"><a class="reference internal" href="#using-skills">Using Skills</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#listing-all-skills">Listing All Skills</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#searching-for-skills">Searching for Skills</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#getting-skill-metadata">Getting Skill Metadata</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#skill-discovery-locations">Skill Discovery Locations</a>
+    <li class="toctree-l3"><a class="reference internal" href="#where-skills-come-from">Where Skills Come From</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#loading-skills">Loading Skills</a>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own">Creating Your Own</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-loading">Basic Loading</a>
+    <li class="toctree-l3"><a class="reference internal" href="#writing-the-skillmd">Writing the SKILL.md</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#accessing-companion-files">Accessing Companion Files</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-load-skills">When to Load Skills</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#context-management">Context Management</a>
+    <li class="toctree-l3"><a class="reference internal" href="#descriptions-are-triggers">Descriptions Are Triggers</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creating-skills">Creating Skills</a>
+    <li class="toctree-l2"><a class="reference internal" href="#enhanced-features">Enhanced Features</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#skill-structure">Skill Structure</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fork-execution">Fork Execution</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#where-to-place-skills">Where to Place Skills</a>
+    <li class="toctree-l3"><a class="reference internal" href="#user-invocable-skills-power-skills">User-Invocable Skills (Power Skills)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#writing-effective-skills">Writing Effective Skills</a>
+    <li class="toctree-l3"><a class="reference internal" href="#skill-sources-in-bundles">Skill Sources in Bundles</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#skills-vs-agents">Skills vs Agents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
     </li>
@@ -128,6 +124,12 @@
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -142,14 +144,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -157,20 +169,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -184,19 +272,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -223,246 +298,326 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="understanding-skills">Understanding Skills<a class="headerlink" href="#understanding-skills" title="Permanent link">&para;</a></h1>
-<p>Skills are one of Amplifier's most powerful features for extending agent capabilities. They provide a way to inject domain-specific knowledge, best practices, and workflows into your agents without modifying core system code.</p>
+                <h1 id="skills">Skills<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h1>
+<p>Every AI agent starts with general knowledge. Skills make it specific. When you
+load a skill, you inject domain expertise — best practices, decision frameworks,
+workflows — directly into the agent's context. The agent doesn't just know
+<em>about</em> Docker or Playwright; it knows <em>how your team uses</em> them.</p>
 <h2 id="what-is-a-skill">What is a Skill?<a class="headerlink" href="#what-is-a-skill" title="Permanent link">&para;</a></h2>
-<p>A skill is <strong>loadable domain knowledge</strong> packaged as markdown files that agents can access on demand. Think of skills as specialized instruction manuals that agents can consult when they need expertise in a particular area.</p>
-<h3 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>On-demand loading</strong>: Skills are loaded only when needed, keeping agent context lean</li>
-<li><strong>Domain-specific</strong>: Each skill focuses on a particular area of expertise</li>
-<li><strong>Declarative</strong>: Skills describe <em>what</em> to do, not <em>how</em> to implement it</li>
-<li><strong>Composable</strong>: Multiple skills can be loaded together for complex tasks</li>
-<li><strong>Versionable</strong>: Skills can be versioned and updated independently</li>
-</ul>
-<h3 id="anatomy-of-a-skill">Anatomy of a Skill<a class="headerlink" href="#anatomy-of-a-skill" title="Permanent link">&para;</a></h3>
-<p>A skill typically consists of:</p>
-<div class="codehilite"><pre><span></span><code>my-skill/
-├── skill.md          # Main skill content (required)
-├── examples/         # Optional companion files
-│   ├── basic.py
-│   └── advanced.py
-└── templates/        # Optional templates
-    └── config.yaml
-</code></pre></div>
-
-<p>The <code>skill.md</code> file contains:</p>
-<ol>
-<li><strong>Frontmatter</strong>: Metadata about the skill (name, version, description)</li>
-<li><strong>Context</strong>: Background knowledge the agent needs</li>
-<li><strong>Guidelines</strong>: Best practices and decision frameworks</li>
-<li><strong>Workflows</strong>: Step-by-step procedures for common tasks</li>
-<li><strong>Examples</strong>: Concrete illustrations of concepts</li>
-</ol>
-<h2 id="discovering-skills">Discovering Skills<a class="headerlink" href="#discovering-skills" title="Permanent link">&para;</a></h2>
-<p>Before loading a skill, you need to know what's available. Amplifier provides several ways to discover skills.</p>
-<h3 id="listing-all-skills">Listing All Skills<a class="headerlink" href="#listing-all-skills" title="Permanent link">&para;</a></h3>
-<p>Use the <code>load_skill</code> tool with the <code>list</code> parameter:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="nb">list</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></div>
-
-<p>This returns all available skills with their names and descriptions.</p>
-<h3 id="searching-for-skills">Searching for Skills<a class="headerlink" href="#searching-for-skills" title="Permanent link">&para;</a></h3>
-<p>If you're looking for skills in a specific domain:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">search</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>This filters skills by name or description matching your search term.</p>
-<h3 id="getting-skill-metadata">Getting Skill Metadata<a class="headerlink" href="#getting-skill-metadata" title="Permanent link">&para;</a></h3>
-<p>Before loading a full skill (which consumes context), you can inspect its metadata:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="s2">&quot;design-patterns&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>This returns the skill's name, description, version, and path without loading the full content.</p>
-<h3 id="skill-discovery-locations">Skill Discovery Locations<a class="headerlink" href="#skill-discovery-locations" title="Permanent link">&para;</a></h3>
-<p>Skills are discovered from multiple directories in priority order:</p>
-<ol>
-<li><strong>Workspace skills</strong> (<code>.amplifier/skills/</code>) - Project-specific skills</li>
-<li><strong>User skills</strong> (<code>~/.amplifier/skills/</code>) - Personal skills across projects</li>
-<li><strong>Collection skills</strong> - Skills bundled with Amplifier collections</li>
-</ol>
-<p>First-match-wins: if the same skill exists in multiple locations, the first one found is used.</p>
-<h2 id="loading-skills">Loading Skills<a class="headerlink" href="#loading-skills" title="Permanent link">&para;</a></h2>
-<p>When you need domain expertise, load the relevant skill into context.</p>
-<h3 id="basic-loading">Basic Loading<a class="headerlink" href="#basic-loading" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">load_skill</span><span class="p">(</span><span class="n">skill_name</span><span class="o">=</span><span class="s2">&quot;python-standards&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>This loads the full skill content and returns:
-- The skill content itself
-- The <code>skill_directory</code> path for accessing companion files</p>
-<h3 id="accessing-companion-files">Accessing Companion Files<a class="headerlink" href="#accessing-companion-files" title="Permanent link">&para;</a></h3>
-<p>Many skills include additional resources like examples, templates, or reference files. Use the returned <code>skill_directory</code> to access them:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Load the skill</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">load_skill</span><span class="p">(</span><span class="n">skill_name</span><span class="o">=</span><span class="s2">&quot;api-design&quot;</span><span class="p">)</span>
-<span class="n">skill_dir</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;skill_directory&quot;</span><span class="p">]</span>
-
-<span class="c1"># Read a companion file</span>
-<span class="n">read_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">skill_dir</span><span class="si">}</span><span class="s2">/examples/rest-api.py&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="when-to-load-skills">When to Load Skills<a class="headerlink" href="#when-to-load-skills" title="Permanent link">&para;</a></h3>
-<p>Load skills when you need:</p>
-<ul>
-<li><strong>Domain expertise</strong>: Working in an unfamiliar area</li>
-<li><strong>Best practices</strong>: Ensuring code follows established patterns</li>
-<li><strong>Consistency</strong>: Applying the same standards across a project</li>
-<li><strong>Complex workflows</strong>: Following multi-step procedures correctly</li>
-</ul>
-<h3 id="context-management">Context Management<a class="headerlink" href="#context-management" title="Permanent link">&para;</a></h3>
-<p>Skills consume context tokens when loaded. Best practices:</p>
-<ul>
-<li>Load skills on-demand, not preemptively</li>
-<li>Use <code>info</code> to check skill size before loading</li>
-<li>Load only the skills you actually need</li>
-<li>Consider skill size when working with limited context</li>
-</ul>
-<h2 id="creating-skills">Creating Skills<a class="headerlink" href="#creating-skills" title="Permanent link">&para;</a></h2>
-<p>You can create custom skills for your projects or personal use.</p>
-<h3 id="skill-structure">Skill Structure<a class="headerlink" href="#skill-structure" title="Permanent link">&para;</a></h3>
-<p>Create a directory with at least a <code>skill.md</code> file:</p>
+<p>A skill is a <strong>loadable knowledge package</strong> — a markdown file with YAML frontmatter
+that follows the <a href="https://agentskills.io">Agent Skills specification</a>. Think of it
+as a reference manual the agent consults on demand, not a tool it executes.</p>
+<p>Unlike tools (which <em>do</em> things) and agents (which <em>delegate</em> things), skills
+<em>teach</em> things. They shape how the agent approaches problems.</p>
 <div class="codehilite"><pre><span></span><code>---
-name: my-custom-skill
-description: Brief description of what this skill provides
-<span class="gu">version: 1.0.0</span>
+name: react-testing
+description: &gt;
+  Use when writing or reviewing React component tests,
+<span class="gu">  especially with async state changes or user interactions</span>
 <span class="gu">---</span>
 
-<span class="gh"># My Custom Skill</span>
+<span class="gh"># React Testing Patterns</span>
 
-<span class="gu">## Overview</span>
-Explain the domain this skill covers.
+<span class="gu">## When to Use</span>
+<span class="k">-</span><span class="w"> </span>Writing tests for React components with state
+<span class="k">-</span><span class="w"> </span>Testing async operations (API calls, timers)
+<span class="k">-</span><span class="w"> </span>Debugging flaky test suites
 
-<span class="gu">## Guidelines</span>
-List best practices and decision frameworks.
-
-<span class="gu">## Workflows</span>
-Document step-by-step procedures.
-
-<span class="gu">## Examples</span>
-Provide concrete illustrations.
+<span class="gu">## Core Pattern: Async State Changes</span>
+Always use <span class="sb">`waitFor`</span> instead of manual timeouts...
 </code></pre></div>
 
-<h3 id="where-to-place-skills">Where to Place Skills<a class="headerlink" href="#where-to-place-skills" title="Permanent link">&para;</a></h3>
-<p>Choose based on scope:</p>
+<p>That's a complete skill. A markdown file. No code, no build step, no registration.</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<h3 id="three-level-progressive-disclosure">Three-Level Progressive Disclosure<a class="headerlink" href="#three-level-progressive-disclosure" title="Permanent link">&para;</a></h3>
+<p>Skills use a token-efficient loading strategy. The agent peels back layers only
+as needed:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What Loads</th>
+<th>Token Cost</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Metadata</strong></td>
+<td>Name + description</td>
+<td>~100 tokens</td>
+<td>Always visible via list/search</td>
+</tr>
+<tr>
+<td><strong>2 — Content</strong></td>
+<td>Full markdown body</td>
+<td>~1–5k tokens</td>
+<td>Loaded on demand via <code>load_skill</code></td>
+</tr>
+<tr>
+<td><strong>3 — References</strong></td>
+<td>Companion files</td>
+<td>0 until accessed</td>
+<td>Read via <code>skill_directory</code> path</td>
+</tr>
+</tbody>
+</table>
+<p>A simple task ("take a screenshot") might need only Level 1–2. A complex task
+("set up Playwright with auth state and parallel contexts") pulls Level 3 too.</p>
+<h3 id="the-visibility-hook">The Visibility Hook<a class="headerlink" href="#the-visibility-hook" title="Permanent link">&para;</a></h3>
+<p>Before each request, Amplifier shows the agent a list of available skills —
+Level 1 metadata. The agent sees what expertise is available without consuming
+context. When a skill looks relevant, the agent loads it. That "Available
+skills" list in your session? That's the visibility hook at work.</p>
+<h2 id="using-skills">Using Skills<a class="headerlink" href="#using-skills" title="Permanent link">&para;</a></h2>
+<p>The <code>load_skill</code> tool has four operations that mirror the progressive levels:</p>
+<blockquote>
+<p>List all available skills.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] list=True
+→ 23 skills found: brainstorming, systematic-debugging, react-testing...
+</code></pre></div>
+
+<blockquote>
+<p>Search for skills related to testing.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] search=&quot;testing&quot;
+→ react-testing, integration-testing-discipline, test-driven-development
+</code></pre></div>
+
+<blockquote>
+<p>What does react-testing cover?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] info=&quot;react-testing&quot;
+→ name: react-testing, version: 1.0.0
+  description: Use when writing or reviewing React component tests...
+</code></pre></div>
+
+<p>The <code>info</code> operation gives you metadata without loading content — check
+relevance before committing context tokens.</p>
+<blockquote>
+<p>Load the react-testing skill and help me write tests for this form.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: load_skill] skill_name=&quot;react-testing&quot;
+→ Skill loaded (2,340 tokens). skill_directory: /path/to/react-testing/
+</code></pre></div>
+
+<p>Now the agent has the full skill in context. Its next response follows your
+team's patterns instead of generic advice. And if the skill includes companion
+files (examples, templates), the agent reads them via the returned
+<code>skill_directory</code> — Level 3, zero tokens until accessed.</p>
+<h3 id="where-skills-come-from">Where Skills Come From<a class="headerlink" href="#where-skills-come-from" title="Permanent link">&para;</a></h3>
+<p>Skills are discovered from multiple directories, in priority order:</p>
 <table>
 <thead>
 <tr>
 <th>Location</th>
 <th>Scope</th>
-<th>Use Case</th>
+<th>Typical Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>.amplifier/skills/</code></td>
-<td>Project</td>
-<td>Team-specific patterns</td>
+<td>Workspace</td>
+<td>Project-specific patterns</td>
 </tr>
 <tr>
 <td><code>~/.amplifier/skills/</code></td>
 <td>User</td>
-<td>Personal workflows</td>
+<td>Personal workflows across projects</td>
 </tr>
 <tr>
-<td>Collection</td>
+<td>Bundle skill sources</td>
 <td>Distribution</td>
-<td>Shared with community</td>
+<td>Skills shipped with bundles</td>
 </tr>
 </tbody>
 </table>
-<h3 id="writing-effective-skills">Writing Effective Skills<a class="headerlink" href="#writing-effective-skills" title="Permanent link">&para;</a></h3>
-<p><strong>Be specific</strong>: Focus on one domain or problem area.</p>
-<div class="codehilite"><pre><span></span><code><span class="gh"># Good: Focused skill</span>
----
-name: react-testing
-<span class="gu">description: Testing patterns for React components</span>
+<p><strong>First-match-wins</strong>: workspace copies override user copies, letting you
+customize shared skills per-project.</p>
+<h2 id="creating-your-own">Creating Your Own<a class="headerlink" href="#creating-your-own" title="Permanent link">&para;</a></h2>
+<p>A skill is a directory with at least a <code>SKILL.md</code> file:</p>
+<div class="codehilite"><pre><span></span><code>docker-multi-stage/
+├── SKILL.md           # Required: main content
+├── examples/          # Optional: companion files
+│   └── basic.dockerfile
+└── templates/         # Optional: reusable templates
+</code></pre></div>
+
+<h3 id="writing-the-skillmd">Writing the SKILL.md<a class="headerlink" href="#writing-the-skillmd" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>---
+name: docker-multi-stage
+description: &gt;
+  Use when building Dockerfiles, optimizing image sizes,
+<span class="gu">  or debugging container build failures</span>
 <span class="gu">---</span>
 
-<span class="gh"># Bad: Too broad</span>
----
-name: frontend
-<span class="gu">description: Everything about frontend development</span>
-<span class="gu">---</span>
+<span class="gh"># Docker Multi-Stage Builds</span>
+
+<span class="gu">## Overview</span>
+Separate build dependencies from runtime for minimal production images.
+
+<span class="gu">## Core Pattern</span>
+
+<span class="sb">```dockerfile</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:20</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>ci<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:20-slim</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/app/dist<span class="w"> </span>./dist
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dist/index.js&quot;</span><span class="p">]</span>
+<span class="sb">```</span>
+
+<span class="gu">## Common Mistakes</span>
+<span class="k">-</span><span class="w"> </span>Installing dev dependencies in production stage
+<span class="k">-</span><span class="w"> </span>Using <span class="sb">`latest`</span> tag (breaks reproducibility)
+<span class="k">-</span><span class="w"> </span>Running as root in production containers
 </code></pre></div>
 
-<p><strong>Be actionable</strong>: Provide clear guidance, not just information.</p>
-<div class="codehilite"><pre><span></span><code><span class="gh"># Good: Actionable guideline</span>
-When testing async components, always:
-<span class="k">1.</span> Use <span class="sb">`waitFor`</span> for state changes
-<span class="k">2.</span> Mock API calls at the network level
-<span class="k">3.</span> Test loading and error states
+<p>Place it in <code>.amplifier/skills/docker-multi-stage/SKILL.md</code> for workspace scope
+or <code>~/.amplifier/skills/docker-multi-stage/SKILL.md</code> for personal use.</p>
+<h3 id="descriptions-are-triggers">Descriptions Are Triggers<a class="headerlink" href="#descriptions-are-triggers" title="Permanent link">&para;</a></h3>
+<p>The description field determines whether the agent loads your skill. Write it
+as a trigger condition, not a summary:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Good: tells the agent WHEN to load</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when building Dockerfiles or debugging build failures</span>
 
-<span class="gh"># Bad: Vague advice</span>
-Make sure to test your components properly.
+<span class="c1"># Bad: summarizes WHAT the skill does</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Teaches multi-stage Docker builds with layer caching</span>
 </code></pre></div>
 
-<p><strong>Include examples</strong>: Show, don't just tell.</p>
-<div class="codehilite"><pre><span></span><code><span class="gu">## Example: Testing a Form Component</span>
-
-```tsx
-test(&#39;submits form data&#39;, async () =&gt; {
-  render(&lt;ContactForm /&gt;);
-
-  await userEvent.type(screen.getByLabelText(&#39;Email&#39;), &#39;test@example.com&#39;);
-  await userEvent.click(screen.getByRole(&#39;button&#39;, { name: &#39;Submit&#39; }));
-
-  await waitFor(() =&gt; {
-    expect(mockSubmit).toHaveBeenCalledWith({ email: &#39;test@example.com&#39; });
-  });
-});
+<p>Start with "Use when..." and focus on symptoms and situations. If the
+description summarizes the workflow, the agent may follow the summary instead
+of reading the full skill.</p>
+<h2 id="enhanced-features">Enhanced Features<a class="headerlink" href="#enhanced-features" title="Permanent link">&para;</a></h2>
+<h3 id="fork-execution">Fork Execution<a class="headerlink" href="#fork-execution" title="Permanent link">&para;</a></h3>
+<p>Skills with <code>context: fork</code> run as isolated subagents rather than loading into
+your context:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">skills-assist</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Authoritative consultant for skills-related questions</span>
+<span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fork</span>
+<span class="nn">---</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>### Companion Files
-
-For complex skills, include additional resources:
+<p>Fork skills are useful for heavyweight expertise that would consume too much
+of your main context, or skills that need conversational back-and-forth.</p>
+<h3 id="user-invocable-skills-power-skills">User-Invocable Skills (Power Skills)<a class="headerlink" href="#user-invocable-skills-power-skills" title="Permanent link">&para;</a></h3>
+<p>Skills with <code>disable-model-invocation: true</code> are triggered by you via slash
+commands, not loaded by the agent automatically:</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review changed code for quality and efficiency</span>
+<span class="nt">disable-model-invocation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nn">---</span>
 </code></pre></div>
 
-<p>my-skill/
-├── skill.md
-├── examples/
-│   ├── basic-usage.py
-│   └── advanced-patterns.py
-├── templates/
-│   └── project-structure/
-└── reference/
-    └── cheatsheet.md</p>
-<div class="codehilite"><pre><span></span><code>Reference these in your skill content:
+<p>Invoke these with <code>/code-review</code>, <code>/mass-change</code>, <code>/session-debug</code>. They're
+power skills for workflows you initiate deliberately.</p>
+<h3 id="skill-sources-in-bundles">Skill Sources in Bundles<a class="headerlink" href="#skill-sources-in-bundles" title="Permanent link">&para;</a></h3>
+<p>Bundles can register skill directories so their skills appear in discovery:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">bundle</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-team-bundle</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
 
-```markdown
-## Getting Started
-
-See `examples/basic-usage.py` for a minimal working example.
-
-For production patterns, refer to `examples/advanced-patterns.py`.
+<span class="nt">skill_sources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./skills</span>
 </code></pre></div>
 
+<h2 id="skills-vs-agents">Skills vs Agents<a class="headerlink" href="#skills-vs-agents" title="Permanent link">&para;</a></h2>
+<p>This is the decision that trips people up:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Skill</th>
+<th>Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Provides</strong></td>
+<td>Knowledge for the current agent</td>
+<td>Independent worker with own context</td>
+</tr>
+<tr>
+<td><strong>Execution</strong></td>
+<td>Loads into your session</td>
+<td>Spawns as separate sub-session</td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Shares your context window</td>
+<td>Has its own context window</td>
+</tr>
+<tr>
+<td><strong>Interaction</strong></td>
+<td>Shapes ongoing conversation</td>
+<td>One-shot task → report</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Patterns, standards, frameworks</td>
+<td>Delegation, parallel work, isolation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Use a skill when</strong> the agent needs to know <em>how</em> to approach something —
+testing patterns, coding standards, debugging frameworks. The knowledge stays
+in context and influences every subsequent response.</p>
+<p><strong>Use an agent when</strong> you need to <em>delegate</em> work — run an analysis, generate
+a report, perform a task in isolation.</p>
+<p><strong>Fork skills bridge the gap</strong> — discovered through the skill system but
+running as isolated subagents, they combine skill discovery with agent isolation.</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Load on demand, not preemptively.</strong> Each loaded skill consumes context tokens.
+Use <code>info</code> to check relevance first, and load only what the current task needs.</p>
+<p><strong>Keep skills focused.</strong> One domain per skill. "React Testing" is good;
+"Frontend Development" is too broad. Focused skills are easier to discover and
+provide more actionable guidance.</p>
+<p><strong>Write for triggers, not summaries.</strong> Your description answers "when should I
+load this?" not "what does this contain?" Start with "Use when..."</p>
+<p><strong>Use companion files for heavy reference.</strong> Keep SKILL.md concise (under 5k
+tokens). Move lengthy API references, examples, and templates into companion
+files that load only when needed.</p>
+<p><strong>Workspace overrides user.</strong> Keep personal defaults in <code>~/.amplifier/skills/</code>
+and project-specific overrides in <code>.amplifier/skills/</code>.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Skills are loadable expertise</strong>: They inject domain knowledge into agents on demand, keeping base context lean while enabling deep specialization.</p>
+<p><strong>Skills are loadable expertise</strong> — markdown files that inject domain
+   knowledge into agents on demand, following the Agent Skills specification.</p>
 </li>
 <li>
-<p><strong>Discovery before loading</strong>: Use <code>list</code>, <code>search</code>, and <code>info</code> operations to find the right skill without consuming context unnecessarily.</p>
+<p><strong>Three levels of disclosure</strong> — metadata (~100 tokens) is always visible,
+   content (~1–5k tokens) loads on demand, companions load only when accessed.</p>
 </li>
 <li>
-<p><strong>Location determines scope</strong>: Workspace skills override user skills, enabling project-specific customization while maintaining personal defaults.</p>
+<p><strong>Discovery before loading</strong> — use <code>list</code>, <code>search</code>, and <code>info</code> to find
+   the right skill without spending context tokens.</p>
 </li>
 <li>
-<p><strong>Focus on actionability</strong>: The best skills provide clear guidelines, decision frameworks, and concrete examples—not just reference information.</p>
+<p><strong>Location determines scope</strong> — workspace skills override user skills,
+   enabling project-specific customization with personal defaults as fallback.</p>
 </li>
 <li>
-<p><strong>Companion files extend capabilities</strong>: Skills can include examples, templates, and reference materials that agents access via the <code>skill_directory</code> path.</p>
+<p><strong>Skills teach, agents do</strong> — use skills for knowledge and patterns, agents
+   for delegation and parallel work. Fork skills bridge the gap.</p>
 </li>
 <li>
-<p><strong>Context is precious</strong>: Load skills judiciously. Each loaded skill consumes tokens that could be used for other context.</p>
+<p><strong>Descriptions are triggers</strong> — write "Use when..." conditions, not workflow
+   summaries. The description determines whether the agent loads the skill.</p>
 </li>
 </ol>
 <hr />
 <h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="agents.html">Agents</a> - How agents use skills</li>
-<li><a href="bundles.html">Bundles</a> - Packaging skills with other components</li>
-<li><a href="architecture.html">Architecture</a> - System design and structure</li>
+<li><a href="agents.html">Agents</a> — Independent workers for task delegation</li>
+<li><a href="bundles.html">Bundles</a> — Packaging skills with tools, agents, and configuration</li>
+<li><a href="architecture.html">Architecture</a> — How skills fit into the Amplifier system</li>
 </ul>
               
             </div>

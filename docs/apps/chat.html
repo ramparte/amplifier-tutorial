@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Chat App - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Chat App";
+        var mkdocs_page_input_path = "apps/chat.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="chat.html">Chat App</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-youll-learn">What You'll Learn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-chat-app">What Is the Chat App?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running">Running</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#real-time-streaming">Real-Time Streaming</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#session-management">Session Management</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-differs-from-the-cli">How It Differs from the CLI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-typical-chat-workflow">A Typical Chat Workflow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-next">What's Next?</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Applications</li>
+      <li class="breadcrumb-item active">Chat App</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="chat-app">Chat App<a class="headerlink" href="#chat-app" title="Permanent link">&para;</a></h1>
+<p>Not everyone lives in the terminal. Some developers prefer a visual interface — one where conversation history is rendered cleanly, responses stream in real time, and you can scroll back through a session without piping output through <code>less</code>. That's what <code>amplifier-app-chat</code> provides: a web-based chat interface that runs the full Amplifier stack in your browser.</p>
+<p>The important thing to understand is what the Chat app <em>is not</em>. It's not a different Amplifier. It's the same kernel, the same foundation library, the same modules, the same bundles — wrapped in a web UI instead of a terminal. A tool that works in the CLI works identically in Chat. A bundle you configure for terminal use works in the browser without changes. The application layer is thin, and that's what makes this possible.</p>
+<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>By the end of this page, you'll understand:</p>
+<ul>
+<li>What the Chat app provides and how it relates to the CLI</li>
+<li>How to install and run it</li>
+<li>How real-time streaming works in the browser</li>
+<li>How session management works</li>
+<li>Where the Chat app shines compared to the CLI</li>
+<li>How to configure it for your workflow</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>You should have read the <a href="index.html">Apps Overview</a> and be familiar with <a href="../concepts/architecture.html">the architecture</a>. Installation requires Python 3.10+ and a working Amplifier setup.</p>
+<hr />
+<h2 id="what-is-the-chat-app">What Is the Chat App?<a class="headerlink" href="#what-is-the-chat-app" title="Permanent link">&para;</a></h2>
+<p>The Chat app is a web application that serves an Amplifier session through your browser. When you start it, a local server launches, opens a WebSocket connection to the kernel, and renders a chat interface where you can type prompts and see streamed responses.</p>
+<p>Think of it as a visual skin over the same engine:</p>
+<div class="codehilite"><pre><span></span><code>+-----------------------------+
+|  Browser (React frontend)   |
+|  - Chat input               |
+|  - Conversation view        |
+|  - Session sidebar          |
++-------------+---------------+
+              | WebSocket
++-------------v---------------+
+|  Chat Server (Python)       |
+|  - WebSocket handler        |
+|  - Event stream relay       |
++-------------+---------------+
+              |
++-------------v---------------+
+|  amplifier-foundation       |
++-------------+---------------+
+              |
++-------------v---------------+
+|  amplifier-core (kernel)    |
++-----------------------------+
+</code></pre></div>
+
+<p>The browser never talks to the kernel directly. The Chat server acts as a bridge — receiving prompts over WebSocket, forwarding them to the foundation, and relaying kernel events back to the frontend as they arrive.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ pip install amplifier-app-chat
+</code></pre></div>
+
+<p>This installs the Chat server and its frontend assets. It expects <code>amplifier-foundation</code> and <code>amplifier-core</code> to already be installed — if you have the CLI working, you have everything you need.</p>
+<h3 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$ amplifier-chat
+Starting Amplifier Chat on http://localhost:8420
+</code></pre></div>
+
+<p>Open <code>http://localhost:8420</code> in your browser. You'll see a clean chat interface with a text input at the bottom and a conversation area above it. Start typing — it works just like the CLI, but visual.</p>
+<p>You can also specify a port and host:</p>
+<div class="codehilite"><pre><span></span><code>$ amplifier-chat --port 9000 --host 0.0.0.0
+</code></pre></div>
+
+<p>Binding to <code>0.0.0.0</code> makes the Chat app accessible from other machines on your network — useful for team demos or pair programming.</p>
+<h2 id="real-time-streaming">Real-Time Streaming<a class="headerlink" href="#real-time-streaming" title="Permanent link">&para;</a></h2>
+<p>One of the Chat app's strongest features is how it handles streaming. When you send a prompt, the response doesn't arrive all at once — it streams token by token, just like the CLI. But in the browser, this streaming is rendered as live-updating markdown.</p>
+<blockquote>
+<p>Explain the authentication flow in this codebase</p>
+</blockquote>
+<p>The response begins appearing immediately. Code blocks syntax-highlight as they render. Tool calls show up inline with their results:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: grep] pattern=&quot;def authenticate&quot; path=&quot;src/&quot;
+Found 3 matches...
+
+[Tool: read_file] src/auth/flow.py
+Reading 84 lines...
+</code></pre></div>
+
+<p>Each tool invocation is visually distinct from the narrative response, making it easy to follow what the agent is doing and why. When the agent reads a file, you see it. When it runs a command, you see the output. The whole process is transparent.</p>
+<p>Behind the scenes, the Chat server subscribes to kernel events — the same events the CLI consumes — and serializes them over the WebSocket. The frontend interprets each event type (text, tool_call, tool_result, error) and renders it appropriately. This is the same event stream, just displayed differently.</p>
+<h2 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h2>
+<p>Sessions in the Chat app work like sessions in the CLI — they're created by the kernel, persisted automatically, and resumable. The difference is in how you navigate them.</p>
+<p>The Chat interface includes a <strong>session sidebar</strong> that lists your recent sessions:</p>
+<div class="codehilite"><pre><span></span><code>Sessions
+─────────────────────
+● Current session
+  &quot;Rate limiting implementation&quot;
+  Active — 12 turns
+
+  &quot;Database migration&quot;
+  2 hours ago — 8 turns
+
+  &quot;API documentation&quot;
+  Yesterday — 23 turns
+</code></pre></div>
+
+<p>Click any previous session to load it into the conversation view. The full history appears — every prompt, every response, every tool call — rendered as a scrollable conversation. You can read back through it, then continue the conversation by typing a new prompt.</p>
+<p>Sessions created in the Chat app use the same persistence format as the CLI. This means you can start a session in the CLI, then view and continue it in Chat, or vice versa. The session belongs to the kernel, not to the application.</p>
+<h2 id="how-it-differs-from-the-cli">How It Differs from the CLI<a class="headerlink" href="#how-it-differs-from-the-cli" title="Permanent link">&para;</a></h2>
+<p>The Chat app and the CLI do the same thing differently. Here's where each shines:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>CLI</th>
+<th>Chat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Navigation</strong></td>
+<td>Scrollback in terminal</td>
+<td>Full scroll, sidebar, clickable history</td>
+</tr>
+<tr>
+<td><strong>Output rendering</strong></td>
+<td>Plain text, ANSI colors</td>
+<td>Rendered markdown, syntax highlighting</td>
+</tr>
+<tr>
+<td><strong>Tool visibility</strong></td>
+<td>Inline with text stream</td>
+<td>Visually separated, collapsible</td>
+</tr>
+<tr>
+<td><strong>Multi-session</strong></td>
+<td>One session per terminal</td>
+<td>Session sidebar, easy switching</td>
+</tr>
+<tr>
+<td><strong>Input</strong></td>
+<td>Single-line prompt (multi-line with <code>\</code>)</td>
+<td>Full text area, multi-line by default</td>
+</tr>
+<tr>
+<td><strong>Sharing</strong></td>
+<td>Copy-paste terminal output</td>
+<td>Share URL, screenshot-ready</td>
+</tr>
+<tr>
+<td><strong>Automation</strong></td>
+<td>Scriptable, pipe-friendly</td>
+<td>Not scriptable — interactive only</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>Fastest startup, lowest overhead</td>
+<td>Slightly more overhead (server + browser)</td>
+</tr>
+</tbody>
+</table>
+<p>The Chat app excels at <strong>review and collaboration</strong>. When you want to show someone what an agent did — the full reasoning chain, the tool calls, the code changes — a rendered conversation is clearer than terminal scrollback. For demos, pair programming, and team reviews, Chat is the better choice.</p>
+<p>The CLI excels at <strong>speed and integration</strong>. It starts instantly, works over SSH, chains with other shell tools, and supports one-shot scripting. For daily development, automation, and CI/CD, the CLI is the better choice.</p>
+<p>Most developers use both — the CLI for working, Chat for reviewing and sharing.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>The Chat app reads the same <code>settings.yaml</code> and <code>AGENTS.md</code> files as the CLI. Any configuration you've set up — provider, model, bundle paths, session directory — applies automatically.</p>
+<p>Chat-specific settings can be added under a <code>chat</code> key in settings.yaml:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-sonnet-4-20250514</span>
+
+<span class="nt">chat</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8420</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dark</span>
+</code></pre></div>
+
+<p>Bundle selection happens at startup. The Chat app loads the active bundle from your settings and uses it for all sessions. To switch bundles, update <code>settings.yaml</code> and restart the server.</p>
+<h2 id="a-typical-chat-workflow">A Typical Chat Workflow<a class="headerlink" href="#a-typical-chat-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's what working in the Chat app looks like in practice:</p>
+<p><strong>1. Start the server:</strong></p>
+<div class="codehilite"><pre><span></span><code>$ cd ~/projects/my-api
+$ amplifier-chat
+Starting Amplifier Chat on http://localhost:8420
+</code></pre></div>
+
+<p><strong>2. Open the browser and type a prompt:</strong></p>
+<blockquote>
+<p>I need to understand the payment processing flow before I make changes</p>
+</blockquote>
+<p><strong>3. The agent responds with streaming output:</strong></p>
+<div class="codehilite"><pre><span></span><code>[Tool: grep] pattern=&quot;payment|charge|invoice&quot; path=&quot;src/&quot;
+[Tool: read_file] src/payments/processor.py
+[Tool: read_file] src/payments/models.py
+[Tool: read_file] src/payments/webhooks.py
+
+Here&#39;s how payment processing works in this codebase:
+
+1. **Initiation** — `PaymentProcessor.charge()` in processor.py
+   creates a pending Payment record and sends it to Stripe...
+
+2. **Webhook handling** — webhooks.py listens for Stripe events...
+
+3. **Settlement** — on successful charge, the Payment status
+   updates to &quot;completed&quot; and an invoice is generated...
+</code></pre></div>
+
+<p><strong>4. Continue the conversation:</strong></p>
+<blockquote>
+<p>Now add support for refunds following the same pattern</p>
+</blockquote>
+<p>The agent has full context from the exploration phase. It knows the code structure, the patterns, the naming conventions — and it builds on that knowledge to implement the feature.</p>
+<p><strong>5. Review the session later:</strong></p>
+<p>Click back to this session from the sidebar at any time. The full conversation is there — the exploration, the implementation, the reasoning. Share the URL with a teammate for review.</p>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="cli.html">CLI App</a></strong> — the terminal-based alternative</li>
+<li><strong><a href="index.html">Apps Overview</a></strong> — compare applications and learn about building your own</li>
+<li><strong><a href="../concepts/architecture.html">Architecture</a></strong> — understand the full stack that powers both apps</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="cli.html" class="btn btn-neutral float-left" title="CLI App"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="building-apps.html" class="btn btn-neutral float-right" title="Building Your Own">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="cli.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="building-apps.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

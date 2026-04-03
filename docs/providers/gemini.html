@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Google Gemini - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Google Gemini";
+        var mkdocs_page_input_path = "providers/gemini.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="gemini.html">Google Gemini</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-parameters">Configuration Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#models">Models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gemini-pro-deep-reasoning">Gemini Pro — Deep Reasoning</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gemini-flash-speed-first">Gemini Flash — Speed First</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gemini-ultra-maximum-capability">Gemini Ultra — Maximum Capability</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#long-context-window">Long Context Window</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multimodal-capabilities">Multimodal Capabilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#image-understanding">Image Understanding</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#video-analysis">Video Analysis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#image-generation">Image Generation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-provider-routing-with-gemini">Multi-Provider Routing with Gemini</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">Google Gemini</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gemini-provider">Gemini Provider<a class="headerlink" href="#gemini-provider" title="Permanent link">&para;</a></h1>
+<p>Google's Gemini models bring something the other providers can't match: truly massive context windows and native multimodal understanding across text, images, video, and audio. When you need to reason over an entire codebase at once, analyze a video walkthrough of a bug, or generate images from descriptions, Gemini opens doors that other models keep closed.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The Gemini provider connects Amplifier to Google's Gemini model family through the Google AI API. It supports streaming, tool use, multimodal inputs, and Amplifier's full routing system. Gemini models process text, images, video, and audio natively — not through translation layers — which means multimodal tasks run faster and produce better results than bolt-on approaches.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>Get an API key from <a href="https://ai.google.dev">ai.google.dev</a>.</p>
+<blockquote>
+<p>Set your Google API key</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export GOOGLE_API_KEY=&quot;AIza...&quot;
+</code></pre></div>
+
+<p>Add it to your shell profile or use the keys file:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] cat ~/.amplifier/keys.env
+GOOGLE_API_KEY=AIza...
+</code></pre></div>
+
+<blockquote>
+<p>Verify the provider is working</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>&gt; What model are you?
+
+I&#39;m Gemini 2.5 Pro, running through the Google provider in your
+Amplifier session.
+</code></pre></div>
+
+<p>If you see a response, the key is active and the provider is connected.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Basic setup in your bundle YAML:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-2.5-pro</span>
+</code></pre></div>
+
+<p>Full configuration with all parameters:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${GOOGLE_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-2.5-pro</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8192</span>
+<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.95</span>
+<span class="w">  </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span>
+</code></pre></div>
+
+<h3 id="configuration-parameters">Configuration Parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>—</td>
+<td>Always <code>google</code></td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td><code>gemini-2.5-pro</code></td>
+<td>Which Gemini model to use</td>
+</tr>
+<tr>
+<td><strong>temperature</strong></td>
+<td><code>1.0</code></td>
+<td>Randomness (0.0–2.0, lower = more deterministic)</td>
+</tr>
+<tr>
+<td><strong>max_tokens</strong></td>
+<td><code>8192</code></td>
+<td>Maximum tokens in the response</td>
+</tr>
+<tr>
+<td><strong>top_p</strong></td>
+<td><code>0.95</code></td>
+<td>Nucleus sampling threshold</td>
+</tr>
+<tr>
+<td><strong>top_k</strong></td>
+<td><code>40</code></td>
+<td>Top-K sampling (unique to Gemini)</td>
+</tr>
+<tr>
+<td><strong>api_key</strong></td>
+<td>from env</td>
+<td>Explicit key override</td>
+</tr>
+</tbody>
+</table>
+<p>Gemini supports both <code>top_p</code> and <code>top_k</code> sampling — <code>top_k</code> limits the candidate tokens at each step to the K most likely options. For coding, <code>temperature: 0.0–0.2</code> with <code>top_k: 20</code> produces tight, consistent output.</p>
+<h2 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>Gemini ships in three tiers, each with different speed-capability-cost tradeoffs.</p>
+<h3 id="gemini-pro-deep-reasoning">Gemini Pro — Deep Reasoning<a class="headerlink" href="#gemini-pro-deep-reasoning" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-2.5-pro</span>
+</code></pre></div>
+
+<p>The most capable Gemini model. Gemini Pro handles complex reasoning, large-context analysis, and sophisticated code generation. Its standout feature is the context window — up to 1 million tokens, which means you can feed it entire codebases, lengthy documentation sets, or long conversation histories without truncation.</p>
+<p><strong>Best for:</strong> Large-codebase analysis, long-document reasoning, complex coding tasks, research synthesis.</p>
+<h3 id="gemini-flash-speed-first">Gemini Flash — Speed First<a class="headerlink" href="#gemini-flash-speed-first" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-2.5-flash</span>
+</code></pre></div>
+
+<p>Optimized for speed and cost. Flash delivers good-quality responses at significantly lower latency and price than Pro. It still supports multimodal inputs and the large context window, making it a strong choice for tasks where speed matters more than maximum depth.</p>
+<p><strong>Best for:</strong> Quick tasks, real-time workflows, high-volume processing, cost-sensitive operations.</p>
+<h3 id="gemini-ultra-maximum-capability">Gemini Ultra — Maximum Capability<a class="headerlink" href="#gemini-ultra-maximum-capability" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gemini-ultra</span>
+</code></pre></div>
+
+<p>The largest and most capable model in the Gemini family. Ultra pushes the boundaries on the hardest tasks — deep mathematical reasoning, complex multi-step problems, and nuanced understanding of difficult domains. Use it when Pro isn't enough and you need every bit of capability available.</p>
+<p><strong>Best for:</strong> Hardest reasoning problems, cutting-edge research, tasks where Pro falls short.</p>
+<h2 id="long-context-window">Long Context Window<a class="headerlink" href="#long-context-window" title="Permanent link">&para;</a></h2>
+<p>This is Gemini's defining advantage. With a 1-million-token context window, you can process amounts of text that would require chunking and summarization with other providers.</p>
+<blockquote>
+<p>Analyze the entire src/ directory for architectural patterns</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] find src/ -name &quot;*.py&quot; -exec cat {} + | wc -c
+847293 characters (~200K tokens)
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>Gemini can process the entire codebase in a single pass. Here&#39;s
+what I found:
+
+1. Repository pattern in src/data/ — all DB access goes through
+   repository classes, never direct queries
+2. Service layer in src/services/ — business logic separated
+   from HTTP handling
+3. Event-driven communication between services via src/events/
+...
+</code></pre></div>
+
+<p>Where other models would need you to select specific files or summarize first, Gemini can ingest everything at once. This is especially valuable for:</p>
+<ul>
+<li><strong>Codebase-wide refactoring analysis</strong> — understand all the implications before changing anything</li>
+<li><strong>Documentation generation</strong> — read all the code, produce comprehensive docs</li>
+<li><strong>Migration planning</strong> — analyze an entire legacy codebase to plan the move</li>
+<li><strong>Cross-file dependency mapping</strong> — trace how data flows through the whole system</li>
+</ul>
+<h2 id="multimodal-capabilities">Multimodal Capabilities<a class="headerlink" href="#multimodal-capabilities" title="Permanent link">&para;</a></h2>
+<p>Gemini processes images, video, and audio natively. In Amplifier, this means you can mix media types freely in your conversations.</p>
+<h3 id="image-understanding">Image Understanding<a class="headerlink" href="#image-understanding" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Look at this architecture diagram and list all the services and their connections</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>The diagram shows six microservices:
+1. API Gateway → Auth Service, User Service
+2. Auth Service → Redis (session store)
+3. User Service → PostgreSQL, Notification Service
+4. Notification Service → Email Provider, SMS Provider
+5. All services → Logging Service (via message queue)
+</code></pre></div>
+
+<h3 id="video-analysis">Video Analysis<a class="headerlink" href="#video-analysis" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Watch this screen recording and identify where the UI bug occurs</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>At 0:42 in the recording, the dropdown menu renders behind the
+modal overlay. The z-index stack is broken — the modal has
+z-index: 1000 but the dropdown inherits z-index: auto from its
+parent container instead of getting its own stacking context.
+</code></pre></div>
+
+<p>Video analysis is uniquely powerful for:
+- Bug reproduction from screen recordings
+- UX review of interaction flows
+- Understanding deployment processes from recorded walkthroughs</p>
+<h3 id="image-generation">Image Generation<a class="headerlink" href="#image-generation" title="Permanent link">&para;</a></h3>
+<p>Gemini can generate images directly, which is useful for quick visual mockups and prototyping:</p>
+<blockquote>
+<p>Generate a wireframe of a login page with email, password, and social login buttons</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Gemini generates a wireframe image]
+
+Here&#39;s a basic wireframe showing:
+- Email input field at top
+- Password field with show/hide toggle
+- &quot;Log In&quot; primary button
+- Divider with &quot;or continue with&quot;
+- Google, GitHub, Apple social login buttons
+- &quot;Forgot password?&quot; and &quot;Sign up&quot; links at bottom
+</code></pre></div>
+
+<p>This lets you iterate on visual ideas without leaving Amplifier or switching to a design tool.</p>
+<h2 id="multi-provider-routing-with-gemini">Multi-Provider Routing with Gemini<a class="headerlink" href="#multi-provider-routing-with-gemini" title="Permanent link">&para;</a></h2>
+<p>Gemini fits naturally into a routing matrix alongside other providers. A common pattern leverages Gemini's long context and multimodal strengths:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">  </span><span class="nt">google</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${GOOGLE_API_KEY}</span>
+
+<span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google/gemini-2.5-flash</span>
+<span class="w">  </span><span class="nt">research</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google/gemini-2.5-pro</span>
+<span class="w">  </span><span class="nt">vision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google/gemini-2.5-pro</span>
+<span class="w">  </span><span class="nt">reasoning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>This setup uses Claude for core coding, Gemini Pro for research and vision tasks that benefit from the long context window, and Gemini Flash for quick operations.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Use the context window.</strong> Gemini's biggest advantage is processing massive inputs. Don't chunk what you can send whole — feed it entire files, full documentation, complete test suites.</li>
+<li><strong>Flash for speed, Pro for depth.</strong> Flash is fast and cheap. Pro is thorough and powerful. Pick based on the task, not habit.</li>
+<li><strong>Multimodal is native.</strong> You don't need to convert images to text descriptions or transcribe videos. Send the media directly and let Gemini process it in its original form.</li>
+<li><strong>top_k for focused output.</strong> Gemini's <code>top_k</code> parameter gives you finer control over sampling. For code generation, <code>top_k: 20</code> with low temperature produces clean, predictable results.</li>
+<li><strong>Pair with Claude for coding.</strong> Gemini excels at analysis and understanding; Claude excels at code generation. A routing matrix that plays to both strengths is more powerful than either alone.</li>
+<li><strong>Watch token costs on large contexts.</strong> Sending 500K tokens of context is powerful but not free. Be deliberate about what you include — sometimes selecting the right files beats sending everything.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="index.html">Provider Index</a> for the full routing configuration and multi-provider setup</li>
+<li>Compare with the <a href="anthropic.html">Anthropic Provider</a> and <a href="openai.html">OpenAI Provider</a> to understand where each model excels</li>
+<li>Learn about <a href="../concepts/routing.html">Routing</a> to automate model selection across your workflow</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="openai.html" class="btn btn-neutral float-left" title="OpenAI (GPT)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="azure.html" class="btn btn-neutral float-right" title="Azure OpenAI">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="openai.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="azure.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

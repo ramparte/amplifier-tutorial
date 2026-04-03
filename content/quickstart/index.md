@@ -12,12 +12,12 @@ Get up and running with Amplifier in minutes. This section provides fast-track p
 
 | Page | Description |
 |------|-------------|
+| [What is Amplifier?](./what-is-amplifier.md) | Understanding the fundamentals |
 | [Installation](./installation.md) | Install Amplifier and dependencies |
 | [First Conversation](./first-conversation.md) | Start your first conversation |
-| [What is Amplifier?](./what-is-amplifier.md) | Understanding the fundamentals |
-| [How It's Different](./how-its-different.md) | What sets Amplifier apart |
-| [Your First Bundle](./first-bundle.md) | Create a custom behavior package |
 | [Key Commands](./key-commands.md) | Essential commands and workflows |
+| [Your First Bundle](./first-bundle.md) | Create a custom behavior package |
+| [How It's Different](./how-its-different.md) | What sets Amplifier apart |
 
 ## Quick Tips
 

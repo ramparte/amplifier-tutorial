@@ -67,7 +67,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a>
                   </li>
@@ -78,68 +78,54 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="recipes.html">Recipes</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#what-is-a-recipe">What is a Recipe?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How It Works</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#core-characteristics">Core Characteristics</a>
+    <li class="toctree-l3"><a class="reference internal" href="#context-flow-between-steps">Context Flow Between Steps</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#when-to-use-recipes">When to Use Recipes</a>
+    <li class="toctree-l2"><a class="reference internal" href="#using-recipes">Using Recipes</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#ideal-use-cases">Ideal Use Cases</a>
+    <li class="toctree-l3"><a class="reference internal" href="#running-a-recipe">Running a Recipe</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-not-to-use-recipes">When NOT to Use Recipes</a>
+    <li class="toctree-l3"><a class="reference internal" href="#step-types">Step Types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conditional-execution">Conditional Execution</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#iteration-with-foreach">Iteration with Foreach</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#while-loops">While Loops</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#recipe-structure">Recipe Structure</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-anatomy">Basic Anatomy</a>
+    <li class="toctree-l2"><a class="reference internal" href="#staged-recipes-and-approval-gates">Staged Recipes and Approval Gates</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#key-elements">Key Elements</a>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own">Creating Your Own</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#error-handling">Error Handling</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#where-recipes-live">Where Recipes Live</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#steps-and-context">Steps and Context</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#step-definition">Step Definition</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#context-flow">Context Flow</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#template-syntax">Template Syntax</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#step-options">Step Options</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#approval-gates">Approval Gates</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#staged-recipes">Staged Recipes</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#approval-workflow">Approval Workflow</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#managing-approvals">Managing Approvals</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-cases-for-approval-gates">Use Cases for Approval Gates</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#foreach-loops">Foreach Loops</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#conditional-steps">Conditional Steps</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#error-recovery">Error Recovery</a>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#key-takeaways">Key Takeaways</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-concepts">Related Concepts</a>
     </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="skills.html">Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -154,14 +140,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -169,20 +165,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -196,19 +268,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -236,253 +295,265 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="understanding-recipes">Understanding Recipes<a class="headerlink" href="#understanding-recipes" title="Permanent link">&para;</a></h1>
-<p>Recipes are declarative YAML specifications that define multi-step AI agent workflows. They provide a structured way to orchestrate complex tasks that require multiple sequential or parallel operations, with built-in support for state persistence, error handling, and human approval gates.</p>
+<p>Recipes are declarative YAML specifications that define multi-step agent workflows. They let you orchestrate complex tasks that require multiple sequential or parallel operations, with built-in support for state persistence, checkpointing, and human approval gates.</p>
 <h2 id="what-is-a-recipe">What is a Recipe?<a class="headerlink" href="#what-is-a-recipe" title="Permanent link">&para;</a></h2>
-<p>A recipe is essentially a blueprint for AI-assisted work. Rather than manually guiding an agent through each step of a complex process, you define the entire workflow upfront in a YAML file. The recipe system then executes each step in order, passing context between steps and handling failures gracefully.</p>
-<p>Think of recipes like cooking recipes: they specify ingredients (context), steps (operations), and expected outcomes. Just as a cooking recipe ensures consistent results regardless of who follows it, an agent recipe ensures consistent, reproducible workflows.</p>
-<h3 id="core-characteristics">Core Characteristics<a class="headerlink" href="#core-characteristics" title="Permanent link">&para;</a></h3>
-<p><strong>Declarative</strong>: You specify <em>what</em> should happen, not <em>how</em> to do it. The recipe executor handles the mechanics of step execution, context management, and error recovery.</p>
-<p><strong>Sequential with State</strong>: Each step can access the accumulated context from all previous steps. This creates a natural flow where early steps gather information that later steps act upon.</p>
-<p><strong>Resumable</strong>: If a recipe is interrupted (network failure, timeout, manual stop), it can be resumed from the last successful checkpoint. No work is lost.</p>
-<p><strong>Composable</strong>: Recipes can be simple (3-4 steps) or complex (dozens of steps with conditional branching). You build what you need.</p>
-<h2 id="when-to-use-recipes">When to Use Recipes<a class="headerlink" href="#when-to-use-recipes" title="Permanent link">&para;</a></h2>
-<p>Recipes shine in scenarios where manual orchestration would be tedious, error-prone, or inconsistent.</p>
-<h3 id="ideal-use-cases">Ideal Use Cases<a class="headerlink" href="#ideal-use-cases" title="Permanent link">&para;</a></h3>
-<p><strong>Code Review Workflows</strong>: A recipe can analyze code changes, check for security issues, verify test coverage, and generate a comprehensive review report - all in one automated flow.</p>
-<p><strong>Research and Synthesis</strong>: Gather information from multiple sources, analyze patterns, synthesize findings, and produce a structured report.</p>
-<p><strong>Multi-Stage Deployments</strong>: Validate configuration, run tests, build artifacts, deploy to staging, run smoke tests, and optionally promote to production.</p>
-<p><strong>Document Generation</strong>: Analyze a codebase, extract documentation, generate API references, and compile everything into a cohesive document.</p>
-<p><strong>Refactoring Operations</strong>: Analyze current code, identify patterns to change, plan modifications, execute changes across files, and verify results.</p>
-<h3 id="when-not-to-use-recipes">When NOT to Use Recipes<a class="headerlink" href="#when-not-to-use-recipes" title="Permanent link">&para;</a></h3>
+<p>A recipe is a blueprint for AI-assisted work. Rather than manually guiding an agent through each step of a complex process, you define the entire workflow upfront in a YAML file. The recipe system executes each step in order, passing context between steps and handling failures gracefully.</p>
 <ul>
-<li><strong>Simple one-shot tasks</strong>: If a single agent call suffices, skip the recipe overhead</li>
-<li><strong>Highly interactive work</strong>: Recipes are designed for autonomous execution, not back-and-forth conversation</li>
-<li><strong>Exploratory tasks</strong>: When you don't know the steps upfront, manual guidance is better</li>
+<li><strong>Declarative</strong>: You specify <em>what</em> should happen, not <em>how</em>. The executor handles sequencing, context management, and error recovery.</li>
+<li><strong>Stateful</strong>: Each step's output is stored in context and available to every subsequent step.</li>
+<li><strong>Resumable</strong>: If a recipe is interrupted, it resumes from the last successful checkpoint. No work is lost.</li>
+<li><strong>Composable</strong>: Recipes can invoke other recipes as sub-workflows, enabling modular, reusable components.</li>
 </ul>
-<h2 id="recipe-structure">Recipe Structure<a class="headerlink" href="#recipe-structure" title="Permanent link">&para;</a></h2>
-<p>A recipe file has a clear structure with metadata, context, and steps.</p>
-<h3 id="basic-anatomy">Basic Anatomy<a class="headerlink" href="#basic-anatomy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Recipe metadata</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code-review</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Comprehensive code review workflow</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>A recipe file has a straightforward structure: metadata at the top, optional context variables, and an ordered list of steps.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;code-review&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">code</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">security</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">quality</span><span class="nv"> </span><span class="s">issues&quot;</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
 
-<span class="c1"># Input context (variables passed at execution time)</span>
 <span class="nt">context</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">required</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file_path</span><span class="w">    </span><span class="c1"># Path to file being reviewed</span>
-<span class="w">  </span><span class="nt">optional</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">focus_areas</span><span class="w">  </span><span class="c1"># Specific areas to emphasize</span>
+<span class="w">  </span><span class="nt">file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;src/auth.py&quot;</span>
 
-<span class="c1"># The workflow steps</span>
 <span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze-structure</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:explorer</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analyze&quot;</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:explorer&quot;</span>
+<span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">patterns</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">{{file_path}}&quot;</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analysis&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;security-check&quot;</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:security-guardian&quot;</span>
 <span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Analyze the structure of {{ file_path }}.</span>
-<span class="w">      </span><span class="no">Identify key components, dependencies, and patterns.</span>
+<span class="w">      </span><span class="no">Review {{file_path}} for security vulnerabilities.</span>
+<span class="w">      </span><span class="no">Previous analysis: {{analysis}}</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;security_findings&quot;</span>
 
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-check</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;report&quot;</span>
+<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:zen-architect&quot;</span>
 <span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Review {{ file_path }} for security vulnerabilities.</span>
-<span class="w">      </span><span class="no">Previous analysis: {{ steps.analyze-structure.result }}</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate-report</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:file-ops</span>
-<span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Generate a code review report based on:</span>
-<span class="w">      </span><span class="no">- Structure analysis: {{ steps.analyze-structure.result }}</span>
-<span class="w">      </span><span class="no">- Security findings: {{ steps.security-check.result }}</span>
+<span class="w">      </span><span class="no">Generate a review report combining:</span>
+<span class="w">      </span><span class="no">- Structure analysis: {{analysis}}</span>
+<span class="w">      </span><span class="no">- Security findings: {{security_findings}}</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;final_report&quot;</span>
 </code></pre></div>
 
-<h3 id="key-elements">Key Elements<a class="headerlink" href="#key-elements" title="Permanent link">&para;</a></h3>
-<p><strong>name</strong>: A unique identifier for the recipe. Used for execution and logging.</p>
-<p><strong>description</strong>: Human-readable explanation of what the recipe does.</p>
-<p><strong>context</strong>: Defines inputs the recipe expects. Required context must be provided at execution time; optional context has defaults or can be omitted.</p>
-<p><strong>steps</strong>: The ordered list of operations to execute. Each step has a name, an agent to invoke, and a prompt template.</p>
-<h2 id="steps-and-context">Steps and Context<a class="headerlink" href="#steps-and-context" title="Permanent link">&para;</a></h2>
-<p>Steps are the building blocks of recipes. Each step represents a discrete unit of work performed by an agent.</p>
-<h3 id="step-definition">Step Definition<a class="headerlink" href="#step-definition" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">steps</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">step-identifier</span><span class="w">        </span><span class="c1"># Unique name within recipe</span>
-<span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:explorer</span><span class="w">   </span><span class="c1"># Agent to invoke</span>
-<span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">                    </span><span class="c1"># Instructions for the agent</span>
-<span class="w">      </span><span class="no">Your task description here.</span>
-<span class="w">      </span><span class="no">You can reference context: {{ variable_name }}</span>
-<span class="w">      </span><span class="no">And previous results: {{ steps.previous-step.result }}</span>
+<h3 id="context-flow-between-steps">Context Flow Between Steps<a class="headerlink" href="#context-flow-between-steps" title="Permanent link">&para;</a></h3>
+<p>The <code>{{variable}}</code> syntax is how data moves through a recipe. When a step declares <code>output: "analysis"</code>, its result becomes available to every later step as <code>{{analysis}}</code>. Context comes from step outputs, the top-level <code>context</code> block, and built-in variables like <code>{{recipe.name}}</code> and <code>{{session.id}}</code>. If a referenced variable doesn't exist at runtime, the recipe fails immediately with a clear error.</p>
+<h2 id="using-recipes">Using Recipes<a class="headerlink" href="#using-recipes" title="Permanent link">&para;</a></h2>
+<h3 id="running-a-recipe">Running a Recipe<a class="headerlink" href="#running-a-recipe" title="Permanent link">&para;</a></h3>
+<p>To execute a recipe, ask Amplifier to run it. Recipes can live in bundles or as local files:</p>
+<blockquote>
+<p>Run the code review recipe on src/auth.py</p>
+</blockquote>
+<p>Behind the scenes, the recipe tool supports these operations:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execute</code></td>
+<td>Run a recipe from a YAML file</td>
+</tr>
+<tr>
+<td><code>resume</code></td>
+<td>Resume an interrupted session</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>List active recipe sessions</td>
+</tr>
+<tr>
+<td><code>validate</code></td>
+<td>Check a recipe for errors without running it</td>
+</tr>
+<tr>
+<td><code>cancel</code></td>
+<td>Cancel a running session</td>
+</tr>
+</tbody>
+</table>
+<p>Recipes are referenced by path. Bundle recipes use the <code>@bundle:path</code> format (e.g., <code>@recipes:examples/code-review.yaml</code>), while local recipes use filesystem paths.</p>
+<h3 id="step-types">Step Types<a class="headerlink" href="#step-types" title="Permanent link">&para;</a></h3>
+<p>Not every step needs an LLM. Recipes support three step types:</p>
+<p><strong>Agent steps</strong> (default) spawn an LLM agent with a prompt:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analyze&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:zen-architect&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">architecture</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">{{file_path}}&quot;</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analysis&quot;</span>
 </code></pre></div>
 
-<h3 id="context-flow">Context Flow<a class="headerlink" href="#context-flow" title="Permanent link">&para;</a></h3>
-<p>Context flows through recipes in a predictable way:</p>
-<ol>
-<li><strong>Initial Context</strong>: Variables provided at recipe execution</li>
-<li><strong>Step Results</strong>: Each step's output is stored and accessible to later steps</li>
-<li><strong>Accumulated State</strong>: Later steps have access to all prior results</li>
-</ol>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Step 1 receives initial context</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gather-info</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">target_directory</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w">  </span><span class="c1"># target_directory from initial context</span>
-
-<span class="c1"># Step 2 receives initial context + step 1 results</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">process-info</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Based on: {{ steps.gather-info.result }}</span>
-<span class="w">    </span><span class="no">Process the information...</span>
-
-<span class="c1"># Step 3 receives everything</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synthesize</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">    </span><span class="no">Original target: {{ target_directory }}</span>
-<span class="w">    </span><span class="no">Gathered info: {{ steps.gather-info.result }}</span>
-<span class="w">    </span><span class="no">Processed info: {{ steps.process-info.result }}</span>
+<p><strong>Bash steps</strong> execute shell commands directly, with no LLM overhead:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;run-tests&quot;</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bash&quot;</span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;npm</span><span class="nv"> </span><span class="s">test&quot;</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test_output&quot;</span>
 </code></pre></div>
 
-<h3 id="template-syntax">Template Syntax<a class="headerlink" href="#template-syntax" title="Permanent link">&para;</a></h3>
-<p>Recipes use Jinja2-style templating for dynamic content:</p>
-<ul>
-<li><code>{{ variable }}</code>: Insert a context variable</li>
-<li><code>{{ steps.step-name.result }}</code>: Insert a previous step's result</li>
-<li><code>{{ context.required_var }}</code>: Explicitly reference required context</li>
-</ul>
-<h3 id="step-options">Step Options<a class="headerlink" href="#step-options" title="Permanent link">&para;</a></h3>
-<p>Steps support additional configuration:</p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical-operation</span>
-<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Implement</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">feature...&quot;</span>
-
-<span class="w">  </span><span class="c1"># Error handling</span>
-<span class="w">  </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span><span class="w">    </span><span class="c1"># Options: fail (default), continue, retry</span>
-<span class="w">  </span><span class="nt">max_retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">        </span><span class="c1"># For retry strategy</span>
-
-<span class="w">  </span><span class="c1"># Timeouts</span>
-<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">          </span><span class="c1"># Seconds before timeout</span>
-
-<span class="w">  </span><span class="c1"># Conditional execution</span>
-<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">steps.validation.result.passed</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<p><strong>Recipe steps</strong> invoke another recipe as a sub-workflow:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;security-audit&quot;</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;recipe&quot;</span>
+<span class="w">  </span><span class="nt">recipe</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;audits/security-audit.yaml&quot;</span>
+<span class="w">  </span><span class="nt">context</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{file_path}}&quot;</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;audit_result&quot;</span>
 </code></pre></div>
 
-<h2 id="approval-gates">Approval Gates<a class="headerlink" href="#approval-gates" title="Permanent link">&para;</a></h2>
-<p>For workflows that require human oversight, recipes support approval gates. These pause execution at critical points, allowing humans to review progress before continuing.</p>
-<h3 id="staged-recipes">Staged Recipes<a class="headerlink" href="#staged-recipes" title="Permanent link">&para;</a></h3>
-<p>Approval gates are implemented through staged recipes - recipes divided into stages that require explicit approval between them.</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-deployment</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to production with approval gates</span>
+<p>Sub-recipes receive only the context you explicitly pass to them. This isolation prevents accidental data leakage and makes each sub-recipe predictable and testable on its own.</p>
+<h3 id="conditional-execution">Conditional Execution<a class="headerlink" href="#conditional-execution" title="Permanent link">&para;</a></h3>
+<p>Steps can be skipped based on runtime conditions:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;critical-fix&quot;</span>
+<span class="w">  </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{severity}}</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;critical&#39;&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:zen-architect&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Fix</span><span class="nv"> </span><span class="s">critical</span><span class="nv"> </span><span class="s">issues</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">{{file_path}}&quot;</span>
+</code></pre></div>
+
+<p>Conditions support <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, along with <code>and</code>, <code>or</code>, <code>not</code>, and parentheses for grouping.</p>
+<h3 id="iteration-with-foreach">Iteration with Foreach<a class="headerlink" href="#iteration-with-foreach" title="Permanent link">&para;</a></h3>
+<p>Process collections by iterating over list variables:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;discover-files&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:explorer&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;List</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">Python</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">{{directory}}&quot;</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;files&quot;</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analyze-each&quot;</span>
+<span class="w">  </span><span class="nt">foreach</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{files}}&quot;</span>
+<span class="w">  </span><span class="nt">as</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;current_file&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:zen-architect&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">{{current_file}}</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">issues&quot;</span>
+<span class="w">  </span><span class="nt">collect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;all_analyses&quot;</span>
+</code></pre></div>
+
+<p>The <code>collect</code> field gathers all iteration results into a list. Without it, <code>output</code> holds only the last iteration's result. Add <code>parallel: true</code> to run iterations concurrently, or <code>parallel: 5</code> for bounded concurrency.</p>
+<h3 id="while-loops">While Loops<a class="headerlink" href="#while-loops" title="Permanent link">&para;</a></h3>
+<p>For convergence-based workflows where you don't know iteration count upfront, use <code>while_condition</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;refine&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:zen-architect&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Refine</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">design.</span><span class="nv"> </span><span class="s">Current</span><span class="nv"> </span><span class="s">state:</span><span class="nv"> </span><span class="s">{{draft}}&quot;</span>
+<span class="w">  </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;refined&quot;</span>
+<span class="w">  </span><span class="nt">while_condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{quality_score}}</span><span class="nv"> </span><span class="s">&lt;</span><span class="nv"> </span><span class="s">8&quot;</span>
+<span class="w">  </span><span class="nt">max_while_iterations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">update_context</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{refined}}&quot;</span>
+<span class="w">    </span><span class="nt">quality_score</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{refined.score}}&quot;</span>
+<span class="w">  </span><span class="nt">break_when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{quality_score}}</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">8&quot;</span>
+</code></pre></div>
+
+<p>The loop evaluates <code>while_condition</code> before each iteration, executes the step, applies <code>update_context</code> to mutate state, then checks <code>break_when</code> for early exit.</p>
+<h2 id="staged-recipes-and-approval-gates">Staged Recipes and Approval Gates<a class="headerlink" href="#staged-recipes-and-approval-gates" title="Permanent link">&para;</a></h2>
+<p>For high-stakes workflows that need human oversight, recipes support <strong>staged mode</strong> with approval gates. Instead of a flat <code>steps</code> list, you organize work into <code>stages</code>, each with an optional approval checkpoint.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;production-deploy&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">human</span><span class="nv"> </span><span class="s">approval</span><span class="nv"> </span><span class="s">gates&quot;</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
 
 <span class="nt">stages</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">preparation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;validation&quot;</span>
 <span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate-config</span>
-<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:explorer</span>
-<span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Validate</span><span class="nv"> </span><span class="s">deployment</span><span class="nv"> </span><span class="s">configuration...&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;check-config&quot;</span>
+<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:explorer&quot;</span>
+<span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Validate</span><span class="nv"> </span><span class="s">deployment</span><span class="nv"> </span><span class="s">configuration&quot;</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;validation_result&quot;</span>
+<span class="w">    </span><span class="nt">approval</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Validation</span><span class="nv"> </span><span class="s">complete:</span><span class="nv"> </span><span class="s">{{validation_result}}.</span><span class="nv"> </span><span class="s">Proceed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">deploy?&quot;</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3600</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deny&quot;</span>
 
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">run-tests</span>
-<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:test-coverage</span>
-<span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Execute</span><span class="nv"> </span><span class="s">full</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">suite...&quot;</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">staging-deployment</span>
-<span class="w">    </span><span class="nt">approval_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">approval_message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Preparation complete. Test results:</span>
-<span class="w">      </span><span class="no">{{ steps.run-tests.result }}</span>
-
-<span class="w">      </span><span class="no">Approve to deploy to staging?</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deployment&quot;</span>
 <span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy-staging</span>
-<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
-<span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">staging</span><span class="nv"> </span><span class="s">environment...&quot;</span>
-
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-release</span>
-<span class="w">    </span><span class="nt">approval_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">approval_message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Staging deployment successful.</span>
-<span class="w">      </span><span class="no">Approve production release?</span>
-<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy-production</span>
-<span class="w">        </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:modular-builder</span>
-<span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Deploy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">production...&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deploy&quot;</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bash&quot;</span>
+<span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deploy.sh</span><span class="nv"> </span><span class="s">--env</span><span class="nv"> </span><span class="s">production&quot;</span>
+<span class="w">        </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deploy_result&quot;</span>
 </code></pre></div>
 
-<h3 id="approval-workflow">Approval Workflow<a class="headerlink" href="#approval-workflow" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Recipe executes until it hits a stage with <code>approval_required: true</code></li>
-<li>Execution pauses and the approval message is displayed</li>
-<li>Human reviews the state and either approves or denies</li>
-<li>On approval: execution continues to the next stage</li>
-<li>On denial: execution stops with the provided reason</li>
-</ol>
-<h3 id="managing-approvals">Managing Approvals<a class="headerlink" href="#managing-approvals" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># List pending approvals across all sessions</span>
-amp<span class="w"> </span>recipes<span class="w"> </span>approvals
-
-<span class="c1"># Approve a pending stage</span>
-amp<span class="w"> </span>recipes<span class="w"> </span>approve<span class="w"> </span>--session-id<span class="w"> </span>&lt;id&gt;<span class="w"> </span>--stage-name<span class="w"> </span>staging-deployment
-
-<span class="c1"># Deny with reason</span>
-amp<span class="w"> </span>recipes<span class="w"> </span>deny<span class="w"> </span>--session-id<span class="w"> </span>&lt;id&gt;<span class="w"> </span>--stage-name<span class="w"> </span>production-release<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--reason<span class="w"> </span><span class="s2">&quot;Test coverage below threshold&quot;</span>
+<p>When execution reaches an approval gate, it pauses and returns a <code>paused_for_approval</code> status. Use <code>approvals</code> to list pending gates, <code>approve</code> or <code>deny</code> to respond (with an optional message or reason), then <code>resume</code> to continue. The approval message is available to subsequent steps as <code>{{_approval_message}}</code>, letting you pass human guidance into the workflow.</p>
+<p>A recipe must use either <code>steps</code> (flat mode) or <code>stages</code> (staged mode), not both. Start with flat mode for simplicity and upgrade to staged mode when human oversight becomes necessary.</p>
+<h2 id="creating-your-own">Creating Your Own<a class="headerlink" href="#creating-your-own" title="Permanent link">&para;</a></h2>
+<p>Every recipe needs <code>name</code>, <code>description</code>, and <code>version</code> (semver format). Add <code>context</code> for input variables and <code>steps</code> for the workflow. Before running, validate your recipe to catch errors early:</p>
+<blockquote>
+<p>Validate my recipe at ./recipes/my-workflow.yaml</p>
+</blockquote>
+<p>The validator checks structure, step ID uniqueness, variable references, and dependency ordering.</p>
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<p>Each step supports error handling configuration:</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;optional-check&quot;</span>
+<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foundation:explorer&quot;</span>
+<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">optional</span><span class="nv"> </span><span class="s">validation&quot;</span>
+<span class="w">  </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;continue&quot;</span><span class="w">     </span><span class="c1"># Don&#39;t fail the whole recipe</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">             </span><span class="c1"># 5 minute timeout</span>
+<span class="w">  </span><span class="nt">retry</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">backoff</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;exponential&quot;</span>
 </code></pre></div>
 
-<h3 id="use-cases-for-approval-gates">Use Cases for Approval Gates<a class="headerlink" href="#use-cases-for-approval-gates" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Production deployments</strong>: Human sign-off before going live</li>
-<li><strong>Data migrations</strong>: Review migration plan before execution</li>
-<li><strong>Bulk operations</strong>: Approve after seeing what will be affected</li>
-<li><strong>Compliance workflows</strong>: Required human verification for audit trails</li>
-</ul>
-<h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
-<h3 id="foreach-loops">Foreach Loops<a class="headerlink" href="#foreach-loops" title="Permanent link">&para;</a></h3>
-<p>Execute steps for each item in a collection:</p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">process-files</span>
-<span class="w">  </span><span class="nt">foreach</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">discovered_files</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">  </span><span class="nt">as</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">current_file</span>
-<span class="w">  </span><span class="nt">steps</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">analyze</span>
-<span class="w">      </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:explorer</span>
-<span class="w">      </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Analyze</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">current_file</span><span class="nv"> </span><span class="s">}}...&quot;</span>
-</code></pre></div>
-
-<h3 id="conditional-steps">Conditional Steps<a class="headerlink" href="#conditional-steps" title="Permanent link">&para;</a></h3>
-<p>Skip steps based on conditions:</p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-scan</span>
-<span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">context.security_required</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:security-guardian</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Perform</span><span class="nv"> </span><span class="s">security</span><span class="nv"> </span><span class="s">scan...&quot;</span>
-</code></pre></div>
-
-<h3 id="error-recovery">Error Recovery<a class="headerlink" href="#error-recovery" title="Permanent link">&para;</a></h3>
-<p>Configure how failures are handled:</p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">optional-optimization</span>
-<span class="w">  </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation:zen-architect</span>
-<span class="w">  </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Optimize</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">possible...&quot;</span>
-<span class="w">  </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">continue</span><span class="w">  </span><span class="c1"># Don&#39;t fail the whole recipe</span>
-</code></pre></div>
-
+<p>The <code>on_error</code> field accepts <code>"fail"</code> (default), <code>"continue"</code> (log and move on), or <code>"skip_remaining"</code> (stop without marking as failure).</p>
+<h3 id="where-recipes-live">Where Recipes Live<a class="headerlink" href="#where-recipes-live" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Format</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bundle</td>
+<td><code>@recipes:path/name.yaml</code></td>
+<td>Shared, versioned workflows</td>
+</tr>
+<tr>
+<td>Workspace</td>
+<td><code>./recipes/name.yaml</code></td>
+<td>Project-specific workflows</td>
+</tr>
+<tr>
+<td>Absolute path</td>
+<td><code>/path/to/recipe.yaml</code></td>
+<td>One-off or testing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<p><strong>Keep steps focused.</strong> Each step should have a single, clear purpose. A step named "analyze-and-fix-and-report" is doing too much. Split it into three steps that pass context between them.</p>
+<p><strong>Name outputs descriptively.</strong> Use <code>output: "security_findings"</code> rather than <code>output: "result"</code>. Later steps read more naturally: <code>{{security_findings}}</code> vs <code>{{result}}</code>.</p>
+<p><strong>Use bash steps for deterministic work.</strong> Running tests, installing dependencies, or fetching data with <code>curl</code> don't need an LLM. Bash steps are faster and more predictable.</p>
+<p><strong>Start flat, add stages when needed.</strong> Begin with simple sequential steps. Add approval gates only when your workflow genuinely needs human checkpoints. Changing from flat to staged mode is a breaking change (major version bump).</p>
+<p><strong>Use recipes for repeatable workflows, not ad-hoc tasks.</strong> If you're exploring something interactively or running a one-shot task, direct agent conversation is simpler. Recipes shine when you'll run the same multi-step process repeatedly with different inputs.</p>
+<p><strong>Test sub-recipes independently.</strong> Because sub-recipes receive only explicitly passed context, each one should work on its own. This makes debugging and iteration much faster.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>Recipes are declarative workflows</strong>: Define what you want, not how to do it. The recipe system handles execution mechanics.</p>
+<p><strong>Recipes are declarative workflows</strong>: Define steps in YAML, and the executor handles sequencing, state management, and error recovery.</p>
 </li>
 <li>
-<p><strong>State flows automatically</strong>: Each step can access all previous results. No manual state management required.</p>
+<p><strong>Context flows automatically</strong>: Each step's output becomes a variable available to all subsequent steps via <code>{{variable_name}}</code> syntax.</p>
 </li>
 <li>
-<p><strong>Resumability is built-in</strong>: Interrupted recipes can be resumed. Checkpointing happens automatically.</p>
+<p><strong>Three step types cover all needs</strong>: Agent steps for reasoning, bash steps for deterministic commands, recipe steps for composing sub-workflows.</p>
 </li>
 <li>
-<p><strong>Approval gates enable human oversight</strong>: For critical workflows, pause and require human approval before proceeding.</p>
+<p><strong>Resumability is built-in</strong>: Automatic checkpointing means interrupted recipes resume from the last successful step, not from scratch.</p>
 </li>
 <li>
-<p><strong>Start simple, grow as needed</strong>: Begin with linear sequences of steps. Add stages, conditions, and loops only when your workflow demands it.</p>
+<p><strong>Approval gates enable human oversight</strong>: Staged recipes pause at approval gates, letting humans review progress before critical operations proceed.</p>
 </li>
 <li>
-<p><strong>Recipes are reusable</strong>: Once defined, a recipe can be executed repeatedly with different inputs. Build a library of workflows for common tasks.</p>
+<p><strong>Iteration handles collections</strong>: Foreach loops process lists with optional parallelism; while loops handle convergence-based workflows.</p>
 </li>
 <li>
-<p><strong>Think in discrete steps</strong>: Each step should have a clear, focused purpose. Avoid monolithic steps that try to do everything.</p>
+<p><strong>Recipes vs direct conversation</strong>: Use recipes for repeatable multi-step processes. Use direct agent interaction for exploratory or one-shot work.</p>
 </li>
 </ol>
-<p>Recipes transform complex, multi-step processes into repeatable, reliable workflows. They bridge the gap between manual agent interaction and fully automated pipelines, giving you control over the workflow design while letting AI handle the execution.</p>
+<hr />
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="agents.html">Agents</a> - The agents that execute recipe steps</li>
+<li><a href="bundles.html">Bundles</a> - How recipes are packaged and distributed</li>
+<li><a href="modules.html">Modules</a> - The module system that recipes build upon</li>
+</ul>
               
             </div>
           </div><footer>

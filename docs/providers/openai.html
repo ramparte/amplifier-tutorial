@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>OpenAI (GPT) - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "OpenAI (GPT)";
+        var mkdocs_page_input_path = "providers/openai.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="openai.html">OpenAI (GPT)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-parameters">Configuration Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#models">Models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gpt-4o-the-generalist">GPT-4o — The Generalist</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpt-4o-mini-fast-and-cheap">GPT-4o-mini — Fast and Cheap</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpt-4-turbo-legacy-workhorse">GPT-4 Turbo — Legacy Workhorse</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#o1-and-o3-reasoning-models">o1 and o3 — Reasoning Models</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vision-capabilities">Vision Capabilities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#function-calling">Function Calling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-provider-routing-with-openai">Multi-Provider Routing with OpenAI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">OpenAI (GPT)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="openai-provider">OpenAI Provider<a class="headerlink" href="#openai-provider" title="Permanent link">&para;</a></h1>
+<p>OpenAI's GPT models bring a different set of strengths to Amplifier. GPT-4o excels at vision tasks — analyzing screenshots, reading diagrams, understanding UI mockups. The o-series reasoning models take a distinct approach to complex problem-solving. And GPT-4o-mini delivers fast, inexpensive responses for high-volume utility work. Whether you use OpenAI as your primary provider or pair it with Claude in a multi-provider setup, the integration is seamless.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The OpenAI provider connects Amplifier to GPT models through the OpenAI API. It supports streaming, tool use (function calling), vision inputs, and multi-turn conversations. OpenAI models slot into Amplifier's routing matrix like any other provider — the kernel doesn't care which vendor answered, only that the response follows the normalized format.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>Get an API key from <a href="https://platform.openai.com">platform.openai.com</a>.</p>
+<blockquote>
+<p>Set your OpenAI API key</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export OPENAI_API_KEY=&quot;sk-proj-...&quot;
+</code></pre></div>
+
+<p>Add it to <code>~/.bashrc</code> or <code>~/.zshrc</code> for persistence, or use Amplifier's keys file:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] cat ~/.amplifier/keys.env
+OPENAI_API_KEY=sk-proj-...
+</code></pre></div>
+
+<blockquote>
+<p>Verify the connection</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>&gt; What model are you running on?
+
+I&#39;m running through the OpenAI provider with GPT-4o.
+Your Amplifier session is configured to route through openai/gpt-4o.
+</code></pre></div>
+
+<p>If you get a response, the key is working.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Basic configuration in your bundle YAML:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># amplifier.yaml</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+</code></pre></div>
+
+<p>Full configuration with all parameters:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4096</span>
+<span class="w">  </span><span class="nt">top_p</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</code></pre></div>
+
+<h3 id="configuration-parameters">Configuration Parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>—</td>
+<td>Always <code>openai</code></td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td><code>gpt-4o</code></td>
+<td>Which GPT model to use</td>
+</tr>
+<tr>
+<td><strong>temperature</strong></td>
+<td><code>1.0</code></td>
+<td>Randomness (0.0–2.0, lower = more focused)</td>
+</tr>
+<tr>
+<td><strong>max_tokens</strong></td>
+<td><code>4096</code></td>
+<td>Maximum tokens in the response</td>
+</tr>
+<tr>
+<td><strong>top_p</strong></td>
+<td><code>1.0</code></td>
+<td>Nucleus sampling (alternative to temperature)</td>
+</tr>
+<tr>
+<td><strong>api_key</strong></td>
+<td>from env</td>
+<td>Explicit key override</td>
+</tr>
+</tbody>
+</table>
+<p>Use either <code>temperature</code> or <code>top_p</code> to control randomness — not both. For coding, <code>temperature: 0.0–0.2</code> keeps output tight.</p>
+<h2 id="models">Models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>OpenAI offers several model families, each with distinct characteristics.</p>
+<h3 id="gpt-4o-the-generalist">GPT-4o — The Generalist<a class="headerlink" href="#gpt-4o-the-generalist" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+</code></pre></div>
+
+<p>OpenAI's flagship multimodal model. GPT-4o handles text and images natively, making it the go-to choice for vision tasks in Amplifier. It's fast, capable, and cost-effective for its tier. Strong at coding, explanation, and general-purpose tasks.</p>
+<p><strong>Best for:</strong> Vision tasks, UI analysis, general coding, multi-modal workflows.</p>
+<h3 id="gpt-4o-mini-fast-and-cheap">GPT-4o-mini — Fast and Cheap<a class="headerlink" href="#gpt-4o-mini-fast-and-cheap" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o-mini</span>
+</code></pre></div>
+
+<p>A smaller, faster version of GPT-4o. Significantly cheaper per token with lower latency. It handles straightforward tasks well — parsing, classification, simple code edits, formatting. In multi-provider routing, this is a natural fit for the "fast" role.</p>
+<p><strong>Best for:</strong> Quick tasks, classification, parsing, high-volume operations, cost-sensitive workloads.</p>
+<h3 id="gpt-4-turbo-legacy-workhorse">GPT-4 Turbo — Legacy Workhorse<a class="headerlink" href="#gpt-4-turbo-legacy-workhorse" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4-turbo</span>
+</code></pre></div>
+
+<p>The previous generation flagship. Still capable, but GPT-4o is generally preferred — it's faster, cheaper, and matches or exceeds GPT-4 Turbo on most benchmarks. Use GPT-4 Turbo if you have specific compatibility requirements.</p>
+<p><strong>Best for:</strong> Backward compatibility, specific fine-tuned workflows.</p>
+<h3 id="o1-and-o3-reasoning-models">o1 and o3 — Reasoning Models<a class="headerlink" href="#o1-and-o3-reasoning-models" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o3</span>
+</code></pre></div>
+
+<p>OpenAI's reasoning models take a fundamentally different approach. Instead of generating a response in one pass, they spend time "thinking" — exploring solution paths, checking their work, and backtracking when necessary. This makes them exceptionally strong at math, logic, and complex multi-step reasoning.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1</span>
+</code></pre></div>
+
+<p>The o-series models have some differences from standard GPT models:</p>
+<ul>
+<li><strong>No temperature control.</strong> The models manage their own sampling internally.</li>
+<li><strong>No streaming.</strong> Responses arrive all at once after reasoning completes.</li>
+<li><strong>Higher latency.</strong> Thinking takes time — expect seconds to minutes for hard problems.</li>
+<li><strong>Higher cost.</strong> Reasoning tokens are billed alongside completion tokens.</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Reasoning model configuration</span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o3</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16384</span>
+</code></pre></div>
+
+<p><strong>Best for:</strong> Complex math, formal logic, multi-step debugging, problems that benefit from deliberate reasoning.</p>
+<h3 id="vision-capabilities">Vision Capabilities<a class="headerlink" href="#vision-capabilities" title="Permanent link">&para;</a></h3>
+<p>GPT-4o processes images natively. In Amplifier, this means you can pass screenshots, diagrams, or mockups directly into the conversation:</p>
+<blockquote>
+<p>Look at this screenshot and tell me what's wrong with the layout</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] cat screenshot.png | base64 &gt; /tmp/img.b64
+
+The header nav is overlapping the hero section. The z-index on
+.navbar is set to 10 but the hero has z-index: 100, which puts
+it above the nav. Also, the flex container on .hero-content is
+missing align-items, so the text isn&#39;t vertically centered.
+</code></pre></div>
+
+<p>Vision is especially useful for:
+- Reviewing UI implementations against mockups
+- Reading error messages from screenshots
+- Analyzing architecture diagrams
+- Understanding whiteboard photos</p>
+<h3 id="function-calling">Function Calling<a class="headerlink" href="#function-calling" title="Permanent link">&para;</a></h3>
+<p>OpenAI models support function calling natively — this is how Amplifier's tool system works under the hood. When the model decides it needs to read a file, run a command, or search code, it generates a structured function call that Amplifier executes. You don't configure this directly; it's handled by the provider layer automatically.</p>
+<p>The function calling protocol maps cleanly to Amplifier's tool definitions, so all tools work with OpenAI models out of the box.</p>
+<h2 id="multi-provider-routing-with-openai">Multi-Provider Routing with OpenAI<a class="headerlink" href="#multi-provider-routing-with-openai" title="Permanent link">&para;</a></h2>
+<p>OpenAI models pair well with Claude in a routing matrix. A common pattern uses Claude for core coding and OpenAI for vision and fast tasks:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">anthropic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANTHROPIC_API_KEY}</span>
+<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+
+<span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+<span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o-mini</span>
+<span class="w">  </span><span class="nt">vision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o</span>
+<span class="w">  </span><span class="nt">creative</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/gpt-4o</span>
+<span class="w">  </span><span class="nt">reasoning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>This gives you the best of both worlds — Claude's coding strength for implementation work, GPT-4o's vision for UI tasks, and GPT-4o-mini's speed for quick operations.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Use GPT-4o for vision.</strong> If your workflow involves screenshots, diagrams, or UI review, GPT-4o is the strongest choice. Route vision tasks to it even if Claude is your primary provider.</li>
+<li><strong>GPT-4o-mini for bulk work.</strong> Processing many files, classifying issues, or generating boilerplate? Mini is fast and cheap — don't spend GPT-4o tokens on simple tasks.</li>
+<li><strong>Reasoning models need patience.</strong> o1 and o3 are powerful but slow. Use them for genuinely hard problems, not routine coding.</li>
+<li><strong>No temperature on o-series.</strong> Don't set temperature when using o1 or o3 — the API will reject it. These models manage randomness internally.</li>
+<li><strong>Bump max_tokens for long responses.</strong> GPT models default to shorter completions than Claude. If responses are getting truncated, increase <code>max_tokens</code> to 8192 or higher.</li>
+<li><strong>Check rate limits.</strong> OpenAI enforces per-minute token limits that vary by tier. If you're seeing 429 errors, you've hit the ceiling — wait or upgrade your plan.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="index.html">Provider Index</a> for the full routing matrix configuration</li>
+<li>Compare with the <a href="anthropic.html">Anthropic Provider</a> to understand the tradeoffs between Claude and GPT</li>
+<li>Explore the <a href="gemini.html">Gemini Provider</a> for Google's multimodal models</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="anthropic.html" class="btn btn-neutral float-left" title="Anthropic (Claude)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="gemini.html" class="btn btn-neutral float-right" title="Google Gemini">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="anthropic.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="gemini.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

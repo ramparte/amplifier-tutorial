@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Task (Sub-Agents) - Amplifier Tutorial</title>
+    <title>Delegate (Sub-Agents) - Amplifier Tutorial</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Task (Sub-Agents)";
+        var mkdocs_page_name = "Delegate (Sub-Agents)";
         var mkdocs_page_input_path = "tools/task.md";
         var mkdocs_page_url = null;
       </script>
@@ -67,7 +67,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
                   </li>
@@ -80,6 +80,12 @@
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -94,83 +100,33 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="task.html">Delegate (Sub-Agents)</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-delegation">What is Delegation?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#when-to-delegate">When to Delegate</a>
+    <li class="toctree-l2"><a class="reference internal" href="#context-control">Context Control</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#always-delegate">✅ ALWAYS Delegate</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exploring-a-codebase">Exploring a Codebase</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#often-beneficial">✅ Often Beneficial</a>
+    <li class="toctree-l3"><a class="reference internal" href="#debugging-a-failure">Debugging a Failure</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#dont-delegate">❌ DON'T Delegate</a>
+    <li class="toctree-l3"><a class="reference internal" href="#parallel-dispatch">Parallel Dispatch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-context-sink-pattern">The Context Sink Pattern</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#self-delegation">Self-Delegation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-resumption">Session Resumption</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#available-agents">Available Agents</a>
+    <li class="toctree-l2"><a class="reference internal" href="#delegate-vs-do-it-yourself">Delegate vs. Do It Yourself</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#parallel-execution">Parallel Execution</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#how-to-run-in-parallel">How to Run in Parallel</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#benefits">Benefits</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#example-scenarios">Example Scenarios</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#session-resumption">Session Resumption</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#using-session_id">Using session_id</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#when-to-resume">When to Resume</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#note">Note</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-write-detailed-instructions">1. Write Detailed Instructions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-specify-what-to-return">2. Specify What to Return</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-clarify-intent-code-vs-research">3. Clarify Intent (Code vs Research)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-use-parallel-execution-aggressively">4. Use Parallel Execution Aggressively</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-git-operations-always-delegate">5. Git Operations = Always Delegate</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#6-trust-agent-results">6. Trust Agent Results</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#7-provide-context">7. Provide Context</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-simple-delegation">Exercise 1: Simple Delegation</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-parallel-exploration">Exercise 2: Parallel Exploration</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-full-workflow">Exercise 3: Full Workflow</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#session-spawning-not-available">"Session spawning not available"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#agent-not-found">"Agent not found"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#task-timeout">"Task timeout"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#agent-returns-empty-result">Agent Returns Empty Result</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
@@ -178,8 +134,18 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -187,20 +153,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -214,19 +256,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -244,7 +273,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Tools Reference</li>
-      <li class="breadcrumb-item active">Task (Sub-Agents)</li>
+      <li class="breadcrumb-item active">Delegate (Sub-Agents)</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -253,306 +282,260 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="task-tool-sub-agents">Task Tool (Sub-Agents)<a class="headerlink" href="#task-tool-sub-agents" title="Permanent link">&para;</a></h1>
-<p>The Task Tool is Amplifier's delegation system that allows the main agent to spawn specialized sub-agents to handle complex, multi-step tasks autonomously. Each sub-agent operates independently with its own set of tools and expertise.</p>
-<h2 id="what-is-delegation">What is Delegation?<a class="headerlink" href="#what-is-delegation" title="Permanent link">&para;</a></h2>
-<p>Delegation in Amplifier means launching a specialized agent to handle a specific task. Instead of doing everything itself, the main agent can:</p>
+                <h1 id="delegate-tool">Delegate Tool<a class="headerlink" href="#delegate-tool" title="Permanent link">&para;</a></h1>
+<p>Most of the time, Amplifier handles your requests directly — reading files, running commands, editing code. But some tasks are too big or too specialized for a single pass. That's where the delegate tool comes in: it spawns an independent sub-agent, hands it a task, and gets back a distilled result.</p>
+<p>Think of it as sending a colleague off to investigate something. You describe what you need, they go away and do the work autonomously — reading files, running commands, exploring code — and come back with a summary. You never see their intermediate steps, just the final report.</p>
+<p>The real power isn't just delegation itself. It's <em>context control</em> — you decide exactly how much of your current conversation the sub-agent sees, and you can run multiple agents in parallel without any of them blocking each other.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<p>The delegate tool takes these parameters:</p>
 <ul>
-<li><strong>Spawn</strong> a sub-agent with a specific instruction</li>
-<li><strong>Wait</strong> for the sub-agent to complete its work autonomously</li>
-<li><strong>Receive</strong> a final report with the results</li>
-<li><strong>Continue</strong> with the next steps based on those results</li>
+<li><strong>agent</strong> (required) — which agent to spawn: <code>"foundation:explorer"</code>, <code>"self"</code>, or any bundle path</li>
+<li><strong>instruction</strong> (required) — what you want the agent to do</li>
+<li><strong>context_depth</strong> — how far back in history to share: <code>"none"</code>, <code>"recent"</code>, or <code>"all"</code></li>
+<li><strong>context_scope</strong> — what kinds of content to include: <code>"conversation"</code>, <code>"agents"</code>, or <code>"full"</code></li>
+<li><strong>context_turns</strong> — number of turns to include when depth is <code>"recent"</code></li>
+<li><strong>session_id</strong> — resume a previous agent session instead of starting fresh</li>
+<li><strong>model_role</strong> — override which model the sub-agent uses (e.g., <code>"reasoning"</code>, <code>"fast"</code>)</li>
+<li><strong>provider_preferences</strong> — ordered list of provider/model preferences</li>
 </ul>
-<p>Think of it like assigning work to a specialist colleague who will handle the task independently and report back when done.</p>
-<p><strong>Key Characteristics:</strong>
-- Sub-agents are <strong>stateless</strong> - they run once and return results
-- Sub-agents work <strong>autonomously</strong> - no back-and-forth during execution
-- Sub-agents have <strong>specialized tools</strong> - each type has different capabilities
-- Multiple sub-agents can run <strong>in parallel</strong> for faster completion</p>
-<h2 id="when-to-delegate">When to Delegate<a class="headerlink" href="#when-to-delegate" title="Permanent link">&para;</a></h2>
-<p>Delegation is powerful but not always necessary. Use the task tool when:</p>
-<h3 id="always-delegate">✅ ALWAYS Delegate<a class="headerlink" href="#always-delegate" title="Permanent link">&para;</a></h3>
-<p><strong>Git Operations</strong> - ALWAYS use <code>foundation:git-ops</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Creating branches
-- Committing changes
-- Creating pull requests
-- Checking git status/history
-- Merging branches
-- Resolving conflicts
-</code></pre></div>
-
-<p><strong>Large Codebase Exploration</strong> - Use <code>foundation:explorer</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Understanding unfamiliar codebases
-- Finding architectural patterns
-- Mapping dependencies
-- Locating specific functionality across many files
-</code></pre></div>
-
-<p><strong>Complex Debugging</strong> - Use <code>foundation:bug-hunter</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Investigating error messages
-- Tracing execution flows
-- Finding root causes of failures
-- Analyzing test failures
-</code></pre></div>
-
-<h3 id="often-beneficial">✅ Often Beneficial<a class="headerlink" href="#often-beneficial" title="Permanent link">&para;</a></h3>
-<p><strong>Design &amp; Review</strong> - Use <code>foundation:zen-architect</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Reviewing code architecture
-- Suggesting improvements
-- Design pattern recommendations
-- Code quality assessments
-</code></pre></div>
-
-<p><strong>Modular Implementation</strong> - Use <code>foundation:modular-builder</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Building new features from scratch
-- Creating multiple related files
-- Implementing complex components
-</code></pre></div>
-
-<p><strong>Testing</strong> - Use <code>foundation:test-coverage</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Writing comprehensive test suites
-- Achieving high coverage
-- Test strategy planning
-</code></pre></div>
-
-<p><strong>Security</strong> - Use <code>foundation:security-guardian</code>:</p>
-<div class="codehilite"><pre><span></span><code>- Security vulnerability scans
-- Dependency audits
-- Best practice checks
-</code></pre></div>
-
-<h3 id="dont-delegate">❌ DON'T Delegate<a class="headerlink" href="#dont-delegate" title="Permanent link">&para;</a></h3>
-<p><strong>Simple File Operations:</strong>
-- Reading 1-2 specific files → Use <code>read_file</code> directly
-- Writing a single file → Use <code>write_file</code> directly
-- Quick edits → Use <code>edit_file</code> directly</p>
-<p><strong>Quick Searches:</strong>
-- Finding a specific class → Use <code>grep</code> directly
-- Searching known file paths → Use <code>glob</code> directly</p>
-<p><strong>Simple Commands:</strong>
-- Running tests → Use <code>bash</code> directly
-- Installing packages → Use <code>bash</code> directly</p>
-<h2 id="available-agents">Available Agents<a class="headerlink" href="#available-agents" title="Permanent link">&para;</a></h2>
+<p>The first two get you started. The rest give you fine-grained control over cost, speed, and what the agent knows.</p>
+<h2 id="context-control">Context Control<a class="headerlink" href="#context-control" title="Permanent link">&para;</a></h2>
+<p>This is the key feature that separates naive delegation from effective delegation. Context has two independent dimensions — <em>depth</em> and <em>scope</em> — and you control them separately.</p>
+<p><strong>Depth</strong> decides how far back in time the agent can see:</p>
 <table>
 <thead>
 <tr>
-<th>Agent</th>
-<th>Purpose</th>
-<th>When to Use</th>
+<th>Depth</th>
+<th>What it means</th>
+<th>When to use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>foundation:explorer</code></td>
-<td>Codebase reconnaissance</td>
-<td>Understanding unfamiliar code, finding patterns, mapping architecture</td>
+<td><code>"none"</code></td>
+<td>Clean slate — agent sees only your instruction</td>
+<td>Default exploration, fresh investigations</td>
 </tr>
 <tr>
-<td><code>foundation:git-ops</code></td>
-<td>Git operations</td>
-<td><strong>ALWAYS</strong> for commits, branches, PRs, merges, git history</td>
+<td><code>"recent"</code></td>
+<td>Last N turns of history</td>
+<td>Follow-up tasks that need recent context</td>
 </tr>
 <tr>
-<td><code>foundation:bug-hunter</code></td>
-<td>Debugging &amp; investigation</td>
-<td>Tracing errors, finding bugs, analyzing failures</td>
-</tr>
-<tr>
-<td><code>foundation:zen-architect</code></td>
-<td>Design &amp; code review</td>
-<td>Architecture review, design patterns, quality assessment</td>
-</tr>
-<tr>
-<td><code>foundation:modular-builder</code></td>
-<td>Feature implementation</td>
-<td>Building new features, creating multiple files</td>
-</tr>
-<tr>
-<td><code>foundation:test-coverage</code></td>
-<td>Testing</td>
-<td>Writing tests, improving coverage, test strategy</td>
-</tr>
-<tr>
-<td><code>foundation:security-guardian</code></td>
-<td>Security checks</td>
-<td>Vulnerability scans, security audits</td>
-</tr>
-<tr>
-<td><code>foundation:file-ops</code></td>
-<td>Complex file operations</td>
-<td>Batch file operations, directory restructuring</td>
-</tr>
-<tr>
-<td><code>foundation:web-research</code></td>
-<td>External research</td>
-<td>Fetching docs, researching libraries, finding examples</td>
-</tr>
-<tr>
-<td><code>foundation:integration-specialist</code></td>
-<td>Integration tasks</td>
-<td>Connecting systems, API integration</td>
-</tr>
-<tr>
-<td><code>foundation:ecosystem-expert</code></td>
-<td>Ecosystem knowledge</td>
-<td>Tool recommendations, best practices</td>
+<td><code>"all"</code></td>
+<td>Full conversation history</td>
+<td>Tasks that need everything discussed so far</td>
 </tr>
 </tbody>
 </table>
-<h2 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h2>
-<p><strong>One of the most powerful features</strong> is running multiple agents simultaneously. This dramatically speeds up complex workflows.</p>
-<h3 id="how-to-run-in-parallel">How to Run in Parallel<a class="headerlink" href="#how-to-run-in-parallel" title="Permanent link">&para;</a></h3>
-<p>Send <strong>a single message</strong> with <strong>multiple task tool calls</strong>:</p>
-<div class="codehilite"><pre><span></span><code>User: &quot;Analyze the auth module - check architecture, tests, and security&quot;
+<p><strong>Scope</strong> decides what <em>kinds</em> of content from those turns get included:</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>What it includes</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"conversation"</code></td>
+<td>Just the text between you and the user</td>
+<td>Lightweight context, minimal tokens</td>
+</tr>
+<tr>
+<td><code>"agents"</code></td>
+<td>Text + results from previous delegations</td>
+<td>Building on prior agent findings</td>
+</tr>
+<tr>
+<td><code>"full"</code></td>
+<td>Text + agent results + all tool outputs</td>
+<td>Maximum context, highest token cost</td>
+</tr>
+</tbody>
+</table>
+<p>These are independent axes. <code>depth: "recent"</code> with <code>scope: "full"</code> gives you the last few turns including all tool output. <code>depth: "all"</code> with <code>scope: "conversation"</code> gives you the entire conversation but only the human-readable parts. Pick the combination that gives the agent what it needs without drowning it in tokens.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="exploring-a-codebase">Exploring a Codebase<a class="headerlink" href="#exploring-a-codebase" title="Permanent link">&para;</a></h3>
+<p>The most common delegation — send an explorer to map out unfamiliar code:</p>
+<blockquote>
+<p>I need to understand the authentication system in this project</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+  agent: &quot;foundation:explorer&quot;
+  instruction: &quot;Explore the authentication system. Find all auth-related
+    modules, map the login flow from request to session creation, identify
+    the token strategy (JWT, session cookies, etc.), and list any external
+    auth providers. Return a structured summary.&quot;
+  context_depth: &quot;none&quot;
 
-Agent: I&#39;ll launch three agents in parallel to analyze different aspects:
-- foundation:explorer for architecture
-- foundation:test-coverage for tests
-- foundation:security-guardian for security
-
-[Makes 3 task tool calls in one message]
+Explorer returns:
+  Authentication lives in src/auth/ with 4 modules:
+  - handlers.py: Login/logout endpoints using FastAPI
+  - tokens.py: JWT creation and validation (RS256, 1hr expiry)
+  - providers/: Google and GitHub OAuth via authlib
+  - middleware.py: Request authentication middleware
+  Login flow: POST /login → validate credentials → issue JWT → set cookie
+  ...
 </code></pre></div>
 
-<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
+<p>The agent read dozens of files, traced imports, and came back with a clean summary. You got the answer without those files ever entering your context window.</p>
+<h3 id="debugging-a-failure">Debugging a Failure<a class="headerlink" href="#debugging-a-failure" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>The payment webhook tests are failing — can you figure out why?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+  agent: &quot;foundation:explorer&quot;
+  instruction: &quot;Investigate why payment webhook tests are failing.
+    Run the tests first to see the actual errors引用, then trace the code
+    to find the root cause. Check recent changes to webhook handling.&quot;
+  context_depth: &quot;none&quot;
+
+Agent returns:
+  Root cause: The Stripe webhook signature verification in
+  src/payments/webhooks.py was changed to use a new signing secret
+  env var (STRIPE_WEBHOOK_SECRET_V2) but the test fixtures still
+  reference the old var (STRIPE_WEBHOOK_SECRET). Fix: update
+  tests/fixtures/payment_fixtures.py line 34.
+</code></pre></div>
+
+<h3 id="parallel-dispatch">Parallel Dispatch<a class="headerlink" href="#parallel-dispatch" title="Permanent link">&para;</a></h3>
+<p>When you have multiple independent questions, launch them all at once. Amplifier runs them simultaneously:</p>
+<blockquote>
+<p>Analyze the auth module — I need architecture, test coverage, and security review</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]                              [Tool: task]                          [Tool: task]
+  agent: &quot;foundation:explorer&quot;              agent: &quot;foundation:explorer&quot;          agent: &quot;foundation:explorer&quot;
+  instruction: &quot;Map the auth               instruction: &quot;Analyze test            instruction: &quot;Security review
+    module architecture...&quot;                   coverage for auth...&quot;                 of auth module...&quot;
+  context_depth: &quot;none&quot;                     context_depth: &quot;none&quot;                 context_depth: &quot;none&quot;
+
+All three return simultaneously — total wall time equals the slowest agent, not the sum.
+</code></pre></div>
+
+<p>Three tasks that take 90 seconds each finish in 90 seconds total, not 270. This is the parallel dispatch pattern: whenever tasks don't depend on each other's results, launch them together.</p>
+<h3 id="the-context-sink-pattern">The Context Sink Pattern<a class="headerlink" href="#the-context-sink-pattern" title="Permanent link">&para;</a></h3>
+<p>Sub-agents don't just do work — they <em>absorb token cost</em>. When an explorer reads 50 files to answer your question, those files live in the agent's context, not yours. You get back a paragraph-length summary.</p>
+<p>This is the context sink pattern: delegate expensive exploration to a sub-agent, receive a distilled result. Your main conversation stays lean.</p>
+<blockquote>
+<p>What ORMs and database patterns does this project use?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+  agent: &quot;foundation:explorer&quot;
+  instruction: &quot;Survey all database access patterns in this project.
+    Identify the ORM (if any), raw SQL usage, migration strategy,
+    and connection pooling setup. List every model/table found.&quot;
+  context_depth: &quot;none&quot;
+
+Agent reads 80+ files internally, returns a 15-line summary.
+Your context window barely notices.
+</code></pre></div>
+
+<p>This matters most in long conversations where you're already using significant context. Delegation keeps the main thread from bloating.</p>
+<h3 id="self-delegation">Self-Delegation<a class="headerlink" href="#self-delegation" title="Permanent link">&para;</a></h3>
+<p>The special agent value <code>"self"</code> spawns a copy of yourself as a sub-agent. It has the same tools and capabilities as the main session, but runs in isolation:</p>
+<blockquote>
+<p>Refactor the logger module — extract the formatters into their own file</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+  agent: &quot;self&quot;
+  instruction: &quot;Refactor src/utils/logger.py. Extract all formatter
+    classes (JsonFormatter, TextFormatter, StructuredFormatter) into
+    a new file src/utils/formatters.py. Update all imports across
+    the codebase. Run the tests to verify nothing breaks.&quot;
+  context_depth: &quot;recent&quot;
+  context_turns: 3
+
+Agent performs the refactor in isolation, returns a summary of changes made.
+</code></pre></div>
+
+<p>Self-delegation is useful for token conservation — the sub-agent handles a well-scoped task without accumulating all the context from your main conversation. It's also a natural fit for tasks you <em>could</em> do directly but want to keep out of your current context.</p>
+<h3 id="session-resumption">Session Resumption<a class="headerlink" href="#session-resumption" title="Permanent link">&para;</a></h3>
+<p>When an agent finishes, it returns a <code>session_id</code>. You can resume that session to continue where it left off:</p>
+<blockquote>
+<p>Can you dig deeper into the OAuth provider setup you found earlier?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task]
+  agent: &quot;foundation:explorer&quot;
+  session_id: &quot;session_20260402_143022_a3f2&quot;
+  instruction: &quot;Go deeper on the OAuth providers. How is token refresh
+    handled? Is there error handling for expired tokens? Check if the
+    Google and GitHub providers share a common interface.&quot;
+
+Agent resumes with full memory of its previous exploration.
+</code></pre></div>
+
+<p>Resumption avoids re-exploring code the agent already mapped. Use it for iterative investigation — first pass gets the lay of the land, follow-up passes drill into specifics.</p>
+<h2 id="delegate-vs-do-it-yourself">Delegate vs. Do It Yourself<a class="headerlink" href="#delegate-vs-do-it-yourself" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Approach</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read 1-2 known files</td>
+<td>Do it yourself</td>
+<td><code>read_file</code> is instant, no overhead</td>
+</tr>
+<tr>
+<td>Grep for a specific string</td>
+<td>Do it yourself</td>
+<td><code>grep</code> returns in milliseconds</td>
+</tr>
+<tr>
+<td>Understand a whole module</td>
+<td><strong>Delegate</strong></td>
+<td>Agent reads dozens of files, returns a summary</td>
+</tr>
+<tr>
+<td>Multi-step investigation</td>
+<td><strong>Delegate</strong></td>
+<td>Agent can reason across many files autonomously</td>
+</tr>
+<tr>
+<td>Run a single test</td>
+<td>Do it yourself</td>
+<td><code>bash pytest test_foo.py</code> is faster</td>
+</tr>
+<tr>
+<td>Debug a complex failure</td>
+<td><strong>Delegate</strong></td>
+<td>Agent runs tests, reads code, traces the issue</td>
+</tr>
+<tr>
+<td>Three independent analyses</td>
+<td><strong>Delegate in parallel</strong></td>
+<td>Wall time = max(tasks), not sum(tasks)</td>
+</tr>
+<tr>
+<td>Long conversation, need exploration</td>
+<td><strong>Delegate</strong></td>
+<td>Context sink keeps your main thread lean</td>
+</tr>
+</tbody>
+</table>
+<p>The rule of thumb: if a task requires reading more than a handful of files or involves multi-step reasoning, delegate it. If it's a single command or a single file, just do it directly.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Speed</strong>: 3 tasks that take 2 minutes each = 2 minutes total (not 6)</li>
-<li><strong>Efficiency</strong>: Better resource utilization</li>
-<li><strong>Independence</strong>: Each agent works autonomously without blocking others</li>
+<li><strong>Write specific instructions.</strong> "Check the auth code" gives vague results. "Map the login flow from HTTP request to session creation, identify the token strategy, and list all middleware involved" gives precise results.</li>
+<li><strong>Specify the return format.</strong> Tell the agent what you want back: "Return a bullet-point list of findings" or "Return a JSON summary with file paths and issue descriptions."</li>
+<li><strong>Default to <code>context_depth: "none"</code>.</strong> Most delegated tasks work better with a clean slate and a clear instruction. Only share history when the agent genuinely needs it.</li>
+<li><strong>Use parallel dispatch aggressively.</strong> If you have three independent questions, launch three agents. There's no reason to serialize them.</li>
+<li><strong>Self-delegate for isolation.</strong> When you want to keep a task's intermediate work out of your main context, use <code>agent: "self"</code> — same capabilities, contained token cost.</li>
+<li><strong>Resume sparingly.</strong> A fresh agent with good instructions usually outperforms a resumed session with vague follow-ups. Reserve resumption for genuinely iterative exploration.</li>
+<li><strong>Match model_role to the task.</strong> Use <code>"reasoning"</code> for architectural analysis, <code>"fast"</code> for simple file operations, <code>"coding"</code> for implementation work.</li>
 </ul>
-<h3 id="example-scenarios">Example Scenarios<a class="headerlink" href="#example-scenarios" title="Permanent link">&para;</a></h3>
-<p><strong>Feature Development:</strong></p>
-<div class="codehilite"><pre><span></span><code>1. foundation:explorer - Understand existing code
-2. foundation:modular-builder - Implement feature
-3. foundation:test-coverage - Write tests
-
-All three can run in parallel!
-</code></pre></div>
-
-<p><strong>Code Quality Check:</strong></p>
-<div class="codehilite"><pre><span></span><code>1. foundation:zen-architect - Review architecture
-2. foundation:security-guardian - Security audit
-3. foundation:bug-hunter - Find potential bugs
-
-Launch all simultaneously for fast assessment!
-</code></pre></div>
-
-<h2 id="session-resumption">Session Resumption<a class="headerlink" href="#session-resumption" title="Permanent link">&para;</a></h2>
-<p>Sub-agents typically run once and complete. However, if you need to continue working with a previous agent session:</p>
-<h3 id="using-session_id">Using session_id<a class="headerlink" href="#using-session_id" title="Permanent link">&para;</a></h3>
-<p>When an agent finishes, it returns a <code>session_id</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recipe_20251118_143022_a3f2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Analysis complete...&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>To resume this session:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">&lt;invoke</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;task&quot;</span><span class="nt">&gt;</span>
-<span class="w">  </span><span class="nt">&lt;parameter</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;agent&quot;</span><span class="nt">&gt;</span>foundation:explorer<span class="nt">&lt;/parameter&gt;</span>
-<span class="w">  </span><span class="nt">&lt;parameter</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;session_id&quot;</span><span class="nt">&gt;</span>recipe_20251118_143022_a3f2<span class="nt">&lt;/parameter&gt;</span>
-<span class="w">  </span><span class="nt">&lt;parameter</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;instruction&quot;</span><span class="nt">&gt;</span>Now<span class="w"> </span>explore<span class="w"> </span>the<span class="w"> </span>payment<span class="w"> </span>module<span class="w"> </span>as<span class="w"> </span>well<span class="nt">&lt;/parameter&gt;</span>
-<span class="nt">&lt;/invoke&gt;</span>
-</code></pre></div>
-
-<h3 id="when-to-resume">When to Resume<a class="headerlink" href="#when-to-resume" title="Permanent link">&para;</a></h3>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Iterative exploration</strong>: Continue exploring related areas</li>
-<li><strong>Follow-up questions</strong>: Ask for more details about previous findings</li>
-<li><strong>Extending work</strong>: Build on what was already discovered</li>
+<li>See the <a href="search.html">Search Tools</a> for the <code>grep</code> and <code>glob</code> tools that agents use internally</li>
+<li>Learn about <a href="recipes-tool.html">Recipes</a> for multi-step workflows that go beyond single delegations</li>
+<li>Read <a href="../concepts/agents.html">Agents</a> for how agent bundles and specializations work</li>
 </ul>
-<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
-<p>Most workflows don't need resumption - launching a fresh agent with comprehensive instructions is usually simpler and more reliable.</p>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="1-write-detailed-instructions">1. Write Detailed Instructions<a class="headerlink" href="#1-write-detailed-instructions" title="Permanent link">&para;</a></h3>
-<p>❌ <strong>Bad</strong>: "Check the auth code"</p>
-<p>✅ <strong>Good</strong>: "Explore the authentication module in src/auth/. Document the authentication flow, identify all user-facing endpoints, check for security best practices (password hashing, token management), and list any technical debt or improvement opportunities. Return a structured report with findings."</p>
-<h3 id="2-specify-what-to-return">2. Specify What to Return<a class="headerlink" href="#2-specify-what-to-return" title="Permanent link">&para;</a></h3>
-<p>Always tell the agent <strong>exactly what information</strong> you need back:</p>
-<div class="codehilite"><pre><span></span><code>&quot;Return a JSON structure with:
-- List of security vulnerabilities found
-- Severity rating for each
-- Recommended fixes
-- Files affected&quot;
-</code></pre></div>
-
-<h3 id="3-clarify-intent-code-vs-research">3. Clarify Intent (Code vs Research)<a class="headerlink" href="#3-clarify-intent-code-vs-research" title="Permanent link">&para;</a></h3>
-<p>Tell the agent if you want:
-- <strong>Research only</strong>: "Investigate and report findings"
-- <strong>Code changes</strong>: "Implement the feature and write tests"
-- <strong>Both</strong>: "Research the best approach, then implement it"</p>
-<h3 id="4-use-parallel-execution-aggressively">4. Use Parallel Execution Aggressively<a class="headerlink" href="#4-use-parallel-execution-aggressively" title="Permanent link">&para;</a></h3>
-<p>Don't serialize tasks that could run in parallel:</p>
-<p>❌ <strong>Bad</strong>: Launch explorer, wait, then launch test-coverage, wait, then launch security
-✅ <strong>Good</strong>: Launch all three in one message</p>
-<h3 id="5-git-operations-always-delegate">5. Git Operations = Always Delegate<a class="headerlink" href="#5-git-operations-always-delegate" title="Permanent link">&para;</a></h3>
-<p>Never use <code>bash</code> for git commands. <strong>Always</strong> use <code>foundation:git-ops</code>:</p>
-<p>❌ <code>bash("git commit -m 'Update'")</code> 
-✅ <code>task(agent="foundation:git-ops", instruction="Commit changes with message 'Update'")</code></p>
-<h3 id="6-trust-agent-results">6. Trust Agent Results<a class="headerlink" href="#6-trust-agent-results" title="Permanent link">&para;</a></h3>
-<p>Agent outputs should generally be trusted. They have specialized tools and expertise for their domain.</p>
-<h3 id="7-provide-context">7. Provide Context<a class="headerlink" href="#7-provide-context" title="Permanent link">&para;</a></h3>
-<p>Include relevant information in your instruction:</p>
-<div class="codehilite"><pre><span></span><code>&quot;The user wants to add OAuth2 authentication. 
-Current auth uses simple JWT tokens in src/auth/.
-Target: Add Google and GitHub OAuth providers.
-Check existing OAuth libraries we&#39;re already using.&quot;
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-simple-delegation">Exercise 1: Simple Delegation<a class="headerlink" href="#exercise-1-simple-delegation" title="Permanent link">&para;</a></h3>
-<p>Try delegating a git status check:</p>
-<div class="codehilite"><pre><span></span><code>Agent: Can you check what git status shows?
-
-You: [Use task tool with foundation:git-ops]
-</code></pre></div>
-
-<h3 id="exercise-2-parallel-exploration">Exercise 2: Parallel Exploration<a class="headerlink" href="#exercise-2-parallel-exploration" title="Permanent link">&para;</a></h3>
-<p>Explore both frontend and backend architecture simultaneously:</p>
-<div class="codehilite"><pre><span></span><code>Agent: I need to understand both our React frontend and Python backend
-
-You: [Launch two explorer agents in parallel]
-</code></pre></div>
-
-<h3 id="exercise-3-full-workflow">Exercise 3: Full Workflow<a class="headerlink" href="#exercise-3-full-workflow" title="Permanent link">&para;</a></h3>
-<p>Implement a new feature end-to-end:</p>
-<div class="codehilite"><pre><span></span><code>1. Explorer - Understand existing code
-2. Zen-architect - Design the feature
-3. Modular-builder - Implement it
-4. Test-coverage - Write tests
-5. Git-ops - Commit changes
-
-Try running some of these in parallel!
-</code></pre></div>
-
-<h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<h3 id="session-spawning-not-available">"Session spawning not available"<a class="headerlink" href="#session-spawning-not-available" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: The task tool requires session spawning capability which isn't available in all environments.</p>
-<p><strong>Solution</strong>: This is an environment limitation. Sub-agents work in the main Amplifier interface.</p>
-<h3 id="agent-not-found">"Agent not found"<a class="headerlink" href="#agent-not-found" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Invalid agent name or typo.</p>
-<p><strong>Solution</strong>: Use exact agent names from the Available Agents table (e.g., <code>foundation:git-ops</code>, not <code>git-ops</code>).</p>
-<h3 id="task-timeout">"Task timeout"<a class="headerlink" href="#task-timeout" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Agent task took too long or got stuck.</p>
-<p><strong>Solution</strong>: 
-- Break down into smaller tasks
-- Provide more specific instructions
-- Check if the agent has access to required resources</p>
-<h3 id="agent-returns-empty-result">Agent Returns Empty Result<a class="headerlink" href="#agent-returns-empty-result" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Instruction was too vague or agent couldn't find what was requested.</p>
-<p><strong>Solution</strong>: 
-- Be more specific about what to look for
-- Provide file paths or starting points
-- Check if the target code/files actually exist</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>The Task Tool enables:</p>
-<ul>
-<li>✅ <strong>Specialization</strong> - Right agent for each job</li>
-<li>✅ <strong>Autonomy</strong> - Agents work independently</li>
-<li>✅ <strong>Parallelism</strong> - Multiple tasks simultaneously</li>
-<li>✅ <strong>Efficiency</strong> - Complex workflows completed faster</li>
-</ul>
-<p><strong>Remember</strong>: Delegate complex multi-step tasks, handle simple operations directly.</p>
-<p><strong>Golden Rule</strong>: Git operations ALWAYS use <code>foundation:git-ops</code>!</p>
               
             </div>
           </div><footer>

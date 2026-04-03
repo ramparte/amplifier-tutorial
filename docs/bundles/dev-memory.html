@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Dev Memory - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Dev Memory";
+        var mkdocs_page_input_path = "bundles/dev-memory.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="dev-memory.html">Dev Memory</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-dev-memory">What is Dev Memory?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-features">Key Features</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#auto-categorization">Auto-Categorization</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#token-efficient-architecture">Token-Efficient Architecture</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#natural-conversation-flow">Natural Conversation Flow</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transparent-storage">Transparent Storage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#project-notes">Project Notes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Bundles</li>
+      <li class="breadcrumb-item active">Dev Memory</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dev-memory-bundle">Dev Memory Bundle<a class="headerlink" href="#dev-memory-bundle" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-dev-memory">What is Dev Memory?<a class="headerlink" href="#what-is-dev-memory" title="Permanent link">&para;</a></h2>
+<p>You're three days into a refactor. You've made architectural decisions, discovered quirks in the codebase, settled on naming conventions, and figured out that the CI pipeline needs a special flag for integration tests. Then you start a new session — and all of that is gone. You're back to explaining context from scratch.</p>
+<p>The Dev Memory bundle gives Amplifier persistent memory across every session. It remembers what you've told it, what you've worked on, and the decisions you've made — not in some cloud service, but in plain files on your local machine. When you say "remember this," it's saved. When you ask "what was I working on?" next week, it knows.</p>
+<p>This isn't a vector database or a retrieval-augmented generation pipeline. It's deliberately simple: a set of YAML and Markdown files in a known location, written with direct appends, read by a lightweight sub-agent. The design prioritizes token efficiency and transparency over sophistication. You can open the memory files in any editor and see exactly what Amplifier remembers.</p>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<p>The bundle provides three components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Memory store</strong></td>
+<td><code>memory-store.yaml</code> — categorized facts, decisions, and preferences</td>
+</tr>
+<tr>
+<td><strong>Work log</strong></td>
+<td><code>work-log.yaml</code> — timestamped record of what you've worked on</td>
+</tr>
+<tr>
+<td><strong>Project notes</strong></td>
+<td><code>project-notes.md</code> — freeform notes and longer-form context</td>
+</tr>
+</tbody>
+</table>
+<p>These live in <code>~/amplifier-dev-memory/</code>, a single directory you can back up, version-control, or move between machines. Everything is local — no external APIs, no cloud sync, no telemetry.</p>
+<p>The bundle also includes a <strong>memory-retrieval</strong> sub-agent that handles reads. When you ask "what do you remember about the auth service?", the read is delegated to this agent so your root session doesn't spend tokens loading the full memory store. Writes are handled differently — direct appends to the YAML files, fast and cheap.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Memory works through natural language. There's no special syntax or commands to learn.</p>
+<p><strong>Saving a memory:</strong></p>
+<blockquote>
+<p>Remember this: the payments service uses Stripe webhooks with idempotency keys, and we validate signatures in middleware before the handler runs</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dev-memory] Appending to memory-store.yaml
+  Category: architecture
+  Content: &quot;Payments service uses Stripe webhooks with idempotency keys.
+            Signature validation happens in middleware, before handler.&quot;
+  Saved.
+</code></pre></div>
+
+<p>That's it. You stated a fact, and it's persisted. The bundle auto-categorized it as <code>architecture</code> based on the content.</p>
+<p><strong>Recalling a memory:</strong></p>
+<blockquote>
+<p>What do you remember about the payments service?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to dev-memory:memory-retrieval...
+  Searching memory-store.yaml for: payments service
+  Found 2 entries:
+  - [architecture] Payments service uses Stripe webhooks with idempotency keys.
+    Signature validation happens in middleware, before handler.
+  - [environment] Payments service runs on port 4200 locally,
+    requires STRIPE_SECRET_KEY in .env
+</code></pre></div>
+
+<p>The read went to the memory-retrieval sub-agent. Your root session received a concise summary without loading the entire memory file.</p>
+<p><strong>Checking your work log:</strong></p>
+<blockquote>
+<p>What was I working on last week?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to dev-memory:memory-retrieval...
+  Scanning work-log.yaml for recent entries...
+  Last week:
+  - Mon: Refactored auth middleware to support JWT rotation
+  - Tue-Wed: Built rate limiting for the public API (sliding window)
+  - Thu: Fixed flaky test in CI — race condition in websocket teardown
+  - Fri: Started GraphQL schema design for the reporting endpoint
+</code></pre></div>
+
+<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h3 id="auto-categorization">Auto-Categorization<a class="headerlink" href="#auto-categorization" title="Permanent link">&para;</a></h3>
+<p>When you save a memory, the bundle classifies it into one of eight categories:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What Goes Here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>architecture</strong></td>
+<td>System design, service boundaries, data flow decisions</td>
+</tr>
+<tr>
+<td><strong>workflow</strong></td>
+<td>How you work — branching strategy, review process, deploy steps</td>
+</tr>
+<tr>
+<td><strong>environment</strong></td>
+<td>Local setup, ports, env vars, tool versions</td>
+</tr>
+<tr>
+<td><strong>git</strong></td>
+<td>Repository conventions, branch naming, commit message formats</td>
+</tr>
+<tr>
+<td><strong>research</strong></td>
+<td>Findings from investigation — library comparisons, API quirks</td>
+</tr>
+<tr>
+<td><strong>pattern</strong></td>
+<td>Code patterns you prefer — error handling, naming, file structure</td>
+</tr>
+<tr>
+<td><strong>preference</strong></td>
+<td>Personal preferences — editor settings, formatting rules, style choices</td>
+</tr>
+<tr>
+<td><strong>tools</strong></td>
+<td>Tool configurations, CLI shortcuts, build system quirks</td>
+</tr>
+</tbody>
+</table>
+<p>You don't need to specify the category. The bundle infers it from context. But you can override it if you want:</p>
+<blockquote>
+<p>Remember this as a workflow note: always run the linter before pushing to the feature branch</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dev-memory] Appending to memory-store.yaml
+  Category: workflow (explicit)
+  Content: &quot;Always run linter before pushing to feature branch.&quot;
+  Saved.
+</code></pre></div>
+
+<h3 id="token-efficient-architecture">Token-Efficient Architecture<a class="headerlink" href="#token-efficient-architecture" title="Permanent link">&para;</a></h3>
+<p>Memory reads and writes are intentionally asymmetric:</p>
+<p><strong>Writes</strong> happen via direct append — no sub-agent, no round-trip. When you say "remember X," the bundle appends a structured entry to the YAML file. This costs almost nothing in tokens.</p>
+<p><strong>Reads</strong> are delegated to the memory-retrieval sub-agent. This agent loads the memory files in its own context, searches for relevant entries, and returns a concise summary. Your root session never sees the full memory store, which could be thousands of entries after months of use.</p>
+<p>This split means that accumulating memories is cheap, and recalling them scales gracefully even as your memory grows.</p>
+<h3 id="natural-conversation-flow">Natural Conversation Flow<a class="headerlink" href="#natural-conversation-flow" title="Permanent link">&para;</a></h3>
+<p>Memory integrates naturally into your workflow. You don't need to stop and explicitly manage it — just talk:</p>
+<blockquote>
+<p>I just figured out that the Docker build fails if you don't set BUILDKIT=1. Remember that.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dev-memory] Appending to memory-store.yaml
+  Category: environment
+  Content: &quot;Docker build requires BUILDKIT=1 or it fails.&quot;
+  Saved.
+</code></pre></div>
+
+<blockquote>
+<p>We decided to use Zod for runtime validation instead of io-ts. The team prefers its API.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dev-memory] Appending to memory-store.yaml
+  Category: pattern
+  Content: &quot;Using Zod for runtime validation (preferred over io-ts by team).&quot;
+  Saved.
+</code></pre></div>
+
+<p>Later, in a completely different session:</p>
+<blockquote>
+<p>I need to add validation to the new endpoint. What validation library do we use?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to dev-memory:memory-retrieval...
+  Found: Using Zod for runtime validation (preferred over io-ts by team).
+</code></pre></div>
+
+<p>Amplifier answers from memory, not from guessing.</p>
+<h3 id="transparent-storage">Transparent Storage<a class="headerlink" href="#transparent-storage" title="Permanent link">&para;</a></h3>
+<p>Everything is stored in plain text at <code>~/amplifier-dev-memory/</code>:</p>
+<div class="codehilite"><pre><span></span><code>~/amplifier-dev-memory/
+├── memory-store.yaml    # Categorized facts and decisions
+├── work-log.yaml        # Timestamped work entries
+└── project-notes.md     # Freeform longer-form notes
+</code></pre></div>
+
+<p>You can read these files directly, edit them in your editor, grep through them, or commit them to a private repo. There's no opaque database — what you see is what Amplifier sees.</p>
+<h3 id="project-notes">Project Notes<a class="headerlink" href="#project-notes" title="Permanent link">&para;</a></h3>
+<p>For longer-form context that doesn't fit neatly into a YAML entry, the bundle supports freeform project notes:</p>
+<blockquote>
+<p>Add a project note: The reporting service architecture follows CQRS. Commands go through a message bus to write models, queries read from denormalized views in Postgres. We chose this because the read/write ratio is approximately 100:1.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dev-memory] Appending to project-notes.md
+  Added note under &quot;Reporting Service Architecture&quot;
+  Saved.
+</code></pre></div>
+
+<p>Project notes are ideal for design rationale, meeting summaries, or any context that benefits from narrative form rather than structured entries.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Be specific when saving.</strong> "Remember that the API is weird" is less useful than "Remember that the billing API returns 200 with an error body instead of using HTTP status codes." Specific memories are findable memories.</p>
+<p><strong>Front-load decisions.</strong> At the start of a project, tell Amplifier your key decisions: tech stack, conventions, architecture patterns. This pays off in every subsequent session where it already knows your context.</p>
+<p><strong>Review your memory periodically.</strong> Open <code>~/amplifier-dev-memory/memory-store.yaml</code> occasionally and prune entries that are no longer relevant. Outdated memories can mislead future sessions.</p>
+<p><strong>Use the work log for continuity.</strong> At the end of a session, say "log that I was working on X and got to Y." The next session can pick up exactly where you left off.</p>
+<p><strong>Don't over-remember.</strong> Not everything needs to be persisted. Save decisions, discoveries, and context that would be painful to re-derive. Skip transient details that won't matter tomorrow.</p>
+<p><strong>Back up your memory directory.</strong> Consider adding <code>~/amplifier-dev-memory/</code> to a private git repo or your backup system. Months of accumulated project knowledge is worth protecting.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about the <a href="foundation.html">Foundation Bundle</a> for core agents and tools</li>
+<li>Explore the <a href="projector.html">Projector Bundle</a> for project management and task tracking</li>
+<li>Read about <a href="../concepts/hooks.html">Strategies</a> and how persistent instructions work across sessions</li>
+<li>See <a href="../quickstart/first-bundle.html">Your First Bundle</a> for building custom bundles</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="team-knowledge.html" class="btn btn-neutral float-left" title="Team Knowledge"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="projector.html" class="btn btn-neutral float-right" title="Projector">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="team-knowledge.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="projector.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

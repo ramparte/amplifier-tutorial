@@ -1,267 +1,42 @@
 ---
 id: design-intelligence
-type: bundles
+type: bundle
 title: "Design Intelligence Bundle"
 ---
 
 # Design Intelligence Bundle
 
-## Overview
+## What is the Design Intelligence Bundle?
 
-The Design Intelligence bundle provides a team of specialized AI agents for UI/UX design work. Rather than a single generalist design assistant, this bundle offers role-specific experts that mirror how professional design teams operate.
+Most AI assistants treat design as a single skill. Ask for a button, get a button. Ask for a color palette, get a palette. But real design work is collaborative — art directors set vision, system architects build foundations, component designers sweat the details, and copywriters shape every word users read.
 
-Each agent brings deep expertise in their domain while sharing a common design philosophy rooted in the Nine Dimensions and Five Pillars framework. They work together through orchestration, allowing you to tackle design challenges from strategic vision down to pixel-level implementation.
+The Design Intelligence bundle mirrors that reality. Instead of one generalist, you get a team of seven specialized agents, each an expert in their domain, all sharing a common philosophy called **Amplified Design**. This philosophy is built on the **Nine Dimensions** of design quality and the **Five Pillars** of design excellence, establishing a quality baseline of **9.5/10** — meaning no placeholders, no generic solutions, and every decision justified.
 
-## Agents Included
+When you ask for a dashboard layout, the right specialist handles it. When the work crosses domains, agents hand off to each other naturally. The result is design guidance that feels like it came from a senior design team, not a chatbot.
 
-| Agent | Purpose | Primary Domain |
-|-------|---------|----------------|
-| `art-director` | Visual strategy and aesthetic direction | Style, brand expression |
-| `component-designer` | Individual UI component design | Component-level refinement |
-| `animation-choreographer` | Motion and transitions | Animation timing, micro-interactions |
-| `design-system-architect` | Design tokens and foundations | System-level architecture |
-| `layout-architect` | Page structure and spatial composition | Information architecture |
-| `responsive-strategist` | Multi-device adaptation | Breakpoints, device patterns |
-| `voice-strategist` | UX writing and tone | Microcopy, messaging |
+## What's Included
 
-### art-director
+Seven agents, each owning specific dimensions of the design process:
 
-The Art Director owns aesthetic direction and visual strategy. This agent transforms abstract concepts like "feels premium" or "approachable but professional" into systematic design principles.
+| Agent | Focus | Dimensions Owned |
+|-------|-------|-----------------|
+| `design-system-architect` | Tokens, scales, foundations | Color, Type, Space |
+| `component-designer` | UI components, variants, states | Touch, State |
+| `layout-architect` | Page structure, information flow | Space, Flow |
+| `responsive-strategist` | Breakpoints, device adaptation | Touch, Space |
+| `animation-choreographer` | Motion, transitions, timing | Motion, State |
+| `art-director` | Aesthetic vision, brand expression | Style, Color |
+| `voice-strategist` | UX writing, tone, microcopy | Voice |
 
-**Responsibilities:**
-- Defining and maintaining the aesthetic guide
-- Ensuring visual coherence across the system
-- Translating brand personality into design decisions
-- Resolving conflicts between competing visual approaches
+These agents share two frameworks that keep their work coherent:
 
-**Best for:** Starting new projects, establishing visual identity, reviewing design consistency.
+**The Nine Dimensions** — Style, Color, Voice, Space, Motion, Type, Touch, State, and Flow. Every design decision is evaluated against the dimensions it touches.
 
-### component-designer
+**The Five Pillars** — Clarity, Consistency, Accessibility, Performance, and Delight. These establish non-negotiable quality standards across all agents.
 
-The Component Designer works at the individual element level, crafting buttons, cards, inputs, and other UI building blocks that embody your design system.
+## Getting Started
 
-**Responsibilities:**
-- Designing new UI components from specifications
-- Refining existing components for quality
-- Creating component variants and props APIs
-- Documenting component usage and examples
-
-**Best for:** Building design system libraries, refining individual elements, component documentation.
-
-### animation-choreographer
-
-The Animation Choreographer treats motion as communication. Every transition, micro-interaction, and state change carries meaning and provides feedback.
-
-**Responsibilities:**
-- Designing icon animations and micro-interactions
-- Planning page transitions and choreography
-- Creating loading states and progress indicators
-- Establishing motion timing and easing standards
-- Ensuring accessibility for motion-sensitive users
-
-**Best for:** Adding polish to interactions, designing loading experiences, establishing motion language.
-
-### design-system-architect
-
-The Design System Architect works at the foundation level, establishing tokens, scales, and systematic patterns that ensure consistency across all design work.
-
-**Responsibilities:**
-- Designing color, typography, and spacing scales
-- Creating and managing design tokens
-- Establishing grid systems and layout foundations
-- Evaluating decisions against the Nine Dimensions
-- Defining cross-cutting design concerns
-
-**Best for:** Starting design systems, establishing foundations, ensuring systematic consistency.
-
-### layout-architect
-
-The Layout Architect handles page-level structure and information hierarchy. They determine how content flows and how users navigate through information.
-
-**Responsibilities:**
-- Designing page/view layouts (header, sidebar, main, footer)
-- Planning information architecture and navigation
-- Creating grid systems and spatial composition
-- Establishing content flow and reading patterns
-
-**Best for:** Planning application structure, designing navigation systems, establishing page templates.
-
-### responsive-strategist
-
-The Responsive Strategist ensures designs work across all devices and input methods, from mobile touch to desktop mouse interactions.
-
-**Responsibilities:**
-- Defining breakpoint strategy and behavior
-- Planning mobile-first vs desktop-first approaches
-- Adapting touch vs mouse interaction patterns
-- Optimizing for specific device categories
-- Implementing fluid typography and spacing
-
-**Best for:** Multi-device design, mobile optimization, touch interface considerations.
-
-### voice-strategist
-
-The Voice Strategist ensures every word in your interface serves users. From button labels to error messages, language shapes user experience.
-
-**Responsibilities:**
-- Establishing voice and tone frameworks
-- Writing UX copy and microcopy
-- Creating error message patterns
-- Designing empty state messaging
-- Developing content guidelines for developers
-
-**Best for:** Interface copy, error handling UX, establishing tone guidelines.
-
-## The Nine Dimensions
-
-The Design Intelligence agents share a common evaluation framework called the Nine Dimensions. When assessing design quality, each dimension receives attention:
-
-| Dimension | Focus | Key Questions |
-|-----------|-------|---------------|
-| **Style** | Visual identity and aesthetic | Does it feel cohesive? Does it express the brand? |
-| **Color** | Palette, contrast, meaning | Is contrast accessible? Do colors communicate state? |
-| **Voice** | Language, tone, personality | Is copy clear and helpful? Is tone consistent? |
-| **Space** | Layout, whitespace, breathing room | Does content have room to breathe? Is hierarchy clear? |
-| **Motion** | Animation, transitions, feedback | Does motion communicate? Is timing appropriate? |
-| **Type** | Typography, readability, scale | Is text readable? Does hierarchy guide the eye? |
-| **Touch** | Interaction, affordance, feedback | Are targets large enough? Is interaction clear? |
-| **State** | Loading, error, empty, success | Are all states designed? Is feedback immediate? |
-| **Flow** | Navigation, progression, journey | Is the path clear? Can users recover from mistakes? |
-
-Agents reference these dimensions when making decisions and can explain their recommendations in terms of specific dimensional impacts.
-
-## The Five Pillars
-
-Beyond the Nine Dimensions, agents are guided by Five Pillars that establish baseline quality:
-
-1. **Clarity** - Every element communicates its purpose
-2. **Consistency** - Patterns repeat predictably across the system
-3. **Accessibility** - Design works for all users and abilities
-4. **Performance** - Visual design supports fast, responsive experiences
-5. **Delight** - Thoughtful details that elevate the mundane
-
-## When to Use
-
-### Starting a New Project
-
-Begin with `art-director` to establish aesthetic direction, then `design-system-architect` to create foundations:
-
-```
-You: "I'm building a developer tools SaaS. It should feel professional 
-     but not corporate, technical but approachable."
-
-art-director: Analyzes requirements, creates AESTHETIC-GUIDE.md with 
-              color direction, typography approach, and visual principles.
-
-design-system-architect: Translates aesthetic into concrete tokens - 
-                         color scales, type scales, spacing system.
-```
-
-### Building Components
-
-Use `component-designer` when implementing specific UI elements:
-
-```
-You: "Design a notification badge component that shows unread counts"
-
-component-designer: Creates component spec with variants (dot, count, 
-                    overflow), states (default, attention, muted), 
-                    and accessibility considerations.
-```
-
-### Adding Motion
-
-Bring in `animation-choreographer` to design purposeful animations:
-
-```
-You: "The save button feels static. It should provide feedback."
-
-animation-choreographer: Designs micro-interaction sequence - 
-                         button press response, processing state, 
-                         success confirmation with appropriate timing.
-```
-
-### Multi-Device Work
-
-Consult `responsive-strategist` for device-specific decisions:
-
-```
-You: "Our dashboard has too much information for mobile screens"
-
-responsive-strategist: Analyzes content priority, suggests progressive 
-                       disclosure pattern, defines what collapses vs 
-                       hides vs reorganizes at each breakpoint.
-```
-
-### Writing Interface Copy
-
-Use `voice-strategist` for any text that users see:
-
-```
-You: "What should the error message say when file upload fails?"
-
-voice-strategist: Crafts message considering context, user emotion, 
-                  actionability: "Upload failed. Check your connection 
-                  and try again, or try a smaller file (max 10MB)."
-```
-
-## Try It Yourself
-
-### Establish Visual Direction
-
-```
-I'm building a meditation app for busy professionals. The vibe should 
-be calming but not new-age, minimal but not cold. Help me establish 
-the visual direction.
-```
-
-### Design a Component
-
-```
-Design a progress indicator component for a multi-step form. It needs 
-to show: current step, completed steps, remaining steps, and allow 
-clicking back to completed steps.
-```
-
-### Plan Motion
-
-```
-Design the animation for a mobile menu that slides in from the right. 
-Consider: the trigger button, the overlay, the menu content, and how 
-items stagger in.
-```
-
-### Create Responsive Strategy
-
-```
-I have a data table that works on desktop but breaks on mobile. The 
-table has 8 columns: name, status, date, amount, category, assignee, 
-priority, and actions. Help me plan the responsive approach.
-```
-
-### Write Error Messages
-
-```
-Create a set of error messages for a payment form. Cover: invalid card 
-number, expired card, insufficient funds, network error, and general 
-processing failure.
-```
-
-## Agent Collaboration
-
-Design Intelligence agents work together through orchestration. Common collaboration patterns:
-
-**Art Director + Design System Architect**: Art director sets direction, architect implements as tokens.
-
-**Component Designer + Animation Choreographer**: Designer creates static component, choreographer adds motion.
-
-**Layout Architect + Responsive Strategist**: Layout architect designs desktop, strategist adapts for all devices.
-
-**Voice Strategist + Component Designer**: Voice strategist writes copy, designer integrates into component specs.
-
-## Configuration
-
-The Design Intelligence bundle is included in Amplifier Foundation. Enable it in your bundle configuration:
+The bundle is included in your Amplifier configuration:
 
 ```yaml
 # .amplifier/config.yaml
@@ -270,22 +45,135 @@ bundles:
   - design-intelligence
 ```
 
-Individual agents can be invoked directly or through the main assistant which will delegate to the appropriate specialist based on your request.
+Once loaded, you can address design needs naturally. Amplifier routes to the right specialist, or you can invoke agents directly.
 
-## Quality Baseline
+> I'm building a project management tool. Help me establish the visual direction.
 
-All Design Intelligence agents work toward a 9.5/10 quality baseline. This means:
+`[Tool: art-director]` The art director analyzes your domain, audience, and constraints, then produces an aesthetic guide covering color direction, typography approach, and visual principles — not a mood board, but actionable design decisions.
 
-- No placeholder or generic solutions
-- Every decision justified against the Nine Dimensions
-- Accessibility considered by default
-- Edge cases and states addressed
-- Implementation guidance included
+> Now turn that direction into a design token system.
 
-When you receive design recommendations, you're getting production-ready guidance, not rough sketches.
+`[Tool: design-system-architect]` The system architect translates aesthetic intent into concrete foundations: color scales with semantic mappings, a type scale with responsive sizes, and a spacing system with named tokens.
 
-## Related Resources
+## Key Agents
 
-- [Amplifier Foundation Bundle](./foundation.md) - Core development agents
-- [Advanced Topics](../advanced/index.md) - Custom bundles and tools
-- [Bundles Guide](../bundles/index.md) - How bundles work together
+### design-system-architect
+
+The foundation layer. This agent creates the tokens, scales, and systematic patterns that every other agent builds on. Start here when beginning a new design system or when inconsistency creeps into an existing one.
+
+> Create a design token system for a dark-mode-first developer tool.
+
+`[Tool: design-system-architect]` Produces color primitives, semantic color tokens (surface, foreground, accent, danger), type scale, spacing scale, and elevation tokens — all evaluated against the Color, Type, and Space dimensions.
+
+### component-designer
+
+Works at the individual element level. Buttons, cards, inputs, modals — this agent designs them with full variant coverage, state handling, and accessibility baked in.
+
+> Design a notification badge component with unread counts.
+
+`[Tool: component-designer]` Delivers a complete spec: variants (dot, count, overflow at 99+), states (default, attention, muted), size options, color mappings to your token system, and ARIA attributes.
+
+### layout-architect
+
+Handles page-level structure and information hierarchy. This agent determines how content flows and how users navigate through your application.
+
+> Design the layout for an analytics dashboard with sidebar navigation.
+
+`[Tool: layout-architect]` Produces a spatial composition: sidebar width and collapse behavior, header structure, main content grid, widget placement hierarchy, and content flow patterns optimized for scanning.
+
+### responsive-strategist
+
+Ensures designs work across every device and input method. This agent doesn't just shrink things — it rethinks the experience at each breakpoint.
+
+> Our dashboard has too much data for mobile screens.
+
+`[Tool: responsive-strategist]` Analyzes content priority, then designs a progressive disclosure strategy: what collapses, what hides behind tabs, what reorganizes into cards, and what gets a dedicated drill-down view — with specific breakpoint definitions.
+
+### animation-choreographer
+
+Treats motion as communication. Every transition carries meaning, every micro-interaction provides feedback, and timing is deliberate.
+
+> The save button feels static. Add meaningful feedback.
+
+`[Tool: animation-choreographer]` Designs a micro-interaction sequence: button press scale (95%, 80ms ease-out), processing spinner (fade-in at 300ms delay), success checkmark (draw-on, 400ms), and return to rest — with `prefers-reduced-motion` fallbacks.
+
+### art-director
+
+Sets the aesthetic vision that all other agents follow. This agent transforms abstract feelings ("premium but approachable") into systematic design principles.
+
+> I want our meditation app to feel calming but not new-age, minimal but not cold.
+
+`[Tool: art-director]` Creates an aesthetic guide: warm neutrals with a single muted accent, generous whitespace, rounded-but-not-bubbly border radii, serif headings for warmth, and photography direction favoring natural light and texture.
+
+### voice-strategist
+
+Every word in your interface shapes the user experience. This agent crafts copy that's clear, helpful, and consistent with your product's personality.
+
+> Write error messages for a payment form.
+
+`[Tool: voice-strategist]` Produces contextual messages: "This card number doesn't look right — check for typos" (validation), "Your card has expired — try a different one" (expired), "We couldn't reach your bank — please try again in a moment" (network) — each with tone rationale and an action the user can take.
+
+## Practical Example: Designing a Dashboard
+
+Here's how multiple agents collaborate on a real task. You're building an analytics dashboard from scratch.
+
+**Step 1 — Vision**
+
+> Set the aesthetic direction for a B2B analytics dashboard. It should feel authoritative but not intimidating.
+
+`[Tool: art-director]` Establishes: cool blue-gray palette, data-ink-forward design, restrained use of color for meaning, and a professional sans-serif type system.
+
+**Step 2 — Foundations**
+
+> Build a token system from that direction.
+
+`[Tool: design-system-architect]` Creates tokens: `color.surface.primary`, `color.data.series-1` through `series-6`, `type.scale.data-label`, `space.card-padding`, and so on — a complete design language.
+
+**Step 3 — Structure**
+
+> Design the dashboard layout with a collapsible sidebar and a header with search.
+
+`[Tool: layout-architect]` Defines the spatial grid: 240px sidebar (collapsible to 56px icon rail), sticky 56px header, main area with 24px-gap CSS grid for widget cards, and a defined content hierarchy.
+
+**Step 4 — Components**
+
+> Design the metric card component for KPI display.
+
+`[Tool: component-designer]` Specs the card: label, primary value, trend indicator (up/down/flat with color), sparkline slot, comparison period text, and three size variants (compact, standard, expanded).
+
+**Step 5 — Responsiveness**
+
+> Make this dashboard work on tablets and phones.
+
+`[Tool: responsive-strategist]` Defines three tiers: desktop (full layout), tablet (sidebar collapses to icon rail, grid drops to 2 columns), mobile (sidebar becomes bottom nav, single-column stack, KPI cards become a horizontal scroll).
+
+**Step 6 — Motion**
+
+> Add transitions for the dashboard — loading states, widget appearance, sidebar collapse.
+
+`[Tool: animation-choreographer]` Choreographs: skeleton shimmer for loading, staggered fade-up for widget cards (50ms offset each), sidebar collapse with width transition (200ms ease-in-out), and chart draw-on animations.
+
+**Step 7 — Copy**
+
+> Write the empty states and onboarding copy for the dashboard.
+
+`[Tool: voice-strategist]` Crafts: "No data yet — connect a data source to see your metrics here" (empty state), "Welcome to your dashboard. Let's set up your first widget." (onboarding), with a friendly-professional tone throughout.
+
+## Tips
+
+**Start with art-director and design-system-architect.** These two set the foundation that all other agents build on. Skipping them is like building without blueprints.
+
+**Let agents own their domains.** Ask `responsive-strategist` about breakpoints, not `component-designer`. Each agent's Nine Dimensions expertise makes them the right specialist for their area.
+
+**Chain agents for complete solutions.** The dashboard example above shows the natural flow: vision, foundations, structure, components, responsiveness, motion, copy. Each step builds on the previous.
+
+**Trust the 9.5/10 baseline.** These agents don't produce rough sketches. Recommendations are production-ready, with accessibility considered, edge cases addressed, and implementation guidance included.
+
+**Use the Nine Dimensions as a review checklist.** After any design pass, ask: "How does this score across all nine dimensions?" Agents will self-assess and identify gaps.
+
+## Next Steps
+
+- Learn about the [Foundation Bundle](./foundation.md) for core development agents
+- Explore [Recipes](./recipes.md) to automate multi-agent design workflows
+- Read about [Custom Bundles](../advanced/custom-bundle.md) to extend Design Intelligence
+- See [Agents](../concepts/agents.md) for how agent delegation works under the hood

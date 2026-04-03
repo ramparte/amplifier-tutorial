@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Stories - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Stories";
+        var mkdocs_page_input_path = "bundles/stories.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="stories.html">Stories</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-stories-bundle">What is the Stories Bundle?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-agents">Key Agents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#story-researcher-finding-stories-in-your-data">story-researcher: Finding Stories in Your Data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#storyteller-polished-html-decks">storyteller: Polished HTML Decks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#release-manager-changelogs-from-git-tags">release-manager: Changelogs from Git Tags</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#content-adapter-one-story-many-formats">content-adapter: One Story, Many Formats</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recipes-automated-content-pipelines">Recipes: Automated Content Pipelines</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#session-to-case-study">session-to-case-study</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#git-tag-to-changelog">git-tag-to-changelog</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-example-make-an-amplifier-story">Practical Example: "Make an Amplifier Story"</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Bundles</li>
+      <li class="breadcrumb-item active">Stories</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="stories-bundle">Stories Bundle<a class="headerlink" href="#stories-bundle" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-the-stories-bundle">What is the Stories Bundle?<a class="headerlink" href="#what-is-the-stories-bundle" title="Permanent link">&para;</a></h2>
+<p>You just finished an extraordinary session. Over two hours, Amplifier helped you build a new feature from scratch -- researching the problem, writing the code, fixing edge cases, deploying it. The session log is sitting in <code>events.jsonl</code>, full of breakthrough moments and clever problem-solving. But nobody will ever know, because session logs are unreadable and you don't have time to write it up.</p>
+<p>The Stories bundle turns Amplifier's own activity into polished content. It mines git repositories, session files, and development history to find stories worth telling -- then generates case studies, blog posts, release notes, executive summaries, changelogs, migration guides, and presentation decks. You say "make an Amplifier story about the new auth feature," and the bundle researches the git history, designs a narrative arc, and produces a self-contained HTML deck you can share immediately.</p>
+<p>This isn't a generic content generator. Every agent in the bundle is a specialist -- one researches, one strategizes, one writes technical docs, another writes for executives. The storyteller agent produces "Useful Apple Keynote" style HTML presentations with dark backgrounds and high-density layouts. The release-manager reads git tags and generates changelogs automatically. The whole pipeline is evidence-backed: every metric in every output traces to actual data from your repos and sessions.</p>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<p>The bundle provides eleven specialist agents and four automated recipes:</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>story-researcher</strong></td>
+<td>Mines git repos, sessions, and ecosystem activity for stories worth telling</td>
+</tr>
+<tr>
+<td><strong>content-strategist</strong></td>
+<td>Determines what stories to tell and how to frame them</td>
+</tr>
+<tr>
+<td><strong>case-study-writer</strong></td>
+<td>Turns sessions into structured case study narratives</td>
+</tr>
+<tr>
+<td><strong>technical-writer</strong></td>
+<td>Deep technical documentation and guides</td>
+</tr>
+<tr>
+<td><strong>marketing-writer</strong></td>
+<td>External communication and feature announcements</td>
+</tr>
+<tr>
+<td><strong>executive-briefer</strong></td>
+<td>High-level summaries for decision-makers</td>
+</tr>
+<tr>
+<td><strong>community-manager</strong></td>
+<td>Community engagement content</td>
+</tr>
+<tr>
+<td><strong>content-adapter</strong></td>
+<td>Converts between formats and audiences</td>
+</tr>
+<tr>
+<td><strong>data-analyst</strong></td>
+<td>Transforms raw data into insights and metrics</td>
+</tr>
+<tr>
+<td><strong>release-manager</strong></td>
+<td>Automated changelogs, migration guides, and release announcements from git tags</td>
+</tr>
+<tr>
+<td><strong>storyteller</strong></td>
+<td>Creates polished HTML presentation decks</td>
+</tr>
+</tbody>
+</table>
+<p>And four recipes for automated workflows:</p>
+<table>
+<thead>
+<tr>
+<th>Recipe</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>session-to-case-study</strong></td>
+<td>Transforms a session's <code>events.jsonl</code> into a professional case study</td>
+</tr>
+<tr>
+<td><strong>git-tag-to-changelog</strong></td>
+<td>Generates semantic changelogs from git tag history</td>
+</tr>
+<tr>
+<td><strong>weekly-digest</strong></td>
+<td>Produces regular ecosystem updates with zero manual work</td>
+</tr>
+<tr>
+<td><strong>blog-post-generator</strong></td>
+<td>Creates feature stories for community distribution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>The simplest way to start is to ask for a presentation about something you've built.</p>
+<blockquote>
+<p>Tell a story about the new shadow environments feature</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:story-researcher...
+  Mining git history for: shadow environments
+  Scanning 3 repos...
+  Found: 47 commits, 12 PRs, 3 contributors
+  Timeline: Jan 8 - Jan 22, 2026 (14 days)
+  Research complete. Returning structured data.
+
+[Tool: task] Delegating to stories:storyteller...
+  Designing narrative arc: problem → solution → impact → velocity
+  Building HTML deck: &quot;Useful Apple Keynote&quot; style
+  Saved: docs/shadow-environments.html
+  Opening in browser...
+</code></pre></div>
+
+<p>The storyteller always starts with research. It delegates to <code>story-researcher</code> first, which gathers evidence from git history, PRs, and commit patterns. Only then does it design and build the deck -- and every number in the presentation traces back to the research output.</p>
+<blockquote>
+<p>Make that into an executive summary instead</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:executive-briefer...
+  Adapting shadow environments story for executive audience
+  Key metrics: 14-day development cycle, 3x faster environment provisioning
+  Output: executive-summary-shadow-environments.md
+</code></pre></div>
+
+<p>Same research, different audience. The executive-briefer strips technical detail and leads with business impact.</p>
+<h2 id="key-agents">Key Agents<a class="headerlink" href="#key-agents" title="Permanent link">&para;</a></h2>
+<h3 id="story-researcher-finding-stories-in-your-data">story-researcher: Finding Stories in Your Data<a class="headerlink" href="#story-researcher-finding-stories-in-your-data" title="Permanent link">&para;</a></h3>
+<p>The researcher is the foundation of the pipeline. It mines data sources that other agents consume:</p>
+<blockquote>
+<p>What stories can we tell from the last month of development?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:story-researcher...
+  Scanning git activity across 5 repos...
+  Analyzing session files from last 30 days...
+
+  Stories worth telling:
+  1. Recipe cancellation feature — 3 days, 1 developer, 23 files changed
+  2. LSP integration rewrite — significant velocity spike in week 2
+  3. Cross-session memory breakthrough — novel architecture, high impact
+  4. Bundle composition redesign — 4 contributors, breaking change handled cleanly
+
+  Recommendation: #3 has the strongest narrative arc.
+</code></pre></div>
+
+<p>The researcher looks for signals: velocity spikes, breakthrough moments in sessions, multi-contributor collaboration, and clean handling of complex problems. It reports what it finds and what it can't find -- it never fabricates metrics.</p>
+<h3 id="storyteller-polished-html-decks">storyteller: Polished HTML Decks<a class="headerlink" href="#storyteller-polished-html-decks" title="Permanent link">&para;</a></h3>
+<p>The storyteller creates self-contained HTML presentations in a high-density "Useful Apple Keynote" style -- dark backgrounds, blue gradients, and information-rich slides designed for engineers.</p>
+<blockquote>
+<p>Create a deck about the recipe cancellation feature</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:story-researcher...
+  Research complete. 23 commits, 2 PRs, 1 contributor.
+
+[Tool: task] Delegating to stories:storyteller...
+  Narrative: problem (stuck recipes) → solution (graceful cancellation)
+             → impact (zero orphaned processes) → velocity (3 days)
+  Creating 12-slide HTML deck...
+  Antagonistic review: checking all metrics against research...
+  ✓ All numbers verified. Sources slide included.
+  Saved: docs/recipe-cancellation.html
+</code></pre></div>
+
+<p>Every deck goes through an antagonistic review before saving. The storyteller checks each number, date, and impact claim against the research data. If the research said "~45 commits," the deck says "~45 commits" -- not "45 commits" and certainly not "50 commits."</p>
+<h3 id="release-manager-changelogs-from-git-tags">release-manager: Changelogs from Git Tags<a class="headerlink" href="#release-manager-changelogs-from-git-tags" title="Permanent link">&para;</a></h3>
+<p>The release-manager automates release documentation. Point it at a git tag and it generates everything:</p>
+<blockquote>
+<p>Generate release notes for the v2.0.0 tag</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:release-manager...
+  Analyzing commits between v1.9.0 and v2.0.0...
+  Found: 8 features, 3 breaking changes, 12 fixes
+
+  Generated:
+  - CHANGELOG.md (semantic versioning format)
+  - migration-guide-v2.md (breaking change details)
+  - release-announcement.md (community-ready)
+</code></pre></div>
+
+<p>The release-manager follows Keep a Changelog format and semantic versioning conventions. When it finds breaking changes, it automatically generates a migration guide explaining what changed and how to update.</p>
+<h3 id="content-adapter-one-story-many-formats">content-adapter: One Story, Many Formats<a class="headerlink" href="#content-adapter-one-story-many-formats" title="Permanent link">&para;</a></h3>
+<p>The content-adapter transforms existing content between formats and audiences:</p>
+<blockquote>
+<p>Take the shadow environments case study and make it a blog post</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:content-adapter...
+  Source: case-studies/shadow-environments.md (technical, 2500 words)
+  Target: blog post (community audience, 800 words)
+  Adapting tone, stripping implementation details, adding context...
+  Output: blog-shadow-environments.md
+</code></pre></div>
+
+<h2 id="recipes-automated-content-pipelines">Recipes: Automated Content Pipelines<a class="headerlink" href="#recipes-automated-content-pipelines" title="Permanent link">&para;</a></h2>
+<h3 id="session-to-case-study">session-to-case-study<a class="headerlink" href="#session-to-case-study" title="Permanent link">&para;</a></h3>
+<p>The signature recipe. It takes a raw session file and produces a professional case study:</p>
+<blockquote>
+<p>Run the session-to-case-study recipe with session_file=~/.amplifier/sessions/2026-01-15/events.jsonl</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: recipes]
+  operation: execute
+  recipe_path: &quot;@stories:recipes/session-to-case-study.yaml&quot;
+  context: { session_file: &quot;~/.amplifier/sessions/2026-01-15/events.jsonl&quot; }
+
+  Step 1/4: research — Analyzing session events...
+    Session: 2h 15m, 47 tool calls, 3 agents used
+    Key moments: auth middleware breakthrough at minute 45
+  Step 2/4: strategize — Designing narrative...
+    Angle: &quot;From blank file to production auth in one session&quot;
+  Step 3/4: write — Generating case study...
+  Step 4/4: review — Checking claims against evidence...
+  ✓ Case study saved: case-studies/auth-middleware-session.md
+</code></pre></div>
+
+<p>The recipe runs four phases: research extracts raw data, a strategist picks the narrative angle, a writer produces the document, and a reviewer verifies claims. Each phase is a separate agent with its own expertise.</p>
+<h3 id="git-tag-to-changelog">git-tag-to-changelog<a class="headerlink" href="#git-tag-to-changelog" title="Permanent link">&para;</a></h3>
+<p>Automates the tedious work of writing release notes:</p>
+<blockquote>
+<p>Run the changelog recipe for all tags since v1.5.0</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: recipes]
+  operation: execute
+  recipe_path: &quot;@stories:recipes/git-tag-to-changelog.yaml&quot;
+  context: { since_tag: &quot;v1.5.0&quot; }
+
+  Processing 4 releases: v1.5.0 → v1.6.0 → v1.7.0 → v1.8.0 → v2.0.0
+  Generated CHANGELOG.md with 4 release sections.
+</code></pre></div>
+
+<h2 id="practical-example-make-an-amplifier-story">Practical Example: "Make an Amplifier Story"<a class="headerlink" href="#practical-example-make-an-amplifier-story" title="Permanent link">&para;</a></h2>
+<p>Here's the full workflow for creating a story about Amplifier itself -- the kind of content that explains what you've built and why it matters.</p>
+<blockquote>
+<p>Make an Amplifier story about how we built cross-session memory</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: task] Delegating to stories:story-researcher...
+  Mining amplifier-core and dev-memory repos...
+  Found: 89 commits over 3 weeks, 2 contributors
+  Key insight: architecture shifted from vector DB to plain YAML
+  Session data: 4 sessions with memory-related breakthroughs
+
+[Tool: task] Delegating to stories:content-strategist...
+  Story angle: &quot;Why we chose simplicity over sophistication&quot;
+  Target audiences: engineers (primary), leadership (secondary)
+  Recommended formats: HTML deck + executive summary
+
+[Tool: task] Delegating to stories:storyteller...
+  Building 15-slide deck...
+  Narrative: complex problem → simple solution → surprising benefits
+  Antagonistic review: ✓ all 12 metrics verified
+  Saved: docs/cross-session-memory.html
+
+[Tool: task] Delegating to stories:executive-briefer...
+  One-page summary: &quot;Persistent memory across sessions,
+    plain-text storage, zero external dependencies&quot;
+  Saved: executive-summary-cross-session-memory.md
+</code></pre></div>
+
+<p>One prompt produced a presentation deck and an executive summary, both grounded in real git data and session evidence.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Always let the researcher run.</strong> The storyteller mandates research before creating any deck. Don't skip it or try to provide metrics manually -- the pipeline is designed around evidence-backed claims, and the antagonistic review will flag anything that doesn't trace to research.</p>
+<p><strong>Use recipes for repeatable workflows.</strong> If you're generating case studies or changelogs regularly, use the recipes instead of ad-hoc prompts. Recipes run the full pipeline every time -- research, strategy, writing, review -- so nothing gets skipped.</p>
+<p><strong>Match the agent to the audience.</strong> Technical-writer for engineers, executive-briefer for leadership, marketing-writer for external announcements, community-manager for developer communities. Each agent knows its audience's expectations and adjusts tone, detail level, and framing accordingly.</p>
+<p><strong>Check the generated HTML locally.</strong> The storyteller auto-opens decks in your browser after creation. Review before deploying -- the antagonistic review catches metric errors, but narrative tone and emphasis are judgment calls that benefit from a human eye.</p>
+<p><strong>Deploy with the included script.</strong> The bundle includes <code>deploy.sh</code> for pushing decks to SharePoint. Run <code>./deploy.sh docs/my-deck.html</code> for a single deck or <code>./deploy.sh</code> for all of them.</p>
+<p><strong>Convert to PowerPoint when needed.</strong> For audiences that need <code>.pptx</code>, use the included converter: <code>uv run --with python-pptx --with beautifulsoup4 tools/html2pptx_v2.py docs/deck.html output.pptx</code>. It handles card grids, code blocks, and merged headers natively.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about the <a href="foundation.html">Foundation Bundle</a> for core Amplifier capabilities</li>
+<li>Explore <a href="../concepts/recipes.html">Recipes</a> to understand how multi-step pipelines work</li>
+<li>See <a href="../concepts/agents.html">Agents</a> for how specialist agents are defined and delegated to</li>
+<li>Read about the <a href="projector.html">Projector Bundle</a> for tracking the projects you're telling stories about</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="projector.html" class="btn btn-neutral float-left" title="Projector"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../providers/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="projector.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../providers/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

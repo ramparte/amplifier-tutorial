@@ -67,7 +67,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
                   </li>
@@ -80,6 +80,12 @@
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -94,14 +100,24 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
                   </li>
@@ -109,82 +125,128 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="design-intelligence.html">Design Intelligence</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-design-intelligence-bundle">What is the Design Intelligence Bundle?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#agents-included">Agents Included</a>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-included">What's Included</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-agents">Key Agents</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#art-director">art-director</a>
+    <li class="toctree-l3"><a class="reference internal" href="#design-system-architect">design-system-architect</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#component-designer">component-designer</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#animation-choreographer">animation-choreographer</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#design-system-architect">design-system-architect</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#layout-architect">layout-architect</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#responsive-strategist">responsive-strategist</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#animation-choreographer">animation-choreographer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#art-director">art-director</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#voice-strategist">voice-strategist</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-nine-dimensions">The Nine Dimensions</a>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-example-designing-a-dashboard">Practical Example: Designing a Dashboard</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#the-five-pillars">The Five Pillars</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#when-to-use">When to Use</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#starting-a-new-project">Starting a New Project</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#building-components">Building Components</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#adding-motion">Adding Motion</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#multi-device-work">Multi-Device Work</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#writing-interface-copy">Writing Interface Copy</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#establish-visual-direction">Establish Visual Direction</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#design-a-component">Design a Component</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#plan-motion">Plan Motion</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#create-responsive-strategy">Create Responsive Strategy</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#write-error-messages">Write Error Messages</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#agent-collaboration">Agent Collaboration</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quality-baseline">Quality Baseline</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#related-resources">Related Resources</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -198,19 +260,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -227,7 +276,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Bundles Reference</li>
+          <li class="breadcrumb-item">Bundles</li>
       <li class="breadcrumb-item active">Design Intelligence</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -238,301 +287,177 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="design-intelligence-bundle">Design Intelligence Bundle<a class="headerlink" href="#design-intelligence-bundle" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The Design Intelligence bundle provides a team of specialized AI agents for UI/UX design work. Rather than a single generalist design assistant, this bundle offers role-specific experts that mirror how professional design teams operate.</p>
-<p>Each agent brings deep expertise in their domain while sharing a common design philosophy rooted in the Nine Dimensions and Five Pillars framework. They work together through orchestration, allowing you to tackle design challenges from strategic vision down to pixel-level implementation.</p>
-<h2 id="agents-included">Agents Included<a class="headerlink" href="#agents-included" title="Permanent link">&para;</a></h2>
+<h2 id="what-is-the-design-intelligence-bundle">What is the Design Intelligence Bundle?<a class="headerlink" href="#what-is-the-design-intelligence-bundle" title="Permanent link">&para;</a></h2>
+<p>Most AI assistants treat design as a single skill. Ask for a button, get a button. Ask for a color palette, get a palette. But real design work is collaborative — art directors set vision, system architects build foundations, component designers sweat the details, and copywriters shape every word users read.</p>
+<p>The Design Intelligence bundle mirrors that reality. Instead of one generalist, you get a team of seven specialized agents, each an expert in their domain, all sharing a common philosophy called <strong>Amplified Design</strong>. This philosophy is built on the <strong>Nine Dimensions</strong> of design quality and the <strong>Five Pillars</strong> of design excellence, establishing a quality baseline of <strong>9.5/10</strong> — meaning no placeholders, no generic solutions, and every decision justified.</p>
+<p>When you ask for a dashboard layout, the right specialist handles it. When the work crosses domains, agents hand off to each other naturally. The result is design guidance that feels like it came from a senior design team, not a chatbot.</p>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<p>Seven agents, each owning specific dimensions of the design process:</p>
 <table>
 <thead>
 <tr>
 <th>Agent</th>
-<th>Purpose</th>
-<th>Primary Domain</th>
+<th>Focus</th>
+<th>Dimensions Owned</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>art-director</code></td>
-<td>Visual strategy and aesthetic direction</td>
-<td>Style, brand expression</td>
+<td><code>design-system-architect</code></td>
+<td>Tokens, scales, foundations</td>
+<td>Color, Type, Space</td>
 </tr>
 <tr>
 <td><code>component-designer</code></td>
-<td>Individual UI component design</td>
-<td>Component-level refinement</td>
-</tr>
-<tr>
-<td><code>animation-choreographer</code></td>
-<td>Motion and transitions</td>
-<td>Animation timing, micro-interactions</td>
-</tr>
-<tr>
-<td><code>design-system-architect</code></td>
-<td>Design tokens and foundations</td>
-<td>System-level architecture</td>
+<td>UI components, variants, states</td>
+<td>Touch, State</td>
 </tr>
 <tr>
 <td><code>layout-architect</code></td>
-<td>Page structure and spatial composition</td>
-<td>Information architecture</td>
+<td>Page structure, information flow</td>
+<td>Space, Flow</td>
 </tr>
 <tr>
 <td><code>responsive-strategist</code></td>
-<td>Multi-device adaptation</td>
-<td>Breakpoints, device patterns</td>
+<td>Breakpoints, device adaptation</td>
+<td>Touch, Space</td>
+</tr>
+<tr>
+<td><code>animation-choreographer</code></td>
+<td>Motion, transitions, timing</td>
+<td>Motion, State</td>
+</tr>
+<tr>
+<td><code>art-director</code></td>
+<td>Aesthetic vision, brand expression</td>
+<td>Style, Color</td>
 </tr>
 <tr>
 <td><code>voice-strategist</code></td>
-<td>UX writing and tone</td>
-<td>Microcopy, messaging</td>
+<td>UX writing, tone, microcopy</td>
+<td>Voice</td>
 </tr>
 </tbody>
 </table>
-<h3 id="art-director">art-director<a class="headerlink" href="#art-director" title="Permanent link">&para;</a></h3>
-<p>The Art Director owns aesthetic direction and visual strategy. This agent transforms abstract concepts like "feels premium" or "approachable but professional" into systematic design principles.</p>
-<p><strong>Responsibilities:</strong>
-- Defining and maintaining the aesthetic guide
-- Ensuring visual coherence across the system
-- Translating brand personality into design decisions
-- Resolving conflicts between competing visual approaches</p>
-<p><strong>Best for:</strong> Starting new projects, establishing visual identity, reviewing design consistency.</p>
-<h3 id="component-designer">component-designer<a class="headerlink" href="#component-designer" title="Permanent link">&para;</a></h3>
-<p>The Component Designer works at the individual element level, crafting buttons, cards, inputs, and other UI building blocks that embody your design system.</p>
-<p><strong>Responsibilities:</strong>
-- Designing new UI components from specifications
-- Refining existing components for quality
-- Creating component variants and props APIs
-- Documenting component usage and examples</p>
-<p><strong>Best for:</strong> Building design system libraries, refining individual elements, component documentation.</p>
-<h3 id="animation-choreographer">animation-choreographer<a class="headerlink" href="#animation-choreographer" title="Permanent link">&para;</a></h3>
-<p>The Animation Choreographer treats motion as communication. Every transition, micro-interaction, and state change carries meaning and provides feedback.</p>
-<p><strong>Responsibilities:</strong>
-- Designing icon animations and micro-interactions
-- Planning page transitions and choreography
-- Creating loading states and progress indicators
-- Establishing motion timing and easing standards
-- Ensuring accessibility for motion-sensitive users</p>
-<p><strong>Best for:</strong> Adding polish to interactions, designing loading experiences, establishing motion language.</p>
-<h3 id="design-system-architect">design-system-architect<a class="headerlink" href="#design-system-architect" title="Permanent link">&para;</a></h3>
-<p>The Design System Architect works at the foundation level, establishing tokens, scales, and systematic patterns that ensure consistency across all design work.</p>
-<p><strong>Responsibilities:</strong>
-- Designing color, typography, and spacing scales
-- Creating and managing design tokens
-- Establishing grid systems and layout foundations
-- Evaluating decisions against the Nine Dimensions
-- Defining cross-cutting design concerns</p>
-<p><strong>Best for:</strong> Starting design systems, establishing foundations, ensuring systematic consistency.</p>
-<h3 id="layout-architect">layout-architect<a class="headerlink" href="#layout-architect" title="Permanent link">&para;</a></h3>
-<p>The Layout Architect handles page-level structure and information hierarchy. They determine how content flows and how users navigate through information.</p>
-<p><strong>Responsibilities:</strong>
-- Designing page/view layouts (header, sidebar, main, footer)
-- Planning information architecture and navigation
-- Creating grid systems and spatial composition
-- Establishing content flow and reading patterns</p>
-<p><strong>Best for:</strong> Planning application structure, designing navigation systems, establishing page templates.</p>
-<h3 id="responsive-strategist">responsive-strategist<a class="headerlink" href="#responsive-strategist" title="Permanent link">&para;</a></h3>
-<p>The Responsive Strategist ensures designs work across all devices and input methods, from mobile touch to desktop mouse interactions.</p>
-<p><strong>Responsibilities:</strong>
-- Defining breakpoint strategy and behavior
-- Planning mobile-first vs desktop-first approaches
-- Adapting touch vs mouse interaction patterns
-- Optimizing for specific device categories
-- Implementing fluid typography and spacing</p>
-<p><strong>Best for:</strong> Multi-device design, mobile optimization, touch interface considerations.</p>
-<h3 id="voice-strategist">voice-strategist<a class="headerlink" href="#voice-strategist" title="Permanent link">&para;</a></h3>
-<p>The Voice Strategist ensures every word in your interface serves users. From button labels to error messages, language shapes user experience.</p>
-<p><strong>Responsibilities:</strong>
-- Establishing voice and tone frameworks
-- Writing UX copy and microcopy
-- Creating error message patterns
-- Designing empty state messaging
-- Developing content guidelines for developers</p>
-<p><strong>Best for:</strong> Interface copy, error handling UX, establishing tone guidelines.</p>
-<h2 id="the-nine-dimensions">The Nine Dimensions<a class="headerlink" href="#the-nine-dimensions" title="Permanent link">&para;</a></h2>
-<p>The Design Intelligence agents share a common evaluation framework called the Nine Dimensions. When assessing design quality, each dimension receives attention:</p>
-<table>
-<thead>
-<tr>
-<th>Dimension</th>
-<th>Focus</th>
-<th>Key Questions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Style</strong></td>
-<td>Visual identity and aesthetic</td>
-<td>Does it feel cohesive? Does it express the brand?</td>
-</tr>
-<tr>
-<td><strong>Color</strong></td>
-<td>Palette, contrast, meaning</td>
-<td>Is contrast accessible? Do colors communicate state?</td>
-</tr>
-<tr>
-<td><strong>Voice</strong></td>
-<td>Language, tone, personality</td>
-<td>Is copy clear and helpful? Is tone consistent?</td>
-</tr>
-<tr>
-<td><strong>Space</strong></td>
-<td>Layout, whitespace, breathing room</td>
-<td>Does content have room to breathe? Is hierarchy clear?</td>
-</tr>
-<tr>
-<td><strong>Motion</strong></td>
-<td>Animation, transitions, feedback</td>
-<td>Does motion communicate? Is timing appropriate?</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>Typography, readability, scale</td>
-<td>Is text readable? Does hierarchy guide the eye?</td>
-</tr>
-<tr>
-<td><strong>Touch</strong></td>
-<td>Interaction, affordance, feedback</td>
-<td>Are targets large enough? Is interaction clear?</td>
-</tr>
-<tr>
-<td><strong>State</strong></td>
-<td>Loading, error, empty, success</td>
-<td>Are all states designed? Is feedback immediate?</td>
-</tr>
-<tr>
-<td><strong>Flow</strong></td>
-<td>Navigation, progression, journey</td>
-<td>Is the path clear? Can users recover from mistakes?</td>
-</tr>
-</tbody>
-</table>
-<p>Agents reference these dimensions when making decisions and can explain their recommendations in terms of specific dimensional impacts.</p>
-<h2 id="the-five-pillars">The Five Pillars<a class="headerlink" href="#the-five-pillars" title="Permanent link">&para;</a></h2>
-<p>Beyond the Nine Dimensions, agents are guided by Five Pillars that establish baseline quality:</p>
-<ol>
-<li><strong>Clarity</strong> - Every element communicates its purpose</li>
-<li><strong>Consistency</strong> - Patterns repeat predictably across the system</li>
-<li><strong>Accessibility</strong> - Design works for all users and abilities</li>
-<li><strong>Performance</strong> - Visual design supports fast, responsive experiences</li>
-<li><strong>Delight</strong> - Thoughtful details that elevate the mundane</li>
-</ol>
-<h2 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h2>
-<h3 id="starting-a-new-project">Starting a New Project<a class="headerlink" href="#starting-a-new-project" title="Permanent link">&para;</a></h3>
-<p>Begin with <code>art-director</code> to establish aesthetic direction, then <code>design-system-architect</code> to create foundations:</p>
-<div class="codehilite"><pre><span></span><code>You: &quot;I&#39;m building a developer tools SaaS. It should feel professional 
-     but not corporate, technical but approachable.&quot;
-
-art-director: Analyzes requirements, creates AESTHETIC-GUIDE.md with 
-              color direction, typography approach, and visual principles.
-
-design-system-architect: Translates aesthetic into concrete tokens - 
-                         color scales, type scales, spacing system.
-</code></pre></div>
-
-<h3 id="building-components">Building Components<a class="headerlink" href="#building-components" title="Permanent link">&para;</a></h3>
-<p>Use <code>component-designer</code> when implementing specific UI elements:</p>
-<div class="codehilite"><pre><span></span><code>You: &quot;Design a notification badge component that shows unread counts&quot;
-
-component-designer: Creates component spec with variants (dot, count, 
-                    overflow), states (default, attention, muted), 
-                    and accessibility considerations.
-</code></pre></div>
-
-<h3 id="adding-motion">Adding Motion<a class="headerlink" href="#adding-motion" title="Permanent link">&para;</a></h3>
-<p>Bring in <code>animation-choreographer</code> to design purposeful animations:</p>
-<div class="codehilite"><pre><span></span><code>You: &quot;The save button feels static. It should provide feedback.&quot;
-
-animation-choreographer: Designs micro-interaction sequence - 
-                         button press response, processing state, 
-                         success confirmation with appropriate timing.
-</code></pre></div>
-
-<h3 id="multi-device-work">Multi-Device Work<a class="headerlink" href="#multi-device-work" title="Permanent link">&para;</a></h3>
-<p>Consult <code>responsive-strategist</code> for device-specific decisions:</p>
-<div class="codehilite"><pre><span></span><code>You: &quot;Our dashboard has too much information for mobile screens&quot;
-
-responsive-strategist: Analyzes content priority, suggests progressive 
-                       disclosure pattern, defines what collapses vs 
-                       hides vs reorganizes at each breakpoint.
-</code></pre></div>
-
-<h3 id="writing-interface-copy">Writing Interface Copy<a class="headerlink" href="#writing-interface-copy" title="Permanent link">&para;</a></h3>
-<p>Use <code>voice-strategist</code> for any text that users see:</p>
-<div class="codehilite"><pre><span></span><code>You: &quot;What should the error message say when file upload fails?&quot;
-
-voice-strategist: Crafts message considering context, user emotion, 
-                  actionability: &quot;Upload failed. Check your connection 
-                  and try again, or try a smaller file (max 10MB).&quot;
-</code></pre></div>
-
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="establish-visual-direction">Establish Visual Direction<a class="headerlink" href="#establish-visual-direction" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>I&#39;m building a meditation app for busy professionals. The vibe should 
-be calming but not new-age, minimal but not cold. Help me establish 
-the visual direction.
-</code></pre></div>
-
-<h3 id="design-a-component">Design a Component<a class="headerlink" href="#design-a-component" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Design a progress indicator component for a multi-step form. It needs 
-to show: current step, completed steps, remaining steps, and allow 
-clicking back to completed steps.
-</code></pre></div>
-
-<h3 id="plan-motion">Plan Motion<a class="headerlink" href="#plan-motion" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Design the animation for a mobile menu that slides in from the right. 
-Consider: the trigger button, the overlay, the menu content, and how 
-items stagger in.
-</code></pre></div>
-
-<h3 id="create-responsive-strategy">Create Responsive Strategy<a class="headerlink" href="#create-responsive-strategy" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>I have a data table that works on desktop but breaks on mobile. The 
-table has 8 columns: name, status, date, amount, category, assignee, 
-priority, and actions. Help me plan the responsive approach.
-</code></pre></div>
-
-<h3 id="write-error-messages">Write Error Messages<a class="headerlink" href="#write-error-messages" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Create a set of error messages for a payment form. Cover: invalid card 
-number, expired card, insufficient funds, network error, and general 
-processing failure.
-</code></pre></div>
-
-<h2 id="agent-collaboration">Agent Collaboration<a class="headerlink" href="#agent-collaboration" title="Permanent link">&para;</a></h2>
-<p>Design Intelligence agents work together through orchestration. Common collaboration patterns:</p>
-<p><strong>Art Director + Design System Architect</strong>: Art director sets direction, architect implements as tokens.</p>
-<p><strong>Component Designer + Animation Choreographer</strong>: Designer creates static component, choreographer adds motion.</p>
-<p><strong>Layout Architect + Responsive Strategist</strong>: Layout architect designs desktop, strategist adapts for all devices.</p>
-<p><strong>Voice Strategist + Component Designer</strong>: Voice strategist writes copy, designer integrates into component specs.</p>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>The Design Intelligence bundle is included in Amplifier Foundation. Enable it in your bundle configuration:</p>
+<p>These agents share two frameworks that keep their work coherent:</p>
+<p><strong>The Nine Dimensions</strong> — Style, Color, Voice, Space, Motion, Type, Touch, State, and Flow. Every design decision is evaluated against the dimensions it touches.</p>
+<p><strong>The Five Pillars</strong> — Clarity, Consistency, Accessibility, Performance, and Delight. These establish non-negotiable quality standards across all agents.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>The bundle is included in your Amplifier configuration:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># .amplifier/config.yaml</span>
 <span class="nt">bundles</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foundation</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design-intelligence</span>
 </code></pre></div>
 
-<p>Individual agents can be invoked directly or through the main assistant which will delegate to the appropriate specialist based on your request.</p>
-<h2 id="quality-baseline">Quality Baseline<a class="headerlink" href="#quality-baseline" title="Permanent link">&para;</a></h2>
-<p>All Design Intelligence agents work toward a 9.5/10 quality baseline. This means:</p>
+<p>Once loaded, you can address design needs naturally. Amplifier routes to the right specialist, or you can invoke agents directly.</p>
+<blockquote>
+<p>I'm building a project management tool. Help me establish the visual direction.</p>
+</blockquote>
+<p><code>[Tool: art-director]</code> The art director analyzes your domain, audience, and constraints, then produces an aesthetic guide covering color direction, typography approach, and visual principles — not a mood board, but actionable design decisions.</p>
+<blockquote>
+<p>Now turn that direction into a design token system.</p>
+</blockquote>
+<p><code>[Tool: design-system-architect]</code> The system architect translates aesthetic intent into concrete foundations: color scales with semantic mappings, a type scale with responsive sizes, and a spacing system with named tokens.</p>
+<h2 id="key-agents">Key Agents<a class="headerlink" href="#key-agents" title="Permanent link">&para;</a></h2>
+<h3 id="design-system-architect">design-system-architect<a class="headerlink" href="#design-system-architect" title="Permanent link">&para;</a></h3>
+<p>The foundation layer. This agent creates the tokens, scales, and systematic patterns that every other agent builds on. Start here when beginning a new design system or when inconsistency creeps into an existing one.</p>
+<blockquote>
+<p>Create a design token system for a dark-mode-first developer tool.</p>
+</blockquote>
+<p><code>[Tool: design-system-architect]</code> Produces color primitives, semantic color tokens (surface, foreground, accent, danger), type scale, spacing scale, and elevation tokens — all evaluated against the Color, Type, and Space dimensions.</p>
+<h3 id="component-designer">component-designer<a class="headerlink" href="#component-designer" title="Permanent link">&para;</a></h3>
+<p>Works at the individual element level. Buttons, cards, inputs, modals — this agent designs them with full variant coverage, state handling, and accessibility baked in.</p>
+<blockquote>
+<p>Design a notification badge component with unread counts.</p>
+</blockquote>
+<p><code>[Tool: component-designer]</code> Delivers a complete spec: variants (dot, count, overflow at 99+), states (default, attention, muted), size options, color mappings to your token system, and ARIA attributes.</p>
+<h3 id="layout-architect">layout-architect<a class="headerlink" href="#layout-architect" title="Permanent link">&para;</a></h3>
+<p>Handles page-level structure and information hierarchy. This agent determines how content flows and how users navigate through your application.</p>
+<blockquote>
+<p>Design the layout for an analytics dashboard with sidebar navigation.</p>
+</blockquote>
+<p><code>[Tool: layout-architect]</code> Produces a spatial composition: sidebar width and collapse behavior, header structure, main content grid, widget placement hierarchy, and content flow patterns optimized for scanning.</p>
+<h3 id="responsive-strategist">responsive-strategist<a class="headerlink" href="#responsive-strategist" title="Permanent link">&para;</a></h3>
+<p>Ensures designs work across every device and input method. This agent doesn't just shrink things — it rethinks the experience at each breakpoint.</p>
+<blockquote>
+<p>Our dashboard has too much data for mobile screens.</p>
+</blockquote>
+<p><code>[Tool: responsive-strategist]</code> Analyzes content priority, then designs a progressive disclosure strategy: what collapses, what hides behind tabs, what reorganizes into cards, and what gets a dedicated drill-down view — with specific breakpoint definitions.</p>
+<h3 id="animation-choreographer">animation-choreographer<a class="headerlink" href="#animation-choreographer" title="Permanent link">&para;</a></h3>
+<p>Treats motion as communication. Every transition carries meaning, every micro-interaction provides feedback, and timing is deliberate.</p>
+<blockquote>
+<p>The save button feels static. Add meaningful feedback.</p>
+</blockquote>
+<p><code>[Tool: animation-choreographer]</code> Designs a micro-interaction sequence: button press scale (95%, 80ms ease-out), processing spinner (fade-in at 300ms delay), success checkmark (draw-on, 400ms), and return to rest — with <code>prefers-reduced-motion</code> fallbacks.</p>
+<h3 id="art-director">art-director<a class="headerlink" href="#art-director" title="Permanent link">&para;</a></h3>
+<p>Sets the aesthetic vision that all other agents follow. This agent transforms abstract feelings ("premium but approachable") into systematic design principles.</p>
+<blockquote>
+<p>I want our meditation app to feel calming but not new-age, minimal but not cold.</p>
+</blockquote>
+<p><code>[Tool: art-director]</code> Creates an aesthetic guide: warm neutrals with a single muted accent, generous whitespace, rounded-but-not-bubbly border radii, serif headings for warmth, and photography direction favoring natural light and texture.</p>
+<h3 id="voice-strategist">voice-strategist<a class="headerlink" href="#voice-strategist" title="Permanent link">&para;</a></h3>
+<p>Every word in your interface shapes the user experience. This agent crafts copy that's clear, helpful, and consistent with your product's personality.</p>
+<blockquote>
+<p>Write error messages for a payment form.</p>
+</blockquote>
+<p><code>[Tool: voice-strategist]</code> Produces contextual messages: "This card number doesn't look right — check for typos" (validation), "Your card has expired — try a different one" (expired), "We couldn't reach your bank — please try again in a moment" (network) — each with tone rationale and an action the user can take.</p>
+<h2 id="practical-example-designing-a-dashboard">Practical Example: Designing a Dashboard<a class="headerlink" href="#practical-example-designing-a-dashboard" title="Permanent link">&para;</a></h2>
+<p>Here's how multiple agents collaborate on a real task. You're building an analytics dashboard from scratch.</p>
+<p><strong>Step 1 — Vision</strong></p>
+<blockquote>
+<p>Set the aesthetic direction for a B2B analytics dashboard. It should feel authoritative but not intimidating.</p>
+</blockquote>
+<p><code>[Tool: art-director]</code> Establishes: cool blue-gray palette, data-ink-forward design, restrained use of color for meaning, and a professional sans-serif type system.</p>
+<p><strong>Step 2 — Foundations</strong></p>
+<blockquote>
+<p>Build a token system from that direction.</p>
+</blockquote>
+<p><code>[Tool: design-system-architect]</code> Creates tokens: <code>color.surface.primary</code>, <code>color.data.series-1</code> through <code>series-6</code>, <code>type.scale.data-label</code>, <code>space.card-padding</code>, and so on — a complete design language.</p>
+<p><strong>Step 3 — Structure</strong></p>
+<blockquote>
+<p>Design the dashboard layout with a collapsible sidebar and a header with search.</p>
+</blockquote>
+<p><code>[Tool: layout-architect]</code> Defines the spatial grid: 240px sidebar (collapsible to 56px icon rail), sticky 56px header, main area with 24px-gap CSS grid for widget cards, and a defined content hierarchy.</p>
+<p><strong>Step 4 — Components</strong></p>
+<blockquote>
+<p>Design the metric card component for KPI display.</p>
+</blockquote>
+<p><code>[Tool: component-designer]</code> Specs the card: label, primary value, trend indicator (up/down/flat with color), sparkline slot, comparison period text, and three size variants (compact, standard, expanded).</p>
+<p><strong>Step 5 — Responsiveness</strong></p>
+<blockquote>
+<p>Make this dashboard work on tablets and phones.</p>
+</blockquote>
+<p><code>[Tool: responsive-strategist]</code> Defines three tiers: desktop (full layout), tablet (sidebar collapses to icon rail, grid drops to 2 columns), mobile (sidebar becomes bottom nav, single-column stack, KPI cards become a horizontal scroll).</p>
+<p><strong>Step 6 — Motion</strong></p>
+<blockquote>
+<p>Add transitions for the dashboard — loading states, widget appearance, sidebar collapse.</p>
+</blockquote>
+<p><code>[Tool: animation-choreographer]</code> Choreographs: skeleton shimmer for loading, staggered fade-up for widget cards (50ms offset each), sidebar collapse with width transition (200ms ease-in-out), and chart draw-on animations.</p>
+<p><strong>Step 7 — Copy</strong></p>
+<blockquote>
+<p>Write the empty states and onboarding copy for the dashboard.</p>
+</blockquote>
+<p><code>[Tool: voice-strategist]</code> Crafts: "No data yet — connect a data source to see your metrics here" (empty state), "Welcome to your dashboard. Let's set up your first widget." (onboarding), with a friendly-professional tone throughout.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Start with art-director and design-system-architect.</strong> These two set the foundation that all other agents build on. Skipping them is like building without blueprints.</p>
+<p><strong>Let agents own their domains.</strong> Ask <code>responsive-strategist</code> about breakpoints, not <code>component-designer</code>. Each agent's Nine Dimensions expertise makes them the right specialist for their area.</p>
+<p><strong>Chain agents for complete solutions.</strong> The dashboard example above shows the natural flow: vision, foundations, structure, components, responsiveness, motion, copy. Each step builds on the previous.</p>
+<p><strong>Trust the 9.5/10 baseline.</strong> These agents don't produce rough sketches. Recommendations are production-ready, with accessibility considered, edge cases addressed, and implementation guidance included.</p>
+<p><strong>Use the Nine Dimensions as a review checklist.</strong> After any design pass, ask: "How does this score across all nine dimensions?" Agents will self-assess and identify gaps.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>No placeholder or generic solutions</li>
-<li>Every decision justified against the Nine Dimensions</li>
-<li>Accessibility considered by default</li>
-<li>Edge cases and states addressed</li>
-<li>Implementation guidance included</li>
-</ul>
-<p>When you receive design recommendations, you're getting production-ready guidance, not rough sketches.</p>
-<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="foundation.html">Amplifier Foundation Bundle</a> - Core development agents</li>
-<li><a href="../advanced/index.html">Advanced Topics</a> - Custom bundles and tools</li>
-<li><a href="index.html">Bundles Guide</a> - How bundles work together</li>
+<li>Learn about the <a href="foundation.html">Foundation Bundle</a> for core development agents</li>
+<li>Explore <a href="recipes.html">Recipes</a> to automate multi-agent design workflows</li>
+<li>Read about <a href="../advanced/custom-bundle.html">Custom Bundles</a> to extend Design Intelligence</li>
+<li>See <a href="../concepts/agents.html">Agents</a> for how agent delegation works under the hood</li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="lsp-python.html" class="btn btn-neutral float-left" title="LSP Python"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../skills/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="python-dev.html" class="btn btn-neutral float-left" title="Python Dev"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="superpowers.html" class="btn btn-neutral float-right" title="Superpowers">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -555,10 +480,10 @@ processing failure.
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="lsp-python.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="python-dev.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../skills/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="superpowers.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Overview - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "apps/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#section-contents">Section Contents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-youll-learn">What You'll Learn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#applications-in-the-architecture">Applications in the Architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-official-applications">The Official Applications</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cli-amplifier-app-cli">CLI (amplifier-app-cli)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#chat-amplifier-app-chat">Chat (amplifier-app-chat)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-comparison">Quick Comparison</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#community-applications">Community Applications</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-your-own-application">Building Your Own Application</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#whats-next">What's Next?</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Applications</li>
+      <li class="breadcrumb-item active">Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="apps-overview">Apps Overview<a class="headerlink" href="#apps-overview" title="Permanent link">&para;</a></h1>
+<p>You've seen the kernel, the modules, and the bundles. Now we arrive at the top of the stack: <strong>applications</strong>. An application is the layer you actually interact with — it takes the entire Amplifier architecture and presents it as a usable experience. When you type <code>amplifier run</code> in your terminal or open a chat window in your browser, you're talking to an application.</p>
+<p>Applications don't implement AI logic themselves. They compose bundles and modules into user-facing interfaces, then get out of the way. The same kernel, the same bundles, the same tools — they all work identically regardless of which application wraps them. This is by design: the application layer is thin, opinionated about UX, and completely replaceable.</p>
+<h2 id="section-contents">Section Contents<a class="headerlink" href="#section-contents" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="cli.html">CLI App</a></td>
+<td>The reference command-line interface</td>
+</tr>
+<tr>
+<td><a href="chat.html">Chat App</a></td>
+<td>Web-based visual interface for browser workflows</td>
+</tr>
+<tr>
+<td><a href="building-apps.html">Building Apps</a></td>
+<td>How to build your own application on amplifier-foundation</td>
+</tr>
+<tr>
+<td><a href="mcp.html">MCP Integration</a></td>
+<td>Model Context Protocol server and client integration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<p>By the end of this page, you'll understand:</p>
+<ul>
+<li>Where applications sit in the Amplifier architecture</li>
+<li>What official applications are available today</li>
+<li>How community applications extend the ecosystem</li>
+<li>How to choose the right application for your workflow</li>
+<li>How to build your own application using the foundation library</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>You should understand <a href="../concepts/architecture.html">the architecture</a> and <a href="../concepts/bundles.html">bundles</a>. No installation is needed to read this page, but you'll want <a href="../quickstart/installation.html">Amplifier installed</a> to try things.</p>
+<hr />
+<h2 id="applications-in-the-architecture">Applications in the Architecture<a class="headerlink" href="#applications-in-the-architecture" title="Permanent link">&para;</a></h2>
+<p>Recall the architecture stack from the concepts section:</p>
+<div class="codehilite"><pre><span></span><code>+------------------------------------------------------------------+
+|  APPLICATIONS        &lt;-- you are here                            |
+|  amplifier-app-cli, amplifier-app-chat, amplifierd               |
++----------------------------+-------------------------------------+
+                             |
++----------------------------v-------------------------------------+
+|  LIBRARIES (Foundation)                                          |
+|  amplifier-foundation: bundles, module resolution, utilities     |
++----------------------------+-------------------------------------+
+                             |
++----------------------------v-------------------------------------+
+|  KERNEL (amplifier-core)                    ~2,600 lines of Rust |
++----------------------------+-------------------------------------+
+                             |
+              Providers, Tools, Orchestrators, Hooks, Context
+</code></pre></div>
+
+<p>Applications sit at the very top. They depend on <code>amplifier-foundation</code>, which depends on <code>amplifier-core</code>. Modules — the providers, tools, orchestrators, hooks, and context managers — only depend on the kernel. This means every module works identically in every application. A tool you write doesn't need to know whether it's running inside the CLI or a web browser.</p>
+<h2 id="the-official-applications">The Official Applications<a class="headerlink" href="#the-official-applications" title="Permanent link">&para;</a></h2>
+<p>Amplifier ships with two official applications, each designed for a different workflow:</p>
+<h3 id="cli-amplifier-app-cli">CLI (<code>amplifier-app-cli</code>)<a class="headerlink" href="#cli-amplifier-app-cli" title="Permanent link">&para;</a></h3>
+<p>The command-line interface is the reference implementation and the primary way most people use Amplifier. It runs in your terminal, supports both interactive conversations and one-shot commands, and manages sessions, bundles, and configuration through a clean command structure.</p>
+<blockquote>
+<p>Help me refactor this authentication module</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: read_file] src/auth.py
+[Tool: grep] pattern=&quot;def authenticate&quot; path=&quot;src/&quot;
+[Tool: bash] pytest tests/test_auth.py
+
+I&#39;ve analyzed the authentication module. Here are the changes I&#39;d recommend...
+</code></pre></div>
+
+<p>The CLI is where Amplifier development happens fastest. It's the most mature application, has the richest feature set, and is the first to receive new capabilities. If you're unsure where to start, start here.</p>
+<p><strong>Read more:</strong> <a href="cli.html">CLI App</a></p>
+<h3 id="chat-amplifier-app-chat">Chat (<code>amplifier-app-chat</code>)<a class="headerlink" href="#chat-amplifier-app-chat" title="Permanent link">&para;</a></h3>
+<p>The web-based chat interface provides a visual, browser-based experience. It uses the same foundation library and the same modules as the CLI — the difference is entirely in presentation. Streaming responses appear in a conversation view, sessions persist in the browser, and you navigate with mouse and keyboard together.</p>
+<p>The Chat app is ideal for teams that prefer a visual interface, for demonstrations, or for workflows where you want to see a full conversation history rendered cleanly.</p>
+<p><strong>Read more:</strong> <a href="chat.html">Chat App</a></p>
+<h2 id="quick-comparison">Quick Comparison<a class="headerlink" href="#quick-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>CLI</th>
+<th>Chat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interface</td>
+<td>Terminal</td>
+<td>Web browser</td>
+</tr>
+<tr>
+<td>Installation</td>
+<td><code>pip install amplifier-app-cli</code></td>
+<td><code>pip install amplifier-app-chat</code></td>
+</tr>
+<tr>
+<td>Interaction style</td>
+<td>Keyboard-driven, prompt-based</td>
+<td>Visual, mouse + keyboard</td>
+</tr>
+<tr>
+<td>Session management</td>
+<td>File-based, resumable</td>
+<td>Browser-based, persistent</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>Line-by-line terminal output</td>
+<td>Real-time rendered markdown</td>
+</tr>
+<tr>
+<td>One-shot mode</td>
+<td>Yes (<code>amplifier run "..."</code>)</td>
+<td>No — conversational only</td>
+</tr>
+<tr>
+<td>Bundle management</td>
+<td>Built-in commands</td>
+<td>Configured externally</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Daily development, automation</td>
+<td>Teams, demos, visual review</td>
+</tr>
+</tbody>
+</table>
+<p>Both applications use the same kernel, the same modules, and the same bundles. A session started in the CLI can be reasoned about in the Chat app. Configuration in <code>settings.yaml</code> applies to both.</p>
+<h2 id="community-applications">Community Applications<a class="headerlink" href="#community-applications" title="Permanent link">&para;</a></h2>
+<p>The Amplifier ecosystem is open, and the application layer is designed to be extended. Community applications use the same <code>amplifier-foundation</code> library to build experiences the official apps don't cover:</p>
+<ul>
+<li><strong>IDE integrations</strong> — embed Amplifier inside VS Code, JetBrains, or other editors</li>
+<li><strong>Slack and Teams bots</strong> — bring Amplifier into team chat</li>
+<li><strong>API servers</strong> — expose Amplifier as a service behind REST or GraphQL endpoints</li>
+<li><strong>Voice interfaces</strong> — control Amplifier with speech</li>
+<li><strong>Custom dashboards</strong> — build domain-specific UIs for particular workflows</li>
+</ul>
+<p>If someone has published a community application, you install it and point it at your existing bundles. No changes to your modules or configuration are needed — the application layer is additive.</p>
+<h2 id="building-your-own-application">Building Your Own Application<a class="headerlink" href="#building-your-own-application" title="Permanent link">&para;</a></h2>
+<p>Every official and community application is built on top of <code>amplifier-foundation</code>. This library provides the machinery you need:</p>
+<ul>
+<li><strong>Bundle resolution</strong> — discover and load bundles from the filesystem</li>
+<li><strong>Module discovery</strong> — resolve modules from bundles into mount plans</li>
+<li><strong>Session management</strong> — create, persist, and resume sessions via the kernel</li>
+<li><strong>Event streaming</strong> — subscribe to kernel events for real-time output</li>
+<li><strong>Configuration</strong> — load settings from <code>settings.yaml</code> and AGENTS.md</li>
+</ul>
+<p>Here's the minimal shape of an application:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">amplifier_foundation</span> <span class="kn">import</span> <span class="n">Foundation</span>
+
+<span class="c1"># Initialize the foundation with your configuration</span>
+<span class="n">foundation</span> <span class="o">=</span> <span class="n">Foundation</span><span class="o">.</span><span class="n">from_settings</span><span class="p">(</span><span class="s2">&quot;~/.amplifier/settings.yaml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load bundles and build a mount plan</span>
+<span class="n">plan</span> <span class="o">=</span> <span class="n">foundation</span><span class="o">.</span><span class="n">resolve_bundles</span><span class="p">()</span>
+
+<span class="c1"># Create a session</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">foundation</span><span class="o">.</span><span class="n">create_session</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
+
+<span class="c1"># Send a prompt and stream the response</span>
+<span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Hello, Amplifier&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</code></pre></div>
+
+<p>That's the skeleton. A real application adds input handling, output formatting, error recovery, and whatever UX opinions make sense for your use case. The CLI adds command parsing and terminal rendering. The Chat app adds WebSocket streaming and a React frontend. Your application adds whatever it needs.</p>
+<p>The key insight is that the foundation does the heavy lifting. Your application is free to focus entirely on the user experience.</p>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<p>Dive into the specific applications:</p>
+<ul>
+<li><strong><a href="cli.html">CLI App</a></strong> — the reference command-line interface, and the best place to start</li>
+<li><strong><a href="chat.html">Chat App</a></strong> — the web-based visual interface</li>
+<li><strong><a href="building-apps.html">Building Apps</a></strong> — build your own application on amplifier-foundation</li>
+<li><strong><a href="mcp.html">MCP Integration</a></strong> — Model Context Protocol server and client integration</li>
+</ul>
+<p>Or go back to the concepts:</p>
+<ul>
+<li><strong><a href="../concepts/architecture.html">Architecture</a></strong> — understand the full stack</li>
+<li><strong><a href="../concepts/bundles.html">Bundles</a></strong> — learn how modules are composed</li>
+<li><strong><a href="../concepts/modules.html">Modules</a></strong> — understand the five module types</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../providers/community.html" class="btn btn-neutral float-left" title="Community Providers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="CLI App">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../providers/community.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="cli.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

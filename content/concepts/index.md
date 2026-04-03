@@ -12,13 +12,16 @@ Understanding Amplifier's architecture and design philosophy is essential for bu
 
 | Page | Description |
 |------|-------------|
-| [Agents](./agents.md) | Autonomous task executors with specific capabilities |
-| [Bundles](./bundles.md) | Composable packages of behaviors and tools |
-| [Modules](./modules.md) | Kernel extension points and contracts |
-| [Hooks](./hooks.md) | Event-driven extensibility system |
-| [Skills](./skills.md) | Domain knowledge packages |
-| [Recipes](./recipes.md) | Declarative multi-step workflows |
 | [Architecture](./architecture.md) | System design and philosophy |
+| [Modules](./modules.md) | Kernel extension points and contracts |
+| [Bundles](./bundles.md) | Composable packages of behaviors and tools |
+| [Agents](./agents.md) | Autonomous task executors with specific capabilities |
+| [Recipes](./recipes.md) | Declarative multi-step workflows |
+| [Skills](./skills.md) | Domain knowledge packages |
+| [Hooks](./hooks.md) | Event-driven extensibility system |
+| [Modes](./modes.md) | Runtime modes for switching agent behavior |
+| [Routing](./routing.md) | How requests are dispatched to providers and agents |
+| [Shadows](./shadows.md) | Shadow environments for safe change validation |
 
 ## Quick Tips
 

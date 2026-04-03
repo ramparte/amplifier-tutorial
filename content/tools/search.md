@@ -1,526 +1,251 @@
 ---
 id: tool-search
-type: tools
+type: tool
 title: "Search Tools"
 ---
 
-# Search Tools (grep & glob)
+# Search Tools
 
-Master the art of finding files and searching content across your codebase. The `grep` and `glob` tools are your primary search capabilities for navigating projects of any size.
+You have two tools for finding things in a codebase: `grep` searches *inside* files for content that matches a pattern, and `glob` finds files *by name*. Together they cover every "where is that thing?" question — from "which file defines this function?" to "show me every Python file under src/."
 
-## When to Use Each
+## What Are grep and glob?
 
-| Task | Tool | Why |
-|------|------|-----|
-| Find files by name/extension | `glob` | Fast pattern matching on file paths |
-| Search inside file contents | `grep` | Regex-based content search |
-| Find all Python files | `glob` | Use `**/*.py` pattern |
-| Find TODO comments | `grep` | Search for `TODO:` in code |
-| List all test files | `glob` | Match `**/test_*.py` or `*.test.js` |
-| Find function definitions | `grep` | Regex like `function\s+\w+` |
-| Locate config files | `glob` | Match `**/*.{json,yaml,toml}` |
-| Find import statements | `grep` | Search for `import.*Module` |
+Think of it this way: `glob` is your file explorer's search bar, and `grep` is Ctrl+F across every file at once.
 
-**Quick Decision Guide:**
-- Know the filename? → Use `glob`
-- Know what's *inside* the file? → Use `grep`
-- Need both? → Combine them!
+| Tool | What It Searches | Think of It As |
+|------|-----------------|----------------|
+| `grep` | Text inside files | "Find in Files" |
+| `glob` | File and directory names | "Find File by Name" |
 
-## Glob Patterns
+**Quick decision:** If you know the filename, use `glob`. If you know what's *written* in the file, use `grep`. If you need both — find the files first with `glob`, then search inside them with `grep`.
 
-Glob finds files by matching path patterns. Think of it as a smart file finder.
+## Core Capabilities: glob
 
-### Basic Patterns
-
-```bash
-# Find all Python files in current directory
-*.py
-
-# Find all Python files recursively
-**/*.py
-
-# Find all JavaScript and TypeScript files
-**/*.{js,ts}
-
-# Find all test files
-**/test_*.py
-**/*_test.go
-**/*.test.js
-```
-
-### Pattern Syntax
-
-| Pattern | Matches | Example |
-|---------|---------|---------|
-| `*` | Any characters (except `/`) | `*.md` → `README.md` |
-| `**` | Any directories recursively | `**/src/*.js` |
-| `?` | Single character | `test?.py` → `test1.py` |
-| `[abc]` | Any character in brackets | `file[123].txt` |
-| `{a,b}` | Either a or b | `*.{js,ts}` |
-
-### Common Use Cases
-
-**Find all source files:**
-```bash
-# Python project
-**/*.py
-
-# JavaScript/TypeScript project
-**/*.{js,ts,jsx,tsx}
-
-# Rust project
-**/*.rs
-```
-
-**Find configuration files:**
-```bash
-**/*.{json,yaml,yml,toml,ini}
-```
-
-**Find documentation:**
-```bash
-**/*.md
-**/docs/**/*.md
-```
-
-**Find specific directories:**
-```bash
-# Find all __init__.py files (Python packages)
-**/__init__.py
-
-# Find all package.json files (Node modules)
-**/package.json
-```
-
-### Glob Parameters
-
-```yaml
-pattern: "**/*.py"           # Required: glob pattern
-path: "./src"                # Optional: base directory (default: current)
-type: "file"                 # Optional: file, dir, or any (default: file)
-include_ignored: false       # Optional: search in node_modules, .venv, etc.
-exclude: ["**/test_*.py"]    # Optional: patterns to exclude
-```
-
-### Glob Output
-
-Results are sorted by modification time (newest first) and limited to 500 files:
+`glob` matches file paths against patterns. You give it a pattern like `**/*.py` and it returns every Python file in the project:
 
 ```
-Files matched (250 of 500+ total):
+> Find all the Python files in this project
+
+[Tool: glob] **/*.py
   src/main.py
-  src/utils.py
+  src/config.py
+  src/utils/helpers.py
   tests/test_main.py
-  ...
-
-Note: Results limited to 500 files. 234 additional files not shown.
+  tests/test_utils.py
+  (5 files, sorted by modification time)
 ```
 
-## Grep Patterns
+Results come back sorted by modification time — newest first — so the file you just touched is at the top. Common non-source directories (`node_modules`, `.venv`, `.git`, `__pycache__`) are automatically excluded, and results cap at 500 files.
 
-Grep searches *inside* files using regular expressions. It's your content detective.
+You can narrow the search with a base path, filter by type, or reach into excluded directories:
 
-### Basic Patterns
+```
+> Find all directories under src/
 
-```bash
-# Find TODO comments
-TODO
-
-# Find function definitions (JavaScript)
-function\s+\w+
-
-# Find class definitions (Python)
-class\s+\w+
-
-# Find import statements
-import.*requests
-
-# Find error handling
-except\s+\w+Error
-
-# Case insensitive search
--i: true
-pattern: "error"
+[Tool: glob] src/*
+  type: dir
+  src/utils/
+  src/models/
+  src/api/
 ```
 
-### Regex Syntax
+Common patterns:
 
-Grep uses ripgrep regex (Rust flavor):
-
-| Pattern | Matches | Example |
-|---------|---------|---------|
-| `.` | Any character | `log.` → `log1`, `logA` |
-| `\d` | Any digit | `user\d+` → `user123` |
-| `\w` | Word character | `\w+` → `hello` |
-| `\s` | Whitespace | `if\s+` → `if ` |
-| `*` | 0 or more | `error.*` → `error: failed` |
-| `+` | 1 or more | `\d+` → `123` |
-| `?` | 0 or 1 | `colou?r` → `color`, `colour` |
-| `^` | Start of line | `^import` → import at start |
-| `$` | End of line | `;$` → semicolon at end |
-| `[abc]` | Character class | `[Ee]rror` → Error, error |
-| `(a\|b)` | Alternation | `(get\|set)` → get or set |
-
-**Important:** Ripgrep requires escaping braces: `interface\{` to find `interface{`
-
-### Output Modes
-
-Grep has three output modes for different needs:
-
-#### 1. files_with_matches (Default)
-
-Lists files containing matches (fastest):
-
-```yaml
-pattern: "TODO"
-output_mode: "files_with_matches"
+```
+**/*.py              All Python files, recursively
+**/*.{js,ts,tsx}     JavaScript and TypeScript files
+**/test_*.py         Python test files
+**/Dockerfile        All Dockerfiles
+**/*.md              All Markdown files
 ```
 
-Output:
+## Core Capabilities: grep
+
+`grep` searches file contents using regular expressions. It's powered by ripgrep under the hood — fast, respects exclusions, and handles large codebases without breaking a sweat.
+
+### Finding matches
+
+The simplest use: search for a string and see which files contain it.
+
 ```
-src/main.py
-src/utils.py
-tests/test_main.py
-```
+> Where are the TODO comments in this project?
 
-**Use when:** You just need to know *which* files contain something.
-
-#### 2. content
-
-Shows matching lines with content:
-
-```yaml
-pattern: "def\s+\w+"
-output_mode: "content"
-```
-
-Output:
-```
-src/main.py:
-  15: def process_data(input):
-  42: def validate_input(data):
-
-src/utils.py:
-  8: def helper_function():
+[Tool: grep] pattern: "TODO"
+  src/main.py
+  src/utils/helpers.py
+  tests/test_main.py
 ```
 
-**Use when:** You need to see the actual matches.
+That's the default `files_with_matches` mode — the fastest way to answer "which files mention this?"
 
-#### 3. count
+### Seeing content
 
-Shows count of matches per file:
+When you need to see the actual matching lines, switch to `content` mode:
 
-```yaml
-pattern: "import"
-output_mode: "count"
+```
+> Show me every function definition in the Python source
+
+[Tool: grep] pattern: "def \w+", type: py, output_mode: content
+  src/main.py:
+    15: def process_data(input):
+    42: def validate_input(data):
+  src/utils/helpers.py:
+    8: def format_date(dt):
+    23: def retry(func, attempts=3):
 ```
 
-Output:
+### Context lines
+
+Seeing a matching line is useful; seeing what's *around* it is often better. Use `-A` (after), `-B` (before), or `-C` (both) to include surrounding lines:
+
 ```
-src/main.py: 15 matches
-src/utils.py: 8 matches
-tests/test_main.py: 12 matches
-```
+> Show me every raise ValueError with context
 
-**Use when:** You need statistics or metrics.
-
-### Content Mode Features
-
-When using `output_mode: "content"`, you get extra options:
-
-**Line numbers** (default: true):
-```yaml
--n: true  # Show line numbers
+[Tool: grep] pattern: "raise ValueError", output_mode: content, -C: 2
+  src/main.py:
+    28:     if not valid:
+    29:         logger.error("Invalid input")
+    30:         raise ValueError("Input validation failed")
+    31:     return None
+    32:     process(data)
 ```
 
-**Context lines:**
-```yaml
--A: 2  # Show 2 lines AFTER match
--B: 2  # Show 2 lines BEFORE match
--C: 2  # Show 2 lines before AND after (context)
+### Counting matches
+
+When you want statistics rather than content, use `count` mode:
+
+```
+> How many import statements are in each file?
+
+[Tool: grep] pattern: "^import", type: py, output_mode: count
+  src/main.py: 12 matches
+  src/utils/helpers.py: 5 matches
+  tests/test_main.py: 8 matches
 ```
 
-Example with context:
-```yaml
-pattern: "raise ValueError"
-output_mode: "content"
--C: 2
+### Filtering what you search
+
+You can narrow `grep` searches three ways:
+
+- **By file type** — `type: "py"` searches only Python files. Supports `py`, `js`, `ts`, `go`, `rust`, `java`, `c`, `cpp`, `rb`, `sh`, `md`, `json`, `yaml`, and many more.
+- **By glob pattern** — `glob: "src/**/*.{js,ts}"` limits to matching paths.
+- **By directory** — `path: "./tests"` searches only within that subtree.
+
+```
+> Find TODO comments, but only in the test files
+
+[Tool: grep] pattern: "TODO", path: "./tests", type: py
+  tests/test_main.py
+  tests/test_integration.py
 ```
 
-Output:
-```
-src/main.py:
-  28:     if not valid:
-  29:         logger.error("Invalid input")
-  30:         raise ValueError("Input validation failed")
-  31:         return None
-  32:     process(data)
-```
+Like `glob`, `grep` automatically excludes `node_modules`, `.venv`, `.git`, `__pycache__`, and build directories. Set `include_ignored: true` to override that.
 
-### File Filtering
+### Case-insensitive and multiline
 
-**By file type:**
-```yaml
-pattern: "TODO"
-type: "py"  # Search only Python files
-```
+Add `-i: true` for case-insensitive matching — useful when you're not sure whether someone wrote `Error`, `ERROR`, or `error`.
 
-Supported types: `py`, `js`, `ts`, `go`, `rust`, `java`, `c`, `cpp`, `rb`, `sh`, `md`, `json`, `yaml`, `html`, `css`, `xml`, `php`, `sql`, `swift`, `lua`, `toml`, `txt`
-
-**By glob pattern:**
-```yaml
-pattern: "TODO"
-glob: "**/*.{js,ts}"  # Search only JS/TS files
-```
-
-**By path:**
-```yaml
-pattern: "test"
-path: "./tests"  # Search only in tests directory
-```
-
-**Include ignored directories:**
-```yaml
-pattern: "config"
-include_ignored: true  # Search in node_modules, .venv, etc.
-```
-
-By default, grep excludes: `node_modules`, `.venv`, `.git`, `__pycache__`, `build`, `dist`, `.next`, `target`
-
-### Multiline Patterns
-
-Search across multiple lines:
-
-```yaml
-pattern: "function.*\\{.*\\}"
-multiline: true
-```
-
-This allows `.` to match newlines and patterns to span multiple lines.
+For patterns that span multiple lines, set `multiline: true`. This lets `.` match newlines so you can find multi-line structures like decorators followed by function definitions.
 
 ### Pagination
 
-Handle large result sets:
+Large result sets are capped by default (200 files, 500 content matches). Use `head_limit` and `offset` to page through them:
 
-```yaml
-pattern: "import"
-head_limit: 100      # Show first 100 results
-offset: 0            # Start from beginning
+```
+> Show me the next batch of results
 
-# For next page:
-head_limit: 100
-offset: 100          # Skip first 100
+[Tool: grep] pattern: "import", head_limit: 100, offset: 100
 ```
 
-The response includes `total_matches` so you know how many exist.
+The response includes `total_matches` so you always know how many exist beyond what's shown.
 
-## Combining Tools
+## Practical Examples
 
-The real power comes from using both tools together!
+### Exploring an unfamiliar project
 
-### Pattern 1: Narrow Down Files First
+Start broad with `glob`, then drill in with `grep`:
 
-1. Use `glob` to find candidate files
-2. Use `grep` to search within those files
+```
+> I just cloned this repo. What are we working with?
 
-```yaml
-# Step 1: Find all TypeScript files
-glob: "**/*.ts"
+[Tool: glob] **/*.py
+  (42 files found)
 
-# Step 2: Search for React hooks in those files
-pattern: "use[A-Z]\\w+"
-glob: "**/*.ts"
+[Tool: glob] **/*.{json,yaml,toml}
+  pyproject.toml
+  config/settings.yaml
+
+[Tool: grep] pattern: "def main", type: py, output_mode: content
+  src/main.py:
+    8: def main():
 ```
 
-### Pattern 2: Search Then Explore
+### Finding all callers of a function
 
-1. Use `grep` to find files with matches
-2. Read those files to see context
+```
+> Where is process_data called?
 
-```yaml
-# Step 1: Find files with TODO comments
-pattern: "TODO"
-output_mode: "files_with_matches"
-
-# Step 2: Read specific files
-# (Use read_file tool on results)
+[Tool: grep] pattern: "process_data\(", type: py, output_mode: content
+  src/main.py:
+    45:     result = process_data(raw_input)
+  src/api/handlers.py:
+    22:     return process_data(request.body)
+  tests/test_main.py:
+    15:     assert process_data("hello") == expected
 ```
 
-### Pattern 3: Iterative Refinement
+### Combining glob and grep
 
-Start broad, narrow down:
+The classic two-step: find the right files, then search within them.
 
-```yaml
-# Round 1: Find all error handling
-pattern: "except"
-type: "py"
+```
+> Are there any hardcoded passwords in the config files?
 
-# Round 2: Find specific exception types
-pattern: "except\\s+(ValueError|TypeError)"
-output_mode: "content"
+[Tool: glob] **/*.{yaml,json,toml,env}
+  config/settings.yaml
+  config/prod.yaml
+  .env.example
 
-# Round 3: Add context to see full try/except blocks
-pattern: "except\\s+(ValueError|TypeError)"
-output_mode: "content"
--C: 5
+[Tool: grep] pattern: "(password|secret|api_key)", -i: true, glob: "**/*.{yaml,json,toml,env}", output_mode: content
+  config/settings.yaml:
+    12: database_password: "${DB_PASSWORD}"
+  .env.example:
+    3: API_KEY=your-key-here
 ```
 
-## Best Practices
+## grep vs LSP: When to Use Which
 
-### Performance Tips
+Amplifier also has [LSP (Code Intelligence)](./lsp.md) tools that understand code *semantically* — types, definitions, call hierarchies. Here's when each is the right choice:
 
-1. **Use file type filters**: `type: "py"` is faster than searching all files
-2. **Specify paths**: Searching `./src` is faster than entire project
-3. **Start with files_with_matches**: Cheapest output mode
-4. **Use head_limit**: Limit results to prevent overwhelming context
+| Task | Best Tool | Why |
+|------|-----------|-----|
+| Find callers of a function | **LSP** `incomingCalls` | Semantic — ignores comments and strings |
+| Find where a symbol is defined | **LSP** `goToDefinition` | Jumps straight to the definition |
+| Get type info or signature | **LSP** `hover` | grep can't infer types |
+| Rename a symbol safely | **LSP** `rename` | Cross-file, semantically aware |
+| Find a text pattern anywhere | **grep** | Faster, works on any file type |
+| Search across many files at once | **grep** | Bulk text search is grep's strength |
+| Find TODO/FIXME comments | **grep** | Text matching, not code analysis |
+| Search non-code files (docs, config) | **grep** | LSP only covers source code |
 
-### Search Strategy
+The rule of thumb: use LSP when you need to understand code *meaning* (definitions, types, usages). Use `grep` when you need to find *text* (patterns, comments, configuration values).
 
-**For unknown codebases:**
-```
-1. glob → Find what files exist
-2. grep (files_with_matches) → Find relevant files
-3. grep (content) → See actual code
-4. read_file → Read full context
-```
+## Tips
 
-**For specific searches:**
-```
-1. Combine grep with type/glob filters immediately
-2. Use content mode with context (-C)
-3. Read promising files
-```
+**Start with `files_with_matches`.** It's the cheapest output mode. See which files match first, then switch to `content` for the ones that matter.
 
-### Common Patterns
+**Filter early.** Searching `path: "./src"` with `type: "py"` is much faster than searching the entire project tree. Narrow the scope before you search.
 
-**Find API endpoints:**
-```yaml
-pattern: "@(app|router)\\.(get|post|put|delete)"
-type: "py"
-output_mode: "content"
-```
+**Use context lines liberally.** A bare match line rarely tells the whole story. `-C: 3` costs almost nothing and often saves a follow-up `read_file` call.
 
-**Find environment variables:**
-```yaml
-pattern: "os\\.environ|process\\.env"
-output_mode: "content"
-```
+**Combine, don't replace.** `glob` and `grep` are teammates. Use `glob` to orient yourself ("what files exist?"), then `grep` to find what's inside them.
 
-**Find security issues:**
-```yaml
-pattern: "(eval|exec|system|shell_exec)\\("
-output_mode: "content"
--C: 3
-```
+**Escape ripgrep regex.** Literal braces need escaping: `interface\{` to match `interface{`. Parentheses, dots, and brackets are regex metacharacters too.
 
-**Find deprecated code:**
-```yaml
-pattern: "@deprecated|DEPRECATED|FIXME"
-output_mode: "content"
-```
+**Don't forget `-i`.** Case-insensitive search catches `Error`, `ERROR`, and `error` in one pass. Use it when you're not sure about casing.
 
-## Try It Yourself
+## Next Steps
 
-### Exercise 1: Find All Tests
-
-Find all test files in your project:
-
-```yaml
-# Glob approach:
-pattern: "**/test_*.py"
-```
-
-### Exercise 2: Find Unused Imports
-
-Search for imports that might be unused:
-
-```yaml
-pattern: "^import\\s+\\w+"
-type: "py"
-output_mode: "content"
-```
-
-### Exercise 3: Configuration Audit
-
-Find all configuration values:
-
-```yaml
-# Find config files
-pattern: "**/*.{json,yaml,yml,toml}"
-
-# Then search for secrets/credentials
-pattern: "(password|secret|api_key|token)"
--i: true
-output_mode: "content"
-```
-
-### Exercise 4: Code Complexity
-
-Find long functions (might need refactoring):
-
-```yaml
-# Find function definitions
-pattern: "^(def|function)\\s+\\w+"
-output_mode: "content"
--A: 50  # Show next 50 lines to see function size
-```
-
-## Common Errors
-
-### Glob Errors
-
-**"No files matched pattern"**
-- Check your pattern syntax
-- Try simpler patterns first: `*.py` before `**/*.py`
-- Verify you're in the right directory
-- Use `include_ignored: true` if searching excluded dirs
-
-**"Too many results (>500)"**
-- Be more specific with your pattern
-- Search in a subdirectory: `path: "./src"`
-- Use exclude patterns: `exclude: ["**/node_modules/**"]`
-
-### Grep Errors
-
-**"Pattern not found"**
-- Verify regex syntax (ripgrep flavor)
-- Try case insensitive: `-i: true`
-- Check file type filter: `type: "py"`
-- Use simpler pattern first, then refine
-
-**"Results truncated"**
-- This is normal! Results are limited for performance
-- Use `head_limit` and `offset` for pagination
-- Consider narrowing search with `path` or `type`
-
-**"Regex syntax error"**
-- Escape special characters: `\{`, `\(`, `\.`
-- Use raw strings in your mind: `\\` for backslash
-- Test simpler patterns first
-
-**"Multiline not working"**
-- Set `multiline: true` explicitly
-- Remember `.` now matches newlines
-- Patterns can span lines: `function.*\\{.*\\}`
-
-### Pro Tips
-
-1. **Test patterns incrementally**: Start simple, add complexity
-2. **Use files_with_matches first**: See what files match before getting content
-3. **Combine with read_file**: Grep finds it, read_file shows full context
-4. **Watch output limits**: Default limits prevent context overflow
-5. **Case sensitivity matters**: Use `-i: true` when unsure
-6. **Escape ripgrep regex**: `\{` `\}` `\(` `\)` need escaping
-
----
-
-**Next Steps:**
-- Practice with your own codebase
-- Combine with other tools like `read_file` and `bash`
-- Learn advanced regex patterns
-- Build search workflows for common tasks
-
-**Related Tools:**
-- `read_file` - Read full file content after finding matches
-- `bash` - Use shell commands like `find` or `ag` if needed
-- `task:explorer` - For complex multi-step searches
+- Learn about [Filesystem Tools](./filesystem.md) for reading and editing the files you find
+- See [LSP (Code Intelligence)](./lsp.md) for semantic navigation — definitions, references, and rename
+- Explore [Bash Tool](./bash.md) for running tests and builds after making changes

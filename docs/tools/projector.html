@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Projector - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Projector";
+        var mkdocs_page_input_path = "tools/projector.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="projector.html">Projector</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-projector">What Is Projector?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#projects-the-container">Projects — The Container</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#strategies-persistent-context">Strategies — Persistent Context</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tasks-tracking-work">Tasks — Tracking Work</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#outcomes-session-history">Outcomes — Session History</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#status-the-big-picture">Status — The Big Picture</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-strategies-flow-across-sessions">How Strategies Flow Across Sessions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-workflow">Practical Workflow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Projector</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="projector-tool">Projector Tool<a class="headerlink" href="#projector-tool" title="Permanent link">&para;</a></h1>
+<p>Most conversations with Amplifier are about immediate work — fix this bug, write this function, explore this module. But real projects span weeks and months, with goals that evolve, strategies that shift, and work that accumulates across many sessions. The Projector tool is how Amplifier tracks that longer arc: projects with strategies, tasks, and outcomes that persist across every session you have.</p>
+<p>Think of Projector as a lightweight project management layer built into your coding assistant. It doesn't replace Jira or Linear — it gives Amplifier itself memory about what you're trying to accomplish, so it can bring relevant context to every conversation without you having to re-explain your project's goals.</p>
+<h2 id="what-is-projector">What Is Projector?<a class="headerlink" href="#what-is-projector" title="Permanent link">&para;</a></h2>
+<p>Projector manages four connected concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What It Holds</th>
+<th>Lifespan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Projects</strong></td>
+<td>Named containers for related work</td>
+<td>Permanent until deleted</td>
+</tr>
+<tr>
+<td><strong>Strategies</strong></td>
+<td>Persistent guidelines and priorities for a project</td>
+<td>Persist across sessions, injected via hooks</td>
+</tr>
+<tr>
+<td><strong>Tasks</strong></td>
+<td>Individual work items within a project</td>
+<td>Tracked until completed</td>
+</tr>
+<tr>
+<td><strong>Outcomes</strong></td>
+<td>Records of what happened in each session</td>
+<td>Logged per session, accumulated over time</td>
+</tr>
+</tbody>
+</table>
+<p>The key insight is <strong>strategies</strong>. A strategy isn't a one-time instruction — it's a persistent directive that Amplifier sees at the start of <em>every session</em> related to that project. Set a strategy once, and it shapes every future conversation until you change it.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<p>Projector has thirteen operations, organized around the four concepts.</p>
+<h3 id="projects-the-container">Projects — The Container<a class="headerlink" href="#projects-the-container" title="Permanent link">&para;</a></h3>
+<p><strong>create_project</strong> — start tracking a new project:</p>
+<blockquote>
+<p>I'm starting work on the payment system rewrite</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] create_project
+  project: &quot;payment-rewrite&quot;
+  data: {
+    &quot;description&quot;: &quot;Rewrite the legacy payment system to use Stripe&quot;,
+    &quot;goals&quot;: [&quot;Replace PayPal integration&quot;, &quot;Add subscription support&quot;, &quot;Improve error handling&quot;]
+  }
+
+  ✓ Project &quot;payment-rewrite&quot; created.
+</code></pre></div>
+
+<p><strong>get_project</strong> — see the full state of a project:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] get_project
+  project: &quot;payment-rewrite&quot;
+
+  Project: payment-rewrite
+  Description: Rewrite the legacy payment system to use Stripe
+  Goals: Replace PayPal integration, Add subscription support, Improve error handling
+  Strategies: 2 active
+  Tasks: 3 open, 1 completed
+  Last activity: 2 hours ago
+</code></pre></div>
+
+<p><strong>list_projects</strong> — see all tracked projects:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] list_projects
+
+  Projects:
+    payment-rewrite    — 3 open tasks, 2 strategies
+    auth-hardening     — 1 open task, 1 strategy
+    docs-migration     — 5 open tasks, 0 strategies
+</code></pre></div>
+
+<p><strong>update_project</strong> — modify project goals, description, or other details as the project evolves.</p>
+<h3 id="strategies-persistent-context">Strategies — Persistent Context<a class="headerlink" href="#strategies-persistent-context" title="Permanent link">&para;</a></h3>
+<p>Strategies are the most powerful part of Projector. They persist across sessions and are injected into your conversation context via hooks — meaning Amplifier starts every session already knowing your project's priorities and constraints.</p>
+<p><strong>set_strategy</strong> — define a strategy for a project:</p>
+<blockquote>
+<p>For the payment rewrite, we should always prioritize error handling and never skip webhook signature verification</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] set_strategy
+  project: &quot;payment-rewrite&quot;
+  strategy: &quot;error-first&quot;
+  data: {
+    &quot;description&quot;: &quot;Prioritize robust error handling in all payment code&quot;,
+    &quot;guidelines&quot;: [
+      &quot;Every external API call must have explicit error handling&quot;,
+      &quot;Never skip webhook signature verification&quot;,
+      &quot;Log all payment state transitions for audit&quot;
+    ]
+  }
+
+  ✓ Strategy &quot;error-first&quot; set for project &quot;payment-rewrite&quot;.
+</code></pre></div>
+
+<p>Next time you open a session and work on the payment rewrite, Amplifier will already know about the "error-first" strategy. You don't have to repeat these constraints — they're injected automatically.</p>
+<p><strong>list_strategies</strong> — see all strategies for a project:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] list_strategies
+  project: &quot;payment-rewrite&quot;
+
+  Strategies:
+    error-first     — Prioritize robust error handling (active)
+    test-coverage   — Maintain &gt;90% coverage on payment modules (active)
+</code></pre></div>
+
+<p><strong>get_strategy</strong> — see the full details of a specific strategy, including its guidelines and status.</p>
+<p><strong>toggle_strategy</strong> — enable or disable a strategy without deleting it:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] toggle_strategy
+  project: &quot;payment-rewrite&quot;
+  strategy: &quot;test-coverage&quot;
+
+  ✓ Strategy &quot;test-coverage&quot; toggled to inactive.
+</code></pre></div>
+
+<p>Toggling is useful when a strategy is temporarily irrelevant — you're in a prototyping phase where coverage doesn't matter yet, but you want the strategy ready for later. Toggle it back on when you're ready.</p>
+<h3 id="tasks-tracking-work">Tasks — Tracking Work<a class="headerlink" href="#tasks-tracking-work" title="Permanent link">&para;</a></h3>
+<p>Tasks are individual work items within a project. They're simpler than strategies — no cross-session injection — but they give Amplifier (and you) a clear picture of what needs doing.</p>
+<p><strong>add_task</strong> — create a new task:</p>
+<blockquote>
+<p>Add a task to implement the Stripe webhook handler</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] add_task
+  project: &quot;payment-rewrite&quot;
+  data: {
+    &quot;title&quot;: &quot;Implement Stripe webhook handler&quot;,
+    &quot;description&quot;: &quot;Handle payment_intent.succeeded, payment_intent.failed, and charge.refunded events&quot;,
+    &quot;priority&quot;: &quot;high&quot;
+  }
+
+  ✓ Task added to project &quot;payment-rewrite&quot;.
+</code></pre></div>
+
+<p><strong>list_tasks</strong> — see all tasks in a project:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] list_tasks
+  project: &quot;payment-rewrite&quot;
+
+  Tasks:
+    ☐ Implement Stripe webhook handler (high)
+    ☐ Migrate customer records to new schema (medium)
+    ☐ Write integration tests for checkout flow (medium)
+    ✓ Set up Stripe API credentials (low) — completed 3 days ago
+</code></pre></div>
+
+<p><strong>update_task</strong> — change a task's status, priority, or details as work progresses.</p>
+<h3 id="outcomes-session-history">Outcomes — Session History<a class="headerlink" href="#outcomes-session-history" title="Permanent link">&para;</a></h3>
+<p>After a session of work, outcomes record what happened. This builds a narrative over time — not just what you planned to do, but what you actually accomplished.</p>
+<p><strong>log_outcome</strong> — record what happened in a session:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] log_outcome
+  project: &quot;payment-rewrite&quot;
+  data: {
+    &quot;summary&quot;: &quot;Implemented webhook handler for payment_intent events&quot;,
+    &quot;details&quot;: &quot;Created src/payments/webhooks.py with handlers for succeeded, failed, and refunded events. Added signature verification. All tests passing.&quot;,
+    &quot;tasks_completed&quot;: [&quot;Implement Stripe webhook handler&quot;]
+  }
+
+  ✓ Outcome logged for project &quot;payment-rewrite&quot;.
+</code></pre></div>
+
+<h3 id="status-the-big-picture">Status — The Big Picture<a class="headerlink" href="#status-the-big-picture" title="Permanent link">&para;</a></h3>
+<p><strong>get_status</strong> — cross-project overview of where things stand:</p>
+<blockquote>
+<p>What's the status of everything?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] get_status
+
+  payment-rewrite:  3 tasks open, 1 completed. Last active: today.
+  auth-hardening:   1 task open, 0 completed. Last active: 3 days ago.
+  docs-migration:   5 tasks open, 0 completed. Last active: 1 week ago.
+</code></pre></div>
+
+<p>You can also filter status queries to focus on a specific project or time range.</p>
+<h2 id="how-strategies-flow-across-sessions">How Strategies Flow Across Sessions<a class="headerlink" href="#how-strategies-flow-across-sessions" title="Permanent link">&para;</a></h2>
+<p>This is the feature that makes Projector more than a to-do list. Here's the lifecycle:</p>
+<ol>
+<li><strong>You set a strategy</strong> in session A: "Always validate webhook signatures."</li>
+<li><strong>The strategy is stored</strong> in Projector's persistent data.</li>
+<li><strong>In session B</strong> (hours or days later), hooks inject the strategy into the session context.</li>
+<li><strong>Amplifier sees the strategy</strong> before processing any request, shaping its approach.</li>
+<li><strong>You update or toggle</strong> the strategy as priorities evolve.</li>
+</ol>
+<p>This means your second session doesn't start cold. Amplifier already knows the project's constraints. If you ask it to implement a webhook handler, it will include signature verification because the strategy says to — without you having to remind it.</p>
+<h2 id="practical-workflow">Practical Workflow<a class="headerlink" href="#practical-workflow" title="Permanent link">&para;</a></h2>
+<p>A typical project lifecycle with Projector:</p>
+<p><strong>Setup</strong> — create the project, set strategies, add initial tasks:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] create_project  project: &quot;api-redesign&quot;
+[Tool: projector] set_strategy    strategy: &quot;backwards-compat&quot;
+[Tool: projector] set_strategy    strategy: &quot;test-coverage&quot;
+[Tool: projector] add_task        &quot;Design new endpoint schema&quot;
+[Tool: projector] add_task        &quot;Implement v2 endpoints&quot;
+</code></pre></div>
+
+<p><strong>Working sessions</strong> — strategies are injected automatically. At session end, log what happened:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] log_outcome  &quot;Completed v2 endpoint design. Found 3 breaking changes.&quot;
+[Tool: projector] update_task  &quot;Design new endpoint schema&quot; → completed
+</code></pre></div>
+
+<p><strong>Priorities shift</strong> — toggle strategies, add new ones, keep moving:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: projector] toggle_strategy  &quot;backwards-compat&quot; → inactive
+[Tool: projector] set_strategy     &quot;performance-first&quot;
+</code></pre></div>
+
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Set strategies early.</strong> The sooner you define project constraints, the sooner every session benefits from them. Don't wait until you've been burned by a missing guideline.</p>
+<p><strong>Keep strategies focused.</strong> A strategy that says "write good code" is useless. A strategy that says "every database query must use parameterized statements" is actionable. Specific guidelines produce specific results.</p>
+<p><strong>Log outcomes consistently.</strong> The value of outcomes compounds over time. After ten sessions, you have a narrative of the project's evolution. After one session, you have a note you could have written anywhere.</p>
+<p><strong>Use toggle, not delete.</strong> When a strategy is temporarily irrelevant, toggle it off. You spent thought on crafting it — don't throw it away. Toggle it back when it matters again.</p>
+<p><strong>Check status at the start of sessions.</strong> A quick <code>get_status</code> at the beginning of a work session reminds you (and Amplifier) where things stand across all projects.</p>
+<p><strong>Tasks are lightweight on purpose.</strong> If you need detailed issue tracking with labels, assignees, and milestones, use your team's issue tracker. Projector tasks are for giving Amplifier a quick sense of what's on the plate — not for replacing project management software.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about <a href="../concepts/hooks.html">Hooks</a> to understand how strategies get injected into your sessions</li>
+<li>See the <a href="mode.html">Mode Tool</a> for another way to inject context and policies into sessions</li>
+<li>Explore <a href="recipes-tool.html">Recipes</a> for multi-step workflows that can interact with Projector</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="mode.html" class="btn btn-neutral float-left" title="Mode"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../bundles/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="mode.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../bundles/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Python Check - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Python Check";
+        var mkdocs_page_input_path = "tools/python-check.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="python-check.html">Python Check</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-python_check">What Is python_check?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#output">Output</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#checking-files-and-directories">Checking Files and Directories</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#auto-fixing-issues">Auto-Fixing Issues</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#checking-inline-code">Checking Inline Code</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-selective-checks">Running Selective Checks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-auto-check-hook">The Auto-Check Hook</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-practical-workflow">A Practical Workflow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">Python Check</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="python-check-tool">Python Check Tool<a class="headerlink" href="#python-check-tool" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-python_check">What Is python_check?<a class="headerlink" href="#what-is-python_check" title="Permanent link">&para;</a></h2>
+<p>Every Python developer knows the routine: write code, run the linter, fix the warnings, run the type checker, fix those warnings, re-run everything to make sure you didn't introduce new problems. It's tedious when you do it yourself, and it's easy to skip steps.</p>
+<p>The <code>python_check</code> tool collapses that entire routine into a single call. It orchestrates three checkers behind the scenes — <strong>ruff</strong> for formatting and linting, <strong>pyright</strong> for static type checking, and a <strong>stub detector</strong> for missing type stubs — and returns a unified report. One tool call, one response, everything you need to know about the quality of your Python code.</p>
+<p>Better still, it runs automatically. Every time a Python file is written during your session, an auto-check hook fires and reports problems before you even think to ask. The manual tool is there for broader sweeps — checking a whole directory, running only specific checks, or auto-fixing what's fixable.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>The tool requires <strong>ruff</strong> and <strong>pyright</strong> installed as Python packages in your environment:</p>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ruff<span class="w"> </span>pyright
+</code></pre></div>
+
+<p>Both must be importable via <code>sys.executable -m</code> — meaning they need to live in the same Python environment your project uses. If you're working inside a virtual environment, install them there, not globally.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<p>The tool takes four parameters, all optional:</p>
+<ul>
+<li><strong>paths</strong> — a list of files or directories to check. <code>["src/main.py"]</code> checks one file; <code>["src/"]</code> checks an entire directory tree.</li>
+<li><strong>content</strong> — a Python code string to check without writing it to a file first. Useful for validating a snippet before committing to it.</li>
+<li><strong>fix</strong> — if <code>true</code>, auto-fix formatting and safe lint issues. Only works with <code>paths</code>, not <code>content</code>.</li>
+<li><strong>checks</strong> — a list of specific checks to run: <code>"format"</code>, <code>"lint"</code>, <code>"types"</code>, <code>"stubs"</code>. Defaults to all four.</li>
+</ul>
+<p>You must provide either <code>paths</code> or <code>content</code>, but not both.</p>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<p>Every response includes four fields:</p>
+<ul>
+<li><strong>success</strong> — <code>true</code> if there are no errors (warnings are acceptable)</li>
+<li><strong>clean</strong> — <code>true</code> if there are no issues at all, not even warnings</li>
+<li><strong>summary</strong> — a human-readable summary of what was found</li>
+<li><strong>issues</strong> — a list of individual problems, each with <code>file</code>, <code>line</code>, <code>code</code>, <code>message</code>, and <code>severity</code></li>
+</ul>
+<p>The distinction between <code>success</code> and <code>clean</code> matters. A file can succeed (no errors blocking correctness) while still not being clean (some style warnings remain). When you need a strict quality gate, check <code>clean</code>. For everyday work, <code>success</code> is what matters.</p>
+<h2 id="checking-files-and-directories">Checking Files and Directories<a class="headerlink" href="#checking-files-and-directories" title="Permanent link">&para;</a></h2>
+<p>The most common use: point it at code and see what's wrong.</p>
+<blockquote>
+<p>Check src/main.py for issues</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/main.py&quot;]
+
+✓ Format: clean
+✗ Lint: 2 issues
+  src/main.py:14:5  F841  Local variable &#39;result&#39; is assigned but never used
+  src/main.py:27:1  E302  Expected 2 blank lines before function definition
+✗ Types: 1 error
+  src/main.py:31:12  error  Argument of type &quot;str&quot; cannot be assigned
+                            to parameter &quot;count&quot; of type &quot;int&quot;
+
+Summary: 2 lint issues, 1 type error
+</code></pre></div>
+
+<p>Check an entire directory to sweep for problems across a package:</p>
+<blockquote>
+<p>Run a full check on the api module</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/api/&quot;]
+
+✓ Format: clean
+✗ Lint: 5 issues
+  src/api/views.py:12:1    E302  Expected 2 blank lines
+  src/api/views.py:45:11   F401  &#39;json&#39; imported but unused
+  src/api/auth.py:8:5      F841  Local variable &#39;token&#39; assigned but never used
+  src/api/auth.py:22:80    E501  Line too long (94 &gt; 88)
+  src/api/models.py:67:1   W291  Trailing whitespace
+✗ Types: 2 errors
+  src/api/views.py:22:8   error  Cannot access attribute &quot;user_id&quot;
+                                 for class &quot;AnonymousUser&quot;
+  src/api/auth.py:35:16   error  &quot;verify_token&quot; is not defined
+
+Summary: 5 lint issues, 2 type errors
+</code></pre></div>
+
+<h2 id="auto-fixing-issues">Auto-Fixing Issues<a class="headerlink" href="#auto-fixing-issues" title="Permanent link">&para;</a></h2>
+<p>Many lint and formatting problems have mechanical fixes — import sorting, blank lines, trailing whitespace. Don't fix these by hand:</p>
+<blockquote>
+<p>Fix the formatting and lint issues in src/</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/&quot;]
+  fix: true
+
+Fixed 14 issues across 6 files:
+  src/main.py       — 2 fixes (unused import, blank lines)
+  src/utils.py      — 5 fixes (import sorting, trailing whitespace)
+  src/models.py     — 3 fixes (formatting)
+  src/api/views.py  — 4 fixes (line length, blank lines)
+</code></pre></div>
+
+<p>Auto-fix handles formatting and safe lint corrections. Type errors are never auto-fixed — they require you to change the actual logic.</p>
+<p>A practical pattern: fix first, then verify.</p>
+<blockquote>
+<p>Fix what you can, then show me what's left</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/&quot;]
+  fix: true
+
+Fixed 8 issues across 3 files.
+
+[Tool: python_check]
+  paths: [&quot;src/&quot;]
+
+✓ Format: clean
+✓ Lint: clean
+✗ Types: 1 error
+  src/api/auth.py:35:16  error  &quot;verify_token&quot; is not defined
+
+Summary: 1 type error remaining
+</code></pre></div>
+
+<p>The mechanical noise is gone. What's left is the real problem that needs thought.</p>
+<h2 id="checking-inline-code">Checking Inline Code<a class="headerlink" href="#checking-inline-code" title="Permanent link">&para;</a></h2>
+<p>You can validate a snippet before writing it to a file — useful when you're prototyping a tricky function:</p>
+<blockquote>
+<p>Check this code for issues</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  content: |
+    def process(items: list[str]) -&gt; int:
+        for item in items:
+            result = item.upper()
+        return result
+
+  ✗ Lint: 1 issue
+    line 3:9  F841  Local variable &#39;result&#39; assigned in loop body
+  ✗ Types: 1 error
+    line 4:12  error  &quot;result&quot; is possibly unbound
+</code></pre></div>
+
+<p>Both the lint check and the type checker caught the same underlying bug from different angles: <code>result</code> is only defined inside the loop, so it's unbound if <code>items</code> is empty.</p>
+<h2 id="running-selective-checks">Running Selective Checks<a class="headerlink" href="#running-selective-checks" title="Permanent link">&para;</a></h2>
+<p>Sometimes you only care about one dimension of quality. Use the <code>checks</code> parameter to run a subset:</p>
+<blockquote>
+<p>Just run type checking on the api module</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/api/&quot;]
+  checks: [&quot;types&quot;]
+
+  src/api/views.py:22:8  error  Cannot access attribute &quot;user_id&quot;
+                                for class &quot;AnonymousUser&quot;
+</code></pre></div>
+
+<blockquote>
+<p>Check only formatting across the whole project</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/&quot;]
+  checks: [&quot;format&quot;]
+
+✗ Format: 3 files need reformatting
+  src/utils.py
+  src/api/views.py
+  src/models.py
+</code></pre></div>
+
+<p>Available check types: <code>format</code>, <code>lint</code>, <code>types</code>, <code>stubs</code>.</p>
+<h2 id="the-auto-check-hook">The Auto-Check Hook<a class="headerlink" href="#the-auto-check-hook" title="Permanent link">&para;</a></h2>
+<p>The most important thing about <code>python_check</code> isn't the tool itself — it's the hook. Every time a Python file is written during your session, the auto-check fires automatically. It runs a fast subset of checks (lint and types by default) and injects any issues directly into the conversation context.</p>
+<p>You don't call it. You don't configure it per-file. It just happens:</p>
+<blockquote>
+<p>Add a retry decorator to src/utils/retry.py</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: write_file] src/utils/retry.py — created with retry decorator
+
+[Hook: python-dev auto-check]
+  src/utils/retry.py:8:22  F821  Undefined name &#39;wraps&#39;
+  src/utils/retry.py:15:5  error  &quot;sleep&quot; is not defined
+</code></pre></div>
+
+<p>The agent sees these issues immediately and can fix them in the same turn:</p>
+<blockquote>
+<p>(agent fixes the missing imports automatically)</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: edit_file] src/utils/retry.py — added imports
+
+[Hook: python-dev auto-check]
+  src/utils/retry.py — lint clean, types clean ✓
+</code></pre></div>
+
+<p>This creates a tight write-check-fix loop that catches problems before they compound. By the time you're done writing code, it's already been checked.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>The tool and hook respect configuration from your project's <code>pyproject.toml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[tool.amplifier-python-dev]</span>
+<span class="c1"># Checks to run on auto-check (default: lint + types)</span>
+<span class="n">auto_checks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;lint&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;types&quot;</span><span class="p">]</span>
+
+<span class="c1"># Ruff rules to enable or disable</span>
+<span class="n">ruff_select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;UP&quot;</span><span class="p">]</span>
+<span class="n">ruff_ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;E501&quot;</span><span class="p">]</span>
+
+<span class="c1"># Pyright strictness level</span>
+<span class="n">type_checking_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;basic&quot;</span><span class="w">  </span><span class="c1"># &quot;off&quot;, &quot;basic&quot;, &quot;standard&quot;, &quot;strict&quot;</span>
+</code></pre></div>
+
+<p>Ruff and Pyright also respect their own standard configuration sections — <code>[tool.ruff]</code> and <code>[tool.pyright]</code> — so your existing project settings carry over automatically. You don't need to duplicate anything.</p>
+<h2 id="a-practical-workflow">A Practical Workflow<a class="headerlink" href="#a-practical-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's the full loop: check a directory, see what's wrong, auto-fix the mechanical problems, then deal with the real issues.</p>
+<blockquote>
+<p>I want to clean up the utils package before the PR</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/utils/&quot;]
+
+✓ Format: clean
+✗ Lint: 7 issues
+✗ Types: 2 errors
+
+Summary: 7 lint issues, 2 type errors across 4 files
+</code></pre></div>
+
+<blockquote>
+<p>Fix what's auto-fixable</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/utils/&quot;]
+  fix: true
+
+Fixed 5 issues across 3 files.
+</code></pre></div>
+
+<blockquote>
+<p>What's left?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: python_check]
+  paths: [&quot;src/utils/&quot;]
+
+✓ Format: clean
+✗ Lint: 2 issues
+  src/utils/cache.py:18:5   F841  Local variable &#39;ttl&#39; assigned but never used
+  src/utils/retry.py:42:11  F811  Redefinition of unused &#39;logger&#39;
+✗ Types: 2 errors
+  src/utils/cache.py:25:16   error  &quot;expire&quot; is not a known member of &quot;Redis&quot;
+  src/utils/retry.py:30:12   error  Return type &quot;None&quot; not assignable to &quot;int&quot;
+
+Summary: 2 lint issues, 2 type errors
+</code></pre></div>
+
+<p>Four issues that need real thought, not mechanical fixing. Now you can focus.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Let the hook do the work.</strong> After every file write, the auto-check fires. If you don't see warnings, the file is clean. You only need to call <code>python_check</code> manually for broader sweeps across directories or when you want <code>fix: true</code>.</p>
+<p><strong>Fix before you verify.</strong> Run with <code>fix: true</code> first to clear the noise, then run again without it to see what's actually left. The mechanical fixes are never interesting — get them out of the way.</p>
+<p><strong>Check <code>content</code> before writing files.</strong> When prototyping something tricky, pass the code as a <code>content</code> string first. Once the snippet is clean, write it to disk. This avoids the write-check-fix-rewrite cycle.</p>
+<p><strong>Use selective checks for speed.</strong> If you only care about type safety right now, run <code>checks: ["types"]</code>. Skipping format and lint checks when they're not relevant saves time on large codebases.</p>
+<p><strong>Configure <code>pyproject.toml</code> once.</strong> Your ruff and pyright settings apply to every check — manual and automatic. Set your team's standards in the config and every check enforces them consistently.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about the <a href="../bundles/python-dev.html">Python Dev Bundle</a> for the full package including the code-intel agent</li>
+<li>See <a href="lsp.html">LSP Tool</a> for semantic code navigation — definitions, references, and call hierarchies</li>
+<li>Explore <a href="bash.html">Bash Tool</a> for running tests after your code passes all checks</li>
+<li>Read about <a href="filesystem.html">Filesystem Tools</a> for the file editing that triggers auto-checks</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="todo.html" class="btn btn-neutral float-left" title="Todo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="dot-graph.html" class="btn btn-neutral float-right" title="DOT Graph">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="todo.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="dot-graph.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

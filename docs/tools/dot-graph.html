@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>DOT Graph - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "DOT Graph";
+        var mkdocs_page_input_path = "tools/dot-graph.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="dot-graph.html">DOT Graph</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#validate-check-before-you-render">Validate — Check Before You Render</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#render-from-text-to-image">Render — From Text to Image</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#analyze-structure-without-pixels">Analyze — Structure Without Pixels</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prescan-inventory-your-codebase">Prescan — Inventory Your Codebase</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#assemble-build-the-big-picture">Assemble — Build the Big Picture</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Tools Reference</li>
+      <li class="breadcrumb-item active">DOT Graph</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dot-graph-tool">DOT Graph Tool<a class="headerlink" href="#dot-graph-tool" title="Permanent link">&para;</a></h1>
+<p>Code is structure — modules depend on modules, functions call functions, data flows through pipelines. But staring at code doesn't always reveal the shape of that structure. The DOT Graph tool lets you express structure as diagrams in Graphviz DOT format and then <em>do things with it</em>: validate that your graph syntax is correct, render it to an image, analyze its properties without rendering, scan a codebase into a structural inventory, and assemble module-level graphs into system-level overviews.</p>
+<p>This isn't just a rendering tool. The analysis operations let you ask structural questions — are there cycles in this dependency graph? What's the critical path? What changed between two versions of an architecture? — and get precise, computed answers instead of eyeballing a picture.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<p>The DOT Graph tool has five operations, each serving a different stage of working with graphs.</p>
+<h3 id="validate-check-before-you-render">Validate — Check Before You Render<a class="headerlink" href="#validate-check-before-you-render" title="Permanent link">&para;</a></h3>
+<p>Validation runs your DOT content through up to three layers of checking:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What It Checks</th>
+<th>Catches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>syntax</strong></td>
+<td>DOT grammar is well-formed</td>
+<td>Missing semicolons, unclosed braces, bad attribute syntax</td>
+</tr>
+<tr>
+<td><strong>structural</strong></td>
+<td>Graph makes logical sense</td>
+<td>Duplicate edges, orphaned nodes, empty subgraphs</td>
+</tr>
+<tr>
+<td><strong>render</strong></td>
+<td>Graphviz can actually produce output</td>
+<td>Layout engine errors, unsupported attributes</td>
+</tr>
+</tbody>
+</table>
+<p>By default, all three layers run. You can also request specific layers if you only care about one:</p>
+<blockquote>
+<p>Validate this architecture diagram</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] validate
+  dot_content: &quot;digraph arch { frontend -&gt; api; api -&gt; database; api -&gt; cache; }&quot;
+  Syntax: OK
+  Structural: OK
+  Render: OK — valid DOT, ready to render
+</code></pre></div>
+
+<p>When something is wrong, the tool tells you exactly where:</p>
+<blockquote>
+<p>Check this graph for errors</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] validate
+  dot_content: &quot;digraph broken { a -&gt; b; b -&gt; c; c -&gt; }&quot;
+  Syntax: ERROR — expected node identifier at position 42, found &quot;}&quot;
+</code></pre></div>
+
+<p>Validate early and validate often. Catching a syntax error before rendering saves a round trip.</p>
+<h3 id="render-from-text-to-image">Render — From Text to Image<a class="headerlink" href="#render-from-text-to-image" title="Permanent link">&para;</a></h3>
+<p>Rendering takes DOT content and produces a visual output file. The tool supports multiple formats and layout engines:</p>
+<p><strong>Formats:</strong> SVG, PNG, PDF, PS, EPS, JSON</p>
+<p><strong>Layout engines:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dot</code></td>
+<td>Directed graphs, hierarchies, flowcharts (default)</td>
+</tr>
+<tr>
+<td><code>neato</code></td>
+<td>Undirected graphs, network topologies</td>
+</tr>
+<tr>
+<td><code>fdp</code></td>
+<td>Large undirected graphs with clustering</td>
+</tr>
+<tr>
+<td><code>sfdp</code></td>
+<td>Very large graphs (thousands of nodes)</td>
+</tr>
+<tr>
+<td><code>twopi</code></td>
+<td>Radial layouts from a central node</td>
+</tr>
+<tr>
+<td><code>circo</code></td>
+<td>Circular layouts, ring structures</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Render the service architecture as a PNG</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] render
+  dot_content: &quot;digraph services {
+    rankdir=LR;
+    gateway -&gt; auth; gateway -&gt; api; api -&gt; db;
+    api -&gt; cache; auth -&gt; db;
+  }&quot;
+  format: &quot;png&quot;
+  engine: &quot;dot&quot;
+  output_path: &quot;/tmp/services.png&quot;
+
+Rendered to /tmp/services.png (12KB)
+</code></pre></div>
+
+<p>You can also let the tool auto-generate a temp file path if you don't care where it lands:</p>
+<blockquote>
+<p>Quick render of this graph to SVG</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] render
+  dot_content: &quot;digraph { a -&gt; b -&gt; c -&gt; d }&quot;
+  format: &quot;svg&quot;
+
+Rendered to /tmp/dot_graph_a3f2.svg (4KB)
+</code></pre></div>
+
+<h3 id="analyze-structure-without-pixels">Analyze — Structure Without Pixels<a class="headerlink" href="#analyze-structure-without-pixels" title="Permanent link">&para;</a></h3>
+<p>This is where the DOT Graph tool goes beyond visualization. The analyze operations compute structural properties of your graph using networkx — no rendering needed, no images produced. Just answers.</p>
+<p><strong>stats</strong> — basic graph metrics:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;stats&quot;
+  dot_content: &quot;digraph { a -&gt; b; b -&gt; c; c -&gt; d; a -&gt; d; }&quot;
+
+  Nodes: 4
+  Edges: 4
+  Density: 0.33
+  Is DAG: yes
+  Connected components: 1
+</code></pre></div>
+
+<p><strong>cycles</strong> — detect circular dependencies:</p>
+<blockquote>
+<p>Are there any cycles in the module dependency graph?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;cycles&quot;
+  dot_content: &quot;digraph deps {
+    auth -&gt; users; users -&gt; permissions;
+    permissions -&gt; auth; api -&gt; auth;
+  }&quot;
+
+  Cycles found: 1
+    auth → users → permissions → auth
+</code></pre></div>
+
+<p>That cycle means <code>auth</code>, <code>users</code>, and <code>permissions</code> are mutually dependent — a common design smell that's hard to spot by reading imports.</p>
+<p><strong>reachability</strong> — what can be reached from a given node:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;reachability&quot;
+  source_node: &quot;gateway&quot;
+
+  Reachable from gateway: auth, api, db, cache (4 nodes)
+</code></pre></div>
+
+<p><strong>paths</strong> — all simple paths between two nodes:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;paths&quot;
+  source_node: &quot;gateway&quot;
+  target_node: &quot;db&quot;
+
+  Paths (2 found):
+    gateway → api → db
+    gateway → auth → db
+</code></pre></div>
+
+<p><strong>critical_path</strong> — the longest path in a DAG, showing the bottleneck chain:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;critical_path&quot;
+
+  Critical path: gateway → api → processor → validator → db (length: 4)
+</code></pre></div>
+
+<p><strong>diff</strong> — structural differences between two versions of a graph:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;diff&quot;
+  dot_content: &quot;digraph v1 { a -&gt; b; b -&gt; c; }&quot;
+  dot_content_b: &quot;digraph v2 { a -&gt; b; b -&gt; c; c -&gt; d; b -&gt; d; }&quot;
+
+  Added nodes: d
+  Added edges: c → d, b → d
+  Removed nodes: (none)
+  Removed edges: (none)
+</code></pre></div>
+
+<p><strong>subgraph_extract</strong> — pull a named cluster out as a standalone graph:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] analyze
+  analysis: &quot;subgraph_extract&quot;
+  cluster_name: &quot;cluster_auth&quot;
+
+  Extracted cluster_auth as standalone DOT (3 nodes, 4 edges)
+</code></pre></div>
+
+<h3 id="prescan-inventory-your-codebase">Prescan — Inventory Your Codebase<a class="headerlink" href="#prescan-inventory-your-codebase" title="Permanent link">&para;</a></h3>
+<p>Before you can diagram a system, you need to know what's in it. Prescan walks a repository and produces a structural inventory — languages detected, modules found, files per module:</p>
+<blockquote>
+<p>Scan this repo to see what we're working with</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] prescan
+  repo_path: &quot;/home/user/project&quot;
+
+  Languages: Python (87%), JavaScript (10%), YAML (3%)
+  Modules: 12
+    src/auth/      — 8 files, 1200 lines
+    src/api/       — 14 files, 2800 lines
+    src/models/    — 6 files, 900 lines
+    ...
+</code></pre></div>
+
+<p>Prescan output feeds directly into assembly — once you know the modules, you can diagram each one and merge them together.</p>
+<h3 id="assemble-build-the-big-picture">Assemble — Build the Big Picture<a class="headerlink" href="#assemble-build-the-big-picture" title="Permanent link">&para;</a></h3>
+<p>Assembly takes per-module DOT files and merges them into subsystem and overview graphs. This is hierarchical: module-level diagrams combine into subsystem diagrams, which combine into a full system overview.</p>
+<blockquote>
+<p>Assemble the architecture diagrams from per-module DOTs</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: dot_graph] assemble
+  manifest: { ... module DOT mappings ... }
+  output_dir: &quot;/tmp/architecture&quot;
+
+  Assembled:
+    /tmp/architecture/subsystem_backend.dot
+    /tmp/architecture/subsystem_frontend.dot
+    /tmp/architecture/overview.dot
+  Rendered PNGs alongside each DOT file.
+</code></pre></div>
+
+<p>By default, assembly also renders each assembled graph to PNG. Set <code>render_png: false</code> if you only want the DOT files.</p>
+<p>Assembly supports incremental updates — pass <code>invalidated_modules</code> to re-assemble only the subsystems affected by changes, rather than rebuilding everything.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Validate before rendering.</strong> A validation call is cheap and catches syntax errors instantly. A failed render gives you less helpful error messages and wastes more time.</p>
+<p><strong>Use analysis for questions, render for communication.</strong> If you want to know whether cycles exist, use <code>analyze</code>. If you want to show the architecture to your team, use <code>render</code>. They serve different purposes.</p>
+<p><strong>Pick the right layout engine.</strong> Hierarchical code flows want <code>dot</code>. Network topologies want <code>neato</code>. If your graph looks tangled with the default engine, try a different one before restructuring the DOT.</p>
+<p><strong>Diff before and after refactors.</strong> Diagram the dependency structure before a refactor, then again after. The <code>diff</code> analysis shows exactly what changed structurally, which is much clearer than diffing code.</p>
+<p><strong>Leverage incremental assembly.</strong> For large projects, don't reassemble everything when one module changes. Use <code>invalidated_modules</code> to rebuild just the affected subsystems.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Learn about the <a href="bash.html">Bash Tool</a> for running Graphviz commands directly when you need lower-level control</li>
+<li>See <a href="filesystem.html">Filesystem Tools</a> for reading and writing DOT files</li>
+<li>Explore <a href="task.html">Delegate Tool</a> for delegating complex architecture analysis to sub-agents</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="python-check.html" class="btn btn-neutral float-left" title="Python Check"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="mode.html" class="btn btn-neutral float-right" title="Mode">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="python-check.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="mode.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

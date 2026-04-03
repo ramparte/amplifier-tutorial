@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Community Providers - Amplifier Tutorial</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Community Providers";
+        var mkdocs_page_input_path = "providers/community.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Amplifier Tutorial
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/what-is-amplifier.html">What is Amplifier?</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/how-its-different.html">How It's Different</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/installation.html">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-conversation.html">Your First Conversation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/key-commands.html">Key Commands</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/first-bundle.html">Your First Bundle</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/bundles.html">Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/agents.html">Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/filesystem.html">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/bash.html">Bash</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/search.html">Search (grep & glob)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/web.html">Web Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/task.html">Delegate (Sub-Agents)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/lsp.html">LSP (Code Intelligence)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/recipes-tool.html">Recipes Tool</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tools/projector.html">Projector</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/foundation.html">Foundation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="community.html">Community Providers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#aws-bedrock">AWS Bedrock</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#perplexity">Perplexity</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#github-copilot">GitHub Copilot</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#litellm">LiteLLM</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vllm">vLLM</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fireworks">Fireworks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mixing-community-providers-into-routing">Mixing Community Providers into Routing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#finding-more-providers">Finding More Providers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#writing-your-own-provider">Writing Your Own Provider</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Setup</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/cli-tools.html">CLI Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/shadow-workspace.html">Shadow Workspace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Amplifier Tutorial</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Providers</li>
+      <li class="breadcrumb-item active">Community Providers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="community-providers">Community Providers<a class="headerlink" href="#community-providers" title="Permanent link">&para;</a></h1>
+<p>The official providers cover the major model vendors — Anthropic, OpenAI, Google, Azure, Ollama. But the LLM landscape is vast. Community-contributed providers extend Amplifier to dozens of additional services, each with its own strengths: AWS-native enterprise integration, search-augmented generation, unified proxy layers, high-throughput self-hosted inference, and more. These providers follow the same <code>complete(request) → response</code> contract as the official ones. Install them as modules and they slot into the routing matrix like any other provider.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Community providers are maintained outside the core Amplifier repository. They're versioned independently, installed via the <code>amplifier install</code> command, and configured in your bundle YAML just like official providers. Because every provider implements the same internal protocol, Amplifier doesn't distinguish between official and community — a response from AWS Bedrock looks exactly like a response from Claude to the rest of the system.</p>
+<blockquote>
+<p>List installed providers</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier providers list
+PROVIDER        TYPE        STATUS
+anthropic       official    configured
+openai          official    configured
+bedrock         community   installed
+litellm         community   installed
+</code></pre></div>
+
+<p>Community providers cover two broad categories:</p>
+<ul>
+<li><strong>Cloud inference services</strong> — Alternative APIs for running models in the cloud (Bedrock, Perplexity, Fireworks)</li>
+<li><strong>Self-hosted solutions</strong> — Run models on your own infrastructure (vLLM, plus Ollama which is official)</li>
+</ul>
+<h2 id="aws-bedrock">AWS Bedrock<a class="headerlink" href="#aws-bedrock" title="Permanent link">&para;</a></h2>
+<p>Enterprise-grade access to multiple model families through AWS. If your organization runs on AWS, Bedrock lets you use Claude, Llama, Mistral, and other models through your existing AWS account with IAM-based authentication, VPC endpoints, and AWS billing.</p>
+<blockquote>
+<p>Install and configure AWS Bedrock</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-bedrock
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock</span>
+<span class="w">  </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic.claude-sonnet-4-20250514-v2:0</span>
+</code></pre></div>
+
+<p>Bedrock uses your AWS credentials automatically — <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code> from your environment, or an IAM role if you're running on EC2/ECS. No separate API key needed.</p>
+<p><strong>Best for:</strong> Teams already on AWS who need compliance controls, IAM-based access, and consolidated billing. Supports Claude, Llama, Mistral, and Cohere models through a single AWS integration.</p>
+<h2 id="perplexity">Perplexity<a class="headerlink" href="#perplexity" title="Permanent link">&para;</a></h2>
+<p>Search-augmented generation — Perplexity models have built-in web search, so they can answer questions about current events, recent documentation, and topics beyond their training data. Useful for research-heavy workflows where you need up-to-date information without manually searching.</p>
+<blockquote>
+<p>Install and configure Perplexity</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-perplexity
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">perplexity</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${PERPLEXITY_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sonar-pro</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export PERPLEXITY_API_KEY=&quot;pplx-...&quot;
+</code></pre></div>
+
+<p><strong>Best for:</strong> Research tasks, answering questions about recent events or APIs, workflows that benefit from live web context. Pairs well with Claude for coding — route research to Perplexity and implementation to Anthropic.</p>
+<h2 id="github-copilot">GitHub Copilot<a class="headerlink" href="#github-copilot" title="Permanent link">&para;</a></h2>
+<p>Use your existing GitHub Copilot subscription as an Amplifier provider. If your team already pays for Copilot Business or Enterprise, this avoids setting up separate API keys and billing for another model provider.</p>
+<blockquote>
+<p>Install and configure GitHub Copilot</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-copilot
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">copilot</span>
+<span class="w">  </span><span class="nt">auth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+</code></pre></div>
+
+<p>Authentication flows through your GitHub CLI login — run <code>gh auth login</code> if you haven't already. The provider uses your Copilot entitlement to access models.</p>
+<p><strong>Best for:</strong> Teams with existing Copilot Enterprise subscriptions who want to consolidate model access. No additional API costs beyond your Copilot license.</p>
+<h2 id="litellm">LiteLLM<a class="headerlink" href="#litellm" title="Permanent link">&para;</a></h2>
+<p>A unified proxy that sits between Amplifier and over 100 model providers. Instead of configuring each provider individually, you configure LiteLLM once and it handles the translation layer for OpenAI, Anthropic, Azure, Bedrock, Vertex AI, Hugging Face, Replicate, Together AI, and dozens more. If you need to switch between providers frequently or access niche model services, LiteLLM eliminates the integration work.</p>
+<blockquote>
+<p>Install and configure LiteLLM</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-litellm
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">litellm</span>
+<span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:4000</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropic/claude-sonnet-4-20250514</span>
+</code></pre></div>
+
+<p>LiteLLM runs as a local proxy server. Start it separately:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] pip install litellm
+[Tool: bash] litellm --model anthropic/claude-sonnet-4-20250514 --port 4000
+</code></pre></div>
+
+<p><strong>Best for:</strong> Teams that need access to many different model providers through a single interface, organizations evaluating multiple vendors, or setups where a central proxy simplifies key management and access control.</p>
+<h2 id="vllm">vLLM<a class="headerlink" href="#vllm" title="Permanent link">&para;</a></h2>
+<p>High-throughput inference serving for self-hosted models. Where Ollama prioritizes ease of use for single-user local development, vLLM is built for production workloads — continuous batching, PagedAttention for efficient memory use, and tensor parallelism across multiple GPUs. If you're serving models to a team or running high-volume inference, vLLM is the serious option.</p>
+<blockquote>
+<p>Install and configure vLLM</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-vllm
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vllm</span>
+<span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://gpu-server:8000</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta-llama/Meta-Llama-3.1-70B-Instruct</span>
+</code></pre></div>
+
+<p>Start the vLLM server on your GPU machine:</p>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] pip install vllm
+[Tool: bash] python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Meta-Llama-3.1-70B-Instruct \
+  --port 8000
+</code></pre></div>
+
+<p><strong>Best for:</strong> Teams self-hosting models for multiple developers, production inference workloads, environments where you need Ollama-level privacy with much higher throughput and GPU utilization.</p>
+<h2 id="fireworks">Fireworks<a class="headerlink" href="#fireworks" title="Permanent link">&para;</a></h2>
+<p>Fast inference API with competitive pricing. Fireworks optimizes model serving for low latency — they host popular open-source models on custom infrastructure tuned for speed. If you want cloud-hosted open models without managing your own GPU servers, Fireworks fills that gap.</p>
+<blockquote>
+<p>Install and configure Fireworks</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier install provider-fireworks
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fireworks</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${FIREWORKS_API_KEY}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accounts/fireworks/models/llama-v3p1-70b-instruct</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>[Tool: bash] export FIREWORKS_API_KEY=&quot;fw_...&quot;
+</code></pre></div>
+
+<p><strong>Best for:</strong> Fast inference on open-source models without self-hosting, cost-sensitive workloads where frontier model quality isn't required, teams that want cloud convenience with open model flexibility.</p>
+<h2 id="mixing-community-providers-into-routing">Mixing Community Providers into Routing<a class="headerlink" href="#mixing-community-providers-into-routing" title="Permanent link">&para;</a></h2>
+<p>Community providers participate in the routing matrix like any official provider. A team might combine enterprise Bedrock for compliance-sensitive coding with Perplexity for research:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bedrock</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">us-east-1</span>
+<span class="w">  </span><span class="nt">perplexity</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${PERPLEXITY_API_KEY}</span>
+<span class="w">  </span><span class="nt">ollama</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:11434</span>
+
+<span class="nt">routing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock/anthropic.claude-sonnet-4-20250514-v2:0</span>
+<span class="w">  </span><span class="nt">research</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">perplexity/sonar-pro</span>
+<span class="w">  </span><span class="nt">fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama/mistral</span>
+<span class="w">  </span><span class="nt">reasoning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bedrock/anthropic.claude-sonnet-4-20250514-v2:0</span>
+</code></pre></div>
+
+<p>The routing matrix doesn't care whether a provider is official or community-contributed. It just dispatches to whatever you've configured.</p>
+<h2 id="finding-more-providers">Finding More Providers<a class="headerlink" href="#finding-more-providers" title="Permanent link">&para;</a></h2>
+<p>The community provider ecosystem grows as people contribute new integrations. To discover what's available:</p>
+<blockquote>
+<p>Search for available community providers</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: bash] amplifier search providers
+</code></pre></div>
+
+<p>You can also check the Amplifier community registry for the latest additions. Any service that exposes an LLM API can be wrapped in a provider module — the contract is simple enough that writing a new one takes an afternoon.</p>
+<h3 id="writing-your-own-provider">Writing Your Own Provider<a class="headerlink" href="#writing-your-own-provider" title="Permanent link">&para;</a></h3>
+<p>If the provider you need doesn't exist, the <code>complete(request) → response</code> contract is straightforward to implement. See <a href="../advanced/custom-tool.html">Custom Tool</a> for the module pattern — providers follow the same structure. The core requirement: accept Amplifier's normalized request format, call your model's API, and return the response in Amplifier's normalized format.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Start official, add community as needed.</strong> The official providers cover most use cases. Add community providers when you hit a specific gap — enterprise AWS requirements, search augmentation, self-hosted throughput.</li>
+<li><strong>Check version compatibility.</strong> Community providers version independently from Amplifier. After upgrading Amplifier, verify your community providers still work.</li>
+<li><strong>LiteLLM as an escape hatch.</strong> If you need a provider that doesn't have a dedicated module, LiteLLM probably supports it through its proxy. It's the "universal adapter" of the provider ecosystem.</li>
+<li><strong>vLLM over Ollama for teams.</strong> One developer? Ollama is perfect. Serving models to a team of ten? vLLM's batching and throughput optimization will save you GPU hours.</li>
+<li><strong>Perplexity for research routing.</strong> Route your research role to Perplexity and let its built-in search handle the web context. Keep your coding role on Claude or GPT where code quality is strongest.</li>
+<li><strong>Test before committing.</strong> Community providers vary in maturity. Test with a simple prompt before wiring one into your production routing matrix.</li>
+</ul>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See the <a href="index.html">Provider Index</a> for the full routing matrix configuration and provider comparison</li>
+<li>Explore the official providers: <a href="anthropic.html">Anthropic</a>, <a href="openai.html">OpenAI</a>, <a href="gemini.html">Gemini</a>, <a href="azure.html">Azure</a>, <a href="ollama.html">Ollama</a></li>
+<li>Learn about <a href="../concepts/routing.html">Routing</a> to understand how Amplifier dispatches to different providers automatically</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="ollama.html" class="btn btn-neutral float-left" title="Ollama (Local)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../apps/index.html" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="ollama.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../apps/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -67,7 +67,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture Deep Dive</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/modules.html">Modules</a>
                   </li>
@@ -80,6 +80,12 @@
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/skills.html">Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../concepts/hooks.html">Hooks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/modes.html">Modes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/routing.html">Model Routing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../concepts/shadows.html">Shadow Environments</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Tools Reference</span></p>
@@ -94,90 +100,54 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="web.html">Web Tools</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-are-the-web-tools">What Are the Web Tools?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#web-search">Web Search</a>
+    <li class="toctree-l2"><a class="reference internal" href="#core-capabilities">Core Capabilities</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-search">Basic Search</a>
+    <li class="toctree-l3"><a class="reference internal" href="#web_search-finding-things">web_search — Finding Things</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-parameters">Search Parameters</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-query-tips">Search Query Tips</a>
+    <li class="toctree-l3"><a class="reference internal" href="#web_fetch-retrieving-content">web_fetch — Retrieving Content</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fetching-urls">Fetching URLs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#practical-examples">Practical Examples</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#basic-fetch">Basic Fetch</a>
+    <li class="toctree-l3"><a class="reference internal" href="#looking-up-documentation">Looking Up Documentation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#size-limits">Size Limits</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fetching-raw-github-content">Fetching Raw GitHub Content</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#save-to-file">Save to File</a>
+    <li class="toctree-l3"><a class="reference internal" href="#researching-a-library-before-adopting-it">Researching a Library Before Adopting It</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fetching-different-content-types">Fetching Different Content Types</a>
+    <li class="toctree-l3"><a class="reference internal" href="#fetching-api-documentation">Fetching API Documentation</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#handling-large-pages">Handling Large Pages</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#strategy-1-search-first-fetch-later">Strategy 1: Search First, Fetch Later</a>
+    <li class="toctree-l2"><a class="reference internal" href="#web-tools-vs-browser-agents">Web Tools vs. Browser Agents</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#strategy-2-fetch-to-file">Strategy 2: Fetch to File</a>
+    <li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#strategy-3-multiple-targeted-fetches">Strategy 3: Multiple Targeted Fetches</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#1-search-before-fetching">1. Search Before Fetching</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#2-use-appropriate-tools">2. Use Appropriate Tools</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#3-handle-failures-gracefully">3. Handle Failures Gracefully</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#4-be-respectful">4. Be Respectful</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#5-verify-information">5. Verify Information</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#try-it-yourself">Try It Yourself</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-1-research-a-library">Exercise 1: Research a Library</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-2-api-investigation">Exercise 2: API Investigation</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exercise-3-troubleshooting">Exercise 3: Troubleshooting</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#common-errors">Common Errors</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#failed-to-fetch-url">"Failed to fetch URL"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#content-truncated-due-to-size">"Content truncated due to size"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rate-limit-exceeded">"Rate limit exceeded"</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-returned-no-results">"Search returned no results"</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="task.html">Task (Sub-Agents)</a>
+                  <li class="toctree-l1"><a class="reference internal" href="task.html">Delegate (Sub-Agents)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="lsp.html">LSP (Code Intelligence)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="recipes-tool.html">Recipes Tool</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="python-check.html">Python Check</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="mode.html">Mode</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="projector.html">Projector</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Bundles Reference</span></p>
+              <p class="caption"><span class="caption-text">Bundles</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/index.html">Overview</a>
                   </li>
@@ -185,20 +155,96 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/recipes.html">Recipes</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../bundles/lsp-python.html">LSP Python</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/python-dev.html">Python Dev</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../bundles/design-intelligence.html">Design Intelligence</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/superpowers.html">Superpowers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dot-graph.html">DOT Graph</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/browser-tester.html">Browser Tester</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/team-knowledge.html">Team Knowledge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/dev-memory.html">Dev Memory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/projector.html">Projector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../bundles/stories.html">Stories</a>
+                  </li>
               </ul>
-              <p class="caption"><span class="caption-text">Skills Reference</span></p>
+              <p class="caption"><span class="caption-text">Providers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/anthropic.html">Anthropic (Claude)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/openai.html">OpenAI (GPT)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/gemini.html">Google Gemini</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/azure.html">Azure OpenAI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/ollama.html">Ollama (Local)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../providers/community.html">Community Providers</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Applications</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/cli.html">CLI App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/chat.html">Chat App</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/building-apps.html">Building Your Own</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/mcp.html">MCP Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skills</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../skills/power-skills.html">Power Skills</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/playwright.html">Playwright</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/curl.html">Curl</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../skills/image-vision.html">Image Vision</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Contributing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-modules.html">Writing Modules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-bundles.html">Writing Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-skills.html">Writing Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/writing-agents.html">Writing Agents</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../community/index.html">Community</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Developer Setup</span></p>
@@ -212,19 +258,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/remote-dev.html">Remote Development</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../dev-setup/debugging.html">Debugging</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Advanced</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Overview</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-bundle.html">Custom Bundles</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-tool.html">Custom Tools</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/custom-recipe.html">Custom Recipes</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../advanced/mcp-integration.html">MCP Integration</a>
                   </li>
               </ul>
       </div>
@@ -252,296 +285,190 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="web-tools">Web Tools<a class="headerlink" href="#web-tools" title="Permanent link">&para;</a></h1>
-<p>Web tools enable agents to access and retrieve information from the internet. These tools are essential for gathering real-time data, documentation, and external resources that aren't available in the local context.</p>
-<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h2>
+<p>Not everything you need lives on disk. Sometimes you need to check what version of a library just shipped, look up an API you've never used, or pull down documentation that only exists on the web. Amplifier gives you two tools for this: <code>web_search</code> to find things, and <code>web_fetch</code> to retrieve them. Together, they're how agents bridge the gap between local context and the rest of the internet.</p>
+<h2 id="what-are-the-web-tools">What Are the Web Tools?<a class="headerlink" href="#what-are-the-web-tools" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Tool</th>
-<th>Purpose</th>
+<th>What It Does</th>
+<th>Think of It As</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>web_search</code></td>
-<td>Search the internet using a search engine</td>
+<td>Search the web for information</td>
+<td>Typing a query into a search engine</td>
 </tr>
 <tr>
 <td><code>web_fetch</code></td>
-<td>Fetch and read content from a specific URL</td>
+<td>Fetch content from a specific URL</td>
+<td>Opening a link in your browser</td>
 </tr>
 </tbody>
 </table>
-<h2 id="web-search">Web Search<a class="headerlink" href="#web-search" title="Permanent link">&para;</a></h2>
-<p>The <code>web_search</code> tool allows agents to search the internet and retrieve relevant results based on a query.</p>
-<h3 id="basic-search">Basic Search<a class="headerlink" href="#basic-search" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python asyncio tutorial&quot;</span><span class="p">)</span>
+<p>They're intentionally simple. Search returns results with titles, snippets, and URLs. Fetch retrieves the content at a URL and hands it back as text. Most web work is just those two steps: find the right page, then read it.</p>
+<h2 id="core-capabilities">Core Capabilities<a class="headerlink" href="#core-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="web_search-finding-things">web_search — Finding Things<a class="headerlink" href="#web_search-finding-things" title="Permanent link">&para;</a></h3>
+<p>When you need information but don't have a URL, <code>web_search</code> queries the web and returns results:</p>
+<blockquote>
+<p>What's the latest version of FastAPI?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_search] &quot;FastAPI latest version release&quot;
+Results:
+  1. FastAPI 0.115.0 Release Notes - tiangolo.com
+     FastAPI 0.115.0 has been released with support for...
+  2. FastAPI - PyPI
+     Latest version: 0.115.0 (released Oct 2025)
 </code></pre></div>
 
-<p>This returns:
-- <strong>Snippets</strong>: Text excerpts from matching pages
-- <strong>URLs</strong>: Direct links to the sources
-- <strong>Titles</strong>: Page titles for context
-- <strong>Metadata</strong>: Relevance scores and timestamps</p>
-<h3 id="search-parameters">Search Parameters<a class="headerlink" href="#search-parameters" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span>
-    <span class="n">query</span><span class="o">=</span><span class="s2">&quot;FastAPI best practices&quot;</span><span class="p">,</span>
-    <span class="n">max_results</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>          <span class="c1"># Limit number of results (default: 5)</span>
-    <span class="n">search_depth</span><span class="o">=</span><span class="s2">&quot;advanced&quot;</span>  <span class="c1"># Search depth: &quot;basic&quot; or &quot;advanced&quot;</span>
-<span class="p">)</span>
+<p>The tool takes one parameter — <code>query</code> — and that's it. The quality of your results depends entirely on how you phrase the search, just like a real search engine.</p>
+<h3 id="web_fetch-retrieving-content">web_fetch — Retrieving Content<a class="headerlink" href="#web_fetch-retrieving-content" title="Permanent link">&para;</a></h3>
+<p>Once you have a URL, <code>web_fetch</code> pulls down the content:</p>
+<blockquote>
+<p>Fetch the FastAPI dependency injection docs</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch] https://fastapi.tiangolo.com/tutorial/dependencies/
+Content (42KB):
+  Dependencies - First Steps
+  FastAPI has a very powerful but intuitive Dependency Injection system...
 </code></pre></div>
 
-<p><strong>Search Depth Options:</strong>
-- <code>basic</code>: Quick search with top results (faster)
-- <code>advanced</code>: Deeper search with more comprehensive results (slower)</p>
-<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
-<p><strong>Documentation Lookup:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Django 4.2 ORM query optimization&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p><strong>API Research:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;OpenAI API rate limits 2024&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p><strong>Error Troubleshooting:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python ModuleNotFoundError importlib.metadata&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p><strong>Version-Specific Information:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Node.js 20 breaking changes&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="search-query-tips">Search Query Tips<a class="headerlink" href="#search-query-tips" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Be Specific</strong>: Include version numbers, library names, or exact error messages</li>
-<li><strong>Use Quotes</strong>: For exact phrase matching: <code>"cannot import name"</code></li>
-<li><strong>Include Year</strong>: For time-sensitive information: <code>"React hooks 2024"</code></li>
-<li><strong>Filter by Site</strong>: Use <code>site:</code> operator: <code>"site:stackoverflow.com python async"</code></li>
-</ol>
-<h2 id="fetching-urls">Fetching URLs<a class="headerlink" href="#fetching-urls" title="Permanent link">&para;</a></h2>
-<p>The <code>web_fetch</code> tool retrieves the full content of a specific web page.</p>
-<h3 id="basic-fetch">Basic Fetch<a class="headerlink" href="#basic-fetch" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.python.org/3/library/asyncio.html&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>Returns the page content in a readable text format, stripped of HTML tags and formatting.</p>
-<h3 id="size-limits">Size Limits<a class="headerlink" href="#size-limits" title="Permanent link">&para;</a></h3>
-<p>Web pages can be very large. The tool has built-in protections:</p>
+<p>The response includes a few key fields you should know about:</p>
 <ul>
-<li><strong>Default Limit</strong>: ~200KB of text content</li>
-<li><strong>Truncation</strong>: Large pages are automatically truncated</li>
-<li><strong>Warning</strong>: You'll be notified when content is truncated</li>
+<li><strong>Content</strong> — the page text, stripped of HTML markup</li>
+<li><strong>truncated</strong> — a boolean telling you whether the content was cut short</li>
+<li><strong>total_bytes</strong> — the original page size, so you can gauge what you're missing</li>
 </ul>
-<p><strong>Handling Truncated Content:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># For large pages, save to file instead</span>
-<span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/long-article&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/article.txt&quot;</span>
-<span class="p">)</span>
+<p><strong>The 200KB default limit.</strong> Pages larger than 200KB are automatically truncated to keep your conversation context manageable. The response tells you when this happens and how large the original was, so you can decide what to do next.</p>
+<p><strong>Saving large content to a file.</strong> When you need the full content of a big page, use <code>save_to_file</code> to write it to disk instead of returning it inline:</p>
+<blockquote>
+<p>Fetch the full Python asyncio docs and save them</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch] https://docs.python.org/3/library/asyncio.html
+  save_to_file: /tmp/asyncio-docs.html
+Saved 380KB to /tmp/asyncio-docs.html (preview: first 500 bytes shown)
 </code></pre></div>
 
-<h3 id="save-to-file">Save to File<a class="headerlink" href="#save-to-file" title="Permanent link">&para;</a></h3>
-<p>For large documents, API responses, or content you need to process:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.github.com/repos/python/cpython&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/github_response.json&quot;</span>
-<span class="p">)</span>
+<p>Now you can read it in controlled chunks with <code>read_file</code>, searching for the section you actually care about.</p>
+<p><strong>Pagination with offset and limit.</strong> For large content you can also paginate directly, fetching byte ranges instead of the whole page:</p>
+<blockquote>
+<p>Get the next chunk of that page</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch] https://example.com/large-api-reference
+  offset: 204800
+  limit: 204800
 </code></pre></div>
 
-<p><strong>Benefits:</strong>
-- No content truncation
-- Can process file in chunks
-- Preserves exact formatting
-- Efficient memory usage</p>
-<h3 id="fetching-different-content-types">Fetching Different Content Types<a class="headerlink" href="#fetching-different-content-types" title="Permanent link">&para;</a></h3>
-<p><strong>HTML Pages:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript&quot;</span><span class="p">)</span>
-<span class="c1"># Returns cleaned text content</span>
+<p>This picks up where the previous fetch left off — useful when you're working through a long reference page section by section.</p>
+<h2 id="practical-examples">Practical Examples<a class="headerlink" href="#practical-examples" title="Permanent link">&para;</a></h2>
+<h3 id="looking-up-documentation">Looking Up Documentation<a class="headerlink" href="#looking-up-documentation" title="Permanent link">&para;</a></h3>
+<p>The most common pattern is search-then-fetch. You search for the topic, scan the snippets to find the most relevant result, then fetch that page:</p>
+<blockquote>
+<p>How do I use Python's dataclasses with default_factory?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_search] &quot;Python dataclasses default_factory example&quot;
+  1. dataclasses — Data Classes - Python docs
+  2. Understanding default_factory in Python dataclasses - Real Python
+
+[Tool: web_fetch] https://docs.python.org/3/library/dataclasses.html
 </code></pre></div>
 
-<p><strong>API Endpoints:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.example.com/data&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/api_response.json&quot;</span>
-<span class="p">)</span>
+<p>Amplifier reads the search results, picks the official docs, and fetches them — all in one turn.</p>
+<h3 id="fetching-raw-github-content">Fetching Raw GitHub Content<a class="headerlink" href="#fetching-raw-github-content" title="Permanent link">&para;</a></h3>
+<p>GitHub's <code>raw.githubusercontent.com</code> URLs are ideal for fetching source files, READMEs, or config examples directly:</p>
+<blockquote>
+<p>Grab the pyproject.toml from the httpx repo</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_fetch] https://raw.githubusercontent.com/encode/httpx/master/pyproject.toml
+  save_to_file: /tmp/httpx-pyproject.toml
+Saved 2.4KB to /tmp/httpx-pyproject.toml
 </code></pre></div>
 
-<p><strong>Raw Files:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://raw.githubusercontent.com/user/repo/main/README.md&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/readme.md&quot;</span>
-<span class="p">)</span>
+<p>This works cleanly because raw GitHub URLs return plain text — no HTML to strip, no JavaScript to execute. It's the fastest way to inspect a file from a public repo without cloning it.</p>
+<h3 id="researching-a-library-before-adopting-it">Researching a Library Before Adopting It<a class="headerlink" href="#researching-a-library-before-adopting-it" title="Permanent link">&para;</a></h3>
+<p>When you're evaluating whether to use a dependency, web tools let you gather context quickly:</p>
+<blockquote>
+<p>Research the <code>pydantic-settings</code> library — is it well-maintained? What does it do?</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_search] &quot;pydantic-settings library Python&quot;
+[Tool: web_fetch] https://pypi.org/project/pydantic-settings/
+[Tool: web_fetch] https://docs.pydantic.dev/latest/concepts/pydantic_settings/
+
+Based on the docs and PyPI page:
+- Last release: 2 weeks ago, actively maintained
+- Provides settings management using Pydantic models
+- Supports .env files, environment variables, and secrets...
 </code></pre></div>
 
-<p><strong>Documentation:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://fastapi.tiangolo.com/tutorial/&quot;</span><span class="p">)</span>
+<h3 id="fetching-api-documentation">Fetching API Documentation<a class="headerlink" href="#fetching-api-documentation" title="Permanent link">&para;</a></h3>
+<p>API references are often large. Save them to a file so you can search through them:</p>
+<blockquote>
+<p>Get the Stripe API docs for the charges endpoint</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>[Tool: web_search] &quot;Stripe API create charge documentation&quot;
+[Tool: web_fetch] https://docs.stripe.com/api/charges/create
+  save_to_file: /tmp/stripe-charges.txt
+Saved 95KB to /tmp/stripe-charges.txt
+
+[Tool: read_file] /tmp/stripe-charges.txt (lines 1-80)
 </code></pre></div>
 
-<h2 id="handling-large-pages">Handling Large Pages<a class="headerlink" href="#handling-large-pages" title="Permanent link">&para;</a></h2>
-<p>When dealing with large web pages, use a strategic approach:</p>
-<h3 id="strategy-1-search-first-fetch-later">Strategy 1: Search First, Fetch Later<a class="headerlink" href="#strategy-1-search-first-fetch-later" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the topic</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python decorator patterns&quot;</span><span class="p">)</span>
-
-<span class="c1"># 2. Review snippets to find most relevant</span>
-<span class="c1"># 3. Fetch only the most promising URL</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/decorators.txt&quot;</span><span class="p">)</span>
-
-<span class="c1"># 4. Read specific sections of the saved file</span>
-<span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;/tmp/decorators.txt&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="strategy-2-fetch-to-file">Strategy 2: Fetch to File<a class="headerlink" href="#strategy-2-fetch-to-file" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Fetch large content to file</span>
-<span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.djangoproject.com/en/5.0/&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/django_docs.html&quot;</span>
-<span class="p">)</span>
-
-<span class="c1"># Read relevant sections</span>
-<span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;/tmp/django_docs.html&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="strategy-3-multiple-targeted-fetches">Strategy 3: Multiple Targeted Fetches<a class="headerlink" href="#strategy-3-multiple-targeted-fetches" title="Permanent link">&para;</a></h3>
-<p>Instead of fetching one large page:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Fetch specific sub-pages</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/intro&quot;</span><span class="p">)</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/api-reference&quot;</span><span class="p">)</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/examples&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="1-search-before-fetching">1. Search Before Fetching<a class="headerlink" href="#1-search-before-fetching" title="Permanent link">&para;</a></h3>
-<p>Don't fetch URLs blindly. Use search to find the right content first:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Good: Search first to find relevant content</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;FastAPI middleware authentication&quot;</span><span class="p">)</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">])</span>
-
-<span class="c1"># Avoid: Fetching without knowing if it&#39;s relevant</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/docs/&quot;</span><span class="p">)</span>  <span class="c1"># Might be huge and irrelevant</span>
-</code></pre></div>
-
-<h3 id="2-use-appropriate-tools">2. Use Appropriate Tools<a class="headerlink" href="#2-use-appropriate-tools" title="Permanent link">&para;</a></h3>
-<p><strong>Use <code>web_search</code> when:</strong>
-- You need to find information but don't have a URL
-- You want multiple perspectives or sources
-- You're researching current events or trends
-- You need to verify information across sources</p>
-<p><strong>Use <code>web_fetch</code> when:</strong>
-- You have a specific URL to retrieve
-- You need the complete content of a page
-- You're accessing API endpoints
-- You need to download files or raw content</p>
-<h3 id="3-handle-failures-gracefully">3. Handle Failures Gracefully<a class="headerlink" href="#3-handle-failures-gracefully" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Web operations can fail due to network issues, timeouts, etc.</span>
-<span class="c1"># Always have a fallback strategy</span>
-
-<span class="c1"># Try fetching documentation</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.example.com/api&quot;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="c1"># Fall back to search if fetch fails</span>
-    <span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;example.com API documentation&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="4-be-respectful">4. Be Respectful<a class="headerlink" href="#4-be-respectful" title="Permanent link">&para;</a></h3>
+<p>The fetch-save-read pattern keeps large documentation out of your conversation context while still making it fully accessible.</p>
+<h2 id="web-tools-vs-browser-agents">Web Tools vs. Browser Agents<a class="headerlink" href="#web-tools-vs-browser-agents" title="Permanent link">&para;</a></h2>
+<p>The web tools handle static content — pages where the information is in the HTML that comes back from the server. But the modern web is full of JavaScript-rendered applications where the raw HTML is mostly empty scaffolding. Here's how to decide:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Best Approach</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static HTML pages, docs, blog posts</td>
+<td><strong>web_fetch</strong></td>
+<td>Content is in the HTML response</td>
+</tr>
+<tr>
+<td>Raw files, API endpoints, JSON</td>
+<td><strong>web_fetch</strong></td>
+<td>Direct content, no rendering needed</td>
+</tr>
+<tr>
+<td>JavaScript SPAs, dynamic dashboards</td>
+<td><strong>Browser agent</strong></td>
+<td>Needs JS execution to render content</td>
+</tr>
+<tr>
+<td>Multi-site research across many sources</td>
+<td><strong>Browser-researcher agent</strong></td>
+<td>Coordinates browsing across tabs and sites</td>
+</tr>
+</tbody>
+</table>
+<p>The rule of thumb: if you can <code>curl</code> a URL and see the content you need, <code>web_fetch</code> will work. If you'd need to open a real browser and wait for things to load, you need a browser agent.</p>
+<h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
+<p><strong>Search specifically.</strong> Include version numbers, exact error messages, and library names. <code>"FastAPI 0.115 middleware CORS"</code> beats <code>"FastAPI middleware"</code> every time.</p>
+<p><strong>Fetch to file for anything large.</strong> Documentation pages, API references, and long articles should go to <code>/tmp/</code> so you can read them in chunks. This avoids truncation and keeps your conversation context lean.</p>
+<p><strong>Use raw GitHub URLs.</strong> When you need a file from a public repo, <code>https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}</code> gives you clean text without any HTML wrapping.</p>
+<p><strong>Redirects are handled automatically.</strong> If a URL redirects (HTTP 301/302), <code>web_fetch</code> follows it. You don't need to worry about resolving shortened URLs or moved pages.</p>
+<p><strong>Search first, fetch second.</strong> Don't guess at URLs. A quick <code>web_search</code> finds the current, correct URL — documentation sites restructure constantly, and a search takes less time than debugging a 404.</p>
+<p><strong>Combine with local tools.</strong> The real power of web tools shows when you pair them with file operations: fetch documentation, save it, grep through it for the function signature you need, then use that to write code. Web tools gather context; other tools act on it.</p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Don't fetch the same URL repeatedly in a short time</li>
-<li>Use search when possible to minimize direct fetches</li>
-<li>Save large content to files to avoid re-fetching</li>
+<li>See the <a href="bash.html">Bash Tool</a> for running commands — including <code>curl</code> when you need lower-level HTTP control</li>
+<li>Learn about <a href="filesystem.html">Filesystem Tools</a> for reading the files you save with <code>web_fetch</code></li>
+<li>Explore <a href="search.html">Search Tools</a> for finding content in local files after you've fetched them from the web</li>
 </ul>
-<h3 id="5-verify-information">5. Verify Information<a class="headerlink" href="#5-verify-information" title="Permanent link">&para;</a></h3>
-<p>Web content can be outdated or incorrect:
-- Check publication dates in search results
-- Cross-reference information from multiple sources
-- Prefer official documentation over third-party sources</p>
-<h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
-<h3 id="exercise-1-research-a-library">Exercise 1: Research a Library<a class="headerlink" href="#exercise-1-research-a-library" title="Permanent link">&para;</a></h3>
-<p>Search for information about a Python library and fetch its documentation:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the library</span>
-<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;httpx Python async client tutorial&quot;</span><span class="p">)</span>
-
-<span class="c1"># 2. Fetch the official documentation</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://www.python-httpx.org/&quot;</span><span class="p">)</span>
-
-<span class="c1"># 3. Search for specific examples</span>
-<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;httpx async examples GitHub&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="exercise-2-api-investigation">Exercise 2: API Investigation<a class="headerlink" href="#exercise-2-api-investigation" title="Permanent link">&para;</a></h3>
-<p>Research an API and fetch example responses:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for API documentation</span>
-<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;GitHub REST API repositories endpoint&quot;</span><span class="p">)</span>
-
-<span class="c1"># 2. Fetch the API documentation</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://docs.github.com/en/rest/repos/repos&quot;</span><span class="p">)</span>
-
-<span class="c1"># 3. Fetch example data and save it</span>
-<span class="n">web_fetch</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://api.github.com/repos/python/cpython&quot;</span><span class="p">,</span>
-    <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/github_api_example.json&quot;</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<h3 id="exercise-3-troubleshooting">Exercise 3: Troubleshooting<a class="headerlink" href="#exercise-3-troubleshooting" title="Permanent link">&para;</a></h3>
-<p>Find solutions to a specific error:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Search for the error message</span>
-<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Python &#39;RuntimeError: Event loop is closed&#39; asyncio&quot;</span><span class="p">)</span>
-
-<span class="c1"># 2. Fetch the most relevant Stack Overflow answer</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;&lt;most_relevant_stackoverflow_url&gt;&quot;</span><span class="p">)</span>
-
-<span class="c1"># 3. Search for related issues</span>
-<span class="n">web_search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;asyncio event loop best practices&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<h3 id="failed-to-fetch-url">"Failed to fetch URL"<a class="headerlink" href="#failed-to-fetch-url" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Network issues, invalid URL, or server unavailable</p>
-<p><strong>Solution</strong>:
-- Verify the URL is correct and accessible
-- Check if the website is online
-- Try searching for the content instead
-- Wait and retry if it's a temporary issue</p>
-<h3 id="content-truncated-due-to-size">"Content truncated due to size"<a class="headerlink" href="#content-truncated-due-to-size" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Web page exceeds size limits</p>
-<p><strong>Solution</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Save to file instead</span>
-<span class="n">web_fetch</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;&lt;large_url&gt;&quot;</span><span class="p">,</span> <span class="n">save_to_file</span><span class="o">=</span><span class="s2">&quot;/tmp/content.txt&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h3 id="rate-limit-exceeded">"Rate limit exceeded"<a class="headerlink" href="#rate-limit-exceeded" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Too many requests in a short time</p>
-<p><strong>Solution</strong>:
-- Space out your requests
-- Use search results without fetching every URL
-- Cache previously fetched content</p>
-<h3 id="search-returned-no-results">"Search returned no results"<a class="headerlink" href="#search-returned-no-results" title="Permanent link">&para;</a></h3>
-<p><strong>Cause</strong>: Query too specific or obscure topic</p>
-<p><strong>Solution</strong>:
-- Broaden your search terms
-- Remove version numbers or very specific details
-- Try alternative phrasings
-- Check spelling</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>Web tools are powerful for:
-- <strong>Research</strong>: Finding current information and best practices
-- <strong>Documentation</strong>: Accessing official docs and API references
-- <strong>Troubleshooting</strong>: Finding solutions to errors and issues
-- <strong>Data Collection</strong>: Retrieving content from web sources</p>
-<p><strong>Key Points:</strong>
-- Use <code>web_search</code> to find information, <code>web_fetch</code> to retrieve specific content
-- Save large content to files to avoid truncation
-- Search first, then fetch to be efficient
-- Handle failures gracefully and verify information
-- Be respectful with request frequency</p>
-<p>Web tools bridge the gap between local knowledge and the vast resources available online, enabling agents to access the most current and comprehensive information available.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="search.html" class="btn btn-neutral float-left" title="Search (grep & glob)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="task.html" class="btn btn-neutral float-right" title="Task (Sub-Agents)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="task.html" class="btn btn-neutral float-right" title="Delegate (Sub-Agents)">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>

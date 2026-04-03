@@ -1,496 +1,244 @@
 ---
 id: tool-filesystem
-type: tools
-title: "Filesystem Tool"
+type: tool
+title: "Filesystem Tools"
 ---
 
-# Filesystem Tool
+# Filesystem Tools
 
-The Filesystem Tool provides three essential operations for file manipulation: reading, writing, and editing files. These tools work with absolute paths, relative paths, and @mention paths for bundle resources.
+Every meaningful task eventually comes down to files — reading code to understand it, editing a function to fix a bug, creating a new module from scratch, or finding the right file in a sprawling project. Amplifier gives you five tools for this: `read_file`, `write_file`, `edit_file`, `apply_patch`, and `glob`. Each one fits a different shape of work, and knowing which to reach for is half the battle.
 
-## Operations
+## What Are the Filesystem Tools?
 
-| Operation | Tool | Purpose |
-|-----------|------|---------|
-| Read | read_file | Read file contents or list directories |
-| Write | write_file | Create or overwrite entire files |
-| Edit | edit_file | Perform surgical string replacements |
+Think of them as a toolkit with different levels of precision:
 
-## Reading Files
+| Tool | What It Does | Think of It As |
+|------|-------------|----------------|
+| `read_file` | Read a file's contents or list a directory | Opening a file in your editor |
+| `write_file` | Create a new file or overwrite an existing one | "Save As" |
+| `edit_file` | Replace a specific string inside a file | Find-and-replace |
+| `apply_patch` | Create, update, or delete multiple files at once | A multi-file commit |
+| `glob` | Find files by name pattern | Your file explorer's search bar |
 
-The `read_file` tool reads file contents or lists directory contents with line numbers.
+## Core Capabilities
 
-### Basic File Reading
+### read_file — Looking at Things
 
-```json
-{
-  "file_path": "./src/main.py"
-}
+The most common operation. You ask Amplifier about a file, and behind the scenes it reads it:
+
+```
+> What's in src/config.py?
+
+[Tool: read_file] src/config.py
+     1	DATABASE_URL = "postgres://localhost/myapp"
+     2	DEBUG = True
+     3	MAX_RETRIES = 3
 ```
 
-Returns the file with line numbers in `cat -n` format:
+Output comes in `cat -n` format — line numbers on the left, content on the right. This matters when you later need to edit: the line numbers help you identify exactly what to change, but they're not part of the file content itself.
+
+**Large files** don't need to be read all at once. Amplifier can request specific ranges with `offset` and `limit`, reading up to 2,000 lines per call. For a huge log file, it might grab just the last 50 lines instead of swallowing the whole thing.
+
+**Directories** work too. Point `read_file` at a folder and you get a listing:
+
 ```
-1    import sys
-2    
-3    def main():
-4        print("Hello, world!")
-```
+> Show me what's in the src/ directory
 
-### Reading Large Files
-
-For files with many lines, use `offset` and `limit` parameters:
-
-```json
-{
-  "file_path": "./logs/app.log",
-  "offset": 100,
-  "limit": 50
-}
-```
-
-This reads lines 100-150, useful for:
-- Inspecting specific sections of large logs
-- Paginating through long files
-- Reducing context consumption
-
-**Default limits:**
-- Maximum 2000 lines per read
-- Lines longer than 2000 characters are truncated
-- Line numbers start at 1 (not 0)
-
-### Directory Listing
-
-When `file_path` points to a directory, `read_file` returns a formatted listing:
-
-```json
-{
-  "file_path": "./src"
-}
-```
-
-Returns:
-```
+[Tool: read_file] src/
 DIR: components/
 DIR: utils/
 FILE: main.py
 FILE: config.py
 ```
 
-### Path Formats Supported
+**Bundle resources** use `@bundle:path` notation to read files from installed bundles:
 
-**Absolute paths:**
-```json
-{"file_path": "/home/user/project/file.md"}
+```
+> Show me the recipe examples
+
+[Tool: read_file] @recipes:examples/
+DIR: workflows/
+FILE: code-review.yaml
+FILE: deploy.yaml
 ```
 
-**Relative paths:**
-```json
-{"file_path": "./docs/README.md"}
+### write_file — Creating New Things
+
+When you need an entirely new file, `write_file` creates it:
+
+```
+> Create a new utility module for date formatting
+
+[Tool: write_file] src/utils/dates.py
+Created src/utils/dates.py (24 lines)
 ```
 
-**Bundle resources:**
-```json
-{"file_path": "@mybundle:docs/guide.md"}
+There's one important safety rule: **if the file already exists, Amplifier must read it first.** This prevents accidentally blowing away a file's contents. If you ask to modify an existing file, Amplifier will read it, understand what's there, then decide whether to use `write_file` (for a complete rewrite) or `edit_file` (for a surgical change).
+
+`write_file` is the right choice when you're creating something from scratch — a new module, a config file, a test fixture. It's the wrong choice for changing one line in an existing file.
+
+### edit_file — Surgical Changes
+
+Most of the time, you want to change *part* of a file while leaving everything else untouched. That's `edit_file` — it finds an exact string in the file and replaces it:
+
+```
+> Change DEBUG to False in the config
+
+[Tool: read_file] src/config.py
+[Tool: edit_file] src/config.py
+  old: DEBUG = True
+  new: DEBUG = False
 ```
 
-**Bundle directories:**
-```json
-{"file_path": "@mybundle:docs"}
+The `old_string` must be **unique** in the file. If `return x` appears on five different lines, the edit will fail — you need to include enough surrounding context to pinpoint the exact location:
+
+```
+> Fix the calculate function to handle negative numbers
+
+[Tool: edit_file] src/math.py
+  old: def calculate(x):
+           return x * 2
+  new: def calculate(x):
+           return abs(x) * 2
 ```
 
-## Writing Files
+For renaming a variable everywhere in a file, use **replace_all**:
 
-The `write_file` tool creates new files or overwrites existing ones completely.
+```
+> Rename userName to user_name throughout src/auth.py
 
-### Basic Writing
-
-```json
-{
-  "file_path": "./src/new_module.py",
-  "content": "def calculate(x, y):\n    return x + y\n"
-}
+[Tool: edit_file] src/auth.py (replace_all)
+  old: userName
+  new: user_name
+  Replaced 12 occurrences
 ```
 
-### Important Rules
+### apply_patch — Multi-File Refactors
 
-⚠️ **MUST read existing files first:**
-```json
-// Step 1: Read first
-{"file_path": "./src/existing.py"}
+When a change spans multiple files — renaming a module, restructuring a package, or applying a large refactor — `apply_patch` handles it in one sweep. It supports three operations: `create_file`, `update_file`, and `delete_file`.
 
-// Step 2: Then write
-{
-  "file_path": "./src/existing.py",
-  "content": "new content"
-}
+```
+> Rename the auth module to authentication and update all imports
+
+[Tool: apply_patch] create_file src/authentication.py
+[Tool: apply_patch] update_file src/main.py (update imports)
+[Tool: apply_patch] update_file src/api.py (update imports)
+[Tool: apply_patch] delete_file src/auth.py
 ```
 
-The tool will fail if you attempt to overwrite an existing file without reading it first. This safety mechanism prevents accidental overwrites.
+This is the tool Amplifier reaches for when a change touches many files at once. It's especially useful for refactors where consistency across files matters.
 
-### When to Use write_file
+### glob — Finding Files
 
-**✅ Good use cases:**
-- Creating entirely new files
-- Generating configuration files
-- Writing output from code generation
-- Creating test fixtures
+Before you can read or edit a file, you need to know where it is. `glob` finds files by pattern:
 
-**❌ Avoid for:**
-- Modifying existing files (use `edit_file` instead)
-- Small changes to files (use `edit_file` instead)
-- Adding single functions to modules (use `edit_file` instead)
+```
+> Find all the Python test files in this project
 
-### Content Guidelines
-
-- Avoid emoji unless explicitly requested by user
-- Never proactively create documentation (*.md) files
-- Always prefer editing existing files over creating new ones
-
-## Editing Files
-
-The `edit_file` tool performs precise string replacements in existing files.
-
-### Basic Editing
-
-```json
-{
-  "file_path": "./src/main.py",
-  "old_string": "def calculate(x):\n    return x * 2",
-  "new_string": "def calculate(x, multiplier=2):\n    return x * multiplier"
-}
+[Tool: glob] **/test_*.py
+  tests/test_auth.py
+  tests/test_api.py
+  tests/unit/test_models.py
+  tests/unit/test_utils.py
+  (4 files, sorted by modification time)
 ```
 
-### Preserving Indentation
+Results come back sorted by modification time (newest first), which is useful — the file you just changed is probably the one you care about. Common non-source directories like `node_modules`, `.git`, `.venv`, and `__pycache__` are automatically excluded.
 
-⚠️ **Critical:** Preserve exact indentation as shown in `read_file` output.
+Common patterns:
 
-The line number format is: `spaces + number + tab + content`
-
-**Example from read_file:**
 ```
-    42    def helper():
-    43        return True
-```
-
-**Correct old_string** (after the tab):
-```
-"def helper():\n    return True"
+**/*.py              # All Python files, recursively
+src/**/*.{js,ts}     # JS and TS files under src/
+**/Dockerfile        # All Dockerfiles
+**/*.test.js         # All JS test files
 ```
 
-**Incorrect** (includes line numbers):
+## Practical Examples
+
+### Exploring an Unfamiliar Project
+
 ```
-"    42    def helper():\n    43        return True"
-```
+> I just cloned this repo. What's the structure?
 
-### Ensuring Uniqueness
+[Tool: read_file] ./
+[Tool: glob] **/*.py
+[Tool: read_file] README.md
 
-The tool requires `old_string` to be **unique** in the file:
-
-**❌ Will fail** (matches multiple locations):
-```json
-{
-  "old_string": "return x"
-}
-```
-
-**✅ Include context** to make it unique:
-```json
-{
-  "old_string": "def calculate(x):\n    return x"
-}
+The project has 3 Python packages under src/, with tests in tests/.
+The main entry point is src/main.py...
 ```
 
-### Replace All Occurrences
+Amplifier often reads multiple files in parallel when exploring — it's faster than reading them one at a time.
 
-Use `replace_all: true` for renaming variables or repeated patterns:
+### Fixing a Bug in Existing Code
 
-```json
-{
-  "file_path": "./src/user.py",
-  "old_string": "userName",
-  "new_string": "user_name",
-  "replace_all": true
-}
+```
+> The retry logic in api_client.py isn't respecting the max retries setting
+
+[Tool: read_file] src/api_client.py
+[Tool: edit_file] src/api_client.py
+  old: for i in range(3):
+  new: for i in range(self.max_retries):
 ```
 
-**Perfect for:**
-- Variable renaming across a file
-- Updating repeated string literals
-- Changing function names
-- Updating import paths
+A single `edit_file` call — precise, minimal, and safe. The rest of the file stays exactly as it was.
 
-### When to Use edit_file
+### Creating a New Feature File
 
-**✅ Preferred for:**
-- Modifying functions or classes
-- Adding imports
-- Changing variable names
-- Updating configuration values
-- Bug fixes in existing code
+```
+> Add a caching layer for the API responses
 
-**✅ Benefits:**
-- Preserves surrounding code
-- Safer than full file rewrites
-- More efficient for small changes
-- Less prone to losing unrelated changes
-
-## Directory Listing
-
-List directory contents with `read_file`:
-
-```json
-{
-  "file_path": "./src/components"
-}
+[Tool: glob] src/**/*.py (to understand the project layout)
+[Tool: read_file] src/api_client.py (to understand the interface)
+[Tool: write_file] src/cache.py (create the new module)
+[Tool: edit_file] src/api_client.py (wire in the cache import)
 ```
 
-**Output shows:**
-- `DIR:` prefix for subdirectories
-- `FILE:` prefix for files
-- Alphabetically sorted
-- Relative names only (not full paths)
+Notice the pattern: glob to orient, read to understand, write to create, edit to integrate.
 
-**Use cases:**
-- Exploring project structure
-- Finding configuration files
-- Discovering test files
-- Checking bundle contents
+## Which Tool Should I Use?
 
-## Best Practices
+When you're asking Amplifier to make changes, it follows this decision flow:
 
-### 1. Always Read Before Editing
+```
+Need to find files?
+  --> glob
 
-```json
-// ✅ Correct workflow
-read_file("./src/app.py")
-// ... review contents ...
-edit_file("./src/app.py", old_string, new_string)
+Need to look at a file or directory?
+  --> read_file
+
+Need to create a brand new file?
+  --> write_file
+
+Need to change part of an existing file?
+  --> edit_file
+
+Need to change multiple files at once?
+  --> apply_patch
+
+Need to completely rewrite an existing file?
+  --> read_file first, then write_file
 ```
 
-```json
-// ❌ Will fail
-edit_file("./src/app.py", old_string, new_string)
-```
+In practice, most editing work uses `edit_file` because most changes are surgical. `apply_patch` shows up during refactors. `write_file` is mainly for new files. And `read_file` is everywhere — it's the most-used tool by far.
 
-### 2. Prefer edit_file Over write_file
+## Tips
 
-For existing files, surgical edits are safer:
+**Always read before editing.** Both `write_file` and `edit_file` require that the file has been read first in the conversation. This isn't just a rule — it means Amplifier understands what's in the file before changing it.
 
-```json
-// ✅ Preferred - surgical edit
-edit_file({
-  "old_string": "version = \"1.0\"",
-  "new_string": "version = \"2.0\""
-})
-```
+**Include context for uniqueness.** If an `edit_file` fails because the string isn't unique, include the surrounding lines. Instead of matching just `return x`, match the whole function signature and body.
 
-```json
-// ❌ Risky - full rewrite
-write_file({
-  "content": "... entire file contents ..."
-})
-```
+**Use replace_all for renames.** When you need to rename a variable, function, or string across a file, `replace_all` is cleaner than multiple individual edits. For cross-file renames, consider the LSP `rename` operation instead.
 
-### 3. Use Parallel Reads
+**Parallel reads are fast.** When Amplifier needs to understand multiple files, it reads them all at once rather than sequentially. You'll see this when exploring codebases or preparing for multi-file changes.
 
-Read multiple files in one message:
+**Mind the indentation.** When `read_file` shows output, the line numbers are prefixed but the actual content starts after a tab. When specifying `old_string` for edits, use the file's real indentation — never include the line number prefix.
 
-```json
-[
-  {"file_path": "./src/main.py"},
-  {"file_path": "./src/utils.py"},
-  {"file_path": "./tests/test_main.py"}
-]
-```
+**Bundle paths work everywhere.** Any tool that takes a file path accepts the `@bundle:path` format — `@recipes:examples/review.yaml` reads from the recipes bundle, just as you'd expect.
 
-### 4. Handle Large Files Efficiently
+## Next Steps
 
-```json
-// Check file size first
-read_file("./data/large.json", 0, 10)
-
-// Read in chunks if needed
-read_file("./data/large.json", 0, 100)
-read_file("./data/large.json", 100, 100)
-```
-
-### 5. Verify Bundle Paths
-
-For bundle resources, check directory listing first:
-
-```json
-// List available files
-read_file("@recipes:examples")
-
-// Then read specific file
-read_file("@recipes:examples/workflow.yaml")
-```
-
-## Try It Yourself
-
-### Exercise 1: Read and Edit a File
-
-1. Create a test file:
-```json
-write_file({
-  "file_path": "./test.py",
-  "content": "def greet(name):\n    return f'Hello {name}'"
-})
-```
-
-2. Read it back:
-```json
-read_file({"file_path": "./test.py"})
-```
-
-3. Edit the function:
-```json
-edit_file({
-  "file_path": "./test.py",
-  "old_string": "def greet(name):\n    return f'Hello {name}'",
-  "new_string": "def greet(name, title='Friend'):\n    return f'Hello {title} {name}'"
-})
-```
-
-### Exercise 2: Explore a Directory Structure
-
-```json
-read_file({"file_path": "./content"})
-read_file({"file_path": "./content/tools"})
-```
-
-### Exercise 3: Variable Renaming
-
-```json
-edit_file({
-  "file_path": "./src/config.py",
-  "old_string": "max_retries",
-  "new_string": "maximum_retry_count",
-  "replace_all": true
-})
-```
-
-## Errors and Troubleshooting
-
-### Error: "Must read file before editing"
-
-**Cause:** Attempted to edit without reading first.
-
-**Solution:**
-```json
-read_file({"file_path": "./target.py"})
-// Then edit
-```
-
-### Error: "old_string not unique"
-
-**Cause:** The string appears multiple times in the file.
-
-**Solutions:**
-1. Add more context to make it unique:
-```json
-{
-  "old_string": "return value  // More context needed",
-  "new_string": "function calculate() {\n    return value\n}"
-}
-```
-
-2. Use `replace_all: true` if appropriate:
-```json
-{"replace_all": true}
-```
-
-### Error: "File not found"
-
-**Cause:** Path doesn't exist or is incorrect.
-
-**Solutions:**
-- Verify path with directory listing
-- Check for typos in filename
-- Use absolute path if relative path is ambiguous
-- Confirm bundle name for @mention paths
-
-### Warning: Empty File Contents
-
-If you read a file that exists but is empty, you'll receive a warning. This helps distinguish between:
-- File doesn't exist (error)
-- File exists but is empty (warning)
-- File has content (normal output)
-
-### Indentation Mismatch
-
-**Cause:** Including line numbers or wrong whitespace in `old_string`.
-
-**Solution:**
-- Copy exact content after the line number tab
-- Preserve spaces/tabs exactly as shown
-- Don't include the line number prefix
-
-### Line Truncation
-
-Lines longer than 2000 characters are truncated. For such files:
-- Use specialized tools for specific content types (JSON parsers, etc.)
-- Process in smaller chunks
-- Consider using `bash` tool for stream processing
-
-## Advanced Patterns
-
-### Conditional Edits
-
-Read first, decide, then edit based on content:
-
-```python
-# 1. Read file
-content = read_file("./config.yaml")
-
-# 2. Analyze content
-if "debug: false" in content:
-    # 3. Edit accordingly
-    edit_file(
-        old_string="debug: false",
-        new_string="debug: true"
-    )
-```
-
-### Multi-Step Refactoring
-
-```python
-# 1. Read original
-read_file("./src/api.py")
-
-# 2. First edit - rename function
-edit_file(old_string="def old_name():", new_string="def new_name():")
-
-# 3. Second edit - update callers
-edit_file(old_string="old_name()", new_string="new_name()", replace_all=True)
-```
-
-### Safe Templating
-
-```python
-# 1. Read template
-template = read_file("@mybundle:templates/component.tsx")
-
-# 2. Write new file with modifications
-write_file(
-    file_path="./src/components/MyComponent.tsx",
-    content=template.replace("{{NAME}}", "MyComponent")
-)
-```
-
-## Summary
-
-The Filesystem Tool provides three complementary operations:
-
-- **read_file**: View contents, paginate large files, list directories
-- **write_file**: Create new files (read existing files first!)
-- **edit_file**: Surgical replacements (prefer over write_file)
-
-**Key principles:**
-1. Always read before editing
-2. Prefer edit over write for existing files
-3. Ensure old_string is unique or use replace_all
-4. Preserve exact indentation from read_file output
-5. Use parallel reads for efficiency
-
-These tools form the foundation of file manipulation in Amplifier, enabling precise control over your project's files.
+- Learn about [Search Tools](./search.md) for finding content *inside* files with `grep`
+- See [Bash Tool](./bash.md) for running shell commands alongside file operations
+- Explore [LSP (Code Intelligence)](./lsp.md) for semantic operations like cross-file rename
